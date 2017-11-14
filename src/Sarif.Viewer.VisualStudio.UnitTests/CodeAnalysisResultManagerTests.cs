@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Moq;
@@ -13,20 +12,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
     public class CodeAnalysisResultManagerTests
     {
-        private IKeyboard keyboard;
         private IFileSystem fileSystem;
-        private ICommonDialogFactory commonDialogFactory;
-        private Mock<IOpenFileDialog> mockOpenFileDialog;
 
         // The list of files for which File.Exists should return true.
         private List<string> existingFiles;
 
-        // The value that OpenFileDialog.Result should return.
-        private bool? openFileDialogResult;
+        // The rebaselined path selected by the user.
+        private string rebaselinedFileName;
 
-        // The value that OpenFileDialog.FileName (the path to the file selected by the user)
-        // should return.
-        private string openFileDialogFileName;
+        // The number of times we prompt the user for the resolved path.
+        private int numPrompts;
 
         public CodeAnalysisResultManagerTests()
         {
@@ -38,28 +33,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 .Returns((string path) => this.existingFiles.Contains(path));
 
             this.fileSystem = mockFileSystem.Object;
-
-            var mockKeyboard = new Mock<IKeyboard>();
-            mockKeyboard.SetupGet(kb => kb.FocusedElement).Returns(default(IInputElement));
-
-            this.keyboard = mockKeyboard.Object;
-
-            this.mockOpenFileDialog = new Mock<IOpenFileDialog>();
-            this.mockOpenFileDialog
-                .SetupGet(ofd => ofd.FileName)
-                .Returns(() => this.openFileDialogFileName);
-            this.mockOpenFileDialog
-                .Setup(ofd => ofd.ShowDialog())
-                .Returns(() => this.openFileDialogResult);
-
-            IOpenFileDialog openFileDialog = this.mockOpenFileDialog.Object;
-
-            var mockCommonDialogFactory = new Mock<ICommonDialogFactory>();
-            mockCommonDialogFactory
-                .Setup(cdf => cdf.CreateOpenFileDialog())
-                .Returns(() => openFileDialog);
-
-            this.commonDialogFactory = mockCommonDialogFactory.Object;
         }
 
         [Fact]
@@ -69,13 +42,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
             const string RebaselinedFileName = @"D:\Users\John\source\sarif-sdk\src\Sarif\Notes.cs";
 
-            this.openFileDialogFileName = RebaselinedFileName;
-            this.openFileDialogResult = true;
+            this.rebaselinedFileName = RebaselinedFileName;
 
             var target = new CodeAnalysisResultManager(
                 null,                               // This test never touches the file system.
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // Act.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
@@ -101,19 +72,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             this.existingFiles.Add(SecondRebaselinedFileName);
 
-            this.openFileDialogFileName = FirstRebaselinedFileName;
-            this.openFileDialogResult = true;
+            this.rebaselinedFileName = FirstRebaselinedFileName;
 
             var target = new CodeAnalysisResultManager(
                 this.fileSystem, 
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // First, rebase a file to prime the list of mappings.
             target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FirstFileNameInLogFile);
 
             // The first time, we prompt the user for the name of the file to rebaseline to.
-            this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
+            this.numPrompts.Should().Be(1);
 
             // Act: Rebaseline a second file with the same prefix.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: SecondFileNameInLogFile);
@@ -128,7 +97,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             // The second time, since the existing mapping suffices for the second file,
             // it's not necessary to prompt again.
-            this.mockOpenFileDialog.Verify(ofd => ofd.ShowDialog(), Times.Once());
+            this.numPrompts.Should().Be(1);
         }
 
         [Fact]
@@ -138,13 +107,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
             const string RebaselinedFileName = @"D:\Users\John\source\sarif-sdk\src\Sarif\HashData.cs";
 
-            this.openFileDialogFileName = RebaselinedFileName;
-            this.openFileDialogResult = true;
+            this.rebaselinedFileName = RebaselinedFileName;
 
             var target = new CodeAnalysisResultManager(
                 null,                               // This test never touches the file system.
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // Act.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
@@ -163,12 +130,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
 
             // The user does not select a file in the File Open dialog:
-            this.openFileDialogResult = false;
+            this.rebaselinedFileName = null;
 
             var target = new CodeAnalysisResultManager(
                 null,                               // This test never touches the file system.
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // Act.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
@@ -187,13 +153,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
             const string RebaselinedFileName = @"D:\Code\sarif-sdk\src\Sarif\Notes.cs";
 
-            this.openFileDialogFileName = RebaselinedFileName;
-            this.openFileDialogResult = true;
+            this.rebaselinedFileName = RebaselinedFileName;
 
             var target = new CodeAnalysisResultManager(
                 null,                               // This test never touches the file system.
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // Act.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
@@ -214,13 +178,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             const string FileNameInLogFile = @"C:\Code\sarif-sdk\src\Sarif\Notes.cs";
             const string RebaselinedFileName = @"C:\Users\Mary\Code\sarif-sdk\src\Sarif\Notes.cs";
 
-            this.openFileDialogFileName = RebaselinedFileName;
-            this.openFileDialogResult = true;
+            this.rebaselinedFileName = RebaselinedFileName;
 
             var target = new CodeAnalysisResultManager(
                 null,                               // This test never touches the file system.
-                this.keyboard,
-                this.commonDialogFactory);
+                this.FakePromptForResolvedPath);
 
             // Act.
             string actualRebaselinedFileName = target.GetRebaselinedFileName(uriBaseId: null, pathFromLogFile: FileNameInLogFile);
@@ -232,6 +194,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             remappedPathPrefixes.Length.Should().Be(1);
             remappedPathPrefixes[0].Item1.Should().Be(@"C:");
             remappedPathPrefixes[0].Item2.Should().Be(@"C:\Users\Mary");
+        }
+
+        private string FakePromptForResolvedPath(string fullPathFromLogFile)
+        {
+            ++this.numPrompts;
+            return this.rebaselinedFileName;
         }
     }
 }

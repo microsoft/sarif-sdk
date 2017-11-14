@@ -8,10 +8,11 @@ using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
-
+using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.Win32;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -39,18 +40,17 @@ namespace Microsoft.Sarif.Viewer
         private IVsRunningDocumentTable _runningDocTable;
 
         private readonly IFileSystem _fileSystem;
-        private readonly IKeyboard _keyboard;
-        private readonly ICommonDialogFactory _commonDialogFactory;
+
+        internal delegate string PromptForResolvedPathDelegate(string fullPathFromLogFile);
+        PromptForResolvedPathDelegate _promptForResolvedPathDelegate;
 
         // This ctor is internal rather than private for unit test purposes.
         internal CodeAnalysisResultManager(
             IFileSystem fileSystem,
-            IKeyboard keyboard,
-            ICommonDialogFactory commonDialogFactory)
+            PromptForResolvedPathDelegate promptForResolvedPathDelegate = null)
         {
             _fileSystem = fileSystem;
-            _keyboard = keyboard;
-            _commonDialogFactory = commonDialogFactory;
+            _promptForResolvedPathDelegate = promptForResolvedPathDelegate ?? PromptForResolvedPath;
 
             this.SarifErrors = new List<SarifErrorListItem>();
             _remappedUriBasePaths = new Dictionary<string, Uri>();
@@ -78,10 +78,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager(
-            new FileSystem(),
-            new RealKeyboard(),
-            new CommonDialogFactory());
+        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager(new FileSystem());
 
         public IList<SarifErrorListItem> SarifErrors
         {
@@ -402,7 +399,7 @@ namespace Microsoft.Sarif.Viewer
             }
 
             string fullPathFromLogFile = Path.GetFullPath(pathFromLogFile);
-            string resolvedPath = PromptForResolvedPath(fullPathFromLogFile);
+            string resolvedPath = _promptForResolvedPathDelegate(fullPathFromLogFile);
             if (resolvedPath == null)
             {
                 return pathFromLogFile;
@@ -508,30 +505,26 @@ namespace Microsoft.Sarif.Viewer
 
         private string PromptForResolvedPath(string fullPathFromLogFile)
         {
-            string resolvedPath = null;
-
             // Opening the OpenFileDialog causes the TreeView to lose focus,
             // which in turn causes the TreeViewItem selection to be unpredictable
             // (because the selection event relies on the TreeViewItem focus.)
             // We'll save the element which currently has focus and then restore
             // focus after the OpenFileDialog is closed.
-            var elementWithFocus = _keyboard.FocusedElement as UIElement;
-
-            IOpenFileDialog openFileDialog = _commonDialogFactory.CreateOpenFileDialog();
+            var elementWithFocus = Keyboard.FocusedElement as UIElement;
 
             string fileName = Path.GetFileName(fullPathFromLogFile);
-            openFileDialog.Title = "Locate missing file: " + fullPathFromLogFile;
-            openFileDialog.Filter = fileName + "|" + fileName;
-            openFileDialog.RestoreDirectory = true;
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Locate missing file: " + fullPathFromLogFile,
+                Filter = fileName + "|" + fileName,
+                RestoreDirectory = true
+            };
 
             try
             {
                 bool? dialogResult = openFileDialog.ShowDialog();
 
-                if (dialogResult.HasValue && dialogResult.Value)
-                {
-                    resolvedPath = openFileDialog.FileName;
-                }
+                return dialogResult == true ? openFileDialog.FileName : null;
             }
             finally
             {
@@ -540,8 +533,6 @@ namespace Microsoft.Sarif.Viewer
                     elementWithFocus.Focus();
                 }
             }
-
-            return resolvedPath;
         }
 
         // Find the common suffix between two paths by walking both paths backwards
