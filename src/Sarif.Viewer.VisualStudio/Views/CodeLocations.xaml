@@ -24,23 +24,6 @@
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <ToolTip x:Key="LocationToolTip"
-                     DataContext="{Binding Path=PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                <WrapPanel Orientation="Horizontal">
-                    <TextBlock>
-                        <Run Text="{Binding FilePath, Mode=OneWay}" />
-                    </TextBlock>
-                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                        <Run Text=" Line" />
-                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                    </TextBlock>
-                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                        <Run Text=" Col" />
-                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                    </TextBlock>
-                </WrapPanel>
-            </ToolTip>
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -88,8 +71,25 @@
                                Margin="7 0 7 1"/>
                     <DockPanel DockPanel.Dock="Left" 
                                DataContext="{Binding Locations[0]}"
-                               HorizontalAlignment="Stretch"
-                               ToolTip="{StaticResource LocationToolTip}">
+                               HorizontalAlignment="Stretch">
+                        <DockPanel.ToolTip>
+                            <ToolTip
+                                DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                <WrapPanel Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                        <Run Text=" Line" />
+                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                        <Run Text=" Col" />
+                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                    </TextBlock>
+                                </WrapPanel>
+                            </ToolTip>
+                        </DockPanel.ToolTip>
                         <TextBlock DockPanel.Dock="Left"
                                    Foreground="Gray"
                                    VerticalAlignment="Bottom"
