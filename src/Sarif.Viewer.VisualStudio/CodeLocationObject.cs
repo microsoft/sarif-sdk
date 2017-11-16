@@ -2,13 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using System.ComponentModel;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -37,7 +37,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        internal Region Region
+        public Region Region
         {
             get
             {
@@ -53,7 +53,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        internal virtual string FilePath
+        public virtual string FilePath
         {
             get
             {
