@@ -65,6 +65,8 @@
                                                     Value="Stretch" />
                                             <Setter Property="VerticalContentAlignment"
                                                     Value="Stretch" />
+                                            <Setter Property="FocusVisualStyle"
+                                                    Value="{StaticResource FocusOutline}"/>
                                         </Style>
                                     </ListBox.ItemContainerStyle>
 
@@ -151,6 +153,8 @@
                                                     Value="Stretch" />
                                             <Setter Property="VerticalContentAlignment"
                                                     Value="Stretch" />
+                                            <Setter Property="FocusVisualStyle"
+                                                    Value="{StaticResource FocusOutline}"/>
                                         </Style>
                                     </ListBox.ItemContainerStyle>
 

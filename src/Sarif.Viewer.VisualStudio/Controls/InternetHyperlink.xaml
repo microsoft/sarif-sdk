@@ -4,11 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Controls"
-             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls"
              xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <Style x:Key="FocusOutline">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2"
+                               SnapsToDevicePixels="true"
+                               Stroke="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
+                               StrokeThickness="1"
+                               StrokeDashArray="1 2" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
         <Style TargetType="Hyperlink"
                x:Key="RuleHyperlinkStyle">
             <!-- Style when hyperlink is enabled. -->
@@ -16,6 +30,8 @@
                     Value="None" />
             <Setter Property="Foreground"
                     Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{StaticResource FocusOutline}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver"
                          Value="True">
@@ -27,9 +43,11 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=NavigateUri}" Value="{x:Null}">
                     <!-- Style when hyperlink is disabled. -->
                     <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}" />
-                    <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
-                    <Setter Property="IsEnabled" Value="False" />
+                            Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}" />
+                    <Setter Property="TextBlock.TextDecorations"
+                            Value="{x:Null}" />
+                    <Setter Property="IsEnabled"
+                            Value="False" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -37,10 +55,11 @@
     <Grid>
         <TextBlock VerticalAlignment="Bottom">
             <Hyperlink NavigateUri="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=NavigateUri}" 
-                       Style="{StaticResource RuleHyperlinkStyle}" 
                        RequestNavigate="Hyperlink_RequestNavigate"
+                       KeyboardNavigation.TabIndex="{Binding Path=TabIndex, RelativeSource={RelativeSource AncestorType={x:Type controls:InternetHyperlink}}}"
                        FontSize="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=FontSize}"
-                       FontWeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=FontWeight}">
+                       FontWeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=FontWeight}"
+                       Style="{StaticResource RuleHyperlinkStyle}" >
                 <Run Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=Text}" />
             </Hyperlink>
         </TextBlock>

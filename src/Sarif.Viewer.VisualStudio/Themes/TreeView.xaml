@@ -3,6 +3,10 @@
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <!-- Default TreeView style, except the item with is set to stretch. -->
     <Style TargetType="TreeViewItem"
            BasedOn="{StaticResource {x:Type TreeViewItem}}">
@@ -106,6 +110,7 @@
                                     BorderThickness="{TemplateBinding Border.BorderThickness}"
                                     BorderBrush="{TemplateBinding Border.BorderBrush}"
                                     Padding="{TemplateBinding Control.Padding}"
+                                    FocusVisualStyle="{StaticResource FocusOutline}"
                                     Background="Transparent"
                                     SnapsToDevicePixels="True"
                                     Grid.Column="1">

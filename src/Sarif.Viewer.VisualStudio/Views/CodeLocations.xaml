@@ -11,6 +11,7 @@
              d:DesignHeight="500"
              d:DesignWidth="500"
              d:DataContext="{x:Static viewModels:ViewModelLocator.DesignTime}"
+             FocusManager.FocusedElement="{Binding ElementName=RuleIdHyperlink}"
              Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}">
     <UserControl.Resources>
 
@@ -29,7 +30,7 @@
     </UserControl.Resources>
 
     <!-- The user control starts here. -->
-    <Grid>
+    <Grid KeyboardNavigation.TabNavigation="Cycle">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -51,14 +52,19 @@
                     Padding="5 5 5 5"
                     Margin="-6 0 -6 0">
                 <DockPanel HorizontalAlignment="Stretch">
-                    <controls:InternetHyperlink DockPanel.Dock="Left"
+                    <controls:InternetHyperlink x:Name="RuleIdHyperlink"
+                                                DockPanel.Dock="Left"
                                                 Text="{Binding Rule.Id}"
+                                                AutomationProperties.Name="{Binding Rule.Id, StringFormat=Rule ID: {0}}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
+                                                IsTabStop="False"
+                                                TabIndex="1"
                                                 Margin="0 0 5 0"
                                                 FontWeight="SemiBold"
                                                 FontSize="14.5"/>
                     <TextBlock DockPanel.Dock="Left"
                                Text="{Binding Rule.Name, Mode=OneTime}"
+                               AutomationProperties.Name="{Binding Rule.Name, Mode=OneTime, StringFormat=Rule name: {0}}"
                                Style="{StaticResource DialogHeader}"
                                FontSize="14.5"
                                FontWeight="SemiBold"
@@ -90,6 +96,7 @@
                         </DockPanel.ToolTip>
                         <TextBlock DockPanel.Dock="Left"
                                    Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
+                                   AutomationProperties.Name="{Binding FileName, StringFormat=File name: {0}}"
                                    VerticalAlignment="Bottom"
                                    Margin="0 0 0 1">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
@@ -97,6 +104,7 @@
                         <TextBlock DockPanel.Dock="Left"
                                    Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
                                    Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
+                                   AutomationProperties.Name="{Binding Location, StringFormat=Location: {0}}"
                                    VerticalAlignment="Bottom"
                                    Margin="5 0 5 1">
                             <Run Text="{Binding Location, Mode=OneWay}" />
@@ -128,18 +136,41 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabControl}">
-                                <Grid x:Name="templateRoot" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                                <Grid x:Name="templateRoot" 
+                                      ClipToBounds="true"
+                                      SnapsToDevicePixels="true"
+                                      KeyboardNavigation.TabNavigation="Local">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition x:Name="ColumnDefinition0"/>
-                                        <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                                        <ColumnDefinition x:Name="ColumnDefinition1"
+                                                          Width="0"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
-                                        <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                                        <RowDefinition x:Name="RowDefinition0"
+                                                       Height="Auto"/>
+                                        <RowDefinition x:Name="RowDefinition1"
+                                                       Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TabPanel x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="0,2,0,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
-                                    <Border x:Name="contentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
-                                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <TabPanel x:Name="headerPanel"
+                                              Background="Transparent" 
+                                              Grid.Column="0"
+                                              IsItemsHost="true"
+                                              Margin="0,2,0,0" 
+                                              Grid.Row="0" 
+                                              KeyboardNavigation.TabIndex="2"
+                                              Panel.ZIndex="1"/>
+                                    <Border x:Name="contentPanel"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                            Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}" 
+                                            Grid.Column="0" 
+                                            Grid.Row="1"
+                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                            KeyboardNavigation.TabNavigation="Local">
+                                        <ContentPresenter x:Name="PART_SelectedContentHost"
+                                                          ContentSource="SelectedContent"
+                                                          Margin="{TemplateBinding Padding}"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                     </Border>
                                 </Grid>
                                 <ControlTemplate.Triggers>
@@ -195,7 +226,10 @@
                     </Style.Triggers>
                 </Style>
                 <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FocusVisualStyle"
+                            Value="{StaticResource FocusOutline}"/>
+                    <Setter Property="FontSize"
+                            Value="13"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabItem}">
@@ -248,7 +282,8 @@
                     </DockPanel>
                 </TabItem.Header>
                 <ContentControl ContentTemplate="{StaticResource CodeLocationCollectionTemplate}"
-                                Content="{Binding}" />
+                                Content="{Binding}"
+                                IsTabStop="False"/>
             </TabItem>
             <TabItem Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
@@ -265,7 +300,8 @@
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource CallTreeTemplate}"
-                                Content="{Binding CallTrees}" />
+                                Content="{Binding CallTrees}"
+                                IsTabStop="False"/>
             </TabItem>
             <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
@@ -283,7 +319,8 @@
 
                 <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
                                 Content="{Binding Stacks}"
-                                Margin="0,-1,0,1" />
+                                Margin="0,-1,0,1"
+                                IsTabStop="False"/>
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibility0Converter}}">
                 <TabItem.Header>
@@ -300,7 +337,8 @@
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource FixCollectionTemplate}"
-                                Content="{Binding Fixes}" />
+                                Content="{Binding Fixes}" 
+                                IsTabStop="False"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
@@ -309,7 +347,8 @@
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource InfoTemplate}"
-                                Content="{Binding}" />
+                                Content="{Binding}"
+                                IsTabStop="False" />
             </TabItem>
         </TabControl>
     </Grid>

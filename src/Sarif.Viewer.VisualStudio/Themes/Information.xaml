@@ -228,7 +228,9 @@
                                FontSize="11.5"
                                FontWeight="DemiBold"
                                Margin="5,25,0,20">
-                        <Hyperlink Command="{Binding OpenLogFileCommand}" Style="{StaticResource RuleHyperlinkStyle}">Open Log File</Hyperlink>
+                        <Hyperlink Command="{Binding OpenLogFileCommand}"
+                                   FocusVisualStyle="{StaticResource FocusOutline}"
+                                   Style="{StaticResource RuleHyperlinkStyle}">Open Log File</Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </ScrollViewer>

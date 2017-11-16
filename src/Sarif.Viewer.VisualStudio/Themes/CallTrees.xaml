@@ -18,6 +18,7 @@
             <ToolBarTray Grid.Row="0"
                          Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}">
                 <ToolBar ToolBarTray.IsLocked="True"
+                         KeyboardNavigation.TabNavigation="Continue"
                          Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}">
                     <ToolBar.Resources>
                         <Style TargetType="{x:Type ToolBar}">
@@ -27,7 +28,6 @@
                                         <Grid x:Name="Grid" Margin="3,1,1,1" SnapsToDevicePixels="true">
                                             <Border x:Name="MainPanelBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                                                 <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
-                                                    <!--<Thumb x:Name="ToolBarThumb" Margin="-3,-1,0,0" Padding="6,5,1,6" Style="{StaticResource ToolBarThumbStyle}" Width="10"/>-->
                                                     <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" HorizontalAlignment="Center" Margin="4,0,4,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                                                     <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Margin="0,1,2,2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                                 </DockPanel>
@@ -48,7 +48,8 @@
                     </ToolBar.Resources>
                     <Button Command="{Binding ExpandAllCommand}"
                             ToolBar.OverflowMode="Never"
-                            ToolTip="Expand all">
+                            ToolTip="Expand all"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="+"
                                    FontFamily="Consolas"
                                    FontSize="18"
@@ -57,7 +58,8 @@
                     </Button>
                     <Button Command="{Binding CollapseAllCommand}"
                             ToolBar.OverflowMode="Never"
-                            ToolTip="Collapse all">
+                            ToolTip="Collapse all"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="-"
                                    FontFamily="Consolas"
                                    FontSize="18"
@@ -66,7 +68,8 @@
                     </Button>
                     <Button Command="{Binding IntelligentExpandCommand}"
                             ToolBar.OverflowMode="Never"
-                            ToolTip="Intelligent expand">
+                            ToolTip="Intelligent expand"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="±"
                                    FontFamily="Consolas"
                                    FontSize="18"
@@ -84,11 +87,13 @@
                             Value="{Binding Verbosity}" 
                             ToolBar.OverflowMode="Never"
                             ToolTip="Tree verbosity"
+                            FocusVisualStyle="{StaticResource FocusOutline}"
                             Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
                 </ToolBar>
             </ToolBarTray>
             <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding}">
+                          ItemsSource="{Binding}"
+                          IsTabStop="False">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <DockPanel IsItemsHost="True"
@@ -179,6 +184,7 @@
                                   Grid.IsSharedSizeScope="True"
                                   Background="Transparent"
                                   BorderThickness="0"
+                                  KeyboardNavigation.TabNavigation="Continue"
                                   Margin="0,10,0,0">
                             <TreeView.Resources>
                                 <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
