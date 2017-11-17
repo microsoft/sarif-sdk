@@ -316,8 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         LoggingOptions loggingOptions;
                         loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
-                        aggregatingLogger.Loggers.Add(
-                                new SarifLogger(
+                        var sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
                                     null, 
@@ -325,7 +324,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     targets,
                                     Prerelease,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
-                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog));
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                        sarifLogger.AnalysisStarted();
+                        aggregatingLogger.Loggers.Add(sarifLogger);
                     },
                     (ex) =>
                     {
