@@ -13,12 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             ValidateTool(run.Tool);
 
-            if (run.Results != null)
+            Assert.NotNull(run.Results);
+            foreach (Result result in run.Results)
             {
-                foreach (Result result in run.Results)
-                {
-                    resultAction(result);
-                }
+                resultAction(result);
             }
 
             if (run.ToolNotifications != null)
@@ -32,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static void ValidateTool(Tool tool)
         {
-            Assert.Equal("Sarif", tool.Name);
             // TODO version, etc
         }
     }
