@@ -145,7 +145,7 @@
     <value>'{0}' was not analyzed as it does not appear to be a valid file type for analysis.</value>
   </data>
   <data name="NotApplicable_InvalidMetadata" xml:space="preserve">
-    <value>'{0}' was not evaluated for check '{1}' as the analysis is not relevant based on observed metadata: {2}.</value>
+    <value>'{0}' was not evaluated for check '{1}' because the analysis is not relevant for the following reason: {2}.</value>
   </data>
   <data name="MSG_AnalysisCompletedSuccessfully" xml:space="preserve">
     <value>Analysis completed successfully.</value>
