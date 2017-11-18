@@ -15,8 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // This field is internal, rather than private, for test purposes.
         internal readonly string pluginAssemblyPath;
 
-        internal PluginConverterFactory(string pluginAssemblyPath)
+        internal delegate Assembly AssemblyLoadFileDelegate(string path);
+        private AssemblyLoadFileDelegate assemblyLoadFileDelegate;
+
+        internal PluginConverterFactory(
+            string pluginAssemblyPath,
+            AssemblyLoadFileDelegate assemblyLoadFileDelegate = null)
         {
+            this.assemblyLoadFileDelegate = assemblyLoadFileDelegate ?? Assembly.LoadFile;
             this.pluginAssemblyPath = pluginAssemblyPath;
         }
 
@@ -32,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
             }
 
-            Assembly pluginAssembly = Assembly.LoadFile(this.pluginAssemblyPath);
+            Assembly pluginAssembly = this.assemblyLoadFileDelegate(this.pluginAssemblyPath);
             Type[] pluginTypes = pluginAssembly
                 .GetTypes()
                 .Where(t => IsConverterClassForToolFormat(t, toolFormat))
