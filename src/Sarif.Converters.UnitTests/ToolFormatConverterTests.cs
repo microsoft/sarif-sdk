@@ -117,7 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
                 _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
-                Assert.Equal(expectedOutput, actualOutput);
+
+                actualOutput.Should().Be(expectedOutput);
             }
         }
 
@@ -369,15 +370,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             ConverterFactory factory = new ToolFormatConverter().CreateConverterFactory(PluginAssemblyPath);
 
-            Assert.IsType<PluginConverterFactory>(factory);
+            factory.Should().BeOfType<PluginConverterFactory>();
             var pluginFactory = factory as PluginConverterFactory;
-            Assert.Equal(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
+            pluginFactory.pluginAssemblyPath.Should().Be(PluginAssemblyPath);
 
             factory = factory.Next;
-            Assert.IsType<BuiltInConverterFactory>(factory);
+            factory.Should().BeOfType<BuiltInConverterFactory>();
 
             factory = factory.Next;
-            Assert.Null(factory);
+            factory.Should().BeNull();
         }
 
         private static string GetCurrentAssemblyPath()
