@@ -9,13 +9,14 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
+    public delegate Assembly AssemblyLoadFileDelegate(string path);
+
     // Factory class for creating a converter from a specified plug-in assembly.
     internal class PluginConverterFactory : ConverterFactory
     {
         // This field is internal, rather than private, for test purposes.
         internal readonly string pluginAssemblyPath;
 
-        internal delegate Assembly AssemblyLoadFileDelegate(string path);
         private AssemblyLoadFileDelegate assemblyLoadFileDelegate;
 
         internal PluginConverterFactory(

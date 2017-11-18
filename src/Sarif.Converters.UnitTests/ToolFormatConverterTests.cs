@@ -145,6 +145,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void ToolFormatConverter_FailsIfPluginAssemblyCannotBeLoaded()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "TestTool";
+                string PluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                // Unlike all the other tests, which default-construct the converter, this test
+                // provides the converter with a delegate which simulates the failure to load the
+                // plugin assembly.
+                const string Message = "Something went dreadfully wrong.";
+                AssemblyLoadFileDelegate assemblyLoadFileDelegate = path => throw new BadImageFormatException(Message);
+
+                ToolFormatConverter converter = new ToolFormatConverter(assemblyLoadFileDelegate);
+
+                Action action = () => converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    LoggingOptions.None,
+                    PluginAssemblyPath);
+
+                // The attempt to convert the file should throw the same exception.
+                action.ShouldThrow<BadImageFormatException>().WithMessage(Message);
+            }
+        }
+
+        [Fact]
         public void ToolFormatConverter_FailsIfConverterTypeIsNotPresentInPluginAssembly()
         {
             using (var tempDir = new TempDirectory())
@@ -336,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string PluginAssemblyPath = "Plugin.dll";
 
-            ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(PluginAssemblyPath);
+            ConverterFactory factory = new ToolFormatConverter().CreateConverterFactory(PluginAssemblyPath);
 
             Assert.IsType<PluginConverterFactory>(factory);
             var pluginFactory = factory as PluginConverterFactory;
