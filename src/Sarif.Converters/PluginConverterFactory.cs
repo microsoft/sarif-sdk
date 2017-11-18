@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // This field is internal, rather than private, for test purposes.
         internal readonly string pluginAssemblyPath;
 
-        private AssemblyLoadFileDelegate assemblyLoadFileDelegate;
+        private readonly AssemblyLoadFileDelegate assemblyLoadFileDelegate;
 
         internal PluginConverterFactory(
             string pluginAssemblyPath,
