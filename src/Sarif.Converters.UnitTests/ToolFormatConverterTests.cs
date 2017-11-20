@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 const string Message = "Something went dreadfully wrong.";
                 AssemblyLoadFileDelegate assemblyLoadFileDelegate = path => throw new BadImageFormatException(Message);
 
-                ToolFormatConverter converter = new ToolFormatConverter(assemblyLoadFileDelegate);
+                var converter = new ToolFormatConverter(assemblyLoadFileDelegate);
 
                 Action action = () => converter.ConvertToStandardFormat(
                     ToolName,
