@@ -117,7 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var actualOutputFileName = tempDir.Write("output_actual.xml", new string('a', expectedOutput.Length + 4096));
                 _converter.ConvertToStandardFormat(ToolFormat.CppCheck, inputFileName, actualOutputFileName, LoggingOptions.OverwriteExistingOutputFile);
                 string actualOutput = File.ReadAllText(actualOutputFileName, Encoding.UTF8);
-                Assert.Equal(expectedOutput, actualOutput);
+
+                actualOutput.Should().Be(expectedOutput);
             }
         }
 
@@ -141,6 +142,37 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 action.ShouldThrow<ArgumentException>()
                     .Where(ex => ex.Message.Contains(PluginAssemblyPath));
+            }
+        }
+
+        [Fact]
+        public void ToolFormatConverter_FailsIfPluginAssemblyCannotBeLoaded()
+        {
+            using (var tempDir = new TempDirectory())
+            {
+                const string ToolName = "TestTool";
+                string PluginAssemblyPath = GetCurrentAssemblyPath();
+
+                string inputFilePath = tempDir.Write("input.txt", string.Empty);
+                string outputFilePath = tempDir.Combine("output.txt");
+
+                // Unlike all the other tests, which default-construct the converter, this test
+                // provides the converter with a delegate which simulates the failure to load the
+                // plugin assembly.
+                const string Message = "Something went dreadfully wrong.";
+                AssemblyLoadFileDelegate assemblyLoadFileDelegate = path => throw new BadImageFormatException(Message);
+
+                var converter = new ToolFormatConverter(assemblyLoadFileDelegate);
+
+                Action action = () => converter.ConvertToStandardFormat(
+                    ToolName,
+                    inputFilePath,
+                    outputFilePath,
+                    LoggingOptions.None,
+                    PluginAssemblyPath);
+
+                // The attempt to convert the file should throw the same exception.
+                action.ShouldThrow<BadImageFormatException>().WithMessage(Message);
             }
         }
 
@@ -336,17 +368,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string PluginAssemblyPath = "Plugin.dll";
 
-            ConverterFactory factory = ToolFormatConverter.CreateConverterFactory(PluginAssemblyPath);
+            ConverterFactory factory = new ToolFormatConverter().CreateConverterFactory(PluginAssemblyPath);
 
-            Assert.IsType<PluginConverterFactory>(factory);
+            factory.Should().BeOfType<PluginConverterFactory>();
             var pluginFactory = factory as PluginConverterFactory;
-            Assert.Equal(PluginAssemblyPath, pluginFactory.pluginAssemblyPath);
+            pluginFactory.pluginAssemblyPath.Should().Be(PluginAssemblyPath);
 
             factory = factory.Next;
-            Assert.IsType<BuiltInConverterFactory>(factory);
+            factory.Should().BeOfType<BuiltInConverterFactory>();
 
             factory = factory.Next;
-            Assert.Null(factory);
+            factory.Should().BeNull();
         }
 
         private static string GetCurrentAssemblyPath()
