@@ -1,5 +1,9 @@
 # Sarif Driver and SDK Release History
 
+## **v2.1.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/2.1.0)
+* Add support for converting TSLint logs to SARIF
+* Add support for converting Pylint logs to SARIF
+
 ## **v1.5.19-beta** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.19-beta) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.19-beta)
 * Moved SarifLogger and its dependencies from driver to SDK package
 * Include this file and JSON schema in packages
