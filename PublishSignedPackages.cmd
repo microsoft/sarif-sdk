@@ -1,4 +1,4 @@
-@echo on
+@echo off
 call SetCurrentVersion.cmd
 
 if "%PRERELEASE%" EQU "-developer" (
