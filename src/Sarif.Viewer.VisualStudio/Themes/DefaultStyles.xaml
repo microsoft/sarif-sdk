@@ -101,12 +101,12 @@
         <Setter Property="TextDecorations"
                 Value="None" />
         <Setter Property="Foreground"
-                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ScrollBarArrowGlyphPressedBrushKey}}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverTextBrushKey}}" />
+                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ScrollBarArrowGlyphMouseOverBrushKey}}" />
                 <Setter Property="TextDecorations"
                         Value="underline" />
             </Trigger>

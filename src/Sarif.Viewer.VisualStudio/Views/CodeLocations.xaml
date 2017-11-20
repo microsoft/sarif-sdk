@@ -48,7 +48,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0"
-                    Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"
+                    Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.CommandBarToolBarBorderBrushKey}}"
                     Padding="5 5 5 5"
                     Margin="-6 0 -6 0">
                 <DockPanel HorizontalAlignment="Stretch">

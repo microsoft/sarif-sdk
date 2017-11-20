@@ -34,14 +34,6 @@
                                   BorderThickness="0">
                             <TreeViewItem ItemsSource="{Binding FileChanges}">
                                 <TreeViewItem.Header>
-                                    <!--
-                                    <Style>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsSelected" Validation.="True">
-                                                <Setter Property="bac"
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>-->
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
@@ -86,7 +78,7 @@
                                     <DockPanel>
                                         <TextBlock DockPanel.Dock="Top"
                                                    Style="{StaticResource PropertyValue}">
-                                            Start as offset <Run Text="{Binding Offset}" />.
+                                            Start at offset <Run Text="{Binding Offset}" />.
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
                                                    Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}"
