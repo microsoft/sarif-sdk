@@ -7,19 +7,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel
 {
-    public static class PylintLogReader
+    public class PylintLogReader : LogReader<PylintLog>
     {
-        public static PylintLog ReadLog(string input)
-        {
-            return ReadLog(input, Encoding.UTF8);
-        }
-
-        public static PylintLog ReadLog(string input, Encoding encoding)
-        {
-            return ReadLog(new MemoryStream(encoding.GetBytes(input)));
-        }
-
-        public static PylintLog ReadLog(Stream input)
+        public override PylintLog ReadLog(Stream input)
         {
             string pylintText;
 

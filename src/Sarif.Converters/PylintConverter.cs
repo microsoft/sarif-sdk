@@ -12,12 +12,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class PylintConverter : ToolFileConverterBase
     {
+        private readonly LogReader<PylintLog> logReader;
+
+        public PylintConverter()
+        {
+            logReader = new PylintLogReader();
+        }
+
         public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            PylintLog log = PylintLogReader.ReadLog(input);
+            PylintLog log = logReader.ReadLog(input);
 
             Tool tool = new Tool
             {

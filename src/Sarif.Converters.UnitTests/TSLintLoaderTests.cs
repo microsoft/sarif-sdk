@@ -16,9 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void TSLintLoader_ReadLog_WhenInputIsNull_ThrowsArgumentNullException()
         {
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader logReader = new TSLintLogReader();
 
-            Action action = () => loader.ReadLog(default(Stream));
+            Action action = () => logReader.ReadLog(default(Stream));
             action.ShouldThrow<ArgumentNullException>();
         }
 
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader loader = new TSLintLogReader();
 
             TSLintLog actualLog = loader.ReadLog(Input);
 
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JToken expectedToken = JToken.Parse(ExpectedOutput);
 
             JToken inputToken = JToken.Parse(Input);
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader loader = new TSLintLogReader();
             JToken actualToken = loader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JToken expectedToken = JToken.Parse(ExpectedOutput);
 
             JToken inputToken = JToken.Parse(Input);
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader loader = new TSLintLogReader();
             JToken actualToken = loader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
