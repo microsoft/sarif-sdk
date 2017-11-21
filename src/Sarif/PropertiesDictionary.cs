@@ -11,6 +11,7 @@ using System.Xml;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -199,6 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        [SuppressMessage("Microsoft.Security.Xml", "CA3053:UseXmlSecureResolver")]
         public void LoadFromXml(Stream stream)
         {
             var settings = new XmlReaderSettings
