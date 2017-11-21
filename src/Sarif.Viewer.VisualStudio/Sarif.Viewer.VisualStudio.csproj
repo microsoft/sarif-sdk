@@ -42,7 +42,6 @@
     <Compile Include="CodeFlowToTreeConverter.cs" />
     <Compile Include="CodeLocationObjectTypeDescriptor.cs" />
     <Compile Include="CodeLocationObject.cs" />
-    <Compile Include="CommonDialogFactory.cs" />
     <Compile Include="Controls\InternetHyperlink.xaml.cs">
       <DependentUpon>InternetHyperlink.xaml</DependentUpon>
     </Compile>
