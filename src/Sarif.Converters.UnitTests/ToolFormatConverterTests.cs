@@ -160,9 +160,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // provides the converter with a delegate which simulates the failure to load the
                 // plugin assembly.
                 const string Message = "Something went dreadfully wrong.";
-                AssemblyLoadFileDelegate assemblyLoadFileDelegate = path => throw new BadImageFormatException(Message);
+                AssemblyLoadFromDelegate assemblyLoadFromDelegate = path => throw new BadImageFormatException(Message);
 
-                var converter = new ToolFormatConverter(assemblyLoadFileDelegate);
+                var converter = new ToolFormatConverter(assemblyLoadFromDelegate);
 
                 Action action = () => converter.ConvertToStandardFormat(
                     ToolName,

@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public delegate Assembly AssemblyLoadFileDelegate(string path);
+    public delegate Assembly AssemblyLoadFromDelegate(string path);
 
     // Factory class for creating a converter from a specified plug-in assembly.
     internal class PluginConverterFactory : ConverterFactory
@@ -17,13 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // This field is internal, rather than private, for test purposes.
         internal readonly string pluginAssemblyPath;
 
-        private readonly AssemblyLoadFileDelegate assemblyLoadFileDelegate;
+        private readonly AssemblyLoadFromDelegate assemblyLoadFromDelegate;
 
         internal PluginConverterFactory(
             string pluginAssemblyPath,
-            AssemblyLoadFileDelegate assemblyLoadFileDelegate = null)
+            AssemblyLoadFromDelegate assemblyLoadFromDelegate = null)
         {
-            this.assemblyLoadFileDelegate = assemblyLoadFileDelegate ?? Assembly.LoadFile;
+            this.assemblyLoadFromDelegate = assemblyLoadFromDelegate ?? Assembly.LoadFrom;
             this.pluginAssemblyPath = pluginAssemblyPath;
         }
 
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException(message, nameof(this.pluginAssemblyPath));
             }
 
-            Assembly pluginAssembly = this.assemblyLoadFileDelegate(this.pluginAssemblyPath);
+            Assembly pluginAssembly = this.assemblyLoadFromDelegate(this.pluginAssemblyPath);
             Type[] pluginTypes = pluginAssembly
                 .GetTypes()
                 .Where(t => IsConverterClassForToolFormat(t, toolFormat))
