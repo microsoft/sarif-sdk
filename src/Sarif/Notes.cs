@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Debug.Assert(context.TargetUri != null);
 
-            // '{0}' was not evaluated for check '{1}' as the analysis
-            // is not relevant based on observed metadata: {2}.
+            // '{0}' was not evaluated for check '{1}' because the analysis
+            // is not relevant for the following reason: {2}.
             context.Logger.Log(context.Rule,
                 RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),

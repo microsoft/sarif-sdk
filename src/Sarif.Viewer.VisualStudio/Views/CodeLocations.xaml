@@ -80,19 +80,22 @@
                                DataContext="{Binding Locations[0]}"
                                HorizontalAlignment="Stretch">
                         <DockPanel.ToolTip>
-                            <WrapPanel Orientation="Horizontal">
-                                <TextBlock>
-                                    <Run Text="{Binding FilePath, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                    <Run Text=" Line" />
-                                    <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                    <Run Text=" Col" />
-                                    <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
-                                </TextBlock>
-                            </WrapPanel>
+                            <ToolTip
+                                DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                <WrapPanel Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                        <Run Text=" Line" />
+                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                        <Run Text=" Col" />
+                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                    </TextBlock>
+                                </WrapPanel>
+                            </ToolTip>
                         </DockPanel.ToolTip>
                         <TextBlock DockPanel.Dock="Left"
                                    Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"

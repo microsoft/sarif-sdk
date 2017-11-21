@@ -8,10 +8,11 @@ using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows;
-
+using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.Win32;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -39,18 +40,17 @@ namespace Microsoft.Sarif.Viewer
         private IVsRunningDocumentTable _runningDocTable;
 
         private readonly IFileSystem _fileSystem;
-        private readonly IKeyboard _keyboard;
-        private readonly ICommonDialogFactory _commonDialogFactory;
+
+        internal delegate string PromptForResolvedPathDelegate(string fullPathFromLogFile);
+        PromptForResolvedPathDelegate _promptForResolvedPathDelegate;
 
         // This ctor is internal rather than private for unit test purposes.
         internal CodeAnalysisResultManager(
             IFileSystem fileSystem,
-            IKeyboard keyboard,
-            ICommonDialogFactory commonDialogFactory)
+            PromptForResolvedPathDelegate promptForResolvedPathDelegate = null)
         {
             _fileSystem = fileSystem;
-            _keyboard = keyboard;
-            _commonDialogFactory = commonDialogFactory;
+            _promptForResolvedPathDelegate = promptForResolvedPathDelegate ?? PromptForResolvedPath;
 
             this.SarifErrors = new List<SarifErrorListItem>();
             _remappedUriBasePaths = new Dictionary<string, Uri>();
@@ -78,10 +78,7 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager(
-            new FileSystem(),
-            new RealKeyboard(),
-            new CommonDialogFactory());
+        public static CodeAnalysisResultManager Instance = new CodeAnalysisResultManager(new FileSystem());
 
         public IList<SarifErrorListItem> SarifErrors
         {
@@ -370,23 +367,23 @@ namespace Microsoft.Sarif.Viewer
         }
 
         // Internal rather than private for unit testability.
-        internal string GetRebaselinedFileName(string uriBaseId, string fileName)
+        internal string GetRebaselinedFileName(string uriBaseId, string pathFromLogFile)
         {
             Uri relativeUri = null;
 
-            if (!String.IsNullOrEmpty(uriBaseId) && Uri.TryCreate(fileName, UriKind.Relative, out relativeUri))
+            if (!String.IsNullOrEmpty(uriBaseId) && Uri.TryCreate(pathFromLogFile, UriKind.Relative, out relativeUri))
             {
                 // If the relative file path is relative to an unknown root,
                 // we need to strip the leading slash, so that we can relate
                 // the file path to an arbitrary remapped disk location.
-                if (fileName.StartsWith("/"))
+                if (pathFromLogFile.StartsWith("/"))
                 {
-                    fileName = fileName.Substring(1);
+                    pathFromLogFile = pathFromLogFile.Substring(1);
                 }
 
                 if (_remappedUriBasePaths.ContainsKey(uriBaseId))
                 {
-                    return new Uri(_remappedUriBasePaths[uriBaseId], fileName).LocalPath;
+                    return new Uri(_remappedUriBasePaths[uriBaseId], pathFromLogFile).LocalPath;
                 }
             }
 
@@ -394,96 +391,36 @@ namespace Microsoft.Sarif.Viewer
             // make rebaseline from existing data
             foreach (Tuple<string, string> remapping in _remappedPathPrefixes)
             {
-                string remapped = fileName.Replace(remapping.Item1, remapping.Item2);
+                string remapped = pathFromLogFile.Replace(remapping.Item1, remapping.Item2);
                 if (_fileSystem.FileExists(remapped))
                 {
                     return remapped;
                 }
             }
 
-            // Opening the OpenFileDialog causes the TreeView to lose focus, 
-            // which in turn causes the TreeViewItem selection to be unpredictable 
-            // (because the selection event relies on the TreeViewItem focus.)
-            // We'll save the element which currently has focus and then restore
-            // focus after the OpenFileDialog is closed.
-            var elementWithFocus = _keyboard.FocusedElement as UIElement;
-            
-            IOpenFileDialog openFileDialog = _commonDialogFactory.CreateOpenFileDialog();
-
-            string fullPath = Path.GetFullPath(fileName);
-            string shortName = Path.GetFileName(fullPath);
-
-            openFileDialog.Title = "Locate missing file: " + fullPath;
-            openFileDialog.Filter = shortName + "|" + shortName;
-            openFileDialog.RestoreDirectory = true;
-
-            try
+            string fullPathFromLogFile = Path.GetFullPath(pathFromLogFile);
+            string resolvedPath = _promptForResolvedPathDelegate(fullPathFromLogFile);
+            if (resolvedPath == null)
             {
-                bool? dialogResult = openFileDialog.ShowDialog();
-
-                if (!dialogResult.HasValue || !dialogResult.Value)
-                {
-                    return fileName;
-                }
-            }
-            finally
-            {
-                if (elementWithFocus != null)
-                {
-                    elementWithFocus.Focus();
-                }
+                return pathFromLogFile;
             }
 
-            string resolvedPath = openFileDialog.FileName;
-
-            string resolvedFileName = Path.GetFileName(resolvedPath);
-
-            // If remapping has somehow altered the file name itself,
-            // we will bail on attempting to do any remapping
-            if (!Path.GetFileName(fileName).Equals(resolvedFileName, StringComparison.OrdinalIgnoreCase))
+            string commonSuffix = GetCommonSuffix(fullPathFromLogFile, resolvedPath);
+            if (commonSuffix == null)
             {
-                return fileName;
+                return pathFromLogFile;
             }
 
-            // Find the common suffix for the original file path and the resolved file path
-            // by walking both paths backwards until we find where they differ.
-            int resolvedOffset = resolvedPath.Length - resolvedFileName.Length;
-            int fullPathOffset = fullPath.Length - resolvedFileName.Length;
+            // Trim the common suffix from both paths, and add a remapping that converts
+            // one prefix to the other.
+            string originalPrefix = fullPathFromLogFile.Substring(0, fullPathFromLogFile.Length - commonSuffix.Length);
+            string resolvedPrefix = resolvedPath.Substring(0, resolvedPath.Length - commonSuffix.Length);
 
-            while ((resolvedOffset) >= 0 &&
-                   (fullPathOffset) >= 0)
-            {
-                int nextResolvedOffset = resolvedPath.LastIndexOf('\\', resolvedOffset - 1);
-                int nextFullPathOffset = fullPath.LastIndexOf('\\', fullPathOffset - 1);
-
-                if (nextResolvedOffset == -1 || nextFullPathOffset == -1)
-                {
-                    break;
-                }
-
-                string resolvedTail = resolvedPath.Substring(nextResolvedOffset);
-                string fullPathTail = fullPath.Substring(nextFullPathOffset);
-
-                if (!resolvedTail.Equals(fullPathTail, StringComparison.OrdinalIgnoreCase))
-                {
-                    break;
-                }
-
-                resolvedOffset = nextResolvedOffset;
-                fullPathOffset = nextFullPathOffset;
-            }
-
-            // At this point, we've got our hands on the common suffix for both the 
-            // original file path and the resolved location. we trim this off both
-            // values and then add a remapping that converts one to the other
-            string originalPrefix = fullPath.Substring(0, fullPathOffset);
-            string resolvedPrefix = resolvedPath.Substring(0, resolvedOffset);
-
-            int uriBaseIdEndIndex = resolvedPath.IndexOf(fileName.Replace("/", @"\"));
+            int uriBaseIdEndIndex = resolvedPath.IndexOf(pathFromLogFile.Replace("/", @"\"));
 
             if (relativeUri != null && uriBaseIdEndIndex >= 0)
             {
-                // If we could determine the uriBaseId substitution value, then add it to the map        
+                // If we could determine the uriBaseId substitution value, then add it to the map.
                 _remappedUriBasePaths[uriBaseId] = new Uri(resolvedPath.Substring(0, uriBaseIdEndIndex), UriKind.Absolute);
             }
             else
@@ -564,6 +501,71 @@ namespace Microsoft.Sarif.Viewer
         {
             DetachFromDocumentChanges(docCookie);
             return S_OK;
+        }
+
+        private string PromptForResolvedPath(string fullPathFromLogFile)
+        {
+            // Opening the OpenFileDialog causes the TreeView to lose focus,
+            // which in turn causes the TreeViewItem selection to be unpredictable
+            // (because the selection event relies on the TreeViewItem focus.)
+            // We'll save the element which currently has focus and then restore
+            // focus after the OpenFileDialog is closed.
+            var elementWithFocus = Keyboard.FocusedElement as UIElement;
+
+            string fileName = Path.GetFileName(fullPathFromLogFile);
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Locate missing file: " + fullPathFromLogFile,
+                Filter = fileName + "|" + fileName,
+                RestoreDirectory = true
+            };
+
+            try
+            {
+                bool? dialogResult = openFileDialog.ShowDialog();
+
+                return dialogResult == true ? openFileDialog.FileName : null;
+            }
+            finally
+            {
+                if (elementWithFocus != null)
+                {
+                    elementWithFocus.Focus();
+                }
+            }
+        }
+
+        // Find the common suffix between two paths by walking both paths backwards
+        // until they differ or until we reach the beginning.
+        private static string GetCommonSuffix(string firstPath, string secondPath)
+        {
+            string commonSuffix = null;
+
+            int firstSuffixOffset = firstPath.Length;
+            int secondSuffixOffset = secondPath.Length;
+
+            while (firstSuffixOffset >= 0 && secondSuffixOffset >= 0)
+            {
+                firstSuffixOffset = firstPath.LastIndexOf('\\', firstSuffixOffset - 1);
+                secondSuffixOffset = secondPath.LastIndexOf('\\', secondSuffixOffset - 1);
+
+                if (firstSuffixOffset == -1 || secondSuffixOffset == -1)
+                {
+                    break;
+                }
+
+                string firstSuffix = firstPath.Substring(firstSuffixOffset);
+                string secondSuffix = secondPath.Substring(secondSuffixOffset);
+
+                if (!secondSuffix.Equals(firstSuffix, StringComparison.OrdinalIgnoreCase))
+                {
+                    break;
+                }
+
+                commonSuffix = firstSuffix;
+            }
+
+            return commonSuffix;
         }
 
         /// <summary>

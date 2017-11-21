@@ -15,6 +15,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     public class ToolFormatConverter
     {
+        private readonly AssemblyLoadFileDelegate assemblyLoadFileDelegate;
+
+        public ToolFormatConverter(AssemblyLoadFileDelegate assemblyLoadFileDelegate = null)
+        {
+            this.assemblyLoadFileDelegate = assemblyLoadFileDelegate;
+        }
+
         /// <summary>Converts a tool log file into the SARIF format.</summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <exception cref="ArgumentException">Thrown when one or more arguments have unsupported or
@@ -100,12 +107,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // Set up a Chain of Responsibility that will get the converter from the first
         // factory capable of creating it.
         // This method is internal, rather than private, for test purposes.
-        internal static ConverterFactory CreateConverterFactory(string pluginAssemblyPath)
+        internal ConverterFactory CreateConverterFactory(string pluginAssemblyPath)
         {
             ConverterFactory factory = new BuiltInConverterFactory();
             if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
             {
-                factory = new PluginConverterFactory(pluginAssemblyPath)
+                factory = new PluginConverterFactory(pluginAssemblyPath, this.assemblyLoadFileDelegate)
                 {
                     Next = factory,
                 };

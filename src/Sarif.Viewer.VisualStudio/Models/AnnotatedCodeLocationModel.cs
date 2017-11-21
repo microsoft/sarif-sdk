@@ -29,7 +29,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal override string FilePath
+        public override string FilePath
         {
             get
             {
