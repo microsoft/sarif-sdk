@@ -6,6 +6,7 @@
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)'==''">v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>CODE_ANALYSIS</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="'$(DisableBinSkimTarget)'!='true'"/>
