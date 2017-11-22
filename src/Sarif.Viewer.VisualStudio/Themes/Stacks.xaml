@@ -1,18 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
-                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters">
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <!-- Converters -->
-    <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
-    <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
-
     <DataTemplate x:Key="StackCollectionTemplate">
-        <ItemsControl ItemsSource="{Binding}">
+        <ItemsControl ItemsSource="{Binding}"
+                      IsTabStop="False">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel IsItemsHost="True"
@@ -29,10 +26,11 @@
                 <DataTemplate>
 
                     <DockPanel>
-                        <Separator DockPanel.Dock="Top"
-                                   Margin="0 15 0 3"
-                                   Background="LightGray" />
+                        <Separator Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
+                                   DockPanel.Dock="Top"
+                                   Margin="15"/>
                         <TreeView DockPanel.Dock="Top"
+                                  Background="Transparent"
                                   BorderThickness="0">
                             <TreeViewItem IsExpanded="True">
                                 <TreeViewItem.Header>
@@ -41,15 +39,72 @@
                                 </TreeViewItem.Header>
                                 <TreeViewItem>
                                     <TreeViewItem.Header>
-                                        <ListView Margin="2"
+                                        <ListView Margin="0,5,0,0"
                                                   ItemsSource="{Binding}"
-                                                  BorderBrush="LightGray"
+                                                  Background="Transparent"
+                                                  BorderThickness="1"
                                                   Height="Auto"
                                                   HorizontalAlignment="Stretch"
                                                   ScrollViewer.CanContentScroll="False"
                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                <Border CornerRadius="0"
+                                                                        SnapsToDevicePixels="True"  
+                                                                        BorderThickness="0"
+                                                                        Padding="2"
+                                                                        Background="{TemplateBinding Background}">
+                                                                    <Border Name="InnerBorder"
+                                                                            CornerRadius="0"
+                                                                            BorderThickness="0">
+                                                                        <Grid>
+                                                                            <Rectangle Name="UpperHighlight"
+                                                                                       Visibility="Collapsed"
+                                                                                       Fill="Transparent" />
+                                                                            <GridViewRowPresenter Grid.RowSpan="0"   
+                                                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
+                                                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                        </Grid>
+                                                                    </Border>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="False">
+                                                                        <Setter Property="Background"
+                                                                                Value="Transparent" />
+                                                                        <Setter Property="Foreground"
+                                                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
+                                                                        <Setter TargetName="UpperHighlight"
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver"
+                                                                             Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverBackgroundGradientBrushKey}}" />
+                                                                        <Setter Property="Foreground"
+                                                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabMouseOverTextBrushKey}}" />
+                                                                        <Setter TargetName="UpperHighlight"
+                                                                                Property="Visibility"
+                                                                                Value="Visible" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsSelected" Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTabBrushKey}}" />
+                                                                        <Setter Property="Foreground"
+                                                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn DisplayMemberBinding="{Binding Message}"

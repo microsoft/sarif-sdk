@@ -1,14 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
-                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters">
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <!-- Converters -->
-    <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
 
     <!-- Location and Related Location Template -->
     <DataTemplate x:Key="CodeLocationCollectionTemplate">
@@ -22,11 +19,12 @@
             </Grid.RowDefinitions>
 
             <Separator Grid.Row="0"
-                       Margin="0 15 0 3"
-                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility0Converter}}"
-                       Background="LightGray" />
+                       Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
+                       Margin="15"
+                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility0Converter}}"/>
             <TreeView Grid.Row="1"
                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibility0Converter}}"
+                      Background="Transparent"
                       BorderThickness="0">
                 <TreeViewItem IsExpanded="True">
                     <TreeViewItem.Header>
@@ -49,6 +47,7 @@
                                 <ListBox DockPanel.Dock="Top"
                                          ItemsSource="{Binding Locations}"
                                          SelectedItem="{Binding Locations.SelectedItem, Mode=TwoWay}"
+                                         Background="Transparent"
                                          BorderThickness="0">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -58,12 +57,16 @@
                                     </ListBox.ItemsPanel>
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="Foreground"
+                                                    Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
                                             <Setter Property="DockPanel.Dock"
                                                     Value="Bottom" />
                                             <Setter Property="HorizontalContentAlignment"
                                                     Value="Stretch" />
                                             <Setter Property="VerticalContentAlignment"
                                                     Value="Stretch" />
+                                            <Setter Property="FocusVisualStyle"
+                                                    Value="{StaticResource FocusOutline}"/>
                                         </Style>
                                     </ListBox.ItemContainerStyle>
 
@@ -78,24 +81,24 @@
                                                 <WrapPanel.ToolTip>
                                                     <WrapPanel Orientation="Horizontal">
                                                         <TextBlock>
-                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
                                                         <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                            <Run Text=" Line" />
-                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                            <Run Text=" Line" />
+                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
                                                         <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                            <Run Text=" Col" />
-                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                            <Run Text=" Col" />
+                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>
-                                                <TextBlock>
-                                    <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                <TextBlock FontSize="12">
+                                                    <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
                                                 <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                                           Margin="5 0 0 0">
-                                    <Run Text="{Binding Location, Mode=OneWay}" />
+                                                           FontSize="12" Margin="5 0 0 0">
+                                                    <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
                                             </WrapPanel>
                                         </DataTemplate>
@@ -108,9 +111,9 @@
             </TreeView>
 
             <Separator Grid.Row="2"
-                       Margin="0 15 0 3"
-                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}"
-                       Background="LightGray" />
+                       Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
+                       Margin="15"
+                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}"/>
             <TreeView Grid.Row="3"
                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibility0Converter}}"
                       BorderThickness="0">
@@ -150,6 +153,8 @@
                                                     Value="Stretch" />
                                             <Setter Property="VerticalContentAlignment"
                                                     Value="Stretch" />
+                                            <Setter Property="FocusVisualStyle"
+                                                    Value="{StaticResource FocusOutline}"/>
                                         </Style>
                                     </ListBox.ItemContainerStyle>
 
@@ -164,24 +169,24 @@
                                                 <WrapPanel.ToolTip>
                                                     <WrapPanel Orientation="Horizontal">
                                                         <TextBlock>
-                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
+                                                            <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
                                                         <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
-                                            <Run Text=" Line" />
-                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                            <Run Text=" Line" />
+                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
                                                         <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
-                                            <Run Text=" Col" />
-                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                            <Run Text=" Col" />
+                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>
                                                 <TextBlock>
-                                    <Run Text="{Binding FileName, Mode=OneWay}" />
+                                                    <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
                                                 <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
                                                            Margin="5 0 0 0">
-                                    <Run Text="{Binding Location, Mode=OneWay}" />
+                                                    <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
                                             </WrapPanel>
                                         </DataTemplate>

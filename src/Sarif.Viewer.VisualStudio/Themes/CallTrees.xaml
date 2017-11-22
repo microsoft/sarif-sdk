@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:cvt="clr-namespace:Microsoft.Sarif.Viewer.Converters"
                     xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer"
-                    xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0">
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
@@ -15,42 +15,85 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ToolBarTray Grid.Row="0">
-                <ToolBar ToolBarTray.IsLocked="True">
+            <ToolBarTray Grid.Row="0"
+                         Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}">
+                <ToolBar ToolBarTray.IsLocked="True"
+                         KeyboardNavigation.TabNavigation="Continue"
+                         Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}">
+                    <ToolBar.Resources>
+                        <Style TargetType="{x:Type ToolBar}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ToolBar}">
+                                        <Grid x:Name="Grid" Margin="3,1,1,1" SnapsToDevicePixels="true">
+                                            <Border x:Name="MainPanelBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
+                                                    <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" HorizontalAlignment="Center" Margin="4,0,4,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                                                    <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Margin="0,1,2,2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                </DockPanel>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="Header" Value="{x:Null}">
+                                                <Setter Property="Visibility" TargetName="ToolBarHeader" Value="Collapsed"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="false">
+                                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToolBar.Resources>
                     <Button Command="{Binding ExpandAllCommand}"
-                            ToolTip="Expand all">
+                            ToolBar.OverflowMode="Never"
+                            ToolTip="Expand all"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="+"
                                    FontFamily="Consolas"
                                    FontSize="18"
-                                   FontWeight="Medium" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
                     </Button>
                     <Button Command="{Binding CollapseAllCommand}"
-                            ToolTip="Collapse all">
+                            ToolBar.OverflowMode="Never"
+                            ToolTip="Collapse all"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="-"
                                    FontFamily="Consolas"
                                    FontSize="18"
-                                   FontWeight="Medium" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
                     </Button>
                     <Button Command="{Binding IntelligentExpandCommand}"
-                            ToolTip="Intelligent expand">
+                            ToolBar.OverflowMode="Never"
+                            ToolTip="Intelligent expand"
+                            FocusVisualStyle="{x:Null}">
                         <TextBlock Text="±"
                                    FontFamily="Consolas"
                                    FontSize="18"
-                                   FontWeight="Medium" />
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
                     </Button>
-                    <Separator Margin="5 0 5 0" />
+                    <Separator Margin="10,4"
+                               ToolBar.OverflowMode="Never"
+                               Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}" />
                     <Slider Maximum="200"
                             IsSnapToTickEnabled="True"
                             TickFrequency="100" 
                             TickPlacement="BottomRight"
                             Width="100px"
                             Value="{Binding Verbosity}" 
+                            ToolBar.OverflowMode="Never"
                             ToolTip="Tree verbosity"
-                            Foreground="DarkGray" />
+                            FocusVisualStyle="{StaticResource FocusOutline}"
+                            Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
                 </ToolBar>
             </ToolBarTray>
             <ItemsControl Grid.Row="1"
-                          ItemsSource="{Binding}">
+                          ItemsSource="{Binding}"
+                          IsTabStop="False">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <DockPanel IsItemsHost="True"
@@ -69,12 +112,14 @@
                             <Style x:Key="callTreeBaseTextStyle"
                                    TargetType="TextBlock"
                                    BasedOn="{StaticResource baseTextBlockStyle}">
-                                <Setter Property="Margin"
-                                        Value="0 0 10 0" />
+                                <Setter Property="Padding"
+                                        Value="0,0,10,0" />
                             </Style>
                             <Style x:Key="callTreeMessageTextStyle"
                                    TargetType="TextBlock"
                                    BasedOn="{StaticResource callTreeBaseTextStyle}">
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Location.Importance}"
                                                  Value="Essential">
@@ -91,7 +136,7 @@
                                         <Setter Property="FontWeight"
                                                 Value="Normal" />
                                         <Setter Property="Foreground"
-                                                Value="Gray" />
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}" />
                                     </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
@@ -104,22 +149,16 @@
                                                 Value="Consolas" />
                                         <Setter Property="FontSize"
                                                 Value="10pt" />
+                                        <Setter Property="Foreground"
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
                                     </MultiDataTrigger>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
                                                  Value="True">
+                                        <Setter Property="Background"
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
                                         <Setter Property="Foreground"
-                                                Value="White" />
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
                                     </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
-                                                       Value="True" />
-                                            <Condition Binding="{Binding IsFocused, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
-                                                       Value="False" />
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Foreground"
-                                                Value="Black" />
-                                    </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
                             <Style x:Key="callTreeLocationTextStyle"
@@ -127,12 +166,26 @@
                                    BasedOn="{StaticResource callTreeBaseTextStyle}">
                                 <Setter Property="Visibility"
                                         Value="{Binding LocationDisplayString, Converter={StaticResource stringToVisibilityConverter}}" />
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"
+                                                 Value="True">
+                                        <Setter Property="Background"
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
+                                        <Setter Property="Foreground"
+                                                Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                             </Style>
                         </DataTemplate.Resources>
                         <TreeView ItemsSource="{Binding TopLevelNodes}"
                                   viewer:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                                   Grid.IsSharedSizeScope="True"
-                                  BorderThickness="0 0 0 0">
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  KeyboardNavigation.TabNavigation="Continue"
+                                  Margin="0,10,0,0">
                             <TreeView.Resources>
                                 <cvt:CallTreeNodeToTextConverter x:Key="callTreeToTextConverter" />
                                 <cvt:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
