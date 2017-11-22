@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -32,25 +33,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.WriteTool(tool);
 
+            XmlReaderSettings settings = new XmlReaderSettings
+            {
+                XmlResolver = null
+            };
+
             var serializer = new XmlSerializer(typeof(DefectList));
-            var defectList = (DefectList)serializer.Deserialize(input);
-            var results = new List<Result>();
-            foreach (Defect entry in defectList.Defects)
+
+            using (var reader = XmlReader.Create(input, settings))
             {
-                results.Add(CreateResult(entry));
+                var defectList = (DefectList)serializer.Deserialize(reader);
+                var results = new List<Result>();
+                foreach (Defect entry in defectList.Defects)
+                {
+                    results.Add(CreateResult(entry));
+                }
+
+                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+                Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
+
+                if (fileDictionary?.Any() == true)
+                {
+                    output.WriteFiles(fileDictionary);
+                }
+
+                output.OpenResults();
+                output.WriteResults(results);
+                output.CloseResults();
             }
-
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
-            if (fileDictionary?.Any() == true)
-            {
-                output.WriteFiles(fileDictionary);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
         }
 
         private Result CreateResult(Defect defect)
