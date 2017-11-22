@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -8,10 +10,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -199,8 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 LoadFromXml(reader);
             }
         }
-
-        [SuppressMessage("Microsoft.Security.Xml", "CA3053:UseXmlSecureResolver")]
+        
         public void LoadFromXml(Stream stream)
         {
             var settings = new XmlReaderSettings

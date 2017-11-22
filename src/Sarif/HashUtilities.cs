@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class HashUtilities
     {
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
         public static HashData ComputeHashes(string fileName)
         {
             try
@@ -77,7 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (UnauthorizedAccessException) { }
             return sha256Hash;
         }
-        
+
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         public static string ComputeSha1Hash(string fileName)
         {
             string sha1 = null;
@@ -100,7 +103,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (UnauthorizedAccessException) { }
             return sha1;
         }
-        
+
+        [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
         public static string ComputeMD5Hash(string fileName)
         {
             string md5 = null;
