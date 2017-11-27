@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return default(double);
             }
 
-            if (dVal == 0 && content.StartsWith('-'))
+            if (dVal == 0 && content[0] == '-')
             {
                 return -0d;
             }
