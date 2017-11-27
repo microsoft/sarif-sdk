@@ -145,6 +145,10 @@
     <Content Include="index.html" />
     <None Include="readme.md" />
     <Resource Include="Resources\SarifToolWindowCommand.png" />
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Triskele.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
