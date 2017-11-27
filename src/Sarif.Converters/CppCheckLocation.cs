@@ -62,11 +62,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             while (reader.MoveToNextAttribute())
             {
                 string name = reader.LocalName;
-                if (Ref.Equal(name, strings.File))
+                if (StringReference.AreEqual(name, strings.File))
                 {
                     file = reader.Value;
                 }
-                else if (Ref.Equal(name, strings.Line))
+                else if (StringReference.AreEqual(name, strings.Line))
                 {
                     lineText = reader.Value;
                 }

@@ -567,13 +567,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private bool AtStartOf(string elementName)
         {
             return !_reader.EOF &&
-                (_reader.NodeType == XmlNodeType.Element && Ref.Equal(_reader.LocalName, elementName));
+                (_reader.NodeType == XmlNodeType.Element && StringReference.AreEqual(_reader.LocalName, elementName));
         }
 
         private bool AtEndOf(string elementName)
         {
             return _reader.EOF ||
-                (_reader.NodeType == XmlNodeType.EndElement && Ref.Equal(_reader.LocalName, elementName));
+                (_reader.NodeType == XmlNodeType.EndElement && StringReference.AreEqual(_reader.LocalName, elementName));
         }
 
         private void AddMessagesToResults()

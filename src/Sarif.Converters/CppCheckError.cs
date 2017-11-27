@@ -68,19 +68,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             while (reader.MoveToNextAttribute())
             {
                 string attributeName = reader.LocalName;
-                if (Ref.Equal(attributeName, strings.Id))
+                if (StringReference.AreEqual(attributeName, strings.Id))
                 {
                     id = reader.Value;
                 }
-                else if (Ref.Equal(attributeName, strings.Msg))
+                else if (StringReference.AreEqual(attributeName, strings.Msg))
                 {
                     message = reader.Value;
                 }
-                else if (Ref.Equal(attributeName, strings.Verbose))
+                else if (StringReference.AreEqual(attributeName, strings.Verbose))
                 {
                     verboseMessage = reader.Value;
                 }
-                else if (Ref.Equal(attributeName, strings.Severity))
+                else if (StringReference.AreEqual(attributeName, strings.Severity))
                 {
                     severity = reader.Value;
                 }

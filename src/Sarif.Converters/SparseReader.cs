@@ -201,8 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             int content;
-            // The NumberStyles constants here are from XmlConvert.ToInt32:
-            // http://referencesource.microsoft.com/#System.Xml/Xml/System/Xml/XmlConvert.cs#927
+
             if (int.TryParse(ReadElementContentAsString(), NumberStyles.AllowLeadingSign | NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.InvariantInfo, out content))
             {
                 return content;
