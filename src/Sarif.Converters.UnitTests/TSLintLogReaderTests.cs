@@ -11,19 +11,19 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class TSLintLoaderTests
+    public class TSLintLogReaderTests
     {
         [Fact]
-        public void TSLintLoader_ReadLog_WhenInputIsNull_ThrowsArgumentNullException()
+        public void TSLintLogReader_ReadLog_WhenInputIsNull_ThrowsArgumentNullException()
         {
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader logReader = new TSLintLogReader();
 
-            Action action = () => loader.ReadLog(default(Stream));
+            Action action = () => logReader.ReadLog(default(Stream));
             action.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        public void TSLintLoader_ReadLog_ProducesExpectedLog()
+        public void TSLintLogReader_ReadLog_ProducesExpectedLog()
         {
             const string Input = @"
             [
@@ -85,15 +85,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            TSLintLoader loader = new TSLintLoader();
+            TSLintLogReader logReader = new TSLintLogReader();
 
-            TSLintLog actualLog = loader.ReadLog(Input);
+            TSLintLog actualLog = logReader.ReadLog(Input);
 
             CompareLogs(actualLog, expectedLog);
         }
 
         [Fact]
-        public void TSLintLoader_NormalizeLog_WrapsSingleFixInArray()
+        public void TSLintLogReader_NormalizeLog_WrapsSingleFixInArray()
         {
             const string Input = @"
             [
@@ -154,14 +154,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JToken expectedToken = JToken.Parse(ExpectedOutput);
 
             JToken inputToken = JToken.Parse(Input);
-            TSLintLoader loader = new TSLintLoader();
-            JToken actualToken = loader.NormalizeLog(inputToken);
+            TSLintLogReader logReader = new TSLintLogReader();
+            JToken actualToken = logReader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
         }
 
         [Fact]
-        public void TSLintLoader_NormalizeLog_HandlesInnerReplacements()
+        public void TSLintLogReader_NormalizeLog_HandlesInnerReplacements()
         {
             const string Input = @"
             [
@@ -221,8 +221,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JToken expectedToken = JToken.Parse(ExpectedOutput);
 
             JToken inputToken = JToken.Parse(Input);
-            TSLintLoader loader = new TSLintLoader();
-            JToken actualToken = loader.NormalizeLog(inputToken);
+            TSLintLogReader logReader = new TSLintLogReader();
+            JToken actualToken = logReader.NormalizeLog(inputToken);
 
             JToken.DeepEquals(expectedToken, actualToken).Should().BeTrue();
         }

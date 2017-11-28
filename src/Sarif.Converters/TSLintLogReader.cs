@@ -14,35 +14,16 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class TSLintLoader : ITSLintLoader
+    public class TSLintLogReader : LogReader<TSLintLog>
     {
         private readonly XmlObjectSerializer Serializer;
 
-        public TSLintLoader()
+        public TSLintLogReader()
         {
             Serializer = new DataContractJsonSerializer(typeof(TSLintLog));
         }
 
-        /// <summary>
-        /// A constructor used for test purposes (to allow mocking the serializer)
-        /// </summary>
-        /// <param name="serializer"></param>
-        internal TSLintLoader(XmlObjectSerializer serializer)
-        {
-            Serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
-        }
-
-        public TSLintLog ReadLog(string input)
-        {
-            return ReadLog(input, Encoding.UTF8);
-        }
-
-        public TSLintLog ReadLog(string input, Encoding encoding)
-        {
-            return ReadLog(new MemoryStream(encoding.GetBytes(input)));
-        }
-
-        public TSLintLog ReadLog(Stream input)
+        public override TSLintLog ReadLog(Stream input)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
 
@@ -92,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // under the "fix" object.
         //
         // This method is marked internal rather than private for the sake of unit tests.
-    internal JToken NormalizeLog(JToken rootToken)
+        internal JToken NormalizeLog(JToken rootToken)
         {
             if (rootToken is JArray entries)
             {

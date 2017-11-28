@@ -13,20 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintConverter : ToolFileConverterBase
     {
-        private readonly ITSLintLoader loader;
+        private readonly LogReader<TSLintLog> logReader;
         
         public TSLintConverter()
         {
-            loader = new TSLintLoader();
-        }
-
-        /// <summary>
-        /// A constructor used for testing purposes (to mock ITSLintLoader)
-        /// </summary>
-        /// <param name="loader"></param>
-        internal TSLintConverter(ITSLintLoader loader)
-        {
-            this.loader = loader ?? throw new ArgumentNullException(nameof(loader));
+            logReader = new TSLintLogReader();
         }
         
         public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
@@ -37,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.Initialize(id: null, automationId: null);
 
-            TSLintLog tsLintLog = loader.ReadLog(input);
+            TSLintLog tsLintLog = logReader.ReadLog(input);
 
             Tool tool = new Tool
             {

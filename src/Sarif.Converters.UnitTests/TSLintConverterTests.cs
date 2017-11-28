@@ -16,46 +16,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class TSLintConverterTests
     {
-        private TSLintLog CreateTestTSLintLog()
-        {
-            TSLintLog tsLintLog = new TSLintLog();
+        private const string InputJson = @"
+        [
+            {
+                ""endPosition"": {
+                    ""character"": 1,
+                    ""line"" : 113,
+                    ""position"": 4429
+                },
 
-            TSLintLogEntry testEntry = new TSLintLogEntry()
+                ""failure"": ""file should end with a newline"",
+                ""fix"": {
+                    ""innerStart"": 4429,
+                    ""innerLength"": 0,
+                    ""innerText"": ""\r\n""
+                },
+
+                ""name"": ""SecureApp/js/index.d.ts"",
+                ""ruleName"": ""eofline"",
+                ""ruleSeverity"": ""ERROR"",
+
+                ""startPosition"": {
+                    ""character"":1,
+                    ""line"": 113,
+                    ""position"": 4429
+                }
+            }
+        ]";
+
+        private TSLintLogEntry CreateTestLogEntry()
+        {
+            return new TSLintLogEntry
             {
                 Failure = "failure.test.value",
                 Name = "name.test.value",
                 RuleName = "ruleName.test.value",
-                RuleSeverity = "WARN"
+                RuleSeverity = "WARN",
+                Fixes = new List<TSLintLogFix>()
+                {
+                    new TSLintLogFix
+                    {
+                        InnerLength = 5,
+                        InnerStart = 10,
+                        InnerText = "fix.innerText.test.value"
+                    }
+                },
+
+                StartPosition = new TSLintLogPosition
+                {
+                    Character = 1,
+                    Line = 2,
+                    Position = 3
+                },
+
+                EndPosition = new TSLintLogPosition
+                {
+                    Character = 11,
+                    Line = 12,
+                    Position = 13
+                }
             };
-
-            TSLintLogFix testFix = new TSLintLogFix()
-            {
-                InnerLength = 5,
-                InnerStart = 10,
-                InnerText = "fix.innerText.test.value"
-            };
-
-            testEntry.Fixes = new List<TSLintLogFix>() { testFix };
-
-            TSLintLogPosition testStartPos = new TSLintLogPosition()
-            {
-                Character = 1,
-                Line = 2,
-                Position = 3
-            };
-            testEntry.StartPosition = testStartPos;
-
-            TSLintLogPosition testEndPos = new TSLintLogPosition()
-            {
-                Character = 11,
-                Line = 12,
-                Position = 13
-            };
-            testEntry.EndPosition = testEndPos;
-
-            tsLintLog.Add(testEntry);
-
-            return tsLintLog;
         }
 
         private Result CreateTestResult()
@@ -137,9 +157,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void TSLintConverter_Convert_WhenInputIsValid_Passes()
         {
-            var mockLoader = new Mock<ITSLintLoader>();
-
-            mockLoader.Setup(loader => loader.ReadLog(It.IsAny<Stream>())).Returns(CreateTestTSLintLog());
+            byte[] data = Encoding.UTF8.GetBytes(InputJson);
+            MemoryStream stream = new MemoryStream(data);
 
             var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()));
@@ -149,11 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             mockWriter.Setup(writer => writer.CloseResults());
             mockWriter.Setup(writer => writer.WriteResults(It.IsAny<List<Result>>()));
 
-            var converter = new TSLintConverter(mockLoader.Object);
+            var converter = new TSLintConverter();
 
-            converter.Convert(new MemoryStream(), mockWriter.Object, LoggingOptions.None);
+            converter.Convert(stream, mockWriter.Object, LoggingOptions.None);
 
-            mockLoader.Verify(loader => loader.ReadLog(It.IsAny<Stream>()), Times.Once);
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteTool(It.IsAny<Tool>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()), Times.Once);
@@ -175,9 +193,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void TSLintConverter_CreateResult_CreatesExpectedResult()
         {
             var converter = new TSLintConverter();
-            TSLintLog tSLintLog = CreateTestTSLintLog();
+            TSLintLogEntry tSLintLogEntry = CreateTestLogEntry();
 
-            Result actualResult = converter.CreateResult(tSLintLog[0]);
+            Result actualResult = converter.CreateResult(tSLintLogEntry);
             Result expectedResult = CreateTestResult();
 
             Result.ValueComparer.Equals(actualResult, expectedResult).Should().BeTrue();
