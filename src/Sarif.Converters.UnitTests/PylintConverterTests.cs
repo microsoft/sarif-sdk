@@ -9,6 +9,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Xunit;
 
@@ -47,14 +48,6 @@ namespace Sarif.Converters.UnitTests
                 Symbol = "testSymbol",
                 Message = "testMessage",
                 MessageId = "C0412"
-            };
-        }
-
-        private PylintLog CreateTestLog()
-        {
-            return new PylintLog
-            {
-                CreateTestLogEntry()
             };
         }
 
