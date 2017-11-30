@@ -228,14 +228,14 @@ namespace Microsoft.Sarif.Viewer
 
         public int OnBeforeCloseSolution(object pUnkReserved)
         {
-            // When closing solution (or closing VS), remove the temporary folder.
-            RemoveTemporaryFiles();
-
             return S_OK;
         }
 
         public int OnAfterCloseSolution(object pUnkReserved)
         {
+            // When closing solution (or closing VS), remove the temporary folder.
+            RemoveTemporaryFiles();
+
             return S_OK;
         }
 
@@ -673,12 +673,25 @@ namespace Microsoft.Sarif.Viewer
         private void RemoveTemporaryFiles()
         {
             // User is closing the solution (or VS), so remove temporary directory.
-            string path = Path.GetTempPath();
-            path = Path.Combine(path, TemporaryFileDirectoryName);
-            if (Directory.Exists(path))
+            try
             {
-                Directory.Delete(path, true);
+                if (Directory.Exists(TemporaryFilePath))
+                {
+                    var dir = new DirectoryInfo(TemporaryFilePath) { Attributes = FileAttributes.Normal };
+
+                    foreach (var info in dir.GetFileSystemInfos("*", SearchOption.AllDirectories))
+                    {
+                        // Clear any read-only attributes
+                        info.Attributes = FileAttributes.Normal;
+                    }
+
+                    dir.Refresh();
+                    dir.Delete(true);
+                }
             }
+            // Delete failed, no harm in leaving it this way and continuing
+            catch (UnauthorizedAccessException) { }
+            catch (IOException) { }
         }
 
         // Expose the path prefix remappings to unit tests.
