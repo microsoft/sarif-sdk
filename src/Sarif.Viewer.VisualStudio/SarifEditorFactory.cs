@@ -202,6 +202,7 @@ namespace Microsoft.Sarif.Viewer
 
             if ((grfCreateDoc & VSConstants.CEF_OPENFILE) == VSConstants.CEF_OPENFILE)
             {
+                Telemetry.WriteEvent(TelemetryEvent.LogFileOpenedByEditor);
                 ErrorListService.ProcessLogFile(pszMkDocument, SarifViewerPackage.Dte.Solution);
             }
 

@@ -550,6 +550,8 @@ namespace Microsoft.Sarif.Viewer
             {
                 return null;
             }
+            
+            Telemetry.WriteEvent(TelemetryEvent.TaskItemDocumentOpened);
 
             if (usePreviewPane)
             {
