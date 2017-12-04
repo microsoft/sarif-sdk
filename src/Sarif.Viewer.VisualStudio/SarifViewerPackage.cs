@@ -34,6 +34,8 @@ namespace Microsoft.Sarif.Viewer
         public static DTE2 Dte;
         public static IServiceProvider ServiceProvider;
 
+        internal static TelemetryProvider Telemetry;
+
         private SarifEditorFactory _sarifEditorFactory;
 
         /// <summary>
@@ -53,6 +55,13 @@ namespace Microsoft.Sarif.Viewer
 
             Dte = GetGlobalService(typeof(DTE)) as DTE2;
             ServiceProvider = this;
+
+#if DEBUG
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Debug"].Value;
+#else
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
+#endif
+            Telemetry = new TelemetryProvider(telemetryKey);
         }
 
         /// <summary>
