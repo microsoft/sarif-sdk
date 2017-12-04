@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationInsights;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 using System;
 using System.Collections.Generic;
 
@@ -27,10 +28,7 @@ namespace Microsoft.Sarif.Viewer
                 throw new ArgumentNullException(nameof(toolFormat));
             }
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict.Add("Format", toolFormat);
-
-            WriteEvent(TelemetryEvent.LogFileOpenedByMenuCommand, dict);
+            WriteEvent(TelemetryEvent.LogFileOpenedByMenuCommand, "Format".KeyWithValue(toolFormat == ToolFormat.None ? "SARIF" : toolFormat));
         }
 
         public static void WriteEvent(TelemetryEvent eventType)
@@ -44,6 +42,18 @@ namespace Microsoft.Sarif.Viewer
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("Data", data);
         
+            WriteEvent(eventType, dict);
+        }
+
+        public static void WriteEvent(TelemetryEvent eventType, params KeyValuePair<string, string>[] pairs)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            
+            foreach (KeyValuePair<string, string> pair in pairs)
+            {
+                dict.Add(pair.Key, pair.Value);
+            }
+
             WriteEvent(eventType, dict);
         }
 

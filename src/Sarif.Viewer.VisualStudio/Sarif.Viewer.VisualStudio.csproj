@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="SarifToolWindow.cs" />
     <Compile Include="SarifToolWindowCommand.cs" />
+    <Compile Include="String.extensions.cs" />
     <Compile Include="TelemetryEvent.cs" />
     <Compile Include="Telemetry.cs" />
     <Compile Include="Uri.extensions.cs" />
