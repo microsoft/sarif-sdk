@@ -83,7 +83,7 @@
     <Compile Include="SarifToolWindowCommand.cs" />
     <Compile Include="String.extensions.cs" />
     <Compile Include="TelemetryEvent.cs" />
-    <Compile Include="Telemetry.cs" />
+    <Compile Include="TelemetryProvider.cs" />
     <Compile Include="Uri.extensions.cs" />
     <Compile Include="Views\SarifToolWindowControl.xaml.cs">
       <DependentUpon>SarifToolWindowControl.xaml</DependentUpon>
