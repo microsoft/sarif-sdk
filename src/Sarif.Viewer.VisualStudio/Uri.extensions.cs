@@ -10,9 +10,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
     static class UriExtensions
     {
         // The acceptable URI schemes
-        static List<String> s_schemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
+        static List<string> s_schemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
         // The acceptable URI hosts
-        static List<String> s_hosts = new List<string>() { "raw.githubusercontent.com" };
+        static List<string> s_hosts = new List<string>() { "raw.githubusercontent.com" };
 
         public static string ToPath(this Uri uri)
         {
@@ -35,7 +35,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 if (uri.IsAbsoluteUri)
                 {
-                    return uri.LocalPath;
+                    return uri.LocalPath + uri.Fragment;
                 }
                 else
                 {
