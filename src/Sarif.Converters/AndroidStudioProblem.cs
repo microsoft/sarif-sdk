@@ -151,35 +151,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 while (reader.Depth > problemDepth)
                 {
                     string nodeName = reader.LocalName;
-                    if (Ref.Equal(nodeName, strings.File))
+                    if (StringReference.AreEqual(nodeName, strings.File))
                     {
                         b.File = reader.ReadElementContentAsString();
                     }
-                    else if (Ref.Equal(nodeName, strings.Line))
+                    else if (StringReference.AreEqual(nodeName, strings.Line))
                     {
                         b.Line = Math.Max(1, reader.ReadElementContentAsInt());
                     }
-                    else if (Ref.Equal(nodeName, strings.Module))
+                    else if (StringReference.AreEqual(nodeName, strings.Module))
                     {
                         b.Module = reader.ReadElementContentAsString();
                     }
-                    else if (Ref.Equal(nodeName, strings.Package))
+                    else if (StringReference.AreEqual(nodeName, strings.Package))
                     {
                         b.Package = reader.ReadElementContentAsString();
                     }
-                    else if (Ref.Equal(nodeName, strings.EntryPoint))
+                    else if (StringReference.AreEqual(nodeName, strings.EntryPoint))
                     {
                         ReadEntryPointElement(ref b, reader, strings);
                     }
-                    else if (Ref.Equal(nodeName, strings.ProblemClass))
+                    else if (StringReference.AreEqual(nodeName, strings.ProblemClass))
                     {
                         ReadProblemClassElement(ref b, reader, strings);
                     }
-                    else if (Ref.Equal(nodeName, strings.Hints))
+                    else if (StringReference.AreEqual(nodeName, strings.Hints))
                     {
                         b.Hints = ReadHints(reader, strings);
                     }
-                    else if (Ref.Equal(nodeName, strings.Description))
+                    else if (StringReference.AreEqual(nodeName, strings.Description))
                     {
                         b.Description = reader.ReadElementContentAsString();
                     }
@@ -214,11 +214,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             while (reader.MoveToNextAttribute())
             {
                 string name = reader.LocalName;
-                if (Ref.Equal(name, strings.Type))
+                if (StringReference.AreEqual(name, strings.Type))
                 {
                     b.EntryPointType = reader.Value;
                 }
-                else if (Ref.Equal(name, strings.FQName))
+                else if (StringReference.AreEqual(name, strings.FQName))
                 {
                     b.EntryPointName = reader.Value;
                 }
@@ -232,11 +232,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             while (reader.MoveToNextAttribute())
             {
                 string name = reader.LocalName;
-                if (Ref.Equal(name, strings.Severity))
+                if (StringReference.AreEqual(name, strings.Severity))
                 {
                     b.Severity = reader.Value;
                 }
-                else if (Ref.Equal(name, strings.AttributeKey))
+                else if (StringReference.AreEqual(name, strings.AttributeKey))
                 {
                     b.AttributeKey = reader.Value;
                 }
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>The set of hint values from <paramref name="reader"/>.</returns>
         public static ImmutableArray<string> ReadHints(XmlReader reader, AndroidStudioStrings strings)
         {
-            Debug.Assert(Ref.Equal(reader.LocalName, strings.Hints), "ReadHints didn't have hints");
+            Debug.Assert(StringReference.AreEqual(reader.LocalName, strings.Hints), "ReadHints didn't have hints");
 
             var result = ImmutableArray.CreateBuilder<string>();
             if (!reader.IsEmptyElement)
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 reader.Read(); // Consume start element
                 while (reader.Depth > hintsDepth)
                 {
-                    if (!Ref.Equal(reader.LocalName, strings.Hint))
+                    if (!StringReference.AreEqual(reader.LocalName, strings.Hint))
                     {
                         throw reader.CreateException(ConverterResources.AndroidStudioHintsElementContainedNonHint);
                     }

@@ -201,6 +201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             int content;
+
             // The NumberStyles constants here are from XmlConvert.ToInt32:
             // http://referencesource.microsoft.com/#System.Xml/Xml/System/Xml/XmlConvert.cs#927
             if (int.TryParse(ReadElementContentAsString(), NumberStyles.AllowLeadingSign | NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.InvariantInfo, out content))
@@ -222,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         // http://referencesource.microsoft.com/#System.Xml/Xml/System/Xml/XmlConvert.cs#1415
-        private static readonly char[] s_whitespaceCharacters = new char[] { ' ', '\t', '\n', '\r' };
+        private static readonly char[] WhitespaceCharacters = new char[] { ' ', '\t', '\n', '\r' };
 
         /// <summary>
         /// Attempts to the current element's content as a double and consumes the element.
@@ -237,26 +238,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return default(double);
             }
 
-            // This algorithm is stolen from XmlConvert.ToDouble.
-            // http://referencesource.microsoft.com/#System.Xml/Xml/System/Xml/XmlConvert.cs#1069
-            string s = this.ReadElementContentAsString();
-            if (s == null)
+            string content = this.ReadElementContentAsString();
+            if (content == null)
             {
                 return default(double);
             }
+            else
+            {
+                content = content.Trim(WhitespaceCharacters);
 
-            s = s.Trim(s_whitespaceCharacters);
+                if (content == "-INF")
+                {
+                    return Double.NegativeInfinity;
+                }
 
-            if (s == "-INF") return Double.NegativeInfinity;
-            if (s == "INF") return Double.PositiveInfinity;
+                if (content == "INF")
+                {
+                    return Double.PositiveInfinity;
+                }
+            }
 
             double dVal;
-            if (!Double.TryParse(s, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint | NumberStyles.AllowExponent | NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, NumberFormatInfo.InvariantInfo, out dVal))
+            if (!Double.TryParse(content,
+                                 NumberStyles.AllowLeadingSign |
+                                 NumberStyles.AllowDecimalPoint |
+                                 NumberStyles.AllowExponent |
+                                 NumberStyles.AllowLeadingWhite |
+                                 NumberStyles.AllowTrailingWhite,
+                                 NumberFormatInfo.InvariantInfo,
+                                 out dVal))
             {
                 return default(double);
             }
 
-            if (dVal == 0 && s[0] == '-')
+            if (dVal == 0 && content[0] == '-')
             {
                 return -0d;
             }
