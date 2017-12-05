@@ -16,7 +16,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     [Collection("SarifObjectTests")]
     public class SarifFileWithContentsTests
     {
-        private const string Key = "/item.cpp";
+        private const string Key = "/item.cpp#fragment";
         private const string Key2 = "/item2.cpp";
         private const string Contents = "This is a test file.";
 
@@ -36,7 +36,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         Files = new Dictionary<string, FileData>
                         {
                             {
-                                "file:///item.cpp",
+                                "file:///item.cpp#fragment",
                                 new FileData
                                 {
                                     MimeType = "text/x-c",
