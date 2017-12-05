@@ -551,19 +551,35 @@ namespace Microsoft.Sarif.Viewer
                 return null;
             }
 
-            if (usePreviewPane)
+            try
             {
-                // The scope below ensures that if a document is not yet open, it is opened in the preview pane.
-                // For documents that are already open, they will remain in their current pane, which may be the preview
-                // pane or the full editor pane.
-                using (new NewDocumentStateScope(__VSNEWDOCUMENTSTATE.NDS_Provisional | __VSNEWDOCUMENTSTATE.NDS_NoActivate, Microsoft.VisualStudio.VSConstants.NewDocumentStateReason.Navigation))
+                if (usePreviewPane)
+                {
+                    // The scope below ensures that if a document is not yet open, it is opened in the preview pane.
+                    // For documents that are already open, they will remain in their current pane, which may be the preview
+                    // pane or the full editor pane.
+                    using (new NewDocumentStateScope(__VSNEWDOCUMENTSTATE.NDS_Provisional | __VSNEWDOCUMENTSTATE.NDS_NoActivate, Microsoft.VisualStudio.VSConstants.NewDocumentStateReason.Navigation))
+                    {
+                        return OpenDocumentInCurrentScope(provider, file);
+                    }
+                }
+                else
                 {
                     return OpenDocumentInCurrentScope(provider, file);
                 }
             }
-            else
+            catch (COMException)
             {
-                return OpenDocumentInCurrentScope(provider, file);
+                string fname = Path.GetFileName(file);
+                if (MessageBox.Show($"The file '{fname}' couldn't be opened by Visual Studio. Would you like to open the containing folder?",
+                                    "Open File",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(Path.GetDirectoryName(file));
+                }
+
+                return null;
             }
         }
 
