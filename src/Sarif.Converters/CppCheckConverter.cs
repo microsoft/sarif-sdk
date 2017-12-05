@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             reader.ReadStartElement(_strings.Results);
 
-            if (!Ref.Equal(reader.LocalName, _strings.CppCheck))
+            if (!StringReference.AreEqual(reader.LocalName, _strings.CppCheck))
             {
                 throw reader.CreateException(ConverterResources.CppCheckCppCheckElementMissing);
             }
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             reader.Skip(); // <cppcheck />
 
-            if (!Ref.Equal(reader.LocalName, _strings.Errors))
+            if (!StringReference.AreEqual(reader.LocalName, _strings.Errors))
             {
                 throw reader.CreateException(ConverterResources.CppCheckErrorsElementMissing);
             }

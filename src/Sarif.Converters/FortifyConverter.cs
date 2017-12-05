@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 while (reader.Read())
                 {
-                    while (Ref.Equal(reader.LocalName, _strings.Issue))
+                    while (StringReference.AreEqual(reader.LocalName, _strings.Issue))
                     {
                         FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
                         results.Add(ConvertFortifyIssueToSarifIssue(fortify));

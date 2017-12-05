@@ -180,7 +180,7 @@
                             </Style>
                         </DataTemplate.Resources>
                         <TreeView ItemsSource="{Binding TopLevelNodes}"
-                                  viewer:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                  viewer:TreeViewSelectionHelper.SelectedNode="{Binding SelectedItem, Mode=TwoWay}"
                                   Grid.IsSharedSizeScope="True"
                                   Background="Transparent"
                                   BorderThickness="0"
