@@ -571,8 +571,8 @@ namespace Microsoft.Sarif.Viewer
             catch (COMException)
             {
                 string fname = Path.GetFileName(file);
-                if (MessageBox.Show($"The file '{fname}' couldn't be opened by Visual Studio. Would you like to open the containing folder?",
-                                    "Open File",
+                if (MessageBox.Show(string.Format(Resources.FileOpenFail_DialogMessage, fname),
+                                    Resources.FileOpenFail_DialogCaption,
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {

@@ -61,6 +61,24 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open File.
+        /// </summary>
+        internal static string FileOpenFail_DialogCaption {
+            get {
+                return ResourceManager.GetString("FileOpenFail_DialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file &apos;{0}&apos; couldn&apos;t be opened by Visual Studio. Would you like to open the containing folder?.
+        /// </summary>
+        internal static string FileOpenFail_DialogMessage {
+            get {
+                return ResourceManager.GetString("FileOpenFail_DialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return.
         /// </summary>
         internal static string ReturnMessage {
