@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>The optional element content as string if the element is present; otherwise, null.</returns>
         internal static string ReadOptionalElementContentAsString(this XmlReader xmlReader, string elementName)
         {
-            if (xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, elementName))
+            if (xmlReader.NodeType == XmlNodeType.Element && StringReference.AreEqual(xmlReader.LocalName, elementName))
             {
                 return xmlReader.ReadElementContentAsString();
             }
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // Same as XmlReader.IsStartElement except does not call MoveToContent first.
         private static bool IsOnElement(XmlReader xmlReader, string elementName)
         {
-            return xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, elementName);
+            return xmlReader.NodeType == XmlNodeType.Element && StringReference.AreEqual(xmlReader.LocalName, elementName);
         }
 
         /// <summary>

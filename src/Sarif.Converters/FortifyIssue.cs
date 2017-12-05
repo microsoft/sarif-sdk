@@ -160,11 +160,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             while (xmlReader.MoveToNextAttribute())
             {
                 string name = xmlReader.LocalName;
-                if (Ref.Equal(name, strings.Iid))
+                if (StringReference.AreEqual(name, strings.Iid))
                 {
                     iid = xmlReader.Value;
                 }
-                else if (Ref.Equal(name, strings.RuleId))
+                else if (StringReference.AreEqual(name, strings.RuleId))
                 {
                     ruleId = xmlReader.Value;
                 }
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             xmlReader.IgnoreElement(strings.Comment, IgnoreOptions.Optional | IgnoreOptions.Multiple);
             FortifyPathElement primary = FortifyPathElement.Parse(xmlReader, strings);
             FortifyPathElement source;
-            if (xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, strings.Source))
+            if (xmlReader.NodeType == XmlNodeType.Element && StringReference.AreEqual(xmlReader.LocalName, strings.Source))
             {
                 source = FortifyPathElement.Parse(xmlReader, strings);
             }
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             xmlReader.IgnoreElement(strings.TraceDiagramPath, IgnoreOptions.Optional);
             ImmutableArray<int> cweIds = ImmutableArray<int>.Empty;
-            if (xmlReader.NodeType == XmlNodeType.Element && Ref.Equal(xmlReader.LocalName, strings.ExternalCategory))
+            if (xmlReader.NodeType == XmlNodeType.Element && StringReference.AreEqual(xmlReader.LocalName, strings.ExternalCategory))
             {
                 if (xmlReader.GetAttribute(strings.Type) == "CWE")
                 {
