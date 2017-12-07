@@ -76,6 +76,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             foreach (Run run in sarifLog.Runs)
             {
+                SarifViewerPackage.Telemetry.WriteEvent(TelemetryEvent.LogFileRunCreatedByToolName, "ToolName".KeyWithValue(run.Tool.Name));
                 Instance.WriteRunToErrorList(run, logFilePath, solution);
             }
         }

@@ -8,6 +8,7 @@ namespace Microsoft.Sarif.Viewer
         ViewerExtensionLoaded = 1,
         LogFileOpenedByMenuCommand = 2,
         LogFileOpenedByEditor = 3,
-        TaskItemDocumentOpened = 4
+        TaskItemDocumentOpened = 4,
+        LogFileRunCreatedByToolName = 5
     }
 }
