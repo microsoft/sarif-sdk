@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -46,12 +47,7 @@ namespace Microsoft.Sarif.Viewer
 
         public void WriteEvent(TelemetryEvent eventType, params KeyValuePair<string, string>[] pairs)
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            
-            foreach (KeyValuePair<string, string> pair in pairs)
-            {
-                dict.Add(pair.Key, pair.Value);
-            }
+            Dictionary<string, string> dict = pairs.ToDictionary(p => p.Key, p => p.Value);
 
             WriteEvent(eventType, dict);
         }
