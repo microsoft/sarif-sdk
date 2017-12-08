@@ -39,7 +39,7 @@ namespace Microsoft.Sarif.Viewer
                 throw new ArgumentNullException(nameof(data));
             }
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
+            var dict = new Dictionary<string, string>();
             dict.Add("Data", data);
         
             WriteEvent(eventType, dict);
@@ -47,7 +47,7 @@ namespace Microsoft.Sarif.Viewer
 
         public void WriteEvent(TelemetryEvent eventType, params KeyValuePair<string, string>[] pairs)
         {
-            Dictionary<string, string> dict = pairs.ToDictionary(p => p.Key, p => p.Value);
+            var dict = pairs.ToDictionary(p => p.Key, p => p.Value);
 
             WriteEvent(eventType, dict);
         }
