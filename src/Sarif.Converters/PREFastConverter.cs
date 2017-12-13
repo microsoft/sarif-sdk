@@ -117,8 +117,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void GenerateCodeFlows(Defect defect, Result result)
         {
-            if (defect.Path?.SFAs.Any() == false)
+            var sfas = defect?.Path?.SFAs;
+            if (sfas == null || sfas.Any() == false)
+            {
                 return;
+            }
 
             int step = 0;
             var locations = new List<AnnotatedCodeLocation>();
