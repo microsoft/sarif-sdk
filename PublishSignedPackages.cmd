@@ -15,18 +15,18 @@ call %NUGET% SetApiKey %API_KEY% -Source %SOURCE%
 )
 if "%ERRORLEVEL%" NEQ "0" (echo set api key of %API_KEY% to %SOURCE% FAILED && goto Exit)
 
-@REM Publish SDK
-set ID=Sarif.Sdk
+call :PublishPackage Sarif.Sdk        || goto :EOF
+call :PublishPackage Sarif.Driver     || goto :EOF
+call :PublishPackage Sarif.Converters || goto :EOF
+call :PublishPackage Sarif.Multitool  || goto :EOF
+
+goto :EOF
+
+:PublishPackage
+set ID=%1
 set PACKAGE_ROOT=bld\bin\nuget\%ID%.%VERSION%
 
 call %NUGET% push %PACKAGE_ROOT%.nupkg -Source %SOURCE%
-if "%ERRORLEVEL%" NEQ "0" (echo push to %SOURCE% FAILED && goto Exit)
-
-@REM Publish Driver
-set ID=Sarif.Driver
-set PACKAGE_ROOT=bld\bin\nuget\%ID%.%VERSION%
-
-call %NUGET% push %PACKAGE_ROOT%.nupkg -Source %SOURCE%
-if "%ERRORLEVEL%" NEQ "0" (echo push to %SOURCE% FAILED && goto Exit)
-
-:Exit
+if "%ERRORLEVEL%" NEQ "0" (echo Push of %ID% to %SOURCE% failed.)
+Exit /B %ERRORLEVEL%
+:EOF
