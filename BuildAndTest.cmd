@@ -21,7 +21,6 @@ echo Unrecognized option "%1" && goto :ExitFailed
 @REM Remove existing build data
 rd /s /q bld
 set NUGET_OUTPUT_DIR=..\..\bld\bin\nuget
-md %NUGET_OUTPUT_DIR%
 
 call SetCurrentVersion.cmd 
 
