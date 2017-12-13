@@ -155,8 +155,11 @@
  * Rename AnalyzeOptions.ComputeTargetsHash to ComputeFileHashes
  * Fix bug in Semmle conversion (crash on embedded file:// scheme links)
 
-## **v1.7.0** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.0) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.7.0)
+## **v1.7.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.0) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.0)
  * Security and accessibility clean-up
  * TSLint converter fixes
  * Provide .NET core version
  * VSIX improvements (including auto-expansion of file contents persisted to SARIF logs)
+
+## **v1.7.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.1)
+ * Update nuget package build
