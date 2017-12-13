@@ -20,7 +20,6 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 @REM Remove existing build data
 rd /s /q bld
-md bld\bin\nuget
 
 call SetCurrentVersion.cmd 
 
@@ -72,9 +71,14 @@ goto ExitFailed
 set Platform=AnyCPU
 
 @REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
+set PackOptions=--configuration %Configuration% --no-build --output ..\..\bld\bin\NuGet /p:PackageVersion=%Version% /p:Platform=%Platform%
+set SymPackOptions=%PackOptions% --include-source --include-symbols
 
 dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+dotnet pack .\src\Sarif\Sarif.csproj %SymPackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
@@ -83,13 +87,25 @@ dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %SymPackOptions%
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
 
 dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %SymPackOptions%
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
 
 dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %SymPackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
