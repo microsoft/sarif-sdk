@@ -55,13 +55,6 @@ namespace Microsoft.Sarif.Viewer
 
             Dte = GetGlobalService(typeof(DTE)) as DTE2;
             ServiceProvider = this;
-
-#if DEBUG
-            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Debug"].Value;
-#else
-            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
-#endif
-            Telemetry = new TelemetryProvider(telemetryKey);
         }
 
         /// <summary>
@@ -111,6 +104,13 @@ namespace Microsoft.Sarif.Viewer
             ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
             configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), @"App.config");
             AppConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+#if DEBUG
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Debug"].Value;
+#else
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
+#endif
+            Telemetry = new TelemetryProvider(telemetryKey);
 
             Telemetry.WriteEvent(TelemetryEvent.ViewerExtensionLoaded);
 
