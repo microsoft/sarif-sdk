@@ -63,7 +63,11 @@ namespace Microsoft.Sarif.Viewer
 
         public void WriteException(Exception ex)
         {
-            appInsightsClient.TrackException(ex);
+            // Create a new exception of the same type so potentially sensitive data can be omitted
+            Type type = ex.GetType();
+            Exception e = Activator.CreateInstance(type, ex.Message) as Exception;
+
+            appInsightsClient.TrackException(e);
             appInsightsClient.Flush();
         }
     }
