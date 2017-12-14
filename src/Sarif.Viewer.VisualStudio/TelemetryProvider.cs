@@ -75,6 +75,7 @@ namespace Microsoft.Sarif.Viewer
             // Something went wrong creating the new exception, so we'll survive but fail to report the exception
             catch (ArgumentNullException) { }
             catch (ArgumentException) { }
+            catch (MethodAccessException) { }
             catch (MemberAccessException) { }
             catch (TypeLoadException) { }
         }
