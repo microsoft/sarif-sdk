@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <PackageId>Sarif</PackageId>
+    <PackageId>Sarif.Sdk</PackageId>
     <Title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</Title>
     <Authors>Microsoft Corporation</Authors>
     <Description>.NET tools and libraries for working with the Static Analysis Results Interchange Format v1.0.0.</Description>

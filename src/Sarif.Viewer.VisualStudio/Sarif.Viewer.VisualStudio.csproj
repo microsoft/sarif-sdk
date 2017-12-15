@@ -137,6 +137,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\ruleLookup.json" />
+    <Content Include="overview.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="packages.config" />
     <None Include="source.extension.vsixmanifest" />
   </ItemGroup>

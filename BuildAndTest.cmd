@@ -20,7 +20,7 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 @REM Remove existing build data
 rd /s /q bld
-md bld\bin\nuget
+set NUGET_OUTPUT_DIR=..\..\bld\bin\nuget
 
 call SetCurrentVersion.cmd 
 
@@ -72,7 +72,7 @@ goto ExitFailed
 set Platform=AnyCPU
 
 @REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build /p:PackageVersion=%Version% /p:Platform=%Platform%
+set PackOptions=--configuration %Configuration% --no-build -p:PackageVersion=%Version% -p:Platform=%Platform% -o %NUGET_OUTPUT_DIR% --include-source --include-symbols
 
 dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
