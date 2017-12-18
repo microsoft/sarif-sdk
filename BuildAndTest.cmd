@@ -64,7 +64,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
@@ -72,24 +72,26 @@ goto ExitFailed
 set Platform=AnyCPU
 
 @REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build -p:PackageVersion=%Version% -p:Platform=%Platform% -o %NUGET_OUTPUT_DIR% --include-source --include-symbols
+set CorePackOptions=--configuration %Configuration% --no-build -p:Platform=%Platform% -o %NUGET_OUTPUT_DIR% --include-source --include-symbols
+set ReleasePackOptions=%CorePackOptions% -p:PackageVersion=%Version%
+set PrereleasePackOptions=%CorePackOptions% -p:PackageVersion=%Version%-beta
 
-dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
+dotnet pack .\src\Sarif\Sarif.csproj %ReleasePackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
+dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %ReleasePackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
+dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PrereleasePackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
+dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PrereleasePackOptions%
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
