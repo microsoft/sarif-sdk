@@ -29,11 +29,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\ReleaseHistory.md">
-      <Pack>true</Pack>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="SdkResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

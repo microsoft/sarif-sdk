@@ -14,7 +14,7 @@
     <DeployExtension Condition="'$(AppVeyor)' != ''">False</DeployExtension>
   </PropertyGroup>
   <PropertyGroup>
-    <DisableBinSkimTarget>true</DisableBinSkimTarget>
+    <DisableCSharpTargetsImport>true</DisableCSharpTargetsImport>
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
   <PropertyGroup>
