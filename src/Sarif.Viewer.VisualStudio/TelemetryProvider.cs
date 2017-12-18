@@ -60,24 +60,5 @@ namespace Microsoft.Sarif.Viewer
             appInsightsClient.TrackEvent(eventType.ToString(), properties);
             appInsightsClient.Flush();
         }
-
-        public void WriteException(Exception ex)
-        {
-            try
-            {
-                // Create a new exception of the same type so potentially sensitive data can be omitted
-                Type type = ex.GetType();
-                Exception e = Activator.CreateInstance(type, ex.Message) as Exception;
-
-                appInsightsClient.TrackException(e);
-                appInsightsClient.Flush();
-            }
-            // Something went wrong creating the new exception, so we'll survive but fail to report the exception
-            catch (ArgumentNullException) { }
-            catch (ArgumentException) { }
-            catch (MethodAccessException) { }
-            catch (MemberAccessException) { }
-            catch (TypeLoadException) { }
-        }
     }
 }
