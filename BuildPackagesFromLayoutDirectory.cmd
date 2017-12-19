@@ -3,8 +3,8 @@
 SETLOCAL
 
 set BinaryOutputDirectory=%1
-set Configuration=%2
-set Platform=%3
+set Configuration=%1
+set Platform=%2
 
 if "%BinaryOutputDirectory%" EQU "" (
 set BinaryOutputDirectory=.\bld\bin\
@@ -21,34 +21,35 @@ set Platform=AnyCpu
 set BinaryOutputDirectory=%BinaryOutputDirectory%\%Platform%_%Configuration%
 set LayoutForSigningDirectory=%BinaryOutputDirectory%\..\LayoutForSigning
 
-if not exist %LayoutForSigningDirectory% (md %LayoutForSigningDirectory%)
-if not exist %LayoutForSigningDirectory%\net452 (md %LayoutForSigningDirectory%\net452)
-if not exist %LayoutForSigningDirectory%\netcoreapp2.0 (md %LayoutForSigningDirectory%\netcoreapp2.0)
-if not exist %LayoutForSigningDirectory%\netstandard2.0 (md %LayoutForSigningDirectory%\netstandard2.0)
-
+:: Copy all multitargeted assemblies to their locations
 call :CopyFilesForMultitargeting Sarif.dll            || goto :ExitFailed
 call :CopyFilesForMultitargeting Sarif.Converters.dll || goto :ExitFailed
 call :CopyFilesForMultitargeting Sarif.Driver.dll     || goto :ExitFailed
 call :CopyFilesForMultitargeting Sarif.Multitool.exe  || goto :ExitFailed
 
 :: Copy viewer dll to net452
-xcopy /Y %BinaryOutputDirectory%\..\Sarif.Viewer.VisualStudio\%Platform%_%Configuration%\Microsoft.Sarif.Viewer.dll %LayoutForSigningDirectory%\net452
+xcopy /Y %LayoutForSigningDirectory%\net452\Microsoft.Sarif.Viewer.dll %BinaryOutputDirectory%\..\Sarif.Viewer.VisualStudio\%Platform%_%Configuration%\
+
+call SetCurrentVersion.cmd
+set Version=%MAJOR%.%MINOR%.%PATCH%
+set NuGetOutputDirectory=..\..\bld\bin\nuget\
+call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 
 goto :Exit
 
 :CopyFilesForMultitargeting
-xcopy /Y %BinaryOutputDirectory%\net452\%1 %LayoutForSigningDirectory%\net452
+xcopy /Y %LayoutForSigningDirectory%\net452\%1 %BinaryOutputDirectory%\net452\
 
 :: For .NET core, .exes are renamed to .dlls due to packaging conventions
-xcopy /Y %BinaryOutputDirectory%\netcoreapp2.0\%~n1.dll  %LayoutForSigningDirectory%\netcoreapp2.0 
-xcopy /Y %BinaryOutputDirectory%\netstandard2.0\%~n1.dll %LayoutForSigningDirectory%\netstandard2.0
+xcopy /Y %LayoutForSigningDirectory%\netcoreapp2.0\%~n1.dll %BinaryOutputDirectory%\netcoreapp2.0\
+xcopy /Y %LayoutForSigningDirectory%\netstandard2.0\%~n1.dll %BinaryOutputDirectory%\netstandard2.0\
 
 if "%ERRORLEVEL%" NEQ "0" (echo %1 assembly copy failed.)
 Exit /B %ERRORLEVEL%
 
 :ExitFailed
 @echo.
-@echo Create layout directory step failed.
+@echo Build NuGet packages from layout directory step failed.
 exit /b 1
 
 :Exit
