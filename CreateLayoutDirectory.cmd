@@ -31,7 +31,7 @@ xcopy /Y %BinaryOutputDirectory%\net452\%1 %LayoutForSigningDirectory%\net452
 xcopy /Y %BinaryOutputDirectory%\netcoreapp2.0\%~n1.dll  %LayoutForSigningDirectory%\netcoreapp2.0 
 xcopy /Y %BinaryOutputDirectory%\netstandard2.0\%~n1.dll %LayoutForSigningDirectory%\netstandard2.0
 
-if "%ERRORLEVEL%" NEQ "0" (echo %NuGetProject% NuGet package creation FAILED.)
+if "%ERRORLEVEL%" NEQ "0" (echo %1 assembly copy failed.)
 Exit /B %ERRORLEVEL%
 
 :ExitFailed
