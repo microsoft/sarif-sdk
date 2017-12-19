@@ -26,15 +26,15 @@ if not exist %LayoutForSigningDirectory%\net452 (md %LayoutForSigningDirectory%\
 if not exist %LayoutForSigningDirectory%\netcoreapp2.0 (md %LayoutForSigningDirectory%\netcoreapp2.0)
 if not exist %LayoutForSigningDirectory%\netstandard2.0 (md %LayoutForSigningDirectory%\netstandard2.0)
 
-call :CopyFilesForMultitargeting Sarif.dll            || goto ExitFailed
-call :CopyFilesForMultitargeting Sarif.Converters.dll || goto ExitFailed
-call :CopyFilesForMultitargeting Sarif.Driver.dll     || goto ExitFailed
-call :CopyFilesForMultitargeting Sarif.Multitool.exe  || goto ExitFailed
+call :CopyFilesForMultitargeting Sarif.dll            || goto :ExitFailed
+call :CopyFilesForMultitargeting Sarif.Converters.dll || goto :ExitFailed
+call :CopyFilesForMultitargeting Sarif.Driver.dll     || goto :ExitFailed
+call :CopyFilesForMultitargeting Sarif.Multitool.exe  || goto :ExitFailed
 
 :: Copy viewer dll to net452
 xcopy /Y %BinaryOutputDirectory%\..\Sarif.Viewer.VisualStudio\%Platform%_%Configuration%\Microsoft.Sarif.Viewer.dll %LayoutForSigningDirectory%\net452
 
-goto Exit
+goto :Exit
 
 :CopyFilesForMultitargeting
 xcopy /Y %BinaryOutputDirectory%\net452\%1 %LayoutForSigningDirectory%\net452

@@ -35,7 +35,7 @@ set Version=%MAJOR%.%MINOR%.%PATCH%
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 
-goto Exit
+goto :Exit
 
 :CopyFilesForMultitargeting
 xcopy /Y %LayoutForSigningDirectory%\net452\%1 %BinaryOutputDirectory%\net452\
