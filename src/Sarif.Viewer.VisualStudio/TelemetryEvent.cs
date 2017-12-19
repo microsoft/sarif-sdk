@@ -3,6 +3,9 @@
 
 namespace Microsoft.Sarif.Viewer
 {
+    /// <summary>
+    /// Telemetry event types
+    /// </summary>
     internal enum TelemetryEvent
     {
         ViewerExtensionLoaded = 1,
