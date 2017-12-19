@@ -3,11 +3,16 @@
 @ECHO off
 SETLOCAL
 
+SET NuGetConfigFile=%~dp0src\NuGet.Config
+SET NuGetPackageDir=src\packages
+
+md bld\bin\nuget
+
 ::Restore nuget packages
-%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -OutputDirectory "src\packages"
-%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj -OutputDirectory "src\packages"
-%~dp0.nuget\NuGet.exe restore src\Sarif.ValidationTests\Sarif.ValidationTests.csproj -OutputDirectory "src\packages"
-dotnet restore src\Everything.sln --packages src\packages
+%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+%~dp0.nuget\NuGet.exe restore src\Sarif.ValidationTests\Sarif.ValidationTests.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+dotnet restore src\Everything.sln --configfile %NuGetConfigFile% --packages %NuGetPackageDir%
 
 if "%ERRORLEVEL%" NEQ "0" (
 echo nuget restore failed.
