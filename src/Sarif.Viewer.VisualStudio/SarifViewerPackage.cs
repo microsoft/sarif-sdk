@@ -101,8 +101,8 @@ namespace Microsoft.Sarif.Viewer
             base.Initialize();
 
             string path = Assembly.GetExecutingAssembly().Location;
-            ExeConfigurationFileMap configMap = new ExeConfigurationFileMap();
-            configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), @"App.config");
+            var configMap = new ExeConfigurationFileMap();
+            configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), "App.config");
             AppConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
 
 #if DEBUG
