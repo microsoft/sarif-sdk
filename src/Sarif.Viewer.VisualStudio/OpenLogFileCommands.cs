@@ -257,6 +257,8 @@ namespace Microsoft.Sarif.Viewer
                 logFile = openFileDialog.FileName;
             }
 
+            SarifViewerPackage.Telemetry.WriteMenuCommandEvent(toolFormat);
+
             ErrorListService.ProcessLogFile(logFile, SarifViewerPackage.Dte.Solution, toolFormat);
         }
 

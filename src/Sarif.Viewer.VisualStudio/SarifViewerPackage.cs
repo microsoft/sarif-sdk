@@ -9,6 +9,9 @@ using EnvDTE80;
 
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System.Configuration;
+using System.Reflection;
+using System.IO;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -30,6 +33,8 @@ namespace Microsoft.Sarif.Viewer
     {
         public static DTE2 Dte;
         public static IServiceProvider ServiceProvider;
+
+        internal static TelemetryProvider Telemetry;
 
         private SarifEditorFactory _sarifEditorFactory;
 
@@ -67,6 +72,8 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public static System.Configuration.Configuration AppConfig { get; private set; }
+
         public T GetService<S, T>()
             where S : class
             where T : class
@@ -86,12 +93,26 @@ namespace Microsoft.Sarif.Viewer
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
+        /// where you can put all the initialization code that rely on services provided by Visual Studio.
         /// </summary>
         protected override void Initialize()
         {
             OpenLogFileCommands.Initialize(this);
             base.Initialize();
+
+            string path = Assembly.GetExecutingAssembly().Location;
+            var configMap = new ExeConfigurationFileMap();
+            configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), "App.config");
+            AppConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+#if DEBUG
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Debug"].Value;
+#else
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
+#endif
+            Telemetry = new TelemetryProvider(telemetryKey);
+
+            Telemetry.WriteEvent(TelemetryEvent.ViewerExtensionLoaded);
 
             _sarifEditorFactory = new SarifEditorFactory();
             RegisterEditorFactory(_sarifEditorFactory);
