@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.ApplicationInsights;
-using Microsoft.CodeAnalysis.Sarif.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.ApplicationInsights;
+using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -14,9 +14,9 @@ namespace Microsoft.Sarif.Viewer
     /// </summary>
     internal static class TelemetryProvider
     {
-        private static TelemetryClient appInsightsClient;
-        private static readonly object lockObject = new object();
-        private static bool isInitialized = false;
+        private static TelemetryClient s_AppInsightsClient;
+        private static readonly object s_LockObject = new object();
+        private static bool s_IsInitialized = false;
 
         /// <summary>
         /// Initializes the static instance of the TelemetryProvider.
@@ -24,16 +24,16 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="telemetryKey">The instrumentation key of the target AI instance.</param>
         public static void Initialize(string instrumentationKey)
         {
-            lock (lockObject)
+            lock (s_LockObject)
             {
-                if (!isInitialized)
+                if (!s_IsInitialized)
                 {
-                    appInsightsClient = new TelemetryClient()
+                    s_AppInsightsClient = new TelemetryClient()
                     {
                         InstrumentationKey = instrumentationKey
                     };
 
-                    isInitialized = true;
+                    s_IsInitialized = true;
                 }
             }
         }
@@ -49,7 +49,8 @@ namespace Microsoft.Sarif.Viewer
                 throw new ArgumentNullException(nameof(toolFormat));
             }
 
-            WriteEvent(TelemetryEvent.LogFileOpenedByMenuCommand, "Format".KeyWithValue(toolFormat == ToolFormat.None ? "SARIF" : toolFormat));
+            WriteEvent(TelemetryEvent.LogFileOpenedByMenuCommand,
+                       CreateKeyValuePair("Format", toolFormat == ToolFormat.None ? "SARIF" : toolFormat));
         }
 
         /// <summary>
@@ -58,10 +59,10 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="eventType">The type of the event.</param>
         public static void WriteEvent(TelemetryEvent eventType)
         {
-            if (isInitialized)
+            if (s_IsInitialized)
             {
-                appInsightsClient.TrackEvent(eventType.ToString());
-                appInsightsClient.Flush();
+                s_AppInsightsClient.TrackEvent(eventType.ToString());
+                s_AppInsightsClient.Flush();
             }
         }
 
@@ -102,11 +103,32 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="properties">Named string value data properties associted with this event.</param>
         public static void WriteEvent(TelemetryEvent eventType, Dictionary<string, string> properties = null)
         {
-            if (isInitialized)
+            if (s_IsInitialized)
             {
-                appInsightsClient.TrackEvent(eventType.ToString(), properties);
-                appInsightsClient.Flush();
+                s_AppInsightsClient.TrackEvent(eventType.ToString(), properties);
+                s_AppInsightsClient.Flush();
             }
+        }
+
+        /// <summary>
+        /// Returns a KeyValuePair with the specified key and value.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public static KeyValuePair<string, string> CreateKeyValuePair(string key, string value)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            return new KeyValuePair<string, string>(key, value);
         }
     }
 }

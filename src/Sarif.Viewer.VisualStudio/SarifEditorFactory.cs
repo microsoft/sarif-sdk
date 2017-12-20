@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 using Microsoft.Sarif.Viewer.ErrorList;
+using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -202,7 +203,8 @@ namespace Microsoft.Sarif.Viewer
 
             if ((grfCreateDoc & VSConstants.CEF_OPENFILE) == VSConstants.CEF_OPENFILE)
             {
-                TelemetryProvider.WriteEvent(TelemetryEvent.LogFileOpenedByEditor, "Format".KeyWithValue("SARIF"));
+                TelemetryProvider.WriteEvent(TelemetryEvent.LogFileOpenedByEditor,
+                                             TelemetryProvider.CreateKeyValuePair("Format", "SARIF"));
                 ErrorListService.ProcessLogFile(pszMkDocument, SarifViewerPackage.Dte.Solution);
             }
 
