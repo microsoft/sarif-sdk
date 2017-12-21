@@ -77,7 +77,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             TelemetryProvider.WriteEvent(TelemetryEvent.ViewerExtensionLoaded, data);
 
             // Assert
-            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Properties["Data"] == data)));
+            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Context.Properties["Data"] == data)));
             mockChannel.Verify(c => c.Flush());
         }
 
@@ -100,8 +100,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             TelemetryProvider.WriteEvent(TelemetryEvent.ViewerExtensionLoaded, pairs.ToArray());
 
             // Assert
-            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Properties["Key1"] == "Value1" &&
-                                                                      t.Properties["Key2"] == "Value2")));
+            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Context.Properties["Key1"] == "Value1" &&
+                                                                      t.Context.Properties["Key2"] == "Value2")));
             mockChannel.Verify(c => c.Flush());
         }
 
@@ -125,8 +125,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             TelemetryProvider.WriteEvent(TelemetryEvent.ViewerExtensionLoaded, dictionary);
 
             // Assert
-            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Properties["Key1"] == "Value1" &&
-                                                                      t.Properties["Key2"] == "Value2")));
+            mockChannel.Verify(c => c.Send(It.Is<EventTelemetry>(t => t.Context.Properties["Key1"] == "Value1" &&
+                                                                      t.Context.Properties["Key2"] == "Value2")));
             mockChannel.Verify(c => c.Flush());
         }
 
