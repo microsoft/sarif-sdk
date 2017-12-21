@@ -100,7 +100,7 @@ goto Exit
 :RunMultitargetingTests
 set TestProject=%1
 set TestType=%2
-pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit -nobuild -configuration Release && popd
+pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit -nobuild -configuration %Configuration% && popd
 if "%ERRORLEVEL%" NEQ "0" (echo %TestProject% %TestType% tests execution FAILED.)
 Exit /B %ERRORLEVEL%
 
