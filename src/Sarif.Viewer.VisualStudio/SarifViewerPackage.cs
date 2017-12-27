@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 using EnvDTE;
 using EnvDTE80;
-
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -109,7 +109,11 @@ namespace Microsoft.Sarif.Viewer
             string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
 #endif
 
-            TelemetryProvider.Initialize(telemetryKey);
+            TelemetryConfiguration configuration = new TelemetryConfiguration()
+            {
+                InstrumentationKey = telemetryKey
+            };
+            TelemetryProvider.Initialize(configuration);
             TelemetryProvider.WriteEvent(TelemetryEvent.ViewerExtensionLoaded);
 
             _sarifEditorFactory = new SarifEditorFactory();

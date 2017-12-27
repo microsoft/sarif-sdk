@@ -90,7 +90,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll
+src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
@@ -100,7 +100,7 @@ goto Exit
 :RunMultitargetingTests
 set TestProject=%1
 set TestType=%2
-pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit -nobuild -configuration Release && popd
+pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit -nobuild -configuration %Configuration% && popd
 if "%ERRORLEVEL%" NEQ "0" (echo %TestProject% %TestType% tests execution FAILED.)
 Exit /B %ERRORLEVEL%
 
