@@ -19,13 +19,12 @@ echo Unrecognized option "%1" && goto :ExitFailed
 :EndArgs
 
 @REM Remove existing build data
-rd /s /q bld
-set NUGET_OUTPUT_DIR=..\..\bld\bin\nuget
+if exist bld (rd /s /q bld)
+set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
 call SetCurrentVersion.cmd 
 
 @REM Write VersionConstants files 
-
 set SDK_VERSION_CONSTANTS=src\Sarif\VersionConstants.cs
 set DRV_VERSION_CONSTANTS=src\Sarif.Driver\VersionConstants.cs
 set Version=%MAJOR%.%MINOR%.%PATCH%
@@ -64,63 +63,28 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:"RunBinSkim=false" /p:"BinSkimVerboseOutput=true"
+msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
 set Platform=AnyCPU
 
-@REM Build Nuget packages
-set PackOptions=--configuration %Configuration% --no-build -p:PackageVersion=%Version% -p:Platform=%Platform% -o %NUGET_OUTPUT_DIR% --include-source --include-symbols
+::Build all NuGet packages
+echo BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
+call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 
-dotnet pack .\src\Sarif\Sarif.csproj %PackOptions%
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
+::Create layout directory of assemblies that need to be signed
+call CreateLayoutDirectory.cmd .\bld\bin\ %Configuration% %Platform%
 
-dotnet pack .\src\Sarif.Converters\Sarif.Converters.csproj %PackOptions%
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
+@REM Run all multitargeting xunit tests
+call :RunMultitargetingTests Sarif Unit                 || goto :ExitFailed
+call :RunMultitargetingTests Sarif Functional           || goto :ExitFailed
+call :RunMultitargetingTests Sarif.Converters Unit      || goto :ExitFailed
+call :RunMultitargetingTests Sarif.Driver Unit          || goto :ExitFailed
+call :RunMultitargetingTests Sarif.Multitool Functional || goto :ExitFailed
 
-dotnet pack .\src\Sarif.Driver\Sarif.Driver.csproj %PackOptions%
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-dotnet pack .\src\Sarif.Multitool\Sarif.Multitool.csproj %PackOptions%
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-@REM Run all tests
-
-pushd .\src\Sarif.Converters.UnitTests && dotnet xunit -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-pushd .\src\Sarif.UnitTests && dotnet xunit -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-pushd .\src\Sarif.Driver.UnitTests && dotnet xunit -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-pushd .\src\Sarif.FunctionalTests && dotnet xunit -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-pushd .\src\Sarif.Multitool.FunctionalTests && dotnet xunit -nobuild -configuration Release && popd
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
+::Run all non-multitargeting unit tests
 src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -133,9 +97,15 @@ goto ExitFailed
 
 goto Exit
 
+:RunMultitargetingTests
+set TestProject=%1
+set TestType=%2
+pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit -nobuild -configuration Release && popd
+if "%ERRORLEVEL%" NEQ "0" (echo %TestProject% %TestType% tests execution FAILED.)
+Exit /B %ERRORLEVEL%
+
 :ExitFailed
-@echo.
-@echo script failed
-exit /b 1
+@echo Build and test did not complete successfully.
+Exit /B 1
 
 :Exit

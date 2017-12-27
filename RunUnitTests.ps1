@@ -20,7 +20,7 @@ Foreach ($project in $testProjects)
         Foreach ($framework in $targetFrameworks)
         {
             $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\$($framework.Name)\xunit.console"
-            $projectPath = ".\bld\bin\$($project.Name)\AnyCPU_Release\$($framework.Name)\$($project.Name).dll"
+            $projectPath = ".\bld\bin\AnyCPU_Release\$($framework.Name)\$($project.Name).dll"
 
             Write-Host "Running Tests For $($project.Name): $($framework.Name)" -ForegroundColor Cyan
 
