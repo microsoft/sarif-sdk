@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 
 namespace Microsoft.Sarif.Viewer
@@ -22,19 +23,27 @@ namespace Microsoft.Sarif.Viewer
         /// Initializes the static instance of the TelemetryProvider.
         /// </summary>
         /// <param name="telemetryKey">The instrumentation key of the target AI instance.</param>
-        public static void Initialize(string instrumentationKey)
+        public static void Initialize(TelemetryConfiguration configuration)
         {
             lock (s_LockObject)
             {
                 if (!s_IsInitialized)
                 {
-                    s_AppInsightsClient = new TelemetryClient()
-                    {
-                        InstrumentationKey = instrumentationKey
-                    };
-
+                    s_AppInsightsClient = new TelemetryClient(configuration);
                     s_IsInitialized = true;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Resets to the uninitialized state.
+        /// </summary>
+        public static void Reset()
+        {
+            lock (s_LockObject)
+            {
+                s_AppInsightsClient = null;
+                s_IsInitialized = false;
             }
         }
 
@@ -78,10 +87,10 @@ namespace Microsoft.Sarif.Viewer
                 throw new ArgumentNullException(nameof(data));
             }
 
-            var dict = new Dictionary<string, string>();
-            dict.Add("Data", data);
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("Data", data);
 
-            WriteEvent(eventType, dict);
+            WriteEvent(eventType, dictionary);
         }
 
         /// <summary>
@@ -91,9 +100,9 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="pairs">Named string value data properties associted with this event.</param>
         public static void WriteEvent(TelemetryEvent eventType, params KeyValuePair<string, string>[] pairs)
         {
-            var dict = pairs.ToDictionary(p => p.Key, p => p.Value);
+            var dictionary = pairs.ToDictionary(p => p.Key, p => p.Value);
 
-            WriteEvent(eventType, dict);
+            WriteEvent(eventType, dictionary);
         }
 
         /// <summary>
