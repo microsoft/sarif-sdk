@@ -13,7 +13,15 @@ call :BuildNuGetPackage Sarif.Converters %Version% || goto :ExitFailed
 
 ::Build pre-release packages
 call :BuildNuGetPackage Sarif.Driver    %Version%-beta || goto :ExitFailed
-call :BuildNuGetPackage Sarif.Multitool %Version%-beta || goto :ExitFailed
+
+::Build Multitool with dependencies included
+::call :BuildNuGetPackage Sarif.Multitool %Version%-beta || goto :ExitFailed
+echo .
+echo Building Sarif.Multitool package...
+echo .nuget\NuGet.exe pack .\src\Nuget\Sarif.Multitool.nuspec -Symbols -Properties id=Sarif.Multitool;configuration=%Configuration%;version=%Version%-beta -Verbosity Quiet -BasePath .\bld\bin -OutputDirectory .\bld\bin\Nuget
+.nuget\NuGet.exe pack .\src\Nuget\Sarif.Multitool.nuspec -Symbols -Properties id=Sarif.Multitool;configuration=%Configuration%;version=%Version%-beta -Verbosity Quiet -BasePath .\bld\bin -OutputDirectory .\bld\bin\Nuget
+if "%ERRORLEVEL%" NEQ "0" (echo Sarif.Multitool NuGet package creation FAILED.)
+Exit /B %ERRORLEVEL%
 
 goto Exit
 

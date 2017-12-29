@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>.NET Static Analysis Results Interchange Format (SARIF) Multitool</title>
+    <authors>Microsoft Corporation</authors>
+    <owners>Michael C. Fanning, Larry Golding</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET utility for working with the Static Analysis Results Interchange Format v1.0.0.</description>
+    <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
+    <copyright>Copyright Microsoft 2015</copyright>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
+    <tags>sarifmultitool</tags>
+  </metadata>
+  <files>
+	<!-- NOTE: the exclude attribute must be on a single line -->
+    <file src="AnyCPU_$configuration$\**\*"
+          target="lib"
+		  exclude="**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
+				   
+    <!-- Restore the netstandard assemblies from the package cache -->
+    <file src="..\..\src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.dll" target="lib\netcoreapp2.0" />
+    <file src="..\..\src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.dll" target="lib\netstandard2.0" />
+    <file src="..\..\src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.dll" target="lib\netcoreapp2.0" />
+    <file src="..\..\src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.dll" target="lib\netstandard2.0" />
+    <file src="..\..\src\packages\newtonsoft.json\*\lib\netstandard1.3\Newtonsoft.Json.dll" target="lib\netcoreapp2.0" />
+    <file src="..\..\src\packages\newtonsoft.json\*\lib\netstandard1.3\Newtonsoft.Json.dll" target="lib\netstandard2.0" />
+    
+    <file src="..\..\src\ReleaseHistory.md" />        
+    <file src="..\..\src\Sarif.Multitool\**\*.cs" target="src" />
+  </files>
+</package>
