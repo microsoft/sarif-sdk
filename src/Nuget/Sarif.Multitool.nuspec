@@ -21,7 +21,7 @@
 	  <!-- NOTE: the exclude attribute must be on a single line -->
     <file src="bld\bin\AnyCPU_$configuration$\**\*"
           target="lib"
-          exclude="**\*Multitool*;**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
+          exclude="**\*Multitool*;**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Castle.Core.dll;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
 
     <!-- Restore the netstandard assemblies from the package cache -->
     <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.dll" target="lib\netcoreapp2.0" />
