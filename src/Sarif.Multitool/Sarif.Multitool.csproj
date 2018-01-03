@@ -14,8 +14,6 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
-  <!--NuGet metadata located in src\Nuget\Sarif.Multitool.nuspec-->
-
   <ItemGroup>
     <Compile Remove="Rules\**" />
     <EmbeddedResource Remove="Rules\**" />
