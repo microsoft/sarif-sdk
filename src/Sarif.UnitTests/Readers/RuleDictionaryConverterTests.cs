@@ -15,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
   ""runs"": [
     {
       ""tool"": {

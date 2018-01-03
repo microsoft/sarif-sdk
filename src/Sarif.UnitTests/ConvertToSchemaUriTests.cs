@@ -21,5 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Tests
             Uri uri = SarifVersion.OneZeroZeroBetaFive.ConvertToSchemaUri();
             Assert.Equal("http://json.schemastore.org/sarif-1.0.0-beta.5", uri.ToString());
         }
+
+        [Fact]
+        public void ConvertToSchemaUriTestV200()
+        {
+            Uri uri = SarifVersion.TwoZeroZero.ConvertToSchemaUri();
+            Assert.Equal("http://json.schemastore.org/sarif-2.0.0", uri.ToString());
+        }
     }
 }

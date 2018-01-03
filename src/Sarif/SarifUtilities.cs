@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private const string V1_0_0 = "1.0.0";
         private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
+        private const string V2_0_0 = "2.0.0";
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -40,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
+                case V2_0_0: return SarifVersion.TwoZeroZero;
             }
 
             return SarifVersion.Unknown;
@@ -51,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
+                case SarifVersion.TwoZeroZero: { return V2_0_0; }
             }
             return "unknown";
         }

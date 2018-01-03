@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         Unknown,
         OneZeroZeroBetaFive,
-        OneZeroZero
+        OneZeroZero,
+        TwoZeroZero
     }
 }
