@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema: a standard format for the output of static analysis and other tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0 JSON Schema: a standard format for the output of static analysis and other tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "1.0.0" ]
+      "enum": [ "2.0.0" ]
     },
 
     "runs": {

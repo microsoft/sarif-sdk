@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	        var allRuns = GetAllRuns(sarifFiles);
 
 	        // Build one SarifLog with all the Runs.
-			SarifLog combinedLog = new SarifLog(SarifVersion.OneZeroZero.ConvertToSchemaUri(),
-												SarifVersion.OneZeroZero, allRuns);
+			SarifLog combinedLog = new SarifLog(SarifVersion.TwoZeroZero.ConvertToSchemaUri(),
+												SarifVersion.TwoZeroZero, allRuns);
 
             // Write output to file.
             string outputName = GetOutputFileName(mergeOptions);
