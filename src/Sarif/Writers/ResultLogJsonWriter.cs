@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
 
-            SarifVersion sarifVersion = SarifVersion.OneZeroZero;
+            SarifVersion sarifVersion = SarifVersion.TwoZeroZero;
 
             _jsonWriter.WriteStartObject(); // Begin: sarifLog
             _jsonWriter.WritePropertyName("$schema");

@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
   "runs": [
     {
       "id": "BC650830-A9FE-44CB-8818-AD6C387279A0",
