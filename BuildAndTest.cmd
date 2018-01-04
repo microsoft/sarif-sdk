@@ -77,8 +77,6 @@ call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Versio
 ::Create layout directory of assemblies that need to be signed
 call CreateLayoutDirectory.cmd .\bld\bin\ %Configuration% %Platform%
 
-goto Exit
-
 @REM Run all multitargeting xunit tests
 call :RunMultitargetingTests Sarif Unit                 || goto :ExitFailed
 call :RunMultitargetingTests Sarif Functional           || goto :ExitFailed

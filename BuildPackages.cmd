@@ -15,7 +15,7 @@ call :BuildNuGetPackageFromCsproj Sarif.Converters %Version% || goto :ExitFailed
 call :BuildNuGetPackageFromCsproj Sarif.Driver    %Version%-beta || goto :ExitFailed
 
 ::Build Multitool package from nuspec
-call :BuildNuGetPackageFromNuspec Sarif.Multitool %Version% beta || goto :ExitFailed
+call BuildNuGetPackageFromNuspec Sarif.Multitool %Version% beta || goto :ExitFailed
 
 goto Exit
 
@@ -30,12 +30,12 @@ Exit /B %ERRORLEVEL%
 
 :BuildNuGetPackageFromNuspec
 set NuGetProject=%1
-set PackOptions=-Symbols -Properties configuration=%Configuration%;version=%2 -Verbosity Quiet -BasePath .\ -OutputDirectory .\bld\bin\Nuget
-set Suffix=%3
+set PackOptions=-Symbols -Properties configuration=%Configuration%;version=%Version% -Verbosity Quiet
+set Suffix=%2
 if "%Suffix%" NEQ "" (
 set Suffix=-Suffix %Suffix%
 )
-.nuget\NuGet.exe pack .\src\Nuget\%NuGetProject%.nuspec %PackOptions% %Suffix%
+.nuget\NuGet.exe pack .\src\Nuget\%NuGetProject%.nuspec %PackOptions% %Suffix% -BasePath .\ -OutputDirectory %NuGetOutputDirectory%
 if "%ERRORLEVEL%" NEQ "0" (echo %NuGetProject% NuGet package creation FAILED.)
 Exit /B %ERRORLEVEL%
 
