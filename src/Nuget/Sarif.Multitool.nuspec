@@ -6,12 +6,12 @@
     <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
     <authors>Microsoft Corporation</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</description>
+    <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
     <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
-    <tags>command line driver utilities static analysis sarif framework utils driver.utilities</tags>
+    <tags>SARIF command line static analysis</tags>
   </metadata>
   <files>
 	  <!-- NOTE: the exclude attribute must be on a single line -->
