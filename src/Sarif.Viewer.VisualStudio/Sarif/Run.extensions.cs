@@ -74,9 +74,13 @@ namespace Microsoft.Sarif.Viewer.Sarif
                         helpUri = new Uri(RuleMetadata[ruleId]["url"].Value<string>());
                     }
 
+                    // PREfast rules don't have or need a "help" property; they all have online documentation.
+                    // The rule.help property is only useful in scenarios where there's no online documentation.
+                    string help = null;
+
                     if (ruleName != null || helpUri != null)
                     {
-                        rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, null);
+                        rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, help, null);
                     }
                 }
             }

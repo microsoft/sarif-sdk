@@ -904,6 +904,11 @@
           "format": "uri"
         },
 
+        "help": {
+          "description": "Provides the primary documentation for the rule, useful when there is no on-line documentation.",
+          "type": "string"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the rule.",
           "type": "object",

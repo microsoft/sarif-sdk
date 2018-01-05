@@ -81,6 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri HelpUri { get; set; }
 
         /// <summary>
+        /// Provides the primary documentation for the rule, useful when there is no on-line documentation.
+        /// </summary>
+        [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
+        public string Help { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the rule.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -120,12 +126,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="helpUri">
         /// An initialization value for the <see cref="P: HelpUri" /> property.
         /// </param>
+        /// <param name="help">
+        /// An initialization value for the <see cref="P: Help" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, messageFormats, configuration, defaultLevel, helpUri, properties);
+            Init(id, name, shortDescription, fullDescription, messageFormats, configuration, defaultLevel, helpUri, help, properties);
         }
 
         /// <summary>
@@ -144,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.Configuration, other.DefaultLevel, other.HelpUri, other.Properties);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageFormats, other.Configuration, other.DefaultLevel, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -165,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Name = name;
@@ -183,6 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 HelpUri = new Uri(helpUri.OriginalString, helpUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
+            Help = help;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

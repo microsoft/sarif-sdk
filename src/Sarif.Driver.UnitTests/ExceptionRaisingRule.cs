@@ -27,6 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public Uri HelpUri { get; set; }
 
+        public string Help => null;
+
         public string Id
         {
             get
