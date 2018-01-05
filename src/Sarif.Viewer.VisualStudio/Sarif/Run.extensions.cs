@@ -76,7 +76,17 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
                     if (ruleName != null || helpUri != null)
                     {
-                        rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, null);
+                        rule = new Rule(
+                            ruleId,
+                            ruleName,
+                            shortDescription: null,
+                            fullDescription: null,
+                            messageFormats: null,
+                            configuration: RuleConfiguration.Unknown,
+                            defaultLevel: ResultLevel.Warning,
+                            helpUri: helpUri,
+                            help: null, // PREfast rules don't need a "help" property; they all have online documentation.
+                            properties: null);
                     }
                 }
             }

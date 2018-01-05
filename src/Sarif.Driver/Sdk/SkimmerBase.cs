@@ -16,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract public Uri HelpUri { get;  }
 
+        abstract public string Help { get; }
+
         private IDictionary<string, string> messageFormats;
 
         abstract protected ResourceManager ResourceManager { get; }
