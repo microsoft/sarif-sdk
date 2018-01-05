@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Sarif.Multitool</id>
+    <version>$version$</version>
+    <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
+    <authors>Microsoft Corporation</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
+    <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
+    <copyright>Copyright Microsoft 2015</copyright>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
+    <tags>SARIF command line static analysis</tags>
+  </metadata>
+  <files>
+	  <!-- NOTE: the exclude attribute must be on a single line -->
+    <file src="bld\bin\AnyCPU_$configuration$\**\*"
+          target="tools"
+          exclude="**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Castle.Core.dll;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
+
+    <!-- Restore the netstandard assemblies from the package cache -->
+    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.dll" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CommandLineParser.*\tools\netstandard1.5\CommandLine.dll" target="tools\netstandard2.0" />
+    <file src="src\packages\CsvHelper.*\tools\netstandard1.3\CsvHelper.dll" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CsvHelper.*\tools\netstandard1.3\CsvHelper.dll" target="tools\netstandard2.0" />
+    <file src="src\packages\newtonsoft.json\*\tools\netstandard1.3\Newtonsoft.Json.dll" target="tools\netcoreapp2.0" />
+    <file src="src\packages\newtonsoft.json\*\tools\netstandard1.3\Newtonsoft.Json.dll" target="tools\netstandard2.0" />
+
+    <file src="src\ReleaseHistory.md" />        
+    <file src="src\Sarif.Multitool\**\*.cs" target="src" />
+  </files>
+</package>
