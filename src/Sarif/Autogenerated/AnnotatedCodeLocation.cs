@@ -6,7 +6,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -32,14 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return SarifNodeKind.AnnotatedCodeLocation;
             }
         }
-
-        /// <summary>
-        /// OBSOLETE (use "step" instead): An identifier for the location, unique within the scope of the code flow within which it occurs.
-        /// </summary>
-        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter))]
-        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int Id { get; set; }
 
         /// <summary>
         /// The 0-based sequence number of the location in the code flow within which it occurs.
@@ -120,13 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string TargetKey { get; set; }
 
         /// <summary>
-        /// OBSOLETE (use "importance" instead): True if this location is essential to understanding the code flow in which it occurs.
-        /// </summary>
-        [DataMember(Name = "essential", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty("essential", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool Essential { get; set; }
-
-        /// <summary>
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
@@ -160,9 +144,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="AnnotatedCodeLocation" /> class from the supplied values.
         /// </summary>
-        /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
-        /// </param>
         /// <param name="step">
         /// An initialization value for the <see cref="P: Step" /> property.
         /// </param>
@@ -202,9 +183,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="targetKey">
         /// An initialization value for the <see cref="P: TargetKey" /> property.
         /// </param>
-        /// <param name="essential">
-        /// An initialization value for the <see cref="P: Essential" /> property.
-        /// </param>
         /// <param name="importance">
         /// An initialization value for the <see cref="P: Importance" /> property.
         /// </param>
@@ -217,9 +195,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taintKind, target, values, state, targetKey, essential, importance, snippet, annotations, properties);
+            Init(step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taintKind, target, values, state, targetKey, importance, snippet, annotations, properties);
         }
 
         /// <summary>
@@ -238,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.TaintKind, other.Target, other.Values, other.State, other.TargetKey, other.Essential, other.Importance, other.Snippet, other.Annotations, other.Properties);
+            Init(other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.TaintKind, other.Target, other.Values, other.State, other.TargetKey, other.Importance, other.Snippet, other.Annotations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -259,9 +237,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int id, int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, bool essential, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Id = id;
             Step = step;
             if (physicalLocation != null)
             {
@@ -289,7 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             State = state;
             TargetKey = targetKey;
-            Essential = essential;
             Importance = importance;
             Snippet = snippet;
             if (annotations != null)
