@@ -905,7 +905,7 @@
         },
 
         "help": {
-          "description": "Provides the primary documentation for the rule, useful when there is no on-line documentation.",
+          "description": "Provides the primary documentation for the rule, useful when there is no online documentation.",
           "type": "string"
         },
 

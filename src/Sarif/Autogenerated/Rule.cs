@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri HelpUri { get; set; }
 
         /// <summary>
-        /// Provides the primary documentation for the rule, useful when there is no on-line documentation.
+        /// Provides the primary documentation for the rule, useful when there is no online documentation.
         /// </summary>
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
         public string Help { get; set; }

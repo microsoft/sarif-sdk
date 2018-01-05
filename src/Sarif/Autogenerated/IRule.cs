@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Uri HelpUri { get; }
 
         /// <summary>
-        /// Provides the primary documentation for the rule, useful when there is no on-line documentation.
+        /// Provides the primary documentation for the rule, useful when there is no online documentation.
         /// </summary>
         string Help { get; }
     }
