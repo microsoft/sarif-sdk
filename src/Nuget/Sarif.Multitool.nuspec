@@ -20,12 +20,12 @@
           exclude="**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Castle.Core.dll;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
 
     <!-- Restore the netstandard assemblies from the package cache -->
-    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.dll" target="tools\netcoreapp2.0" />
-    <file src="src\packages\CommandLineParser.*\tools\netstandard1.5\CommandLine.dll" target="tools\netstandard2.0" />
-    <file src="src\packages\CsvHelper.*\tools\netstandard1.3\CsvHelper.dll" target="tools\netcoreapp2.0" />
-    <file src="src\packages\CsvHelper.*\tools\netstandard1.3\CsvHelper.dll" target="tools\netstandard2.0" />
-    <file src="src\packages\newtonsoft.json\*\tools\netstandard1.3\Newtonsoft.Json.dll" target="tools\netcoreapp2.0" />
-    <file src="src\packages\newtonsoft.json\*\tools\netstandard1.3\Newtonsoft.Json.dll" target="tools\netstandard2.0" />
+    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.*" target="tools\netstandard2.0" />
+    <file src="src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.*" target="tools\netstandard2.0" />
+    <file src="src\packages\newtonsoft.json.10.*\lib\netstandard1.3\Newtonsoft.Json.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\newtonsoft.json.10.*\lib\netstandard1.3\Newtonsoft.Json.*" target="tools\netstandard2.0" />
 
     <file src="src\ReleaseHistory.md" />        
     <file src="src\Sarif.Multitool\**\*.cs" target="src" />
