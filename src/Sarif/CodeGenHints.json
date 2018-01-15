@@ -320,7 +320,12 @@
       }
     }
   ],
-  "Rule.MessageFormats": [
+  "Rule.MessageTemplates": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Rule.RichMessageTemplates": [
     {
       "kind": "DictionaryHint"
     }

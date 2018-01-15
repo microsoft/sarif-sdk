@@ -63,6 +63,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RichMessage != right.RichMessage)
+            {
+                return false;
+            }
+
             if (left.Kind != right.Kind)
             {
                 return false;
@@ -200,6 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.GetHashCode();
+                }
+
+                if (obj.RichMessage != null)
+                {
+                    result = (result * 31) + obj.RichMessage.GetHashCode();
                 }
 
                 result = (result * 31) + obj.Kind.GetHashCode();

@@ -60,8 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFileData((FileData)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
-                case SarifNodeKind.FormattedRuleMessage:
-                    return VisitFormattedRuleMessage((FormattedRuleMessage)node);
                 case SarifNodeKind.Hash:
                     return VisitHash((Hash)node);
                 case SarifNodeKind.Invocation:
@@ -90,6 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitStack((Stack)node);
                 case SarifNodeKind.StackFrame:
                     return VisitStackFrame((StackFrame)node);
+                case SarifNodeKind.TemplatedMessage:
+                    return VisitTemplatedMessage((TemplatedMessage)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
                 default:
@@ -221,15 +221,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual FormattedRuleMessage VisitFormattedRuleMessage(FormattedRuleMessage node)
-        {
-            if (node != null)
-            {
-            }
-
-            return node;
-        }
-
         public virtual Hash VisitHash(Hash node)
         {
             if (node != null)
@@ -311,7 +302,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.FormattedRuleMessage = VisitNullChecked(node.FormattedRuleMessage);
+                node.TemplatedMessage = VisitNullChecked(node.TemplatedMessage);
                 if (node.Locations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
@@ -471,6 +462,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public virtual StackFrame VisitStackFrame(StackFrame node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
+        public virtual TemplatedMessage VisitTemplatedMessage(TemplatedMessage node)
         {
             if (node != null)
             {

@@ -48,22 +48,49 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.MessageFormats, right.MessageFormats))
+            if (left.RichDescription != right.RichDescription)
             {
-                if (left.MessageFormats == null || right.MessageFormats == null || left.MessageFormats.Count != right.MessageFormats.Count)
+                return false;
+            }
+
+            if (!object.ReferenceEquals(left.MessageTemplates, right.MessageTemplates))
+            {
+                if (left.MessageTemplates == null || right.MessageTemplates == null || left.MessageTemplates.Count != right.MessageTemplates.Count)
                 {
                     return false;
                 }
 
-                foreach (var value_0 in left.MessageFormats)
+                foreach (var value_0 in left.MessageTemplates)
                 {
                     string value_1;
-                    if (!right.MessageFormats.TryGetValue(value_0.Key, out value_1))
+                    if (!right.MessageTemplates.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
                     if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.RichMessageTemplates, right.RichMessageTemplates))
+            {
+                if (left.RichMessageTemplates == null || right.RichMessageTemplates == null || left.RichMessageTemplates.Count != right.RichMessageTemplates.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_2 in left.RichMessageTemplates)
+                {
+                    string value_3;
+                    if (!right.RichMessageTemplates.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
+
+                    if (value_2.Value != value_3)
                     {
                         return false;
                     }
@@ -97,15 +124,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_2 in left.Properties)
+                foreach (var value_4 in left.Properties)
                 {
-                    SerializedPropertyInfo value_3;
-                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
+                    SerializedPropertyInfo value_5;
+                    if (!right.Properties.TryGetValue(value_4.Key, out value_5))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_2.Value, value_3))
+                    if (!object.Equals(value_4.Value, value_5))
                     {
                         return false;
                     }
@@ -145,20 +172,41 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullDescription.GetHashCode();
                 }
 
-                if (obj.MessageFormats != null)
+                if (obj.RichDescription != null)
+                {
+                    result = (result * 31) + obj.RichDescription.GetHashCode();
+                }
+
+                if (obj.MessageTemplates != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_4 in obj.MessageFormats)
+                    foreach (var value_6 in obj.MessageTemplates)
                     {
-                        xor_0 ^= value_4.Key.GetHashCode();
-                        if (value_4.Value != null)
+                        xor_0 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_6.Value.GetHashCode();
                         }
                     }
 
                     result = (result * 31) + xor_0;
+                }
+
+                if (obj.RichMessageTemplates != null)
+                {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
+                    foreach (var value_7 in obj.RichMessageTemplates)
+                    {
+                        xor_1 ^= value_7.Key.GetHashCode();
+                        if (value_7.Value != null)
+                        {
+                            xor_1 ^= value_7.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_1;
                 }
 
                 result = (result * 31) + obj.Configuration.GetHashCode();
@@ -176,17 +224,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_1 = 0;
-                    foreach (var value_5 in obj.Properties)
+                    int xor_2 = 0;
+                    foreach (var value_8 in obj.Properties)
                     {
-                        xor_1 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
+                        xor_2 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_1 ^= value_5.Value.GetHashCode();
+                            xor_2 ^= value_8.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_1;
+                    result = (result * 31) + xor_2;
                 }
             }
 

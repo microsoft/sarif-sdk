@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public ResultLevel DefaultLevel {  get { return ResultLevel.Warning; } }
+        public ResultLevel DefaultLevel => ResultLevel.Warning;
 
         public string Name
         {
@@ -55,34 +55,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public string FullDescription
-        {
-            get { return "Test Rule Description"; }
-        }
+        public string FullDescription => "Test Rule Description";
 
-        public string ShortDescription
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string ShortDescription => throw new NotImplementedException();
 
-        public IDictionary<string, string> Options
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string RichDescription => throw new NotImplementedException();
 
-        public IDictionary<string, string> MessageFormats
+        public IDictionary<string, string> Options => throw new NotImplementedException();
+
+        public IDictionary<string, string> MessageTemplates
         {
             get
             {
                 return new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata) , SdkResources.NotApplicable_InvalidMetadata }};
             }
         }
+
+        public IDictionary<string, string> RichMessageTemplates => throw new NotImplementedException();
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties
         {

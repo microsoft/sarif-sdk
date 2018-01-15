@@ -131,7 +131,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 newRule.Name = rule.Name;
                 newRule.HelpUri = rule.HelpUri;
                 newRule.FullDescription = rule.FullDescription;
-                newRule.MessageFormats = rule.MessageFormats;
+                newRule.MessageTemplates = rule.MessageTemplates;
+                newRule.RichMessageTemplates = rule.RichMessageTemplates;
 
                 newRule.ShortDescription = rule.ShortDescription;
 

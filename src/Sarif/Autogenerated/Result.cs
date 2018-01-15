@@ -51,16 +51,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ResultLevel Level { get; set; }
 
         /// <summary>
-        /// A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.
+        /// A plain text message that describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
 
         /// <summary>
-        /// A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present
+        /// A rich text message that describes the result.
         /// </summary>
-        [DataMember(Name = "formattedRuleMessage", IsRequired = false, EmitDefaultValue = false)]
-        public FormattedRuleMessage FormattedRuleMessage { get; set; }
+        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
+        public string RichMessage { get; set; }
+
+        /// <summary>
+        /// A 'templatedMessage' object that can be used to construct a message that describes the result.
+        /// </summary>
+        [DataMember(Name = "templatedMessage", IsRequired = false, EmitDefaultValue = false)]
+        public TemplatedMessage TemplatedMessage { get; set; }
 
         /// <summary>
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
@@ -146,8 +152,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="formattedRuleMessage">
-        /// An initialization value for the <see cref="P: FormattedRuleMessage" /> property.
+        /// <param name="richMessage">
+        /// An initialization value for the <see cref="P: RichMessage" /> property.
+        /// </param>
+        /// <param name="templatedMessage">
+        /// An initialization value for the <see cref="P: TemplatedMessage" /> property.
         /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
@@ -182,9 +191,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, formattedRuleMessage, locations, snippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties);
+            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties);
         }
 
         /// <summary>
@@ -203,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.FormattedRuleMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -224,15 +233,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, FormattedRuleMessage formattedRuleMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
             Level = level;
             Message = message;
-            if (formattedRuleMessage != null)
+            RichMessage = richMessage;
+            if (templatedMessage != null)
             {
-                FormattedRuleMessage = new FormattedRuleMessage(formattedRuleMessage);
+                TemplatedMessage = new TemplatedMessage(templatedMessage);
             }
 
             if (locations != null)

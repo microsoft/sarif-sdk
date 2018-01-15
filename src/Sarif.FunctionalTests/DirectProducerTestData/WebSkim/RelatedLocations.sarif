@@ -19,8 +19,8 @@
         {
           "ruleKey": "JS2085.EnableStrictMode",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default",
+          "templatedMessage": {
+            "templateId": "Default",
             "arguments": [
               "Strict mode was not set for at least one function in this file. Consider resolving using this violation by using the JavaScript module pattern to wrap all code contained in the file within a function expression. Enable strict mode as the first statement of the containing function. To disable enforcement of the module pattern and permit setting strict mode at global file level, pass /setting:JS2085.EnableStrictMode.EnforceModulePattern=false on the command-line."
             ]
@@ -45,8 +45,8 @@
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default",
+          "templatedMessage": {
+            "templateId": "Default",
             "arguments": [
               "repeated",
               ""
@@ -81,8 +81,8 @@
         {
           "ruleKey": "JS1003.SemanticAnalysisHalted",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default"
+          "templatedMessage": {
+            "templateId": "Default"
           },
           "locations": [
             {
@@ -106,7 +106,7 @@
           "id": "JS2085",
           "name": "EnableStrictMode",
           "shortDescription": "Always enable strict mode when possible.",
-          "messageFormats": {
+          "messageTemplates": {
             "Default": "Code should run in strict mode wherever possible. {0}"
           },
           "properties": {
@@ -117,7 +117,7 @@
           "id": "JS3085",
           "name": "VariableDeclaredMultipleTimes",
           "shortDescription": "Do not declare multiple variables with an identical name in the same scope.",
-          "messageFormats": {
+          "messageTemplates": {
             "Default": "Variable '{0}' was previously defined in this scope. {1}"
           },
           "properties": {
@@ -128,7 +128,7 @@
           "id": "JS1003",
           "name": "SemanticAnalysisHalted",
           "shortDescription": "Semantic analysis halted unexpectedly due to errors processing target or reference files.",
-          "messageFormats": {
+          "messageTemplates": {
             "Default": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
           },
           "properties": {

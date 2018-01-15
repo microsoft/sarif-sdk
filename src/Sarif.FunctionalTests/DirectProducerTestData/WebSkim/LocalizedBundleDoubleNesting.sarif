@@ -19,8 +19,8 @@
         {
           "ruleKey": "M1001.AvoidDangerousCapabilities",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default",
+          "templatedMessage": {
+            "templateId": "Default",
             "arguments": [
               "privateNetworkClientServer"
             ]
@@ -57,7 +57,7 @@
           "id": "M1001",
           "name": "AvoidDangerousCapabilities",
           "shortDescription": "Avoid use of dangerous application capabilities.",
-          "messageFormats": {
+          "messageTemplates": {
             "Default": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
           "properties": {

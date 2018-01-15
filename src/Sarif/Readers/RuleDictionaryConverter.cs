@@ -51,7 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     FullDescription = iRule.FullDescription,
                     HelpUri = iRule.HelpUri,
                     Id = iRule.Id,
-                    MessageFormats = iRule.MessageFormats,
+                    MessageTemplates = iRule.MessageTemplates,
+                    RichMessageTemplates = iRule.RichMessageTemplates,
                     Name = iRule.Name,
                     ShortDescription = iRule.ShortDescription,
                 };

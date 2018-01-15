@@ -67,7 +67,12 @@
         },
 
         "message": {
-          "description": "A message relevant to this annotation.",
+          "description": "A plain text message relevant to this annotation.",
+          "type": "string"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to this annotation.",
           "type": "string"
         },
 
@@ -89,7 +94,7 @@
         "values": {
           "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
           "type": "array",
-          "default": [ ],
+          "default": [],
           "items": {
             "type": "string"
           }
@@ -135,7 +140,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -150,12 +155,17 @@
       "properties": {
 
         "message": {
-          "description": "A message relevant to a code location",
+          "description": "A plain text message relevant to the set of locations specified by this annotation.",
+          "type": "string"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to the set of locations specified by this annotation.",
           "type": "string"
         },
 
         "locations": {
-          "description": "An array of 'physicalLocation' objects associated with the annotation.",
+          "description": "An array of 'physicalLocation' objects associated with this annotation.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -171,7 +181,12 @@
       "properties": {
 
         "message": {
-          "description": "A message relevant to the code flow",
+          "description": "A plain text message relevant to the code flow.",
+          "type": "string"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to the code flow.",
           "type": "string"
         },
 
@@ -194,7 +209,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -215,7 +230,7 @@
 
         "message": {
           "type": "string",
-          "description": "A string that describes the exception."
+          "description": "A plain text message that describes the exception."
         },
 
         "stack": {
@@ -347,7 +362,12 @@
       "properties": {
 
         "description": {
-          "description": "A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.",
+          "description": "A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
+          "type": "string"
+        },
+
+        "richDescription": {
+          "description": "A rich text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
           "type": "string"
         },
 
@@ -361,26 +381,26 @@
       },
       "required": [ "fileChanges" ]
     },
-    "formattedRuleMessage": {
-      "description": "Contains information that can be used to construct a formatted message that describes a result.",
+    "templatedMessage": {
+      "description": "Contains information that can be used to construct a message that describes a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "formatId": {
-          "description": "A string that identifies the message format used to format the message that describes this result. The value of formatId must correspond to one of the names in the set of name/value pairs contained in the 'messageFormats' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
+        "templateId": {
+          "description": "A string that identifies the message template used to construct the message that describes this result. The value of templateId must correspond to one of the names in the set of name/value pairs contained in the 'messageTemplates' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
           "type": "string"
         },
 
         "arguments": {
-          "description": "An array of strings that will be used, in combination with a message format, to construct a result message.",
+          "description": "An array of strings that will be used, in combination with a message template, to construct a result message.",
           "type": "array",
           "items": {
             "type": "string"
           }
         }
       },
-      "required": [ "formatId" ]
+      "required": [ "templateId" ]
     },
     "hash": {
       "description": "A hash value of some file or collection of files, together with the algorithm used to compute the hash.",
@@ -579,7 +599,7 @@
         },
 
         "message": {
-          "description": "A string that describes the condition that was encountered.",
+          "description": "A plain text message that describes the condition that was encountered.",
           "type": "string"
         },
 
@@ -743,13 +763,18 @@
         },
 
         "message": {
-          "description": "A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
+          "description": "A plain text message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
           "type": "string"
         },
 
-        "formattedRuleMessage": {
-          "description": "A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
-          "$ref": "#/definitions/formattedRuleMessage"
+        "richMessage": {
+          "description": "A rich text message that describes the result.",
+          "type": "string"
+        },
+
+        "templatedMessage": {
+          "description": "A 'templatedMessage' object that can be used to construct a message that describes the result.",
+          "$ref": "#/definitions/templatedMessage"
         },
 
         "locations": {
@@ -812,7 +837,8 @@
           "items": {
             "description": "A flag value indicating one or more suppression conditions.",
             "enum": [
-              "suppressedInSource", "suppressedExternally"
+              "suppressedInSource",
+              "suppressedExternally"
             ]
           }
         },
@@ -846,7 +872,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -877,12 +903,22 @@
         },
 
         "fullDescription": {
-          "description": "A string that describes the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "description": "A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
           "type": "string"
         },
 
-        "messageFormats": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.",
+        "richDescription": {
+          "description": "A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "type": "string"
+        },
+
+        "messageTemplates": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+          "type": "object"
+        },
+
+        "richMessageTemplates": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
           "type": "object"
         },
 
@@ -890,7 +926,7 @@
           "description": "A value specifying whether a rule is enabled.",
           "default": "unknown",
           "enum": [ "unknown", "enabled", "disabled" ]
-        }, 
+        },
 
         "defaultLevel": {
           "description": "A value specifying the default severity level of the result.",
@@ -919,7 +955,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1014,10 +1050,16 @@
           "description": "The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string"
         },
-        
+
         "architecture": {
           "description": "The hardware architecture for which the run was targeted.",
           "type": "string"
+        },
+
+        "richMessageMimeType": {
+          "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
+          "type": "string",
+          "default": "text/markdown;variant=GFM"
         },
 
         "properties": {
@@ -1047,7 +1089,12 @@
       "properties": {
 
         "message": {
-          "description": "A message relevant to this call stack.",
+          "description": "A plain text message relevant to this call stack.",
+          "type": "string"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to this call stack.",
           "type": "string"
         },
 
@@ -1070,7 +1117,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1087,7 +1134,12 @@
       "properties": {
 
         "message": {
-          "description": "A message relevant to this stack frame.",
+          "description": "A plain text message relevant to this stack frame.",
+          "type": "string"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to this stack frame.",
           "type": "string"
         },
 
@@ -1147,7 +1199,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "default": [ ]
+            "default": []
           }
         },
 
@@ -1161,7 +1213,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }

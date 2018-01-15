@@ -32,10 +32,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.
+        /// A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// A rich text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
+        /// </summary>
+        [DataMember(Name = "richDescription", IsRequired = false, EmitDefaultValue = false)]
+        public string RichDescription { get; set; }
 
         /// <summary>
         /// One or more file changes that comprise a fix for a result.
@@ -56,12 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="description">
         /// An initialization value for the <see cref="P: Description" /> property.
         /// </param>
+        /// <param name="richDescription">
+        /// An initialization value for the <see cref="P: RichDescription" /> property.
+        /// </param>
         /// <param name="fileChanges">
         /// An initialization value for the <see cref="P: FileChanges" /> property.
         /// </param>
-        public Fix(string description, IEnumerable<FileChange> fileChanges)
+        public Fix(string description, string richDescription, IEnumerable<FileChange> fileChanges)
         {
-            Init(description, fileChanges);
+            Init(description, richDescription, fileChanges);
         }
 
         /// <summary>
@@ -80,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.FileChanges);
+            Init(other.Description, other.RichDescription, other.FileChanges);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,9 +110,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(string description, IEnumerable<FileChange> fileChanges)
+        private void Init(string description, string richDescription, IEnumerable<FileChange> fileChanges)
         {
             Description = description;
+            RichDescription = richDescription;
             if (fileChanges != null)
             {
                 var destination_0 = new List<FileChange>();

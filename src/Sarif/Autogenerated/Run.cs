@@ -111,6 +111,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Architecture { get; set; }
 
         /// <summary>
+        /// The MIME type of all rich text message properties in the run. Default: "text/markdown;variant=GFM"
+        /// </summary>
+        [DataMember(Name = "richMessageMimeType", IsRequired = false, EmitDefaultValue = false)]
+        public string RichMessageMimeType { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -165,12 +171,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="architecture">
         /// An initialization value for the <see cref="P: Architecture" /> property.
         /// </param>
+        /// <param name="richMessageMimeType">
+        /// An initialization value for the <see cref="P: RichMessageMimeType" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, properties);
+            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
         }
 
         /// <summary>
@@ -189,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.Properties);
+            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -210,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -308,6 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             AutomationId = automationId;
             BaselineId = baselineId;
             Architecture = architecture;
+            RichMessageMimeType = richMessageMimeType;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
