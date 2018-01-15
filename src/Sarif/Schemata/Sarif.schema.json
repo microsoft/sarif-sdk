@@ -1050,10 +1050,16 @@
           "description": "The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string"
         },
-        
+
         "architecture": {
           "description": "The hardware architecture for which the run was targeted.",
           "type": "string"
+        },
+
+        "richMessageMimeType": {
+          "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
+          "type": "string",
+          "default": "text/markdown;variant=GFM"
         },
 
         "properties": {
