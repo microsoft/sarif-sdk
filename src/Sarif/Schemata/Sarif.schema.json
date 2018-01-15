@@ -230,7 +230,7 @@
 
         "message": {
           "type": "string",
-          "description": "A string that describes the exception."
+          "description": "A plain text message that describes the exception."
         },
 
         "stack": {
@@ -599,7 +599,7 @@
         },
 
         "message": {
-          "description": "A string that describes the condition that was encountered.",
+          "description": "A plain text message that describes the condition that was encountered.",
           "type": "string"
         },
 

@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Kind { get; set; }
 
         /// <summary>
-        /// A string that describes the exception.
+        /// A plain text message that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }

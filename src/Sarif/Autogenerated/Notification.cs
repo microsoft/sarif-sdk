@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// A string that describes the condition that was encountered.
+        /// A plain text message that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
         public string Message { get; set; }
