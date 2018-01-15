@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
         public void BuildResult_BuildsExpectedResult()
         {
             // Arrange
-            const string FormatId = "Default";
+            const string TemplateId = "Default";
             const string RuleId = "TST0001";
             string[] Arguments = new string[] { "42", "54" };
 
@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
                 Rule = new Rule
                 {
                     Id = RuleId,
-                    MessageFormats = new Dictionary<string, string>
+                    MessageTemplates = new Dictionary<string, string>
                     {
-                        [FormatId] = "Expected {0} but got {1}."
+                        [TemplateId] = "Expected {0} but got {1}."
                     }
                 }
             };
@@ -45,17 +45,17 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
                 ResultLevel.Error,
                 context,
                 region,
-                FormatId,
+                TemplateId,
                 Arguments);
 
             // Assert.
             result.RuleId.Should().Be(RuleId);
 
-            result.FormattedRuleMessage.FormatId.Should().Be(FormatId);
+            result.TemplatedMessage.TemplateId.Should().Be(TemplateId);
 
-            result.FormattedRuleMessage.Arguments.Count.Should().Be(Arguments.Length);
-            result.FormattedRuleMessage.Arguments[0].Should().Be(Arguments[0]);
-            result.FormattedRuleMessage.Arguments[1].Should().Be(Arguments[1]);
+            result.TemplatedMessage.Arguments.Count.Should().Be(Arguments.Length);
+            result.TemplatedMessage.Arguments[0].Should().Be(Arguments[0]);
+            result.TemplatedMessage.Arguments[1].Should().Be(Arguments[1]);
 
             result.Locations.Count.Should().Be(1);
             result.Locations[0].AnalysisTarget.Region.ValueEquals(region).Should().BeTrue();
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Driver.Sdk
                 ResultLevel.Warning,
                 context,
                 region,
-                FormatId,
+                TemplateId,
                 Arguments);
 
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.OneOrMoreWarningsFired);

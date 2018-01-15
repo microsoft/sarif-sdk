@@ -33,10 +33,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A message relevant to this stack frame.
+        /// A plain text message relevant to this stack frame.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
+
+        /// <summary>
+        /// A rich text message relevant to this stack frame.
+        /// </summary>
+        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
+        public string RichMessage { get; set; }
 
         /// <summary>
         /// The uri of the source code file to which this stack frame refers.
@@ -123,6 +129,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
+        /// <param name="richMessage">
+        /// An initialization value for the <see cref="P: RichMessage" /> property.
+        /// </param>
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
@@ -159,9 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(string message, string richMessage, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, uri, uriBaseId, line, column, module, threadId, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
+            Init(message, richMessage, uri, uriBaseId, line, column, module, threadId, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -180,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Message, other.RichMessage, other.Uri, other.UriBaseId, other.Line, other.Column, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -201,9 +210,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string message, string richMessage, Uri uri, string uriBaseId, int line, int column, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
+            RichMessage = richMessage;
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);

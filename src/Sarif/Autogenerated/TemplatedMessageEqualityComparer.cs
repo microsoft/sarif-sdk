@@ -8,14 +8,14 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FormattedRuleMessage for equality.
+    /// Defines methods to support the comparison of objects of type TemplatedMessage for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    internal sealed class FormattedRuleMessageEqualityComparer : IEqualityComparer<FormattedRuleMessage>
+    internal sealed class TemplatedMessageEqualityComparer : IEqualityComparer<TemplatedMessage>
     {
-        internal static readonly FormattedRuleMessageEqualityComparer Instance = new FormattedRuleMessageEqualityComparer();
+        internal static readonly TemplatedMessageEqualityComparer Instance = new TemplatedMessageEqualityComparer();
 
-        public bool Equals(FormattedRuleMessage left, FormattedRuleMessage right)
+        public bool Equals(TemplatedMessage left, TemplatedMessage right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.FormatId != right.FormatId)
+            if (left.TemplateId != right.TemplateId)
             {
                 return false;
             }
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FormattedRuleMessage obj)
+        public int GetHashCode(TemplatedMessage obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -66,9 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.FormatId != null)
+                if (obj.TemplateId != null)
                 {
-                    result = (result * 31) + obj.FormatId.GetHashCode();
+                    result = (result * 31) + obj.TemplateId.GetHashCode();
                 }
 
                 if (obj.Arguments != null)

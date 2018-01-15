@@ -79,8 +79,8 @@
       "results": [
         {
           "ruleId": "C2001",
-          "formattedRuleMessage": {
-            "formatId": "default",
+          "templatedMessage": {
+            "templateId": "default",
             "arguments": [
               "ptr"
             ]
@@ -298,7 +298,7 @@
           "id": "C2001",
           "shortDescription": "A variable was used without being initialized.",
           "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.",
-          "messageFormats": {
+          "messageTemplates": {
             "default": "Variable \"{0}\" was used without being initialized."
           }
         }

@@ -30,14 +30,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         string ShortDescription { get; }
 
         /// <summary>
-        /// A string that describes the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
+        /// A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         string FullDescription { get; }
 
         /// <summary>
-        /// A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.
+        /// A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
-        IDictionary<string, string> MessageFormats { get; }
+        string RichDescription { get; }
+
+        /// <summary>
+        /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
+        /// </summary>
+        IDictionary<string, string> MessageTemplates { get; }
+
+        /// <summary>
+        /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
+        /// </summary>
+        IDictionary<string, string> RichMessageTemplates { get; }
 
         /// <summary>
         /// A value specifying whether a rule is enabled.

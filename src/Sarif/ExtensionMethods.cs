@@ -209,26 +209,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 text = string.Empty;    // Ensure that it's not null.
 
-                if (rule != null && result.FormattedRuleMessage != null)
+                if (rule != null && result.TemplatedMessage != null)
                 {
-                    string formatId = result.FormattedRuleMessage.FormatId;
-                    string messageFormat;
+                    string templateId = result.TemplatedMessage.TemplateId;
+                    string messageTemplate;
 
                     string[] arguments = null;
 
-                    if (result.FormattedRuleMessage.Arguments != null)
+                    if (result.TemplatedMessage.Arguments != null)
                     {
-                        arguments = new string[result.FormattedRuleMessage.Arguments.Count];
-                        result.FormattedRuleMessage.Arguments.CopyTo(arguments, 0);
+                        arguments = new string[result.TemplatedMessage.Arguments.Count];
+                        result.TemplatedMessage.Arguments.CopyTo(arguments, 0);
                     }
                     else
                     {
                         arguments = new string[0];
                     }
 
-                    if (rule.MessageFormats?.ContainsKey(formatId) == true)
+                    if (rule.MessageTemplates?.ContainsKey(templateId) == true)
                     {
-                        messageFormat = rule.MessageFormats[formatId];
+                        messageTemplate = rule.MessageTemplates[templateId];
 
 #if DEBUG
                         int argumentsCount = arguments.Length;
@@ -236,11 +236,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             // If this assert fires, there are too many arguments for the specifier
                             // or there is an argument is skipped or not consumed in the specifier
-                            Debug.Assert(messageFormat.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
+                            Debug.Assert(messageTemplate.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
                         }
 #endif
 
-                        text = string.Format(CultureInfo.InvariantCulture, messageFormat, arguments);
+                        text = string.Format(CultureInfo.InvariantCulture, messageTemplate, arguments);
 
 #if DEBUG
                         // If this assert fires, an insufficient # of arguments might

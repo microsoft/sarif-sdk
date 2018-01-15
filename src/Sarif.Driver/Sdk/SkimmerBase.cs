@@ -18,36 +18,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract public string Help { get; }
 
-        private IDictionary<string, string> messageFormats;
+        private IDictionary<string, string> messageTemplates;
+        private IDictionary<string, string> richMessageTemplates;
 
         abstract protected ResourceManager ResourceManager { get; }
 
-        abstract protected IEnumerable<string> FormatIds { get; }
+        abstract protected IEnumerable<string> TemplateIds { get; }
 
         virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
 
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        virtual public IDictionary<string, string> MessageFormats
+        virtual public IDictionary<string, string> MessageTemplates
         {
             get
             {
-                if (this.messageFormats == null)
+                if (this.messageTemplates == null)
                 {
-                    this.messageFormats = InitializeMessageFormats();
+                    this.messageTemplates = InitializeMessageTemplates();
                 }
-                return this.messageFormats;
+                return this.messageTemplates;
             }
         }
 
-        private Dictionary<string, string> InitializeMessageFormats()
+        virtual public IDictionary<string, string> RichMessageTemplates
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, FormatIds, Id);
+            get
+            {
+                if (this.richMessageTemplates == null)
+                {
+                    this.richMessageTemplates = InitializeRichMessageTemplates();
+                }
+                return this.richMessageTemplates;
+            }
+        }
+
+        private Dictionary<string, string> InitializeMessageTemplates()
+        {
+            return RuleUtilities.BuildDictionary(ResourceManager, TemplateIds, Id);
+        }
+
+        private Dictionary<string, string> InitializeRichMessageTemplates()
+        {
+            return new Dictionary<string, string>();
         }
 
         abstract public string Id { get; }
 
         abstract public string FullDescription { get; }
+
+        abstract public string RichDescription { get; }
 
         public virtual string ShortDescription
         {

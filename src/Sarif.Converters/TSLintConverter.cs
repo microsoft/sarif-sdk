@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 FileChange sarifFileChange = new FileChange(uri: analysisTargetUri, uriBaseId: null, replacements: replacements);
 
-                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange });
+                Fix sarifFix = new Fix(description: null, richDescription: null, fileChanges: new List<FileChange>() { sarifFileChange });
                 result.Fixes = new List<Fix> { sarifFix };
             } 
 

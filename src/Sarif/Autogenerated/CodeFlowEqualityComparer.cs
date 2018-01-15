@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RichMessage != right.RichMessage)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Locations, right.Locations))
             {
                 if (left.Locations == null || right.Locations == null)
@@ -92,6 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.GetHashCode();
+                }
+
+                if (obj.RichMessage != null)
+                {
+                    result = (result * 31) + obj.RichMessage.GetHashCode();
                 }
 
                 if (obj.Locations != null)

@@ -81,7 +81,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
             };
 
             var run = new Run
@@ -97,12 +97,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageFormats_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageTemplates_ContainsBlankMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
             };
 
             var run = new Run
@@ -125,12 +125,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageFormat_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageTemplate_ContainsBlankMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
             };
 
             var run = new Run
@@ -142,9 +142,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         new Rule
                         {
                             Id = "TST0001",
-                            MessageFormats = new Dictionary<string, string>
+                            MessageTemplates = new Dictionary<string, string>
                             {
-                                { "realFormatId", "The message" }
+                                { "realTemplateId", "The message" }
                             }
                         }
                     }
@@ -157,12 +157,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToExistingMessageFormat_ContainsExpectedMessage()
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageTemplate_ContainsExpectedMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("greeting", new[] { "Mary" })
+                TemplatedMessage = new TemplatedMessage("greeting", new[] { "Mary" })
             };
 
             var run = new Run
@@ -174,7 +174,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         new Rule
                         {
                             Id = "TST0001",
-                            MessageFormats = new Dictionary<string, string>
+                            MessageTemplates = new Dictionary<string, string>
                             {
                                 { "greeting", "Hello, {0}!" }
                             }
@@ -266,10 +266,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenMessageAndFormattedRuleMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenMessageAndTemplatedMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
         {
             // This test prevents regression of #647,
-            // "Viewer NRE when result lacks message/formattedRuleMessage but rule metadata is present"
+            // "Viewer NRE when result lacks message/templatedMessage but rule metadata is present"
             var result = new Result
             {
                 RuleId = "TST0001"

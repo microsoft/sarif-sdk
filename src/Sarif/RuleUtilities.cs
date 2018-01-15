@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string templateId, params string[] arguments)
         {
             if (context == null)
             {
@@ -21,15 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
+            templateId = RuleUtilities.NormalizeTemplateId(context.Rule.Id, templateId);
 
             Result result = new Result
             {
                 RuleId = context.Rule.Id,
 
-                FormattedRuleMessage = new FormattedRuleMessage()
+                TemplatedMessage = new TemplatedMessage
                 {
-                    FormatId = formatId,
+                    TemplateId = templateId,
                     Arguments = arguments
                 },
 
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeFormatId(ruleId, resourceName);
+                string normalizedResourceName = NormalizeTemplateId(ruleId, resourceName);
 
                 // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
@@ -94,18 +94,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static string NormalizeFormatId(string ruleId, string formatId)
+        public static string NormalizeTemplateId(string ruleId, string templateId)
         {
-            if (formatId == null)
+            if (templateId == null)
             {
-                throw new ArgumentNullException(nameof(formatId));
+                throw new ArgumentNullException(nameof(templateId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(ruleId) && templateId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
-                formatId = formatId.Substring(ruleId.Length + 1);
+                templateId = templateId.Substring(ruleId.Length + 1);
             }
-            return formatId;
+            return templateId;
         }
     }
 }

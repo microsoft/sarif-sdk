@@ -32,6 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RichDescription != right.RichDescription)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.FileChanges, right.FileChanges))
             {
                 if (left.FileChanges == null || right.FileChanges == null)
@@ -69,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Description != null)
                 {
                     result = (result * 31) + obj.Description.GetHashCode();
+                }
+
+                if (obj.RichDescription != null)
+                {
+                    result = (result * 31) + obj.RichDescription.GetHashCode();
                 }
 
                 if (obj.FileChanges != null)

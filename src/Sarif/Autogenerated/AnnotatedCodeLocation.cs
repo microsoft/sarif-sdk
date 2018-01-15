@@ -69,10 +69,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ThreadId { get; set; }
 
         /// <summary>
-        /// A message relevant to this annotation.
+        /// A plain text message relevant to this annotation.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public string Message { get; set; }
+
+        /// <summary>
+        /// A rich text message relevant to this annotation.
+        /// </summary>
+        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
+        public string RichMessage { get; set; }
 
         /// <summary>
         /// Categorizes the location.
@@ -165,6 +171,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
+        /// <param name="richMessage">
+        /// An initialization value for the <see cref="P: RichMessage" /> property.
+        /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
@@ -195,9 +204,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocation(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocation(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, string richMessage, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taintKind, target, values, state, targetKey, importance, snippet, annotations, properties);
+            Init(step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, richMessage, kind, taintKind, target, values, state, targetKey, importance, snippet, annotations, properties);
         }
 
         /// <summary>
@@ -216,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.Kind, other.TaintKind, other.Target, other.Values, other.State, other.TargetKey, other.Importance, other.Snippet, other.Annotations, other.Properties);
+            Init(other.Step, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Module, other.ThreadId, other.Message, other.RichMessage, other.Kind, other.TaintKind, other.Target, other.Values, other.State, other.TargetKey, other.Importance, other.Snippet, other.Annotations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -237,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new AnnotatedCodeLocation(this);
         }
 
-        private void Init(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int step, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, string richMessage, AnnotatedCodeLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, AnnotatedCodeLocationImportance importance, string snippet, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Step = step;
             if (physicalLocation != null)
@@ -250,6 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Module = module;
             ThreadId = threadId;
             Message = message;
+            RichMessage = richMessage;
             Kind = kind;
             TaintKind = taintKind;
             Target = target;
