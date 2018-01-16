@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
-            var physicalLocation = new PhysicalLocation(uri: resultsFileUri, uriBaseId: null, region: region);
+            var physicalLocation = new PhysicalLocation(id: 0, uri: resultsFileUri, uriBaseId: null, region: region);
             var location = new Location()
             {
                 ResultFile = physicalLocation,
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
 
                 var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
-                var fileLocation = new PhysicalLocation(uri: uri, uriBaseId: null, region: region);
+                var fileLocation = new PhysicalLocation(id: 0, uri: uri, uriBaseId: null, region: region);
                 var annotatedCodeLocation = new AnnotatedCodeLocation
                 {
                     PhysicalLocation = fileLocation,

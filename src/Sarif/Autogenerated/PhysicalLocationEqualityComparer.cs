@@ -27,6 +27,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Id != right.Id)
+            {
+                return false;
+            }
+
             if (left.Uri != right.Uri)
             {
                 return false;
@@ -55,6 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                result = (result * 31) + obj.Id.GetHashCode();
                 if (obj.Uri != null)
                 {
                     result = (result * 31) + obj.Uri.GetHashCode();

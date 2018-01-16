@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     new StackFrame
                                     {
-                                        Uri = new Uri(@"file:///file4.cpp")
+                                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file4.cpp") }
                                     }
                                 }
                             }

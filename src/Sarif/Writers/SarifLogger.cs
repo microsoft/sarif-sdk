@@ -4,13 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using Microsoft.CodeAnalysis.Sarif.Readers;
-
 using Newtonsoft.Json;
-using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -300,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Uri);
+                        CaptureFile(frame.PhysicalLocation?.Uri);
                     }
                 }
             }

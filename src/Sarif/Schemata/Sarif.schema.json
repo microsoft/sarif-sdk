@@ -651,6 +651,11 @@
       "type": "object",
       "properties": {
 
+        "id": {
+          "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
+          "type": "integer"
+        },
+
         "uri": {
           "description": "The location of the file as a valid URI.",
           "type": "string",
@@ -1143,25 +1148,9 @@
           "type": "string"
         },
 
-        "uri": {
-          "description": "The uri of the source code file to which this stack frame refers.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "uriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
-          "type": "string"
-        },
-
-        "line": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
-        },
-
-        "column": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
+        "physicalLocation": {
+          "description": "The physical location to which this stack frame refers.",
+          "$ref": "#/definitions/physicalLocation"
         },
 
         "module": {
@@ -1268,7 +1257,8 @@
 
         "language": {
           "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-          "type": "string"
+          "type": "string",
+          "default": "en-US"
         },
 
         "properties": {

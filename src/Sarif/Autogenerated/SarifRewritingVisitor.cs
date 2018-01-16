@@ -465,6 +465,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
             }
 
             return node;

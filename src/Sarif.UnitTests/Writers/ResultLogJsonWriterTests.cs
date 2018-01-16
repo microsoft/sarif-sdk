@@ -263,14 +263,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     {
                                         Module = "a.dll",
                                         FullyQualifiedLogicalName = "N1.N2.C.M1",
-                                        Line = 10
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            Region = new Region
+                                            {
+                                                StartLine = 10
+                                            }
+                                        }
                                     },
 
                                     new StackFrame
                                     {
                                         Module = "a.dll",
                                         FullyQualifiedLogicalName = "N1.N2.C.M2",
-                                        Line = 6
+                                        PhysicalLocation = new PhysicalLocation
+                                        {
+                                            Region = new Region
+                                            {
+                                                StartLine = 6
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -304,12 +316,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 ""stack"": {
                   ""frames"": [
                     {
-                      ""line"": 10,
+                      ""physicalLocation"": {
+                        ""region"": {
+                          ""startLine"": 10
+                        }
+                      },
                       ""module"": ""a.dll"",
                       ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
                     },
                     {
-                      ""line"": 6,
+                      ""physicalLocation"": {
+                        ""region"": {
+                          ""startLine"": 6
+                        }
+                      },
                       ""module"": ""a.dll"",
                       ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
                     }

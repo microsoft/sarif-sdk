@@ -40,9 +40,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fileName != null)
             {
-                stackFrame.Uri = new Uri(fileName);
-                stackFrame.Line = dotNetStackFrame.GetFileLineNumber();
-                stackFrame.Column = dotNetStackFrame.GetFileColumnNumber();
+                stackFrame.PhysicalLocation = new PhysicalLocation
+                {
+                    Uri = new Uri(fileName),
+                    Region = new Region
+                    {
+                        StartLine = dotNetStackFrame.GetFileLineNumber(),
+                        StartColumn = dotNetStackFrame.GetFileColumnNumber()
+                    }
+                };
             }
 
             if (ilOffset != -1)
@@ -62,12 +68,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string result = AT + this.FullyQualifiedLogicalName;
 
-            if (this.Uri != null)
+            if (this.PhysicalLocation?.Uri != null)
             {
-                string lineNumber = this.Line.ToString(CultureInfo.InvariantCulture);
-                string fileName = this.Uri.LocalPath;
+                string fileName = this.PhysicalLocation.Uri.LocalPath;
+                result += IN + fileName;
 
-                result += IN + fileName + LINE + " " + lineNumber;
+                if (this.PhysicalLocation?.Region != null)
+                {
+                    string lineNumber = this.PhysicalLocation.Region.StartLine.ToString(CultureInfo.InvariantCulture);
+                    result += LINE + " " + lineNumber;
+                }
             }
 
             return result;

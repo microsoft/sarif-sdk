@@ -32,6 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// Value that distinguishes this physical location from all other physical locations in this run object.
+        /// </summary>
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public int Id { get; set; }
+
+        /// <summary>
         /// The location of the file as a valid URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
@@ -59,6 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalLocation" /> class from the supplied values.
         /// </summary>
+        /// <param name="id">
+        /// An initialization value for the <see cref="P: Id" /> property.
+        /// </param>
         /// <param name="uri">
         /// An initialization value for the <see cref="P: Uri" /> property.
         /// </param>
@@ -68,9 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="region">
         /// An initialization value for the <see cref="P: Region" /> property.
         /// </param>
-        public PhysicalLocation(Uri uri, string uriBaseId, Region region)
+        public PhysicalLocation(int id, Uri uri, string uriBaseId, Region region)
         {
-            Init(uri, uriBaseId, region);
+            Init(id, uri, uriBaseId, region);
         }
 
         /// <summary>
@@ -89,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.UriBaseId, other.Region);
+            Init(other.Id, other.Uri, other.UriBaseId, other.Region);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -110,8 +119,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, Region region)
+        private void Init(int id, Uri uri, string uriBaseId, Region region)
         {
+            Id = id;
             if (uri != null)
             {
                 Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
