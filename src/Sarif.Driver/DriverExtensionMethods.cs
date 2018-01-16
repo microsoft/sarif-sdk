@@ -13,7 +13,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             LoggingOptions loggingOptions = LoggingOptions.None;
 
             if (analyzeOptions.Verbose) { loggingOptions |= LoggingOptions.Verbose; }
-            if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
             if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
             if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
             if (analyzeOptions.PersistFileContents) { loggingOptions |= LoggingOptions.PersistFileContents; }

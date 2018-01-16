@@ -34,12 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool Verbose { get; set; }
 
         [Option(
-            'p',
-            "pretty",
-            HelpText = "Emit indented output. The resulting output will be multi-line, human-readable JSON.")]
-        public bool PrettyPrint { get; set; }
-
-        [Option(
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
