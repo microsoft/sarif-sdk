@@ -183,9 +183,13 @@
               "frames": [
                 {
                   "message": "Exception thrown.",
-                  "uri": "file:///home/buildAgent/src/collections/list.h",
-                  "line": 110,
-                  "column": 15,
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 110,
+                      "startColumn":  15
+                    }
+                  },
                   "module": "platform",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add_core",
@@ -194,9 +198,13 @@
                   "parameters": [ "null", "0", "14" ]
                 },
                 {
-                  "uri": "file:///home/buildAgent/src/collections/list.h",
-                  "line": 43,
-                  "column": 15,
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 15
+                    }
+                  },
                   "module": "platform",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "collections::list:add",
@@ -205,9 +213,13 @@
                   "parameters": [ "14" ]
                 },
                 {
-                  "uri": "file:///home/buildAgent/src/application/main.cpp",
-                  "line": 28,
-                  "column": 9,
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/application/main.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 9
+                    }
+                  },
                   "module": "application",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "main",

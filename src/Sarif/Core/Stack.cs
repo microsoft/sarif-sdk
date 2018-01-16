@@ -125,8 +125,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         string fileName = match.Groups[3].Value;
                         int lineNumber = int.Parse(match.Groups[4].Value);
 
-                        stackFrame.Uri = new Uri(fileName);
-                        stackFrame.Line = lineNumber;
+                        stackFrame.PhysicalLocation = new PhysicalLocation
+                        {
+                            Uri = new Uri(fileName),
+                            Region = new Region
+                            {
+                                StartLine = lineNumber
+                            }
+                        };
                     }
                 }
                 stack.Frames.Add(stackFrame);

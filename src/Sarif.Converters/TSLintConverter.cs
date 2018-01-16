@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
-            PhysicalLocation analysisTarget = new PhysicalLocation(uri: analysisTargetUri, uriBaseId: null, region: region);
+            PhysicalLocation analysisTarget = new PhysicalLocation(id: 0, uri: analysisTargetUri, uriBaseId: null, region: region);
             Location location = new Location()
             {
                 AnalysisTarget = analysisTarget
