@@ -14,21 +14,6 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
-  <!--NuGet Config-->
-  <PropertyGroup>
-    <IsTool>true</IsTool>
-    <PackageId>Sarif.Multitool</PackageId>
-    <Title>Microsoft SARIF Multitool (includes SARIF SDK)</Title>
-    <Authors>Microsoft Corporation</Authors>
-    <Description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</Description>
-    <PackageReleaseNotes>Version $(Version) of the .NET SARIF SDK (for SARIF v1.0.0)</PackageReleaseNotes>
-    <Copyright>Copyright Microsoft 2015</Copyright>
-    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
-    <PackageTags>command line driver utilities static analysis sarif framework utils driver.utilities</PackageTags>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Rules\**" />
     <EmbeddedResource Remove="Rules\**" />
