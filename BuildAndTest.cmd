@@ -5,7 +5,7 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
-set Platform=Any CPU
+set Platform=AnyCPU
 set Configuration=Release
 
 :NextArg
@@ -68,7 +68,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-set Platform=AnyCPU
+call :CreatePublishPackage Sarif.Multitool net452
 
 ::Build all NuGet packages
 echo BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
@@ -96,6 +96,12 @@ goto ExitFailed
 )
 
 goto Exit
+
+:CreatePublishPackage
+set Project=%1
+set Framework=%2
+dotnet publish %~dp0src\%Project%\%Project%.csproj --no-restore -c %Configuration% -f %Framework%
+Exit /B %ERRORLEVEL%
 
 :RunMultitargetingTests
 set TestProject=%1
