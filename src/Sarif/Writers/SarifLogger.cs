@@ -396,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[context.Rule.Id] = context.Rule;
             }
 
-            templateId = RuleUtilities.NormalizeTemplateId(context.Rule.Id, templateId);
+            templateId = RuleUtilities.NormalizeTemplateId(templateId, context.Rule.Id);
             LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, templateId, arguments);
         }
 

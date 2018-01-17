@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            templateId = RuleUtilities.NormalizeTemplateId(context.Rule.Id, templateId);
+            templateId = RuleUtilities.NormalizeTemplateId(templateId, context.Rule.Id);
 
             Result result = new Result
             {
@@ -65,7 +65,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Dictionary<string, string> BuildDictionary(
             ResourceManager resourceManager, 
             IEnumerable<string> resourceNames, 
-            string ruleId)
+            string ruleId,
+            string prefix = null)
         {
             //validation
             if (resourceNames == null)
@@ -85,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeTemplateId(ruleId, resourceName);
+                string normalizedResourceName = NormalizeTemplateId(resourceName, ruleId, prefix);
 
                 // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static string NormalizeTemplateId(string ruleId, string templateId)
+        public static string NormalizeTemplateId(string templateId, string ruleId, string prefix = null)
         {
             if (templateId == null)
             {
@@ -105,6 +106,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 templateId = templateId.Substring(ruleId.Length + 1);
             }
+
+            if (!string.IsNullOrEmpty(prefix) && templateId.StartsWith(prefix + "_", StringComparison.Ordinal))
+            {
+                templateId = templateId.Substring(prefix.Length + 1);
+            }
+
             return templateId;
         }
     }
