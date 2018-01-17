@@ -22,9 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         protected override ResourceManager ResourceManager => throw new NotImplementedException();
 
-        protected override IEnumerable<string> TemplateResourceIds => throw new NotImplementedException();
+        protected override IEnumerable<string> TemplateResourceNames => throw new NotImplementedException();
 
-        protected override IEnumerable<string> RichTemplateResourceIds => throw new NotImplementedException();
+        protected override IEnumerable<string> RichTemplateResourceNames => throw new NotImplementedException();
 
         // Most of the members of this class throw NotImplementedException so that,
         // if you write a test that requires that member, you will be reminded to

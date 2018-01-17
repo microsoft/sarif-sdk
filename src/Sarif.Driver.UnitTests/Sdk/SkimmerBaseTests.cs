@@ -14,13 +14,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
-        protected override IEnumerable<string> TemplateResourceIds => new List<string>
+        protected override IEnumerable<string> TemplateResourceNames => new List<string>
         {
             nameof(SkimmerBaseTestResources.TST0001_Pass),
             nameof(SkimmerBaseTestResources.TST0001_Error)
         };
 
-        protected override IEnumerable<string> RichTemplateResourceIds => new List<string>
+        protected override IEnumerable<string> RichTemplateResourceNames => new List<string>
         {
             nameof(SkimmerBaseTestResources.TST0001_Rich_Pass),
             nameof(SkimmerBaseTestResources.TST0001_Rich_Error)
