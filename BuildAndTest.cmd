@@ -69,6 +69,8 @@ goto ExitFailed
 )
 
 call :CreatePublishPackage Sarif.Multitool net452
+call :CreatePublishPackage Sarif.Multitool netcoreapp2.0
+call :CreatePublishPackage Sarif.Multitool netstandard2.0
 
 ::Build all NuGet packages
 echo BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
