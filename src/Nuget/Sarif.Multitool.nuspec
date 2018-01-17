@@ -15,7 +15,7 @@
   </metadata>
   <files>
     <file src="bld\bin\AnyCPU_$configuration$\Publish\**\*.*" target="tools"/>
-	
+
     <file src="src\ReleaseHistory.md" />        
     <file src="src\Sarif.Multitool\**\*.cs" target="src" />
   </files>
