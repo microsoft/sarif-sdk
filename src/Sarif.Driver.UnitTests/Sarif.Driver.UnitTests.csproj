@@ -32,4 +32,19 @@
     <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Sdk\SkimmerBaseTestResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SkimmerBaseTestResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Sdk\SkimmerBaseTestResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SkimmerBaseTestResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

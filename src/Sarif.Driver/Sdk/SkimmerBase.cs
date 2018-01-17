@@ -23,7 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract protected ResourceManager ResourceManager { get; }
 
-        abstract protected IEnumerable<string> TemplateIds { get; }
+        abstract protected IEnumerable<string> TemplateResourceIds { get; }
+
+        virtual protected IEnumerable<string> RichTemplateResourceIds => new List<string>();
 
         virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
 
@@ -55,12 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private Dictionary<string, string> InitializeMessageTemplates()
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, TemplateIds, Id);
+            return RuleUtilities.BuildDictionary(ResourceManager, TemplateResourceIds, ruleId: Id);
         }
 
         private Dictionary<string, string> InitializeRichMessageTemplates()
         {
-            return new Dictionary<string, string>();
+            return RuleUtilities.BuildDictionary(ResourceManager, RichTemplateResourceIds,ruleId: Id, prefix: "Rich");
         }
 
         abstract public string Id { get; }
