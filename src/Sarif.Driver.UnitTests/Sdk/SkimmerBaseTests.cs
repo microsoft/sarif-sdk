@@ -16,14 +16,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
         protected override IEnumerable<string> TemplateResourceIds => new List<string>
         {
-            "TST0001_Pass",
-            "TST0001_Error"
+            nameof(SkimmerBaseTestResources.TST0001_Pass),
+            nameof(SkimmerBaseTestResources.TST0001_Error)
         };
 
         protected override IEnumerable<string> RichTemplateResourceIds => new List<string>
         {
-            "TST0001_Rich_Pass",
-            "TST0001_Rich_Error"
+            nameof(SkimmerBaseTestResources.TST0001_Rich_Pass),
+            nameof(SkimmerBaseTestResources.TST0001_Rich_Error)
         };
     }
 
@@ -35,12 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             var skimmer = new TestSkimmer();
 
             skimmer.MessageTemplates.Count.Should().Be(2);
-            skimmer.MessageTemplates["Pass"].Should().Be("This test plainly passed.");
-            skimmer.MessageTemplates["Error"].Should().Be("This test plainly failed.");
+            skimmer.MessageTemplates["Pass"].Should().Be(SkimmerBaseTestResources.TST0001_Pass);
+            skimmer.MessageTemplates["Error"].Should().Be(SkimmerBaseTestResources.TST0001_Error);
 
             skimmer.RichMessageTemplates.Count.Should().Be(2);
-            skimmer.RichMessageTemplates["Pass"].Should().Be("This test **richly** _passed_.");
-            skimmer.RichMessageTemplates["Error"].Should().Be("This test **richly** _failed_.");
+            skimmer.RichMessageTemplates["Pass"].Should().Be(SkimmerBaseTestResources.TST0001_Rich_Pass);
+            skimmer.RichMessageTemplates["Error"].Should().Be(SkimmerBaseTestResources.TST0001_Rich_Error);
         }
     }
 }
