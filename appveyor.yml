@@ -12,7 +12,7 @@ before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
   - BeforeBuild.cmd
 
-platform: Any CPU
+platform: AnyCPU
 
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
