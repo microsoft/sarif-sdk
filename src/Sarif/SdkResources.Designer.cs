@@ -410,5 +410,14 @@ namespace Microsoft.CodeAnalysis.Sarif {
                 return ResourceManager.GetString("WRN997_InvalidTarget", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule &apos;{0}&apos; was disabled as it cannot run on the current platform &apos;{1}&apos;.  It can only run on &apos;{2}&apos;..
+        /// </summary>
+        internal static string WRN998_NotSupportedPlatform {
+            get {
+                return ResourceManager.GetString("WRN998_NotSupportedPlatform", resourceCulture);
+            }
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string ExceptionRaisingRuleId = "TEST1001";
 
+        public SupportedPlatform SupportedPlatforms => SupportedPlatform.All;
+
         public Uri HelpUri { get; set; }
 
         public string Id

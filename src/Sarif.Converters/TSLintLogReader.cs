@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new Exception(
                     string.Format(
                         CultureInfo.InvariantCulture,
-                        "The root JSON value should be a JArray, but is a {1}.",
+                        "The root JSON value should be a JArray, but is a {0}.",
                         rootToken.GetType().Name));
             }
 
