@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         InvokingInitialize,
         ParsingTarget,
         LoadingPdb,
-        ValidatingOptions
+        ValidatingOptions,
+        InvalidPlatform
     }
 }
