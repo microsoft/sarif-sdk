@@ -5,8 +5,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class VersionConstants                                       
     {                                                                          
         public const string Prerelease = "";                       
-        public const string AssemblyVersion = "1.7.2";       
-        public const string FileVersion = "1.7.2" + ".0";    
+        public const string AssemblyVersion = "1.7.3";       
+        public const string FileVersion = "1.7.3" + ".0";    
         public const string Version = AssemblyVersion + Prerelease;            
     }                                                                          
  }                                                                             

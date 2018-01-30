@@ -169,3 +169,7 @@
  * Enable "pretty print" .sarif formatting via --pretty argument
  * Code sign 3rd party dependency assemblies (CommandLineParser, CsvHelper, Newtonsoft.Json)
  * Remove -beta flag from Driver and Multitool packages
+ 
+ ## **v1.7.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.3)
+ * Make SupportedPlatform a first class concept for skimmers
+ * Rename --pretty argument to --pretty-print
