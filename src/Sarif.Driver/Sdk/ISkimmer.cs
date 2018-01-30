@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         void Initialize(TContext context);
 
         /// <summary>
+        /// Get the OS platforms that this skimmer can be run on.
+        /// </summary>
+        SupportedPlatform SupportedPlatforms { get; }
+
+        /// <summary>
         /// Determine whether a target is a valid target for analysis. 
         /// May be called from multiple threads.
         /// 

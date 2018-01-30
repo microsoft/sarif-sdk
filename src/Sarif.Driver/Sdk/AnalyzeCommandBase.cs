@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -379,9 +380,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 skimmers = DriverUtilities.GetExports<ISkimmer<TContext>>(DefaultPlugInAssemblies);
 
+                SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (ISkimmer<TContext> skimmer in skimmers)
                 {
-                    result.Add(skimmer);
+
+                    if(skimmer.SupportedPlatforms.HasFlag(currentOS))
+                    {
+                        result.Add(skimmer);
+                    }
+                    else
+                    {
+                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name, currentOS, skimmer.SupportedPlatforms);
+                    }
                 }
             }
             catch (Exception ex)
@@ -396,6 +406,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ThrowExitApplicationException(context, ExitReason.NoRulesLoaded);
             }
             return result;
+        }
+
+        private SupportedPlatform GetCurrentRunningOS()
+        {
+            // RuntimeInformation is not present in NET452.
+#if NET452
+            return SupportedPlatform.Windows;
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return SupportedPlatform.Linux;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return SupportedPlatform.OSX;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return SupportedPlatform.Windows;
+            }
+            else
+            {
+                return SupportedPlatform.Unknown;
+            }
+#endif
         }
 
         protected virtual void AnalyzeTargets(

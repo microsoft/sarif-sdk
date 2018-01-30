@@ -436,7 +436,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
         }
+        
+        [Fact]
+        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRule()
+        {
+            var options = new TestAnalyzeOptions()
+            {
+                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+            };
 
+            // As there is only one ExceptionRaisingRule skimmer, when it isn't on a supported platform, 
+            // no rules will be loaded.
+            ExceptionTestHelper(
+                ExceptionCondition.InvalidPlatform,
+                RuntimeConditions.RuleCannotRunOnPlatform | RuntimeConditions.NoRulesLoaded,
+                expectedExitReason: ExitReason.NoRulesLoaded,
+                analyzeOptions : options);
+        }
+        
         public Run AnalyzeFile(string fileName)
         {
             string path = Path.GetTempFileName();
