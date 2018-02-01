@@ -15,6 +15,8 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Newtonsoft.Json;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
@@ -87,10 +89,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             if (!hasResults)
             {
-                MessageBox.Show(string.Format(Resources.NoResults_DialogMessage, logFilePath),
-                                Resources.NoResults_DialogCaption,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
+                                                string.Format(Resources.NoResults_DialogMessage, logFilePath),
+                                                null, // title
+                                                OLEMSGICON.OLEMSGICON_INFO,
+                                                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                                                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
         }
 
