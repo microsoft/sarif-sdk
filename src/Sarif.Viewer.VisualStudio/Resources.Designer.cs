@@ -79,7 +79,7 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SARIF Viewer.
+        ///   Looks up a localized string similar to SARIF Explorer.
         /// </summary>
         internal static string NoResults_DialogCaption {
             get {

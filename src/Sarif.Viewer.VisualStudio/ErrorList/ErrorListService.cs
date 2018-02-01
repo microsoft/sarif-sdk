@@ -100,7 +100,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private int WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
-            int results = 0;
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
             var projectNameCache = new ProjectNameCache(solution);
 
@@ -112,7 +111,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 {
                     var sarifError = new SarifErrorListItem(run, result, logFilePath, projectNameCache);
                     sarifErrors.Add(sarifError);
-                    results++;
                 }
             }
 
@@ -122,7 +120,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             }
 
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
-            return results;
+            return sarifErrors.Count;
         }
 
         private void EnsureHashExists(FileData file)

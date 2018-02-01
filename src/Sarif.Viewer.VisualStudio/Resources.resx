@@ -125,7 +125,7 @@
     <comment>{0} will be the name of the file that couldn't be opened</comment>
   </data>
   <data name="NoResults_DialogCaption" xml:space="preserve">
-    <value>SARIF Viewer</value>
+    <value>SARIF Explorer</value>
   </data>
   <data name="NoResults_DialogMessage" xml:space="preserve">
     <value>No results were found in analysis log '{0}'.</value>
