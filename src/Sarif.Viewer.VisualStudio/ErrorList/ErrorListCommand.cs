@@ -14,7 +14,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int ClearSarifResultsCommandId = 4433;
+        public const int ClearSarifResultsCommandId = 0x0300;
 
         private static int[] s_commands = new int[]
         {
