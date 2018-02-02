@@ -42,6 +42,9 @@
       <Group guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" priority="0x0600">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" />
       </Group>
+      <Group guid="guidSarifErrorListCmdSet" id="ErrorListContextMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ERRORLIST" />
+      </Group>
     </Groups>
 
     <Menus>
@@ -151,6 +154,12 @@
           <ButtonText>SARIF Explorer</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidSarifErrorListCmdSet" id="cmdidClearSarifItemsErrorListCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSarifErrorListCmdSet" id="ErrorListContextMenuGroup" />
+        <Strings>
+          <ButtonText>Clear All SARIF Results</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -191,6 +200,11 @@
     <GuidSymbol value="{e6de64e8-7731-4ffd-8633-e1cbf03609ad}" name="guidSarifViewerPackageCmdSet">
       <IDSymbol value="256" name="cmdidSarifToolWindowCommand" />
     </GuidSymbol>
+    
+    <GuidSymbol name="guidSarifErrorListCmdSet" value="{76648814-13bf-4ecf-ad5c-2a7e2953e62f}">
+      <IDSymbol name="ErrorListContextMenuGroup" value="0x1021" />
+      <IDSymbol name="cmdidClearSarifItemsErrorListCommand" value="4433" />
+    </GuidSymbol>
 
     <GuidSymbol value="{84d1f697-2dc5-4c8b-a268-31316cdabe1d}" name="guidImages">
       <IDSymbol name="bmpPic1" value="1" />
@@ -202,6 +216,15 @@
     </GuidSymbol>
 
     <GuidSymbol value="{29b155fa-e93f-4814-aa10-ff0416dff3cd}" name="guidImages1">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{e657aec0-8c7b-45e5-ac55-4abefe6c567f}" name="guidImages2">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

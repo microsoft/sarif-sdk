@@ -58,7 +58,7 @@
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
-    <Compile Include="ErrorList\ErrorListContextMenuItems.cs" />
+    <Compile Include="ErrorList\ErrorListCommand.cs" />
     <Compile Include="IToolWindow.cs" />
     <Compile Include="KeyValuePairPropertyDescriptor.cs" />
     <Compile Include="Models\CallTreeCollection.cs" />
@@ -163,7 +163,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="OpenSarifFileCommandPackage.vsct">
+    <VSCTCompile Include="SarifCommandPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
     <Content Include="Resources\OpenSarifFileCommand.png" />
