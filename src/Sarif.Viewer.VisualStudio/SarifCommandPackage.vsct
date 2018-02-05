@@ -51,8 +51,8 @@
       <Menu guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" priority="0x0100" type="Menu">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup" />
         <Strings>
-          <ButtonText>Open Static Analysis Log File</ButtonText>
-          <CommandName>Open Static Analysis Log File</CommandName>
+          <ButtonText>Import Static Analysis Log File to Error List</ButtonText>
+          <CommandName>Import Static Analysis Log File to Error List</CommandName>
         </Strings>
       </Menu>
     </Menus>
@@ -72,67 +72,67 @@
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <CommandFlag>AllowParams</CommandFlag>
         <Strings>
-          <ButtonText>Open SARIF file...</ButtonText>
+          <ButtonText>Import  SARIF file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPREfastFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open PREfast XML log file...</ButtonText>
+          <ButtonText>Import  PREfast XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFxCopFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open FxCop XML log file...</ButtonText>
+          <ButtonText>Import  FxCop XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenStaticDriverVerifierFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Static Driver Verifier trace log file...</ButtonText>
+          <ButtonText>Import  Static Driver Verifier trace log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFortifyFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Fortify XML log file...</ButtonText>
+          <ButtonText>Import  Fortify XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenClangFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Clang XML log file...</ButtonText>
+          <ButtonText>Import  Clang XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenCppCheckFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open CppCheck XML log file...</ButtonText>
+          <ButtonText>Import  CppCheck XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenAndroidStudioFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Android Studio XML log file...</ButtonText>
+          <ButtonText>Import  Android Studio XML log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSemmleFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Semmle QL CSV log file...</ButtonText>
+          <ButtonText>Import  Semmle QL CSV log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenTSLintFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open TSLint log file...</ButtonText>
+          <ButtonText>Import  TSLint log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPylintFileCommandId" priority="0x0100" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Open Pylint log file...</ButtonText>
+          <ButtonText>Import  Pylint log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidSarifViewerPackageCmdSet" id="cmdidSarifToolWindowCommand" priority="0x0100" type="Button">
