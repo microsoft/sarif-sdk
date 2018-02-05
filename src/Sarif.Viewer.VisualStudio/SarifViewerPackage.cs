@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 using EnvDTE;
 using EnvDTE80;
-
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -67,6 +70,8 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public static System.Configuration.Configuration AppConfig { get; private set; }
+
         public T GetService<S, T>()
             where S : class
             where T : class
@@ -92,6 +97,24 @@ namespace Microsoft.Sarif.Viewer
         {
             OpenLogFileCommands.Initialize(this);
             base.Initialize();
+
+            string path = Assembly.GetExecutingAssembly().Location;
+            var configMap = new ExeConfigurationFileMap();
+            configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), "App.config");
+            AppConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
+
+#if DEBUG
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Debug"].Value;
+#else
+            string telemetryKey = SarifViewerPackage.AppConfig.AppSettings.Settings["TelemetryInstrumentationKey_Release"].Value;
+#endif
+
+            TelemetryConfiguration configuration = new TelemetryConfiguration()
+            {
+                InstrumentationKey = telemetryKey
+            };
+            TelemetryProvider.Initialize(configuration);
+            TelemetryProvider.WriteEvent(TelemetryEvent.ViewerExtensionLoaded);
 
             _sarifEditorFactory = new SarifEditorFactory();
             RegisterEditorFactory(_sarifEditorFactory);

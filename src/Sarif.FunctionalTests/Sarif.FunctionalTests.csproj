@@ -1644,6 +1644,6 @@
     <ItemGroup>
       <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
     </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(MSBuildProjectName)\$(Platform)_$(Configuration)\$(TargetFramework)\" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(Platform)_$(Configuration)\$(TargetFramework)\" />
   </Target>
 </Project>

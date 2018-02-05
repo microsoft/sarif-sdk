@@ -10,7 +10,7 @@ $testProjects = @(
     @{ Name = "Sarif.FunctionalTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.Multitool.FunctionalTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.ValidationTests"; IsMultiTargeting = $False },
-    @{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False }
+    @{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False; Parallel = "-parallel none" }
 )
 
 Foreach ($project in $testProjects)
@@ -20,7 +20,7 @@ Foreach ($project in $testProjects)
         Foreach ($framework in $targetFrameworks)
         {
             $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\$($framework.Name)\xunit.console"
-            $projectPath = ".\bld\bin\$($project.Name)\AnyCPU_Release\$($framework.Name)\$($project.Name).dll"
+            $projectPath = ".\bld\bin\AnyCPU_Release\$($framework.Name)\$($project.Name).dll"
 
             Write-Host "Running Tests For $($project.Name): $($framework.Name)" -ForegroundColor Cyan
 
@@ -47,7 +47,7 @@ Foreach ($project in $testProjects)
         Write-Host "Running Tests For $($project.Name)" -ForegroundColor Cyan
 
         $toolPath = ".\src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.exe"
-        Invoke-Expression "$toolPath .\bld\bin\$($project.Name)\AnyCPU_Release\$($project.Name).dll -appveyor"
+        Invoke-Expression "$toolPath .\bld\bin\$($project.Name)\AnyCPU_Release\$($project.Name).dll -appveyor $($project.Parallel)"
 
         Write-Host ""
         Write-Host ""

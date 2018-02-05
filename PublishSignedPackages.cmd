@@ -16,17 +16,18 @@ call %NUGET% SetApiKey %API_KEY% -Source %SOURCE%
 if "%ERRORLEVEL%" NEQ "0" (echo set api key of %API_KEY% to %SOURCE% FAILED && goto Exit)
 
 call :PublishPackage Sarif.Sdk        || goto :EOF
-call :PublishPackage Sarif.Driver     || goto :EOF
 call :PublishPackage Sarif.Converters || goto :EOF
+call :PublishPackage Sarif.Driver     || goto :EOF
 call :PublishPackage Sarif.Multitool  || goto :EOF
 
 goto :EOF
 
 :PublishPackage
 set ID=%1
-set PACKAGE_ROOT=bld\bin\nuget\%ID%.%VERSION%
+set PRERELEASE=%2
+set PACKAGE_ROOT=.\bld\bin\nuget\%ID%.%VERSION%%PRERELEASE%
 
-call %NUGET% push %PACKAGE_ROOT%.nupkg -Source %SOURCE%
+call %NUGET% push %PACKAGE_ROOT%.symbols.nupkg -Source %SOURCE%
 if "%ERRORLEVEL%" NEQ "0" (echo Push of %ID% to %SOURCE% failed.)
 Exit /B %ERRORLEVEL%
 :EOF

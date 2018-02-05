@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool Verbose { get; set; }
 
         [Option(
+            'p',
+            "pretty-print",
+            HelpText = "Emit indented output. The resulting output will be multi-line, human-readable JSON.")]
+        public bool PrettyPrint { get; set; }
+
+        [Option(
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
@@ -71,7 +77,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool LogEnvironment { get; set; }
 
         [Option(
-            'p',
             "plug-in",
             Separator = ';',
             HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]

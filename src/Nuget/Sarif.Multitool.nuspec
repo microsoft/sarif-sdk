@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Sarif.Multitool</id>
+    <version>$version$</version>
+    <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
+    <authors>Microsoft Corporation</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
+    <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
+    <copyright>Copyright Microsoft 2015</copyright>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
+    <tags>SARIF command line static analysis</tags>
+  </metadata>
+  <files>
+    <file src="bld\bin\AnyCPU_$configuration$\Publish\**\*.*" target="tools"/>
+
+    <file src="src\ReleaseHistory.md" />        
+    <file src="src\Sarif.Multitool\**\*.cs" target="src" />
+  </files>
+</package>
