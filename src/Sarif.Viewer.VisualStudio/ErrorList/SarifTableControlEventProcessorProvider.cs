@@ -3,9 +3,7 @@
 
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Microsoft.VisualStudio.Editor;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 using Microsoft.VisualStudio.Utilities;
@@ -112,11 +110,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     sarifResult.Locations[0].NavigateTo(false);
                     sarifResult.Locations[0].ApplyDefaultSourceFileHighlighting();
                 }
-            }
-
-            public override void PreprocessMouseRightButtonUp(ITableEntryHandle entry, MouseButtonEventArgs e)
-            {
-                base.PreprocessMouseRightButtonUp(entry, e);
             }
 
             bool TryGetSarifResult(ITableEntryHandle entryHandle, out SarifErrorListItem sarifResult)
