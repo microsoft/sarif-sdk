@@ -479,6 +479,17 @@ namespace Microsoft.Sarif.Viewer
                     }
                 }
             }
+
+            foreach (FixModel fixModel in Fixes)
+            {
+                foreach (FileChangeModel fileChangeModel in fixModel.FileChanges)
+                {
+                    if (fileChangeModel.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
+                    {
+                        fileChangeModel.FilePath = remappedPath;
+                    }
+                }
+            }
         }
 
         internal void AttachToDocument(string documentName, long docCookie, IVsWindowFrame pFrame)
