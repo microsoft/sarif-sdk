@@ -40,7 +40,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
             if (package == null)
             {
-                throw new ArgumentNullException("package");
+                throw new ArgumentNullException(nameof(package));
             }
 
             this.package = package;
