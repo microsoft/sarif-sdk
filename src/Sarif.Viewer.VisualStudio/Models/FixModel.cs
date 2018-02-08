@@ -4,12 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -165,7 +161,16 @@ namespace Microsoft.Sarif.Viewer.Models
 
                 // Delete/Insert the bytes for each replacement.
                 List<byte> bytes = File.ReadAllBytes(filePath).ToList();
+
                 int offsetDelta = 0;
+
+                // Account for the BOM if it's present
+                // Don't remove it because that may be undesirable to the user
+                if (bytes.Count > 2 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
+                {
+                    offsetDelta = 3;
+                }
+
                 foreach (ReplacementModel replacment in sortedReplacements)
                 {
                     int offset = replacment.Offset + offsetDelta;
@@ -190,4 +195,3 @@ namespace Microsoft.Sarif.Viewer.Models
         }
     }
 }
-
