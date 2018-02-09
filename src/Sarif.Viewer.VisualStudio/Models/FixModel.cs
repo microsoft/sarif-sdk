@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -15,6 +16,7 @@ namespace Microsoft.Sarif.Viewer.Models
         private ObservableCollection<FileChangeModel> _fileChanges;
         private DelegateCommand<FixModel> _previewFixCommand;
         private DelegateCommand<FixModel> _applyFixCommand;
+        private static Dictionary<string, SortedList<int, int>> s_fileChangeLedger = new Dictionary<string, SortedList<int, int>>();
 
         public FixModel(string description)
         {
@@ -162,29 +164,57 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Delete/Insert the bytes for each replacement.
                 List<byte> bytes = File.ReadAllBytes(filePath).ToList();
 
-                int offsetDelta = 0;
-
-                // Account for the BOM if it's present
-                // Don't remove it because that may be undesirable to the user
-                if (bytes.Count > 2 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
+                SortedList<int, int> list = null;
+                string path = filePath.ToLower();
+                if (!s_fileChangeLedger.ContainsKey(path))
                 {
-                    offsetDelta = 3;
-                }
+                    // Create a new dictionary entry for this file
+                    list = new SortedList<int, int>();
 
-                foreach (ReplacementModel replacment in sortedReplacements)
-                {
-                    int offset = replacment.Offset + offsetDelta;
-
-                    if (replacment.DeletedLength > 0)
+                    // Account for the BOM if it's present
+                    if (!list.ContainsKey(0) &&
+                        bytes.Count > 2 &&
+                        bytes[0] == 0xEF &&
+                        bytes[1] == 0xBB &&
+                        bytes[2] == 0xBF)
                     {
-                        bytes.RemoveRange(offset, replacment.DeletedLength);
-                        offsetDelta -= replacment.DeletedLength;
+                        list.Add(0, 3);
                     }
 
-                    if (replacment.InsertedBytes.Length > 0)
+                    s_fileChangeLedger.Add(path, list);
+                }
+                else
+                {
+                    list = s_fileChangeLedger[path];
+                }
+
+                foreach (ReplacementModel replacement in sortedReplacements)
+                {
+                    // and add to this replacement's offset
+                    int offset = list.Where(kvp => kvp.Key < replacement.Offset)
+                                     .Sum(kvp => kvp.Value) + replacement.Offset;
+                    int delta = 0;
+
+                    if (replacement.DeletedLength > 0)
                     {
-                        bytes.InsertRange(offset, replacment.InsertedBytes);
-                        offsetDelta += replacment.InsertedBytes.Length;
+                        bytes.RemoveRange(offset, replacement.DeletedLength);
+                        delta -= replacement.DeletedLength;
+                    }
+
+                    if (replacement.InsertedBytes.Length > 0)
+                    {
+                        bytes.InsertRange(offset, replacement.InsertedBytes);
+                        delta += replacement.InsertedBytes.Length;
+                    }
+
+                    if (!list.ContainsKey(replacement.Offset))
+                    {
+                        // First change at this offset
+                        list.Add(replacement.Offset, delta);
+                    }
+                    else
+                    {
+                        list[replacement.Offset] += delta;
                     }
                 }
 
