@@ -190,6 +190,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
                 foreach (ReplacementModel replacement in sortedReplacements)
                 {
+                    // Sum all of the changes that have been made up to this location
                     // and add to this replacement's offset
                     int offset = list.Where(kvp => kvp.Key < replacement.Offset)
                                      .Sum(kvp => kvp.Value) + replacement.Offset;
