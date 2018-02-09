@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -16,12 +15,15 @@ namespace Microsoft.Sarif.Viewer.Models
         private ObservableCollection<FileChangeModel> _fileChanges;
         private DelegateCommand<FixModel> _previewFixCommand;
         private DelegateCommand<FixModel> _applyFixCommand;
-        private static Dictionary<string, SortedList<int, int>> s_fileChangeLedger = new Dictionary<string, SortedList<int, int>>();
+        private static Dictionary<string, FixOffsetList> s_sourceFileFixLedger = null;
+        private static string s_sourceFileFixLedgerFileName = "SourceFileChangeLedger.json";
 
         public FixModel(string description)
         {
             this._description = description;
             this._fileChanges = new ObservableCollection<FileChangeModel>();
+
+            LoadFixLedger();
         }
 
         public string Description
@@ -83,7 +85,36 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private void PreviewFix(FixModel selectedFix)
+        private void SaveFixLedger()
+        {
+            if (s_sourceFileFixLedger.Count > 0)
+            {
+                SdkUiUtilities.StoreObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedger, s_sourceFileFixLedgerFileName);
+            }
+        }
+
+        private void LoadFixLedger()
+        {
+            if (s_sourceFileFixLedger == null)
+            {
+                s_sourceFileFixLedger = SdkUiUtilities.GetStoredObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedgerFileName) ?? new Dictionary<string, FixOffsetList>();
+
+                // Remove entries where the last modified timestamps don't match
+                // This could indicate that the file was modified or overwritten externally
+                List<string> remove = s_sourceFileFixLedger
+                                          .Where(e => !File.Exists(e.Key) || File.GetLastWriteTime(e.Key) != e.Value.LastModified)
+                                          .Select(e => e.Key)
+                                          .ToList();
+
+                if (remove.Count > 0)
+                {
+                    remove.ForEach(p => s_sourceFileFixLedger.Remove(p));
+                    SaveFixLedger();
+                }
+            }
+        }
+
+        private void PreviewFix(FixModel selectedFix) 
         {
             HashSet<string> files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -128,7 +159,7 @@ namespace Microsoft.Sarif.Viewer.Models
             // Gather the list of files for the fix.
             foreach (var fileChanges in selectedFix.FileChanges)
             {
-                files.Add(fileChanges.FilePath);
+                files.Add(fileChanges.FilePath.ToLower());
             }
 
             foreach (string file in files)
@@ -147,6 +178,11 @@ namespace Microsoft.Sarif.Viewer.Models
                     if (TryFixFile(file, replacements, out fixedFile))
                     {
                         File.WriteAllBytes(file, fixedFile.ToArray());
+                        s_sourceFileFixLedger[file].LastModified = File.GetLastWriteTime(file);
+
+                        // Save after every fix because we don't have sufficient events to
+                        // guarantee data integrity
+                        SaveFixLedger();
                     }
                 }
             }
@@ -164,36 +200,35 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Delete/Insert the bytes for each replacement.
                 List<byte> bytes = File.ReadAllBytes(filePath).ToList();
 
-                SortedList<int, int> list = null;
+                FixOffsetList list = null;
                 string path = filePath.ToLower();
-                if (!s_fileChangeLedger.ContainsKey(path))
+                if (!s_sourceFileFixLedger.ContainsKey(path))
                 {
                     // Create a new dictionary entry for this file
-                    list = new SortedList<int, int>();
+                    list = new FixOffsetList();
 
                     // Account for the BOM if it's present
-                    if (!list.ContainsKey(0) &&
-                        bytes.Count > 2 &&
+                    if (bytes.Count > 2 &&
                         bytes[0] == 0xEF &&
                         bytes[1] == 0xBB &&
                         bytes[2] == 0xBF)
                     {
-                        list.Add(0, 3);
+                        list.Offsets.Add(0, 3);
                     }
 
-                    s_fileChangeLedger.Add(path, list);
+                    s_sourceFileFixLedger.Add(path, list);
                 }
                 else
                 {
-                    list = s_fileChangeLedger[path];
+                    list = s_sourceFileFixLedger[path];
                 }
 
                 foreach (ReplacementModel replacement in sortedReplacements)
                 {
                     // Sum all of the changes that have been made up to this location
                     // and add to this replacement's offset
-                    int offset = list.Where(kvp => kvp.Key < replacement.Offset)
-                                     .Sum(kvp => kvp.Value) + replacement.Offset;
+                    int offset = list.Offsets.Where(kvp => kvp.Key < replacement.Offset)
+                                             .Sum(kvp => kvp.Value) + replacement.Offset;
                     int delta = 0;
 
                     if (replacement.DeletedLength > 0)
@@ -208,14 +243,14 @@ namespace Microsoft.Sarif.Viewer.Models
                         delta += replacement.InsertedBytes.Length;
                     }
 
-                    if (!list.ContainsKey(replacement.Offset))
+                    if (!list.Offsets.ContainsKey(replacement.Offset))
                     {
                         // First change at this offset
-                        list.Add(replacement.Offset, delta);
+                        list.Offsets.Add(replacement.Offset, delta);
                     }
                     else
                     {
-                        list[replacement.Offset] += delta;
+                        list.Offsets[replacement.Offset] += delta;
                     }
                 }
 

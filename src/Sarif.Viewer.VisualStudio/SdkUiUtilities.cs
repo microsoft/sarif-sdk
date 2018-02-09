@@ -8,14 +8,15 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell.Interop;
-
 using EnvDTE;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Newtonsoft.Json;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -125,6 +126,49 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
             return SystemFonts.DialogFont;
+        }
+
+        /// <summary>
+        /// Reads the contents of an isolated storage file and deserializes it to an object.
+        /// </summary>
+        /// <typeparam name="T">The type of the deserialized object.</typeparam>
+        /// <param name="storageFileName">The isolated storage file.</param>
+        /// <returns></returns>
+        internal static T GetStoredObject<T>(string storageFileName) where T : class
+        {
+            IsolatedStorageFile store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+
+            if (store.FileExists(storageFileName))
+            {
+                using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(storageFileName, FileMode.Open, store))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        return JsonConvert.DeserializeObject<T>(reader.ReadToEnd());
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Serializes an object and writes it to an isolated storage file.
+        /// </summary>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="t">The object to serialize.</param>
+        /// <param name="storageFileName">The isolated storage file.</param>
+        internal static void StoreObject<T>(T t, string storageFileName)
+        {
+            IsolatedStorageFile store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+
+            using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream(storageFileName, FileMode.Create, store))
+            {
+                using (StreamWriter writer = new StreamWriter(isoStream))
+                {
+                    writer.Write(JsonConvert.SerializeObject(t, Formatting.Indented));
+                }
+            }
         }
 
         /// <summary>
