@@ -223,35 +223,40 @@ namespace Microsoft.Sarif.Viewer.Models
                     list = s_sourceFileFixLedger[path];
                 }
 
+                // Sum all of the changes that have been made up to the first replacement location
+                ReplacementModel rm = sortedReplacements.First();
+                int delta = list.Offsets.Where(kvp => kvp.Key < rm.Offset)
+                                            .Sum(kvp => kvp.Value);
+
                 foreach (ReplacementModel replacement in sortedReplacements)
                 {
-                    // Sum all of the changes that have been made up to this location
-                    // and add to this replacement's offset
-                    int offset = list.Offsets.Where(kvp => kvp.Key < replacement.Offset)
-                                             .Sum(kvp => kvp.Value) + replacement.Offset;
-                    int delta = 0;
+                    int offset = replacement.Offset + delta;
+                    int thisDelta = 0;
 
                     if (replacement.DeletedLength > 0)
                     {
                         bytes.RemoveRange(offset, replacement.DeletedLength);
-                        delta -= replacement.DeletedLength;
+                        thisDelta -= replacement.DeletedLength;
                     }
 
                     if (replacement.InsertedBytes.Length > 0)
                     {
                         bytes.InsertRange(offset, replacement.InsertedBytes);
-                        delta += replacement.InsertedBytes.Length;
+                        thisDelta += replacement.InsertedBytes.Length;
                     }
 
                     if (!list.Offsets.ContainsKey(replacement.Offset))
                     {
                         // First change at this offset
-                        list.Offsets.Add(replacement.Offset, delta);
+                        list.Offsets.Add(replacement.Offset, thisDelta);
                     }
                     else
                     {
-                        list.Offsets[replacement.Offset] += delta;
+                        // Add to previous change(s) at this location
+                        list.Offsets[replacement.Offset] += thisDelta;
                     }
+
+                    delta += thisDelta;
                 }
 
                 fixedFile = bytes.ToArray();
