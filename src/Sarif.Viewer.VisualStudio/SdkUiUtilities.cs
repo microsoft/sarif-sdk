@@ -162,9 +162,9 @@ namespace Microsoft.Sarif.Viewer
         {
             IsolatedStorageFile store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-            using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream(storageFileName, FileMode.Create, store))
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(storageFileName, FileMode.Create, store))
             {
-                using (StreamWriter writer = new StreamWriter(isoStream))
+                using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(JsonConvert.SerializeObject(t, Formatting.Indented));
                 }
