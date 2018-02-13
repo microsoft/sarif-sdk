@@ -226,7 +226,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 // Sum all of the changes that have been made up to the first replacement location
                 ReplacementModel rm = sortedReplacements.First();
                 int delta = list.Offsets.Where(kvp => kvp.Key < rm.Offset)
-                                            .Sum(kvp => kvp.Value);
+                                        .Sum(kvp => kvp.Value);
 
                 foreach (ReplacementModel replacement in sortedReplacements)
                 {
