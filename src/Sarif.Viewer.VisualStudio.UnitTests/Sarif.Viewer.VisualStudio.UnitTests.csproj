@@ -69,6 +69,7 @@
     <Compile Include="ErrorList\SarifSnapshotTests.cs" />
     <Compile Include="Models\CallTreeCollectionTests.cs" />
     <Compile Include="Models\CallTreeTests.cs" />
+    <Compile Include="Models\FixModelTests.cs" />
     <Compile Include="ProjectNameCacheTests.cs" />
     <Compile Include="TelemetryProviderTests.cs" />
     <Compile Include="TestUtilities.cs" />
@@ -100,6 +101,16 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\FixModel\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\FixModel\index_fixed.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

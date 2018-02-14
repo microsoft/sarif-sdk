@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    internal class FixOffsetList
+    public class FixOffsetList
     {
         public DateTime LastModified { get; set; }
         public SortedList<int, int> Offsets { get; private set; }

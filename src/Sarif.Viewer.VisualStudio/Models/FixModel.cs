@@ -6,21 +6,24 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
     public class FixModel : NotifyPropertyChangedObject
     {
-        private string _description;
-        private ObservableCollection<FileChangeModel> _fileChanges;
-        private DelegateCommand<FixModel> _previewFixCommand;
-        private DelegateCommand<FixModel> _applyFixCommand;
-        private static Dictionary<string, FixOffsetList> s_sourceFileFixLedger = null;
-        private static string s_sourceFileFixLedgerFileName = "SourceFileChangeLedger.json";
+        protected string _description;
+        protected ObservableCollection<FileChangeModel> _fileChanges;
+        protected DelegateCommand<FixModel> _previewFixCommand;
+        protected DelegateCommand<FixModel> _applyFixCommand;
+        protected static Dictionary<string, FixOffsetList> s_sourceFileFixLedger = null;
+        protected static string s_sourceFileFixLedgerFileName = "SourceFileChangeLedger.json";
+        protected readonly IFileSystem _fileSystem;
 
-        public FixModel(string description)
+        public FixModel(string description, IFileSystem fileSystem)
         {
             this._description = description;
+            this._fileSystem = fileSystem;
             this._fileChanges = new ObservableCollection<FileChangeModel>();
 
             LoadFixLedger();
@@ -85,7 +88,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private void SaveFixLedger()
+        internal virtual void SaveFixLedger()
         {
             if (s_sourceFileFixLedger.Count > 0)
             {
@@ -93,7 +96,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private void LoadFixLedger()
+        internal virtual void LoadFixLedger()
         {
             if (s_sourceFileFixLedger == null)
             {
@@ -152,7 +155,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private void ApplyFix(FixModel selectedFix)
+        internal void ApplyFix(FixModel selectedFix)
         {
             HashSet<string> files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -164,7 +167,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
             foreach (string file in files)
             {
-                if (File.Exists(file))
+                if (_fileSystem.FileExists(file))
                 {
                     List<ReplacementModel> replacements = new List<ReplacementModel>();
 
@@ -177,7 +180,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     byte[] fixedFile;
                     if (TryFixFile(file, replacements, out fixedFile))
                     {
-                        File.WriteAllBytes(file, fixedFile.ToArray());
+                        _fileSystem.WriteAllBytes(file, fixedFile.ToArray());
                         s_sourceFileFixLedger[file].LastModified = File.GetLastWriteTime(file);
 
                         // Save after every fix because we don't have sufficient events to
@@ -188,17 +191,17 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private bool TryFixFile(string filePath, IEnumerable<ReplacementModel> replacements, out byte[] fixedFile)
+        internal bool TryFixFile(string filePath, IEnumerable<ReplacementModel> replacements, out byte[] fixedFile)
         {
             fixedFile = null;
 
-            if (File.Exists(filePath))
+            if (_fileSystem.FileExists(filePath))
             {
                 // Sort the replacements from top to bottom.
                 var sortedReplacements = replacements.OrderBy(r => r.Offset);
 
                 // Delete/Insert the bytes for each replacement.
-                List<byte> bytes = File.ReadAllBytes(filePath).ToList();
+                List<byte> bytes = _fileSystem.ReadAllBytes(filePath).ToList();
 
                 FixOffsetList list = null;
                 string path = filePath.ToLower();
