@@ -15,11 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     public class ToolFormatConverter
     {
-        private readonly AssemblyLoadFileDelegate assemblyLoadFileDelegate;
+        private readonly AssemblyLoadFromDelegate assemblyLoadFromDelegate;
 
-        public ToolFormatConverter(AssemblyLoadFileDelegate assemblyLoadFileDelegate = null)
+        public ToolFormatConverter(AssemblyLoadFromDelegate assemblyLoadFromDelegate = null)
         {
-            this.assemblyLoadFileDelegate = assemblyLoadFileDelegate;
+            this.assemblyLoadFromDelegate = assemblyLoadFromDelegate;
         }
 
         /// <summary>Converts a tool log file into the SARIF format.</summary>
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ConverterFactory factory = new BuiltInConverterFactory();
             if (!string.IsNullOrWhiteSpace(pluginAssemblyPath))
             {
-                factory = new PluginConverterFactory(pluginAssemblyPath, this.assemblyLoadFileDelegate)
+                factory = new PluginConverterFactory(pluginAssemblyPath, this.assemblyLoadFromDelegate)
                 {
                     Next = factory,
                 };
