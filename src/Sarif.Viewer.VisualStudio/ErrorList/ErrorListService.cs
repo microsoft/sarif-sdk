@@ -7,16 +7,16 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
 using EnvDTE;
-
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Sarif.Viewer.Models;
-using Newtonsoft.Json;
 using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Newtonsoft.Json;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -74,11 +74,26 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             CodeAnalysisResultManager.Instance.SarifErrors.Clear();
             CodeAnalysisResultManager.Instance.FileDetails.Clear();
 
+            bool hasResults = false;
+
             foreach (Run run in sarifLog.Runs)
             {
                 TelemetryProvider.WriteEvent(TelemetryEvent.LogFileRunCreatedByToolName,
                                              TelemetryProvider.CreateKeyValuePair("ToolName", run.Tool.Name));
-                Instance.WriteRunToErrorList(run, logFilePath, solution);
+                if (Instance.WriteRunToErrorList(run, logFilePath, solution) > 0)
+                {
+                    hasResults = true;
+                }
+            }
+
+            if (!hasResults)
+            {
+                VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
+                                                string.Format(Resources.NoResults_DialogMessage, logFilePath),
+                                                null, // title
+                                                OLEMSGICON.OLEMSGICON_INFO,
+                                                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                                                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
             }
         }
 
@@ -86,7 +101,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         {
         }
 
-        private void WriteRunToErrorList(Run run, string logFilePath, Solution solution)
+        private int WriteRunToErrorList(Run run, string logFilePath, Solution solution)
         {
             List<SarifErrorListItem> sarifErrors = new List<SarifErrorListItem>();
             var projectNameCache = new ProjectNameCache(solution);
@@ -108,6 +123,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             }
 
             SarifTableDataSource.Instance.AddErrors(sarifErrors);
+            return sarifErrors.Count;
         }
 
         private void EnsureHashExists(FileData file)

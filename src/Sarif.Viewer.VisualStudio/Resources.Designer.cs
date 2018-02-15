@@ -79,6 +79,15 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SARIF Explorer found no results in analysis log &apos;{0}&apos;..
+        /// </summary>
+        internal static string NoResults_DialogMessage {
+            get {
+                return ResourceManager.GetString("NoResults_DialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Return.
         /// </summary>
         internal static string ReturnMessage {

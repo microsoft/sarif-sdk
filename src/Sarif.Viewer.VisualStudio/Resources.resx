@@ -124,6 +124,10 @@
     <value>The file '{0}' couldn't be opened by Visual Studio. Would you like to open the containing folder?</value>
     <comment>{0} will be the name of the file that couldn't be opened</comment>
   </data>
+  <data name="NoResults_DialogMessage" xml:space="preserve">
+    <value>SARIF Explorer found no results in analysis log '{0}'.</value>
+    <comment>{0} will be the name of the file that was opened</comment>
+  </data>
   <data name="ReturnMessage" xml:space="preserve">
     <value>Return</value>
     <comment>Displayed on a call tree "CallReturn" node</comment>
