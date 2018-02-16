@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-
-using Microsoft.VisualStudio.Shell;
-using Microsoft.Sarif.Viewer.ErrorList;
 using Microsoft.CodeAnalysis.Sarif.Converters;
+using Microsoft.Sarif.Viewer.ErrorList;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -259,7 +259,19 @@ namespace Microsoft.Sarif.Viewer
 
             TelemetryProvider.WriteMenuCommandEvent(toolFormat);
 
-            ErrorListService.ProcessLogFile(logFile, SarifViewerPackage.Dte.Solution, toolFormat);
+            try
+            {
+                ErrorListService.ProcessLogFile(logFile, SarifViewerPackage.Dte.Solution, toolFormat);
+            }
+            catch (InvalidOperationException)
+            {
+                VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
+                                                string.Format(Resources.LogOpenFail_InvalidFormat_DialogMessage, Path.GetFileName(logFile)),
+                                                null, // title
+                                                OLEMSGICON.OLEMSGICON_CRITICAL,
+                                                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                                                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            }
         }
 
         bool IsSarifProtocol(string path)
