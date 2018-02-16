@@ -209,16 +209,6 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     // Create a new dictionary entry for this file
                     list = new FixOffsetList();
-
-                    // Account for the BOM if it's present
-                    if (bytes.Count > 2 &&
-                        bytes[0] == 0xEF &&
-                        bytes[1] == 0xBB &&
-                        bytes[2] == 0xBF)
-                    {
-                        list.Offsets.Add(0, 3);
-                    }
-
                     s_sourceFileFixLedger.Add(path, list);
                 }
                 else

@@ -50,14 +50,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             dummy.FixLedger.Count.Should().Be(1);
             SortedList<int, int> offsets = dummy.FixLedger[dummy.FileChanges[0].FilePath.ToLower()].Offsets;
-            offsets.Count.Should().Be(4);
+            offsets.Count.Should().Be(3);
 
-            offsets.Keys[0].Should().Be(0);
-            offsets.Keys[1].Should().Be(191);
-            offsets.Keys[2].Should().Be(199);
-            offsets.Keys[3].Should().Be(233);
-
-            offsets[0].Should().Be(3);
+            offsets.Keys[0].Should().Be(191);
+            offsets.Keys[1].Should().Be(199);
+            offsets.Keys[2].Should().Be(233);
+            
             offsets[191].Should().Be(1);
             offsets[199].Should().Be(1);
             offsets[233].Should().Be(0);
