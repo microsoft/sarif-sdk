@@ -173,3 +173,6 @@
  ## **v1.7.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.3) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.3)
  * Make SupportedPlatform a first class concept for skimmers
  * Rename --pretty argument to --pretty-print
+
+ ## **v1.7.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.4)
+* Platform Specific Tooling Text Fix
