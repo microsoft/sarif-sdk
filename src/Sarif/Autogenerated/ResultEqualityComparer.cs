@@ -167,6 +167,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.ConversionProvenance, right.ConversionProvenance))
+            {
+                if (left.ConversionProvenance == null || right.ConversionProvenance == null)
+                {
+                    return false;
+                }
+
+                if (left.ConversionProvenance.Count != right.ConversionProvenance.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.ConversionProvenance.Count; ++index_4)
+                {
+                    if (!AnalysisToolLogFileContents.ValueComparer.Equals(left.ConversionProvenance[index_4], right.ConversionProvenance[index_4]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Fixes, right.Fixes))
             {
                 if (left.Fixes == null || right.Fixes == null)
@@ -179,9 +200,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.Fixes.Count; ++index_4)
+                for (int index_5 = 0; index_5 < left.Fixes.Count; ++index_5)
                 {
-                    if (!Fix.ValueComparer.Equals(left.Fixes[index_4], right.Fixes[index_4]))
+                    if (!Fix.ValueComparer.Equals(left.Fixes[index_5], right.Fixes[index_5]))
                     {
                         return false;
                     }
@@ -314,9 +335,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.SuppressionStates.GetHashCode();
                 result = (result * 31) + obj.BaselineState.GetHashCode();
-                if (obj.Fixes != null)
+                if (obj.ConversionProvenance != null)
                 {
-                    foreach (var value_6 in obj.Fixes)
+                    foreach (var value_6 in obj.ConversionProvenance)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -326,16 +347,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Fixes != null)
+                {
+                    foreach (var value_7 in obj.Fixes)
+                    {
+                        result = result * 31;
+                        if (value_7 != null)
+                        {
+                            result = (result * 31) + value_7.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_7 in obj.Properties)
+                    foreach (var value_8 in obj.Properties)
                     {
-                        xor_0 ^= value_7.Key.GetHashCode();
-                        if (value_7.Value != null)
+                        xor_0 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_0 ^= value_7.Value.GetHashCode();
+                            xor_0 ^= value_8.Value.GetHashCode();
                         }
                     }
 

@@ -29,6 +29,35 @@
   "required": [ "version", "runs" ],
   "definitions": {
 
+    "analysisToolLogFileContents": {
+      "description": "A portion of an analysis tool's output that a converter transformed into a result object.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        
+        "region": {
+          "description": "The region of an analysis tool's log file that was transformed into the result object.",
+          "$ref": "#/definitions/region"
+        },
+
+        "snippet": {
+          "description": "The text of that region of the analysis tool's log file that was transformed into the result object.",
+          "type": "string"
+        },
+
+        "analysisToolLogFileUri": {
+          "description": "A string that represents the location of the analysis tool's log file as a valid URI.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "analysisToolLogFileUriBaseId": {
+          "description": "A string that identifies the conceptual base for the 'analysisToolLogFileUri' property (if it is relative), e.g.,'$(LogDir)' or '%LOGROOT%'.",
+          "type": "string"
+        }
+      }
+    },
+
     "annotatedCodeLocation": {
       "description": "An annotation used to express code flows through a method or other locations that are related to a result.",
       "additionalProperties": false,
@@ -219,6 +248,38 @@
       },
       "required": [ "locations" ]
     },
+
+    "conversion": {
+      "description": "Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        
+        "tool": {
+          "description": "A tool object that describes the converter.",
+          "$ref": "#/definitions/tool"
+        },
+
+        "invocation": {
+          "description": "An invocation object that describes the invocation of the converter.",
+          "$ref": "#/definitions/invocation"
+        },
+
+        "analysisToolLogFileUri": {
+          "description": "A string that represents the location of the analysis tool's log file as a valid URI.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "analysisToolLogFileUriBaseId": {
+          "description": "A string that identifies the conceptual base for the 'analysisToolLogFileUri' property (if it is relative), e.g.,'$(LogDir)' or '%LOGROOT%'.",
+          "type": "string"
+        }
+      },
+
+      "required": [ "tool" ]
+    },
+
     "exception": {
       "type": "object",
       "properties": {
@@ -745,6 +806,7 @@
       },
       "required": [ "offset" ]
     },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -764,7 +826,7 @@
         "level": {
           "description": "A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.",
           "default": "warning",
-          "enum": [ "notApplicable", "pass", "note", "warning", "error" ]
+          "enum": [ "notApplicable", "pass", "note", "warning", "error", "open" ]
         },
 
         "message": {
@@ -855,6 +917,16 @@
             "existing",
             "absent"
           ]
+        },
+
+        "conversionProvenance": {
+          "description": "An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/analysisToolLogFileContents"
+          }
         },
 
         "fixes": {
@@ -970,6 +1042,7 @@
       },
       "required": [ "id" ]
     },
+
     "run": {
       "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
@@ -984,6 +1057,11 @@
         "invocation": {
           "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
           "$ref": "#/definitions/invocation"
+        },
+
+        "conversion": {
+          "description": "A conversion object that describes how a converter transformed an analysis tool's native output format into the SARIF format.",
+          "$ref": "#/definitions/conversion"
         },
 
         "files": {

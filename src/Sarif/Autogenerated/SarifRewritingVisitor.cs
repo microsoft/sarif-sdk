@@ -46,12 +46,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
+                case SarifNodeKind.AnalysisToolLogFileContents:
+                    return VisitAnalysisToolLogFileContents((AnalysisToolLogFileContents)node);
                 case SarifNodeKind.AnnotatedCodeLocation:
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
                 case SarifNodeKind.Annotation:
                     return VisitAnnotation((Annotation)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
+                case SarifNodeKind.Conversion:
+                    return VisitConversion((Conversion)node);
                 case SarifNodeKind.ExceptionData:
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.FileChange:
@@ -107,6 +111,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (T)Visit(node);
         }
 
+        public virtual AnalysisToolLogFileContents VisitAnalysisToolLogFileContents(AnalysisToolLogFileContents node)
+        {
+            if (node != null)
+            {
+                node.Region = VisitNullChecked(node.Region);
+            }
+
+            return node;
+        }
+
         public virtual AnnotatedCodeLocation VisitAnnotatedCodeLocation(AnnotatedCodeLocation node)
         {
             if (node != null)
@@ -151,6 +165,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual Conversion VisitConversion(Conversion node)
+        {
+            if (node != null)
+            {
+                node.Tool = VisitNullChecked(node.Tool);
+                node.Invocation = VisitNullChecked(node.Invocation);
             }
 
             return node;
@@ -335,6 +360,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.ConversionProvenance != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConversionProvenance.Count; ++index_0)
+                    {
+                        node.ConversionProvenance[index_0] = VisitNullChecked(node.ConversionProvenance[index_0]);
+                    }
+                }
+
                 if (node.Fixes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Fixes.Count; ++index_0)
@@ -362,6 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
+                node.Conversion = VisitNullChecked(node.Conversion);
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();

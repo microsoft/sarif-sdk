@@ -119,6 +119,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public BaselineState BaselineState { get; set; }
 
         /// <summary>
+        /// An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.
+        /// </summary>
+        [DataMember(Name = "conversionProvenance", IsRequired = false, EmitDefaultValue = false)]
+        public IList<AnalysisToolLogFileContents> ConversionProvenance { get; set; }
+
+        /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fixes", IsRequired = false, EmitDefaultValue = false)]
@@ -185,15 +191,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="baselineState">
         /// An initialization value for the <see cref="P: BaselineState" /> property.
         /// </param>
+        /// <param name="conversionProvenance">
+        /// An initialization value for the <see cref="P: ConversionProvenance" /> property.
+        /// </param>
         /// <param name="fixes">
         /// An initialization value for the <see cref="P: Fixes" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, fixes, properties);
+            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, baselineState, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -212,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -233,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -322,10 +331,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             SuppressionStates = suppressionStates;
             BaselineState = baselineState;
-            if (fixes != null)
+            if (conversionProvenance != null)
             {
-                var destination_4 = new List<Fix>();
-                foreach (var value_4 in fixes)
+                var destination_4 = new List<AnalysisToolLogFileContents>();
+                foreach (var value_4 in conversionProvenance)
                 {
                     if (value_4 == null)
                     {
@@ -333,11 +342,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_4.Add(new Fix(value_4));
+                        destination_4.Add(new AnalysisToolLogFileContents(value_4));
                     }
                 }
 
-                Fixes = destination_4;
+                ConversionProvenance = destination_4;
+            }
+
+            if (fixes != null)
+            {
+                var destination_5 = new List<Fix>();
+                foreach (var value_5 in fixes)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_5.Add(null);
+                    }
+                    else
+                    {
+                        destination_5.Add(new Fix(value_5));
+                    }
+                }
+
+                Fixes = destination_5;
             }
 
             if (properties != null)

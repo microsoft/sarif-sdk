@@ -250,7 +250,8 @@
           "Pass",
           "Note",
           "Warning",
-          "Error"
+          "Error",
+          "Open"
         ]
       }
     }
