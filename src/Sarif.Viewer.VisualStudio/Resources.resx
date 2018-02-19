@@ -130,6 +130,10 @@
   <data name="FixPreviewWindow_PreviewFixedFileTitle" xml:space="preserve">
     <value>Fix Preview</value>
   </data>
+  <data name="LogOpenFail_InvalidFormat_DialogMessage" xml:space="preserve">
+    <value>The log file '{0}' is invalid and couldn't be opened.</value>
+    <comment>{0} will be the name of the invalid file that couldn't be opened</comment>
+  </data>
   <data name="NoResults_DialogMessage" xml:space="preserve">
     <value>SARIF Explorer found no results in analysis log '{0}'.</value>
     <comment>{0} will be the name of the file that was opened</comment>
