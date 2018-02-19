@@ -79,6 +79,24 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        internal static string FixPreviewWindow_OriginalFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_OriginalFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fix Preview.
+        /// </summary>
+        internal static string FixPreviewWindow_PreviewFixedFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_PreviewFixedFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The log file &apos;{0}&apos; is invalid and couldn&apos;t be opened..
         /// </summary>
         internal static string LogOpenFail_InvalidFormat_DialogMessage {
