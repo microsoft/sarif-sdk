@@ -79,6 +79,24 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        internal static string FixPreviewWindow_OriginalFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_OriginalFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fix Preview.
+        /// </summary>
+        internal static string FixPreviewWindow_PreviewFixedFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_PreviewFixedFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SARIF Explorer found no results in analysis log &apos;{0}&apos;..
         /// </summary>
         internal static string NoResults_DialogMessage {

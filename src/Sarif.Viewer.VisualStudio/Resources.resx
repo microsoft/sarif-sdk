@@ -124,6 +124,12 @@
     <value>The file '{0}' couldn't be opened by Visual Studio. Would you like to open the containing folder?</value>
     <comment>{0} will be the name of the file that couldn't be opened</comment>
   </data>
+  <data name="FixPreviewWindow_OriginalFileTitle" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="FixPreviewWindow_PreviewFixedFileTitle" xml:space="preserve">
+    <value>Fix Preview</value>
+  </data>
   <data name="NoResults_DialogMessage" xml:space="preserve">
     <value>SARIF Explorer found no results in analysis log '{0}'.</value>
     <comment>{0} will be the name of the file that was opened</comment>
