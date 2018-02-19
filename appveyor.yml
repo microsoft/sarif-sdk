@@ -9,13 +9,17 @@ branches:
 
 before_build:
   - nuget restore src\Everything.sln -ConfigFile src\NuGet.Config -verbosity detailed
+  - nuget restore src\Sarif.Viewer.VisualStudio.sln -ConfigFile src\NuGet.Config -verbosity detailed
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
   - BeforeBuild.cmd
 
 platform: AnyCPU
 
 environment:
-  _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
+  matrix:
+  - _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
+  - solution_name: Everything.sln
+  - solution_name: Sarif.Viewer.VisualStudio.sln
 
 install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
@@ -23,8 +27,8 @@ install:
 configuration:
   - Release
 
-build:
-  project: src/Everything.sln
+build_script:
+  - msbuild %solution_name% /verbosity:detailed /target:rebuild /p:AutoGenerateBindingRedirects=false
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1

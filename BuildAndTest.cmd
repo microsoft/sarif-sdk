@@ -68,6 +68,11 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+msbuild /verbosity:minimal /target:rebuild src\Sarif.Viewer.VisualStudio.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
+if "%ERRORLEVEL%" NEQ "0" (
+goto ExitFailed
+)
+
 call :CreatePublishPackage Sarif.Multitool net452
 call :CreatePublishPackage Sarif.Multitool netcoreapp2.0
 call :CreatePublishPackage Sarif.Multitool netstandard2.0
@@ -92,6 +97,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
+::Run Viewer unit tests
 src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
