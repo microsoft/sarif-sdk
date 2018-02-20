@@ -114,10 +114,33 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
         }
+        public SarifErrorListItem(Run run, Notification notification, string logFilePath, ProjectNameCache projectNameCache) : this()
+        {
+            IRule rule;
+            string ruleId = notification.RuleId ?? notification.Id;
+            run.TryGetRule(ruleId, notification.RuleKey, out rule);
+            Message = notification.Message;
+            ShortMessage = notification.Message;
+            LogFilePath = logFilePath;
+            FileName = notification.PhysicalLocation.Uri.LocalPath;
+            ProjectName = projectNameCache.GetName(FileName);
+
+            Tool = run.Tool.ToToolModel();
+            Rule = rule.ToRuleModel(ruleId);
+            Invocation = run.Invocation.ToInvocationModel();
+
+            if (String.IsNullOrWhiteSpace(run.Id))
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
+            }
+            else
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
+            }
+        }
 
         [Browsable(false)]
         public string MimeType { get; set; }
-
 
         [Browsable(false)]
         public Region Region { get; set; }
@@ -392,7 +415,6 @@ namespace Microsoft.Sarif.Viewer
         {
             return Message;
         }
-
 
         [Browsable(false)]
         public ResultTextMarker LineMarker
