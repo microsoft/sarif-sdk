@@ -45,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
+        /// A conversion object that describes how a converter transformed an analysis tool's native output format into the SARIF format.
+        /// </summary>
+        [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
+        public Conversion Conversion { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
@@ -138,6 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
+        /// <param name="conversion">
+        /// An initialization value for the <see cref="P: Conversion" /> property.
+        /// </param>
         /// <param name="files">
         /// An initialization value for the <see cref="P: Files" /> property.
         /// </param>
@@ -177,9 +186,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, Invocation invocation, Conversion conversion, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
+            Init(tool, invocation, conversion, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
         }
 
         /// <summary>
@@ -198,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
+            Init(other.Tool, other.Invocation, other.Conversion, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -219,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, Invocation invocation, Conversion conversion, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -229,6 +238,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (invocation != null)
             {
                 Invocation = new Invocation(invocation);
+            }
+
+            if (conversion != null)
+            {
+                Conversion = new Conversion(conversion);
             }
 
             if (files != null)

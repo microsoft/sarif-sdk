@@ -20,6 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="AnalysisToolLogFileContents" />.
+        /// </summary>
+        AnalysisToolLogFileContents,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="AnnotatedCodeLocation" />.
         /// </summary>
         AnnotatedCodeLocation,
@@ -31,6 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="CodeFlow" />.
         /// </summary>
         CodeFlow,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Conversion" />.
+        /// </summary>
+        Conversion,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExceptionData" />.
         /// </summary>
