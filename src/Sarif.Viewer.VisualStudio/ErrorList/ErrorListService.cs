@@ -130,8 +130,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 foreach (Notification toolNotification in run.ToolNotifications)
                 {
-                    var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
-                    sarifErrors.Add(sarifError);
+                    if (toolNotification.Level != NotificationLevel.Note)
+                    {
+                        var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
+                        sarifErrors.Add(sarifError);
+                    }
                 }
             }
 

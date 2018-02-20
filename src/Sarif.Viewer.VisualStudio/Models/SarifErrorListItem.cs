@@ -31,8 +31,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal SarifErrorListItem()
         {
-            _locations = new AnnotatedCodeLocationCollection(String.Empty);
-            _relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
+            _locations = new AnnotatedCodeLocationCollection(string.Empty);
+            _relatedLocations = new AnnotatedCodeLocationCollection(string.Empty);
             _callTrees = new CallTreeCollection();
             _stacks = new ObservableCollection<StackCollection>();
             _fixes = new ObservableCollection<FixModel>();
@@ -62,7 +62,7 @@ namespace Microsoft.Sarif.Viewer
             Rule = rule.ToRuleModel(result.RuleId);
             Invocation = run.Invocation.ToInvocationModel();
 
-            if (String.IsNullOrWhiteSpace(run.Id))
+            if (string.IsNullOrWhiteSpace(run.Id))
             {
                 WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
@@ -122,14 +122,19 @@ namespace Microsoft.Sarif.Viewer
             Message = notification.Message;
             ShortMessage = notification.Message;
             LogFilePath = logFilePath;
-            FileName = notification.PhysicalLocation.Uri.LocalPath;
             ProjectName = projectNameCache.GetName(FileName);
+            FileName = notification.PhysicalLocation != null ?
+                notification.PhysicalLocation.Uri.LocalPath :
+                run.Tool.FullName;
+
+            Locations.Add(new AnnotatedCodeLocationModel() { FilePath = FileName });
 
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(ruleId);
+            Rule.DefaultLevel = notification.Level.ToString();
             Invocation = run.Invocation.ToInvocationModel();
 
-            if (String.IsNullOrWhiteSpace(run.Id))
+            if (string.IsNullOrWhiteSpace(run.Id))
             {
                 WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
