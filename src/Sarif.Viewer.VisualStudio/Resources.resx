@@ -142,6 +142,10 @@
     <value>Return</value>
     <comment>Displayed on a call tree "CallReturn" node</comment>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ruleLookup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Data\ruleLookup.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="UnknownCalleeMessage" xml:space="preserve">
     <value>&lt;unknown callee&gt;</value>
     <comment>Displayed on a call tree "Call" node with no callee</comment>
