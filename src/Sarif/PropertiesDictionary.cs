@@ -68,11 +68,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public override void SetProperty(IOption setting, object value, bool cacheDescription)
+        {
+            SetProperty(setting, value, cacheDescription, true);
+        }
+
+        public void SetProperty(IOption setting, object value, bool cacheDescription, bool persistToSettingsContainer)
 
         {
             if (setting == null) { throw new ArgumentNullException(nameof(setting)); }
 
-            PropertiesDictionary properties = GetSettingsContainer(setting, true);
+            PropertiesDictionary properties = persistToSettingsContainer ? GetSettingsContainer(setting, true) : this;
 
             if (value == null && properties.ContainsKey(setting.Name))
             {

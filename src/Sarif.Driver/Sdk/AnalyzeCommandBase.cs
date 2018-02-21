@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Security;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -383,7 +384,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (ISkimmer<TContext> skimmer in skimmers)
                 {
-
                     if(skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
                         result.Add(skimmer);
@@ -440,6 +440,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<string> targets)
         {
             HashSet<string> disabledSkimmers = new HashSet<string>();
+
+            foreach (ISkimmer<TContext> skimmer in skimmers)
+            {
+                PerLanguageOption<RuleEnabledState> ruleEnabledProperty;
+                ruleEnabledProperty = DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
+
+                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+
+                if (ruleEnabled == RuleEnabledState.Disabled)
+                {
+                    disabledSkimmers.Add(skimmer.Id);
+
+                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+
+                    RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                }
+            }
 
             foreach (string target in targets)
             {

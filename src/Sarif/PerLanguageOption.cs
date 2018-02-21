@@ -57,10 +57,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(name));
             }
 
-            Feature = feature;
             Name = name;
-            DefaultValue = defaultValue;
+            Feature = feature;
             Description = description;
+            DefaultValue = defaultValue;
         }
 
         Type IOption.Type

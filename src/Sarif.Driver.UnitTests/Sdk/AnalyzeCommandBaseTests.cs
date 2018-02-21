@@ -8,7 +8,6 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -200,7 +199,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             );
         }
 
-
         [Fact]
         public void LoadPdbException()
         {
@@ -215,7 +213,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options
             );
         }
-
 
         [Fact]
         public void FileUri()
@@ -233,7 +230,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions: options
             );
         }
-
 
         [Fact]
         public void ParseTargetException()
@@ -454,7 +450,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions : options);
         }
         
-        public Run AnalyzeFile(string fileName)
+        public Run AnalyzeFile(
+            string fileName, 
+            string configFileName = null,
+            RuntimeConditions runtimeConditions = RuntimeConditions.None)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -468,7 +467,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Statistics = true,
                     Quiet = true,
                     ComputeFileHashes = true,
-                    ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
+                    ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
                 };
@@ -477,7 +476,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
                 int result = command.Run(options);
 
-                Assert.Equal(TestAnalyzeCommand.SUCCESS, result);
+                result.Should().Be(TestAnalyzeCommand.SUCCESS);
+
+                command.RuntimeErrors.Should().Be(runtimeConditions);
 
                 JsonSerializerSettings settings = new JsonSerializerSettings()
                 {
@@ -498,25 +499,143 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return run;
         }
 
-#if NETCOREAPP2_0
-        [Fact(Skip = "GetType().Assembly.Location causes test to fail in NET CORE")]
-#else
         [Fact]
-#endif
-        public void AnalyzeCommand_EndToEndAnalysisWithNoIssues()
+        public void AnalyzeCommand_DefaultEndToEndAnalysis()
         {
-            Run run = AnalyzeFile(this.GetType().Assembly.Location);
+            string location = GetThisTestAssemblyFilePath();
+            Run run = AnalyzeFile(location);
 
             int resultCount = 0;
             int toolNotificationCount = 0;
+            int configurationNotificationCount = 0;
 
             SarifHelpers.ValidateRun(
-                run, 
+                run,
                 (issue) => { resultCount++; },
-                (toolNotification) => { toolNotificationCount++; });
+                (toolNotification) => { toolNotificationCount++; },
+                (configurationNotification) => { configurationNotificationCount++; });
 
-            Assert.Equal(0, resultCount);
-            Assert.Equal(1, toolNotificationCount);
+            // By default, the exception raising rule produces a single error.
+            // The simple test rule doesn't raise anything without add'l configuration
+            resultCount.Should().Be(1);
+            run.Results[0].Level.Should().Equals(ResultLevel.NotApplicable);
+
+            toolNotificationCount.Should().Be(1);
+            configurationNotificationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void AnalyzeCommand_FireDefaultRule()
+        {
+            string location = GetThisTestAssemblyFilePath();
+            Run run = AnalyzeFile(location);
+
+            int resultCount = 0;
+            int toolNotificationCount = 0;
+            int configurationNotificationCount = 0;
+
+            SarifHelpers.ValidateRun(
+                run,
+                (issue) => { resultCount++; },
+                (toolNotification) => { toolNotificationCount++; },
+                (configurationNotification) => { configurationNotificationCount++; });
+
+            // By default, the exception raising rule produces a single error.
+            // The simple test rule doesn't raise anything without add'l configuration
+            resultCount.Should().Be(1);
+            run.Results[0].Level.Should().Be(ResultLevel.Warning);
+
+            toolNotificationCount.Should().Be(1);
+            configurationNotificationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void AnalyzeCommand_FireAllRules()
+        {
+            PropertiesDictionary configuration = ExportConfigurationCommandBaseTests.s_defaultConfiguration;
+
+            string path = Path.GetTempFileName() + ".xml";
+
+            configuration.SetProperty(SimpleTestRule.Behaviors, TestRuleBehaviors.LogError);
+
+            try
+            {
+                configuration.SaveToXml(path);
+
+                string location = GetThisTestAssemblyFilePath();
+
+                Run run = AnalyzeFile(location, configFileName: path);
+
+                int resultCount = 0;
+                int toolNotificationCount = 0;
+                int configurationNotificationCount = 0;
+
+                SarifHelpers.ValidateRun(
+                    run,
+                    (issue) => { resultCount++; },
+                    (toolNotification) => { toolNotificationCount++; },
+                    (configurationNotification) => { configurationNotificationCount++; });
+
+                // By default, the exception raising rule produces a single error.
+                // The simple test rule doesn't raise anything without add'l configuration
+                resultCount.Should().Be(2);
+                run.Results.Where((result) => result.Level == ResultLevel.Error).Count().Should().Be(1);
+                run.Results.Where((result) => result.Level == ResultLevel.Warning).Count().Should().Be(1);
+                run.Results.Where((result) => result.Level == ResultLevel.NotApplicable).Count().Should().Be(0);
+
+                toolNotificationCount.Should().Be(1);
+                configurationNotificationCount.Should().Be(0);
+            }
+            finally
+            {
+                if (File.Exists(path)) { File.Delete(path); }
+            }
+        }
+
+        [Fact]
+        public void AnalyzeCommand_EndToEndAnalysisWithExplicitlyDisabledRules()
+        {
+            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
+            string path = Path.GetTempFileName() + ".xml";
+
+            try
+            {
+                allRulesDisabledConfiguration.SaveToXml(path);
+
+                string location = GetThisTestAssemblyFilePath();
+
+                Run run = AnalyzeFile(
+                    location, 
+                    configFileName: path,
+                    runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled);
+
+                int resultCount = 0;
+                int toolNotificationCount = 0;
+                int configurationNotificationCount = 0;
+
+                SarifHelpers.ValidateRun(
+                    run,
+                    (issue) => { resultCount++; },
+                    (toolNotification) => { toolNotificationCount++; },
+                    (configurationNotification) => { configurationNotificationCount++; });
+
+                // When rules are disabled, we expect a configuration warning for each 
+                // disabled check that documents it was turned off for the analysis.
+                resultCount.Should().Be(0);
+                configurationNotificationCount.Should().Be(2);
+                run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999RuleDisabled).Count().Should().Be(2);
+
+                toolNotificationCount.Should().Be(1);
+            }
+            finally
+            {
+                if (File.Exists(path)) { File.Delete(path); }
+            }
+        }
+
+        private static string GetThisTestAssemblyFilePath()
+        {
+            return Path.Combine(Environment.CurrentDirectory, "Sarif.Driver.UnitTests.dll");
         }
     }
 }

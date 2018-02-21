@@ -2,9 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Reflection;
+
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -20,17 +23,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // The export command could be updated in the future to accept an arbitrary set
                 // of analyzers for which to build an options XML file suitable for configuring them.
-                // Currently, we perform discovery against the built-in CodeFormatter rules
-                // and analyzers only.
                 ImmutableArray<IOptionsProvider> providers = DriverUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
                 foreach (IOptionsProvider provider in providers)
                 {
+                    IOption sampleOption = null;
+
+                    // Every analysis options provider has access to the following default configuration knobs
                     foreach (IOption option in provider.GetOptions())
                     {
+                        sampleOption = sampleOption ?? option;
                         allOptions.SetProperty(option, option.DefaultValue, cacheDescription: true);
                     }
                 }
 
+                IEnumerable<IRule> rules;
+                rules = DriverUtilities.GetExports<IRule>(DefaultPlugInAssemblies);
+
+                // This code injects properties that are provided for every rule instance.
+                foreach (IRule rule in rules)
+                {
+                    object objectResult;
+                    PropertiesDictionary properties;
+
+                    string ruleOptionsKey = rule.Id + "." + rule.Name + ".Options";
+
+                    if (!allOptions.TryGetValue(ruleOptionsKey, out objectResult))
+                    {
+                        objectResult = allOptions[ruleOptionsKey] = new PropertiesDictionary();
+                    }
+                    properties = (PropertiesDictionary)objectResult;
+
+                    foreach (IOption option in DefaultDriverOptions.Instance.GetOptions())
+                    {
+                        properties.SetProperty(option, option.DefaultValue, cacheDescription: true, persistToSettingsContainer : false);
+                    }
+                }
 
                 string extension = Path.GetExtension(exportOptions.OutputFilePath);
 
@@ -62,6 +89,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             return result;
         }
-
     }
 }

@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+
+namespace Microsoft.CodeAnalysis.Sarif
 {
     public class TestAnalyzeOptions : AnalyzeOptionsBase
     {
@@ -11,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             RegardAnalysisTargetAsValid = true;
         }
+
+        public bool DisableCheck { get; set; }
 
         public bool RegardAnalysisTargetAsNotApplicable { get; set; }
 

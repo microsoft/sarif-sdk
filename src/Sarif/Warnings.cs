@@ -10,8 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
-        public const string Wrn997InvalidTarget = "WRN997.InvalidTarget";
-        public const string Wrn998NotSupportedPlatform = "WRN998.NotSupportedPlatform";
+        public const string Wrn997InvalidTarget        = "WRN997";
+        public const string Wrn998NotSupportedPlatform = "WRN998";
+        public const string Wrn999RuleDisabled         = "WRN999";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {
@@ -57,10 +58,36 @@ namespace Microsoft.CodeAnalysis.Sarif
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
                     Id = Wrn998NotSupportedPlatform,
                     Message = message,
-                    Level = NotificationLevel.Note,
+                    Level = NotificationLevel.Warning,
                 });
 
             context.RuntimeErrors |= RuntimeConditions.RuleCannotRunOnPlatform;
+        }
+
+        public static void LogRuleExplicitlyDisabled(IAnalysisContext context, string ruleId)
+        {
+            // Rule '{0}' was explicitly disabled by the user. As result, this too run
+            // cannot be used to for compliance or other auditing processes that 
+            // require a comprehensive analysis.
+
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            string message = string.Format(CultureInfo.InvariantCulture,
+                SdkResources.WRN999_RuleExplicitlyDisabled,
+                ruleId);
+
+            context.Logger.LogConfigurationNotification(
+                new Notification
+                {
+                    Id = Wrn999RuleDisabled,
+                    Message = message,
+                    Level = NotificationLevel.Warning,
+                });
+
+            context.RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
         }
     }
 }
