@@ -5,11 +5,12 @@
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/FixesStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <DataTemplate x:Key="FixCollectionTemplate">
         <ItemsControl ItemsSource="{Binding}"
+                      ItemContainerStyle="{StaticResource ItemsControlContainerStyle}"
                       IsTabStop="False">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -17,21 +18,11 @@
                                LastChildFill="False" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="{x:Type ContentPresenter}">
-                    <Setter Property="DockPanel.Dock"
-                            Value="Top" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <Separator Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
-                                   DockPanel.Dock="Top"
-                                   Margin="15"/>
-                        <TreeView DockPanel.Dock="Top"
-                                  Background="Transparent"
-                                  BorderThickness="0">
+                        <Separator Style="{StaticResource FixItemSeparatorStyle}"/>
+                        <TreeView Style="{StaticResource FixItemTreeViewStyle}">
                             <TreeViewItem ItemsSource="{Binding FileChanges}">
                                 <TreeViewItem.Header>
                                     <Grid>
@@ -49,8 +40,7 @@
                                                    Style="{StaticResource PropertyValue}"/>
                                         <TextBlock Grid.Row="0"
                                                    Grid.Column="1"
-                                                   FontSize="12"
-                                                   Margin="5 0 5 0">
+                                                   Style="{StaticResource FixCommandHyperlinkStyle}">
                                             <Hyperlink Command="{Binding PreviewFixCommand}"
                                                        CommandParameter="{Binding}"
                                                        IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource fileExistsToBooleanConverter}}"
@@ -58,8 +48,7 @@
                                         </TextBlock>
                                         <TextBlock Grid.Row="0"
                                                    Grid.Column="2"
-                                                   FontSize="12"
-                                                   Margin="5 0 5 0">
+                                                   Style="{StaticResource FixCommandHyperlinkStyle}">
                                             <Hyperlink Command="{Binding ApplyFixCommand}"
                                                        CommandParameter="{Binding}"
                                                        IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource fileExistsToBooleanConverter}}"

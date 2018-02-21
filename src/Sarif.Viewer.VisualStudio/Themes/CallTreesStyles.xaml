@@ -143,16 +143,5 @@
         <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
         <Setter Property="Visibility" Value="{Binding Visibility}" />
     </Style>
-    <!--
 
-    -->
-    <!--
-    <Style x:Key="" TargetType="">
-        <Setter Property="" Value=""/>
-        <Setter Property="" Value=""/>
-        <Setter Property="" Value=""/>
-        <Setter Property="" Value=""/>
-        <Setter Property="" Value=""/>
-    </Style>
-    -->
 </ResourceDictionary>
