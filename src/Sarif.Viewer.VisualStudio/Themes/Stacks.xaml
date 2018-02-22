@@ -90,23 +90,23 @@
                                                             <DataTemplate>
                                                                 <TextBlock>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Module, Converter={StaticResource StringToVisibilityConverter}}">
                                                                             <Run Text="{Binding Module}" /><Run Text="!" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource StringToVisibilityConverter}}">
                                                                             <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource Int32ToVisibilityConverter}}">
                                                                             <Run Text="Line "/><Run Text="{Binding Line, Mode=OneWay}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                                             <Run Text=", Col " /><Run Text="{Binding Column, Mode=OneWay}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>

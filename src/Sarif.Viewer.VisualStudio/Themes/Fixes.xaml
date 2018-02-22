@@ -40,7 +40,7 @@
                                                    Style="{StaticResource FixCommandHyperlinkStyle}">
                                             <Hyperlink Command="{Binding PreviewFixCommand}"
                                                        CommandParameter="{Binding}"
-                                                       IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource fileExistsToBooleanConverter}}"
+                                                       IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource FileExistsToBooleanConverter}}"
                                                        Style="{StaticResource RuleHyperlinkStyle}">Preview</Hyperlink>
                                         </TextBlock>
                                         <TextBlock Grid.Row="0"
@@ -48,7 +48,7 @@
                                                    Style="{StaticResource FixCommandHyperlinkStyle}">
                                             <Hyperlink Command="{Binding ApplyFixCommand}"
                                                        CommandParameter="{Binding}"
-                                                       IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource fileExistsToBooleanConverter}}"
+                                                       IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource FileExistsToBooleanConverter}}"
                                                        Style="{StaticResource RuleHyperlinkStyle}">Apply</Hyperlink>
                                         </TextBlock>
                                     </Grid>
@@ -67,12 +67,12 @@
                                             Start at offset <Run Text="{Binding Offset}" />.
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
-                                                   Visibility="{Binding DeletedLength, Converter={StaticResource int32ToVisibilityConverter}}"
+                                                   Visibility="{Binding DeletedLength, Converter={StaticResource Int32ToVisibilityConverter}}"
                                                    Style="{StaticResource PropertyValue}">
                                             Delete <Run Text="{Binding DeletedLength}" /> bytes.
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
-                                                   Visibility="{Binding InsertedString, Converter={StaticResource stringToVisibilityConverter}}"
+                                                   Visibility="{Binding InsertedString, Converter={StaticResource StringToVisibilityConverter}}"
                                                    Style="{StaticResource PropertyValue}">
                                             Insert the string "<Run Text="{Binding InsertedString}" />".
                                         </TextBlock>

@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
 
             <TreeView Grid.Row="1"
-                      Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"
+                      Visibility="{Binding Locations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
                       Style="{StaticResource LocationsTreeViewStyle}">
                 <TreeViewItem Style="{StaticResource TreeViewItemStyle}">
                     <TreeViewItem.Header>
@@ -28,7 +28,7 @@
                                        Text="Defect Locations" 
                                        Style="{StaticResource PanelHeader}"/>
                             <TextBlock DockPanel.Dock="Left"
-                                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}"
+                                       Visibility="{Binding Locations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
                                        Style="{StaticResource PanelHeader}">
                                 <Run Text=" (" />
                                 <Run Text="{Binding Locations.Count, Mode=OneWay}" />
@@ -62,11 +62,11 @@
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Line" />
                                                             <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Col" />
                                                             <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
@@ -75,7 +75,7 @@
                                                 <TextBlock Style="{StaticResource LocationTextBaseStyle}">
                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
-                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
                                                            Style="{StaticResource LocationTextStyle}">
                                                     <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
@@ -90,18 +90,18 @@
             </TreeView>
 
             <Separator Grid.Row="2"
-                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"
+                       Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
                        Style="{StaticResource SectionSeparatorStyle}"/>
             
             <TreeView Grid.Row="3"
-                      Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"
+                      Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
                       Style="{StaticResource TreeViewStyleBase}">
                 <TreeViewItem Style="{StaticResource TreeViewItemStyle}">
                     <TreeViewItem.Header>
                         <DockPanel>
                             <TextBlock Text="Related Locations"
                                        Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}" />
-                            <TextBlock Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}"
+                            <TextBlock Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
                                        Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}">
                                 <Run Text=" (" />
                                 <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
@@ -111,7 +111,7 @@
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}">
+                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                                 <ListBox ItemsSource="{Binding RelatedLocations}"
                                          SelectedItem="{Binding RelatedLocations.SelectedItem, Mode=TwoWay}"
                                          ItemContainerStyle="{StaticResource ListBoxItemContainerStyl}"
@@ -135,11 +135,11 @@
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Line" />
                                                             <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Col" />
                                                             <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
@@ -148,7 +148,7 @@
                                                 <TextBlock>
                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
-                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
                                                            Style="{StaticResource LocationTextStyle}">
                                                     <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>

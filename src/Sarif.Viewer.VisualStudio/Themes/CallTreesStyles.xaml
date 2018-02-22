@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
-                    xmlns:cvt="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <cvt:CallTreeNodeToTextConverter x:Key="CallTreeToTextConverter" />
+    <converters:CallTreeNodeToTextConverter x:Key="CallTreeToTextConverter" />
 
     <Style x:Key="ToolBarTrayStyle" TargetType="ToolBarTray">
         <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
@@ -107,8 +107,8 @@
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Location.Message, Converter={StaticResource stringToVisibilityConverter}}"                                                       Value="Collapsed" />
-                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource stringToVisibilityConverter}}"                                                       Value="Visible" />
+                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Collapsed" />
+                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Visible" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="TextBlock.FontFamily" Value="Consolas" />
                 <Setter Property="FontSize" Value="10pt" />
@@ -122,7 +122,7 @@
     </Style>
     
     <Style x:Key="CallTreeLocationTextStyle" BasedOn="{StaticResource CallTreeTextStyle}" TargetType="TextBlock">
-        <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource stringToVisibilityConverter}}" />
+        <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource StringToVisibilityConverter}}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
