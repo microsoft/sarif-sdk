@@ -9,8 +9,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <cvt:CallTreeNodeToTextConverter x:Key="CallTreeToTextConverter" />
-    <cvt:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
-    
+
     <Style x:Key="ToolBarTrayStyle" TargetType="ToolBarTray">
         <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
     </Style>
@@ -108,8 +107,8 @@
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Collapsed" />
-                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Visible" />
+                    <Condition Binding="{Binding Location.Message, Converter={StaticResource stringToVisibilityConverter}}"                                                       Value="Collapsed" />
+                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource stringToVisibilityConverter}}"                                                       Value="Visible" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="TextBlock.FontFamily" Value="Consolas" />
                 <Setter Property="FontSize" Value="10pt" />
@@ -123,7 +122,7 @@
     </Style>
     
     <Style x:Key="CallTreeLocationTextStyle" BasedOn="{StaticResource CallTreeTextStyle}" TargetType="TextBlock">
-        <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource StringToVisibilityConverter}}" />
+        <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource stringToVisibilityConverter}}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
