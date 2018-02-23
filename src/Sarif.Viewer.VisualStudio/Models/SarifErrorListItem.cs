@@ -114,6 +114,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
         }
+
         public SarifErrorListItem(Run run, Notification notification, string logFilePath, ProjectNameCache projectNameCache) : this()
         {
             IRule rule;
