@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     null,
                     false));
 
-            context.RuntimeErrors |= RuntimeConditions.AllRulesExplicitlyDisabled;
+            context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
         }
 
         public static void LogNoValidAnalysisTargets(IAnalysisContext context)

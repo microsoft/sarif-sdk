@@ -47,7 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         MissingFile = 0x2000,
         ExceptionAccessingFile = 0x4000,
         ExceptionInstantiatingSkimmers = 0x8000,
-        AllRulesExplicitlyDisabled = 0x10000,
 
         // Non-fatal conditions
         UnassignedNonfatal        = 0x03F00000,

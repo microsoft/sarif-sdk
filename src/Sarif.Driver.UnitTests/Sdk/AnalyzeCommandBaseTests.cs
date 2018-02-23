@@ -470,8 +470,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // the other is disabled as unsupported on current platform.
                 ExceptionTestHelper(
                     ExceptionCondition.InvalidPlatform,
-                    RuntimeConditions.AllRulesExplicitlyDisabled | RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.RuleCannotRunOnPlatform,
-                    expectedExitReason: ExitReason.AllRulesExplicitlyDisabled,
+                    RuntimeConditions.NoRulesLoaded | RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.RuleCannotRunOnPlatform,
+                    expectedExitReason: ExitReason.NoRulesLoaded,
                     analyzeOptions: options);
             }
             finally
