@@ -27,7 +27,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                     {
                         if (s_ruleMetadata == null)
                         {
-                            Byte[] ruleLookupBytes = Resources.ruleLookup;
+                            Byte[] ruleLookupBytes = Resources.RuleLookup;
                             string ruleLookupText = Encoding.UTF8.GetString(ruleLookupBytes);
                             s_ruleMetadata = JObject.Parse(ruleLookupText);
                         }

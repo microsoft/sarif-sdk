@@ -138,7 +138,7 @@
     <Content Include="App.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="Data\ruleLookup.json" />
+    <None Include="Data\RuleLookup.json" />
     <Content Include="overview.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
