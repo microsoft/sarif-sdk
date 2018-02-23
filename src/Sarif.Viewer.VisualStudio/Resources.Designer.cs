@@ -124,6 +124,16 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RuleLookup {
+            get {
+                object obj = ResourceManager.GetObject("RuleLookup", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;unknown callee&gt;.
         /// </summary>
         internal static string UnknownCalleeMessage {
