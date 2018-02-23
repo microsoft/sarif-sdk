@@ -31,8 +31,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal SarifErrorListItem()
         {
-            _locations = new AnnotatedCodeLocationCollection(String.Empty);
-            _relatedLocations = new AnnotatedCodeLocationCollection(String.Empty);
+            _locations = new AnnotatedCodeLocationCollection(string.Empty);
+            _relatedLocations = new AnnotatedCodeLocationCollection(string.Empty);
             _callTrees = new CallTreeCollection();
             _stacks = new ObservableCollection<StackCollection>();
             _fixes = new ObservableCollection<FixModel>();
@@ -62,7 +62,7 @@ namespace Microsoft.Sarif.Viewer
             Rule = rule.ToRuleModel(result.RuleId);
             Invocation = run.Invocation.ToInvocationModel();
 
-            if (String.IsNullOrWhiteSpace(run.Id))
+            if (string.IsNullOrWhiteSpace(run.Id))
             {
                 WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
@@ -115,9 +115,36 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
+        public SarifErrorListItem(Run run, Notification notification, string logFilePath, ProjectNameCache projectNameCache) : this()
+        {
+            IRule rule;
+            string ruleId = notification.RuleId ?? notification.Id;
+            run.TryGetRule(ruleId, notification.RuleKey, out rule);
+            Message = notification.Message;
+            ShortMessage = notification.Message;
+            LogFilePath = logFilePath;
+            FileName = notification.PhysicalLocation?.Uri.LocalPath ?? run.Tool.FullName;
+            ProjectName = projectNameCache.GetName(FileName);
+
+            Locations.Add(new AnnotatedCodeLocationModel() { FilePath = FileName });
+
+            Tool = run.Tool.ToToolModel();
+            Rule = rule.ToRuleModel(ruleId);
+            Rule.DefaultLevel = notification.Level.ToString();
+            Invocation = run.Invocation.ToInvocationModel();
+
+            if (string.IsNullOrWhiteSpace(run.Id))
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
+            }
+            else
+            {
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
+            }
+        }
+
         [Browsable(false)]
         public string MimeType { get; set; }
-
 
         [Browsable(false)]
         public Region Region { get; set; }
@@ -392,7 +419,6 @@ namespace Microsoft.Sarif.Viewer
         {
             return Message;
         }
-
 
         [Browsable(false)]
         public ResultTextMarker LineMarker
