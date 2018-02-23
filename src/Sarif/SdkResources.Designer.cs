@@ -97,6 +97,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All rules were explicitly disabled so there is no work to do..
+        /// </summary>
+        internal static string ERR997_AllRulesExplicitlyDisabled {
+            get {
+                return ResourceManager.GetString("ERR997_AllRulesExplicitlyDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not access a file specified on the command line: &apos;{0}&apos;..
         /// </summary>
         internal static string ERR997_ExceptionAccessingFile {

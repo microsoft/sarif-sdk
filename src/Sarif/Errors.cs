@@ -13,22 +13,23 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class Errors
     {
         // Configuration errors:
-        private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
-        private const string ERR997_ExceptionLoadingPdb = "ERR997.ExceptionLoadingPdb";
-        private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
-        private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
-        private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
-        private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
         private const string ERR997_MissingFile = "ERR997.MissingFile";
+        private const string ERR997_NoRulesLoaded = "ERR997.NoRulesLoaded";
+        private const string ERR997_ExceptionLoadingPdb = "ERR997.ExceptionLoadingPdb";
+        private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
+        private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_MissingRuleConfiguration = "ERR997.MissingRuleConfiguration";
-        private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
+        private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
+        private const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
+        private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
+        private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";
 
         // Rule disabling tool errors:
         private const string ERR998_ExceptionInCanAnalyze = "ERR998.ExceptionInCanAnalyze";
         private const string ERR998_ExceptionInInitialize = "ERR998.ExceptionInInitialize";
-        private const string ERR998_ExceptionInAnalyze = "ERR998.ExceptionInAnalyze";
+        private const string ERR998_ExceptionInAnalyze    = "ERR998.ExceptionInAnalyze";
 
         // Analysis halting tool errors:
         private const string ERR999UnhandledEngineException = "ERR999.UnhandledEngineException";
@@ -121,6 +122,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                     false));
 
             context.RuntimeErrors |= RuntimeConditions.NoRulesLoaded;
+        }
+
+
+
+        public static void LogAllRulesExplicitlyDisabled(IAnalysisContext context) 
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            // All rules were explicitly disabled so there is no work to do.
+            context.Logger.LogConfigurationNotification(
+                CreateNotification(
+                    context.TargetUri,
+                    ERR997_AllRulesExplicitlyDisabled,
+                    NotificationLevel.Error,
+                    null,
+                    false));
+
+            context.RuntimeErrors |= RuntimeConditions.AllRulesExplicitlyDisabled;
         }
 
         public static void LogNoValidAnalysisTargets(IAnalysisContext context)

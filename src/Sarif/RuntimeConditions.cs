@@ -47,8 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         MissingFile = 0x2000,
         ExceptionAccessingFile = 0x4000,
         ExceptionInstantiatingSkimmers = 0x8000,
+        AllRulesExplicitlyDisabled = 0x10000,
 
         // Non-fatal conditions
+        UnassignedNonfatal        = 0x03F00000,
         RuleWasExplicitlyDisabled = 0x04000000,
         RuleCannotRunOnPlatform   = 0x08000000,
         RuleNotApplicableToTarget = 0x10000000,
@@ -56,12 +58,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         OneOrMoreWarningsFired    = 0x40000000,
         OneOrMoreErrorsFired      = 0x80000000,
 
-        // 0xFC000000
-        Nonfatal = RuleWasExplicitlyDisabled |
-                   RuleCannotRunOnPlatform   |
-                   RuleNotApplicableToTarget |
-                   TargetNotValidToAnalyze   |
-                   OneOrMoreWarningsFired    |
-                   OneOrMoreErrorsFired
+        Nonfatal = 0xFFF00000
     }       
 }

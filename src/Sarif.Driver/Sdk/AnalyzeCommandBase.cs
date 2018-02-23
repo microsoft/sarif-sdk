@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
-using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
+using System.Security;
+
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -451,11 +451,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 if (ruleEnabled == RuleEnabledState.Disabled)
                 {
                     disabledSkimmers.Add(skimmer.Id);
-
                     Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
-
                     RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
                 }
+            }
+
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(rootContext);
+                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
             }
 
             foreach (string target in targets)

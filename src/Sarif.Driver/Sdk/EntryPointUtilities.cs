@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public static class EntryPointUtilities
     {

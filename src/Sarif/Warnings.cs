@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Warnings
     {
-        public const string Wrn997InvalidTarget        = "WRN997";
-        public const string Wrn998NotSupportedPlatform = "WRN998";
-        public const string Wrn999RuleDisabled         = "WRN999";
+        public const string Wrn997_InvalidTarget = "WRN997.InvalidTarget";
+        public const string Wrn998_UnsupportedPlatform = "WRN998.UnsupportedPlatform";
+        public const string Wrn999_RuleExplicitlyDisabled = "WRN999.RuleExplicitlyDisabled";
 
         public static void LogExceptionInvalidTarget(IAnalysisContext context)
         {
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 new Notification
                 {
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
-                    Id = Wrn997InvalidTarget,
+                    Id = Wrn997_InvalidTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
                 });
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 new Notification
                 {
                     PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
-                    Id = Wrn998NotSupportedPlatform,
+                    Id = Wrn998_UnsupportedPlatform,
                     Message = message,
                     Level = NotificationLevel.Warning,
                 });
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Id = Wrn999RuleDisabled,
+                    Id = Wrn999_RuleExplicitlyDisabled,
                     Message = message,
                     Level = NotificationLevel.Warning,
                 });

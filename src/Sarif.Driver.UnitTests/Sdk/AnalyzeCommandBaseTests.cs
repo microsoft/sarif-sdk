@@ -56,22 +56,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 (runtimeConditions & ~RuntimeConditions.Nonfatal) == RuntimeConditions.None ?
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
-            Assert.Equal(runtimeConditions, command.RuntimeErrors);
-            Assert.Equal(expectedResult, result);
+            command.RuntimeErrors.Should().Be(runtimeConditions);
+            result.Should().Be(expectedResult);
 
             if (expectedExitReason != ExitReason.None)
             {
-                Assert.NotNull(command.ExecutionException);
+                command.ExecutionException.Should().NotBeNull();
 
                 if (expectedExitReason != ExitReason.UnhandledExceptionInEngine)
                 {
                     var eax = command.ExecutionException as ExitApplicationException<ExitReason>;
-                    Assert.NotNull(eax);
+                    eax.Should().NotBeNull();
+                    eax.ExitReason.Should().Be(expectedExitReason);
                 }
             }
             else
             {
-                Assert.Null(command.ExecutionException);
+                command.ExecutionException.Should().BeNull();
             }
             ExceptionRaisingRule.s_exceptionCondition = ExceptionCondition.None;
         }
@@ -97,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 RegardAnalysisTargetAsNotApplicable = true
             };
 
@@ -113,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 RegardAnalysisTargetAsValid = false
             };
 
@@ -128,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 RegardAnalysisTargetAsCorrupted = true
             };
 
@@ -143,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -153,17 +154,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions : options);
         }
 
-#if NETCOREAPP2_0
-        [Fact(Skip = "GetType().Assembly.Location causes test to fail in NET CORE")]
-#else
         [Fact]
-#endif
         public void NoRulesLoaded()
         {
+            string assemblyWithNoPlugIns = Path.GetDirectoryName(GetThisTestAssemblyFilePath());
+            assemblyWithNoPlugIns = Path.Combine(assemblyWithNoPlugIns, "Sarif.TestUtilities.dll");
+
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
-                DefaultPlugInFilePaths = new string[] { typeof(string).Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                DefaultPlugInFilePaths = new string[] { assemblyWithNoPlugIns },
             };
 
             ExceptionTestHelper(
@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
             ExceptionTestHelper(
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                     var options = new TestAnalyzeOptions()
                     {
-                        TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                        TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                         OutputFilePath = path,
                         Verbose = true,
                     };
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // attempt to persist to unauthorized location will raise exception
                 var options = new TestAnalyzeOptions()
                 {
-                    TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                    TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
                     Verbose = true,
                 };
@@ -359,7 +359,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 ConfigurationFilePath = path,
                 Verbose = true,
             };
@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                 PluginFilePaths = new string[] { path },
                 Verbose = true,
             };
@@ -400,7 +400,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             try {
                 var options = new TestAnalyzeOptions()
                 {
-                    TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                    TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
                     OutputFilePath = path,
                     Verbose = true,
                 };
@@ -432,24 +432,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 expectedExitReason: ExitReason.InvalidCommandLineOption,
                 analyzeOptions: options);
         }
-        
+
         [Fact]
         public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRule()
         {
             var options = new TestAnalyzeOptions()
             {
-                TargetFileSpecifiers = new string[] { this.GetType().Assembly.Location },
+                TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
             };
 
-            // As there is only one ExceptionRaisingRule skimmer, when it isn't on a supported platform, 
-            // no rules will be loaded.
+            // There are two default rules, so when this check is not on a supported platform, 
+            // a single rule will still be loaded.
             ExceptionTestHelper(
                 ExceptionCondition.InvalidPlatform,
-                RuntimeConditions.RuleCannotRunOnPlatform | RuntimeConditions.NoRulesLoaded,
+                RuntimeConditions.RuleCannotRunOnPlatform,
                 expectedExitReason: ExitReason.NoRulesLoaded,
-                analyzeOptions : options);
+                analyzeOptions: options);
         }
-        
+
+
+        [Fact]
+        public void AnalyzeCommand_ReportsWarningOnUnsupportedPlatformForRuleAndNoRulesLoaded()
+        {
+            PropertiesDictionary allRulesDisabledConfiguration = ExportConfigurationCommandBaseTests.s_allRulesDisabledConfiguration;
+            string path = Path.GetTempFileName() + ".xml";
+
+            try
+            {
+                allRulesDisabledConfiguration.SaveToXml(path);
+                var options = new TestAnalyzeOptions()
+                {
+                    TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
+                    ConfigurationFilePath = path
+                };
+
+                // There are two default rules.One of which is disabled by configuration,
+                // the other is disabled as unsupported on current platform.
+                ExceptionTestHelper(
+                    ExceptionCondition.InvalidPlatform,
+                    RuntimeConditions.AllRulesExplicitlyDisabled | RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.RuleCannotRunOnPlatform,
+                    expectedExitReason: ExitReason.AllRulesExplicitlyDisabled,
+                    analyzeOptions: options);
+            }
+            finally
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+        }
+
         public Run AnalyzeFile(
             string fileName, 
             string configFileName = null,
@@ -623,7 +656,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // disabled check that documents it was turned off for the analysis.
                 resultCount.Should().Be(0);
                 configurationNotificationCount.Should().Be(2);
-                run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999RuleDisabled).Count().Should().Be(2);
+                run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
 
                 toolNotificationCount.Should().Be(1);
             }
