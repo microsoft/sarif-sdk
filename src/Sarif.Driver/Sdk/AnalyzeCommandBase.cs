@@ -28,6 +28,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
 
+        public string DefaultConfigurationPath
+        {
+            get
+            {
+                string currentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
+                return Path.Combine(currentDirectory, "default.xml");
+            }
+        }
+
         public override int Run(TOptions analyzeOptions)
         {
             // 0. Initialize an common logger that drives all outputs. This
@@ -277,8 +286,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             context.Policy = new PropertiesDictionary();
 
-            if (String.IsNullOrEmpty(options.ConfigurationFilePath) ||
-                options.ConfigurationFilePath == DefaultPolicyName)
+            if (options.ConfigurationFilePath == DefaultPolicyName)
+            {
+                return;
+            }
+
+            if (String.IsNullOrEmpty(options.ConfigurationFilePath) &&
+                    File.Exists(DefaultConfigurationPath))
+            {
+                options.ConfigurationFilePath = DefaultConfigurationPath;
+            }
+            else
             {
                 return;
             }
