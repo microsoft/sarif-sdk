@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -14,11 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
 	        var sarifFiles = GetSarifFiles(mergeOptions);
 
-	        var allRuns = GetAllRuns(sarifFiles);
+	        var allRuns = ParseFiles(sarifFiles);
 
-	        // Build one SarifLog with all the Runs.
-			SarifLog combinedLog = new SarifLog(SarifVersion.OneZeroZero.ConvertToSchemaUri(),
-												SarifVersion.OneZeroZero, allRuns);
+            // Build one SarifLog with all the Runs.
+            SarifLog combinedLog = allRuns.Merge();
 
             // Write output to file.
             string outputName = GetOutputFileName(mergeOptions);
@@ -37,26 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-	    private static IEnumerable<Run> GetAllRuns(IEnumerable<string> sarifFiles)
+	    private static IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
 	    {
-		    foreach (string file in sarifFiles)
-		    {
-			    SarifLog log = ReadFile(file);
-
-			    if (log.Runs == null)
-			    {
-				    continue;
-			    }
-
-			    foreach (Run run in log.Runs)
-			    {
-				    if (run != null)
-				    {
-					    yield return new Run(run);
-				    }
-			    }
-		    }
-	    }
+            foreach (var file in sarifFiles)
+            {
+                yield return ReadFile(file);
+            }
+        }
 
 	    private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
 	    {
