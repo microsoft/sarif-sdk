@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using Newtonsoft.Json;
+using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
@@ -13,7 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [Fact]
         public void SerializeDeserializePipeline_WorksAsExpected()
         {
-            throw new NotImplementedException();
+            SarifLogPipeline preserialized = new SarifLogPipeline(
+                new List<ActionTuple>()
+                 { new ActionTuple(){Action=SarifLogAction.RebaseUri, Parameters=new string[] {"SrcRoot", @"C:\src\"} },
+                   new ActionTuple(){Action=SarifLogAction.Merge, Parameters=new string[0]}
+                });
+            
+            string result = JsonConvert.SerializeObject(preserialized);
+
+            SarifLogPipeline deserialized = JsonConvert.DeserializeObject<SarifLogPipeline>(result);
+            
+            deserialized.ShouldBeEquivalentTo(preserialized);
         }
     }
 }

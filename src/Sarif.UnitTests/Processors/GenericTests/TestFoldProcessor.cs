@@ -6,8 +6,10 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    class TestFilterProcessor : GenericReduceAction<SarifLog>
+    class TestFoldProcessor : GenericFoldAction<int>
     {
-        public TestFilterProcessor() : base((acc, list) => { return acc; }) { }
+        public static Func<int, int, int> internalFunction = (acc, value) => { return acc + value; };
+
+        public TestFoldProcessor() : base(internalFunction) { }
     }
 }

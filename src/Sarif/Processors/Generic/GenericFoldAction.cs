@@ -6,16 +6,16 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    public class GenericReduceAction<T> : IReduceAction<T> where T : new()
+    public class GenericFoldAction<T> : IFoldAction<T> where T : new()
     {
         Func<T, T, T> _action;
 
-        public GenericReduceAction(Func<T, T, T> action)
+        public GenericFoldAction(Func<T, T, T> action)
         {
             _action = action;
         }
 
-        public T Reduce(IEnumerable<T> list, T accumulator)
+        public T Fold(IEnumerable<T> list, T accumulator)
         {
             if(accumulator == null)
             {
@@ -33,15 +33,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             return accumulator;
         }
 
-        public T Reduce(IEnumerable<T> list)
+        public T Fold(IEnumerable<T> list)
         {
-            return Reduce(list, new T());
+            return Fold(list, new T());
         }
 
         // Allows for chaining with later map actions.
         public IEnumerable<T> Act(IEnumerable<T> list)
         {
-            return new List<T>() { Reduce(list) };
+            return new List<T>() { Fold(list) };
         }
     }
 }

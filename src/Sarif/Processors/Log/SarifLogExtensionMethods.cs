@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     {
         public static SarifLog Merge(this IEnumerable<SarifLog> sarifLog)
         {
-            return ((GenericReduceAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge)).Reduce(sarifLog);
+            return ((GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge)).Fold(sarifLog);
         }
 
         public static IEnumerable<SarifLog> RebaseUri(this IEnumerable<SarifLog> sarifLog, string baseName, Uri uri)

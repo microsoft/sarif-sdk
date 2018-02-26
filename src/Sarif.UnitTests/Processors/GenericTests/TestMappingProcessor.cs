@@ -6,8 +6,10 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    internal class TestMappingProcessor : GenericMappingAction<ISarifNode>
+    internal class TestMappingProcessor : GenericMappingAction<int>
     {
-        public TestMappingProcessor() : base (a => { return a; }) { }
+        public static Func<int, int> internalFunction = a => { return a + 1; };
+
+        public TestMappingProcessor() : base (internalFunction) { }
     }
 }

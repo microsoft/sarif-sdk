@@ -31,6 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             Run newRun = base.VisitRun(node);
+            if(!node.Properties.ContainsKey("BLAH"))
+            {
+                throw new NotImplementedException();
+            }
+
             newRun.SetProperty(_baseName, _baseUri);
             return newRun;
         }
