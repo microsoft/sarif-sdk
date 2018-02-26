@@ -104,8 +104,8 @@
     <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
     <Compile Include="Tags\SarifLocationTaggerProvider.cs" />
     <Compile Include="TreeViewSelectionHelper.cs" />
-    <Compile Include="Views\CodeLocations.xaml.cs">
-      <DependentUpon>CodeLocations.xaml</DependentUpon>
+    <Compile Include="Views\SarifViewerControl.xaml.cs">
+      <DependentUpon>SarifViewerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BindingDebugConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
@@ -395,7 +395,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CodeLocations.xaml">
+    <Page Include="Views\SarifViewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,6 +10,6 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow">
     <Grid>
-        <local:CodeLocations Visibility="{Binding TargetNullValue=Collapsed}" />
+        <local:SarifViewerControl Visibility="{Binding TargetNullValue=Collapsed}" />
     </Grid>
 </UserControl>
