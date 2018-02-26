@@ -4,6 +4,7 @@
                     xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/StringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTreesStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -40,21 +41,24 @@
                     </ToolBar.Template>
                     <Button x:Name="ToolBarButtonExpand"
                             Command="{Binding ExpandAllCommand}"
-                            ToolTip="Expand all"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonExpand_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Style="{StaticResource ToolBarExpandButtonTextStyle}"/>
+                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonExpand_Text_String}"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Button x:Name="ToolBarButtonCollapse"
                             Command="{Binding CollapseAllCommand}"
-                            ToolTip="Collapse all"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonCollapse_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Style="{StaticResource ToolBarCollapseButtonTextStyle}" />
+                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonCollapse_Text_String}"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Button x:Name="ToolBarButtonIntelligentExpand"
                             Command="{Binding IntelligentExpandCommand}"
-                            ToolTip="Intelligent expand"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonIntelligentExpand_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Style="{StaticResource ToolBarIntelligentExpandButtonTextStyle}"/>
+                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonIntelligentExpand_Text_String}"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
                     <Slider x:Name="ToolBarSlider"

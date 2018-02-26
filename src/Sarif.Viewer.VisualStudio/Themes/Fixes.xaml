@@ -4,6 +4,7 @@
                     xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/StringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/FixesStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
@@ -41,7 +42,10 @@
                                             <Hyperlink Command="{Binding PreviewFixCommand}"
                                                        CommandParameter="{Binding}"
                                                        IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource FileExistsToBooleanConverter}}"
-                                                       Style="{StaticResource RuleHyperlinkStyle}">Preview</Hyperlink>
+                                                       
+                                                       Style="{StaticResource RuleHyperlinkStyle}">
+                                                <ContentControl Content="{StaticResource Fixes_PreviewCommandHyperlink_Text_String}"/>
+                                            </Hyperlink>
                                         </TextBlock>
                                         <TextBlock Grid.Row="0"
                                                    Grid.Column="2"
@@ -49,7 +53,9 @@
                                             <Hyperlink Command="{Binding ApplyFixCommand}"
                                                        CommandParameter="{Binding}"
                                                        IsEnabled="{Binding FileChanges[0].FilePath, Converter={StaticResource FileExistsToBooleanConverter}}"
-                                                       Style="{StaticResource RuleHyperlinkStyle}">Apply</Hyperlink>
+                                                       Style="{StaticResource RuleHyperlinkStyle}">
+                                                <ContentControl Content="{StaticResource Fixes_ApplyCommandHyperlink_Text_String}"/>
+                                            </Hyperlink>
                                         </TextBlock>
                                     </Grid>
                                 </TreeViewItem.Header>
@@ -64,17 +70,17 @@
                                     <DockPanel>
                                         <TextBlock DockPanel.Dock="Top"
                                                    Style="{StaticResource PropertyValue}">
-                                            Start at offset <Run Text="{Binding Offset}" />.
+                                            <Run Text="{Binding Offset, StringFormat={StaticResource Fixes_Replacement_Offset_Text_FormatString}}" />
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
                                                    Visibility="{Binding DeletedLength, Converter={StaticResource Int32ToVisibilityConverter}}"
                                                    Style="{StaticResource PropertyValue}">
-                                            Delete <Run Text="{Binding DeletedLength}" /> bytes.
+                                            <Run Text="{Binding DeletedLength, StringFormat={StaticResource Fixes_Replacement_DeletedLength_Text_FormatString}}" />
                                         </TextBlock>
                                         <TextBlock DockPanel.Dock="Top"
                                                    Visibility="{Binding InsertedString, Converter={StaticResource StringToVisibilityConverter}}"
                                                    Style="{StaticResource PropertyValue}">
-                                            Insert the string "<Run Text="{Binding InsertedString}" />".
+                                            <Run Text="{Binding InsertedString, StringFormat={StaticResource Fixes_Replacement_InsertedString_Text_FormatString}}" />
                                         </TextBlock>
                                         <TextBlock>
                                             <LineBreak />

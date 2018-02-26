@@ -54,18 +54,6 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
     </Style>
 
-    <Style x:Key="ToolBarExpandButtonTextStyle" BasedOn="{StaticResource ToolBarGlyphButtonTextStyle}" TargetType="TextBlock">
-        <Setter Property="Text" Value="+"/>
-    </Style>
-
-    <Style x:Key="ToolBarCollapseButtonTextStyle" BasedOn="{StaticResource ToolBarGlyphButtonTextStyle}" TargetType="TextBlock">
-        <Setter Property="Text" Value="-"/>
-    </Style>
-
-    <Style x:Key="ToolBarIntelligentExpandButtonTextStyle" BasedOn="{StaticResource ToolBarGlyphButtonTextStyle}" TargetType="TextBlock">
-        <Setter Property="Text" Value="±"/>
-    </Style>
-
     <Style x:Key="ToolBarSeparatorStyle" TargetType="Separator">
         <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"/>
         <Setter Property="Margin" Value="10,4"/>
@@ -88,7 +76,7 @@
         <Setter Property="DockPanel.Dock" Value="Top" />
     </Style>
 
-    <Style x:Key="CallTreeTextStyle" BasedOn="{StaticResource baseTextBlockStyle}" TargetType="TextBlock">
+    <Style x:Key="CallTreeTextStyle" BasedOn="{StaticResource BaseTextBlockStyle}" TargetType="TextBlock">
         <Setter Property="Padding" Value="0,0,10,0" />
     </Style>
     

@@ -17,20 +17,20 @@
 
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"
-           x:Key="BasetStyle">
+           x:Key="BaseStyle">
         <Setter Property="FontFamily"
                 Value="Segoe UI" />
         <Setter Property="FontSize"
                 Value="11.5" />
     </Style>
     <Style TargetType="{x:Type Button}"
-           BasedOn="{StaticResource BasetStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type Label}"
-           BasedOn="{StaticResource BasetStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type TextBox}"
-           BasedOn="{StaticResource BasetStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type ListView}"
-           BasedOn="{StaticResource BasetStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
 
     <Style TargetType="TextBlock"
            x:Key="BaseTextBlockStyle">

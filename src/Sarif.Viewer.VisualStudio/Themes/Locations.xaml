@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
-                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
+                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/StringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/LocationsStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -25,14 +25,12 @@
                     <TreeViewItem.Header>
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Left"
-                                       Text="Defect Locations" 
+                                       Text="{StaticResource Locations_TreeViewItem_Header_Label_Text_String}" 
                                        Style="{StaticResource PanelHeader}"/>
                             <TextBlock DockPanel.Dock="Left"
                                        Visibility="{Binding Locations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
-                                       Style="{StaticResource PanelHeader}">
-                                <Run Text=" (" />
-                                <Run Text="{Binding Locations.Count, Mode=OneWay}" />
-                                <Run Text=")" />
+                                       Style="{StaticResource LocationCountTextStyle}">
+                                <Run Text="{Binding Locations.Count, Mode=OneWay, StringFormat={StaticResource Locations_TreeViewItem_Header_Count_Text_FormatString}}"/>
                             </TextBlock>
                         </DockPanel>
                     </TreeViewItem.Header>
@@ -62,13 +60,13 @@
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                            <Run Text=" Line" />
-                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                                                   Style="{StaticResource ListBoxItemToolTipRegionTextStyle}">
+                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay, StringFormat={StaticResource Locations_ListBoxItem_ToolTip_RegionStartLine_Text_FormatString}}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                            <Run Text=" Col" />
-                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                                                   Style="{StaticResource ListBoxItemToolTipRegionTextStyle}">
+                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay, StringFormat={StaticResource Locations_ListBoxItem_ToolTip_RegionStartColumn_Text_FormatString}}" />
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>
@@ -103,9 +101,7 @@
                                        Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}" />
                             <TextBlock Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
                                        Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}">
-                                <Run Text=" (" />
-                                <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
-                                <Run Text=")" />
+                                <Run Text="{Binding RelatedLocations.Count, Mode=OneWay, StringFormat={StaticResource Locations_TreeViewItem_Header_Count_Text_FormatString}}" />
                             </TextBlock>
                         </DockPanel>
                     </TreeViewItem.Header>
@@ -135,13 +131,13 @@
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                            <Run Text=" Line" />
-                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                                                   Style="{StaticResource ListBoxItemToolTipRegionTextStyle}">
+                                                            <Run Text="{Binding Region.StartLine, Mode=OneWay, StringFormat={StaticResource Locations_ListBoxItem_ToolTip_RegionStartLine_Text_FormatString}}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                            <Run Text=" Col" />
-                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                                                   Style="{StaticResource ListBoxItemToolTipRegionTextStyle}">
+                                                            <Run Text="{Binding Region.StartColumn, Mode=OneWay, StringFormat={StaticResource Locations_ListBoxItem_ToolTip_RegionStartColumn_Text_FormatString}}" />
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>

@@ -22,6 +22,10 @@
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
+    <Style x:Key="LocationCountTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
     <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
         <Setter Property="IsExpanded" Value="True"/>
     </Style>
@@ -49,6 +53,10 @@
         <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
 
+    <Style x:Key="ListBoxItemToolTipRegionTextStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
     <Style x:Key="LocationTextBaseStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="12"/>
     </Style>
@@ -59,6 +67,7 @@
 
     <Style x:Key="RelatedLocationsTreeViewItemHeaderTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
         <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
     </Style>
 
 </ResourceDictionary>
