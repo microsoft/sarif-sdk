@@ -446,7 +446,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             ExceptionTestHelper(
                 ExceptionCondition.InvalidPlatform,
                 RuntimeConditions.RuleCannotRunOnPlatform,
-                expectedExitReason: ExitReason.NoRulesLoaded,
+                expectedExitReason: ExitReason.None,
                 analyzeOptions: options);
         }
 
@@ -486,7 +486,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Run AnalyzeFile(
             string fileName, 
             string configFileName = null,
-            RuntimeConditions runtimeConditions = RuntimeConditions.None)
+            RuntimeConditions runtimeConditions = RuntimeConditions.None,
+            int expectedReturnCode = TestAnalyzeCommand.SUCCESS)
         {
             string path = Path.GetTempFileName();
             Run run = null;
@@ -509,7 +510,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
                 int result = command.Run(options);
 
-                result.Should().Be(TestAnalyzeCommand.SUCCESS);
+                result.Should().Be(expectedReturnCode);
 
                 command.RuntimeErrors.Should().Be(runtimeConditions);
 
@@ -640,7 +641,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Run run = AnalyzeFile(
                     location, 
                     configFileName: path,
-                    runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled);
+                    runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.NoRulesLoaded,
+                    expectedReturnCode: TestAnalyzeCommand.FAILURE);
 
                 int resultCount = 0;
                 int toolNotificationCount = 0;
@@ -655,10 +657,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // When rules are disabled, we expect a configuration warning for each 
                 // disabled check that documents it was turned off for the analysis.
                 resultCount.Should().Be(0);
-                configurationNotificationCount.Should().Be(2);
+
+                // Three notifications. One for each disabled rule. And an error
+                // notification that all rules have been disabled
+                configurationNotificationCount.Should().Be(3);
+                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
+                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(2);
+
                 run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
 
-                toolNotificationCount.Should().Be(1);
+                toolNotificationCount.Should().Be(0);
             }
             finally
             {
@@ -668,7 +676,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static string GetThisTestAssemblyFilePath()
         {
-            return Path.Combine(Environment.CurrentDirectory, "Sarif.Driver.UnitTests.dll");
+            string filePath = Path.Combine(Environment.CurrentDirectory, "Sarif.Driver.UnitTests.dll");
+            Assert.True(File.Exists(filePath));
+            return filePath;
         }
     }
 }

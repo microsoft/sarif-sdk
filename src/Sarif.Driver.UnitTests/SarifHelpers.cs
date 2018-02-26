@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     internal static class SarifHelpers
     {
         public static void ValidateRun(
-            Run run, 
+            Run run,
             Action<Result> resultAction,
             Action<Notification> toolNotificationAction,
             Action<Notification> configurationNotificationAction)
