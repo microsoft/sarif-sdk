@@ -154,11 +154,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 analyzeOptions : options);
         }
 
-        [Fact(Skip = "dotnet test executes from a temporary folder, this does not find an assembly.")]
+        [Fact]
         public void NoRulesLoaded()
         {
-            string assemblyWithNoPlugIns = Path.GetDirectoryName(GetThisTestAssemblyFilePath());
-            assemblyWithNoPlugIns = Path.Combine(assemblyWithNoPlugIns, "Sarif.TestUtilities.dll");
+            string assemblyWithNoPlugIns = typeof(TestAnalysisContext).Assembly.Location;
 
             var options = new TestAnalyzeOptions()
             {
@@ -712,8 +711,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static string GetThisTestAssemblyFilePath()
         {
-            string filePath = Assembly.GetExecutingAssembly().Location;
-                //typeof(AnalyzeCommandBaseTests).Assembly.Location;
+            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
             return filePath;
         }
     }
