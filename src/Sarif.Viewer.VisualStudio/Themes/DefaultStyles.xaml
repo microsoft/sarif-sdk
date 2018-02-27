@@ -5,37 +5,35 @@
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <!-- Converters -->
-    <converters:DatabindingDebugConverter x:Key="databindingDebugConverter" />
-    <converters:BooleanToVisibilityConverter x:Key="booleanToVisiblityConverter" />
-    <converters:ObjectToVisibilityConverter x:Key="objectToVisibilityConverter" />
-    <converters:StringToVisibilityConverter x:Key="stringToVisibilityConverter" />
-    <converters:Int32ToVisibilityConverter x:Key="int32ToVisibilityConverter" />
-    <converters:CollectionToBooleanConverter x:Key="collectionToBooleanConverter" />
-    <converters:CollectionToCountConverter x:Key="collectionToCountConverter" />
-    <converters:CollectionToVisibilityConverter x:Key="collectionToVisibilityConverter" />
-    <converters:MultipleStringsToVisibilityConverter x:Key="multipleStringsToVisibilityConverter" />
-    <converters:BooleanToCollapsedVisibilityConverter x:Key="booleanToCollapsedVisibilityConverter" />
-    <converters:FileExistsToBooleanConverter x:Key="fileExistsToBooleanConverter" />
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter" />
+    <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+    <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    <converters:Int32ToVisibilityConverter x:Key="Int32ToVisibilityConverter" />
+    <converters:CollectionToBooleanConverter x:Key="CollectionToBooleanConverter" />
+    <converters:CollectionToCountConverter x:Key="CollectionToCountConverter" />
+    <converters:CollectionToVisibilityConverter x:Key="CollectionToVisibilityConverter" />
+    <converters:MultipleStringsToVisibilityConverter x:Key="MultipleStringsToVisibilityConverter" />
+    <converters:FileExistsToBooleanConverter x:Key="FileExistsToBooleanConverter" />
 
     <!-- Default Styles-->
     <Style TargetType="{x:Type Control}"
-           x:Key="baseStyle">
+           x:Key="BaseStyle">
         <Setter Property="FontFamily"
                 Value="Segoe UI" />
         <Setter Property="FontSize"
                 Value="11.5" />
     </Style>
     <Style TargetType="{x:Type Button}"
-           BasedOn="{StaticResource baseStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type Label}"
-           BasedOn="{StaticResource baseStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type TextBox}"
-           BasedOn="{StaticResource baseStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
     <Style TargetType="{x:Type ListView}"
-           BasedOn="{StaticResource baseStyle}"></Style>
+           BasedOn="{StaticResource BaseStyle}"></Style>
 
     <Style TargetType="TextBlock"
-           x:Key="baseTextBlockStyle">
+           x:Key="BaseTextBlockStyle">
         <Setter Property="FontFamily"
                 Value="Segoe UI" />
         <Setter Property="FontSize"
@@ -62,7 +60,7 @@
 
     <Style TargetType="TextBlock"
            x:Key="PropertyKey"
-           BasedOn="{StaticResource baseTextBlockStyle}">
+           BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Foreground"
                 Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
         <Setter Property="FontWeight"
@@ -73,7 +71,7 @@
 
     <Style TargetType="TextBlock"
            x:Key="PropertyValue"
-           BasedOn="{StaticResource baseTextBlockStyle}">
+           BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Foreground"
                 Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
     </Style>
@@ -127,20 +125,6 @@
                     <Rectangle Margin="2"
                                SnapsToDevicePixels="true"
                                Stroke="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
-                               StrokeThickness="1"
-                               StrokeDashArray="1 2" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="FocusOutlineRed">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="2"
-                               SnapsToDevicePixels="true"
-                               Stroke="Red"
                                StrokeThickness="1"
                                StrokeDashArray="1 2" />
                 </ControlTemplate>

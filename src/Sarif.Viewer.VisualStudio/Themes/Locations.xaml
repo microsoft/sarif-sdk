@@ -4,7 +4,7 @@
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/LocationsStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Location and Related Location Template -->
@@ -18,23 +18,18 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Separator Grid.Row="0"
-                       Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
-                       Margin="15"
-                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"/>
             <TreeView Grid.Row="1"
-                      Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"
-                      Background="Transparent"
-                      BorderThickness="0">
-                <TreeViewItem IsExpanded="True">
+                      Visibility="{Binding Locations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
+                      Style="{StaticResource LocationsTreeViewStyle}">
+                <TreeViewItem Style="{StaticResource TreeViewItemStyle}">
                     <TreeViewItem.Header>
                         <DockPanel>
                             <TextBlock DockPanel.Dock="Left"
-                                       Style="{StaticResource PanelHeader}"
-                                       Text="Defect Locations" />
+                                       Text="Defect Locations" 
+                                       Style="{StaticResource PanelHeader}"/>
                             <TextBlock DockPanel.Dock="Left"
-                                       Style="{StaticResource PanelHeader}"
-                                       Visibility="{Binding Locations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}">
+                                       Visibility="{Binding Locations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
+                                       Style="{StaticResource PanelHeader}">
                                 <Run Text=" (" />
                                 <Run Text="{Binding Locations.Count, Mode=OneWay}" />
                                 <Run Text=")" />
@@ -44,60 +39,44 @@
                     <TreeViewItem>
                         <TreeViewItem.Header>
                             <DockPanel>
-                                <ListBox DockPanel.Dock="Top"
-                                         ItemsSource="{Binding Locations}"
+                                <ListBox ItemsSource="{Binding Locations}"
                                          SelectedItem="{Binding Locations.SelectedItem, Mode=TwoWay}"
-                                         Background="Transparent"
-                                         BorderThickness="0">
+                                         ItemContainerStyle="{StaticResource ListBoxItemContainerStyl}"
+                                         Style="{StaticResource TreeViewItemListBoxStyle}">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <DockPanel IsItemsHost="True"
-                                                       LastChildFill="False" />
+                                            <DockPanel Style="{StaticResource ListBoxItemPanelStyle}" />
                                         </ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
-                                    <ListBox.ItemContainerStyle>
-                                        <Style TargetType="{x:Type ListBoxItem}">
-                                            <Setter Property="Foreground"
-                                                    Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
-                                            <Setter Property="DockPanel.Dock"
-                                                    Value="Bottom" />
-                                            <Setter Property="HorizontalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="VerticalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="FocusVisualStyle"
-                                                    Value="{StaticResource FocusOutline}"/>
-                                        </Style>
-                                    </ListBox.ItemContainerStyle>
 
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <WrapPanel Orientation="Horizontal">
+                                            <WrapPanel Style="{StaticResource ListBoxItemWrapPanelStyle}">
                                                 <WrapPanel.InputBindings>
                                                     <MouseBinding Gesture="LeftClick"
                                                                   Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                                                   CommandParameter="{Binding}" />
                                                 </WrapPanel.InputBindings>
                                                 <WrapPanel.ToolTip>
-                                                    <WrapPanel Orientation="Horizontal">
+                                                    <WrapPanel Style="{StaticResource ListBoxItemWrapPanelStyle}">
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Line" />
                                                             <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Col" />
                                                             <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
                                                     </WrapPanel>
                                                 </WrapPanel.ToolTip>
-                                                <TextBlock FontSize="12">
+                                                <TextBlock Style="{StaticResource LocationTextBaseStyle}">
                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
-                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                                           FontSize="12" Margin="5 0 0 0">
+                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
+                                                           Style="{StaticResource LocationTextStyle}">
                                                     <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
                                             </WrapPanel>
@@ -111,21 +90,19 @@
             </TreeView>
 
             <Separator Grid.Row="2"
-                       Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
-                       Margin="15"
-                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"/>
+                       Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
+                       Style="{StaticResource SectionSeparatorStyle}"/>
+            
             <TreeView Grid.Row="3"
-                      Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}"
-                      BorderThickness="0">
-                <TreeViewItem IsExpanded="True">
+                      Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}"
+                      Style="{StaticResource TreeViewStyleBase}">
+                <TreeViewItem Style="{StaticResource TreeViewItemStyle}">
                     <TreeViewItem.Header>
                         <DockPanel>
-                            <TextBlock DockPanel.Dock="Left"
-                                       Style="{StaticResource PanelHeader}"
-                                       Text="Related Locations" />
-                            <TextBlock DockPanel.Dock="Left"
-                                       Style="{StaticResource PanelHeader}"
-                                       Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}">
+                            <TextBlock Text="Related Locations"
+                                       Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}" />
+                            <TextBlock Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
+                                       Style="{StaticResource RelatedLocationsTreeViewItemHeaderTextStyle}">
                                 <Run Text=" (" />
                                 <Run Text="{Binding RelatedLocations.Count, Mode=OneWay}" />
                                 <Run Text=")" />
@@ -134,48 +111,35 @@
                     </TreeViewItem.Header>
                     <TreeViewItem>
                         <TreeViewItem.Header>
-                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}">
-                                <ListBox DockPanel.Dock="Top"
-                                         ItemsSource="{Binding RelatedLocations}"
+                            <DockPanel Visibility="{Binding RelatedLocations, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
+                                <ListBox ItemsSource="{Binding RelatedLocations}"
                                          SelectedItem="{Binding RelatedLocations.SelectedItem, Mode=TwoWay}"
-                                         BorderThickness="0">
+                                         ItemContainerStyle="{StaticResource ListBoxItemContainerStyl}"
+                                         Style="{StaticResource TreeViewItemListBoxStyle}">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <DockPanel IsItemsHost="True"
-                                                       LastChildFill="False" />
+                                            <DockPanel Style="{StaticResource ListBoxItemPanelStyle}" />
                                         </ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
-                                    <ListBox.ItemContainerStyle>
-                                        <Style TargetType="{x:Type ListBoxItem}">
-                                            <Setter Property="DockPanel.Dock"
-                                                    Value="Bottom" />
-                                            <Setter Property="HorizontalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="VerticalContentAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="FocusVisualStyle"
-                                                    Value="{StaticResource FocusOutline}"/>
-                                        </Style>
-                                    </ListBox.ItemContainerStyle>
 
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <WrapPanel Orientation="Horizontal">
+                                            <WrapPanel Style="{StaticResource ListBoxItemWrapPanelStyle}">
                                                 <WrapPanel.InputBindings>
                                                     <MouseBinding Gesture="LeftClick"
                                                                   Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"
                                                                   CommandParameter="{Binding}" />
                                                 </WrapPanel.InputBindings>
                                                 <WrapPanel.ToolTip>
-                                                    <WrapPanel Orientation="Horizontal">
+                                                    <WrapPanel Style="{StaticResource ListBoxItemWrapPanelStyle}">
                                                         <TextBlock>
                                                             <Run Text="{Binding FilePath, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Line" />
                                                             <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                                         </TextBlock>
-                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                        <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                             <Run Text=" Col" />
                                                             <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                                         </TextBlock>
@@ -184,8 +148,8 @@
                                                 <TextBlock>
                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                 </TextBlock>
-                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
-                                                           Margin="5 0 0 0">
+                                                <TextBlock Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
+                                                           Style="{StaticResource LocationTextStyle}">
                                                     <Run Text="{Binding Location, Mode=OneWay}" />
                                                 </TextBlock>
                                             </WrapPanel>
