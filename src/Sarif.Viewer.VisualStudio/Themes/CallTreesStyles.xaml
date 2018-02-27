@@ -94,14 +94,14 @@
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Collapsed" />
-                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}"                                                       Value="Visible" />
+                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}" Value="Collapsed" />
+                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}" Value="Visible" />
                 </MultiDataTrigger.Conditions>
                 <Setter Property="TextBlock.FontFamily" Value="Consolas" />
                 <Setter Property="FontSize" Value="10pt" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}"                                                 Value="True">
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
                 <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
             </DataTrigger>
