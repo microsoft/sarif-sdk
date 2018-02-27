@@ -676,8 +676,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         private static string GetThisTestAssemblyFilePath()
         {
-            string filePath = Path.Combine(Environment.CurrentDirectory, "Sarif.Driver.UnitTests.dll");
-            Assert.True(File.Exists(filePath));
+            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
             return filePath;
         }
     }
