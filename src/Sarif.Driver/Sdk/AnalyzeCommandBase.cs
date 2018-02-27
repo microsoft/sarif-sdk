@@ -29,6 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
+        
+        public string DefaultConfigurationPath
+        {
+            get
+            {
+                string currentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
+                return Path.Combine(currentDirectory, "default.configuration.xml");
+            }
+        }
 
         public override int Run(TOptions analyzeOptions)
         {
@@ -264,39 +273,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 context.TargetUri = new Uri(filePath);
             }
-
-
-
+            
             return context;
         }
 
+        /// <summary>
+        /// Calculate the file to load the configuration from.
+        /// </summary>
+        /// <param name="options">Options</param>
+        /// <param name="unitTestFileExists">Used only in unit testing, overrides "File.Exists".  
+        /// TODO--Restructure Sarif.Driver to use Sarif.IFileSystem for actions on file, to enable unit testing here instead.</param>
+        /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
+        internal string GetConfigurationFileName(TOptions options, bool unitTestFileExists = false)
+        {
+            if (options.ConfigurationFilePath == DefaultPolicyName)
+            {
+                return null;
+            }
+
+            if (String.IsNullOrEmpty(options.ConfigurationFilePath))
+            {
+                if (!File.Exists(DefaultConfigurationPath) && !unitTestFileExists)
+                {
+                    return null;
+                }
+
+                return DefaultConfigurationPath;
+            }
+            return options.ConfigurationFilePath;
+        }
+        
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
             context.Policy = new PropertiesDictionary();
 
-            if (String.IsNullOrEmpty(options.ConfigurationFilePath) ||
-                options.ConfigurationFilePath == DefaultPolicyName)
+            string configurationFileName = GetConfigurationFileName(options);
+            if (string.IsNullOrEmpty(configurationFileName))
             {
                 return;
             }
 
-            string extension = Path.GetExtension(options.ConfigurationFilePath);
+            string extension = Path.GetExtension(configurationFileName);
 
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+                context.Policy.LoadFromXml(configurationFileName);
             }
             else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+                context.Policy.LoadFromJson(configurationFileName);
             }
             else if (ConfigurationFormat == FileFormat.Xml)
             {
-                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+                context.Policy.LoadFromXml(configurationFileName);
             }
             else
             {
-                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+                context.Policy.LoadFromJson(configurationFileName);
             }
         }
 
