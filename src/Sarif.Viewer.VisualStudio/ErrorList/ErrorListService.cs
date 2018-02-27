@@ -117,6 +117,27 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
             }
 
+            if (run.ConfigurationNotifications != null)
+            {
+                foreach (Notification configurationNotification in run.ConfigurationNotifications)
+                {
+                    var sarifError = new SarifErrorListItem(run, configurationNotification, logFilePath, projectNameCache);
+                    sarifErrors.Add(sarifError);
+                }
+            }
+
+            if (run.ToolNotifications != null)
+            {
+                foreach (Notification toolNotification in run.ToolNotifications)
+                {
+                    if (toolNotification.Level != NotificationLevel.Note)
+                    {
+                        var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
+                        sarifErrors.Add(sarifError);
+                    }
+                }
+            }
+
             foreach (var error in sarifErrors)
             {
                 CodeAnalysisResultManager.Instance.SarifErrors.Add(error);

@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif
 {
-    internal class TestMessageLogger : IAnalysisLogger
+    public class TestMessageLogger : IAnalysisLogger
     {
         public TestMessageLogger()
         {
@@ -24,6 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public HashSet<string> NotApplicableTargets { get; set; }
 
+        public List<string> Messages { get; set; }
+
+        public List<Notification> ToolNotifications { get; set; }
+
+        public List<Notification> ConfigurationNotifications { get; set; }
+
         public void AnalysisStarted()
         {
         }
@@ -39,6 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public void LogMessage(bool verbose, string message)
         {
+            Messages = Messages ?? new List<string>();
+            Messages.Add(message);
         }
 
         public void Log(IRule rule, Result result)
@@ -51,38 +59,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             switch (level)
             {
                 case ResultLevel.Pass:
-                {
-                    PassTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        PassTargets.Add(targetPath);
+                        break;
+                    }
 
                 case ResultLevel.Error:
-                {
-                    FailTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        FailTargets.Add(targetPath);
+                        break;
+                    }
 
                 case ResultLevel.NotApplicable:
-                {
-                    NotApplicableTargets.Add(targetPath);
-                    break;
-                }
+                    {
+                        NotApplicableTargets.Add(targetPath);
+                        break;
+                    }
 
                 default:
-                {
-                    throw new InvalidOperationException();
-                }
+                    {
+                        throw new InvalidOperationException();
+                    }
             }
         }
 
         public void LogToolNotification(Notification notification)
         {
-            throw new NotImplementedException();
+            ToolNotifications = ToolNotifications ?? new List<Notification>();
+            ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            throw new NotImplementedException();
+            ConfigurationNotifications = ConfigurationNotifications ?? new List<Notification>();
+            ConfigurationNotifications.Add(notification);
         }
     }
 }

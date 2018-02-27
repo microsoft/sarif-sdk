@@ -9,7 +9,7 @@ using Moq;
 
 using Match = System.Text.RegularExpressions.Match; // Avoid ambiguity with Moq.Match;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal static class MockFactory
     {
