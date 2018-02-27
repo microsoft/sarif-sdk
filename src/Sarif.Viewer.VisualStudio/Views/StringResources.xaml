@@ -2,6 +2,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+    <!-- SARIF Viewer Control -->
+    <system:String x:Key="SarifViewerControl_DialogHeader_Separator_Text_String">|</system:String>
+    <system:String x:Key="SarifViewerControl_HeaderLocation_ToolTip_RegionStartLine_Text_FormatString">Line {0}</system:String>
+    <system:String x:Key="SarifViewerControl_HeaderLocation_ToolTip_RegionStartColumn_Text_FormatString">Col {0}</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_Locations_Text_String">Locations</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_CodeFlows_Text_String">Code Flows</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_Stacks_Text_String">Stacks</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_CallTrees_Text_String">Call Trees</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_Fixes_Text_String">Fixes</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_Info_Text_String">Info</system:String>
+    <system:String x:Key="SarifViewerControl_TabItemHeader_ItemCount_Text_FormatString">({0})</system:String>
+
     <!-- Call Trees -->
     <system:String x:Key="CallTrees_ToolBarButtonExpand_Text_String">+</system:String>
     <system:String x:Key="CallTrees_ToolBarButtonCollapse_Text_String">-</system:String>
@@ -46,13 +58,5 @@
     <system:String x:Key="Stacks_Frame_Line_Text_FormatString">Line {0}</system:String>
     <system:String x:Key="Stacks_Frame_Column_Text_FormatString">, Col {0}</system:String>
     <system:String x:Key="keykeykey">StringString</system:String>
-    
-    <!--
-    <system:String x:Key="keykeykey">StringString</system:String>
-    <system:String x:Key="keykeykey">StringString</system:String>
-    <system:String x:Key="keykeykey">StringString</system:String>
-    <system:String x:Key="keykeykey">StringString</system:String>
-    <system:String x:Key="keykeykey">StringString</system:String>
-    <system:String x:Key="keykeykey">StringString</system:String>
--->
+ 
 </ResourceDictionary>

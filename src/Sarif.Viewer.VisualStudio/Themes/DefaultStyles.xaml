@@ -40,14 +40,6 @@
     </Style>
 
     <Style TargetType="TextBlock"
-           x:Key="DialogHeader">
-        <Setter Property="FontSize"
-                Value="13.5" />
-        <Setter Property="FontWeight"
-                Value="SemiBold" />
-    </Style>
-
-    <Style TargetType="TextBlock"
            x:Key="PanelHeader">
         <Setter Property="Foreground"
                 Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}" />
