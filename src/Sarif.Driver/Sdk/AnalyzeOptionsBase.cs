@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'c',
             "config",
-            HelpText = "Path to policy file that will be used to configure analysis. We default to 'default.xml' beside the main tool; passing value of 'default' or removing that file will configure BinSkim to use built-in settings.")]
+            HelpText = "Path to policy file that will be used to configure analysis. This defaults to 'default.configuration.xml' beside the main tool; passing value of 'default' or removing that file will configure BinSkim to use built-in settings.")]
         public string ConfigurationFilePath { get; set; }
 
         [Option(

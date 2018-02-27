@@ -157,7 +157,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Fact]
         public void NoRulesLoaded()
         {
-            string assemblyWithNoPlugIns = Path.GetDirectoryName(GetThisTestAssemblyFilePath());
+            string thisFilePath = GetThisTestAssemblyFilePath();
+            Console.WriteLine(thisFilePath);
+            string assemblyWithNoPlugIns = Path.GetDirectoryName(thisFilePath);
             assemblyWithNoPlugIns = Path.Combine(assemblyWithNoPlugIns, "Sarif.TestUtilities.dll");
 
             var options = new TestAnalyzeOptions()
@@ -674,9 +676,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        [Theory]
+        [InlineData(null, false, null)]
+        [InlineData("", false, null)]
+        [InlineData(null, true, "default.configuration.xml")]
+        [InlineData("", true, "default.configuration.xml")]
+        [InlineData("default", false, null)]
+        [InlineData("default", true, null)]
+        [InlineData("test-newconfig.xml", false, "test-newconfig.xml")]
+        [InlineData("test-newconfig.xml", true, "test-newconfig.xml")]
+        public void AnalyzeCommand_LoadConfigurationFile(string configValue, bool defaultFileExists, string expectedFileName)
+        {
+            var options = new TestAnalyzeOptions
+            {
+                TargetFileSpecifiers = new string[] { "" },
+                Verbose = true,
+                Statistics = true,
+                Quiet = true,
+                ComputeFileHashes = true,
+                ConfigurationFilePath = configValue,
+                Recurse = true,
+                OutputFilePath = "",
+            };
+
+            var command = new TestAnalyzeCommand();
+            
+            string fileName = command.GetConfigurationFileName(options, defaultFileExists);
+            if(string.IsNullOrEmpty(expectedFileName))
+            {
+                fileName.Should().BeNull();
+            } else
+            {
+                fileName.Should().EndWith(expectedFileName);
+            }
+        }
+
+
         private static string GetThisTestAssemblyFilePath()
         {
-            string filePath = typeof(AnalyzeCommandBaseTests).Assembly.Location;
+            string filePath = Assembly.GetExecutingAssembly().Location;
+                //typeof(AnalyzeCommandBaseTests).Assembly.Location;
             return filePath;
         }
     }
