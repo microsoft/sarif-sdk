@@ -3,12 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Runtime.InteropServices;
+using System.Security;
+
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -81,39 +83,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    the command line parser library is capable of.
             ValidateOptions(this.rootContext, analyzeOptions);
 
-            // 3. Create our configuration property bag, which will be 
-            //    shared with all rules during analysis
-            //ConfigureFromOptions(this.rootContext, analyzeOptions);
-
-            // 4. Produce a comprehensive set of analysis targets 
+            // 3. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
 
-            // 5. Proactively validate that we can locate and 
+            // 4. Proactively validate that we can locate and 
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
             targets = ValidateTargetsExist(this.rootContext, targets);
 
-            // 6. Initialize report file, if configured.
+            // 5. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, this.rootContext, targets);
 
-            // 7. Instantiate skimmers.
+            // 6. Instantiate skimmers.
             HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
-            // 8. Initialize configuration. This step must be done after initializing
+            // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
             //    so those assemblies must be loaded.
             InitializeConfiguration(analyzeOptions, this.rootContext);
 
-            // 9. Initialize skimmers. Initialize occurs a single time only. This
+            // 8. Initialize skimmers. Initialize occurs a single time only. This
             //    step needs to occurs after initializing configuration in order
             //    to allow command-line override of rule settings
             skimmers = InitializeSkimmers(skimmers, this.rootContext);
 
-            // 10. Run all analysis
+            // 9. Run all analysis
             AnalyzeTargets(analyzeOptions, skimmers, this.rootContext, targets);
 
-            // 11. For test purposes, raise an unhandled exception if indicated
+            // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(this.GetType().Name);
@@ -233,12 +231,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         normalizedSpecifier = uri.LocalPath;
                     }
                 }
-
                 // Currently, we do not filter on any extensions.
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
-
+            Debug.Assert(targets.Count > 0);
             return targets;
         }
 
@@ -383,7 +380,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (ISkimmer<TContext> skimmer in skimmers)
                 {
-
                     if(skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
                         result.Add(skimmer);
@@ -440,6 +436,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<string> targets)
         {
             HashSet<string> disabledSkimmers = new HashSet<string>();
+
+            foreach (ISkimmer<TContext> skimmer in skimmers)
+            {
+                PerLanguageOption<RuleEnabledState> ruleEnabledProperty;
+                ruleEnabledProperty = DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
+
+                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+
+                if (ruleEnabled == RuleEnabledState.Disabled)
+                {
+                    disabledSkimmers.Add(skimmer.Id);
+                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+                    RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                }
+            }
+
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(rootContext);
+                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
+            }
 
             foreach (string target in targets)
             {

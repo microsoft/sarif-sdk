@@ -9,9 +9,8 @@ using System.IO;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-
     public class EntryPointUtilitiesTests_GenerateArguments
     {
         [Fact]
