@@ -3,7 +3,7 @@
                     xmlns:models="clr-namespace:Microsoft.Sarif.Viewer.Models">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/StringResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/FixesStringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/FixesStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     

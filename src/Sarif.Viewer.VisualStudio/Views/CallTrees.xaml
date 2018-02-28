@@ -3,7 +3,7 @@
                     xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/StringResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/CallTreesStringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTreesStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

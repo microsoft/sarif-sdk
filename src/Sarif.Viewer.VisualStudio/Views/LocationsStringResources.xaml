@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Locations_TreeViewItem_Header_Label_Text_String">Defect Locations</system:String>
+    <system:String x:Key="Locations_TreeViewItem_Header_Count_Text_FormatString">({0})</system:String>
+    <system:String x:Key="Locations_ListBoxItem_ToolTip_RegionStartLine_Text_FormatString">Line {0}</system:String>
+    <system:String x:Key="Locations_ListBoxItem_ToolTip_RegionStartColumn_Text_FormatString">Col {0}</system:String>
+
+</ResourceDictionary>
