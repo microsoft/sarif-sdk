@@ -176,3 +176,5 @@
 
  ## **v1.7.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.4)
 * Platform Specific Tooling Text Fix
+* Skimmers can now be disabled via the configuration file
+* The Driver will now pull configuration from a default location to allow for easier re-packaging of tools with custom configurations

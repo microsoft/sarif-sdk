@@ -140,7 +140,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
 
                     byte[] fixedFile;
-                    if (TryFixFile(file, replacements, out fixedFile))
+                    if (TryFixFile(file, replacements, true, out fixedFile))
                     {
                         string extension = Path.GetExtension(file);
                         string baseFileName = Path.GetFileNameWithoutExtension(file);
@@ -149,7 +149,11 @@ namespace Microsoft.Sarif.Viewer.Models
 
                         File.WriteAllBytes(previewFilePath, fixedFile.ToArray());
 
-                        SarifViewerPackage.Dte.ExecuteCommand("Tools.DiffFiles", file + " " + previewFilePath);
+                        SarifViewerPackage.Dte.ExecuteCommand("Tools.DiffFiles",
+                                                              $"\"{file}\" " +
+                                                              $"\"{previewFilePath}\" " +
+                                                              $"\"{Resources.FixPreviewWindow_OriginalFileTitle}\" " +
+                                                              $"\"{Resources.FixPreviewWindow_PreviewFixedFileTitle}\"");
                     }
                 }
             }
@@ -178,7 +182,7 @@ namespace Microsoft.Sarif.Viewer.Models
                     }
 
                     byte[] fixedFile;
-                    if (TryFixFile(file, replacements, out fixedFile))
+                    if (TryFixFile(file, replacements, false, out fixedFile))
                     {
                         _fileSystem.WriteAllBytes(file, fixedFile.ToArray());
                         s_sourceFileFixLedger[file].LastModified = File.GetLastWriteTime(file);
@@ -191,7 +195,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal bool TryFixFile(string filePath, IEnumerable<ReplacementModel> replacements, out byte[] fixedFile)
+        internal bool TryFixFile(string filePath, IEnumerable<ReplacementModel> replacements, bool isPreview, out byte[] fixedFile)
         {
             fixedFile = null;
 
@@ -216,9 +220,10 @@ namespace Microsoft.Sarif.Viewer.Models
                     list = s_sourceFileFixLedger[path];
                 }
 
-                // Sum all of the changes that have been made up to the first replacement location
+                // Sum all of the changes that have been made up to and including
+                // the first replacement location
                 ReplacementModel rm = sortedReplacements.First();
-                int delta = list.Offsets.Where(kvp => kvp.Key < rm.Offset)
+                int delta = list.Offsets.Where(kvp => kvp.Key <= rm.Offset)
                                         .Sum(kvp => kvp.Value);
 
                 foreach (ReplacementModel replacement in sortedReplacements)
@@ -238,15 +243,19 @@ namespace Microsoft.Sarif.Viewer.Models
                         thisDelta += replacement.InsertedBytes.Length;
                     }
 
-                    if (!list.Offsets.ContainsKey(replacement.Offset))
+                    // If it's a preview, don't record the offset changes
+                    if (!isPreview)
                     {
-                        // First change at this offset
-                        list.Offsets.Add(replacement.Offset, thisDelta);
-                    }
-                    else
-                    {
-                        // Add to previous change(s) at this location
-                        list.Offsets[replacement.Offset] += thisDelta;
+                        if (!list.Offsets.ContainsKey(replacement.Offset))
+                        {
+                            // First change at this offset
+                            list.Offsets.Add(replacement.Offset, thisDelta);
+                        }
+                        else
+                        {
+                            // Add to previous change(s) at this location
+                            list.Offsets[replacement.Offset] += thisDelta;
+                        }
                     }
 
                     delta += thisDelta;

@@ -5,16 +5,15 @@
                     xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls">
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/InformationStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Info Template - Displays info about the rule for the result and the tool which raised the result. -->
     <DataTemplate x:Key="InfoTemplate">
         <DockPanel>
             <!-- This is the Rule metadata grid. -->
-            <Grid DockPanel.Dock="Top"
-                  Margin="5"
-                  Visibility="{Binding Rule, Converter={StaticResource objectToVisibilityConverter}}">
+            <Grid Visibility="{Binding Rule, Converter={StaticResource ObjectToVisibilityConverter}}"
+                  Style="{StaticResource MainGridStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -30,16 +29,12 @@
                 <DockPanel Grid.Row="0"
                       Grid.Column="0"
                       Grid.ColumnSpan="2"
-                      Margin="0,0,0,10">
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="{Binding Rule.Id}"
-                               FontWeight="Bold"
-                               Style="{StaticResource PropertyKey}" />
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="{Binding Rule.Name, Mode=OneTime}"
-                               Visibility="{Binding Rule.Name, Converter={StaticResource stringToVisibilityConverter}}"
-                               FontWeight="Bold"
-                               Style="{StaticResource PropertyValue}" />
+                      Style="{StaticResource RuleTitlePanelStyle}">
+                    <TextBlock Text="{Binding Rule.Id}"
+                               Style="{StaticResource RuleIdTextStyle}" />
+                    <TextBlock Text="{Binding Rule.Name, Mode=OneTime}"
+                               Visibility="{Binding Rule.Name, Converter={StaticResource StringToVisibilityConverter}}"
+                               Style="{StaticResource RuleNameTextStyle}" />
                 </DockPanel>
 
                 <TextBlock Grid.Row="1"
@@ -52,46 +47,42 @@
                            Style="{StaticResource PropertyValue}" />
                 <TextBlock Grid.Row="2"
                            Grid.Column="0"
-                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.Category, Converter={StaticResource StringToVisibilityConverter}}"
                            Text="Category"
                            Style="{StaticResource PropertyKey}" />
                 <TextBlock Grid.Row="2"
                            Grid.Column="1"
-                           Visibility="{Binding Rule.Category, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.Category, Converter={StaticResource StringToVisibilityConverter}}"
                            Text="{Binding Rule.Category}"
                            Style="{StaticResource PropertyValue}" />
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
-                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.HelpUri, Converter={StaticResource StringToVisibilityConverter}}"
                            Text="Help"
                            Style="{StaticResource PropertyKey}" />
                 <controls:InternetHyperlink Grid.Row="3"
                                             Grid.Column="1"
                                             Text="{Binding Rule.HelpUri}"
-                                            FontSize="11.5"
-                                            Margin="0 0 0 5"
-                                            Visibility="{Binding Rule.HelpUri, Converter={StaticResource stringToVisibilityConverter}}"
-                                            NavigateUri="{Binding Rule.HelpUri}" />
+                                            Visibility="{Binding Rule.HelpUri, Converter={StaticResource StringToVisibilityConverter}}"
+                                            NavigateUri="{Binding Rule.HelpUri}"
+                                            Style="{StaticResource HelpHyperlinkStyle}"/>
                 <TextBlock Grid.Row="4"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Visibility="{Binding Rule.Description, Converter={StaticResource stringToVisibilityConverter}}"
+                           Visibility="{Binding Rule.Description, Converter={StaticResource StringToVisibilityConverter}}"
                            Text="{Binding Rule.Description}"
-                           TextWrapping="Wrap"
-                           Style="{StaticResource PropertyKey}" />
-                <Separator Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
-                           Grid.Row="5"
+                           Style="{StaticResource RuleDescriptionTextStyle}" />
+                <Separator Grid.Row="5"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           Margin="15" />
+                           Style="{StaticResource SectionSeparatorStyle}"/>
             </Grid>
 
             <ScrollViewer>
                 <StackPanel Orientation="Vertical">
                     <!-- This is the Tool metadata grid. -->
-                    <Grid DockPanel.Dock="Top"
-                          Margin="5,0"
-                          Visibility="{Binding Tool, Converter={StaticResource objectToVisibilityConverter}}">
+                    <Grid Visibility="{Binding Tool, Converter={StaticResource ObjectToVisibilityConverter}}"
+                          Style="{StaticResource ToolMetadataGridStyle}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -113,121 +104,109 @@
                         <DockPanel Grid.Row="0"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="2"
-                                   Margin="0, 0, 0, 10">
-                            <TextBlock DockPanel.Dock="Left"
-                                       Text="{Binding Tool.Name}"
-                                       FontWeight="Bold"
-                                       Style="{StaticResource PropertyKey}" />
-                            <TextBlock DockPanel.Dock="Left"
-                                       Text="{Binding Tool.Version, Mode=OneTime}"
-                                       FontWeight="Bold"
-                                       Style="{StaticResource PropertyValue}"
-                                       Visibility="{Binding Tool.Version, Converter={StaticResource stringToVisibilityConverter}}" />
+                                   Style="{StaticResource ToolMetadataPanel}">
+                            <TextBlock Text="{Binding Tool.Name}"
+                                       Style="{StaticResource ToolNameTextStyle}" />
+                            <TextBlock Text="{Binding Tool.Version, Mode=OneTime}"
+                                       Visibility="{Binding Tool.Version, Converter={StaticResource StringToVisibilityConverter}}"
+                                       Style="{StaticResource ToolVersionTextStyle}" />
                         </DockPanel>
 
                         <!-- Invocation metadata -->
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.CommandLine, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Command line"
+                                   Visibility="{Binding Invocation.CommandLine, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
-                                 Visibility="{Binding Invocation.CommandLine, Converter={StaticResource stringToVisibilityConverter}}"
-                                 Background="Transparent"
-                                 Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
-                                 BorderThickness="0"
                                  Text="{Binding Invocation.CommandLine, Mode=OneWay}"
-                                 IsReadOnly="True"
-                                 TextWrapping="Wrap"
-                                 IsTabStop="False"/>
+                                 Visibility="{Binding Invocation.CommandLine, Converter={StaticResource StringToVisibilityConverter}}"
+                                 Style="{StaticResource ToolCommandLineTextBoxStyle}"/>
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.StartTime, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Start time"
+                                   Visibility="{Binding Invocation.StartTime, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.StartTime, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.StartTime}"
+                                   Visibility="{Binding Invocation.StartTime, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="3"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.EndTime, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="End time"
+                                   Visibility="{Binding Invocation.EndTime, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="3"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.EndTime, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.EndTime}"
+                                   Visibility="{Binding Invocation.EndTime, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.Machine, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Machine"
+                                   Visibility="{Binding Invocation.Machine, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="4"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.Machine, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.Machine}"
+                                   Visibility="{Binding Invocation.Machine, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="5"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.Account, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Account"
+                                   Visibility="{Binding Invocation.Account, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="5"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.Account, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.Account}"
+                                   Visibility="{Binding Invocation.Account, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="6"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.ProcessId, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Process id"
+                                   Visibility="{Binding Invocation.ProcessId, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="6"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.ProcessId, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.ProcessId}"
+                                   Visibility="{Binding Invocation.ProcessId, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="7"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.FileName, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="File name"
+                                   Visibility="{Binding Invocation.FileName, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="7"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.FileName, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.FileName}"
+                                   Visibility="{Binding Invocation.FileName, Converter={StaticResource StringToVisibilityConverter}}"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="8"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Working directory"
+                                   Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="8"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.WorkingDirectory}"
+                                   Visibility="{Binding Invocation.WorkingDirectory, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                         <TextBlock Grid.Row="9"
                                    Grid.Column="0"
-                                   Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="Environment variables"
+                                   Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyKey}" />
                         <TextBlock Grid.Row="9"
                                    Grid.Column="1"
-                                   Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource stringToVisibilityConverter}}"
                                    Text="{Binding Invocation.EnvironmentVariables}"
+                                   Visibility="{Binding Invocation.EnvironmentVariables, Converter={StaticResource StringToVisibilityConverter}}"
                                    Style="{StaticResource PropertyValue}" />
                     </Grid>
 
-                    <TextBlock DockPanel.Dock="Top"
-                               FontSize="11.5"
-                               FontWeight="DemiBold"
-                               Margin="5,25,0,20">
+                    <TextBlock Style="{StaticResource OpenLogFileHyperlinkStyle}">
                         <Hyperlink Command="{Binding OpenLogFileCommand}"
                                    FocusVisualStyle="{StaticResource FocusOutline}"
                                    Style="{StaticResource RuleHyperlinkStyle}">Open Log File</Hyperlink>
