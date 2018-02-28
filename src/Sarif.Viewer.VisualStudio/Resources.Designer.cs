@@ -79,6 +79,33 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original.
+        /// </summary>
+        internal static string FixPreviewWindow_OriginalFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_OriginalFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fix Preview.
+        /// </summary>
+        internal static string FixPreviewWindow_PreviewFixedFileTitle {
+            get {
+                return ResourceManager.GetString("FixPreviewWindow_PreviewFixedFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The log file &apos;{0}&apos; is invalid and couldn&apos;t be opened..
+        /// </summary>
+        internal static string LogOpenFail_InvalidFormat_DialogMessage {
+            get {
+                return ResourceManager.GetString("LogOpenFail_InvalidFormat_DialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SARIF Explorer found no results in analysis log &apos;{0}&apos;..
         /// </summary>
         internal static string NoResults_DialogMessage {
@@ -93,6 +120,16 @@ namespace Microsoft.Sarif.Viewer {
         internal static string ReturnMessage {
             get {
                 return ResourceManager.GetString("ReturnMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] RuleLookup {
+            get {
+                object obj = ResourceManager.GetObject("RuleLookup", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

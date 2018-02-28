@@ -237,4 +237,10 @@
   <data name="WRN998_NotSupportedPlatform" xml:space="preserve">
     <value>Rule '{0}' was disabled as it cannot run on the current platform '{1}'.  It can only run on '{2}'.</value>
   </data>
+  <data name="WRN999_RuleExplicitlyDisabled" xml:space="preserve">
+    <value>Rule '{0}' was explicitly disabled by the user. As result, this too run cannot be used to for compliance or other auditing processes that require a comprehensive analysis.</value>
+  </data>
+  <data name="ERR997_AllRulesExplicitlyDisabled" xml:space="preserve">
+    <value>All rules were explicitly disabled so there is no work to do.</value>
+  </data>
 </root>

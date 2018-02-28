@@ -86,11 +86,11 @@
                                     <TextBlock>
                                         <Run Text="{Binding FilePath, Mode=OneWay}" />
                                     </TextBlock>
-                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
                                         <Run Text=" Line" />
                                         <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
                                     </TextBlock>
-                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource int32ToVisibilityConverter}}">
+                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
                                         <Run Text=" Col" />
                                         <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
                                     </TextBlock>
@@ -105,7 +105,7 @@
                             <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding Location, Converter={StaticResource stringToVisibilityConverter}}"
+                                   Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
                                    Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
                                    AutomationProperties.Name="{Binding Location, StringFormat=Location: {0}}"
                                    VerticalAlignment="Bottom"
@@ -214,16 +214,16 @@
                         </Setter.Value>
                     </Setter>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Locations, Converter={StaticResource collectionToBooleanConverter}}" Value="True">
+                        <DataTrigger Binding="{Binding Locations, Converter={StaticResource CollectionToBooleanConverter}}" Value="True">
                             <Setter Property="SelectedIndex" Value="0" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Fixes, Converter={StaticResource collectionToBooleanConverter}}" Value="True">
+                        <DataTrigger Binding="{Binding Fixes, Converter={StaticResource CollectionToBooleanConverter}}" Value="True">
                             <Setter Property="SelectedIndex" Value="3" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Stacks, Converter={StaticResource collectionToBooleanConverter}}" Value="True">
+                        <DataTrigger Binding="{Binding Stacks, Converter={StaticResource CollectionToBooleanConverter}}" Value="True">
                             <Setter Property="SelectedIndex" Value="2" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding CallTrees, Converter={StaticResource collectionToBooleanConverter}}" Value="True">
+                        <DataTrigger Binding="{Binding CallTrees, Converter={StaticResource CollectionToBooleanConverter}}" Value="True">
                             <Setter Property="SelectedIndex" Value="1" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -277,7 +277,7 @@
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Locations" />
                         <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding HasMultipleLocations, Converter={StaticResource booleanToVisiblityConverter}}">
+                                   Visibility="{Binding HasMultipleLocations, Converter={StaticResource BooleanToVisiblityConverter}}">
                             <Run Text=" (" />
                             <Run Text="{Binding LocationsCount, Mode=OneWay}" />
                             <Run Text=")" />
@@ -288,15 +288,15 @@
                                 Content="{Binding}"
                                 IsTabStop="False"/>
             </TabItem>
-            <TabItem Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}">
+            <TabItem Visibility="{Binding CallTrees, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
                     <DockPanel Margin="5,0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Code Flows" />
                         <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding CallTrees, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}">
+                                   Visibility="{Binding CallTrees, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
                             <Run Text=" (" />
-                            <Run Text="{Binding CallTrees, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text="{Binding CallTrees, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
                             <Run Text=")" />
                         </TextBlock>
                     </DockPanel>
@@ -306,15 +306,15 @@
                                 Content="{Binding CallTrees}"
                                 IsTabStop="False"/>
             </TabItem>
-            <TabItem Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}">
+            <TabItem Visibility="{Binding Stacks, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
                     <DockPanel Margin="5,0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Stacks" />
                         <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding Stacks, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}">
+                                   Visibility="{Binding Stacks, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
                             <Run Text=" (" />
-                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
                             <Run Text=")" />
                         </TextBlock>
                     </DockPanel>
@@ -325,15 +325,15 @@
                                 Margin="0,-1,0,1"
                                 IsTabStop="False"/>
             </TabItem>
-            <TabItem Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=0}">
+            <TabItem Visibility="{Binding Fixes, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
                     <DockPanel Margin="5,0">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Fixes" />
                         <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding Fixes, Converter={StaticResource collectionToVisibilityConverter}, ConverterParameter=1}">
+                                   Visibility="{Binding Fixes, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
                             <Run Text=" (" />
-                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource collectionToCountConverter}}" />
+                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
                             <Run Text=")" />
                         </TextBlock>
                     </DockPanel>

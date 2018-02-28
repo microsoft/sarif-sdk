@@ -4,68 +4,43 @@
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/StacksStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <DataTemplate x:Key="StackCollectionTemplate">
         <ItemsControl ItemsSource="{Binding}"
-                      IsTabStop="False">
+                      ItemContainerStyle="{StaticResource ItemsControlContentPresenterStyle}"
+                      Style="{StaticResource ItemsControlStyle}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel IsItemsHost="True"
-                               LastChildFill="False" />
+                    <DockPanel Style="{StaticResource ItemPanelStyle}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="{x:Type ContentPresenter}">
-                    <Setter Property="DockPanel.Dock"
-                            Value="Top" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-
                     <DockPanel>
-                        <Separator Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"
-                                   DockPanel.Dock="Top"
-                                   Margin="15"/>
-                        <TreeView DockPanel.Dock="Top"
-                                  Background="Transparent"
-                                  BorderThickness="0">
+                        <TreeView Style="{StaticResource TreeViewStyle}">
                             <TreeViewItem IsExpanded="True">
                                 <TreeViewItem.Header>
-                                    <TextBlock Style="{StaticResource PanelHeader}"
-                                               Text="{Binding Message}" />
+                                    <TextBlock Text="{Binding Message}"
+                                               Style="{StaticResource PanelHeader}" />
                                 </TreeViewItem.Header>
                                 <TreeViewItem>
                                     <TreeViewItem.Header>
-                                        <ListView Margin="0,5,0,0"
-                                                  ItemsSource="{Binding}"
-                                                  Background="Transparent"
-                                                  BorderThickness="1"
-                                                  Height="Auto"
-                                                  HorizontalAlignment="Stretch"
-                                                  ScrollViewer.CanContentScroll="False"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                        <ListView ItemsSource="{Binding}"
+                                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                                  Style="{StaticResource TreeViewItemListViewStyle}">
                                             <ListView.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListViewItem}">
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                                <Border CornerRadius="0"
-                                                                        SnapsToDevicePixels="True"  
-                                                                        BorderThickness="0"
-                                                                        Padding="2"
-                                                                        Background="{TemplateBinding Background}">
+                                                                <Border Style="{StaticResource ListViewItemBorderStyle}">
                                                                     <Border Name="InnerBorder"
-                                                                            CornerRadius="0"
-                                                                            BorderThickness="0">
+                                                                            Style="{StaticResource ListViewItemInnerBorderStyle}">
                                                                         <Grid>
                                                                             <Rectangle Name="UpperHighlight"
-                                                                                       Visibility="Collapsed"
-                                                                                       Fill="Transparent" />
+                                                                                       Style="{StaticResource ListViewItemInnerBorderHighlightRectangleStyle}"/>
                                                                             <GridViewRowPresenter Grid.RowSpan="0"   
                                                                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
                                                                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
@@ -115,23 +90,23 @@
                                                             <DataTemplate>
                                                                 <TextBlock>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Module, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Module, Converter={StaticResource StringToVisibilityConverter}}">
                                                                             <Run Text="{Binding Module}" /><Run Text="!" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource stringToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource StringToVisibilityConverter}}">
                                                                             <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource Int32ToVisibilityConverter}}">
                                                                             <Run Text="Line "/><Run Text="{Binding Line, Mode=OneWay}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource int32ToVisibilityConverter}}">
+                                                                        <TextBlock Visibility="{Binding Column, Converter={StaticResource Int32ToVisibilityConverter}}">
                                                                             <Run Text=", Col " /><Run Text="{Binding Column, Mode=OneWay}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
