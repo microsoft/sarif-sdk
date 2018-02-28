@@ -42,7 +42,8 @@
                                          Style="{StaticResource TreeViewItemListBoxStyle}">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <DockPanel Style="{StaticResource ListBoxItemPanelStyle}" />
+                                            <DockPanel IsItemsHost="True"
+                                                       Style="{StaticResource ListBoxItemPanelStyle}" />
                                         </ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
 

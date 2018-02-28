@@ -119,6 +119,7 @@
                                    Style="{StaticResource PropertyKey}" />
                         <TextBox Grid.Row="1"
                                  Grid.Column="1"
+                                 IsTabStop="False"
                                  Text="{Binding Invocation.CommandLine, Mode=OneWay}"
                                  Visibility="{Binding Invocation.CommandLine, Converter={StaticResource StringToVisibilityConverter}}"
                                  Style="{StaticResource ToolCommandLineTextBoxStyle}"/>

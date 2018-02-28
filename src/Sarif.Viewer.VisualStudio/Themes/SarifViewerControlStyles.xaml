@@ -87,6 +87,11 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="TabItemStyle" TargetType="TabItem">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusOutline}"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
     <Style x:Key="TabControlGridStyle" TargetType="Grid">
         <Setter Property="ClipToBounds" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -94,7 +99,6 @@
 
     <Style x:Key="HeaderTabPanelStyle" TargetType="TabPanel">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="IsItemsHost" Value="True"/>
         <Setter Property="Margin" Value="0,2,0,0"/>
         <Setter Property="Panel.ZIndex" Value="1"/>
     </Style>

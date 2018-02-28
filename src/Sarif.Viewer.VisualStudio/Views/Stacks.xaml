@@ -8,12 +8,14 @@
     </ResourceDictionary.MergedDictionaries>
     
     <DataTemplate x:Key="StackCollectionTemplate">
-        <ItemsControl ItemsSource="{Binding}"
+        <ItemsControl IsTabStop="False"
+                      ItemsSource="{Binding}"
                       ItemContainerStyle="{StaticResource ItemsControlContentPresenterStyle}"
                       Style="{StaticResource ItemsControlStyle}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel Style="{StaticResource ItemPanelStyle}"/>
+                    <DockPanel IsItemsHost="True"
+                               Style="{StaticResource ItemPanelStyle}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>

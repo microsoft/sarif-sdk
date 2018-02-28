@@ -101,10 +101,9 @@
         <!-- These are the tabs which display the result information. -->
         <TabControl x:Name="ViolationPropertiesTabControl"
                     Grid.Row="1"
-                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
-                    Style="{StaticResource TabControlStyle}">
+                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
             <TabControl.Resources>
-                <Style TargetType="{x:Type TabControl}">
+                <Style BasedOn="{StaticResource TabControlStyle}" TargetType="{x:Type TabControl}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabControl}">
@@ -125,6 +124,7 @@
                                     <TabPanel x:Name="HeaderTabPanel"
                                               Grid.Row="0" 
                                               Grid.Column="0"
+                                              IsItemsHost="True"
                                               KeyboardNavigation.TabIndex="2"
                                               Style="{StaticResource HeaderTabPanelStyle}"/>
                                     <Border x:Name="ContentBorder"
@@ -189,11 +189,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="FocusVisualStyle"
-                            Value="{StaticResource FocusOutline}"/>
-                    <Setter Property="FontSize"
-                            Value="13"/>
+                <Style BasedOn="{StaticResource TabItemStyle}" TargetType="{x:Type TabItem}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabItem}">

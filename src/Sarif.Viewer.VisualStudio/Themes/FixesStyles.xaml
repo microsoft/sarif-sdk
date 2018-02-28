@@ -6,7 +6,6 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="ItemsControlStyle" TargetType="ItemsControl">
-        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Margin" Value="0,10,0,0"/>
     </Style>
 
@@ -15,7 +14,6 @@
     </Style>
 
     <Style x:Key="ListBoxItemPanelStyle" TargetType="DockPanel">
-        <Setter Property="IsItemsHost" Value="True"/>
         <Setter Property="LastChildFill" Value="False"/>
     </Style>
 

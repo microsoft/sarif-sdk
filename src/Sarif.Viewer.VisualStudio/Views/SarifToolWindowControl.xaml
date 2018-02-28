@@ -8,8 +8,18 @@
              Foreground="{DynamicResource VsBrush.WindowText}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             Name="MyToolWindow">
+             Name="SarifToolWindow">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+    
     <Grid>
-        <local:SarifViewerControl Visibility="{Binding TargetNullValue=Collapsed}" />
+        <local:SarifViewerControl Visibility="{Binding Converter={StaticResource ObjectToVisibilityConverter}, TargetNullValue=Collapsed}" />
     </Grid>
 </UserControl>

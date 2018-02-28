@@ -64,7 +64,6 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
         <Setter Property="IsReadOnly" Value="True"/>
-        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
     </Style>
 
