@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="Fixes_PreviewCommandHyperlink_Text_String">Preview</system:String>
+    <system:String x:Key="Fixes_ApplyCommandHyperlink_Text_String">Apply</system:String>
+    <system:String x:Key="Fixes_Replacement_Offset_Text_FormatString">Start at offset {0}.</system:String>
+    <system:String x:Key="Fixes_Replacement_DeletedLength_Text_FormatString">Delete {0} bytes.</system:String>
+    <system:String x:Key="Fixes_Replacement_InsertedString_Text_FormatString">Insert the string &quot;{0}&quot;.</system:String>
+
+</ResourceDictionary>

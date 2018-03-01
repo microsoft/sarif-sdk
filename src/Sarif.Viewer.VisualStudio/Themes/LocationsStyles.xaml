@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
@@ -22,6 +21,10 @@
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
+    <Style x:Key="LocationCountTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
     <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
         <Setter Property="IsExpanded" Value="True"/>
     </Style>
@@ -33,7 +36,6 @@
     </Style>
 
     <Style x:Key="ListBoxItemPanelStyle" TargetType="DockPanel">
-        <Setter Property="IsItemsHost" Value="True"/>
         <Setter Property="LastChildFill" Value="False"/>
     </Style>
 
@@ -49,6 +51,10 @@
         <Setter Property="Orientation" Value="Horizontal"/>
     </Style>
 
+    <Style x:Key="ListBoxItemToolTipRegionTextStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
     <Style x:Key="LocationTextBaseStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="12"/>
     </Style>
@@ -59,6 +65,7 @@
 
     <Style x:Key="RelatedLocationsTreeViewItemHeaderTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
         <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
     </Style>
 
 </ResourceDictionary>

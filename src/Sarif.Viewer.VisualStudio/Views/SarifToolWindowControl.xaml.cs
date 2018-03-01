@@ -1,13 +1,8 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="SarifToolWindowControl.xaml.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
+﻿// Copyright (c) Microsoft. All rights reserved. 
+// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 namespace Microsoft.Sarif.Viewer.Views
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>

@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="Microsoft.Sarif.Viewer.Views.CodeLocations"
+﻿<UserControl x:Class="Microsoft.Sarif.Viewer.Views.SarifViewerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Views"
              xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
              xmlns:viewModels="clr-namespace:Microsoft.Sarif.Viewer.ViewModels"
              xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls"
@@ -18,12 +17,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/TreeView.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Locations.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Stacks.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTrees.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Fixes.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/Information.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/SarifViewerControlStringResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/SarifViewerControlStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/TreeView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/Locations.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/Stacks.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/CallTrees.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/Fixes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/Information.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -38,7 +39,7 @@
 
         <!-- This is the header of the dialog. It displays general info about the result. -->
         <Grid Grid.Row="0"
-              Margin="6 0 6 0">
+              Style="{StaticResource HeaderGridStyle}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -48,101 +49,68 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0"
-                    Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.CommandBarToolBarBorderBrushKey}}"
-                    Padding="5 5 5 5"
-                    Margin="-6 0 -6 0">
-                <DockPanel HorizontalAlignment="Stretch">
+                    Style="{StaticResource HeaderGridBorderStyle}">
+                <DockPanel Style="{StaticResource HeaderGridBorderPanelStyle}">
                     <controls:InternetHyperlink x:Name="RuleIdHyperlink"
-                                                DockPanel.Dock="Left"
                                                 Text="{Binding Rule.Id}"
                                                 AutomationProperties.Name="{Binding Rule.Id, StringFormat=Rule ID: {0}}"
                                                 NavigateUri="{Binding Rule.HelpUri}"
                                                 IsTabStop="False"
                                                 TabIndex="1"
-                                                Margin="0 0 5 0"
-                                                FontWeight="SemiBold"
-                                                FontSize="14.5"/>
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="{Binding Rule.Name, Mode=OneTime}"
+                                                Style="{StaticResource RuleIdHyperlinkStyle}"/>
+                    <TextBlock Text="{Binding Rule.Name, Mode=OneTime}"
                                AutomationProperties.Name="{Binding Rule.Name, Mode=OneTime, StringFormat=Rule name: {0}}"
-                               Style="{StaticResource DialogHeader}"
-                               FontSize="14.5"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
-                               VerticalAlignment="Center"/>
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="|"
-                               Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"
-                               FontSize="14.5"
-                               VerticalAlignment="Center"
-                               Margin="7 0 7 1"/>
-                    <DockPanel DockPanel.Dock="Left" 
-                               DataContext="{Binding Locations[0]}"
-                               HorizontalAlignment="Stretch">
+                               Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Text="|"
+                               Style="{StaticResource HeaderSeparatorStyle}"/>
+                    <DockPanel DataContext="{Binding Locations[0]}"
+                               Style="{StaticResource HeaderLocationPanelStyle}">
                         <DockPanel.ToolTip>
-                            <ToolTip
-                                DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
-                                <WrapPanel Orientation="Horizontal">
+                            <ToolTip DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                                <WrapPanel Style="{StaticResource HeaderLocationToolTipPanelStyle}">
                                     <TextBlock>
                                         <Run Text="{Binding FilePath, Mode=OneWay}" />
                                     </TextBlock>
-                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                        <Run Text=" Line" />
-                                        <Run Text="{Binding Region.StartLine, Mode=OneWay}" />
+                                    <TextBlock Visibility="{Binding Region.StartLine, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                               Style="{StaticResource HeaderLocationRegionTextStyle}">
+                                        <Run Text="{Binding Region.StartLine, Mode=OneWay, StringFormat={StaticResource SarifViewerControl_HeaderLocation_ToolTip_RegionStartLine_Text_FormatString}}" />
                                     </TextBlock>
-                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                        <Run Text=" Col" />
-                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay}" />
+                                    <TextBlock Visibility="{Binding Region.StartColumn, Converter={StaticResource Int32ToVisibilityConverter}}"
+                                               Style="{StaticResource HeaderLocationRegionTextStyle}">
+                                        <Run Text="{Binding Region.StartColumn, Mode=OneWay, StringFormat={StaticResource SarifViewerControl_HeaderLocation_ToolTip_RegionStartColumn_Text_FormatString}}" />
                                     </TextBlock>
                                 </WrapPanel>
                             </ToolTip>
                         </DockPanel.ToolTip>
-                        <TextBlock DockPanel.Dock="Left"
-                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
-                                   AutomationProperties.Name="{Binding FileName, StringFormat=File name: {0}}"
-                                   VerticalAlignment="Bottom"
-                                   Margin="0 0 0 1">
+                        <TextBlock AutomationProperties.Name="{Binding FileName, StringFormat=File name: {0}}"
+                                   Style="{StaticResource HeaderLocationFilenameTextStyle}">
                             <Run Text="{Binding FileName, Mode=OneWay}" />
                         </TextBlock>
-                        <TextBlock DockPanel.Dock="Left"
+                        <TextBlock AutomationProperties.Name="{Binding Location, StringFormat=Location: {0}}"
                                    Visibility="{Binding Location, Converter={StaticResource StringToVisibilityConverter}}"
-                                   Foreground="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"
-                                   AutomationProperties.Name="{Binding Location, StringFormat=Location: {0}}"
-                                   VerticalAlignment="Bottom"
-                                   Margin="5 0 5 1">
+                                   Style="{StaticResource HeaderLocationLocationTextStyle}">
                             <Run Text="{Binding Location, Mode=OneWay}" />
                         </TextBlock>
                     </DockPanel>
                 </DockPanel>
             </Border>
             <TextBlock Grid.Row="2"
-                       TextWrapping="Wrap"
                        Text="{Binding Message}"
-                       FontFamily="Segoe UI"
-                       Margin="5 10 5 10" />
+                       Style="{StaticResource HeaderMessageTextStyle}"/>
         </Grid>
         
         <!-- These are the tabs which display the result information. -->
         <TabControl x:Name="ViolationPropertiesTabControl"
                     Grid.Row="1"
-                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}"
-                    BorderThickness="0,1,0,0">
+                    SelectedValue="{Binding SelectedTab, Mode=TwoWay}">
             <TabControl.Resources>
-                <Style TargetType="{x:Type TabControl}">
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabGradientBrushKey}}"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+                <Style BasedOn="{StaticResource TabControlStyle}" TargetType="{x:Type TabControl}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabControl}">
-                                <Grid x:Name="templateRoot" 
-                                      ClipToBounds="true"
-                                      SnapsToDevicePixels="true"
-                                      KeyboardNavigation.TabNavigation="Local">
+                                <Grid x:Name="TemplateRoot"
+                                      KeyboardNavigation.TabNavigation="Local"
+                                      Style="{StaticResource TabControlGridStyle}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition x:Name="ColumnDefinition0"/>
                                         <ColumnDefinition x:Name="ColumnDefinition1"
@@ -154,60 +122,54 @@
                                         <RowDefinition x:Name="RowDefinition1"
                                                        Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TabPanel x:Name="headerPanel"
-                                              Background="Transparent" 
-                                              Grid.Column="0"
-                                              IsItemsHost="true"
-                                              Margin="0,2,0,0" 
+                                    <TabPanel x:Name="HeaderTabPanel"
                                               Grid.Row="0" 
+                                              Grid.Column="0"
+                                              IsItemsHost="True"
                                               KeyboardNavigation.TabIndex="2"
-                                              Panel.ZIndex="1"/>
-                                    <Border x:Name="contentPanel"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="{TemplateBinding BorderThickness}" 
-                                            Background="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBackgroundBrushKey}}" 
+                                              Style="{StaticResource HeaderTabPanelStyle}"/>
+                                    <Border x:Name="ContentBorder"
                                             Grid.Column="0" 
                                             Grid.Row="1"
                                             KeyboardNavigation.DirectionalNavigation="Contained"
-                                            KeyboardNavigation.TabNavigation="Local">
-                                        <ContentPresenter x:Name="PART_SelectedContentHost"
-                                                          ContentSource="SelectedContent"
-                                                          Margin="{TemplateBinding Padding}"
-                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            KeyboardNavigation.TabNavigation="Local"
+                                            Style="{StaticResource TabControlContentBorderStyle}">
+                                        <ContentPresenter ContentSource="SelectedContent"
+                                                          Style="{StaticResource TabControlContentPresenterStyle}"/>
                                     </Border>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="TabStripPlacement" Value="Bottom">
-                                        <Setter Property="Grid.Row" TargetName="headerPanel" Value="1"/>
-                                        <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                        <Setter Property="Grid.Row" TargetName="HeaderTabPanel" Value="1"/>
+                                        <Setter Property="Grid.Row" TargetName="ContentBorder" Value="0"/>
                                         <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
                                         <Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
-                                        <Setter Property="Margin" TargetName="headerPanel" Value="2,0,2,2"/>
+                                        <Setter Property="Margin" TargetName="HeaderTabPanel" Value="2,0,2,2"/>
                                     </Trigger>
                                     <Trigger Property="TabStripPlacement" Value="Left">
-                                        <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
-                                        <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
-                                        <Setter Property="Grid.Column" TargetName="headerPanel" Value="0"/>
-                                        <Setter Property="Grid.Column" TargetName="contentPanel" Value="1"/>
+                                        <Setter Property="Grid.Row" TargetName="HeaderTabPanel" Value="0"/>
+                                        <Setter Property="Grid.Row" TargetName="ContentBorder" Value="0"/>
+                                        <Setter Property="Grid.Column" TargetName="HeaderTabPanel" Value="0"/>
+                                        <Setter Property="Grid.Column" TargetName="ContentBorder" Value="1"/>
                                         <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
                                         <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
                                         <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
                                         <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-                                        <Setter Property="Margin" TargetName="headerPanel" Value="2,2,0,2"/>
+                                        <Setter Property="Margin" TargetName="HeaderTabPanel" Value="2,2,0,2"/>
                                     </Trigger>
                                     <Trigger Property="TabStripPlacement" Value="Right">
-                                        <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
-                                        <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
-                                        <Setter Property="Grid.Column" TargetName="headerPanel" Value="1"/>
-                                        <Setter Property="Grid.Column" TargetName="contentPanel" Value="0"/>
+                                        <Setter Property="Grid.Row" TargetName="HeaderTabPanel" Value="0"/>
+                                        <Setter Property="Grid.Row" TargetName="ContentBorder" Value="0"/>
+                                        <Setter Property="Grid.Column" TargetName="HeaderTabPanel" Value="1"/>
+                                        <Setter Property="Grid.Column" TargetName="ContentBorder" Value="0"/>
                                         <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
                                         <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
                                         <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
                                         <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
-                                        <Setter Property="Margin" TargetName="headerPanel" Value="0,2,2,2"/>
+                                        <Setter Property="Margin" TargetName="HeaderTabPanel" Value="0,2,2,2"/>
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="false">
-                                        <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="TemplateRoot" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -228,22 +190,14 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="FocusVisualStyle"
-                            Value="{StaticResource FocusOutline}"/>
-                    <Setter Property="FontSize"
-                            Value="13"/>
+                <Style BasedOn="{StaticResource TabItemStyle}" TargetType="{x:Type TabItem}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TabItem}">
                                 <Border Name="Border"
-                                        BorderThickness="1.5,1.5,1.5,0"
-                                        Margin="0">
-                                    <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="1,1,1,3"/>
+                                        Style="{StaticResource TabItemBorderStyle}">
+                                    <ContentPresenter ContentSource="Header"
+                                                      Style="{StaticResource TabItemBorderContentPresenterStyle}"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -273,14 +227,12 @@
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <DockPanel Margin="5,0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Locations" />
-                        <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding HasMultipleLocations, Converter={StaticResource BooleanToVisiblityConverter}}">
-                            <Run Text=" (" />
-                            <Run Text="{Binding LocationsCount, Mode=OneWay}" />
-                            <Run Text=")" />
+                    <DockPanel Style="{StaticResource TabItemHeaderPanelStyle}">
+                        <TextBlock Text="{StaticResource SarifViewerControl_TabItemHeader_Locations_Text_String}"
+                                   Style="{StaticResource TabItemHeaderTextStyle}"/>
+                        <TextBlock Visibility="{Binding HasMultipleLocations, Converter={StaticResource BooleanToVisiblityConverter}}"
+                                   Style="{StaticResource TabItemHeaderItemCountTextStyle}">
+                            <Run Text="{Binding LocationsCount, Mode=OneWay, StringFormat={StaticResource SarifViewerControl_TabItemHeader_ItemCount_Text_FormatString}}" />
                         </TextBlock>
                     </DockPanel>
                 </TabItem.Header>
@@ -290,14 +242,12 @@
             </TabItem>
             <TabItem Visibility="{Binding CallTrees, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
-                    <DockPanel Margin="5,0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Code Flows" />
-                        <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding CallTrees, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
-                            <Run Text=" (" />
-                            <Run Text="{Binding CallTrees, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
-                            <Run Text=")" />
+                    <DockPanel Style="{StaticResource TabItemHeaderPanelStyle}">
+                        <TextBlock Text="{StaticResource SarifViewerControl_TabItemHeader_CallTrees_Text_String}"
+                                   Style="{StaticResource TabItemHeaderTextStyle}"/>
+                        <TextBlock Visibility="{Binding CallTrees, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
+                                   Style="{StaticResource TabItemHeaderItemCountTextStyle}">
+                            <Run Text="{Binding CallTrees, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}, StringFormat={StaticResource SarifViewerControl_TabItemHeader_ItemCount_Text_FormatString}}" />
                         </TextBlock>
                     </DockPanel>
                 </TabItem.Header>
@@ -308,33 +258,29 @@
             </TabItem>
             <TabItem Visibility="{Binding Stacks, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
-                    <DockPanel Margin="5,0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Stacks" />
-                        <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding Stacks, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
-                            <Run Text=" (" />
-                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
-                            <Run Text=")" />
+                    <DockPanel Style="{StaticResource TabItemHeaderPanelStyle}">
+                        <TextBlock Text="{StaticResource SarifViewerControl_TabItemHeader_Stacks_Text_String}"
+                                   Style="{StaticResource TabItemHeaderTextStyle}"/>
+                        <TextBlock Visibility="{Binding Stacks, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
+                                   Style="{StaticResource TabItemHeaderItemCountTextStyle}">
+                            <Run Text="{Binding Stacks, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}, StringFormat={StaticResource SarifViewerControl_TabItemHeader_ItemCount_Text_FormatString}}" />
                         </TextBlock>
                     </DockPanel>
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource StackCollectionTemplate}"
                                 Content="{Binding Stacks}"
-                                Margin="0,-1,0,1"
-                                IsTabStop="False"/>
+                                IsTabStop="False"
+                                Style="{StaticResource StacksTabItemContentStyle}"/>
             </TabItem>
             <TabItem Visibility="{Binding Fixes, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=0}">
                 <TabItem.Header>
-                    <DockPanel Margin="5,0">
-                        <TextBlock DockPanel.Dock="Left"
-                                   Text="Fixes" />
-                        <TextBlock DockPanel.Dock="Left"
-                                   Visibility="{Binding Fixes, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}">
-                            <Run Text=" (" />
-                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}}" />
-                            <Run Text=")" />
+                    <DockPanel Style="{StaticResource TabItemHeaderPanelStyle}">
+                        <TextBlock Text="{StaticResource SarifViewerControl_TabItemHeader_Fixes_Text_String}"
+                                   Style="{StaticResource TabItemHeaderTextStyle}"/>
+                        <TextBlock Visibility="{Binding Fixes, Converter={StaticResource CollectionToVisibilityConverter}, ConverterParameter=1}"
+                                   Style="{StaticResource TabItemHeaderItemCountTextStyle}">
+                            <Run Text="{Binding Fixes, Mode=OneWay, Converter={StaticResource CollectionToCountConverter}, StringFormat={StaticResource SarifViewerControl_TabItemHeader_ItemCount_Text_FormatString}}" />
                         </TextBlock>
                     </DockPanel>
                 </TabItem.Header>
@@ -345,8 +291,8 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Info"
-                               Margin="5,0" />
+                    <TextBlock Text="{StaticResource SarifViewerControl_TabItemHeader_Info_Text_String}"
+                               Style="{StaticResource InfoTabItemHeaderTextStyle}" />
                 </TabItem.Header>
 
                 <ContentControl ContentTemplate="{StaticResource InfoTemplate}"

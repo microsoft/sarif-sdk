@@ -1,19 +1,21 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Microsoft.Sarif.Viewer.Themes"
                     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
 
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/StacksStringResources.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/StacksStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <DataTemplate x:Key="StackCollectionTemplate">
-        <ItemsControl ItemsSource="{Binding}"
+        <ItemsControl IsTabStop="False"
+                      ItemsSource="{Binding}"
                       ItemContainerStyle="{StaticResource ItemsControlContentPresenterStyle}"
                       Style="{StaticResource ItemsControlStyle}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <DockPanel Style="{StaticResource ItemPanelStyle}"/>
+                    <DockPanel IsItemsHost="True"
+                               Style="{StaticResource ItemPanelStyle}"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -83,31 +85,31 @@
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn DisplayMemberBinding="{Binding Message}"
-                                                                    Header="Message"
+                                                                    Header="{StaticResource Stacks_GridViewColumn_Header_Message_Text}"
                                                                     Width="Auto" />
-                                                    <GridViewColumn Header="Location">
+                                                    <GridViewColumn Header="{StaticResource Stacks_GridViewColumn_Header_Location_Text}">
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <TextBlock>
                                                                     <InlineUIContainer>
                                                                         <TextBlock Visibility="{Binding Module, Converter={StaticResource StringToVisibilityConverter}}">
-                                                                            <Run Text="{Binding Module}" /><Run Text="!" />
+                                                                            <Run Text="{Binding Module, StringFormat={StaticResource Stacks_Frame_Module_Text_FormatString}}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
                                                                         <TextBlock Visibility="{Binding FullyQualifiedLogicalName, Converter={StaticResource StringToVisibilityConverter}}">
-                                                                            <Run Text="{Binding FullyQualifiedLogicalName}" /><Run Text="!" />
+                                                                            <Run Text="{Binding FullyQualifiedLogicalName, StringFormat={StaticResource Stacks_Frame_FullyQualifiedLogicalName_Text_FormatString}}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <Run Text="{Binding FileName, Mode=OneWay}" />
                                                                     <InlineUIContainer>
-                                                                        <TextBlock Visibility="{Binding Line,Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                                            <Run Text="Line "/><Run Text="{Binding Line, Mode=OneWay}" />
+                                                                        <TextBlock Visibility="{Binding Line, Converter={StaticResource Int32ToVisibilityConverter}}">
+                                                                            <Run Text="{Binding Line, Mode=OneWay, StringFormat={StaticResource Stacks_Frame_Line_Text_FormatString}}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                     <InlineUIContainer>
                                                                         <TextBlock Visibility="{Binding Column, Converter={StaticResource Int32ToVisibilityConverter}}">
-                                                                            <Run Text=", Col " /><Run Text="{Binding Column, Mode=OneWay}" />
+                                                                            <Run Text="{Binding Column, Mode=OneWay, StringFormat={StaticResource Stacks_Frame_Column_Text_FormatString}}" />
                                                                         </TextBlock>
                                                                     </InlineUIContainer>
                                                                 </TextBlock>    

@@ -104,8 +104,8 @@
     <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
     <Compile Include="Tags\SarifLocationTaggerProvider.cs" />
     <Compile Include="TreeViewSelectionHelper.cs" />
-    <Compile Include="Views\CodeLocations.xaml.cs">
-      <DependentUpon>CodeLocations.xaml</DependentUpon>
+    <Compile Include="Views\SarifViewerControl.xaml.cs">
+      <DependentUpon>SarifViewerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BindingDebugConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
@@ -355,19 +355,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\SarifViewerControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\StacksStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CallTreesStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FixesStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InformationStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LocationsStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SarifToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\CallTrees.xaml">
+    <Page Include="Views\CallTrees.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TreeView.xaml">
+    <Page Include="Views\SarifViewerControlStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StacksStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -375,23 +403,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Fixes.xaml">
+    <Page Include="Views\Fixes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Information.xaml">
+    <Page Include="Views\Information.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Locations.xaml">
+    <Page Include="Views\Locations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Stacks.xaml">
+    <Page Include="Views\Stacks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CodeLocations.xaml">
+    <Page Include="Views\SarifViewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
