@@ -24,7 +24,7 @@
                                 <Border x:Name="MainPanelBorder" Style="{StaticResource ToolbarMainPanelBorderStyle}">
                                     <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
                                         <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" Style="{StaticResource ToolBarHeaderContentPresenterStyle}"/>
-                                        <ToolBarPanel x:Name="PART_ToolBarPanelStyle" IsItemsHost="true" Style="{StaticResource ToolBarPanelStyle}"/>
+                                        <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Style="{StaticResource ToolBarPanelStyle}"/>
                                     </DockPanel>
                                 </Border>
                             </Grid>
