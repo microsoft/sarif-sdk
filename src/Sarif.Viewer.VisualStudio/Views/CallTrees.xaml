@@ -42,21 +42,21 @@
                             Command="{Binding ExpandAllCommand}"
                             ToolTip="{StaticResource CallTrees_ToolBarButtonExpand_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonExpand_Text_String}"
+                        <TextBlock Text="+"
                                    Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Button x:Name="ToolBarButtonCollapse"
                             Command="{Binding CollapseAllCommand}"
                             ToolTip="{StaticResource CallTrees_ToolBarButtonCollapse_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonCollapse_Text_String}"
+                        <TextBlock Text="-"
                                    Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Button x:Name="ToolBarButtonIntelligentExpand"
                             Command="{Binding IntelligentExpandCommand}"
                             ToolTip="{StaticResource CallTrees_ToolBarButtonIntelligentExpand_ToolTip_String}"
                             Style="{StaticResource ToolBarGlyphButtonStyle}">
-                        <TextBlock Text="{StaticResource CallTrees_ToolBarButtonIntelligentExpand_Text_String}"
+                        <TextBlock Text="±"
                                    Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
                     </Button>
                     <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
