@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.Processors
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Generate random sarif logs for testing.
