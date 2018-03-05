@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information. 
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    class RewriteUriStageTests
+    class TestFoldProcessor : GenericFoldAction<int>
     {
+        public static Func<int, int, int> internalFunction = (acc, value) => { return acc + value; };
 
-        // TODO
+        public TestFoldProcessor() : base(internalFunction) { }
     }
 }

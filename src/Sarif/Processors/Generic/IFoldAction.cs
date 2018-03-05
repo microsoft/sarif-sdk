@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    public interface IReduceAction<T> : IGenericAction<T>
+    public interface IFoldAction<T> : IGenericAction<T>
     {
         /// <summary>
         /// Take an action on each sarif log, return the accumulated result.
@@ -15,6 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         /// <param name="sarifLogs"></param>
         /// <param name="accumulator"></param>
         /// <returns></returns>
-        T Reduce(IEnumerable<T> list, T accumulator);
+        T Fold(IEnumerable<T> list, T accumulator);
     }
 }

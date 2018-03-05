@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                         return visitor.VisitSarifLog(log);
                     });
                 case SarifLogAction.Merge:
-                    return new GenericReduceAction<SarifLog>(mergeFunction);
+                    return new GenericFoldAction<SarifLog>(mergeFunction);
                 case SarifLogAction.Sort:
                     throw new NotImplementedException("Future work, not yet supported.");
                 case SarifLogAction.MakeDeterministic:
@@ -41,6 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                     return accumulator;
                 }
 
+                if (accumulator.Runs == null)
+                {
+                    accumulator.Runs = new List<Run>();
+                }
+
                 foreach (var run in nextLog.Runs)
                 {
                     if (run != null)
@@ -48,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                         accumulator.Runs.Add(run);
                     }
                 }
+                
                 return accumulator;
             };
     }
