@@ -65,16 +65,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
 
+            // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
             Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
             if (node.Properties.ContainsKey(BaseUriDictionaryName))
             {
                 if(!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary))
                 {
+                    // If for some reason we don't have a valid dictionary in the originalUriBaseIds, 
                     node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
                     baseUriDictionary = new Dictionary<string, Uri>();
                 }
             }
             
+            // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
             baseUriDictionary[_baseName] = _baseUri;
             
             newRun.Properties[BaseUriDictionaryName] = ReserializePropertyDictionary(baseUriDictionary);
