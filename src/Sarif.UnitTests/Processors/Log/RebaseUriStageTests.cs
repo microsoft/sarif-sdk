@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(5)]
-        public void RewriteUri_RewritesMultipleRuns(int fileCount)
+        public void RewriteUri_RewritesAllFiles(int fileCount)
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
             int randomSeed = (new Random()).Next();

@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
             
-            baseUriDictionary.Add(_baseName, _baseUri);
-
+            baseUriDictionary[_baseName] = _baseUri;
+            
             newRun.Properties[BaseUriDictionaryName] = ReserializePropertyDictionary(baseUriDictionary);
 
             return newRun;
@@ -86,12 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             try
             {
-
                 dictionary = JsonConvert.DeserializeObject<Dictionary<string, Uri>>(serializedProperty.SerializedValue, _settings);
 
                 return true;
             }
-            catch (ArgumentException)
+            // Didn't deserialize correctly
+            catch (Exception)
             {
                 dictionary = null;
                 return false;

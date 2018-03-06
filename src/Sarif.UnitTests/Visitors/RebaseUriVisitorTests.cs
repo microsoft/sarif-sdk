@@ -117,8 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             baseUriDictionary.Should().ContainKey("SRCROOT");
             baseUriDictionary["SRCROOT"].ShouldBeEquivalentTo(new Uri(@"C:\src\root"));
 
-            baseUriDictionary.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix);
-            baseUriDictionary[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].ShouldBeEquivalentTo(oldData);
+            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix);
+            newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].ShouldBeEquivalentTo(oldData);
         }
 
 
