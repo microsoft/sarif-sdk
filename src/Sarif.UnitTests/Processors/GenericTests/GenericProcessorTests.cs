@@ -22,8 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             }
             return list;
         }
-
-
+        
         [Fact]
         public void GenericMapStage_WorksAsExpected()
         {

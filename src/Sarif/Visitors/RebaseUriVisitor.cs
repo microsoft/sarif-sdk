@@ -10,10 +10,13 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
+    /// <summary>
+    /// A class that, given a variable name (e.x. "%SRCROOT%") and a value (e.x. "C:\src\root\"), rebases the URIs in a SARIF log 
+    /// in order to make a SARIF log not depend on absolute paths/be machine independent.
+    /// </summary>
     public class RebaseUriVisitor : SarifRewritingVisitor
     {
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
-
         internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
 
         private string _baseName;
@@ -33,8 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 return _settings;
             }
         }
-
         
+        /// <summary>
+        /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
+        /// </summary>
         public RebaseUriVisitor(string baseName, Uri baseUri)
         {
             _baseName = baseName;
@@ -67,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             FileData newNode = base.VisitFileData(node);
 
-            if(newNode.Uri != null)
+            if (newNode.Uri != null)
             {
                 if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
                 {
@@ -76,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if(newNode.ParentKey != null)
+            if (newNode.ParentKey != null)
             {
                 Uri parentUri = new Uri(newNode.ParentKey);
                 
@@ -93,12 +98,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run newRun = base.VisitRun(node);
 
-            if(newRun.Files != null)
+            if (newRun.Files != null)
             {
                 FixFileKeys(newRun);
             }
             
-            if(node.Properties == null)
+            if (node.Properties == null)
             {
                 node.Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
@@ -107,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
             if (node.Properties.ContainsKey(BaseUriDictionaryName))
             {
-                if(!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary))
+                if (!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary))
                 {
                     // If for some reason we don't have a valid dictionary in the originalUriBaseIds, we move it to another location.
                     node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
@@ -132,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
 
-            foreach(var key in run.Files.Keys)
+            foreach (var key in run.Files.Keys)
             {
                 Uri oldUri = new Uri(key);
                 if(oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
