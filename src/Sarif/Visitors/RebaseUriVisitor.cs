@@ -139,11 +139,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (var key in run.Files.Keys)
             {
-                Uri oldUri = new Uri(key);
-                if(oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
-                {
-                    Uri newUri = _baseUri.MakeRelativeUri(oldUri);
-                    newDictionary[newUri.ToString()] = run.Files[key];
+                Uri oldUri;
+
+                if (Uri.TryCreate(key, UriKind.Absolute, out oldUri))
+                {    
+                    if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
+                    {
+                        Uri newUri = _baseUri.MakeRelativeUri(oldUri);
+                        newDictionary[newUri.ToString()] = run.Files[key];
+                    }
                 }
                 else
                 {

@@ -19,20 +19,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             // Build one SarifLog with all the Runs.
             SarifLog combinedLog = allRuns.Merge();
-
+            
+            // Reformat the SARIF log if we need to.
+            LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
+            SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
+            
             // Write output to file.
             string outputName = GetOutputFileName(mergeOptions);
             var formatting = mergeOptions.PrettyPrint
                 ? Newtonsoft.Json.Formatting.Indented
                 : Newtonsoft.Json.Formatting.None;
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance,
-                Formatting = formatting
-            };
-            LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
-            SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
-            File.WriteAllText(outputName, JsonConvert.SerializeObject(reformattedLog, settings));
+
+            MultitoolFileHelpers.WriteSarifFile(reformattedLog, outputName, formatting);
 
             return 0;
         }
@@ -41,49 +39,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	    {
             foreach (var file in sarifFiles)
             {
-                yield return ReadFile(file);
+                yield return MultitoolFileHelpers.ReadSarifFile(file);
             }
         }
 
-	    private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
-	    {
-		    SearchOption searchOption = mergeOptions.Recurse 
-				? SearchOption.AllDirectories 
-				: SearchOption.TopDirectoryOnly;
-
-		    foreach (string path in mergeOptions.Files)
-		    {
-			    string directory, filename;
-			    if (Directory.Exists(path))
-			    {
-				    directory = path;
-				    filename = "*";
-			    }
-			    else
-			    {
-				    directory = Path.GetDirectoryName(path) ?? path;
-				    filename = Path.GetFileName(path) ?? "*";
-			    }
-			    foreach (string file in Directory.GetFiles(directory, filename, searchOption))
-			    {
-				    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
-				    {
-					    yield return file;
-				    }
-			    }
-		    }
-	    }
-
-	    private static SarifLog ReadFile(string filePath)
+        private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
+            SearchOption searchOption = mergeOptions.Recurse
+                ? SearchOption.AllDirectories
+                : SearchOption.TopDirectoryOnly;
 
-            string logText = File.ReadAllText(filePath);
-            
-            return JsonConvert.DeserializeObject<SarifLog>(logText, settings);
+            foreach (string path in mergeOptions.Files)
+            {
+                string directory, filename;
+                if (Directory.Exists(path))
+                {
+                    directory = path;
+                    filename = "*";
+                }
+                else
+                {
+                    directory = Path.GetDirectoryName(path) ?? path;
+                    filename = Path.GetFileName(path) ?? "*";
+                }
+                foreach (string file in Directory.GetFiles(directory, filename, searchOption))
+                {
+                    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
+                    {
+                        yield return file;
+                    }
+                }
+            }
         }
 
         internal static string GetOutputFileName(MergeOptions mergeOptions)

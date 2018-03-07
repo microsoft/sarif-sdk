@@ -41,13 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 var formatting = rebaseOptions.PrettyPrint
                     ? Newtonsoft.Json.Formatting.Indented
                     : Newtonsoft.Json.Formatting.None;
-                var settings = new JsonSerializerSettings
-                {
-                    ContractResolver = SarifContractResolver.Instance,
-                    Formatting = formatting
-                };
-                LoggingOptions loggingOptions = rebaseOptions.ConvertToLoggingOptions();
-                File.WriteAllText(outputName, JsonConvert.SerializeObject(sarifLog.Log, settings));
+
+                MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
             }
 
             return 0;
@@ -83,20 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             foreach(var file in fileNames)
             {
-                yield return new RebaseUriFile() { FileName = file, Log = ReadFile(file) };
+                yield return new RebaseUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile(file) };
             }
-        }
-
-        private static SarifLog ReadFile(string filePath)
-        {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
-            string logText = File.ReadAllText(filePath);
-
-            return JsonConvert.DeserializeObject<SarifLog>(logText, settings);
         }
         
         private class RebaseUriFile
