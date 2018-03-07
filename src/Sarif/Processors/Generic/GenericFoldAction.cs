@@ -17,11 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public T Fold(IEnumerable<T> list, T accumulator)
         {
-            if(accumulator == null)
+            if (accumulator == null)
             {
                 throw new ArgumentNullException(nameof(accumulator));
             }
-            if(list == null)
+            if (list == null)
             {
                 throw new ArgumentNullException(nameof(list));
             }

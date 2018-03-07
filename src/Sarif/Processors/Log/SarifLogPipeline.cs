@@ -91,10 +91,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         public override bool Equals(object obj)
         {
             SarifLogPipeline other = obj as SarifLogPipeline;
+
             if (other == null)
             {
                 return base.Equals(obj);
             }
+
             if (other.Actions.Count != this.Actions.Count)
             {
                 return false;

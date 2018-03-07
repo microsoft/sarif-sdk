@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         public IEnumerable<T> Act(IEnumerable<T> list)
         {
             IEnumerable<T> intermediate = list;
-            foreach(var action in _stages)
+            foreach (var action in _stages)
             {
                 intermediate = action.Act(intermediate);
             }

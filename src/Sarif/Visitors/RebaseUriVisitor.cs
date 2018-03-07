@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             get
             {
-                if(_settings == null)
+                if (_settings == null)
                 {
                     _settings = new JsonSerializerSettings();
                     _settings.ContractResolver = SarifContractResolver.Instance;
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation newNode = base.VisitPhysicalLocation(node);
             
-            if(string.IsNullOrEmpty(newNode.UriBaseId))
+            if (string.IsNullOrEmpty(newNode.UriBaseId))
             {
                 if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
                 {
