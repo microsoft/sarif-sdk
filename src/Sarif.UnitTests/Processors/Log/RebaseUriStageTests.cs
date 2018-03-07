@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 logs.Add(RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10)));
             }
 
-            var RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", @"C:\src" });
+            var RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", @"C:\src\" });
 
             IEnumerable<SarifLog> rewrittenLogs = RewriteUri.Act(logs.AsEnumerable());
 

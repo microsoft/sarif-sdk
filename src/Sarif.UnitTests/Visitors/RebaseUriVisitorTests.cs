@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -37,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             PhysicalLocation location = new PhysicalLocation(new Uri(@"C:\bld\src\test.dll"), "BLDROOT", null);
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
-            rebaseUriVisitor.VisitPhysicalLocation(location).ShouldBeEquivalentTo(location, "We should not rebase a URI multiple times..");
+            rebaseUriVisitor.VisitPhysicalLocation(location).ShouldBeEquivalentTo(location, "We should not rebase a URI multiple times.");
         }
         
         [Fact]
@@ -64,9 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitRun_UpdatesBaseUriDictionaryWhenPresent()
         {
-            Uri srcRootUri = new Uri(@"C:\src\root");
             const string srcRoot = "SRCROOT";
-
+            Uri srcRootUri = new Uri(@"C:\src\root");
+            
             const string bldRoot = "BLDROOT";
             Uri bldRootUri = new Uri(@"C:\bld\root");
 
@@ -121,6 +122,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].ShouldBeEquivalentTo(oldData);
         }
 
+        [Fact]
+        public void RebaseUriVisitor_VisitRun_CorrectlyPatchesFileDictionaryKeys()
+        {
+            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
+            int randomSeed = (new Random()).Next();
+            Random random = new Random(randomSeed);
 
+            Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
+            
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\"));
+
+            Run newRun = rebaseUriVisitor.VisitRun(oldRun);
+
+            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
+            
+            newRun.Files.Keys.Where(k => k.StartsWith(@"C:\src\")).Should().BeEmpty();
+        }
+
+        [Fact]
+        public void RebaseUriVisitor_VisitRun_DoesNotPatchFileDictionaryKeysWhenNotABaseUri()
+        {
+            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
+            int randomSeed = (new Random()).Next();
+            Random random = new Random(randomSeed);
+
+            Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
+
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\"));
+
+            Run newRun = rebaseUriVisitor.VisitRun(oldRun);
+
+            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
+            
+            // Random sarif log generator uses "C:\src\" as the root.
+            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+         }
+
+        [Fact]
+        public void RebaseUriVisitor_VisitFileData_PatchesUriAndParentUri()
+        {
+            Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
+            string parentKey = @"C:\src\root\blah.zip";
+            FileData fileData = new FileData() { Uri = fileUri, ParentKey =  parentKey};
+
+            string srcroot = "SRCROOT";
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcroot, new Uri(@"C:\src\root\"));
+
+            FileData newFileData = rebaseUriVisitor.VisitFileData(fileData);
+
+            newFileData.Uri.IsAbsoluteUri.Should().BeFalse();
+            newFileData.Uri.Should().NotBeSameAs(fileUri);
+            newFileData.UriBaseId.Should().Be(srcroot);
+            newFileData.ParentKey.Should().NotBeSameAs(parentKey);
+        }
+
+        [Fact]
+        public void RebaseUriVisitor_VisitFileData_DoesNotPatchUriAndParentWhenNotAppropriate()
+        {
+            Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
+            string parentKey = @"C:\src\root\blah.zip";
+            FileData fileData = new FileData() { Uri = fileUri, ParentKey = parentKey };
+
+            string bldroot = "BLDROOT";
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(bldroot, new Uri(@"C:\bld\"));
+
+            FileData newFileData = rebaseUriVisitor.VisitFileData(fileData);
+            
+            newFileData.Uri.Should().BeSameAs(fileUri);
+            newFileData.UriBaseId.Should().BeNullOrEmpty();
+            newFileData.ParentKey.Should().BeSameAs(parentKey);
+        }
     }
 }

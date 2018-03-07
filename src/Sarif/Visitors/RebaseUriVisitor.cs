@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -38,6 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _baseName = baseName;
             _baseUri = baseUri;
+            Debug.Assert(_baseUri.IsAbsoluteUri);
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -46,10 +48,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             
             if(string.IsNullOrEmpty(newNode.UriBaseId))
             {
-                if (_baseUri.IsBaseOf(newNode.Uri))
+                if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
                 {
                     newNode.UriBaseId = _baseName;
                     newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
+                }
+            }
+
+            return newNode;
+        }
+
+        /// <summary>
+        /// For FileData, we need to fix up the URI data (making it relative to the appropriate base address), 
+        /// and also fix up the ParentKey (as we are patching the keys in the files dictionary in the Run).
+        /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
+        /// </summary>
+        public override FileData VisitFileData(FileData node)
+        {
+            FileData newNode = base.VisitFileData(node);
+
+            if(newNode.Uri != null)
+            {
+                if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
+                {
+                    newNode.UriBaseId = _baseName;
+                    newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
+                }
+            }
+
+            if(newNode.ParentKey != null)
+            {
+                Uri parentUri = new Uri(newNode.ParentKey);
+                
+                if (_baseUri.IsBaseOf(new Uri(newNode.ParentKey)) && parentUri.IsAbsoluteUri)
+                {
+                    newNode.ParentKey = _baseUri.MakeRelativeUri(new Uri(newNode.ParentKey)).ToString();
                 }
             }
 
@@ -60,6 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run newRun = base.VisitRun(node);
 
+            if(newRun.Files != null)
+            {
+                FixFileKeys(newRun);
+            }
+            
             if(node.Properties == null)
             {
                 node.Properties = new Dictionary<string, SerializedPropertyInfo>();
@@ -71,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if(!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary))
                 {
-                    // If for some reason we don't have a valid dictionary in the originalUriBaseIds, 
+                    // If for some reason we don't have a valid dictionary in the originalUriBaseIds, we move it to another location.
                     node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
                     baseUriDictionary = new Dictionary<string, Uri>();
                 }
@@ -83,6 +121,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.Properties[BaseUriDictionaryName] = ReserializePropertyDictionary(baseUriDictionary);
 
             return newRun;
+        }
+
+        /// <summary>
+        /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
+        /// to be relative.
+        /// </summary>
+        /// <param name="run">A run to fix the Files dictionary of.</param>
+        private void FixFileKeys(Run run)
+        {
+            Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
+
+            foreach(var key in run.Files.Keys)
+            {
+                Uri oldUri = new Uri(key);
+                if(oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
+                {
+                    Uri newUri = _baseUri.MakeRelativeUri(oldUri);
+                    newDictionary[newUri.ToString()] = run.Files[key];
+                }
+                else
+                {
+                    newDictionary[key] = run.Files[key];
+                }
+            }
+
+            run.Files = newDictionary;
         }
 
         private static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
