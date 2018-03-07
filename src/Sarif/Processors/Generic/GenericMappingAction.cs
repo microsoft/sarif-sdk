@@ -19,10 +19,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
         public IEnumerable<T> Map(IEnumerable<T> list)
         {
+            List<T> output = new List<T>();
             foreach(var value in list)
             {
-                yield return Action.Invoke(value);
+                output.Add(Action.Invoke(value));
             }
+            return output;
         }
 
         public IEnumerable<T> Act(IEnumerable<T> list)
