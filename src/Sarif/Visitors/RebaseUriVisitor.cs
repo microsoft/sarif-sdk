@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
         /// </summary>
         /// <param name="run">A run to fix the Files dictionary of.</param>
-        private void FixFiles(Run run)
+        internal void FixFiles(Run run)
         {
             Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
 
@@ -147,6 +147,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
                         
                         newDictionary[newUri.ToString()] = data;
+                    }
+                    else
+                    {
+                        newDictionary[key] = run.Files[key];
                     }
                 }
                 else

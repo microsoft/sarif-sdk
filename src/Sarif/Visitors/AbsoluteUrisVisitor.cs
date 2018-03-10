@@ -38,10 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation newNode = base.VisitPhysicalLocation(node);
             
-            if (!string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
+            if (uriMappings != null && !string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
             {
                 Uri baseUri = uriMappings[newNode.UriBaseId];
-                newNode.Uri = new Uri(baseUri, newNode.Uri);
+                newNode.Uri = CombineUris(baseUri, newNode.Uri);
                 newNode.UriBaseId = null;
             }
 
@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run newRun;
             if (node.Properties != null)
             {
-                // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
-                Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
+                // For a given run, we'll reset the Uri Mappings while traversing it.
+                uriMappings = new Dictionary<string, Uri>();
                 if (node.Properties.ContainsKey(RebaseUriVisitor.BaseUriDictionaryName))
                 {
                     if (!TryDeserializePropertyDictionary(node.Properties[RebaseUriVisitor.BaseUriDictionaryName], out uriMappings))
@@ -92,8 +92,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (var key in run.Files.Keys)
             {
-                Uri oldUri;
-
                 FileData newNode = run.Files[key];
 
                 Uri baseUri;
@@ -101,21 +99,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (!string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
                 {
                     baseUri = uriMappings[newNode.UriBaseId];
-                    newNode.Uri = new Uri(baseUri, newNode.Uri);
+                    newNode.Uri = CombineUris(baseUri, newNode.Uri);
 
                     Uri parentUri;
                     if (Uri.TryCreate(newNode.ParentKey, UriKind.Relative, out parentUri))
                     {
-                        newNode.ParentKey = new Uri(baseUri, parentUri);
+                        newNode.ParentKey = CombineUris(baseUri, parentUri).ToString();
                     }
 
                     newNode.UriBaseId = null;
                 }
+
                 // fix dictionary
-                throw new NotImplementedException("TODO")
+                newDictionary[newNode.Uri.ToString()] = newNode;
             }
 
             run.Files = newDictionary;
+        }
+
+        private static Uri CombineUris(Uri baseUri, Uri relativeUri)
+        {
+            Uri relativePart = relativeUri;
+            if(relativeUri.OriginalString.StartsWith("/"))
+            {
+                relativePart = new Uri(relativeUri.ToString().TrimStart('/'), UriKind.Relative);
+            }
+
+            return new Uri(baseUri, relativePart);
         }
 
         private static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)

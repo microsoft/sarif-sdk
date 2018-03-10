@@ -27,5 +27,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             return (new List<SarifLog>() { sarifLog }).RebaseUri(baseName, uri).Single();
         }
+
+        public static IEnumerable<SarifLog> MakeUrisAbsolute(this IEnumerable<SarifLog> sarifLogs)
+        {
+            return SarifLogProcessorFactory.GetActionStage(SarifLogAction.MakeUrisAbsolute).Act(sarifLogs);
+        }
+
+        public static SarifLog MakeUrisAbsolute(this SarifLog sarifLog)
+        {
+            return (new List<SarifLog>() { sarifLog }).MakeUrisAbsolute().Single();
+        }
     }
 }

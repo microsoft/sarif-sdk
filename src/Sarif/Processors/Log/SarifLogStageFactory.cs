@@ -16,6 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             {
                 case SarifLogAction.None:
                     return new GenericMappingAction<SarifLog>(a => a);
+                case SarifLogAction.MakeUrisAbsolute:
+                    return new GenericMappingAction<SarifLog>(log =>
+                    {
+                        AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
+                        return visitor.VisitSarifLog(log);
+                    });
                 case SarifLogAction.RebaseUri:
                     return new GenericMappingAction<SarifLog>(log =>
                     {

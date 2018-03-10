@@ -168,11 +168,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
             FileData fileData = new FileData() { Uri = fileUri, ParentKey =  parentKey};
+            Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };
 
             string srcroot = "SRCROOT";
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcroot, new Uri(@"C:\src\root\"));
 
-            FileData newFileData = rebaseUriVisitor.VisitFileData(fileData);
+            rebaseUriVisitor.FixFiles(run);
+
+            run.Files.Should().ContainKey("blah.zip#/stuff.doc");
+            var newFileData = run.Files["blah.zip#/stuff.doc"];
 
             newFileData.Uri.IsAbsoluteUri.Should().BeFalse();
             newFileData.Uri.Should().NotBeSameAs(fileUri);
@@ -186,12 +190,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
             FileData fileData = new FileData() { Uri = fileUri, ParentKey = parentKey };
+            Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };
 
             string bldroot = "BLDROOT";
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(bldroot, new Uri(@"C:\bld\"));
-
-            FileData newFileData = rebaseUriVisitor.VisitFileData(fileData);
             
+            rebaseUriVisitor.FixFiles(run);
+
+            run.Files.Should().ContainKey(fileUri.ToString());
+            var newFileData = run.Files[fileUri.ToString()];
+
             newFileData.Uri.Should().BeSameAs(fileUri);
             newFileData.UriBaseId.Should().BeNullOrEmpty();
             newFileData.ParentKey.Should().BeSameAs(parentKey);

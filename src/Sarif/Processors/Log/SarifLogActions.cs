@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
     {
         None = 0,
         RebaseUri,
+        MakeUrisAbsolute,
         Merge,
         // Future work...
         Sort,
