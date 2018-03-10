@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
 
         [Option(
             'p',
-            "pretty",
+            "pretty-print",
             Default = false,
             HelpText = "Produce pretty-printed JSON output rather than compact form.")]
         public bool PrettyPrint { get; internal set; }
