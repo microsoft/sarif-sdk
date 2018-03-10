@@ -63,44 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return newNode;
         }
 
-        /// <summary>
-        /// For FileData, we need to fix up the URI data (making it relative to the appropriate base address), 
-        /// and also fix up the ParentKey (as we are patching the keys in the files dictionary in the Run).
-        /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
-        /// </summary>
-        public override FileData VisitFileData(FileData node)
-        {
-            FileData newNode = base.VisitFileData(node);
-
-            if (newNode.Uri != null)
-            {
-                if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
-                {
-                    newNode.UriBaseId = _baseName;
-                    newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
-                }
-            }
-
-            if (newNode.ParentKey != null)
-            {
-                Uri parentUri = new Uri(newNode.ParentKey);
-                
-                if (_baseUri.IsBaseOf(new Uri(newNode.ParentKey)) && parentUri.IsAbsoluteUri)
-                {
-                    newNode.ParentKey = _baseUri.MakeRelativeUri(new Uri(newNode.ParentKey)).ToString();
-                }
-            }
-
-            return newNode;
-        }
-
         public override Run VisitRun(Run node)
         {
             Run newRun = base.VisitRun(node);
 
             if (newRun.Files != null)
             {
-                FixFileKeys(newRun);
+                FixFiles(newRun);
             }
             
             if (node.Properties == null)
@@ -131,9 +100,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <summary>
         /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
         /// to be relative.
+        /// 
+        /// For FileData, we need to fix up the URI data (making it relative to the appropriate base address), 
+        /// and also fix up the ParentKey (as we are patching the keys in the files dictionary in the Run).
+        /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
         /// </summary>
         /// <param name="run">A run to fix the Files dictionary of.</param>
-        private void FixFileKeys(Run run)
+        private void FixFiles(Run run)
         {
             Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
 
@@ -146,7 +119,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
                     {
                         Uri newUri = _baseUri.MakeRelativeUri(oldUri);
-                        newDictionary[newUri.ToString()] = run.Files[key];
+
+                        // Ensure the filedata reflects the correct base URI details.
+                        
+                        FileData data = run.Files[key];
+                        if (data != null)
+                        {
+                            if (data.ParentKey != null)
+                            {
+                                Uri parentUri;
+                                if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri))
+                                {
+                                    if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
+                                    {
+                                        data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
+                                    }
+                                }
+                            }
+
+                            data.Uri = newUri;
+                            data.UriBaseId = _baseName;
+                        }
+
+                        if(newDictionary.ContainsKey(newUri.ToString()))
+                        {
+                            throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
+                        }
+                        
+                        newDictionary[newUri.ToString()] = data;
                     }
                 }
                 else
