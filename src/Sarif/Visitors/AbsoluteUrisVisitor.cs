@@ -10,7 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class AbsoluteUrisVisitor : SarifRewritingVisitor
     {
-        private Dictionary<string, Uri> uriMappings;
+        // Internal so that tests can modfiy this
+        internal Dictionary<string, Uri> uriMappings;
 
         private static JsonSerializerSettings _settings;
 
@@ -51,33 +52,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override Run VisitRun(Run node)
         {
             Run newRun;
-            if (node.Properties != null)
+
+            // Reset URI mappings for this run.
+            uriMappings = new Dictionary<string, Uri>();
+
+            // Try to get the uri mappings dictionary out of the 
+            if (node.Properties != null && node.Properties.ContainsKey(RebaseUriVisitor.BaseUriDictionaryName))
             {
                 // For a given run, we'll reset the Uri Mappings while traversing it.
-                uriMappings = new Dictionary<string, Uri>();
-                if (node.Properties.ContainsKey(RebaseUriVisitor.BaseUriDictionaryName))
+                if (!TryDeserializePropertyDictionary(node.Properties[RebaseUriVisitor.BaseUriDictionaryName], out uriMappings))
                 {
-                    if (!TryDeserializePropertyDictionary(node.Properties[RebaseUriVisitor.BaseUriDictionaryName], out uriMappings))
-                    {
-                        throw new InvalidOperationException("Base URI Dictionary incorrectly formatted");
-                    }
-
-                    newRun = base.VisitRun(node);
-
-                    if (node.Files != null)
-                    {
-                        FixFiles(node);
-                    }
+                    throw new InvalidOperationException($"Base URI Dictionary incorrectly formatted, we expect a string->uri dictionary in the Run Properties with name {RebaseUriVisitor.BaseUriDictionaryName}");
                 }
-                else
+                    
+                // If we don't have a dictionary we won't need to fix the files up.
+                if (node.Files != null)
                 {
-                    newRun = base.VisitRun(node);
+                    FixFiles(node);
                 }
             }
-            else
-            {
-                newRun = base.VisitRun(node);
-            }
+            
+            newRun = base.VisitRun(node);
+            
             return newRun;
         }
 
@@ -95,13 +91,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 FileData newNode = run.Files[key];
 
                 Uri baseUri;
-                // Node has a UriBaseId.
+                // Node has a UriBaseId && we're going to rewrite it.
                 if (!string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
                 {
+                    // Rewrite the filedata's URI
                     baseUri = uriMappings[newNode.UriBaseId];
-                    newNode.Uri = CombineUris(baseUri, newNode.Uri);
+                    newNode.Uri = CombineUris(baseUri, newNode.Uri);                    
 
                     Uri parentUri;
+                    // If the parent uri is relative, we should rewrite it as well.
                     if (Uri.TryCreate(newNode.ParentKey, UriKind.Relative, out parentUri))
                     {
                         newNode.ParentKey = CombineUris(baseUri, parentUri).ToString();
