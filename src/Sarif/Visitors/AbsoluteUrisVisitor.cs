@@ -10,23 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class AbsoluteUrisVisitor : SarifRewritingVisitor
     {
-        // Internal so that tests can modfiy this
-        internal Dictionary<string, Uri> uriMappings;
-
-        private static JsonSerializerSettings _settings;
-
-        internal static JsonSerializerSettings JsonSerializerSettings
-        {
-            get
-            {
-                if (_settings == null)
-                {
-                    _settings = new JsonSerializerSettings();
-                    _settings.ContractResolver = SarifContractResolver.Instance;
-                }
-                return _settings;
-            }
-        }
+        internal Dictionary<string, Uri> _currentUriMappings;
 
         /// <summary>
         /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
@@ -39,9 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation newNode = base.VisitPhysicalLocation(node);
             
-            if (uriMappings != null && !string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
+            if (_currentUriMappings != null && !string.IsNullOrEmpty(newNode.UriBaseId) && _currentUriMappings.ContainsKey(newNode.UriBaseId))
             {
-                Uri baseUri = uriMappings[newNode.UriBaseId];
+                Uri baseUri = _currentUriMappings[newNode.UriBaseId];
                 newNode.Uri = CombineUris(baseUri, newNode.Uri);
                 newNode.UriBaseId = null;
             }
@@ -54,13 +38,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run newRun;
 
             // Reset URI mappings for this run.
-            uriMappings = new Dictionary<string, Uri>();
+            _currentUriMappings = new Dictionary<string, Uri>();
 
             // Try to get the uri mappings dictionary out of the 
             if (node.Properties != null && node.Properties.ContainsKey(RebaseUriVisitor.BaseUriDictionaryName))
             {
                 // For a given run, we'll reset the Uri Mappings while traversing it.
-                if (!TryDeserializePropertyDictionary(node.Properties[RebaseUriVisitor.BaseUriDictionaryName], out uriMappings))
+                if (!RebaseUriVisitor.TryDeserializePropertyDictionary(node.Properties[RebaseUriVisitor.BaseUriDictionaryName], out _currentUriMappings))
                 {
                     throw new InvalidOperationException($"Base URI Dictionary incorrectly formatted, we expect a string->uri dictionary in the Run Properties with name {RebaseUriVisitor.BaseUriDictionaryName}");
                 }
@@ -92,10 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 Uri baseUri;
                 // Node has a UriBaseId && we're going to rewrite it.
-                if (!string.IsNullOrEmpty(newNode.UriBaseId) && uriMappings.ContainsKey(newNode.UriBaseId))
+                if (!string.IsNullOrEmpty(newNode.UriBaseId) && _currentUriMappings.ContainsKey(newNode.UriBaseId))
                 {
                     // Rewrite the filedata's URI
-                    baseUri = uriMappings[newNode.UriBaseId];
+                    baseUri = _currentUriMappings[newNode.UriBaseId];
                     newNode.Uri = CombineUris(baseUri, newNode.Uri);                    
 
                     Uri parentUri;
@@ -124,38 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return new Uri(baseUri, relativePart);
-        }
-
-        private static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
-        {
-            try
-            {
-                dictionary = JsonConvert.DeserializeObject<Dictionary<string, Uri>>(serializedProperty.SerializedValue, _settings);
-
-                return true;
-            }
-            // Didn't deserialize correctly
-            catch (Exception)
-            {
-                dictionary = null;
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Internal as used in testing as a helper.
-        /// </summary>
-        internal static Dictionary<string, Uri> DeserializePropertyDictionary(SerializedPropertyInfo info)
-        {
-            return JsonConvert.DeserializeObject<Dictionary<string, Uri>>(info.SerializedValue, _settings);
-        }
-
-        /// <summary>
-        /// Internal as used in testing as a helper.
-        /// </summary>
-        internal static SerializedPropertyInfo ReserializePropertyDictionary(Dictionary<string, Uri> dictionary)
-        {
-            return new SerializedPropertyInfo(JsonConvert.SerializeObject(dictionary, _settings), false);
         }
     }
 }

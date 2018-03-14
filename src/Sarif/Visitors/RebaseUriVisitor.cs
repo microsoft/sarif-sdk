@@ -113,56 +113,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             foreach (var key in run.Files.Keys)
             {
                 Uri oldUri;
+                string newKey = key;
+                FileData data = run.Files[key];
+                // If the old uri is absolute and we need to rebase it, we should.
+                if (Uri.TryCreate(key, UriKind.Absolute, out oldUri) && oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
+                {
+                    Uri newUri = _baseUri.MakeRelativeUri(oldUri);
 
-                if (Uri.TryCreate(key, UriKind.Absolute, out oldUri))
-                {    
-                    if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
+                    // Ensure the filedata reflects the correct base URI details.
+                    if (data != null)
                     {
-                        Uri newUri = _baseUri.MakeRelativeUri(oldUri);
-
-                        // Ensure the filedata reflects the correct base URI details.
-                        
-                        FileData data = run.Files[key];
-                        if (data != null)
+                        if (data.ParentKey != null)
                         {
-                            if (data.ParentKey != null)
+                            Uri parentUri;
+                            if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri))
                             {
-                                Uri parentUri;
-                                if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri))
+                                if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
                                 {
-                                    if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
-                                    {
-                                        data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
-                                    }
+                                    data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
                                 }
                             }
-
-                            data.Uri = newUri;
-                            data.UriBaseId = _baseName;
                         }
 
-                        if(newDictionary.ContainsKey(newUri.ToString()))
-                        {
-                            throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
-                        }
-                        
-                        newDictionary[newUri.ToString()] = data;
+                        data.Uri = newUri;
+                        data.UriBaseId = _baseName;
                     }
-                    else
+
+                    if(newDictionary.ContainsKey(newUri.ToString()))
                     {
-                        newDictionary[key] = run.Files[key];
+                        throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
                     }
+                    newKey = newUri.ToString();
                 }
-                else
-                {
-                    newDictionary[key] = run.Files[key];
-                }
+
+                newDictionary[newKey] = data;
             }
 
             run.Files = newDictionary;
         }
 
-        private static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
+        internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
         {
             try
             {

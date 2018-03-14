@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    [Verb("absoluteuri", HelpText = "Turn all relative Uris into absolute URIs (e.x. after rebaseUri is run)")]
+    [Verb("absoluteuri", HelpText = "Turn all relative Uris into absolute URIs (to be used after rebaseUri is run)")]
     internal class AbsoluteUriOptions : MultitoolOptionsBase
     {
         [Value(0,

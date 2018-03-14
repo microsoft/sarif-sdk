@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             SarifLog log = new SarifLog();
 
-            if(runCount > 0)
+            if (runCount > 0)
             {
                 log.Runs = new List<Run>();
             }
@@ -56,8 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount)
         {
             List<Result> results = new List<Result>();
-            for (int i=0; i<resultCount; i++)
-            {
+            for (int i = 0; i < resultCount; i++)
+            { 
                 results.Add(new Result()
                 {
                     RuleId = ruleIds[random.Next(ruleIds.Count)],

@@ -15,17 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal static class AbsoluteUriCommand
     {
-        public static int Run(AbsoluteUriOptions rebaseOptions)
+        public static int Run(AbsoluteUriOptions absoluteUriOptions)
         {
-            var sarifFiles = GetSarifFiles(rebaseOptions);
+            var sarifFiles = GetSarifFiles(absoluteUriOptions);
 
             foreach (var sarifLog in sarifFiles)
             {
                 sarifLog.Log = sarifLog.Log.MakeUrisAbsolute();
 
                 // Write output to file.
-                string outputName = sarifLog.GetOutputFileName(rebaseOptions);
-                var formatting = rebaseOptions.PrettyPrint
+                string outputName = sarifLog.GetOutputFileName(absoluteUriOptions);
+                var formatting = absoluteUriOptions.PrettyPrint
                     ? Newtonsoft.Json.Formatting.Indented
                     : Newtonsoft.Json.Formatting.None;
 
@@ -35,14 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private static IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions mergeOptions)
+        private static IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
         {
-            SearchOption searchOption = mergeOptions.Recurse
+            SearchOption searchOption = absoluteUriOptions.Recurse
                 ? SearchOption.AllDirectories
                 : SearchOption.TopDirectoryOnly;
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             List<string> fileNames = new List<string>();
-            foreach (string path in mergeOptions.Files)
+            foreach (string path in absoluteUriOptions.Files)
             {
                 string directory, filename;
                 if (Directory.Exists(path))
