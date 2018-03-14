@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
-using System.Globalization;
+using System.Linq;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Shell.TableControl;
+using Microsoft.VisualStudio.Shell.TableManager;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -15,10 +17,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         /// Command ID.
         /// </summary>
         public const int ClearSarifResultsCommandId = 0x0300;
+        public const int ReportFalsePositiveCommandId = 0x0301;
 
         private static int[] s_commands = new int[]
         {
-            ClearSarifResultsCommandId
+            ClearSarifResultsCommandId,
+            ReportFalsePositiveCommandId
         };
 
         /// <summary>
@@ -48,9 +52,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(CommandSet, ClearSarifResultsCommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
-                commandService.AddCommand(menuItem);
+                foreach (int commandId in s_commands)
+                {
+                    var menuCommandId = new CommandID(CommandSet, commandId);
+                    var menuItem = new OleMenuCommand(MenuItemCallback, menuCommandId);
+                    menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
+                    commandService.AddCommand(menuItem);
+                }
             }
         }
 
@@ -92,16 +100,71 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            MenuCommand menuCommand = (MenuCommand)sender;
+            MenuCommand menuCommand = sender as MenuCommand;
 
-            switch (menuCommand.CommandID.ID)
+            if (menuCommand != null)
             {
-                case ClearSarifResultsCommandId:
-                    SarifTableDataSource.Instance.CleanAllErrors();
-                    CodeAnalysisResultManager.Instance.SarifErrors.Clear();
-                    CodeAnalysisResultManager.Instance.FileDetails.Clear();
-                    break;
+                switch (menuCommand.CommandID.ID)
+                {
+                    case ClearSarifResultsCommandId:
+                        SarifTableDataSource.Instance.CleanAllErrors();
+                        CodeAnalysisResultManager.Instance.SarifErrors.Clear();
+                        CodeAnalysisResultManager.Instance.FileDetails.Clear();
+                        break;
+                    case ReportFalsePositiveCommandId:
+                        // TODO: Submit the report
+                        break;
+                }
             }
+        }
+
+        /// <summary>
+        /// Handler for the menu items' BeforeQueryStatus event, which fires before the error list context menu is displayed.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event args.</param>
+        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        {
+            OleMenuCommand menuCommand = sender as OleMenuCommand;
+
+            if (menuCommand != null)
+            {
+                switch (menuCommand.CommandID.ID)
+                {
+                    case ClearSarifResultsCommandId:
+                        menuCommand.Enabled = SarifTableDataSource.Instance.HasErrors();
+                        break;
+                    case ReportFalsePositiveCommandId:
+                        menuCommand.Enabled = IsSingleSarifErrorListItemSelected();
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the error list selection is a single SARIF result.
+        /// </summary>
+        /// <returns>true if a single SARIF error list result is selected; otherwise, false.</returns>
+        private static bool IsSingleSarifErrorListItemSelected()
+        {
+            IErrorList errorList = SarifViewerPackage.Dte.ToolWindows.ErrorList as IErrorList;
+            IEnumerable<ITableEntryHandle> selectedItems = errorList.TableControl.SelectedEntries;
+
+            // If the user has right-clicked with a single item selected...
+            if (selectedItems != null && selectedItems.Count() == 1)
+            {
+                ITableEntryHandle selectedItem = selectedItems.First();
+                ITableEntriesSnapshot snapshot;
+                int index;
+
+                // ...and it's a SARIF result
+                if (selectedItem.TryGetSnapshot(out snapshot, out index) && snapshot is SarifSnapshot)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
