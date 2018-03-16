@@ -1,9 +1,9 @@
-﻿using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.IO;
-using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {

@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Xunit;

@@ -3,11 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Xunit;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using System.Linq;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {

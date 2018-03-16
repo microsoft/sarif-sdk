@@ -15,33 +15,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             _action = action;
         }
 
-        public T Fold(IEnumerable<T> list, T accumulator)
+        public T Fold(IEnumerable<T> collection, T accumulator)
         {
             if (accumulator == null)
             {
                 throw new ArgumentNullException(nameof(accumulator));
             }
-            if (list == null)
+            if (collection == null)
             {
-                throw new ArgumentNullException(nameof(list));
+                throw new ArgumentNullException(nameof(collection));
             }
             
-            foreach (var entry in list)
+            foreach (var entry in collection)
             {
                 accumulator = _action(accumulator, entry);
             }
             return accumulator;
         }
 
-        public T Fold(IEnumerable<T> list)
+        public T Fold(IEnumerable<T> collection)
         {
-            return Fold(list, new T());
+            return Fold(collection, new T());
         }
 
         // Allows for chaining with later map actions.
-        public IEnumerable<T> Act(IEnumerable<T> list)
+        public IEnumerable<T> Act(IEnumerable<T> collection)
         {
-            return new List<T>() { Fold(list) };
+            return new List<T>() { Fold(collection) };
         }
     }
 }

@@ -3,12 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
-    public class GenericMappingAction<T> : IMappingAction<T>
+    public class GenericMappingAction<T> : IMapAction<T>
     {
         public Func<T, T> Action;
 
@@ -17,10 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             Action = action;
         }
 
-        public IEnumerable<T> Map(IEnumerable<T> list)
+        public IEnumerable<T> Map(IEnumerable<T> collection)
         {
             List<T> output = new List<T>();
-            foreach(var value in list)
+            foreach(var value in collection)
             {
                 output.Add(Action.Invoke(value));
             }

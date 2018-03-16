@@ -10,30 +10,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class SarifLogProcessorFactory
     {
-        public static IGenericAction<SarifLog> GetActionStage(SarifLogAction action, params string[] args)
+        public static IActionWrapper<SarifLog> GetActionStage(SarifLogAction action, params string[] args)
         {
             switch (action)
             {
                 case SarifLogAction.None:
+                {
                     return new GenericMappingAction<SarifLog>(a => a);
+                }
                 case SarifLogAction.MakeUrisAbsolute:
+                {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
                         AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
                         return visitor.VisitSarifLog(log);
                     });
+                }
                 case SarifLogAction.RebaseUri:
+                {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
                         RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], new Uri(args[1]));
                         return visitor.VisitSarifLog(log);
                     });
+                }
                 case SarifLogAction.Merge:
+                {
                     return new GenericFoldAction<SarifLog>(mergeFunction);
+                }
                 case SarifLogAction.Sort:
-                    throw new NotImplementedException("Future work, not yet supported.");
+                {
+                    throw new NotImplementedException();
+                }
                 case SarifLogAction.MakeDeterministic:
-                    throw new NotImplementedException("Future work, not yet supported");
+                {
+                    throw new NotImplementedException();
+                }
                 default:
                     throw new ArgumentException($"Unknown/Not Supported Action {action}.", nameof(action));
             }

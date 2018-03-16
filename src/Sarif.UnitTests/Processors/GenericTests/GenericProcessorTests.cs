@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         {
             List<int> list = GenerateRandomIntList();
 
-            GenericActionPipeline<int> actionPipeline = new GenericActionPipeline<int>(new List<IGenericAction<int>> { new TestMappingProcessor(), new TestFoldProcessor(), new TestMappingProcessor() });
+            GenericActionPipeline<int> actionPipeline = new GenericActionPipeline<int>(new List<IActionWrapper<int>> { new TestMappingProcessor(), new TestFoldProcessor(), new TestMappingProcessor() });
 
             IEnumerable<int> result = actionPipeline.Act(list);
 

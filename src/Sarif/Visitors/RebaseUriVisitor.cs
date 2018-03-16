@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -53,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             
             if (string.IsNullOrEmpty(newNode.UriBaseId))
             {
-                if (_baseUri.IsBaseOf(newNode.Uri) && newNode.Uri.IsAbsoluteUri)
+                if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
                 {
                     newNode.UriBaseId = _baseName;
                     newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
@@ -81,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
             if (node.Properties.ContainsKey(BaseUriDictionaryName))
             {
-                if (!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary))
+                if (!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary) || baseUriDictionary == null)
                 {
                     // If for some reason we don't have a valid dictionary in the originalUriBaseIds, we move it to another location.
                     node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
@@ -123,26 +122,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Ensure the filedata reflects the correct base URI details.
                     if (data != null)
                     {
+                        data.Uri = newUri;
+                        data.UriBaseId = _baseName;
+
                         if (data.ParentKey != null)
                         {
                             Uri parentUri;
-                            if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri))
+                            // If the parent URI is absolute and we need to rebase it, we should.
+                            if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri) && parentUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
                             {
-                                if (oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
-                                {
-                                    data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
-                                }
+                                data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
                             }
                         }
-
-                        data.Uri = newUri;
-                        data.UriBaseId = _baseName;
                     }
 
-                    if(newDictionary.ContainsKey(newUri.ToString()))
+                    if (newDictionary.ContainsKey(newUri.ToString()))
                     {
                         throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
                     }
+
                     newKey = newUri.ToString();
                 }
 
@@ -161,10 +159,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 return true;
             }
             // Didn't deserialize correctly
-            catch (Exception)
+            catch (Exception ex)
             {
-                dictionary = null;
-                return false;
+                if(ex is JsonSerializationException || ex is ArgumentNullException)
+                {
+                    dictionary = null;
+                    return false;
+                }
+                throw;
             }
         }
         
