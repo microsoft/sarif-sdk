@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Uri baseUri;
                 if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out baseUri))
                 {
-                    Console.WriteLine($"BasePath {rebaseOptions.BasePath} was not an absolute URI.  It must be.");
-                    return 1;
+                    throw new ArgumentException($"BasePath {rebaseOptions.BasePath} was not an absolute URI.  It must be.");
                 }
 
                 // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
