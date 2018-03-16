@@ -7,11 +7,19 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class RebaseUriStageTests
     {
+        private readonly ITestOutputHelper output;
+
+        public RebaseUriStageTests(ITestOutputHelper outputHelper)
+        {
+            output = outputHelper;
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -19,9 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [InlineData(5)]
         public void RewriteUri_RewritesAllFiles(int fileCount)
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             List<SarifLog> logs = new List<SarifLog>();
             for (int i = 0; i < fileCount; i++)
             {
@@ -32,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             IEnumerable<SarifLog> rewrittenLogs = RewriteUri.Act(logs.AsEnumerable());
 
-            rewrittenLogs.Should().HaveCount(logs.Count, $"Log numbers should not change.  Random seed: {randomSeed}");
+            rewrittenLogs.Should().HaveCount(logs.Count);
 
             // We just check that the log rewriter hit each run.  We'll test the RewriteUriVisitor more comprehensively in its own test class.
             foreach (var rewrittenLog in rewrittenLogs)

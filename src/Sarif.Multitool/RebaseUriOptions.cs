@@ -7,21 +7,8 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("rebaseuri", HelpText = "Rebase the URIs in one or more sarif files.")]
-    internal class RebaseUriOptions : MultitoolOptionsBase
+    internal class RebaseUriOptions : MultipleFilesOptionsBase
     {
-        [Value(0,
-            MetaName = "<files>",
-            HelpText = "Files to process (wildcards ? and * allowed).",
-            Required = false)]
-        public IList<string> Files { get; internal set; }
-
-        [Option(
-            'r',
-            "recurse",
-            Default = false,
-            HelpText = "Recursively select subdirectories in paths.")]
-        public bool Recurse { get; internal set; }
-
         [Option(
             'b',
             "base-path-value",
@@ -31,11 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public string BasePath { get; internal set; }
 
         [Option(
-            'n',
-            "base-path-name",
+            't',
+            "base-path-token",
             Required = true,
-            HelpText = "Variable to use for the base path (e.x. 'SRCROOT')"
+            HelpText = "Variable to use for the base path token (e.x. 'SRCROOT')"
             )]
-        public string BasePathName { get; internal set; }
+        public string BasePathToken { get; internal set; }
     }
 }

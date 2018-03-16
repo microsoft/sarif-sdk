@@ -12,32 +12,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(RebaseUriOptions rebaseOptions)
         {
-            Uri baseUri;
-            if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out baseUri))
+            try
             {
-                Console.WriteLine($"BasePath {rebaseOptions.BasePath} was not an absolute URI.  It must be.");
-                return -1;
-            }
+                Uri baseUri;
+                if (!Uri.TryCreate(rebaseOptions.BasePath, UriKind.Absolute, out baseUri))
+                {
+                    Console.WriteLine($"BasePath {rebaseOptions.BasePath} was not an absolute URI.  It must be.");
+                    return 1;
+                }
 
-            // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
-            if (baseUri.GetFileName() != "")
-            {
-                baseUri = new Uri(baseUri.ToString() + "/");
-            }
-            
-            var sarifFiles = GetSarifFiles(rebaseOptions);
-            
-            foreach (var sarifLog in sarifFiles)
-            {
-                sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathName, baseUri);
-                
-                // Write output to file.
-                string outputName = sarifLog.GetOutputFileName(rebaseOptions);
-                var formatting = rebaseOptions.PrettyPrint
-                    ? Newtonsoft.Json.Formatting.Indented
-                    : Newtonsoft.Json.Formatting.None;
+                // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
+                if (baseUri.GetFileName() != "")
+                {
+                    baseUri = new Uri(baseUri.ToString() + "/");
+                }
 
-                MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                var sarifFiles = GetSarifFiles(rebaseOptions);
+
+                Directory.CreateDirectory(rebaseOptions.OutputFolderPath);
+                foreach (var sarifLog in sarifFiles)
+                {
+                    sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathToken, baseUri);
+
+                    // Write output to file.
+                    string outputName = sarifLog.GetOutputFileName(rebaseOptions);
+                    var formatting = rebaseOptions.PrettyPrint
+                        ? Newtonsoft.Json.Formatting.Indented
+                        : Newtonsoft.Json.Formatting.None;
+                    
+                    MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return 1;
             }
 
             return 0;
@@ -45,32 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         
         private static IEnumerable<RebaseUriFile> GetSarifFiles(RebaseUriOptions mergeOptions)
         {
-            SearchOption searchOption = mergeOptions.Recurse
-                ? SearchOption.AllDirectories
-                : SearchOption.TopDirectoryOnly;
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            List<string> fileNames = new List<string>();
-            foreach (string path in mergeOptions.Files)
-            {
-                string directory, filename;
-                if (Directory.Exists(path))
-                {
-                    directory = path;
-                    filename = "*";
-                }
-                else
-                {
-                    directory = Path.GetDirectoryName(path) ?? path;
-                    filename = Path.GetFileName(path) ?? "*";
-                }
-                foreach (string file in Directory.GetFiles(directory, filename, searchOption))
-                {
-                    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
-                    {
-                        fileNames.Add(file);
-                    }
-                }
-            }
+            HashSet<string> fileNames = MultitoolFileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
             foreach(var file in fileNames)
             {
                 yield return new RebaseUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile(file) };
@@ -85,8 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             
             internal string GetOutputFileName(RebaseUriOptions mergeOptions)
             {
-                return !string.IsNullOrEmpty(mergeOptions.OutputFilePath)
-                    ? Path.GetFullPath(mergeOptions.OutputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif"
+                return !string.IsNullOrEmpty(mergeOptions.OutputFolderPath)
+                    ? Path.GetFullPath(mergeOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif"
                     : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif";
             }
         }

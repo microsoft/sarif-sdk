@@ -14,25 +14,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(MergeOptions mergeOptions)
         {
-	        var sarifFiles = GetSarifFiles(mergeOptions);
+            try
+            {
+                var sarifFiles = MultitoolFileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
 
-	        var allRuns = ParseFiles(sarifFiles);
+                var allRuns = ParseFiles(sarifFiles);
 
-            // Build one SarifLog with all the Runs.
-            SarifLog combinedLog = allRuns.Merge();
-            
-            // Reformat the SARIF log if we need to.
-            LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
-            SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
-            
-            // Write output to file.
-            string outputName = GetOutputFileName(mergeOptions);
-            var formatting = mergeOptions.PrettyPrint
-                ? Newtonsoft.Json.Formatting.Indented
-                : Newtonsoft.Json.Formatting.None;
+                // Build one SarifLog with all the Runs.
+                SarifLog combinedLog = allRuns.Merge();
 
-            MultitoolFileHelpers.WriteSarifFile(reformattedLog, outputName, formatting);
+                // Reformat the SARIF log if we need to.
+                LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
+                SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
 
+                // Write output to file.
+                string outputName = Path.Combine(mergeOptions.OutputFolderPath, GetOutputFileName(mergeOptions));
+                
+                var formatting = mergeOptions.PrettyPrint
+                    ? Newtonsoft.Json.Formatting.Indented
+                    : Newtonsoft.Json.Formatting.None;
+
+                Directory.CreateDirectory(mergeOptions.OutputFolderPath);
+                MultitoolFileHelpers.WriteSarifFile(reformattedLog, outputName, formatting);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return 1;
+            }
             return 0;
         }
 
@@ -43,40 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 yield return MultitoolFileHelpers.ReadSarifFile(file);
             }
         }
-
-        private static IEnumerable<string> GetSarifFiles(MergeOptions mergeOptions)
-        {
-            SearchOption searchOption = mergeOptions.Recurse
-                ? SearchOption.AllDirectories
-                : SearchOption.TopDirectoryOnly;
-
-            foreach (string path in mergeOptions.Files)
-            {
-                string directory, filename;
-                if (Directory.Exists(path))
-                {
-                    directory = path;
-                    filename = "*";
-                }
-                else
-                {
-                    directory = Path.GetDirectoryName(path) ?? path;
-                    filename = Path.GetFileName(path) ?? "*";
-                }
-                foreach (string file in Directory.GetFiles(directory, filename, searchOption))
-                {
-                    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
-                    {
-                        yield return file;
-                    }
-                }
-            }
-        }
-
+        
         internal static string GetOutputFileName(MergeOptions mergeOptions)
         {
-            return !string.IsNullOrEmpty(mergeOptions.OutputFilePath)
-                ? mergeOptions.OutputFilePath 
+            return !string.IsNullOrEmpty(mergeOptions.OutputFileName)
+                ? mergeOptions.OutputFileName
                 : "combined.sarif";
         }
     }

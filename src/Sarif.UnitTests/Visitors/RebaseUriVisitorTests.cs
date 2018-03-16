@@ -7,11 +7,19 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class RebaseUriVisitorTests
     {
+        private readonly ITestOutputHelper output;
+
+        public RebaseUriVisitorTests(ITestOutputHelper testOutput)
+        {
+            output = testOutput;
+        }
+        
         [Theory]
         [InlineData("BLDROOT", @"C:\blddir\out\test.dll", @"C:\blddir\out\", "test.dll")]
         [InlineData("SRCROOT", @"C:\blddir\out\test.dll", @"C:\blddir\src\", null)]
@@ -46,9 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitRun_AddsBaseUriDictionaryWhenNotPresent()
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
 
@@ -73,10 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             const string bldRoot = "BLDROOT";
             Uri bldRootUri = new Uri(@"C:\bld\root");
 
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
-            
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
             oldRun.Properties = new Dictionary<string, SerializedPropertyInfo>();
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
@@ -100,9 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitRun_ReplacesBaseUriDictionaryWhenIncorrect()
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
             oldRun.Properties = new Dictionary<string, SerializedPropertyInfo>();
@@ -127,9 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitRun_CorrectlyPatchesFileDictionaryKeys()
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
             
@@ -145,9 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitRun_DoesNotPatchFileDictionaryKeysWhenNotABaseUri()
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
 

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -12,6 +14,19 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     internal static class RandomSarifLogGenerator
     {
+        public static string GeneratorBaseUri = @"C:\src\";
+
+        public static Random GenerateRandomAndLog(ITestOutputHelper output, [CallerMemberName] string testName="")
+        {
+            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
+            int randomSeed = (new Random()).Next();
+            Random random = new Random(randomSeed);
+
+            output.WriteLine($"TestName: {testName} has seed {randomSeed}");
+
+            return random;
+        }
+
         public static SarifLog GenerateSarifLogWithRuns(Random randomGen, int runCount)
         {
             SarifLog log = new SarifLog();
@@ -33,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Run run = new Run();
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
-            List<Uri> filePaths = GenerateFakeFiles(@"C:\src", random.Next(20)+1).Select(a => new Uri(a)).ToList();
+            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).Select(a => new Uri(a)).ToList();
 
             run.Tool = new Tool() { Name = "Test", Version = "1.0", };
             run.Rules = GenerateRules(ruleIds);

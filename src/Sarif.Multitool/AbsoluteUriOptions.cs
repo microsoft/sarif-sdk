@@ -7,19 +7,8 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("absoluteuri", HelpText = "Turn all relative Uris into absolute URIs (to be used after rebaseUri is run)")]
-    internal class AbsoluteUriOptions : MultitoolOptionsBase
+    internal class AbsoluteUriOptions : MultipleFilesOptionsBase
     {
-        [Value(0,
-            MetaName = "<files>",
-            HelpText = "Files to process (wildcards ? and * allowed).",
-            Required = false)]
-        public IList<string> Files { get; internal set; }
-
-        [Option(
-            'r',
-            "recurse",
-            Default = false,
-            HelpText = "Recursively select subdirectories in paths.")]
-        public bool Recurse { get; internal set; }
+        
     }
 }

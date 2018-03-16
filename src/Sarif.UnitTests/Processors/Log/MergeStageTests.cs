@@ -5,11 +5,19 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
     public class MergeStageTests
     {
+        private readonly ITestOutputHelper output;
+
+        public MergeStageTests(ITestOutputHelper outputHelper)
+        {
+            output = outputHelper;
+        }
+
         GenericFoldAction<SarifLog> Merge = (GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge);
         
         [Theory]
@@ -20,14 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [InlineData(10)]
         public void MergeStage_SingleFile_ReturnedUnchanged(int runs)
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, runs);
 
             SarifLog processed = Merge.Fold(new List<SarifLog>() { log });
 
-            processed.ShouldBeEquivalentTo(log, $"Merge should not change the contents of a single log file.  Seed: {randomSeed}");
+            processed.ShouldBeEquivalentTo(log);
         }
 
         [Theory]
@@ -36,10 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         [InlineData(10)]
         public void MergeStage_MultipleFiles_MergeCorrectly(int fileCount)
         {
-            // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails by forcibly setting
-            // the randomSeed to a particular value.
-            int randomSeed = (new Random()).Next();
-            Random random = new Random(randomSeed);
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             List<SarifLog> logs = new List<SarifLog>();
             for (int i = 0; i < fileCount; i++)
@@ -53,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             {
                 if (log.Runs != null)
                 {
-                    log.Runs.Should().BeSubsetOf(merged.Runs, $"Merged log should contain all contents of files to merge.  Seed: {randomSeed}");
+                    log.Runs.Should().BeSubsetOf(merged.Runs);
                 }
             }
         }

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -12,19 +13,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public static int Run(AbsoluteUriOptions absoluteUriOptions)
         {
-            var sarifFiles = GetSarifFiles(absoluteUriOptions);
-
-            foreach (var sarifLog in sarifFiles)
+            try
             {
-                sarifLog.Log = sarifLog.Log.MakeUrisAbsolute();
+                var sarifFiles = GetSarifFiles(absoluteUriOptions);
 
-                // Write output to file.
-                string outputName = sarifLog.GetOutputFileName(absoluteUriOptions);
-                var formatting = absoluteUriOptions.PrettyPrint
-                    ? Newtonsoft.Json.Formatting.Indented
-                    : Newtonsoft.Json.Formatting.None;
+                Directory.CreateDirectory(absoluteUriOptions.OutputFolderPath);
+                foreach (var sarifLog in sarifFiles)
+                {
+                    sarifLog.Log = sarifLog.Log.MakeUrisAbsolute();
 
-                MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                    // Write output to file.
+                    string outputName = sarifLog.GetOutputFileName(absoluteUriOptions);
+                    var formatting = absoluteUriOptions.PrettyPrint
+                        ? Newtonsoft.Json.Formatting.Indented
+                        : Newtonsoft.Json.Formatting.None;
+
+                    MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return 1;
             }
 
             return 0;
@@ -32,32 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
         {
-            SearchOption searchOption = absoluteUriOptions.Recurse
-                ? SearchOption.AllDirectories
-                : SearchOption.TopDirectoryOnly;
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            List<string> fileNames = new List<string>();
-            foreach (string path in absoluteUriOptions.Files)
-            {
-                string directory, filename;
-                if (Directory.Exists(path))
-                {
-                    directory = path;
-                    filename = "*";
-                }
-                else
-                {
-                    directory = Path.GetDirectoryName(path) ?? path;
-                    filename = Path.GetFileName(path) ?? "*";
-                }
-                foreach (string file in Directory.GetFiles(directory, filename, searchOption))
-                {
-                    if (file.EndsWith(".sarif", StringComparison.OrdinalIgnoreCase))
-                    {
-                        fileNames.Add(file);
-                    }
-                }
-            }
+            HashSet<string> fileNames = MultitoolFileHelpers.CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse);
             foreach (var file in fileNames)
             {
                 yield return new AbsoluteUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile(file) };
@@ -72,9 +58,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             internal string GetOutputFileName(AbsoluteUriOptions mergeOptions)
             {
-                return !string.IsNullOrEmpty(mergeOptions.OutputFilePath)
-                    ? Path.GetFullPath(mergeOptions.OutputFilePath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif"
-                    : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif";
+                return !string.IsNullOrEmpty(mergeOptions.OutputFolderPath)
+                    ? Path.GetFullPath(mergeOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif"
+                    : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif";
             }
         }
     }
