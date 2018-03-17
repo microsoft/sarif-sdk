@@ -430,7 +430,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rule &apos;{0}&apos; was explicitly disabled by the user. As result, this too run cannot be used to for compliance or other auditing processes that require a comprehensive analysis..
+        ///   Looks up a localized string similar to Rule &apos;{0}&apos; was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis..
         /// </summary>
         internal static string WRN999_RuleExplicitlyDisabled {
             get {

@@ -19,11 +19,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return Parser.Default.ParseArguments<
                 ConvertOptions, 
                 RewriteOptions,
-                MergeOptions>(args)
+                MergeOptions,
+                RebaseUriOptions,
+                AbsoluteUriOptions>(args)
               .MapResult(
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
                 (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
+                (RebaseUriOptions rebaseOptions) => RebaseUriCommand.Run(rebaseOptions),
+                (AbsoluteUriOptions absoluteUriOptions) => AbsoluteUriCommand.Run(absoluteUriOptions),
                 errs => 1);
         }
     }
