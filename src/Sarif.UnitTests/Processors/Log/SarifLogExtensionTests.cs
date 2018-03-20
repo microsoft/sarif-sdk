@@ -78,8 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             // All file URIs should be absolute.
             logs.All(
                 log =>
+                    log.Runs == null ||
                     log.Runs.All(
                         run =>
+                            run.Files == null ||
                             run.Files.Keys.All(
                                 key =>
                                     run.Files[key].Uri.ToString() == key
