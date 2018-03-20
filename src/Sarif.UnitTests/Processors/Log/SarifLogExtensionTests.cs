@@ -50,8 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             // All file URIs should be relative and the files dictionary should be rewritten.
             logs.All(
                 log => 
+                    log.Runs == null ||
                     log.Runs.All(
                         run => 
+                            run.Files == null ||
                             run.Files.Keys.All(
                                 key => 
                                     run.Files[key].Uri.ToString() == key 
