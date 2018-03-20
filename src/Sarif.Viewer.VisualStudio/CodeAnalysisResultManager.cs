@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 
@@ -120,6 +121,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal void Register()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Register this object to listen for IVsUpdateSolutionEvents
             IVsSolutionBuildManager2 buildManager = Package.GetService<SVsSolutionBuildManager, IVsSolutionBuildManager2>();
             if (buildManager == null)
@@ -151,6 +154,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults")]
         internal void Unregister()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Unregister this object from IVsUpdateSolutionEvents events
             if (m_updateSolutionEventsCookie != VSCOOKIE_NIL)
             {
@@ -605,6 +610,8 @@ namespace Microsoft.Sarif.Viewer
         // Detaches the SARIF results from all documents.
         public void DetachFromAllDocuments()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             IEnumRunningDocuments documentsEnumerator;
 
             if (_runningDocTable != null)
@@ -637,6 +644,8 @@ namespace Microsoft.Sarif.Viewer
         /// 
         private string GetDocumentName(uint docCookie, IVsWindowFrame pFrame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             string documentName = null;
             IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(ServiceProvider);
             if (runningDocTable != null)

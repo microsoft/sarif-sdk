@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
@@ -149,6 +150,8 @@ namespace Microsoft.Sarif.Viewer
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the document view from the window frame, then get the text view
             object docView;
             int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);

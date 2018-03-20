@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
@@ -22,12 +21,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;
 
-
         [ImportMany]
         IEnumerable<ITableControlEventProcessorProvider> TableControlEventProcessorProviders { get; set; } = null;
 
         private SarifTableDataSource()
-        {           
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
 
             // The composition service will only be null in unit tests.
@@ -43,7 +42,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 if (TableControlEventProcessorProviders == null)
                 {
                     TableControlEventProcessorProviders = new[]
-                        {compositionService.GetService<ITableControlEventProcessorProvider>()};
+                        { compositionService.GetService<ITableControlEventProcessorProvider>() };
                 }
 
                 var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
@@ -53,9 +52,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                     StandardTableColumnDefinitions.ErrorRank, StandardTableColumnDefinitions.ErrorCategory,
                     StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName,
                     StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
-
-
-//            var errorList = ServiceProvider.GlobalProvider.GetService(typeof(SVsErrorList)) as IVsErrorList;
             }
         }
 

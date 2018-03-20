@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using Microsoft.Sarif.Viewer.Views;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -53,6 +52,8 @@ namespace Microsoft.Sarif.Viewer
 
         public void Show()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             ((IVsWindowFrame)Frame).Show();
         }
 
@@ -60,6 +61,8 @@ namespace Microsoft.Sarif.Viewer
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_trackSelection == null)
                 {
                     _trackSelection = GetService(typeof(STrackSelection)) as ITrackSelection;
@@ -74,6 +77,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public void ApplySelection()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             ITrackSelection track = TrackSelection;
             if (track != null)
             {

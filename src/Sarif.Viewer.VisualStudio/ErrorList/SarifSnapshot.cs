@@ -5,14 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Documents;
+using System.Windows.Media;
 using EnvDTE;
-
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.VisualStudio.Imaging.Interop;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
+using XamlDoc = System.Windows.Documents;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -49,7 +51,23 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             if ((index >= 0) && (index < _errors.Count))
             {
-                if (columnName == StandardTableKeyNames.DocumentName)
+                if (columnName == StandardTableKeyNames2.TextInlines)
+                {
+                    var inlines = new List<Inline>();
+
+                    inlines.Add(new XamlDoc.Run(_errors[index].Message));
+                    inlines.Add(new XamlDoc.Run("  ")); // Spacing between message text and hyperlink
+
+                    var link = new Hyperlink();
+                    link.Tag = index;
+                    link.Click += ErrorListInlineLink_Click;
+
+                    link.Inlines.Add(new XamlDoc.Run(Resources.ErrorListResultLocationHyperlink_Text));
+                    inlines.Add(link);
+
+                    content = inlines;
+                }
+                else if (columnName == StandardTableKeyNames.DocumentName)
                 {
                     content = FilePath;
                 }
@@ -142,6 +160,35 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             }
 
             return content != null;
+        }
+
+        private void ErrorListInlineLink_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink hyperLink = sender as Hyperlink;
+
+            if (hyperLink != null)
+            {
+                int index = (int)hyperLink.Tag;
+
+                SarifErrorListItem sarifResult = _errors[index];
+
+                // Set the current sarif error in the manager so we track code locations.
+                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+
+                if (sarifResult.HasDetails)
+                {
+                    // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
+                }
+                else
+                {
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                }
+
+                sarifResult.Locations[0].NavigateTo(false);
+                sarifResult.Locations[0].ApplyDefaultSourceFileHighlighting();
+            }
         }
 
         private __VSERRORCATEGORY GetSeverity(ResultLevel level)
