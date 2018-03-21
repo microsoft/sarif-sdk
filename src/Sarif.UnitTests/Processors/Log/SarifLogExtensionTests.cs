@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             int count = random.Next(10) + 1;
             for (int i = 0; i < count; i++)
             {
-                SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10));
+                SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(1, 10));
                 logs.Add(log);
                 secondLogSet.Add(log.DeepClone());
             }
