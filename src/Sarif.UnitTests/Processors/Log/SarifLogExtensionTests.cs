@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void TestMerge_WorksAsExpected()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+            random = new Random(335662505);
             List<SarifLog> logs = new List<SarifLog>();
             List<SarifLog> secondLogSet = new List<SarifLog>();
             int count = random.Next(10) + 1;
@@ -33,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
 
             SarifLog combinedLog = logs.Merge();
 
-            combinedLog.Runs.Count.ShouldBeEquivalentTo(secondLogSet.Select(l => l.Runs.Count).Sum());
+            combinedLog.Runs.Count.ShouldBeEquivalentTo(secondLogSet.Select(l => l.Runs == null ? 0 : l.Runs.Count).Sum());
         }
 
         [Fact]
