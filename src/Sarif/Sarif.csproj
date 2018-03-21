@@ -7,6 +7,10 @@
     <ProjectGuid>c5fc2683-47cf-447f-b5ea-9fde0fd78754</ProjectGuid>
     <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'net452'" Include="System.Web" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.BinSkim" Version="1.4.4" />

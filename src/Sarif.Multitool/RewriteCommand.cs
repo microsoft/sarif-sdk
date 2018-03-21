@@ -17,26 +17,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
-                string fileName = GetOutputFileName(rewriteOptions);
-
-                Newtonsoft.Json.Formatting formatting = rewriteOptions.PrettyPrint 
-                    ? Newtonsoft.Json.Formatting.Indented 
-                    : Newtonsoft.Json.Formatting.None;
-
-                JsonSerializerSettings settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = SarifContractResolver.Instance,
-                    Formatting = Newtonsoft.Json.Formatting.Indented
-                };
-
-                string sarifText = File.ReadAllText(rewriteOptions.InputFilePath);
-                SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText, settings);
+                
+                SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile(rewriteOptions.InputFilePath);
 
                 LoggingOptions loggingOptions = rewriteOptions.ConvertToLoggingOptions();
 
                 SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(actualLog);
+                
+                string fileName = GetOutputFileName(rewriteOptions);
 
-                File.WriteAllText(fileName, JsonConvert.SerializeObject(reformattedLog, settings));
+                var formatting = rewriteOptions.PrettyPrint
+                    ? Newtonsoft.Json.Formatting.Indented
+                    : Newtonsoft.Json.Formatting.None;
+
+                MultitoolFileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
             }
             catch(Exception ex)
             {
