@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmDownload_DialogMessage" xml:space="preserve">
-    <value>Are you sure you want to download the source file from {0}?
-
-If you answer Yes, you will not be prompted for future downloads from "{1}".</value>
+    <value>The source file {0} will now be downloaded. To abort the download, click Cancel.
+ 
+Would you like to always allow downloads from "{1}"?</value>
     <comment>{0} will be the full source file URL. {1} will be the host domain (e.g. www.microsoft.com)</comment>
   </data>
   <data name="FileOpenFail_DialogCaption" xml:space="preserve">

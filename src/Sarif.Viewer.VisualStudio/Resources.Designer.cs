@@ -61,9 +61,9 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to download the source file from {0}?
-        ///
-        ///If you answer Yes, you will not be prompted for future downloads from &quot;{1}&quot;..
+        ///   Looks up a localized string similar to The source file {0} will now be downloaded. To abort the download, click Cancel.
+        /// 
+        ///Would you like to always allow downloads from &quot;{1}&quot;?.
         /// </summary>
         internal static string ConfirmDownload_DialogMessage {
             get {

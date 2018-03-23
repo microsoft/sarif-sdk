@@ -27,6 +27,7 @@ namespace Microsoft.Sarif.Viewer
         internal const int E_FAIL = unchecked((int)0x80004005);
         internal const uint VSCOOKIE_NIL = 0;
         internal const int S_OK = 0;
+        internal const int IDCANCEL = 2;
         internal const int IDYES = 6;
         private const string AllowedDownloadHostsFileName = "AllowedDownloadHosts.json";
         private const string TemporaryFileDirectoryName = "SarifViewer";
@@ -254,7 +255,7 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        public bool TryRebaselineCurrentSarifError(string uriBaseId, string originalFilename)
+        public bool TryRebaselineAllSarifErrors(string uriBaseId, string originalFilename)
         {
             if (CurrentSarifError == null)
             {
@@ -277,15 +278,24 @@ namespace Microsoft.Sarif.Viewer
                     bool allow = _allowedDownloadHosts.Contains(uri.Host);
 
                     // File needs to be downloaded, prompt for confirmation if host is not already allowed
-                    if (!allow && IDYES == VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
-                                                                           string.Format(Resources.ConfirmDownload_DialogMessage, uri, uri.Host),
-                                                                           null, // title
-                                                                           OLEMSGICON.OLEMSGICON_QUERY,
-                                                                           OLEMSGBUTTON.OLEMSGBUTTON_YESNOCANCEL,
-                                                                           OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST))
+                    if (!allow)
                     {
-                        allow = true;
-                        AddAllowedDownloadHost(uri.Host);
+                        int result = VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
+                                                                    string.Format(Resources.ConfirmDownload_DialogMessage, uri, uri.Host),
+                                                                    null, // title
+                                                                    OLEMSGICON.OLEMSGICON_QUERY,
+                                                                    OLEMSGBUTTON.OLEMSGBUTTON_YESNOCANCEL,
+                                                                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+
+                        if (result != IDCANCEL)
+                        {
+                            allow = true;
+
+                            if (result == IDYES)
+                            {
+                                AddAllowedDownloadHost(uri.Host);
+                            }
+                        }
                     }
 
                     if (allow)
@@ -305,7 +315,8 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
+            // Update all the paths in this result set
+            RemapFileNames(originalFilename, rebaselinedFile);
             return true;
         }
 
