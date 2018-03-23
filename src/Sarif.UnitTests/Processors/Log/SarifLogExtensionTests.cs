@@ -23,7 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             List<SarifLog> logs = new List<SarifLog>();
             List<SarifLog> secondLogSet = new List<SarifLog>();
-            for(int i=0; i<random.Next(10); i++)
+            int count = random.Next(10) + 1;
+            for (int i = 0; i < count; i++)
             {
                 SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10));
                 logs.Add(log);
@@ -40,7 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             List<SarifLog> logs = new List<SarifLog>();
-            for (int i = 0; i < random.Next(10); i++)
+
+            int count = random.Next(10) + 1;
+            for (int i = 0; i < count; i++)
             {
                 SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10));
                 logs.Add(log);
@@ -50,8 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             // All file URIs should be relative and the files dictionary should be rewritten.
             logs.All(
                 log => 
+                    log.Runs == null ||
                     log.Runs.All(
                         run => 
+                            run.Files == null ||
                             run.Files.Keys.All(
                                 key => 
                                     run.Files[key].Uri.ToString() == key 
@@ -66,7 +71,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             List<SarifLog> logs = new List<SarifLog>();
-            for (int i = 0; i < random.Next(10); i++)
+            int count = random.Next(10) + 1;
+            for (int i = 0; i < count; i++)
             {
                 SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10));
                 logs.Add(log);
@@ -76,8 +82,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
             // All file URIs should be absolute.
             logs.All(
                 log =>
+                    log.Runs == null ||
                     log.Runs.All(
                         run =>
+                            run.Files == null ||
                             run.Files.Keys.All(
                                 key =>
                                     run.Files[key].Uri.ToString() == key
