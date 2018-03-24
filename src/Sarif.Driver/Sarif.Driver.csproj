@@ -13,9 +13,7 @@
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Composition" Version="1.1.0" />
-
-    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
   <!--NuGet Config-->

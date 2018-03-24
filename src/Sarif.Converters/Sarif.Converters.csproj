@@ -33,8 +33,7 @@
     <PackageReference Include="CsvHelper" Version="2.16.3" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

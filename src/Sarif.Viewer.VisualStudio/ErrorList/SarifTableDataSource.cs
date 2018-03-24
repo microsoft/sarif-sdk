@@ -26,6 +26,14 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private SarifTableDataSource()
         {
+            if (!SarifViewerPackage.IsUnitTesting)
+            {
+                Initialize();
+            }
+        }
+
+        private void Initialize()
+        {
             ThreadHelper.ThrowIfNotOnUIThread();
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
 

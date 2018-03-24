@@ -89,8 +89,12 @@ namespace Microsoft.Sarif.Viewer
             }
             set
             {
-                // Since we have a new set of Results in the Error List, clear all source code highlighting.
-                DetachFromAllDocuments();
+                if (!SarifViewerPackage.IsUnitTesting)
+                {
+                    // Since we have a new set of Results in the Error List, clear all source code highlighting.
+                    DetachFromAllDocuments();
+                }
+
                 _sarifErrors = value;
             }
         }
@@ -118,6 +122,8 @@ namespace Microsoft.Sarif.Viewer
                 CurrentSarifError.RemoveMarkers();
             }
         }
+
+        private void Foo() { }
 
         internal void Register()
         {

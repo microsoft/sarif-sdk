@@ -15,8 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.BinSkim" Version="1.4.4" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.1.37" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.4.0" />
   </ItemGroup>
 
   <PropertyGroup>

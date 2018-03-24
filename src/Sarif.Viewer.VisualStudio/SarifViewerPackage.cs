@@ -42,6 +42,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public const string PackageGuidString = "b97edb99-282e-444c-8f53-7de237f2ec5e";
 
+        public static bool IsUnitTesting { get; set; } = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenLogFileCommands"/> class.
         /// </summary>
