@@ -232,11 +232,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
 
                 // Re-add the text portion of the link.
-                sb.Append("\"" + embeddedLinksText + "\""); 
+                sb.Append($"[{embeddedLinksText}]"); 
 
                 rawMessage = rawMessage.Substring(index + "]]".Length);
                 index = rawMessage.IndexOf("[[");
             }
+
             sb.Append(rawMessage);
             normalizedMessage = sb.ToString();
             return relatedLocations;

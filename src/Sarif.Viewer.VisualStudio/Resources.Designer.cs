@@ -61,15 +61,6 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to source location.
-        /// </summary>
-        internal static string ErrorListResultLocationHyperlink_Text {
-            get {
-                return ResourceManager.GetString("ErrorListResultLocationHyperlink_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open File.
         /// </summary>
         internal static string FileOpenFail_DialogCaption {
