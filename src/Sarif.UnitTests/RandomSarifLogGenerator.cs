@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return log;
         }
 
-        public static Run GenerateRandomRun(Random random)
+        public static Run GenerateRandomRun(Random random, int? resultCount = null)
         {
             Run run = new Run();
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
@@ -53,8 +53,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.Tool = new Tool() { Name = "Test", Version = "1.0", };
             run.Rules = GenerateRules(ruleIds);
             run.Files = GenerateFiles(filePaths);
-            run.Results = GenerateFakeResults(random, ruleIds, filePaths, random.Next(100));
 
+            int results = resultCount == null ? random.Next(100) : (int)resultCount;
+            run.Results = GenerateFakeResults(random, ruleIds, filePaths, results);
+
+            return run;
+        }
+
+        public static Run GenerateRandomRunWithoutDuplicateIssues(Random random, IEqualityComparer<Result> comparer, int? resultCount = null)
+        {
+            Run run = GenerateRandomRun(random, resultCount);
+            IList<Result> resultList = run.Results;
+            List<Result> uniqueResults = new List<Result>();
+            foreach(var result in resultList)
+            {
+                if(!uniqueResults.Contains(result, comparer))
+                {
+                    uniqueResults.Add(result);
+                }
+            }
+            run.Results = uniqueResults;
             return run;
         }
 

@@ -6,6 +6,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     public enum SarifBaselineType
     {
         Strict = 0,
-
+        Standard = 1,
     }
 }

@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void TestMerge_WorksAsExpected()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            random = new Random(335662505);
             List<SarifLog> logs = new List<SarifLog>();
             List<SarifLog> secondLogSet = new List<SarifLog>();
             int count = random.Next(10) + 1;

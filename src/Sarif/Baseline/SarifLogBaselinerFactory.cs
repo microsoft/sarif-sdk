@@ -11,6 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 case SarifBaselineType.Strict:
                     return new SarifLogBaseliner(Result.ValueComparer);
+                case SarifBaselineType.Standard:
+                    return new SarifLogBaseliner(DefaultBaseline.ResultBaselineEquals.DefaultInstance);
                 default:
                     return new SarifLogBaseliner(Result.ValueComparer);
 
