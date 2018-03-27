@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -18,14 +17,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
+
                 if (x.Importance != y.Importance)
                 {
                     return false;
                 }
+
                 if (x.Module != y.Module)
                 {
                     return false;
                 }
+
                 if (x.Kind != y.Kind)
                 {
                     return false;
@@ -40,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
+
                 if (!ListComparisonHelpers.CompareListsAsSets(x.Annotations, y.Annotations, AnnotationBaselineEquals.Instance))
                 {
                     return false;
@@ -50,17 +53,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(AnnotatedCodeLocation obj)
         {
-            int hs = 0;
+            if (ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+            else
+            {
+                int hs = 0;
 
-            hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode() ^ obj.Importance.GetNullCheckedHashCode() ^ obj.Kind.GetNullCheckedHashCode() ^ obj.Module.GetNullCheckedHashCode();
+                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode() ^ obj.Importance.GetNullCheckedHashCode() ^ obj.Kind.GetNullCheckedHashCode() ^ obj.Module.GetNullCheckedHashCode();
 
-            hs = hs ^ obj.Target.GetNullCheckedHashCode() ^ obj.TargetKey.GetNullCheckedHashCode() ^ obj.LogicalLocationKey.GetNullCheckedHashCode();
+                hs = hs ^ obj.Target.GetNullCheckedHashCode() ^ obj.TargetKey.GetNullCheckedHashCode() ^ obj.LogicalLocationKey.GetNullCheckedHashCode();
 
-            hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
+                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Annotations, AnnotationBaselineEquals.Instance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Annotations, AnnotationBaselineEquals.Instance);
 
-            return hs;
+                return hs;
+            }
         }
     }
 }

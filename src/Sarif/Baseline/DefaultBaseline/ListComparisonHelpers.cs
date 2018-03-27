@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -19,10 +17,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
+
                 if (left.Count != right.Count)
                 {
                     return false;
                 }
+
                 for (int i = 0; i < left.Count; i++)
                 {
                     if (equalityComparer != null && equalityComparer.Equals(left[i], right[i]))
@@ -47,10 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
+
                 if (left.Count != right.Count)
                 {
                     return false;
                 }
+
                 foreach (T l in left)
                 {
                     if (equalityComparer != null && !right.Any(r => equalityComparer.Equals(l, r)))

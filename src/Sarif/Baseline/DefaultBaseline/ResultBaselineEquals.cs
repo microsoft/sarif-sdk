@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -21,11 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 {
                     return false;
                 }
+
                 // Locations should all be the same.
                 if (!ListComparisonHelpers.CompareListsAsSets(x.Locations, y.Locations, LocationBaselineEquals.Instance))
                 {
                     return false;
                 }
+
                 // Related Locations should all be the same.
                 if (!ListComparisonHelpers.CompareListsAsSets(x.RelatedLocations, y.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance))
                 {
@@ -55,19 +54,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(Result obj)
         {
-            int hs = 0;
+            if (ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+            else
+            {
+                int hs = 0;
 
-            hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContribution.GetNullCheckedHashCode();
+                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContribution.GetNullCheckedHashCode();
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance);
-            
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Stacks, StackBaselineEquals.Instance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance);
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.CodeFlows, CodeFlowBaselineEqualityComparator.Instance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Stacks, StackBaselineEquals.Instance);
 
-            return hs;
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.CodeFlows, CodeFlowBaselineEqualityComparator.Instance);
+
+                return hs;
+            }
         }
     }
 }

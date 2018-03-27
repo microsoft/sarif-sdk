@@ -23,11 +23,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(CodeFlow obj)
         {
-            int hs = 0;
+            if (ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+            else
+            {
+                int hs = 0;
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Locations);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Locations);
 
-            return hs;
+                return hs;
+            }
         }
     }
 }

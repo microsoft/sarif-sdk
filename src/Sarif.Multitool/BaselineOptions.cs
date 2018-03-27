@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             't',
             "baseline-type",
-            HelpText = "Type of baseline to do.  Currently support:  Strict, ",
+            HelpText = "Type of baseline to do.  Currently support:  Strict,Default ",
             Default = Baseline.SarifBaselineType.Strict)]
         public Baseline.SarifBaselineType BaselineType { get; internal set; }
 

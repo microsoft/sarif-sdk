@@ -44,6 +44,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             return 0;
         }
-
     }
 }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -16,11 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             output = outputHelper;
         }
-
-
+        
         private ISarifLogBaseliner defaultBaseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Standard);
-
-
+        
         [Fact]
         public void DefaultBaseline_SameResults_AllExisting()
         {
@@ -45,7 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-
             result.Results.Should().HaveCount(baseline.Results.Count() + 1);
         }
 
@@ -60,7 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
 
@@ -75,14 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            
-
             result.Results.Should().HaveCount(baseline.Results.Count() + 1);
         }
-
-
+        
         [Fact]
         public void DefaultBaseline_ChangedResultOnNonTrackedField_Existing()
         {

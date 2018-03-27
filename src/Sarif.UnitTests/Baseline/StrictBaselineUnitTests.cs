@@ -3,11 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
-using FluentAssertions;
-using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
@@ -46,7 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-
             result.Results.Should().HaveCount(baseline.Results.Count()+1);
         }
 
@@ -60,11 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
-            int dupes = baseline.Results.Where(r => baseline.Results.Where(s => Result.ValueComparer.Equals(r, s)).Count() != 1).Count();
-            if (dupes == 0)
-            {
-                result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            }
+            result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
     
@@ -81,9 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Where(r => r.BaselineState == BaselineState.New).Should().ContainSingle();
-
             result.Results.Where(r => r.BaselineState == BaselineState.Absent).Should().ContainSingle();
-            
             result.Results.Should().HaveCount(baseline.Results.Count()+1);
         }
     }

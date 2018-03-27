@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -37,17 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(StackFrame obj)
         {
-            int hs = 0;
+            if (ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+            else
+            {
+                int hs = 0;
 
-            hs = hs ^ obj.Uri.GetNullCheckedHashCode();
+                hs = hs ^ obj.Uri.GetNullCheckedHashCode();
 
-            hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
+                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 
-            hs = hs ^ obj.Module.GetNullCheckedHashCode();
+                hs = hs ^ obj.Module.GetNullCheckedHashCode();
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Parameters);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Parameters);
 
-            return hs;
+                return hs;
+            }
         }
     }
 }

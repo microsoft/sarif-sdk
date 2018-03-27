@@ -28,13 +28,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(Annotation obj)
         {
-            int hs = 0;
+            if (ReferenceEquals(obj, null))
+            {
+                return 0;
+            }
+            else
+            {
+                int hs = 0;
 
-            hs = hs ^ obj.Message.GetNullCheckedHashCode();
+                hs = hs ^ obj.Message.GetNullCheckedHashCode();
 
-            hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, PhysicalLocationBaselineEquals.Instance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, PhysicalLocationBaselineEquals.Instance);
 
-            return hs;
+                return hs;
+            }
         }
     }
 }
