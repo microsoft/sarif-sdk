@@ -65,9 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             Run run = GenerateRandomRun(random, resultCount);
             IList<Result> resultList = run.Results;
             List<Result> uniqueResults = new List<Result>();
-            foreach(var result in resultList)
+            foreach (var result in resultList)
             {
-                if(!uniqueResults.Contains(result, comparer))
+                if (!uniqueResults.Contains(result, comparer))
                 {
                     uniqueResults.Add(result);
                 }

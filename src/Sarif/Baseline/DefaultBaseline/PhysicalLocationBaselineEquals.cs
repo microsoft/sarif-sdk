@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         public static readonly PhysicalLocationBaselineEquals Instance = new PhysicalLocationBaselineEquals();
         public bool Equals(PhysicalLocation x, PhysicalLocation y)
         {
-            if(!object.ReferenceEquals(x, y))
+            if (!object.ReferenceEquals(x, y))
             {
                 if (x == null || y == null)
                 {

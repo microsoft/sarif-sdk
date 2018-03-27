@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -17,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 SarifLog baselineFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.BaselineFilePath);
                 SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.CurrentFilePath);
-                if(baselineFile.Runs.Count != 1 || currentFile.Runs.Count != 1)
+                if (baselineFile.Runs.Count != 1 || currentFile.Runs.Count != 1)
                 {
                     throw new ArgumentException("Invalid sarif logs, we can only baseline logs with a single run in them.");
                 }

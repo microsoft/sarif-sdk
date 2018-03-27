@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
     {
         public static int GetNullCheckedHashCode(this object obj)
         {
-            if(obj == null)
+            if (obj == null)
             {
                 return 0;
             }
