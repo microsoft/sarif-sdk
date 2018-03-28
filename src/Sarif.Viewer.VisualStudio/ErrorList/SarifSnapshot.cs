@@ -23,7 +23,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     internal class SarifSnapshot : TableEntriesSnapshotBase, IWpfTableEntriesSnapshot
     {
         private readonly List<SarifErrorListItem> _errors;
-        private static Regex _embeddedLinkRegex = new Regex("\\[(.+?)\\]");
+        private static string s_embeddedLinkRegexPattern = "\\[(.+?)\\]";
 
         internal SarifSnapshot(string filePath, IEnumerable<SarifErrorListItem> errors)
         {
@@ -59,7 +59,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                         string message = _errors[index].Message;
                         var inlines = new List<Inline>();
 
-                        MatchCollection matches = _embeddedLinkRegex.Matches(message);
+                        MatchCollection matches = Regex.Matches(message, s_embeddedLinkRegexPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
                         if (matches.Count > 0) // If there are no [embedded links], we do nothing and the FullText case below will provide plain text content
                         {
