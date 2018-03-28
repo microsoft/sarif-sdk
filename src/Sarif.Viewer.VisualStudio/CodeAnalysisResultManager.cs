@@ -123,8 +123,6 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        private void Foo() { }
-
         internal void Register()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -713,6 +711,11 @@ namespace Microsoft.Sarif.Viewer
         internal Tuple<string, string>[] GetRemappedPathPrefixes()
         {
             return _remappedPathPrefixes.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }
