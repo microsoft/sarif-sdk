@@ -146,11 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private IList<AnnotatedCodeLocation> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
         {
-            // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage without the embedded links.
+            // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage embedded links wrapped in [brackets].
             // Example rawMessage
             //     po (coming from [["hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
             // Example normalizedMessage
-            //     po (coming from "hbm") may not have been checked for validity before call to vSync.
+            //     po (coming from [hbm]) may not have been checked for validity before call to vSync.
             // Example relatedLocations
             //     relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3
             //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     relatedLocations.Add(relatedLocation);
                 }
 
-                // Re-add the text portion of the link.
+                // Re-add the text portion of the link in brackets.
                 sb.Append($"[{embeddedLinksText}]"); 
 
                 rawMessage = rawMessage.Substring(index + "]]".Length);
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // When the parser read the offending line, it incremented the line number,
             // so report the previous line.
-            long lineNumber = _parser.Row - 1;
+            long lineNumber = _parser.Context.Row - 1;
             string messageWithLineNumber = string.Format(
                 CultureInfo.CurrentCulture,
                 ConverterResources.SemmleNotificationFormat,
