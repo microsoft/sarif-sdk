@@ -12,6 +12,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     {
         public static void InitializeTestEnvironment()
         {
+            SarifViewerPackage.IsUnitTesting = true;
+
             // While loading test SARIF objects, the SarifViewerPackage.ServiceProvider object
             // is checked for not being null. This value is not actually used in any tests. In
             // production code, the object is always created before any SARIF files are read.

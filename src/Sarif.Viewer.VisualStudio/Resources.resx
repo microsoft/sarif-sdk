@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmDownloadDialog_ButtonLabel_Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="ConfirmDownloadDialog_ButtonLabel_YesConfirmDownloadDialog_ButtonLabel_No" xml:space="preserve">
-    <value>No</value>
-  </data>
   <data name="ConfirmDownloadDialog_CheckboxLabel" xml:space="preserve">
     <value>Always allow downloads from {0}</value>
   </data>

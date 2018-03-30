@@ -176,7 +176,7 @@
           ]
         },
         {
-          "message": "Incorrect lazy initialization of static field \"SKIP_BYTE_BUFFER\": Missing synchronization.",
+          "message": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER]: Missing synchronization.",
           "locations": [
             {
               "resultFile": {
@@ -205,7 +205,7 @@
           ]
         },
         {
-          "message": "Incorrect lazy initialization of static field \"SKIP_CHAR_BUFFER\": Missing synchronization.",
+          "message": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER]: Missing synchronization.",
           "locations": [
             {
               "resultFile": {
@@ -298,7 +298,7 @@
           ]
         },
         {
-          "message": "Variable \"reader\" may be null here.",
+          "message": "Variable [reader] may be null here.",
           "locations": [
             {
               "resultFile": {
@@ -639,7 +639,7 @@
         },
         {
           "level": "note",
-          "message": "This type and type \"IOUtils\" are mutually dependent.",
+          "message": "This type and type [IOUtils] are mutually dependent.",
           "locations": [
             {
               "resultFile": {
@@ -669,7 +669,7 @@
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in \"org.apache.commons.io.filefilter.OrFileFilter\".",
+          "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter].",
           "locations": [
             {
               "resultFile": {
@@ -699,7 +699,7 @@
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in \"org.apache.commons.io.output.CountingOutputStream\".",
+          "message": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream].",
           "locations": [
             {
               "resultFile": {
@@ -729,7 +729,7 @@
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in \"org.apache.commons.io.input.NullInputStream\".",
+          "message": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream].",
           "locations": [
             {
               "resultFile": {
@@ -759,7 +759,7 @@
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in \"org.apache.commons.io.input.CountingInputStream\".",
+          "message": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream].",
           "locations": [
             {
               "resultFile": {
@@ -789,7 +789,7 @@
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in \"org.apache.commons.io.filefilter.AndFileFilter\".",
+          "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter].",
           "locations": [
             {
               "resultFile": {
@@ -819,7 +819,7 @@
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in \"org.apache.commons.io.output.ProxyWriter\".",
+          "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter].",
           "locations": [
             {
               "resultFile": {
@@ -849,7 +849,7 @@
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in \"org.apache.commons.io.output.ProxyWriter\".",
+          "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter].",
           "locations": [
             {
               "resultFile": {
@@ -879,7 +879,7 @@
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in \"org.apache.commons.io.output.ProxyOutputStream\".",
+          "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
           "locations": [
             {
               "resultFile": {
@@ -909,7 +909,7 @@
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in \"org.apache.commons.io.output.ProxyOutputStream\".",
+          "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
           "locations": [
             {
               "resultFile": {
@@ -939,7 +939,7 @@
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in \"org.apache.commons.io.input.NullReader\".",
+          "message": "Method mark is duplicated in [org.apache.commons.io.input.NullReader].",
           "locations": [
             {
               "resultFile": {
@@ -969,7 +969,7 @@
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in \"NullInputStream.read()\".",
+          "message": "83% of the statements in read are duplicated in [NullInputStream.read()].",
           "locations": [
             {
               "resultFile": {
@@ -999,7 +999,7 @@
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in \"NullReader.read()\".",
+          "message": "83% of the statements in read are duplicated in [NullReader.read()].",
           "locations": [
             {
               "resultFile": {
@@ -1029,7 +1029,7 @@
         },
         {
           "level": "note",
-          "message": "91% of the lines in SuffixFileFilter are similar to lines in \"PrefixFileFilter\".",
+          "message": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter].",
           "locations": [
             {
               "resultFile": {
@@ -1051,7 +1051,7 @@
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedOutputStream are similar to lines in \"TaggedInputStream\".",
+          "message": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream].",
           "locations": [
             {
               "resultFile": {
@@ -1073,7 +1073,7 @@
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedInputStream are similar to lines in \"TaggedOutputStream\".",
+          "message": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream].",
           "locations": [
             {
               "resultFile": {
@@ -1553,7 +1553,7 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method \"toInputStream\", since dispatch depends on static types.",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {
@@ -1583,7 +1583,7 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method \"toInputStream\", since dispatch depends on static types.",
+          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {
@@ -1613,7 +1613,7 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {
@@ -1643,7 +1643,7 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {
@@ -1673,7 +1673,7 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method \"write\", since dispatch depends on static types.",
+          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {
@@ -1703,7 +1703,7 @@
         },
         {
           "level": "note",
-          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method \"asFileFilter\", since dispatch depends on static types.",
+          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter], since dispatch depends on static types.",
           "locations": [
             {
               "resultFile": {

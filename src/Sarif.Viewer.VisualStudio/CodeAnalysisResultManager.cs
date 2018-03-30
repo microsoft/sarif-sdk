@@ -12,7 +12,6 @@ using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
-using Microsoft.Sarif.Viewer.ViewModels;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -97,8 +96,12 @@ namespace Microsoft.Sarif.Viewer
             }
             set
             {
-                // Since we have a new set of Results in the Error List, clear all source code highlighting.
-                DetachFromAllDocuments();
+                if (!SarifViewerPackage.IsUnitTesting)
+                {
+                    // Since we have a new set of Results in the Error List, clear all source code highlighting.
+                    DetachFromAllDocuments();
+                }
+
                 _sarifErrors = value;
             }
         }
@@ -129,6 +132,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal void Register()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Register this object to listen for IVsUpdateSolutionEvents
             IVsSolutionBuildManager2 buildManager = Package.GetService<SVsSolutionBuildManager, IVsSolutionBuildManager2>();
             if (buildManager == null)
@@ -160,6 +165,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults")]
         internal void Unregister()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Unregister this object from IVsUpdateSolutionEvents events
             if (m_updateSolutionEventsCookie != VSCOOKIE_NIL)
             {
@@ -648,6 +655,8 @@ namespace Microsoft.Sarif.Viewer
         // Detaches the SARIF results from all documents.
         public void DetachFromAllDocuments()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             IEnumRunningDocuments documentsEnumerator;
 
             if (_runningDocTable != null)
@@ -680,6 +689,8 @@ namespace Microsoft.Sarif.Viewer
         /// 
         private string GetDocumentName(uint docCookie, IVsWindowFrame pFrame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             string documentName = null;
             IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(ServiceProvider);
             if (runningDocTable != null)
@@ -741,6 +752,11 @@ namespace Microsoft.Sarif.Viewer
         internal Tuple<string, string>[] GetRemappedPathPrefixes()
         {
             return _remappedPathPrefixes.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

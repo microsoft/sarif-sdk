@@ -61,24 +61,6 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        internal static string ConfirmDownloadDialog_ButtonLabel_Yes {
-            get {
-                return ResourceManager.GetString("ConfirmDownloadDialog_ButtonLabel_Yes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        internal static string ConfirmDownloadDialog_ButtonLabel_YesConfirmDownloadDialog_ButtonLabel_No {
-            get {
-                return ResourceManager.GetString("ConfirmDownloadDialog_ButtonLabel_YesConfirmDownloadDialog_ButtonLabel_No", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Always allow downloads from {0}.
         /// </summary>
         internal static string ConfirmDownloadDialog_CheckboxLabel {

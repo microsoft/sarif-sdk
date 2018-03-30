@@ -109,9 +109,9 @@ namespace Microsoft.Sarif.Viewer
         ///Executes the command and invokes the <see cref="Action{T}"/> provided during construction.
         ///</summary>
         ///<param name="parameter">Data used by the command.</param>
-        public virtual async Task Execute(T parameter)
+        public virtual async Task ExecuteAsync(T parameter)
         {
-            await base.Execute(parameter);
+            await base.ExecuteAsync(parameter);
         }
 
 
@@ -182,9 +182,9 @@ namespace Microsoft.Sarif.Viewer
         ///<summary>
         /// Executes the command.
         ///</summary>
-        public virtual async Task Execute()
+        public virtual async Task ExecuteAsync()
         {
-            await Execute(null);
+            await ExecuteAsync(null);
         }
 
         /// <summary>
