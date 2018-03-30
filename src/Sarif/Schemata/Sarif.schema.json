@@ -34,7 +34,7 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        
+
         "region": {
           "description": "The region of an analysis tool's log file that was transformed into the result object.",
           "$ref": "#/definitions/region"
@@ -205,6 +205,25 @@
       "required": [ "message", "locations" ]
     },
 
+    "attachment": {
+      "description": "A file relevant to a tool invocation or to a result.",
+      "type": "object",
+      "properties": {
+
+        "description": {
+          "description": "A message describing the role played by the attachment.",
+          "type": "string"
+        },
+
+        "fileLocation": {
+          "description": "The location of the attachment.",
+          "$ref": "#/definitions/fileLocation"
+        }
+      },
+
+      "required": [ "fileLocation" ]
+    },
+
     "codeFlow": {
       "type": "object",
       "properties": {
@@ -254,7 +273,7 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        
+
         "tool": {
           "description": "A tool object that describes the converter.",
           "$ref": "#/definitions/tool"
@@ -403,7 +422,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -487,6 +506,16 @@
       "type": "object",
       "properties": {
 
+        "attachments": {
+          "description": "A set of files relevant to the invocation of the tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
+          }
+        },
+
         "commandLine": {
           "description": "The command line used to invoke the tool.",
           "type": "string"
@@ -539,7 +568,7 @@
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
           "additionalProperties": true,
-          "default": { }
+          "default": {}
         },
 
         "properties": {
@@ -552,7 +581,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -602,7 +631,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -696,7 +725,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -907,6 +936,16 @@
               "suppressedInSource",
               "suppressedExternally"
             ]
+          }
+        },
+
+        "attachments": {
+          "description": "A set of files relevant to the result.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
           }
         },
 
@@ -1123,7 +1162,7 @@
           "description": "A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.",
           "type": "string"
         },
-        
+
         "automationId": {
           "description": "A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
           "type": "string"
@@ -1155,7 +1194,7 @@
               "description": "A set of distinct strings that provide additional information about the run.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1349,7 +1388,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
