@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
 
             SarifLog combinedLog = logs.Merge();
 
-            combinedLog.Runs.Count.ShouldBeEquivalentTo(secondLogSet.Select(l => l.Runs.Count).Sum());
+            combinedLog.Runs.Count.ShouldBeEquivalentTo(secondLogSet.Select(l => l.Runs == null ? 0 : l.Runs.Count).Sum());
         }
 
         [Fact]
