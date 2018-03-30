@@ -52,6 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
                 case SarifNodeKind.Annotation:
                     return VisitAnnotation((Annotation)node);
+                case SarifNodeKind.Attachment:
+                    return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
                 case SarifNodeKind.Conversion:
@@ -62,6 +64,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFileChange((FileChange)node);
                 case SarifNodeKind.FileData:
                     return VisitFileData((FileData)node);
+                case SarifNodeKind.FileLocation:
+                    return VisitFileLocation((FileLocation)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Hash:
@@ -154,6 +158,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Attachment VisitAttachment(Attachment node)
+        {
+            if (node != null)
+            {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
+            }
+
+            return node;
+        }
+
         public virtual CodeFlow VisitCodeFlow(CodeFlow node)
         {
             if (node != null)
@@ -230,6 +244,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual FileLocation VisitFileLocation(FileLocation node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Fix VisitFix(Fix node)
         {
             if (node != null)
@@ -259,6 +282,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.Attachments != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
+                    {
+                        node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -357,6 +387,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.RelatedLocations.Count; ++index_0)
                     {
                         node.RelatedLocations[index_0] = VisitNullChecked(node.RelatedLocations[index_0]);
+                    }
+                }
+
+                if (node.Attachments != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
+                    {
+                        node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
                     }
                 }
 

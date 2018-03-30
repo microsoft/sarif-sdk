@@ -32,6 +32,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Annotation,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Attachment" />.
+        /// </summary>
+        Attachment,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="CodeFlow" />.
         /// </summary>
         CodeFlow,
@@ -51,6 +55,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileData" />.
         /// </summary>
         FileData,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileLocation" />.
+        /// </summary>
+        FileLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>
