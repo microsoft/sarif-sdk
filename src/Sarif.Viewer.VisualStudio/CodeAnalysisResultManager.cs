@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
 
@@ -26,6 +27,9 @@ namespace Microsoft.Sarif.Viewer
         internal const int E_FAIL = unchecked((int)0x80004005);
         internal const uint VSCOOKIE_NIL = 0;
         internal const int S_OK = 0;
+        internal const int IDCANCEL = 2;
+        internal const int IDYES = 6;
+        private const string AllowedDownloadHostsFileName = "AllowedDownloadHosts.json";
         private const string TemporaryFileDirectoryName = "SarifViewer";
         private readonly string TemporaryFilePath;
 
@@ -36,6 +40,7 @@ namespace Microsoft.Sarif.Viewer
         private Dictionary<string, Uri> _remappedUriBasePaths;
         private List<Tuple<string, string>> _remappedPathPrefixes;
         private Dictionary<string, NewLineIndex> _fileToNewLineIndexMap;
+        private List<string> _allowedDownloadHosts;
         private IList<SarifErrorListItem> _sarifErrors = new List<SarifErrorListItem>();
         private IVsRunningDocumentTable _runningDocTable;
 
@@ -56,6 +61,7 @@ namespace Microsoft.Sarif.Viewer
             _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
+            _allowedDownloadHosts = SdkUiUtilities.GetStoredObject<List<string>>(AllowedDownloadHostsFileName) ?? new List<string>();
 
             // Get temporary path for embedded files.
             TemporaryFilePath = Path.GetTempPath();
@@ -249,14 +255,14 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        public bool TryRebaselineCurrentSarifError(string uriBaseId, string originalFilename)
+        public bool TryRebaselineAllSarifErrors(string uriBaseId, string originalFilename)
         {
             if (CurrentSarifError == null)
             {
                 return false;
             }
 
-            string rebaselinedFile;
+            string rebaselinedFile = null;
 
             if (FileDetails.ContainsKey(originalFilename))
             {
@@ -265,10 +271,37 @@ namespace Microsoft.Sarif.Viewer
             }
             else
             {
-                if (Uri.IsWellFormedUriString(originalFilename, UriKind.Absolute))
+                Uri uri = null;
+
+                if (Uri.TryCreate(originalFilename, UriKind.Absolute, out uri))
                 {
-                    // File needs to be downloaded.
-                    rebaselinedFile = DownloadFile(originalFilename);
+                    bool allow = _allowedDownloadHosts.Contains(uri.Host);
+
+                    // File needs to be downloaded, prompt for confirmation if host is not already allowed
+                    if (!allow)
+                    {
+                        int result = VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
+                                                                    string.Format(Resources.ConfirmDownload_DialogMessage, uri, uri.Host),
+                                                                    null, // title
+                                                                    OLEMSGICON.OLEMSGICON_QUERY,
+                                                                    OLEMSGBUTTON.OLEMSGBUTTON_YESNOCANCEL,
+                                                                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+
+                        if (result != IDCANCEL)
+                        {
+                            allow = true;
+
+                            if (result == IDYES)
+                            {
+                                AddAllowedDownloadHost(uri.Host);
+                            }
+                        }
+                    }
+
+                    if (allow)
+                    {
+                        rebaselinedFile = DownloadFile(originalFilename);
+                    }
                 }
                 else
                 {
@@ -282,7 +315,8 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            CurrentSarifError.RemapFilePath(originalFilename, rebaselinedFile);
+            // Update all the paths in this result set
+            RemapFileNames(originalFilename, rebaselinedFile);
             return true;
         }
 
@@ -340,6 +374,12 @@ namespace Microsoft.Sarif.Viewer
             }
 
             return finalPath;
+        }
+
+        internal void AddAllowedDownloadHost(string host)
+        {
+            _allowedDownloadHosts.Add(host);
+            SdkUiUtilities.StoreObject<List<string>>(_allowedDownloadHosts, AllowedDownloadHostsFileName);
         }
 
         internal string DownloadFile(string fileUrl)

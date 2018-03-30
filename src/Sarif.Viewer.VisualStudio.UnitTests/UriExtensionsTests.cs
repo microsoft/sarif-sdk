@@ -19,11 +19,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             uri = new Uri("HTTP://RAW.githubusercontent.com/FOO/bar.cpp");
             uri.ToPath().Should().Be("http://raw.githubusercontent.com/FOO/bar.cpp");
 
-            uri = new Uri("https://raw.githubusercontent.com/foo/bar.cpp");
+            uri = new Uri("https://my.domain.com/foo/bar.cpp");
             uri.ToPath().Should().Be(uri.OriginalString);
 
-            uri = new Uri("HTTPS://raw.GITHUBusercontent.com/foo/BAR.cpp");
-            uri.ToPath().Should().Be("https://raw.githubusercontent.com/foo/BAR.cpp");
+            uri = new Uri("HTTPS://My.Domain.com/foo/BAR.cpp");
+            uri.ToPath().Should().Be("https://my.domain.com/foo/BAR.cpp");
         }
 
         [Fact]
@@ -50,9 +50,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             Uri uri = new Uri("ftp://raw.githubusercontent.com/foo/bar.cpp");
             uri.ToPath().Should().Be("/foo/bar.cpp");
-
-            uri = new Uri("http://github.com/FOO/bar.cpp");
-            uri.ToPath().Should().Be("/FOO/bar.cpp");
         }
 
         [Fact]

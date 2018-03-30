@@ -3,12 +3,6 @@
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -25,14 +19,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (fileChange.Replacements != null)
             {
-                model.FilePath = fileChange.Uri.IsAbsoluteUri
-                    ? fileChange.Uri.LocalPath
-                    : fileChange.Uri.OriginalString;
-
-                if (!Path.IsPathRooted(model.FilePath) && fileChange.Uri.IsAbsoluteUri)
-                {
-                    model.FilePath = fileChange.Uri.AbsoluteUri;
-                }
+                model.FilePath = fileChange.Uri.IsAbsoluteUri ?
+                    fileChange.Uri.AbsoluteUri :
+                    fileChange.Uri.OriginalString;
 
                 foreach (Replacement replacement in fileChange.Replacements)
                 {
