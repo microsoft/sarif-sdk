@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -15,7 +16,7 @@ namespace Microsoft.Sarif.Viewer
     {
         private List<WeakReference> _canExecuteChangedHandlers;
 
-        protected readonly Func<object, Task> _executeMethod;
+        protected readonly Func<object, System.Threading.Tasks.Task> _executeMethod;
         protected readonly Func<object, bool> _canExecuteMethod;
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Microsoft.Sarif.Viewer
             if (executeMethod == null || canExecuteMethod == null)
                 throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
 
-            _executeMethod = (arg) => { executeMethod(arg); return Task.Delay(0); };
+            _executeMethod = (arg) => { executeMethod(arg); return System.Threading.Tasks.Task.Delay(0); };
             _canExecuteMethod = canExecuteMethod;
         }
 
@@ -37,7 +38,7 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         /// <param name="executeMethod">The <see cref="Func{Object,Task}"/> to execute when <see cref="ICommand.Execute"/> is invoked.</param>
         /// <param name="canExecuteMethod">The <see cref="Func{Object,Bool}"/> to invoked when <see cref="ICommand.CanExecute"/> is invoked.</param>
-        protected DelegateCommandBase(Func<object, Task> executeMethod, Func<object, bool> canExecuteMethod)
+        protected DelegateCommandBase(Func<object, System.Threading.Tasks.Task> executeMethod, Func<object, bool> canExecuteMethod)
         {
             if (executeMethod == null || canExecuteMethod == null)
                 throw new ArgumentNullException(nameof(executeMethod), nameof(executeMethod) + " cannot be null");
@@ -67,9 +68,9 @@ namespace Microsoft.Sarif.Viewer
             OnCanExecuteChanged();
         }
 
-        async void ICommand.Execute(object parameter)
+        void ICommand.Execute(object parameter)
         {
-            await Execute(parameter);
+            ThreadHelper.JoinableTaskFactory.Run(async delegate { await ExecuteAsync(parameter); });
         }
 
         bool ICommand.CanExecute(object parameter)
@@ -81,7 +82,7 @@ namespace Microsoft.Sarif.Viewer
         /// Executes the command with the provided parameter by invoking the <see cref="Action{Object}"/> supplied during construction.
         /// </summary>
         /// <param name="parameter"></param>
-        protected async Task Execute(object parameter)
+        protected async System.Threading.Tasks.Task ExecuteAsync(object parameter)
         {
             await _executeMethod(parameter);
         }

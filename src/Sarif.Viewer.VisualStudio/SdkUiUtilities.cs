@@ -85,6 +85,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static string GetRegistryRoot(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_registryRoot == null)
             {
                 IVsShell vsh = GetService<IVsShell>(provider);
@@ -107,6 +109,8 @@ namespace Microsoft.Sarif.Viewer
         /// <returns>The current VS font</returns>
         internal static Font GetVsFont(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (provider != null)
             {
                 IUIHostLocale service = (IUIHostLocale)provider.GetService(typeof(IUIHostLocale));
@@ -252,6 +256,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Usage","CA1806:DoNotIgnoreMethodResults", MessageId="Microsoft.VisualStudio.Shell.Interop.IVsUIShell.GetDialogOwnerHwnd(System.IntPtr@)")]
         internal static IWin32Window GetVsDialogOwner(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_ownerDialogWindow == null)
             {
                 IVsUIShell shell = GetService<SVsUIShell, IVsUIShell>(provider);
@@ -275,6 +281,8 @@ namespace Microsoft.Sarif.Viewer
         /// <returns>The project at the root</returns>
         internal static Project GetProjectFromHierarchy(IVsHierarchy hierarchy)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Debug.Assert(hierarchy != null);
 
             object obj;
@@ -297,6 +305,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Usage","CA1806:DoNotIgnoreMethodResults", MessageId="Microsoft.VisualStudio.Shell.Interop.IVsSolution.GetProjectOfUniqueName(System.String,Microsoft.VisualStudio.Shell.Interop.IVsHierarchy@)")]
         internal static IVsHierarchy GetHierarchyFromProject(Project project, IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Debug.Assert(project != null);
 
             IVsHierarchy hierarchy = null;
@@ -375,7 +385,7 @@ namespace Microsoft.Sarif.Viewer
             return FindProjectByName(projectName, project, false);
         }
 
-        private static readonly Guid SOLUTIONFOLDER_PROJECT_GUID = new Guid(EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder);
+        private static readonly Guid SOLUTIONFOLDER_PROJECT_GUID = new Guid("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}");
 
         internal static bool IsProjectKind(Project project, Guid projectKindGuid)
         {
@@ -460,6 +470,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         internal static EnvDTE.Project GetSelectedProject(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Get the DTE service and make sure there is an open solution
             EnvDTE.DTE dte = provider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
             if (dte == null || dte.Solution == null)
@@ -554,6 +566,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static bool GetAppidSetting(IServiceProvider provider, Guid setting)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             int isActive = 0;
 
             // Get the command UI context from the monitor service
@@ -634,6 +648,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         private static IVsWindowFrame OpenDocumentInCurrentScope(IServiceProvider provider, string file)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             IVsUIShellOpenDocument openDoc = SdkUiUtilities.GetService<SVsUIShellOpenDocument, IVsUIShellOpenDocument>(provider);
             IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(provider);
             if (openDoc == null || runningDocTable == null)
@@ -676,6 +692,8 @@ namespace Microsoft.Sarif.Viewer
         /// <returns>The cookie to the document lock</returns>
         internal static uint FindDocument(IVsRunningDocumentTable runningDocTable, string file)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Unused variables
             IVsHierarchy hierarchy;
             uint itemId;
@@ -935,6 +953,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         private static string GetStaticAnalysisToolsDirectory(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_staticAnalysisToolsDirectory == null)
             {
                 string installDirectory = null;
@@ -1004,7 +1024,6 @@ namespace Microsoft.Sarif.Viewer
 
         internal static Color GetDesignerThemeColor(IVsUIShell5 uiShellService, Guid themeCategory, String themeColorName, __THEMEDCOLORTYPE colorType, Color defaultColor)
         {
-
             if (uiShellService != null)
             {
                 UInt32 rgbaValue = 0;
@@ -1012,6 +1031,7 @@ namespace Microsoft.Sarif.Viewer
                 Int32 hr = Microsoft.VisualStudio.ErrorHandler.CallWithCOMConvention(
                     () =>
                     {
+                        ThreadHelper.ThrowIfNotOnUIThread();
                         rgbaValue = uiShellService.GetThemedColor(themeCategory, themeColorName, (System.UInt32)colorType);
                     });
 
@@ -1042,6 +1062,8 @@ namespace Microsoft.Sarif.Viewer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal static bool IsShellInCommandLineMode(System.IServiceProvider serviceProvider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (serviceProvider == null)
             {
                 throw new ArgumentNullException(nameof(serviceProvider));

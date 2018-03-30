@@ -20,8 +20,8 @@ namespace Microsoft.Sarif.Viewer
         private static readonly Guid VC_PROJECT_GUID = new Guid("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}");
         private static readonly Guid VB_PROJECT_GUID = new Guid("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}");
         private static readonly Guid CSHARP_PROJECT_GUID = new Guid("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}");
+        private static readonly Guid SOLUTIONFOLDER_PROJECT_GUID = new Guid("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}");
 
-        private static readonly Guid SOLUTIONFOLDER_PROJECT_GUID = new Guid(EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder);
         private static readonly Guid MISCFILES_PROJECT_GUID = new Guid(EnvDTE.Constants.vsProjectKindMisc);
 
         private static readonly Guid VC_PROJECTITEM_GUID = new Guid(CodeModelLanguageConstants.vsCMLanguageVC);

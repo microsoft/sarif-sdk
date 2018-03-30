@@ -17,13 +17,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<
-                ConvertOptions, 
+                ConvertOptions,
                 RewriteOptions,
-                MergeOptions>(args)
+                MergeOptions,
+                RebaseUriOptions,
+                AbsoluteUriOptions,
+                BaselineOptions>(args)
               .MapResult(
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
                 (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
+                (RebaseUriOptions rebaseOptions) => RebaseUriCommand.Run(rebaseOptions),
+                (AbsoluteUriOptions absoluteUriOptions) => AbsoluteUriCommand.Run(absoluteUriOptions),
+                (BaselineOptions baselineOptions) => BaselineCommand.Run(baselineOptions),
                 errs => 1);
         }
     }

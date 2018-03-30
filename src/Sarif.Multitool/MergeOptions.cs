@@ -7,19 +7,12 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("merge", HelpText = "Merge multiple SARIF files into one.")]
-    internal class MergeOptions : MultitoolOptionsBase
+    internal class MergeOptions : MultipleFilesOptionsBase
     {
-        [Value(0,
-            MetaName = "<files>",
-            HelpText = "Files to process (wildcards ? and * allowed).",
-            Required = false)]
-        public IList<string> Files { get; internal set; }
-
 	    [Option(
-		    'r',
-		    "recurse",
-		    Default = false,
-		    HelpText = "Recursively select subdirectories in paths.")]
-	    public bool Recurse { get; internal set; }
+		    "output-file",
+		    Default = "merged.sarif",
+		    HelpText = "File name to write merged content to.")]
+	    public string OutputFileName { get; internal set; }
 	}
 }

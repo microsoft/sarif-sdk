@@ -19,5 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Default = false,
             HelpText = "Write all transformed content to the input file.")]
         public bool Inline { get; internal set; }
+        
+        [Option(
+            'o',
+            "output",
+            HelpText = "A file path to the generated SARIF log. Defaults to <input file name>.sarif.")]
+        public string OutputFilePath { get; internal set; }
     }
 }

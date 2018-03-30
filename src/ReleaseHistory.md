@@ -178,3 +178,9 @@
 * Platform Specific Tooling Text Fix
 * Skimmers can now be disabled via the configuration file
 * The Driver will now pull configuration from a default location to allow for easier re-packaging of tools with custom configurations
+
+## **v1.7.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/1.7.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/1.7.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/1.7.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/1.7.5)
+* Disabling skimmers text fix
+* Fix a serialization bug with strings in a PropertyBag (not correctly escaped after a reserializing the data structure).
+* Multitool improvements--added "rebaseUri" and "absoluteUri" tasks, which will either make the URIs in a SARIF log relative to some base URI, or take base URIs stored in SARIF and make the URIs absolute again.
+* Added a "processing pipeline" model to the SARIF SDK in order to allow easy chaining of operations on SARIF logs (like making all URIs relative/absolute).

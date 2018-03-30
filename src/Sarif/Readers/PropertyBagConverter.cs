@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
                 else if (propertyType == typeof(string))
                 {
-                    serializedValue = '"' + serializedValue + '"';
+                    serializedValue = '"' + System.Web.HttpUtility.JavaScriptStringEncode(serializedValue) + '"';
                     isString = true;
                 }
 
