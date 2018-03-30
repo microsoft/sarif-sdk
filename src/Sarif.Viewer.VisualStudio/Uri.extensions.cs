@@ -10,7 +10,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
     static class UriExtensions
     {
         // The acceptable URI schemes
-        static List<string> s_schemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
+        static List<string> s_httpSchemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
 
         public static string ToPath(this Uri uri)
         {
@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (uri.IsAbsoluteUri)
             {
-                if (s_schemes.Contains(uri.Scheme, StringComparer.OrdinalIgnoreCase))
+                if (IsHttpScheme(uri))
                 {
                     return uri.ToString();
                 }
@@ -34,6 +34,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 return uri.OriginalString;
             }
+        }
+
+        public static bool IsHttpScheme(this Uri uri)
+        {
+            return s_httpSchemes.Contains(uri.Scheme, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

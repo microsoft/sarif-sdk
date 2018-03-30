@@ -11,6 +11,9 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
+using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.Sarif.Viewer.ViewModels;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
@@ -273,25 +276,25 @@ namespace Microsoft.Sarif.Viewer
             {
                 Uri uri = null;
 
-                if (Uri.TryCreate(originalFilename, UriKind.Absolute, out uri))
+                if (Uri.TryCreate(originalFilename, UriKind.Absolute, out uri) && uri.IsHttpScheme())
                 {
                     bool allow = _allowedDownloadHosts.Contains(uri.Host);
 
                     // File needs to be downloaded, prompt for confirmation if host is not already allowed
                     if (!allow)
                     {
-                        int result = VsShellUtilities.ShowMessageBox(SarifViewerPackage.ServiceProvider,
-                                                                    string.Format(Resources.ConfirmDownload_DialogMessage, uri, uri.Host),
-                                                                    null, // title
-                                                                    OLEMSGICON.OLEMSGICON_QUERY,
-                                                                    OLEMSGBUTTON.OLEMSGBUTTON_YESNOCANCEL,
-                                                                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                        bool alwaysAllow;
+                        MessageDialogCommand result = MessageDialog.Show(Resources.ConfirmDownloadDialog_Title,
+                                                                         string.Format(Resources.ConfirmDownloadDialog_Message, uri),
+                                                                         MessageDialogCommandSet.YesNo,
+                                                                         string.Format(Resources.ConfirmDownloadDialog_CheckboxLabel, uri.Host),
+                                                                         out alwaysAllow);
 
-                        if (result != IDCANCEL)
+                        if (result != MessageDialogCommand.No)
                         {
                             allow = true;
 
-                            if (result == IDYES)
+                            if (alwaysAllow)
                             {
                                 AddAllowedDownloadHost(uri.Host);
                             }
