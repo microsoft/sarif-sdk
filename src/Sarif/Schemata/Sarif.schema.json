@@ -492,6 +492,14 @@
           "type": "string"
         },
 
+        "arguments": {
+          "description": "An array of strings, containing in order the command line arguments passed to the tool from the operating system.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
         "responseFiles": {
           "description": "The contents of any response files specified on the tool's command line.",
           "type": "object",
@@ -539,7 +547,7 @@
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
           "additionalProperties": true,
-          "default": { }
+          "default": {}
         },
 
         "properties": {
@@ -552,7 +560,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
