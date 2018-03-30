@@ -27,7 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri locationUri = new Uri(locationUriStr);
             Uri baseUri = new Uri(baseUriStr);
-            PhysicalLocation location = new PhysicalLocation(locationUri, null, null);
+            PhysicalLocation location = new PhysicalLocation();
+            location.Uri = locationUri;
             RebaseUriVisitor visitor = new RebaseUriVisitor(rootName, baseUri);
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
 
@@ -45,7 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitPhysicalLocation_DoesNotRebaseAlreadyRebasedUri()
         {
-            PhysicalLocation location = new PhysicalLocation(new Uri(@"C:\bld\src\test.dll"), "BLDROOT", null);
+            PhysicalLocation location = new PhysicalLocation();
+            location.Uri = new Uri(@"C:\bld\src\test.dll");
+            location.UriBaseId = "BLDROOT";
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
             rebaseUriVisitor.VisitPhysicalLocation(location).ShouldBeEquivalentTo(location, "We should not rebase a URI multiple times.");

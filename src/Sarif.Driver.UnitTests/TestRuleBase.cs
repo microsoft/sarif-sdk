@@ -47,6 +47,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
+        public string RichDescription => throw new NotImplementedException();
+
+        public IDictionary<string, string> MessageTemplates => throw new NotImplementedException();
+
+        public IDictionary<string, string> RichMessageTemplates => throw new NotImplementedException();
+
+        public string Help => throw new NotImplementedException();
+
         public abstract void Analyze(TestAnalysisContext context);
 
         public virtual AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
