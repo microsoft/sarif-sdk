@@ -3,10 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -15,8 +12,6 @@ namespace Microsoft.Sarif.Viewer
     /// </summary>
     public static class WeakEventHandlerManager
     {
-        private static readonly SynchronizationContext syncContext = SynchronizationContext.Current;
-
         ///<summary>
         /// Invokes the handlers 
         ///</summary>
@@ -46,14 +41,11 @@ namespace Microsoft.Sarif.Viewer
         {
             if (eventHandler != null)
             {
-                if (syncContext != null)
+                ThreadHelper.JoinableTaskFactory.Run(async delegate
                 {
-                    syncContext.Post((o) => eventHandler(sender, EventArgs.Empty), null);
-                }
-                else
-                {
+                    await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                     eventHandler(sender, EventArgs.Empty);
-                }
+                });
             }
         }
 

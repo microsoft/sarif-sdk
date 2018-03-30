@@ -53,6 +53,8 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="disposing">This parameter determines whether the method has been called directly or indirectly by a user's code.</param>
         private void Dispose(bool disposing)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // If disposing equals true, dispose all managed and unmanaged resources
             if (disposing)
             {
@@ -223,6 +225,8 @@ namespace Microsoft.Sarif.Viewer
         /// A a null reference if there is no service object of type serviceType.</returns>
         public object GetService(Type serviceType)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             return vsServiceProvider.GetService(serviceType);
         }
 
