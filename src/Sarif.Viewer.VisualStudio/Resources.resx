@@ -124,9 +124,27 @@
     <value>The file '{0}' couldn't be opened by Visual Studio. Would you like to open the containing folder?</value>
     <comment>{0} will be the name of the file that couldn't be opened</comment>
   </data>
+  <data name="FixPreviewWindow_OriginalFileTitle" xml:space="preserve">
+    <value>Original</value>
+  </data>
+  <data name="FixPreviewWindow_PreviewFixedFileTitle" xml:space="preserve">
+    <value>Fix Preview</value>
+  </data>
+  <data name="LogOpenFail_InvalidFormat_DialogMessage" xml:space="preserve">
+    <value>The log file '{0}' is invalid and couldn't be opened.</value>
+    <comment>{0} will be the name of the invalid file that couldn't be opened</comment>
+  </data>
+  <data name="NoResults_DialogMessage" xml:space="preserve">
+    <value>SARIF Explorer found no results in analysis log '{0}'.</value>
+    <comment>{0} will be the name of the file that was opened</comment>
+  </data>
   <data name="ReturnMessage" xml:space="preserve">
     <value>Return</value>
     <comment>Displayed on a call tree "CallReturn" node</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="RuleLookup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Data\RuleLookup.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="UnknownCalleeMessage" xml:space="preserve">
     <value>&lt;unknown callee&gt;</value>

@@ -16,9 +16,9 @@ call %NUGET% SetApiKey %API_KEY% -Source %SOURCE%
 if "%ERRORLEVEL%" NEQ "0" (echo set api key of %API_KEY% to %SOURCE% FAILED && goto Exit)
 
 call :PublishPackage Sarif.Sdk        || goto :EOF
-call :PublishPackage Sarif.Converters   || goto :EOF
-call :PublishPackage Sarif.Driver -beta || goto :EOF
-call :PublishPackage Sarif.Multitool -beta  || goto :EOF
+call :PublishPackage Sarif.Converters || goto :EOF
+call :PublishPackage Sarif.Driver     || goto :EOF
+call :PublishPackage Sarif.Multitool  || goto :EOF
 
 goto :EOF
 

@@ -97,6 +97,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All rules were explicitly disabled so there is no work to do..
+        /// </summary>
+        internal static string ERR997_AllRulesExplicitlyDisabled {
+            get {
+                return ResourceManager.GetString("ERR997_AllRulesExplicitlyDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not access a file specified on the command line: &apos;{0}&apos;..
         /// </summary>
         internal static string ERR997_ExceptionAccessingFile {
@@ -408,6 +417,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string WRN997_InvalidTarget {
             get {
                 return ResourceManager.GetString("WRN997_InvalidTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule &apos;{0}&apos; was disabled as it cannot run on the current platform &apos;{1}&apos;.  It can only run on &apos;{2}&apos;..
+        /// </summary>
+        internal static string WRN998_NotSupportedPlatform {
+            get {
+                return ResourceManager.GetString("WRN998_NotSupportedPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rule &apos;{0}&apos; was explicitly disabled by the user. As result, this tool run cannot be used for compliance or other auditing processes that require a comprehensive analysis..
+        /// </summary>
+        internal static string WRN999_RuleExplicitlyDisabled {
+            get {
+                return ResourceManager.GetString("WRN999_RuleExplicitlyDisabled", resourceCulture);
             }
         }
     }

@@ -1,0 +1,121 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewer="clr-namespace:Microsoft.Sarif.Viewer">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Views/CallTreesStringResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/CallTreesStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="CallTreeTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ToolBarTray Grid.Row="0"
+                         Style="{StaticResource ToolBarTrayStyle}">
+                <ToolBar ToolBarTray.IsLocked="True"
+                         KeyboardNavigation.TabNavigation="Continue"
+                         Style="{StaticResource ToolBarStyle}">
+                    <ToolBar.Template>
+                        <ControlTemplate TargetType="ToolBar">
+                            <Grid x:Name="ToolBarGrid" Style="{StaticResource ToolBarGridStyle}">
+                                <Border x:Name="MainPanelBorder" Style="{StaticResource ToolbarMainPanelBorderStyle}">
+                                    <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
+                                        <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" Style="{StaticResource ToolBarHeaderContentPresenterStyle}"/>
+                                        <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Style="{StaticResource ToolBarPanelStyle}"/>
+                                    </DockPanel>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Header" Value="{x:Null}">
+                                    <Setter Property="Visibility" TargetName="ToolBarHeader" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToolBar.Template>
+                    <Button x:Name="ToolBarButtonExpand"
+                            Command="{Binding ExpandAllCommand}"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonExpand_ToolTip_String}"
+                            Style="{StaticResource ToolBarGlyphButtonStyle}">
+                        <TextBlock Text="+"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
+                    </Button>
+                    <Button x:Name="ToolBarButtonCollapse"
+                            Command="{Binding CollapseAllCommand}"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonCollapse_ToolTip_String}"
+                            Style="{StaticResource ToolBarGlyphButtonStyle}">
+                        <TextBlock Text="-"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
+                    </Button>
+                    <Button x:Name="ToolBarButtonIntelligentExpand"
+                            Command="{Binding IntelligentExpandCommand}"
+                            ToolTip="{StaticResource CallTrees_ToolBarButtonIntelligentExpand_ToolTip_String}"
+                            Style="{StaticResource ToolBarGlyphButtonStyle}">
+                        <TextBlock Text="±"
+                                   Style="{StaticResource ToolBarGlyphButtonTextStyle}"/>
+                    </Button>
+                    <Separator Style="{StaticResource ToolBarSeparatorStyle}" />
+                    <Slider x:Name="ToolBarSlider"
+                            Style="{StaticResource ToolBarSliderStyle}"/>
+                </ToolBar>
+            </ToolBarTray>
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding}"
+                          IsTabStop="False"
+                          ItemContainerStyle="{StaticResource ItemsControlContainerStyle}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel IsItemsHost="True"
+                                   LastChildFill="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TreeView ItemsSource="{Binding TopLevelNodes}"
+                                  viewer:TreeViewSelectionHelper.SelectedNode="{Binding SelectedItem, Mode=TwoWay}"
+                                  Grid.IsSharedSizeScope="True"
+                                  KeyboardNavigation.TabNavigation="Continue"
+                                  ItemContainerStyle="{StaticResource TreeViewItemContainerStyle}"
+                                  Style="{StaticResource TreeViewStyle}">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="x:Type local:CallTreeNode"
+                                                          ItemsSource="{Binding Children}">
+                                    <Grid>
+                                        <Grid.ToolTip>
+                                            <TextBlock>
+                                                <Run Text="{Binding Location.Kind}" />
+                                            </TextBlock>
+                                        </Grid.ToolTip>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition SharedSizeGroup="MessageGroup" />
+                                            <ColumnDefinition SharedSizeGroup="LocationGroup" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Converter={StaticResource CallTreeToTextConverter}}"
+                                                   Style="{StaticResource CallTreeMessageTextStyle}" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding LocationDisplayString, Mode=OneWay}"
+                                                   Style="{StaticResource CallTreeLocationTextStyle}" />
+                                    </Grid>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                            <TreeView.InputBindings>
+                                <KeyBinding Command="{Binding SelectPreviousCommand}"
+                                            Gesture="CTRL+ALT+SHIFT+F7"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}" />
+                                <KeyBinding Command="{Binding SelectNextCommand}"
+                                            Gesture="CTRL+ALT+SHIFT+F8"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TreeView}}" />
+                            </TreeView.InputBindings>
+                        </TreeView>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

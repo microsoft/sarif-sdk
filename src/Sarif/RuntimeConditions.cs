@@ -49,11 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInstantiatingSkimmers = 0x8000,
 
         // Non-fatal conditions
+        UnassignedNonfatal        = 0x03F00000,
+        RuleWasExplicitlyDisabled = 0x04000000,
+        RuleCannotRunOnPlatform   = 0x08000000,
         RuleNotApplicableToTarget = 0x10000000,
         TargetNotValidToAnalyze   = 0x20000000,
         OneOrMoreWarningsFired    = 0x40000000,
         OneOrMoreErrorsFired      = 0x80000000,
 
-        Nonfatal = 0xF0000000
+        Nonfatal = 0xFFF00000
     }       
 }

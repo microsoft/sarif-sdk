@@ -110,6 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual void Initialize(TContext context) { }
 
+        public virtual SupportedPlatform SupportedPlatforms => SupportedPlatform.All;
+
         public virtual AnalysisApplicability CanAnalyze(TContext context, out string reasonIfNotApplicable)
         {
             reasonIfNotApplicable = null;

@@ -2,12 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using System.Composition;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal class ExceptionRaisingRule : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
+    [Export(typeof(IRule)), Export(typeof(ISkimmer<TestAnalysisContext>))]
+    internal class ExceptionRaisingRule : TestRuleBase
     {
         internal static ExceptionCondition s_exceptionCondition;
 
@@ -25,11 +25,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string ExceptionRaisingRuleId = "TEST1001";
 
-        public Uri HelpUri { get; set; }
+        public override SupportedPlatform SupportedPlatforms
+        {
+            get
+            {
+                if(_exceptionCondition ==ExceptionCondition.InvalidPlatform)
+                {
+                    return SupportedPlatform.Unknown;
+                }
+                return SupportedPlatform.All;
+            }
+        }
 
-        public string Help => null;
-
-        public string Id
+        public override string Id
         {
             get
             {
@@ -41,9 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public ResultLevel DefaultLevel => ResultLevel.Warning;
 
-        public string Name
+        public override string Name
         {
             get
             {
@@ -55,71 +62,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public string FullDescription => "Test Rule Description";
-
-        public string ShortDescription => throw new NotImplementedException();
-
-        public string RichDescription => throw new NotImplementedException();
-
-        public IDictionary<string, string> Options => throw new NotImplementedException();
-
-        public IDictionary<string, string> MessageTemplates
+        public override void Analyze(TestAnalysisContext context)
         {
-            get
+            switch (_exceptionCondition)
             {
-                return new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata) , SdkResources.NotApplicable_InvalidMetadata }};
+                case ExceptionCondition.InvokingAnalyze:
+                {
+                    throw new InvalidOperationException(nameof(ExceptionCondition.InvokingAnalyze));
+                }
+
+                case ExceptionCondition.ParsingTarget:
+                {
+                    Errors.LogTargetParseError(
+                        context,
+                        new Region
+                        {
+                            StartLine = 42,
+                            StartColumn = 54
+                        },
+                        "Could not parse target.");
+                    break;
+                }
+
+                case ExceptionCondition.LoadingPdb:
+                {
+                    Errors.LogExceptionLoadingPdb(context, new InvalidOperationException("Test message"));
+                    break;
+                }
+
+                default:
+                {
+                    context.Logger.Log(this,
+                        new Result()
+                        {
+                            RuleId = Id,
+                            Level = ResultLevel.Warning,
+                            Message = "Default message from exception raising rule."
+                        });
+
+                    break;
+                }
             }
         }
 
-        public IDictionary<string, string> RichMessageTemplates => throw new NotImplementedException();
-
-        internal override IDictionary<string, SerializedPropertyInfo> Properties
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public RuleConfiguration Configuration
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void Analyze(TestAnalysisContext context)
-        {
-            if (_exceptionCondition == ExceptionCondition.InvokingAnalyze)
-            {
-                throw new InvalidOperationException(nameof(ExceptionCondition.InvokingAnalyze));
-            }
-
-            if (_exceptionCondition == ExceptionCondition.ParsingTarget)
-            {
-                Errors.LogTargetParseError(
-                    context,
-                    new Region
-                    {
-                        StartLine = 42,
-                        StartColumn = 54
-                    },
-                    "Could not parse target.");
-            }
-
-            if (_exceptionCondition == ExceptionCondition.LoadingPdb)
-            {
-                Errors.LogExceptionLoadingPdb(context, new InvalidOperationException("Test message"));
-            }
-        }
-
-        public AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
+        public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {
             reasonIfNotApplicable = null;
             if (_exceptionCondition == ExceptionCondition.InvokingCanAnalyze)
@@ -136,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return AnalysisApplicability.ApplicableToSpecifiedTarget;
         }
 
-        public void Initialize(TestAnalysisContext context)
+        public override void Initialize(TestAnalysisContext context)
         {
             if (_exceptionCondition == ExceptionCondition.InvokingInitialize)
             {

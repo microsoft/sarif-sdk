@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--  This is the file that defines the actual layout and type of the commands.
+        It is divided in different sections (e.g. command definition, command
+        placement, ...), with each defining a specific set of properties.
+        See the comment before each section for more details about how to
+        use it. -->
+
+  <!--  The VSCT compiler (the tool that translates this file into the binary
+        format that VisualStudio will consume) has the ability to run a preprocessor
+        on the vsct file; this preprocessor is (usually) the C++ preprocessor, so
+        it is possible to define includes and macros with the same syntax used
+        in C++ files. Using this ability of the compiler here, we include some files
+        defining some of the constants that we will use inside the file. -->
+
+  <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+
+  <!--This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h" />
+
+  <!--The Commands section is where commands, menus, and menu groups are defined.
+      This section uses a Guid to identify the package that provides the command defined inside it. -->
+  <Commands package="guidOpenSarifFileCommandPackage">
+    <!-- Inside this section we have different sub-sections: one for the menus, another
+    for the menu groups, one for the buttons (the actual commands), one for the combos
+    and the last one for the bitmaps used. Each element is identified by a command id that
+    is a unique pair of guid and numeric identifier; the guid part of the identifier is usually
+    called "command set" and is used to group different command inside a logically related
+    group; your package should define its own command set in order to avoid collisions
+    with command ids defined by other packages. -->
+
+    <!-- In this section you can define new menu groups. A menu group is a container for
+         other menus or buttons (commands); from a visual point of view you can see the
+         group as the part of a menu contained between two lines. The parent of a group
+         must be a menu. -->
+    <Groups>
+      <Group guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+      </Group>
+      <Group guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" priority="0x0600">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" />
+      </Group>
+      <Group guid="guidSarifErrorListCmdSet" id="ErrorListContextMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ERRORLIST" />
+      </Group>
+    </Groups>
+
+    <Menus>
+      <Menu guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileMenuGroup" />
+        <Strings>
+          <ButtonText>Import Static Analysis Log File to Error List</ButtonText>
+          <CommandName>Import Static Analysis Log File to Error List</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <!--Buttons section. -->
+    <!--This section defines the elements the user can interact with, like a menu command or a button
+        or combo box in a toolbar. -->
+    <Buttons>
+      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
+          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
+          the CommandFlag node.
+          You can add more than one CommandFlag node e.g.:
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+          If you do not want an image next to your command, remove the Icon node /> -->
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSarifFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <CommandFlag>AllowParams</CommandFlag>
+        <Strings>
+          <ButtonText>Import  SARIF file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPREfastFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  PREfast XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFxCopFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  FxCop XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenStaticDriverVerifierFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Static Driver Verifier trace log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFortifyFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Fortify XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenClangFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Clang XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenCppCheckFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  CppCheck XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenAndroidStudioFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Android Studio XML log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSemmleFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Semmle QL CSV log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenTSLintFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  TSLint log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPylintFileCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import  Pylint log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidSarifViewerPackageCmdSet" id="cmdidSarifToolWindowCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+        <Strings>
+          <!-- This is the main menu's View->Other Windows->SARIF Explorer menu item text. -->
+          <ButtonText>SARIF Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
+      <!-- Error list context menu commands -->
+      <Button guid="guidSarifErrorListCmdSet" id="cmdidClearSarifItemsErrorListCommand" priority="0x0100" type="Button">
+        <Parent guid="guidSarifErrorListCmdSet" id="ErrorListContextMenuGroup" />
+        <Strings>
+          <ButtonText>Clear All SARIF Results</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+  </Commands>
+
+  <Symbols>
+    <!-- This is the package guid. -->
+    <GuidSymbol name="guidOpenSarifFileCommandPackage" value="{b97edb99-282e-444c-8f53-7de237f2ec5e}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidOpenSarifFileCommandPackageCmdSet" value="{a236a757-af66-4cf0-a3c8-facbb61d5cf1}">
+      <IDSymbol name="OpenFileSubMenu" value="0x1020" />
+      <IDSymbol name="OpenSarifFileCommandId" value="0x0100" />
+      <IDSymbol name="OpenPREfastFileCommandId" value="0x0101" />
+      <IDSymbol name="OpenStaticDriverVerifierFileCommandId" value="0x0102" />
+      <IDSymbol name="OpenFxCopFileCommandId" value="0x0103" />
+      <IDSymbol name="OpenFortifyFileCommandId" value="0x0104" />
+      <IDSymbol name="OpenCppCheckFileCommandId" value="0x0105" />
+      <IDSymbol name="OpenClangFileCommandId" value="0x0106" />
+      <IDSymbol name="OpenAndroidStudioFileCommandId" value="0x0107" />
+      <IDSymbol name="OpenSemmleFileCommandId" value="0x0108" />
+      <IDSymbol name="OpenTSLintFileCommandId" value="0x0109" />
+      <IDSymbol name="OpenPylintFileCommandId" value="0x010A" />
+      <IDSymbol name="OpenFileSubMenuGroup" value="0x1100" />
+      <IDSymbol name="OpenFileMenuGroup" value="0x1150" />
+      <IDSymbol name="cmdidTestSubCommand" value="0x0200" />
+    </GuidSymbol>
+
+    <GuidSymbol value="{e6de64e8-7731-4ffd-8633-e1cbf03609ad}" name="guidSarifViewerPackageCmdSet">
+      <IDSymbol value="256" name="cmdidSarifToolWindowCommand" />
+    </GuidSymbol>
+    
+    <GuidSymbol name="guidSarifErrorListCmdSet" value="{76648814-13bf-4ecf-ad5c-2a7e2953e62f}">
+      <IDSymbol name="ErrorListContextMenuGroup" value="0x1021" />
+      <IDSymbol name="cmdidClearSarifItemsErrorListCommand" value="0x0300" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>

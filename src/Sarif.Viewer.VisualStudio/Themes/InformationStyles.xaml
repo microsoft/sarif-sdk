@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
+                    xmlns:controls="clr-namespace:Microsoft.Sarif.Viewer.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="MainGridStyle" TargetType="Grid">
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="RuleTitlePanelStyle" TargetType="DockPanel">
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="RuleIdTextStyle" BasedOn="{StaticResource PropertyKey}" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="RuleNameTextStyle" BasedOn="{StaticResource PropertyValue}" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="RuleDescriptionTextStyle" BasedOn="{StaticResource PropertyKey}" TargetType="TextBlock">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="HelpHyperlinkStyle" TargetType="controls:InternetHyperlink">
+        <Setter Property="FontSize" Value="11.5"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <Style x:Key="SectionSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"/>
+        <Setter Property="Margin" Value="15"/>
+    </Style>
+
+    <Style x:Key="ToolMetadataGridStyle" TargetType="Grid">
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+        <Setter Property="Margin" Value="5,0"/>
+    </Style>
+
+    <Style x:Key="ToolMetadataPanel" TargetType="DockPanel">
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <Style x:Key="ToolNameTextStyle" BasedOn="{StaticResource PropertyKey}" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="ToolVersionTextStyle" BasedOn="{StaticResource PropertyValue}" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="ToolCommandLineTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="OpenLogFileHyperlinkStyle" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+        <Setter Property="FontSize" Value="11.5"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Margin" Value="5,25,0,20"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,133 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Microsoft.Sarif.Viewer.Converters"
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:CallTreeNodeToTextConverter x:Key="CallTreeToTextConverter" />
+
+    <Style x:Key="ToolBarTrayStyle" TargetType="ToolBarTray">
+        <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
+    </Style>
+
+    <Style x:Key="ToolBarStyle" TargetType="ToolBar">
+        <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
+    </Style>
+
+    <Style x:Key="ToolBarGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="3,1,1,1"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+    </Style>
+    
+    <Style x:Key="ToolbarMainPanelBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+        <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+        <Setter Property="BorderThickness" Value="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+        <Setter Property="Padding" Value="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+    </Style>
+
+    <Style x:Key="ToolBarHeaderContentPresenterStyle" TargetType="ContentPresenter">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="4,0,4,0"/>
+        <Setter Property="SnapsToDevicePixels" Value="{Binding SnapsToDevicePixels, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="ToolBarPanelStyle" TargetType="ToolBarPanel">
+        <Setter Property="Margin" Value="0,1,2,2"/>
+        <Setter Property="SnapsToDevicePixels" Value="{Binding SnapsToDevicePixels, RelativeSource={RelativeSource AncestorType={x:Type ToolBar}}}"/>
+    </Style>
+
+    <Style x:Key="ToolBarGlyphButtonStyle" TargetType="Button">
+        <Setter Property="ToolBar.OverflowMode" Value="Never"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+
+    <Style x:Key="ToolBarGlyphButtonTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+    </Style>
+
+    <Style x:Key="ToolBarSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolboxDisabledContentTextBrushKey}}"/>
+        <Setter Property="Margin" Value="10,4"/>
+        <Setter Property="ToolBar.OverflowMode" Value="Never"/>
+    </Style>
+
+    <Style x:Key="ToolBarSliderStyle" TargetType="Slider">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusOutline}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        <Setter Property="Maximum" Value="200"/>
+        <Setter Property="TickFrequency" Value="100"/>
+        <Setter Property="TickPlacement" Value="BottomRight"/>
+        <Setter Property="ToolBar.OverflowMode" Value="Never"/>
+        <Setter Property="Value" Value="{Binding Verbosity}"/>
+        <Setter Property="Width" Value="100px"/>
+    </Style>
+
+    <Style x:Key="ItemsControlContainerStyle" TargetType="ContentPresenter">
+        <Setter Property="DockPanel.Dock" Value="Top" />
+    </Style>
+
+    <Style x:Key="CallTreeTextStyle" BasedOn="{StaticResource BaseTextBlockStyle}" TargetType="TextBlock">
+        <Setter Property="Padding" Value="0,0,10,0" />
+    </Style>
+    
+    <Style x:Key="CallTreeMessageTextStyle" BasedOn="{StaticResource CallTreeTextStyle}" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Location.Importance}" Value="Essential">
+                <Setter Property="FontWeight" Value="Bold" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Location.Importance}" Value="Important">
+                <Setter Property="FontWeight" Value="Normal" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Location.Importance}" Value="Unimportant">
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}" Value="Collapsed" />
+                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}" Value="Visible" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="TextBlock.FontFamily" Value="Consolas" />
+                <Setter Property="FontSize" Value="10pt" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="CallTreeLocationTextStyle" BasedOn="{StaticResource CallTreeTextStyle}" TargetType="TextBlock">
+        <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource StringToVisibilityConverter}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TreeViewStyle" TargetType="TreeView">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style x:Key="TreeViewItemContainerStyle" TargetType="TreeViewItem">
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="Visibility" Value="{Binding Visibility}" />
+    </Style>
+
+</ResourceDictionary>

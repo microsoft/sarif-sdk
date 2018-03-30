@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool Verbose { get; set; }
 
         [Option(
+            'p',
+            "pretty-print",
+            HelpText = "Emit indented output. The resulting output will be multi-line, human-readable JSON.")]
+        public bool PrettyPrint { get; set; }
+
+        [Option(
             'r',
             "recurse",
             HelpText = "Recurse into subdirectories when evaluating file specifier arguments.")]
@@ -42,8 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [Option(
             'c',
             "config",
-            Default = "default",
-            HelpText = "Path to policy file that will be used to configure analysis. Passing value of 'default' (or omitting the argument entirely) will configure BinSkim to use built-in settings.")]
+            HelpText = "Path to policy file that will be used to configure analysis. This defaults to 'default.configuration.xml' beside the main tool; passing value of 'default' or removing that file will configure BinSkim to use built-in settings.")]
         public string ConfigurationFilePath { get; set; }
 
         [Option(
@@ -71,7 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool LogEnvironment { get; set; }
 
         [Option(
-            'p',
             "plug-in",
             Separator = ';',
             HelpText = "Path to plug-in that will be invoked against all targets in the analysis set.")]

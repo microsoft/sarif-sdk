@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="SectionSeparatorStyle" TargetType="Separator">
+        <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}"/>
+        <Setter Property="Margin" Value="15"/>
+    </Style>
+
+    <Style x:Key="TreeViewStyleBase" TargetType="TreeView">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="LocationsTreeViewStyle" BasedOn="{StaticResource TreeViewStyleBase}" TargetType="TreeView">
+        <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="LocationCountTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
+    <Style x:Key="TreeViewItemStyle" TargetType="TreeViewItem">
+        <Setter Property="IsExpanded" Value="True"/>
+    </Style>
+
+    <Style x:Key="TreeViewItemListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemPanelStyle" TargetType="DockPanel">
+        <Setter Property="LastChildFill" Value="False"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemContainerStyl" TargetType="ListBoxItem">
+        <Setter Property="DockPanel.Dock" Value="Bottom" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusOutline}"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemWrapPanelStyle" TargetType="WrapPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+
+    <Style x:Key="ListBoxItemToolTipRegionTextStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
+    <Style x:Key="LocationTextBaseStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <Style x:Key="LocationTextStyle" BasedOn="{StaticResource LocationTextBaseStyle}" TargetType="TextBlock">
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
+    <Style x:Key="RelatedLocationsTreeViewItemHeaderTextStyle" BasedOn="{StaticResource PanelHeader}" TargetType="TextBlock">
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+    </Style>
+
+</ResourceDictionary>

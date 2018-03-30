@@ -48,32 +48,28 @@
     <Compile Include="Converters\BooleanToCollapsedVisibilityConverter.cs" />
     <Compile Include="Converters\CallTreeNodeToTextConverter.cs" />
     <Compile Include="Converters\CollectionToBooleanConverter.cs" />
-    <Compile Include="Converters\CollectionToVisiblity1Converter.cs" />
-    <Compile Include="Converters\CollectionToVisiblity0Converter.cs" />
     <Compile Include="Converters\CollectionToCountConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\CollectionToVisibilityConverter.cs" />
     <Compile Include="Converters\Int32ToVisibilityConverter.cs" />
     <Compile Include="Converters\MultipleStringsToVisibilityConverter.cs" />
     <Compile Include="Converters\FileExistsToBooleanConverter.cs" />
     <Compile Include="Converters\ObjectToVisibilityConverter.cs" />
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="DelegateCommandBase.cs" />
+    <Compile Include="ErrorList\ErrorListCommand.cs" />
     <Compile Include="IToolWindow.cs" />
     <Compile Include="KeyValuePairPropertyDescriptor.cs" />
     <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
     <Compile Include="Models\FileDetailsModel.cs" />
+    <Compile Include="Models\FixOffsetList.cs" />
     <Compile Include="Models\InvocationModel.cs" />
     <Compile Include="Models\ReplacementModel.cs" />
     <Compile Include="Models\FileChangeModel.cs" />
     <Compile Include="Models\FixModel.cs" />
     <Compile Include="ProjectNameCache.cs" />
-    <Compile Include="Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,8 +104,8 @@
     <Compile Include="Tags\ISarifLocationProviderFactory.cs" />
     <Compile Include="Tags\SarifLocationTaggerProvider.cs" />
     <Compile Include="TreeViewSelectionHelper.cs" />
-    <Compile Include="Views\CodeLocations.xaml.cs">
-      <DependentUpon>CodeLocations.xaml</DependentUpon>
+    <Compile Include="Views\SarifViewerControl.xaml.cs">
+      <DependentUpon>SarifViewerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BindingDebugConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
@@ -142,7 +138,7 @@
     <Content Include="App.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="Data\ruleLookup.json" />
+    <None Include="Data\RuleLookup.json" />
     <Content Include="overview.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -153,7 +149,6 @@
   <ItemGroup>
     <Content Include="index.html" />
     <None Include="readme.md" />
-    <Resource Include="Resources\SarifToolWindowCommand.png" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -162,11 +157,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="OpenSarifFileCommandPackage.vsct">
+    <VSCTCompile Include="SarifCommandPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
-    <Content Include="Resources\OpenSarifFileCommand.png" />
-    <Content Include="Resources\OpenSarifFileCommandPackage.ico" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -314,11 +307,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource1.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -326,6 +314,7 @@
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -350,15 +339,63 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\CallTreesStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\FixesStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\InformationStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\LocationsStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\SarifViewerControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\StacksStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CallTreesStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FixesStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\InformationStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LocationsStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SarifToolWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\CallTrees.xaml">
+    <Page Include="Views\CallTrees.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TreeView.xaml">
+    <Page Include="Views\SarifViewerControlStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StacksStringResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -366,23 +403,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Fixes.xaml">
+    <Page Include="Views\Fixes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Information.xaml">
+    <Page Include="Views\Information.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Locations.xaml">
+    <Page Include="Views\Locations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Stacks.xaml">
+    <Page Include="Views\Stacks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CodeLocations.xaml">
+    <Page Include="Views\SarifViewerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

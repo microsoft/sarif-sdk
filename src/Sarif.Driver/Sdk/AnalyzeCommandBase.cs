@@ -3,10 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
@@ -26,6 +29,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
+        
+        public string DefaultConfigurationPath
+        {
+            get
+            {
+                string currentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
+                return Path.Combine(currentDirectory, "default.configuration.xml");
+            }
+        }
 
         public override int Run(TOptions analyzeOptions)
         {
@@ -80,39 +92,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    the command line parser library is capable of.
             ValidateOptions(this.rootContext, analyzeOptions);
 
-            // 3. Create our configuration property bag, which will be 
-            //    shared with all rules during analysis
-            //ConfigureFromOptions(this.rootContext, analyzeOptions);
-
-            // 4. Produce a comprehensive set of analysis targets 
+            // 3. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
 
-            // 5. Proactively validate that we can locate and 
+            // 4. Proactively validate that we can locate and 
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
             targets = ValidateTargetsExist(this.rootContext, targets);
 
-            // 6. Initialize report file, if configured.
+            // 5. Initialize report file, if configured.
             InitializeOutputFile(analyzeOptions, this.rootContext, targets);
 
-            // 7. Instantiate skimmers.
+            // 6. Instantiate skimmers.
             HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
-            // 8. Initialize configuration. This step must be done after initializing
+            // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
             //    so those assemblies must be loaded.
             InitializeConfiguration(analyzeOptions, this.rootContext);
 
-            // 9. Initialize skimmers. Initialize occurs a single time only. This
+            // 8. Initialize skimmers. Initialize occurs a single time only. This
             //    step needs to occurs after initializing configuration in order
             //    to allow command-line override of rule settings
             skimmers = InitializeSkimmers(skimmers, this.rootContext);
 
-            // 10. Run all analysis
+            // 9. Run all analysis
             AnalyzeTargets(analyzeOptions, skimmers, this.rootContext, targets);
 
-            // 11. For test purposes, raise an unhandled exception if indicated
+            // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
                 throw new InvalidOperationException(this.GetType().Name);
@@ -232,12 +240,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         normalizedSpecifier = uri.LocalPath;
                     }
                 }
-
                 // Currently, we do not filter on any extensions.
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
-
+            Debug.Assert(targets.Count > 0);
             return targets;
         }
 
@@ -266,39 +273,63 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 context.TargetUri = new Uri(filePath);
             }
-
-
-
+            
             return context;
         }
 
+        /// <summary>
+        /// Calculate the file to load the configuration from.
+        /// </summary>
+        /// <param name="options">Options</param>
+        /// <param name="unitTestFileExists">Used only in unit testing, overrides "File.Exists".  
+        /// TODO--Restructure Sarif.Driver to use Sarif.IFileSystem for actions on file, to enable unit testing here instead.</param>
+        /// <returns>Configuration file path, or null if the built in configuration should be used.</returns>
+        internal string GetConfigurationFileName(TOptions options, bool unitTestFileExists = false)
+        {
+            if (options.ConfigurationFilePath == DefaultPolicyName)
+            {
+                return null;
+            }
+
+            if (String.IsNullOrEmpty(options.ConfigurationFilePath))
+            {
+                if (!File.Exists(DefaultConfigurationPath) && !unitTestFileExists)
+                {
+                    return null;
+                }
+
+                return DefaultConfigurationPath;
+            }
+            return options.ConfigurationFilePath;
+        }
+        
         protected virtual void InitializeConfiguration(TOptions options, TContext context)
         {
             context.Policy = new PropertiesDictionary();
 
-            if (String.IsNullOrEmpty(options.ConfigurationFilePath) ||
-                options.ConfigurationFilePath == DefaultPolicyName)
+            string configurationFileName = GetConfigurationFileName(options);
+            if (string.IsNullOrEmpty(configurationFileName))
             {
                 return;
             }
 
-            string extension = Path.GetExtension(options.ConfigurationFilePath);
+            string extension = Path.GetExtension(configurationFileName);
 
             if (extension.Equals(".xml", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+                context.Policy.LoadFromXml(configurationFileName);
             }
             else if (extension.Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
-                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+                context.Policy.LoadFromJson(configurationFileName);
             }
             else if (ConfigurationFormat == FileFormat.Xml)
             {
-                context.Policy.LoadFromXml(options.ConfigurationFilePath);
+                context.Policy.LoadFromXml(configurationFileName);
             }
             else
             {
-                context.Policy.LoadFromJson(options.ConfigurationFilePath);
+                context.Policy.LoadFromJson(configurationFileName);
             }
         }
 
@@ -379,9 +410,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 skimmers = DriverUtilities.GetExports<ISkimmer<TContext>>(DefaultPlugInAssemblies);
 
+                SupportedPlatform currentOS = GetCurrentRunningOS();
                 foreach (ISkimmer<TContext> skimmer in skimmers)
                 {
-                    result.Add(skimmer);
+                    if(skimmer.SupportedPlatforms.HasFlag(currentOS))
+                    {
+                        result.Add(skimmer);
+                    }
+                    else
+                    {
+                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name, skimmer.SupportedPlatforms, currentOS);
+                    }
                 }
             }
             catch (Exception ex)
@@ -398,6 +437,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
+        private SupportedPlatform GetCurrentRunningOS()
+        {
+            // RuntimeInformation is not present in NET452.
+#if NET452
+            return SupportedPlatform.Windows;
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return SupportedPlatform.Linux;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return SupportedPlatform.OSX;
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return SupportedPlatform.Windows;
+            }
+            else
+            {
+                return SupportedPlatform.Unknown;
+            }
+#endif
+        }
+
         protected virtual void AnalyzeTargets(
             TOptions options,
             IEnumerable<ISkimmer<TContext>> skimmers,
@@ -405,6 +469,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             IEnumerable<string> targets)
         {
             HashSet<string> disabledSkimmers = new HashSet<string>();
+
+            foreach (ISkimmer<TContext> skimmer in skimmers)
+            {
+                PerLanguageOption<RuleEnabledState> ruleEnabledProperty;
+                ruleEnabledProperty = DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
+
+                RuleEnabledState ruleEnabled = rootContext.Policy.GetProperty(ruleEnabledProperty);
+
+                if (ruleEnabled == RuleEnabledState.Disabled)
+                {
+                    disabledSkimmers.Add(skimmer.Id);
+                    Warnings.LogRuleExplicitlyDisabled(rootContext, skimmer.Id);
+                    RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;
+                }
+            }
+
+            if (disabledSkimmers.Count == skimmers.Count())
+            {
+                Errors.LogAllRulesExplicitlyDisabled(rootContext);
+                ThrowExitApplicationException(rootContext, ExitReason.NoRulesLoaded);
+            }
 
             foreach (string target in targets)
             {

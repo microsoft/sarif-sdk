@@ -7,14 +7,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
     public class MultitoolOptionsBase
     {
         [Option(
-            'o',
-            "output",
-            HelpText = "A file path to the generated SARIF log. Defaults to <input file name>.sarif.")]
-        public string OutputFilePath { get; internal set; }
-
-        [Option(
             'p',
-            "pretty",
+            "pretty-print",
             Default = false,
             HelpText = "Produce pretty-printed JSON output rather than compact form.")]
         public bool PrettyPrint { get; internal set; }

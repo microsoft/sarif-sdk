@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class ReformattingVisitor : SarifRewritingVisitor
     {
         private LoggingOptions _loggingOptions;
-
+        
         public ReformattingVisitor(LoggingOptions loggingOptions)
         {
             _loggingOptions = loggingOptions;
