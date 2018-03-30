@@ -61,6 +61,17 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The source file {0} will now be downloaded. To abort the download, click Cancel.
+        /// 
+        ///Would you like to always allow downloads from &quot;{1}&quot;?.
+        /// </summary>
+        internal static string ConfirmDownload_DialogMessage {
+            get {
+                return ResourceManager.GetString("ConfirmDownload_DialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open File.
         /// </summary>
         internal static string FileOpenFail_DialogCaption {

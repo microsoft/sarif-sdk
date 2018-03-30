@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [
         {
-          ""message"": ""Call to Equals() comparing incomparable types\""IComparable\"" and \""ClientAttributeValue\"""",
+          ""message"": ""Call to Equals() comparing incomparable types[IComparable] and [ClientAttributeValue]"",
           ""locations"": [
             {
               ""resultFile"": {

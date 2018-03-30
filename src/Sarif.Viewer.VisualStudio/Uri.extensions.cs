@@ -11,8 +11,6 @@ namespace Microsoft.Sarif.Viewer.Sarif
     {
         // The acceptable URI schemes
         static List<string> s_schemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
-        // The acceptable URI hosts
-        static List<string> s_hosts = new List<string>() { "raw.githubusercontent.com" };
 
         public static string ToPath(this Uri uri)
         {
@@ -21,26 +19,20 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
 
-            // For http(s)://raw.githubusercontent.com return the absolute URI.
-            // If the file needs to be displayed, the CodeAnalsyisResultManager will download the file before 
-            // displaying it in the IDE. 
-            // For all other URIs, return the local path.
-            if (uri.IsAbsoluteUri
-                && s_schemes.Contains(uri.Scheme, StringComparer.OrdinalIgnoreCase)
-                && s_hosts.Contains(uri.Host, StringComparer.OrdinalIgnoreCase))
+            if (uri.IsAbsoluteUri)
             {
-                return uri.ToString();
-            }
-            else
-            {
-                if (uri.IsAbsoluteUri)
+                if (s_schemes.Contains(uri.Scheme, StringComparer.OrdinalIgnoreCase))
                 {
-                    return uri.LocalPath + uri.Fragment;
+                    return uri.ToString();
                 }
                 else
                 {
-                    return uri.OriginalString;
+                    return uri.LocalPath + uri.Fragment;
                 }
+            }
+            else
+            {
+                return uri.OriginalString;
             }
         }
     }
