@@ -43,6 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.Equals(left.OriginalUriBaseIds, right.OriginalUriBaseIds))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Files, right.Files))
             {
                 if (left.Files == null || right.Files == null || left.Files.Count != right.Files.Count)
@@ -250,6 +255,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();
+                }
+
+                if (obj.OriginalUriBaseIds != null)
+                {
+                    result = (result * 31) + obj.OriginalUriBaseIds.GetHashCode();
                 }
 
                 if (obj.Files != null)
