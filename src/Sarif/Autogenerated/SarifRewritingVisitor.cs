@@ -259,6 +259,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Stdin = VisitNullChecked(node.Stdin);
+                node.Stdout = VisitNullChecked(node.Stdout);
+                node.Stderr = VisitNullChecked(node.Stderr);
             }
 
             return node;

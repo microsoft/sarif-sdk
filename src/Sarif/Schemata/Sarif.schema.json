@@ -539,7 +539,22 @@
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
           "additionalProperties": true,
-          "default": { }
+          "default": {}
+        },
+
+        "stdin": {
+          "description": "A file or portion of a file containing the standard input stream to the process that was invoked.",
+          "$ref": "#/definitions/physicalLocation"
+        },
+
+        "stdout": {
+          "description": "A file or portion of a file containing the standard output stream from the process that was invoked.",
+          "$ref": "#/definitions/physicalLocation"
+        },
+
+        "stderr": {
+          "description": "A file or portion of a file containing the standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/physicalLocation"
         },
 
         "properties": {
@@ -552,7 +567,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
