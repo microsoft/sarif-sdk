@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (x.Uri != y.Uri)
+                if (x.PhysicalLocation.Uri != y.PhysicalLocation.Uri)
                 {
                     return false;
                 }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.Uri.GetNullCheckedHashCode();
+                hs = hs ^ obj.PhysicalLocation.Uri.GetNullCheckedHashCode();
 
                 hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 

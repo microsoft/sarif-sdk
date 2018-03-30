@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public Uri HelpUri { get; set; }
 
-        public abstract string Id { get; }        
+        public abstract string Id { get; }
 
         public virtual ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
@@ -49,9 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public string RichDescription => throw new NotImplementedException();
 
-        public IDictionary<string, string> MessageTemplates => throw new NotImplementedException();
+        public IDictionary<string, string> MessageTemplates { get { return new Dictionary<string, string>(); } }
 
-        public IDictionary<string, string> RichMessageTemplates => throw new NotImplementedException();
+        public IDictionary<string, string> RichMessageTemplates { get { return new Dictionary<string, string>(); } }
 
         public string Help => throw new NotImplementedException();
 
