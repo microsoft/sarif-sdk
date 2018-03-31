@@ -3,14 +3,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class UriExtensions
     {
         // The acceptable URI schemes
-        static List<string> s_httpSchemes = new List<string>() { Uri.UriSchemeHttp, Uri.UriSchemeHttps };
+        static HashSet<string> s_httpSchemes = new HashSet<string>(new string[] { Uri.UriSchemeHttp, Uri.UriSchemeHttps },
+                                                                   StringComparer.OrdinalIgnoreCase);
 
         public static string ToPath(this Uri uri)
         {
@@ -38,7 +38,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
         public static bool IsHttpScheme(this Uri uri)
         {
-            return s_httpSchemes.Contains(uri.Scheme, StringComparer.OrdinalIgnoreCase);
+            return s_httpSchemes.Contains(uri.Scheme);
         }
     }
 }
