@@ -492,6 +492,14 @@
           "type": "string"
         },
 
+        "arguments": {
+          "description": "An array of strings, containing in order the command line arguments passed to the tool from the operating system.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
         "responseFiles": {
           "description": "The contents of any response files specified on the tool's command line.",
           "type": "object",
@@ -1079,6 +1087,15 @@
           "$ref": "#/definitions/conversion"
         },
 
+        "originalUriBaseIds": {
+          "description": "The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+
         "files": {
           "description": "A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.",
           "type": "object",
@@ -1138,7 +1155,7 @@
           "description": "A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.",
           "type": "string"
         },
-        
+
         "automationId": {
           "description": "A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
           "type": "string"
@@ -1170,7 +1187,7 @@
               "description": "A set of distinct strings that provide additional information about the run.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
