@@ -118,10 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmDownloadDialog_CheckboxLabel" xml:space="preserve">
-    <value>Always allow downloads from {0}</value>
+    <value>Always allow downloads from '{0}'</value>
   </data>
   <data name="ConfirmDownloadDialog_Message" xml:space="preserve">
-    <value>Do you want to download the source file from {0}?</value>
+    <value>Do you want to download the source file from this location?
+
+{0}</value>
   </data>
   <data name="ConfirmDownloadDialog_Title" xml:space="preserve">
     <value>Confirm Download</value>

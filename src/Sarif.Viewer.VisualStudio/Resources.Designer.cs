@@ -61,7 +61,7 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Always allow downloads from {0}.
+        ///   Looks up a localized string similar to Always allow downloads from &apos;{0}&apos;.
         /// </summary>
         internal static string ConfirmDownloadDialog_CheckboxLabel {
             get {
@@ -70,7 +70,9 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to download the source file from {0}?.
+        ///   Looks up a localized string similar to Do you want to download the source file from this location?
+        ///
+        ///{0}.
         /// </summary>
         internal static string ConfirmDownloadDialog_Message {
             get {
