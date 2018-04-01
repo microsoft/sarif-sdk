@@ -34,7 +34,7 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        
+
         "region": {
           "description": "The region of an analysis tool's log file that was transformed into the result object.",
           "$ref": "#/definitions/region"
@@ -254,7 +254,7 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-        
+
         "tool": {
           "description": "A tool object that describes the converter.",
           "$ref": "#/definitions/tool"
@@ -403,7 +403,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -415,6 +415,26 @@
       "dependencies": {
         "uriBaseId": [ "uri" ]
       }
+    },
+    "fileLocation": {
+      "description": "Specifies the location of a file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "uri": {
+          "description": "A string containing a valid relative or absolute URI.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "uriBaseId": {
+          "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
+          "type": "string"
+        }
+      },
+
+      "required": [ "uri" ]
     },
     "fix": {
       "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
@@ -551,18 +571,23 @@
         },
 
         "stdin": {
-          "description": "A file or portion of a file containing the standard input stream to the process that was invoked.",
-          "$ref": "#/definitions/physicalLocation"
+          "description": "A file containing the standard input stream to the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "stdout": {
-          "description": "A file or portion of a file containing the standard output stream from the process that was invoked.",
-          "$ref": "#/definitions/physicalLocation"
+          "description": "A file containing the standard output stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "stderr": {
-          "description": "A file or portion of a file containing the standard error stream from the process that was invoked.",
-          "$ref": "#/definitions/physicalLocation"
+          "description": "A file containing the standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stdoutStderr": {
+          "description": "A file containing the standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "properties": {
@@ -625,7 +650,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -719,7 +744,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1381,7 +1406,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
