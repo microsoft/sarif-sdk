@@ -586,7 +586,7 @@
         },
 
         "stdoutStderr": {
-          "description": "A file containing the standard error stream from the process that was invoked.",
+          "description": "A file containing the interleaved standard output and standard error stream from the process that was invoked.",
           "$ref": "#/definitions/fileLocation"
         },
 
