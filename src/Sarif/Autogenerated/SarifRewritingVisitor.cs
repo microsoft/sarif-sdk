@@ -62,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFileChange((FileChange)node);
                 case SarifNodeKind.FileData:
                     return VisitFileData((FileData)node);
+                case SarifNodeKind.FileLocation:
+                    return VisitFileLocation((FileLocation)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Hash:
@@ -230,6 +232,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual FileLocation VisitFileLocation(FileLocation node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Fix VisitFix(Fix node)
         {
             if (node != null)
@@ -259,6 +270,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Stdin = VisitNullChecked(node.Stdin);
+                node.Stdout = VisitNullChecked(node.Stdout);
+                node.Stderr = VisitNullChecked(node.Stderr);
+                node.StdoutStderr = VisitNullChecked(node.StdoutStderr);
             }
 
             return node;
