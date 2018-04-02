@@ -100,14 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     result.ToolFingerprintContributions = new Dictionary<string, string>();
                 }
 
-                if (result.ToolFingerprintContributions.ContainsKey("InstanceId"))
-                {
-                    result.ToolFingerprintContributions["InstanceId"] = fortify.InstanceId;
-                }
-                else
-                {
-                    result.ToolFingerprintContributions.Add("InstanceId", fortify.InstanceId);
-                }
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.ToolFingerprintContributions, "InstanceId", fortify.InstanceId);
             }
 
             List<string> messageComponents = new List<string>();
