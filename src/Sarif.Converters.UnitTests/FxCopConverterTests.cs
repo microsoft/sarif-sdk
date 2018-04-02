@@ -368,8 +368,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "CA0000",
                 Message = "hello!",
-                ToolFingerprintContribution = "1#test",
                 SuppressionStates = SuppressionStates.SuppressedInSource,
+                ToolFingerprintContributions = new Dictionary<string, string>(),
                 Locations = new List<Location>
                 {
                     new Location
@@ -388,6 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
+            expectedResult.ToolFingerprintContributions.Add("UniqueId", "1#test");
             expectedResult.SetProperty("Level", "error");
             expectedResult.SetProperty("Category", "FakeCategory");
             expectedResult.SetProperty("FixCategory", "Breaking");

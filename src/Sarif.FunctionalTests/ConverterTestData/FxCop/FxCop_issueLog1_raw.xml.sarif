@@ -928,7 +928,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "DES#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "DES#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -946,7 +948,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -1016,7 +1020,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "ExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "ExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -1040,7 +1046,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "ExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "ExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -1064,7 +1072,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -1111,7 +1121,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1135,7 +1147,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1153,7 +1167,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "DSA#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "DSA#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1171,7 +1187,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -1243,7 +1261,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "DSA#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "DSA#Member"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1267,7 +1287,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "DSA#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "DSA#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1291,7 +1313,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Hash#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Hash#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1315,7 +1339,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Hash#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Hash#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1339,7 +1365,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Alg#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Alg#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1364,7 +1392,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "DSA#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "DSA#Member"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1388,7 +1418,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "DSA#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "DSA#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1412,7 +1444,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Hash#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Hash#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1436,7 +1470,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Hash#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Hash#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1460,7 +1496,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Signed#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Signed#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1484,7 +1522,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Alg#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Alg#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1509,7 +1549,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1533,7 +1575,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1551,7 +1595,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -1621,7 +1667,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1645,7 +1693,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1669,7 +1719,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1693,7 +1745,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -1740,7 +1794,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "args",
+          "toolFingerprintContributions": {
+            "UniqueId": "args"
+          },
           "properties": {
             "Category": "Microsoft.Usage",
             "FixCategory": "NonBreaking"
@@ -1781,7 +1837,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -1805,7 +1863,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "Alg#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Alg#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1830,7 +1890,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "sym#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "sym#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1855,7 +1917,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "bytes#LanguageIndependentMemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "bytes#LanguageIndependentMemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -1879,7 +1943,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "0",
+          "toolFingerprintContributions": {
+            "UniqueId": "0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -1903,7 +1969,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "1",
+          "toolFingerprintContributions": {
+            "UniqueId": "1"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -1927,7 +1995,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContribution": "Alg#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Alg#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1952,7 +2022,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContribution": "sym#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "sym#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -1977,7 +2049,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContribution": "string#LanguageIndependentMemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "string#LanguageIndependentMemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2001,7 +2075,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContribution": "0",
+          "toolFingerprintContributions": {
+            "UniqueId": "0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -2025,7 +2101,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -2049,7 +2127,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2073,7 +2153,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2154,7 +2236,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -2318,7 +2402,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2342,7 +2428,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2366,7 +2454,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2432,7 +2522,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprintContribution": "RIPEMD#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "RIPEMD#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2450,7 +2542,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -2474,7 +2568,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -2498,7 +2594,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.Write(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.Write(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2522,7 +2620,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2546,7 +2646,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2594,7 +2696,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContribution": "0",
+          "toolFingerprintContributions": {
+            "UniqueId": "0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -2618,7 +2722,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "System.Console.Write(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.Write(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2636,7 +2742,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprintContribution": "0",
+          "toolFingerprintContributions": {
+            "UniqueId": "0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -2654,7 +2762,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContribution": "RSA#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "RSA#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2672,7 +2782,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContribution": "bit#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "bit#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2690,7 +2802,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -2737,7 +2851,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2761,7 +2877,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -2785,7 +2903,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "Data#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Data#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2809,7 +2929,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "Do#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Do#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2833,7 +2955,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "OAEP#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "OAEP#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2857,7 +2981,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "RSA#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "RSA#Member"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2881,7 +3007,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "RSA#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "RSA#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2905,7 +3033,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "Data#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Data#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2929,7 +3059,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "Do#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "Do#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2953,7 +3085,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "OAEP#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "OAEP#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -2977,7 +3111,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "RSA#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "RSA#Member"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -3001,7 +3137,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "RSA#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "RSA#MemberParameter"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -3019,7 +3157,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "SHA#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "SHA#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -3043,7 +3183,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3090,7 +3232,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "result",
+          "toolFingerprintContributions": {
+            "UniqueId": "result"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -3131,7 +3275,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "DES#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "DES#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -3149,7 +3295,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -3313,7 +3461,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -3337,7 +3487,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -3361,7 +3513,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContribution": "System.Console.WriteLine(System.String,System.Object)#KnownValue",
+          "toolFingerprintContributions": {
+            "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
+          },
           "properties": {
             "Category": "Microsoft.Globalization",
             "FixCategory": "DependsOnFix"
@@ -3450,7 +3604,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3497,7 +3653,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -3521,7 +3679,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -3545,7 +3705,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3638,7 +3800,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -3662,7 +3826,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3709,7 +3875,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -3733,7 +3901,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3780,7 +3950,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -3804,7 +3976,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3874,7 +4048,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -3898,7 +4074,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -3945,7 +4123,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4015,7 +4195,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -4039,7 +4221,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4086,7 +4270,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4133,7 +4319,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4180,7 +4368,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4250,7 +4440,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4297,7 +4489,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContribution": "ExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "ExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4321,7 +4515,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContribution": "s#MemberParameterMoreMeaningfulName",
+          "toolFingerprintContributions": {
+            "UniqueId": "s#MemberParameterMoreMeaningfulName"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -4369,7 +4565,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4439,7 +4637,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4509,7 +4709,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4579,7 +4781,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4649,7 +4853,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "doc",
+          "toolFingerprintContributions": {
+            "UniqueId": "doc"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -4673,7 +4879,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4743,7 +4951,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4813,7 +5023,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "doc",
+          "toolFingerprintContributions": {
+            "UniqueId": "doc"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -4837,7 +5049,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -4902,7 +5116,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -4995,7 +5211,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5019,7 +5237,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5043,7 +5263,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContribution": "src#MemberParameter",
+          "toolFingerprintContributions": {
+            "UniqueId": "src#MemberParameter"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -5160,7 +5382,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5207,7 +5431,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -5231,7 +5457,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -5301,7 +5529,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "0",
+          "toolFingerprintContributions": {
+            "UniqueId": "0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "DependsOnFix"
@@ -5348,7 +5578,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()"
             }
           ],
-          "toolFingerprintContribution": "xsltSettings",
+          "toolFingerprintContributions": {
+            "UniqueId": "xsltSettings"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -5390,7 +5622,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data"
             }
           ],
-          "toolFingerprintContribution": "Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -5414,7 +5648,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data.TestMethod34(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5478,7 +5714,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent"
             }
           ],
-          "toolFingerprintContribution": "Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -5502,7 +5740,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5566,7 +5806,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver"
             }
           ],
-          "toolFingerprintContribution": "Impl#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "Impl#Type"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -5614,7 +5856,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContribution": "content",
+          "toolFingerprintContributions": {
+            "UniqueId": "content"
+          },
           "properties": {
             "Category": "Microsoft.Usage",
             "FixCategory": "DependsOnFix"
@@ -5638,7 +5882,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5731,7 +5977,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5801,7 +6049,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5894,7 +6144,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -5964,7 +6216,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6057,7 +6311,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6127,7 +6383,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6220,7 +6478,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6428,7 +6688,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -6498,7 +6760,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -6522,7 +6786,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6592,7 +6858,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -6616,7 +6884,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6686,7 +6956,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -6710,7 +6982,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6757,7 +7031,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprintContribution": "schema",
+          "toolFingerprintContributions": {
+            "UniqueId": "schema"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -6850,7 +7126,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)"
             }
           ],
-          "toolFingerprintContribution": "schema",
+          "toolFingerprintContributions": {
+            "UniqueId": "schema"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -6897,7 +7175,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContribution": "vr",
+          "toolFingerprintContributions": {
+            "UniqueId": "vr"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -6944,7 +7224,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -6991,7 +7273,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "vr",
+          "toolFingerprintContributions": {
+            "UniqueId": "vr"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -7038,7 +7322,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)"
             }
           ],
-          "toolFingerprintContribution": "doc",
+          "toolFingerprintContributions": {
+            "UniqueId": "doc"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -7108,7 +7394,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContribution": "doc",
+          "toolFingerprintContributions": {
+            "UniqueId": "doc"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -7172,7 +7460,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest1()"
             }
           ],
-          "toolFingerprintContribution": "XslCompiledTransformLoadWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XslCompiledTransformLoadWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -7312,7 +7602,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()"
             }
           ],
-          "toolFingerprintContribution": "XslCompiledTransformLoadInsecureXmlResolve",
+          "toolFingerprintContributions": {
+            "UniqueId": "XslCompiledTransformLoadInsecureXmlResolve"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -7429,7 +7721,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7453,7 +7747,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7523,7 +7819,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7547,7 +7845,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7617,7 +7917,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7641,7 +7943,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7711,7 +8015,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XslCompiledTransformTransformInsecureXmlResolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "XslCompiledTransformTransformInsecureXmlResolver"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -7735,7 +8041,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7759,7 +8067,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7852,7 +8162,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XslCompiledTransformTransformWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XslCompiledTransformTransformWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -7876,7 +8188,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -7923,7 +8237,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprintContribution": "XslCompiledTransformTransformWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XslCompiledTransformTransformWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -7970,7 +8286,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprintContribution": "doc",
+          "toolFingerprintContributions": {
+            "UniqueId": "doc"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -7994,7 +8312,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8064,7 +8384,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8157,7 +8479,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8227,7 +8551,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()"
             }
           ],
-          "toolFingerprintContribution": "XmlDocument",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlDocument"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8251,7 +8577,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8298,7 +8626,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8322,7 +8652,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateWrongOverload",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateWrongOverload"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8346,7 +8678,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8393,7 +8727,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8417,7 +8753,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8464,7 +8802,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8488,7 +8828,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8535,7 +8877,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8559,7 +8903,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8606,7 +8952,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8630,7 +8978,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "resolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "resolver"
+          },
           "properties": {
             "Category": "Microsoft.Usage",
             "FixCategory": "NonBreaking"
@@ -8654,7 +9004,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateInsecureXmlResolver"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8678,7 +9030,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8725,7 +9079,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8749,7 +9105,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8796,7 +9154,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8820,7 +9180,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8867,7 +9229,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8891,7 +9255,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateInsecureXmlResolver"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -8915,7 +9281,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -8962,7 +9330,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -8986,7 +9356,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateInsecureXmlResolver"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"
@@ -9010,7 +9382,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContribution": "NonExceptionEdge",
+          "toolFingerprintContributions": {
+            "UniqueId": "NonExceptionEdge"
+          },
           "properties": {
             "Category": "Microsoft.Reliability",
             "FixCategory": "DependsOnFix"
@@ -9057,7 +9431,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContribution": "reader",
+          "toolFingerprintContributions": {
+            "UniqueId": "reader"
+          },
           "properties": {
             "Category": "Microsoft.Performance",
             "FixCategory": "NonBreaking"
@@ -9081,7 +9457,9 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContribution": "XmlReaderCreateInsecureXmlResolver",
+          "toolFingerprintContributions": {
+            "UniqueId": "XmlReaderCreateInsecureXmlResolver"
+          },
           "properties": {
             "Category": "Microsoft.Security.Xml",
             "FixCategory": "NonBreaking"

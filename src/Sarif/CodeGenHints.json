@@ -256,6 +256,11 @@
       }
     }
   ],
+  "Result.ToolFingerprintContributions": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "Result.SuppressionStates": [
     {
       "kind": "EnumHint",

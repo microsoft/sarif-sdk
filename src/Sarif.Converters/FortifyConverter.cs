@@ -92,7 +92,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result();
             result.RuleId = fortify.Category;
-            result.ToolFingerprintContribution = fortify.InstanceId;
+
+            if (!string.IsNullOrWhiteSpace(fortify.InstanceId))
+            {
+                if (result.ToolFingerprintContributions == null)
+                {
+                    result.ToolFingerprintContributions = new Dictionary<string, string>();
+                }
+
+                if (result.ToolFingerprintContributions.ContainsKey("InstanceId"))
+                {
+                    result.ToolFingerprintContributions["InstanceId"] = fortify.InstanceId;
+                }
+                else
+                {
+                    result.ToolFingerprintContributions.Add("InstanceId", fortify.InstanceId);
+                }
+            }
+
             List<string> messageComponents = new List<string>();
             if (fortify.Abstract != null)
             {
