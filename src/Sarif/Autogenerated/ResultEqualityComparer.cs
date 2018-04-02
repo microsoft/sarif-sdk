@@ -89,9 +89,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ToolFingerprintContribution != right.ToolFingerprintContribution)
+            if (!object.ReferenceEquals(left.ToolFingerprintContributions, right.ToolFingerprintContributions))
             {
-                return false;
+                if (left.ToolFingerprintContributions == null || right.ToolFingerprintContributions == null || left.ToolFingerprintContributions.Count != right.ToolFingerprintContributions.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.ToolFingerprintContributions)
+                {
+                    string value_1;
+                    if (!right.ToolFingerprintContributions.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Stacks, right.Stacks))
@@ -216,15 +233,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_0 in left.Properties)
+                foreach (var value_2 in left.Properties)
                 {
-                    SerializedPropertyInfo value_1;
-                    if (!right.Properties.TryGetValue(value_0.Key, out value_1))
+                    SerializedPropertyInfo value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -272,12 +289,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Locations != null)
                 {
-                    foreach (var value_2 in obj.Locations)
+                    foreach (var value_4 in obj.Locations)
                     {
                         result = result * 31;
-                        if (value_2 != null)
+                        if (value_4 != null)
                         {
-                            result = (result * 31) + value_2.ValueGetHashCode();
+                            result = (result * 31) + value_4.ValueGetHashCode();
                         }
                     }
                 }
@@ -292,52 +309,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.ToolFingerprintContribution != null)
+                if (obj.ToolFingerprintContributions != null)
                 {
-                    result = (result * 31) + obj.ToolFingerprintContribution.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_5 in obj.ToolFingerprintContributions)
+                    {
+                        xor_0 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
+                        {
+                            xor_0 ^= value_5.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (obj.Stacks != null)
                 {
-                    foreach (var value_3 in obj.Stacks)
-                    {
-                        result = result * 31;
-                        if (value_3 != null)
-                        {
-                            result = (result * 31) + value_3.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.CodeFlows != null)
-                {
-                    foreach (var value_4 in obj.CodeFlows)
-                    {
-                        result = result * 31;
-                        if (value_4 != null)
-                        {
-                            result = (result * 31) + value_4.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.RelatedLocations != null)
-                {
-                    foreach (var value_5 in obj.RelatedLocations)
-                    {
-                        result = result * 31;
-                        if (value_5 != null)
-                        {
-                            result = (result * 31) + value_5.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                result = (result * 31) + obj.SuppressionStates.GetHashCode();
-                result = (result * 31) + obj.BaselineState.GetHashCode();
-                if (obj.ConversionProvenance != null)
-                {
-                    foreach (var value_6 in obj.ConversionProvenance)
+                    foreach (var value_6 in obj.Stacks)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -347,9 +337,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Fixes != null)
+                if (obj.CodeFlows != null)
                 {
-                    foreach (var value_7 in obj.Fixes)
+                    foreach (var value_7 in obj.CodeFlows)
                     {
                         result = result * 31;
                         if (value_7 != null)
@@ -359,20 +349,58 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.RelatedLocations != null)
+                {
+                    foreach (var value_8 in obj.RelatedLocations)
+                    {
+                        result = result * 31;
+                        if (value_8 != null)
+                        {
+                            result = (result * 31) + value_8.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                result = (result * 31) + obj.SuppressionStates.GetHashCode();
+                result = (result * 31) + obj.BaselineState.GetHashCode();
+                if (obj.ConversionProvenance != null)
+                {
+                    foreach (var value_9 in obj.ConversionProvenance)
+                    {
+                        result = result * 31;
+                        if (value_9 != null)
+                        {
+                            result = (result * 31) + value_9.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Fixes != null)
+                {
+                    foreach (var value_10 in obj.Fixes)
+                    {
+                        result = result * 31;
+                        if (value_10 != null)
+                        {
+                            result = (result * 31) + value_10.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_8 in obj.Properties)
+                    int xor_1 = 0;
+                    foreach (var value_11 in obj.Properties)
                     {
-                        xor_0 ^= value_8.Key.GetHashCode();
-                        if (value_8.Value != null)
+                        xor_1 ^= value_11.Key.GetHashCode();
+                        if (value_11.Value != null)
                         {
-                            xor_0 ^= value_8.Value.GetHashCode();
+                            xor_1 ^= value_11.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_0;
+                    result = (result * 31) + xor_1;
                 }
             }
 

@@ -153,7 +153,9 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -177,7 +179,9 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
             }
           ],
-          "toolFingerprintContribution": "Baz#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "Baz#Member"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",

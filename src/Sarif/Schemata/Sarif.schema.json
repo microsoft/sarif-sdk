@@ -912,9 +912,12 @@
           "type": "string"
         },
 
-        "toolFingerprintContribution": {
-          "description": "A string that contributes to the unique identity of the result.",
-          "type": "string"
+        "toolFingerprintContributions": {
+          "description": "A set of strings that contribute to the unique identity of the result.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "stacks": {

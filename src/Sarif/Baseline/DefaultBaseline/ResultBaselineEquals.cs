@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -31,8 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                // Finger print contributions should be the same.
-                if (x.ToolFingerprintContribution != y.ToolFingerprintContribution)
+                // Fingerprint contributions (values only, ignore keys) should be the same.
+                if (!ListComparisonHelpers.CompareListsAsSets(x.ToolFingerprintContributions?.Values?.ToList(), y.ToolFingerprintContributions?.Values?.ToList(), StringComparer.Ordinal))
                 {
                     return false;
                 }
@@ -62,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContribution.GetNullCheckedHashCode();
+                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContributions.GetNullCheckedHashCode();
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 

@@ -82,9 +82,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result();
 
             string uniqueId = context.GetUniqueId();
+
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprintContribution = uniqueId;
+                result.ToolFingerprintContributions = new Dictionary<string, string>();
+                result.ToolFingerprintContributions.Add("UniqueId", uniqueId);
             }
 
             string status = context.Status;
