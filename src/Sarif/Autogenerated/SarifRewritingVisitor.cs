@@ -270,6 +270,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.ToolNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
+                    {
+                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
+                    }
+                }
+
+                if (node.ConfigurationNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
+                    {
+                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
+                    }
+                }
+
                 node.Stdin = VisitNullChecked(node.Stdin);
                 node.Stdout = VisitNullChecked(node.Stdout);
                 node.Stderr = VisitNullChecked(node.Stderr);
@@ -442,22 +458,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
                     {
                         node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
-                    }
-                }
-
-                if (node.ToolNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
-                    {
-                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
-                    }
-                }
-
-                if (node.ConfigurationNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
-                    {
-                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
                     }
                 }
 

@@ -75,18 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// A list of runtime conditions detected by the tool in the course of the analysis.
-        /// </summary>
-        [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Notification> ToolNotifications { get; set; }
-
-        /// <summary>
-        /// A list of conditions detected by the tool that are relevant to the tool's configuration.
-        /// </summary>
-        [DataMember(Name = "configurationNotifications", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Notification> ConfigurationNotifications { get; set; }
-
-        /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
@@ -165,12 +153,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P: Results" /> property.
         /// </param>
-        /// <param name="toolNotifications">
-        /// An initialization value for the <see cref="P: ToolNotifications" /> property.
-        /// </param>
-        /// <param name="configurationNotifications">
-        /// An initialization value for the <see cref="P: ConfigurationNotifications" /> property.
-        /// </param>
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
@@ -195,9 +177,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, conversion, originalUriBaseIds, files, logicalLocations, results, toolNotifications, configurationNotifications, rules, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
+            Init(tool, invocation, conversion, originalUriBaseIds, files, logicalLocations, results, rules, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
         }
 
         /// <summary>
@@ -216,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.ToolNotifications, other.ConfigurationNotifications, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
+            Init(other.Tool, other.Invocation, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Rules, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -237,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, IDictionary<string, Rule> rules, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -291,48 +273,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Results = destination_0;
             }
 
-            if (toolNotifications != null)
-            {
-                var destination_1 = new List<Notification>();
-                foreach (var value_3 in toolNotifications)
-                {
-                    if (value_3 == null)
-                    {
-                        destination_1.Add(null);
-                    }
-                    else
-                    {
-                        destination_1.Add(new Notification(value_3));
-                    }
-                }
-
-                ToolNotifications = destination_1;
-            }
-
-            if (configurationNotifications != null)
-            {
-                var destination_2 = new List<Notification>();
-                foreach (var value_4 in configurationNotifications)
-                {
-                    if (value_4 == null)
-                    {
-                        destination_2.Add(null);
-                    }
-                    else
-                    {
-                        destination_2.Add(new Notification(value_4));
-                    }
-                }
-
-                ConfigurationNotifications = destination_2;
-            }
-
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>();
-                foreach (var value_5 in rules)
+                foreach (var value_3 in rules)
                 {
-                    Rules.Add(value_5.Key, new Rule(value_5.Value));
+                    Rules.Add(value_3.Key, new Rule(value_3.Value));
                 }
             }
 
