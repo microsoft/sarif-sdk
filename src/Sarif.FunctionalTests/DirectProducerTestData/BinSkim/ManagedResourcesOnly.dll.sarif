@@ -352,17 +352,6 @@
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
-          },
-          "message": "Analyzing 'ManagedResourcesOnly.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:20.600Z"
-        }
-      ],
       "rules": {
         "BA2006": {
           "id": "BA2006",
@@ -640,6 +629,17 @@
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\ManagedResourcesOnly.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\ManagedResourcesOnly.dll.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:20.425Z",
         "endTime": "2016-05-20T17:13:20.738Z",
+        "toolNotifications": [
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
+            },
+            "message": "Analyzing 'ManagedResourcesOnly.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:20.600Z"
+          }
+        ],
         "processId": 37244,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"
