@@ -125,13 +125,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];
         }
 
-        public static void AddOrUpdateDictionaryEntry<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TKey key, TValue val)
+        public static void AddOrUpdateDictionaryEntry<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue val)
         {
-            if (dictionary == null)
-            {
-                dictionary = new Dictionary<TKey, TValue>();
-            }
-
             if (dictionary.ContainsKey(key))
             {
                 dictionary[key] = val;
