@@ -85,8 +85,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprintContributions = new Dictionary<string, string>();
-                result.ToolFingerprintContributions.Add("UniqueId", uniqueId);
+                if (result.ToolFingerprintContributions == null)
+                {
+                    result.ToolFingerprintContributions = new Dictionary<string, string>();
+                }
+
+                if (result.ToolFingerprintContributions.ContainsKey("UniqueId"))
+                {
+                    result.ToolFingerprintContributions["UniqueId"] = uniqueId;
+                }
+                else
+                {
+                    result.ToolFingerprintContributions.Add("UniqueId", uniqueId);
+                }
             }
 
             string status = context.Status;

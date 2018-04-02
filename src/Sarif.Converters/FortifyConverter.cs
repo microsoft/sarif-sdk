@@ -95,8 +95,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrWhiteSpace(fortify.InstanceId))
             {
-                result.ToolFingerprintContributions = new Dictionary<string, string>();
-                result.ToolFingerprintContributions.Add("InstanceId", fortify.InstanceId);
+                if (result.ToolFingerprintContributions == null)
+                {
+                    result.ToolFingerprintContributions = new Dictionary<string, string>();
+                }
+
+                if (result.ToolFingerprintContributions.ContainsKey("InstanceId"))
+                {
+                    result.ToolFingerprintContributions["InstanceId"] = fortify.InstanceId;
+                }
+                else
+                {
+                    result.ToolFingerprintContributions.Add("InstanceId", fortify.InstanceId);
+                }
             }
 
             List<string> messageComponents = new List<string>();
