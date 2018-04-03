@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'data'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
                 "region": {
                   "startLine": 13,
@@ -129,7 +129,7 @@
           "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
                 "region": {
                   "startLine": 13,
@@ -230,7 +230,7 @@
           "message": "Dereferencing NULL pointer 'c'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
                 "region": {
                   "startLine": 32,

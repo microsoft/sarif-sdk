@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'source'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_functionandinannotations.cpp",
                 "region": {
                   "startLine": 10,

@@ -33,7 +33,7 @@
           "message": "Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
                 "region": {
                   "startLine": 26,
@@ -53,7 +53,7 @@
           "message": "Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
                 "region": {
                   "startLine": 26,

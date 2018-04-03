@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'p[10]'\nBuffer p is a parameter to this function declared on line 55\nBuffer is of length offset(p)`55 + 40 bytes [from annotation SAL_writableTo(elementCount(_Old_(10))) at c:\\somepath\\test040.cpp(55)] OR\n  offset(p)`55 + 4*length`55 bytes [from annotation SAL_readableTo(elementCount(_Old_({parameter 2}))) at c:\\somepath\\test040.cpp(23) on function Assume called at line 57]\nAccessing 4 bytes starting at byte offset 40\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(p)`55 == 0\nlength`55 >= 0\n\nThere are other instances of this error:\nPotential overflow using expression 'p' at line 57\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test040.cpp",
                 "region": {
                   "startLine": 58,
@@ -74,7 +74,7 @@
           "message": "Overflow of null terminated buffer using expression 's[size]'\nBuffer s is a parameter to this function declared on line 61\nBuffer is of length nullpos(s)`66 + 1 bytes [length of zero terminated string] OR\n  offset(s)`61 + size`61 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test040.cpp(61)]\nAccessing the byte at byte offset size`61\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nsize = size`61\n\nwhere\noffset(s)`61 == 0\nsize`61 >= 1\nsize`61 >= nullpos(s)`66 + 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test040.cpp",
                 "region": {
                   "startLine": 67,

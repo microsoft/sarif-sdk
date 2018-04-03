@@ -41,7 +41,7 @@
           "message": "Constructor is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -61,7 +61,7 @@
           "message": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {

@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'simpleVar'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                 "region": {
                   "startLine": 16,
@@ -111,7 +111,7 @@
           "message": "Using uninitialized memory 'simpleVar'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                 "region": {
                   "startLine": 28,
@@ -189,7 +189,7 @@
           "message": "Using uninitialized memory 'simpleVar'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
                 "region": {
                   "startLine": 40,

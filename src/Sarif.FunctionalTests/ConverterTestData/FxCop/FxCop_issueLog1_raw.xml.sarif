@@ -965,7 +965,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 14
@@ -988,7 +988,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 26
@@ -1011,7 +1011,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 16
@@ -1037,7 +1037,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 17
@@ -1063,7 +1063,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 26
@@ -1089,7 +1089,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 41
@@ -1112,7 +1112,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 29
@@ -1138,7 +1138,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 37
@@ -1204,7 +1204,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 69
@@ -1228,7 +1228,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 73
@@ -1252,7 +1252,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 58
@@ -1278,7 +1278,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 58
@@ -1304,7 +1304,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 58
@@ -1330,7 +1330,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 58
@@ -1356,7 +1356,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 58
@@ -1383,7 +1383,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1409,7 +1409,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1435,7 +1435,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1461,7 +1461,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1487,7 +1487,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1513,7 +1513,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 92
@@ -1540,7 +1540,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 47
@@ -1566,7 +1566,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DSACannotBeUsed.cs",
                 "region": {
                   "startLine": 43
@@ -1612,7 +1612,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 35
@@ -1635,7 +1635,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 14
@@ -1658,7 +1658,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 20
@@ -1684,7 +1684,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 30
@@ -1710,7 +1710,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 26
@@ -1736,7 +1736,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 22
@@ -1762,7 +1762,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 16
@@ -1785,7 +1785,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 14
@@ -1811,7 +1811,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/MD5CannotBeUsed.cs",
                 "region": {
                   "startLine": 57
@@ -1854,7 +1854,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 48
@@ -1881,7 +1881,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 48
@@ -1908,7 +1908,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 48
@@ -1934,7 +1934,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 49
@@ -1960,7 +1960,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 50
@@ -1986,7 +1986,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 39
@@ -2013,7 +2013,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 39
@@ -2040,7 +2040,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 39
@@ -2066,7 +2066,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 41
@@ -2092,7 +2092,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 18
@@ -2118,7 +2118,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 31
@@ -2144,7 +2144,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 34
@@ -2170,7 +2170,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 18
@@ -2193,7 +2193,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RC2CannotBeUsed.cs",
                 "region": {
                   "startLine": 24
@@ -2253,7 +2253,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 117
@@ -2276,7 +2276,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 117
@@ -2299,7 +2299,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 97
@@ -2323,7 +2323,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 73
@@ -2346,7 +2346,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 73
@@ -2369,7 +2369,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 53
@@ -2393,7 +2393,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 37
@@ -2419,7 +2419,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 31
@@ -2445,7 +2445,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 32
@@ -2471,7 +2471,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 35
@@ -2495,7 +2495,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RijndaelCannotBeUsed.cs",
                 "region": {
                   "startLine": 22
@@ -2559,7 +2559,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 25
@@ -2585,7 +2585,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 37
@@ -2611,7 +2611,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 51
@@ -2637,7 +2637,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 47
@@ -2663,7 +2663,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 25
@@ -2687,7 +2687,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 16
@@ -2713,7 +2713,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RIPEMD160IsNotRecommended.cs",
                 "region": {
                   "startLine": 62
@@ -2819,7 +2819,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 13
@@ -2842,7 +2842,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 47
@@ -2868,7 +2868,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 40
@@ -2894,7 +2894,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 83
@@ -2920,7 +2920,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 83
@@ -2946,7 +2946,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 83
@@ -2972,7 +2972,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 83
@@ -2998,7 +2998,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 83
@@ -3024,7 +3024,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 53
@@ -3050,7 +3050,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 53
@@ -3076,7 +3076,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 53
@@ -3102,7 +3102,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 53
@@ -3128,7 +3128,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/RSAProviderNeeds2048bitKey.cs",
                 "region": {
                   "startLine": 53
@@ -3174,7 +3174,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/SHA1CannotBeUsed.cs",
                 "region": {
                   "startLine": 17
@@ -3200,7 +3200,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/SHA1CannotBeUsed.cs",
                 "region": {
                   "startLine": 13
@@ -3223,7 +3223,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/SHA1CannotBeUsed.cs",
                 "region": {
                   "startLine": 19
@@ -3249,7 +3249,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/SHA1CannotBeUsed.cs",
                 "region": {
                   "startLine": 17
@@ -3312,7 +3312,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 119
@@ -3335,7 +3335,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 119
@@ -3358,7 +3358,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 99
@@ -3382,7 +3382,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 75
@@ -3405,7 +3405,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 75
@@ -3428,7 +3428,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 55
@@ -3452,7 +3452,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 39
@@ -3478,7 +3478,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 32
@@ -3504,7 +3504,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 33
@@ -3530,7 +3530,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 37
@@ -3554,7 +3554,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/TripleDESCannotBeUsed.cs",
                 "region": {
                   "startLine": 23
@@ -3595,7 +3595,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 23
@@ -3621,7 +3621,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 21
@@ -3644,7 +3644,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 23
@@ -3670,7 +3670,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 23
@@ -3696,7 +3696,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 15
@@ -3722,7 +3722,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 17
@@ -3745,7 +3745,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 13
@@ -3768,7 +3768,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 17
@@ -3791,7 +3791,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 15
@@ -3817,7 +3817,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 29
@@ -3843,7 +3843,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 27
@@ -3866,7 +3866,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 29
@@ -3892,7 +3892,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 37
@@ -3918,7 +3918,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 35
@@ -3941,7 +3941,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 37
@@ -3967,7 +3967,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 45
@@ -3993,7 +3993,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 43
@@ -4016,7 +4016,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 49
@@ -4039,7 +4039,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlReader.cs",
                 "region": {
                   "startLine": 45
@@ -4065,7 +4065,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 23
@@ -4091,7 +4091,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 21
@@ -4114,7 +4114,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 17
@@ -4140,7 +4140,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 17
@@ -4163,7 +4163,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 15
@@ -4186,7 +4186,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 17
@@ -4212,7 +4212,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 30
@@ -4238,7 +4238,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 28
@@ -4261,7 +4261,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 37
@@ -4287,7 +4287,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 35
@@ -4310,7 +4310,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 44
@@ -4336,7 +4336,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 42
@@ -4359,7 +4359,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 51
@@ -4385,7 +4385,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 51
@@ -4408,7 +4408,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 49
@@ -4431,7 +4431,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 62
@@ -4457,7 +4457,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 60
@@ -4480,7 +4480,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 78
@@ -4506,7 +4506,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 75
@@ -4533,7 +4533,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 75
@@ -4556,7 +4556,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAllowDtdOnXmlTextReader.cs",
                 "region": {
                   "startLine": 77
@@ -4582,7 +4582,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 17
@@ -4605,7 +4605,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 13
@@ -4628,7 +4628,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 14
@@ -4654,7 +4654,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 25
@@ -4677,7 +4677,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 21
@@ -4700,7 +4700,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseLoadXml.cs",
                 "region": {
                   "startLine": 22
@@ -4726,7 +4726,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 17
@@ -4749,7 +4749,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 13
@@ -4772,7 +4772,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 14
@@ -4798,7 +4798,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 23
@@ -4821,7 +4821,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 21
@@ -4844,7 +4844,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 23
@@ -4870,7 +4870,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 23
@@ -4896,7 +4896,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 34
@@ -4919,7 +4919,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 30
@@ -4942,7 +4942,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 31
@@ -4968,7 +4968,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 40
@@ -4991,7 +4991,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 38
@@ -5014,7 +5014,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 40
@@ -5040,7 +5040,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseSetInnerXml.cs",
                 "region": {
                   "startLine": 40
@@ -5066,7 +5066,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotUseXslTransform.cs",
                 "region": {
                   "startLine": 17
@@ -5107,7 +5107,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewClassesDerivedFromXmlTextReader.cs",
                 "region": {
                   "startLine": 19
@@ -5133,7 +5133,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewClassesDerivedFromXmlTextReader.cs",
                 "region": {
                   "startLine": 19
@@ -5156,7 +5156,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewClassesDerivedFromXmlTextReader.cs",
                 "region": {
                   "startLine": 18
@@ -5179,7 +5179,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewClassesDerivedFromXmlTextReader.cs",
                 "region": {
                   "startLine": 19
@@ -5202,7 +5202,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 14
@@ -5228,7 +5228,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 15
@@ -5254,7 +5254,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 13
@@ -5281,7 +5281,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 13
@@ -5304,7 +5304,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 18
@@ -5327,7 +5327,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 21
@@ -5350,7 +5350,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDataViewConnectionString.cs",
                 "region": {
                   "startLine": 14
@@ -5373,7 +5373,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 21
@@ -5399,7 +5399,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 19
@@ -5422,7 +5422,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 21
@@ -5448,7 +5448,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 21
@@ -5474,7 +5474,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 13
@@ -5497,7 +5497,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 15
@@ -5520,7 +5520,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewDtdProcessingAssignment.cs",
                 "region": {
                   "startLine": 15
@@ -5546,7 +5546,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewTrustedXsltUse.cs",
                 "region": {
                   "startLine": 13
@@ -5569,7 +5569,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewTrustedXsltUse.cs",
                 "region": {
                   "startLine": 15
@@ -5595,7 +5595,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewTrustedXsltUse.cs",
                 "region": {
                   "startLine": 15
@@ -5639,7 +5639,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_Data.cs",
                 "region": {
                   "startLine": 15
@@ -5665,7 +5665,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_Data.cs",
                 "region": {
                   "startLine": 13
@@ -5688,7 +5688,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_Data.cs",
                 "region": {
                   "startLine": 17
@@ -5731,7 +5731,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_DocumentContent.cs",
                 "region": {
                   "startLine": 14
@@ -5757,7 +5757,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_DocumentContent.cs",
                 "region": {
                   "startLine": 12
@@ -5780,7 +5780,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/ReviewWebControlForSet_DocumentContent.cs",
                 "region": {
                   "startLine": 16
@@ -5824,7 +5824,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/TextReaderImplNeedsSettingsAndResolver.cs",
                 "region": {
                   "startLine": 13
@@ -5847,7 +5847,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/TextReaderImplNeedsSettingsAndResolver.cs",
                 "region": {
                   "startLine": 13
@@ -5873,7 +5873,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 15
@@ -5899,7 +5899,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 14
@@ -5922,7 +5922,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 15
@@ -5945,7 +5945,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 18
@@ -5968,7 +5968,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 23
@@ -5994,7 +5994,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 22
@@ -6017,7 +6017,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXml.cs",
                 "region": {
                   "startLine": 23
@@ -6040,7 +6040,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 15
@@ -6066,7 +6066,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 14
@@ -6089,7 +6089,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 15
@@ -6112,7 +6112,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 18
@@ -6135,7 +6135,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 23
@@ -6161,7 +6161,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 22
@@ -6184,7 +6184,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataSetReadXmlSchema.cs",
                 "region": {
                   "startLine": 23
@@ -6207,7 +6207,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 16
@@ -6233,7 +6233,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 15
@@ -6256,7 +6256,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 16
@@ -6279,7 +6279,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 19
@@ -6302,7 +6302,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 24
@@ -6328,7 +6328,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 23
@@ -6351,7 +6351,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXml.cs",
                 "region": {
                   "startLine": 24
@@ -6374,7 +6374,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 16
@@ -6400,7 +6400,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 15
@@ -6423,7 +6423,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 16
@@ -6446,7 +6446,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 19
@@ -6469,7 +6469,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 24
@@ -6495,7 +6495,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 23
@@ -6518,7 +6518,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDataTableReadXmlSchema.cs",
                 "region": {
                   "startLine": 24
@@ -6541,7 +6541,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDeserialize.cs",
                 "region": {
                   "startLine": 15
@@ -6564,7 +6564,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDeserialize.cs",
                 "region": {
                   "startLine": 18
@@ -6587,7 +6587,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDeserialize.cs",
                 "region": {
                   "startLine": 22
@@ -6610,7 +6610,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForDeserialize.cs",
                 "region": {
                   "startLine": 22
@@ -6633,7 +6633,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 13
@@ -6656,7 +6656,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 17
@@ -6679,7 +6679,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 14
@@ -6705,7 +6705,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 21
@@ -6728,7 +6728,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 25
@@ -6751,7 +6751,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 22
@@ -6777,7 +6777,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 33
@@ -6803,7 +6803,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 33
@@ -6826,7 +6826,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 29
@@ -6849,7 +6849,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 30
@@ -6875,7 +6875,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 41
@@ -6901,7 +6901,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 41
@@ -6924,7 +6924,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 37
@@ -6947,7 +6947,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForLoad.cs",
                 "region": {
                   "startLine": 38
@@ -6973,7 +6973,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 16
@@ -6999,7 +6999,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 15
@@ -7022,7 +7022,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 19
@@ -7048,7 +7048,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 19
@@ -7071,7 +7071,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 23
@@ -7094,7 +7094,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 23
@@ -7117,7 +7117,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForSchemaRead.cs",
                 "region": {
                   "startLine": 25
@@ -7143,7 +7143,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 14
@@ -7166,7 +7166,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 16
@@ -7192,7 +7192,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 16
@@ -7215,7 +7215,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 21
@@ -7241,7 +7241,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 20
@@ -7264,7 +7264,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForValidatingReader.cs",
                 "region": {
                   "startLine": 21
@@ -7290,7 +7290,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForXPathDocument.cs",
                 "region": {
                   "startLine": 14
@@ -7313,7 +7313,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForXPathDocument.cs",
                 "region": {
                   "startLine": 16
@@ -7339,7 +7339,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForXPathDocument.cs",
                 "region": {
                   "startLine": 16
@@ -7362,7 +7362,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForXPathDocument.cs",
                 "region": {
                   "startLine": 20
@@ -7385,7 +7385,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlReaderForXPathDocument.cs",
                 "region": {
                   "startLine": 22
@@ -7428,7 +7428,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 17
@@ -7451,7 +7451,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 21
@@ -7477,7 +7477,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 25
@@ -7500,7 +7500,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 28
@@ -7524,7 +7524,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 36
@@ -7547,7 +7547,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 46
@@ -7570,7 +7570,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 57
@@ -7593,7 +7593,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 64
@@ -7619,7 +7619,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 68
@@ -7642,7 +7642,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 71
@@ -7666,7 +7666,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 310
@@ -7689,7 +7689,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 319
@@ -7712,7 +7712,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 333
@@ -7738,7 +7738,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 333
@@ -7764,7 +7764,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 333
@@ -7787,7 +7787,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 328
@@ -7810,7 +7810,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 87
@@ -7836,7 +7836,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 87
@@ -7862,7 +7862,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 87
@@ -7885,7 +7885,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 83
@@ -7908,7 +7908,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 95
@@ -7934,7 +7934,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 95
@@ -7960,7 +7960,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 95
@@ -7983,7 +7983,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 91
@@ -8006,7 +8006,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 95
@@ -8032,7 +8032,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 104
@@ -8058,7 +8058,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 104
@@ -8084,7 +8084,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 104
@@ -8107,7 +8107,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 100
@@ -8130,7 +8130,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 108
@@ -8153,7 +8153,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 112
@@ -8179,7 +8179,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 120
@@ -8205,7 +8205,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 116
@@ -8228,7 +8228,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 120
@@ -8254,7 +8254,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 226
@@ -8277,7 +8277,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 228
@@ -8303,7 +8303,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 228
@@ -8329,7 +8329,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 232
@@ -8352,7 +8352,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 239
@@ -8375,7 +8375,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 241
@@ -8401,7 +8401,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 246
@@ -8424,7 +8424,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 253
@@ -8447,7 +8447,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 267
@@ -8470,7 +8470,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 269
@@ -8496,7 +8496,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 278
@@ -8519,7 +8519,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 289
@@ -8542,7 +8542,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 292
@@ -8568,7 +8568,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 130
@@ -8594,7 +8594,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 128
@@ -8617,7 +8617,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 130
@@ -8643,7 +8643,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 130
@@ -8669,7 +8669,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 212
@@ -8695,7 +8695,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 206
@@ -8718,7 +8718,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 212
@@ -8744,7 +8744,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 138
@@ -8770,7 +8770,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 134
@@ -8793,7 +8793,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 138
@@ -8819,7 +8819,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 146
@@ -8845,7 +8845,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 142
@@ -8868,7 +8868,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 146
@@ -8894,7 +8894,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 154
@@ -8920,7 +8920,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 150
@@ -8943,7 +8943,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 154
@@ -8969,7 +8969,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 150
@@ -8995,7 +8995,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 154
@@ -9021,7 +9021,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 168
@@ -9047,7 +9047,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 158
@@ -9070,7 +9070,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 168
@@ -9096,7 +9096,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 177
@@ -9122,7 +9122,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 172
@@ -9145,7 +9145,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 177
@@ -9171,7 +9171,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 186
@@ -9197,7 +9197,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 181
@@ -9220,7 +9220,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 186
@@ -9246,7 +9246,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 186
@@ -9272,7 +9272,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 196
@@ -9298,7 +9298,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 190
@@ -9321,7 +9321,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 196
@@ -9347,7 +9347,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 196
@@ -9373,7 +9373,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 202
@@ -9399,7 +9399,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 200
@@ -9422,7 +9422,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 202
@@ -9448,7 +9448,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/UseXmlSecureResolver.cs",
                 "region": {
                   "startLine": 202
@@ -9474,7 +9474,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAddStringsToXmlSchema.cs",
                 "region": {
                   "startLine": 17
@@ -9497,7 +9497,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAddStringsToXmlSchema.cs",
                 "region": {
                   "startLine": 13
@@ -9520,7 +9520,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/MSECTools/SecDevMain/src/Shared/OneMicrosoftStaticAnalysisResults/Sarif.Test.Functional/SarifConverterTestData/FxCop/src/SecurityXmlRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/MSECTools/SecDevMain/src/FxCop/Source/FxCopTestData/SecurityXmlRuleTests/DoNotAddStringsToXmlSchema.cs",
                 "region": {
                   "startLine": 21

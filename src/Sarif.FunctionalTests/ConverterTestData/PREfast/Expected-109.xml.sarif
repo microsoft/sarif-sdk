@@ -18,7 +18,7 @@
           "message": "Potential overflow using expression 'hpclrt->rgcv[icv]'\nBuffer accessed is _clrt::rgcv\nBuffer is of length 64 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset icv`21\n\nValues of variables:\nPointer hpclrt is at offset 0 bytes from the start of hpclrt\nicv = icv`21\n\nwhere\nicv`21 >= 0\n\nOverrun access occurs when\nicv`21 >= 64\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test109.cpp",
                 "region": {
                   "startLine": 26,

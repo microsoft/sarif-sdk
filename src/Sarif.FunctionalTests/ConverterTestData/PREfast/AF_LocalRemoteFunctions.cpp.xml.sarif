@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'p'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
                 "region": {
                   "startLine": 13,

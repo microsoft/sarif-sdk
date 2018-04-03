@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'a[result.question.3]'\nBuffer accessed is a\nBuffer is of length 100 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset anIndex`8\n\nValues of variables:\nresult.question.3 = anIndex`8\n\nwhere\nanIndex`8 <= 127\nanIndex`8 >= 100\n\nThere are other instances of this error:\nOverflow using expression 'a[result.question.4]' at line 14\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test013.cpp",
                 "region": {
                   "startLine": 13,
@@ -134,7 +134,7 @@
           "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* x'\nBuffer x is a parameter to this function declared on line 24\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(x)`24 + 4 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test013.cpp(24)]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer x is at offset 4 bytes from the start of the buffer\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 31\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test013.cpp",
                 "region": {
                   "startLine": 29,
@@ -250,7 +250,7 @@
           "message": "Writing to buffer 'result.unannotatedMalloc'34' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'g[2]'\nBuffer result.unannotatedMalloc created during call to unannotatedMalloc on line 34\nBuffer is of length 0 bytes [assumed because the buffer is unannotated]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer g is at offset 0 bytes from the start of the buffer\n\nOverrun access occurs when\noffset(result.unannotatedMalloc)`34 == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test013.cpp",
                 "region": {
                   "startLine": 37,

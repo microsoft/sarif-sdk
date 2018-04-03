@@ -17,7 +17,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 41
@@ -39,7 +39,7 @@
           "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 44
@@ -61,7 +61,7 @@
           "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 34
@@ -83,7 +83,7 @@
           "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 46
@@ -105,7 +105,7 @@
           "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 45
@@ -127,7 +127,7 @@
           "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 45
@@ -149,7 +149,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 29
@@ -171,7 +171,7 @@
           "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 33
@@ -193,7 +193,7 @@
           "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 47
@@ -215,7 +215,7 @@
           "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 31
@@ -237,7 +237,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 28
@@ -259,7 +259,7 @@
           "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 31
@@ -281,7 +281,7 @@
           "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 33
@@ -303,7 +303,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 28
@@ -325,7 +325,7 @@
           "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 43
@@ -347,7 +347,7 @@
           "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 34
@@ -369,7 +369,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 41
@@ -391,7 +391,7 @@
           "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 32
@@ -413,7 +413,7 @@
           "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 44
@@ -435,7 +435,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 42
@@ -457,7 +457,7 @@
           "message": "The random number generator implemented by random() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 20
@@ -479,7 +479,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 42
@@ -501,7 +501,7 @@
           "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 29
@@ -523,7 +523,7 @@
           "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 47
@@ -545,7 +545,7 @@
           "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 32
@@ -567,7 +567,7 @@
           "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 43
@@ -589,7 +589,7 @@
           "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 13
@@ -611,7 +611,7 @@
           "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 46
@@ -633,7 +633,7 @@
           "message": "Random.setSeed should not be called with a constant integer argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 27
@@ -655,7 +655,7 @@
           "message": "Random.setSeed should not be called with a constant integer argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 9
@@ -677,7 +677,7 @@
           "message": "Random.setSeed should not be called with a constant integer argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 40
@@ -699,7 +699,7 @@
           "message": "Random.setSeed should not be called with a constant integer argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 26
@@ -721,7 +721,7 @@
           "message": "Random.setSeed should not be called with a constant integer argument.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.java",
                 "region": {
                   "startLine": 39

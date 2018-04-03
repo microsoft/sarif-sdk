@@ -33,7 +33,7 @@
           "message": "The prior call to 'DoesNotZ' might not zero-terminate string 'x'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp",
                 "region": {
                   "startLine": 13,
@@ -111,7 +111,7 @@
           "message": "String 'a' might not be zero-terminated.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp",
                 "region": {
                   "startLine": 21,

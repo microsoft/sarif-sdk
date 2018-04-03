@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines a Isr routine.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/IsrRoutine.slic",
                 "region": {
                   "startLine": 34

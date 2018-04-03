@@ -163,7 +163,7 @@
           "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -179,7 +179,7 @@
           "message": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER]: Missing synchronization.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -208,7 +208,7 @@
           "message": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER]: Missing synchronization.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -237,7 +237,7 @@
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -253,7 +253,7 @@
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -269,7 +269,7 @@
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -285,7 +285,7 @@
           "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -301,7 +301,7 @@
           "message": "Variable [reader] may be null here.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -330,7 +330,7 @@
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -346,7 +346,7 @@
           "message": "Exceptions should not be dropped.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -363,7 +363,7 @@
           "message": "This BOMInputStream is not always closed on method exit.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -380,7 +380,7 @@
           "message": "This BOMInputStream is not always closed on method exit.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -397,7 +397,7 @@
           "message": "Method doCopyFile ignores exceptional return value of File.setLastModified.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -414,7 +414,7 @@
           "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -430,7 +430,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -446,7 +446,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -462,7 +462,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -478,7 +478,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -494,7 +494,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -510,7 +510,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -526,7 +526,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -542,7 +542,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -558,7 +558,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -574,7 +574,7 @@
           "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -591,7 +591,7 @@
           "message": "toUpperCase without locale parameter.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -608,7 +608,7 @@
           "message": "toUpperCase without locale parameter.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -625,7 +625,7 @@
           "message": "toUpperCase without locale parameter.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -642,7 +642,7 @@
           "message": "This type and type [IOUtils] are mutually dependent.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -672,7 +672,7 @@
           "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -702,7 +702,7 @@
           "message": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -732,7 +732,7 @@
           "message": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -762,7 +762,7 @@
           "message": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -792,7 +792,7 @@
           "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -822,7 +822,7 @@
           "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -852,7 +852,7 @@
           "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -882,7 +882,7 @@
           "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -912,7 +912,7 @@
           "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -942,7 +942,7 @@
           "message": "Method mark is duplicated in [org.apache.commons.io.input.NullReader].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -972,7 +972,7 @@
           "message": "83% of the statements in read are duplicated in [NullInputStream.read()].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1002,7 +1002,7 @@
           "message": "83% of the statements in read are duplicated in [NullReader.read()].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1032,7 +1032,7 @@
           "message": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {}
@@ -1054,7 +1054,7 @@
           "message": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {}
@@ -1076,7 +1076,7 @@
           "message": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream].",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {}
@@ -1098,7 +1098,7 @@
           "message": "Inefficient comparison to empty string, check for zero length instead.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1115,7 +1115,7 @@
           "message": "This empty statement should be deleted.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1131,7 +1131,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1148,7 +1148,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1165,7 +1165,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1182,7 +1182,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1199,7 +1199,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1216,7 +1216,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1233,7 +1233,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1250,7 +1250,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1267,7 +1267,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1284,7 +1284,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1301,7 +1301,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1318,7 +1318,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1335,7 +1335,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1352,7 +1352,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1369,7 +1369,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1386,7 +1386,7 @@
           "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1403,7 +1403,7 @@
           "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\".",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1419,7 +1419,7 @@
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1436,7 +1436,7 @@
           "message": "The body of a loop should not be empty. Typographical error or missing code?",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1454,7 +1454,7 @@
           "message": "TODO/FIXME comment.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1471,7 +1471,7 @@
           "message": "TODO/FIXME comment.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1488,7 +1488,7 @@
           "message": "TODO/FIXME comment.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1505,7 +1505,7 @@
           "message": "TODO/FIXME comment.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1522,7 +1522,7 @@
           "message": "TODO/FIXME comment.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1538,7 +1538,7 @@
           "message": "This comment appears to contain commented-out code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1556,7 +1556,7 @@
           "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1586,7 +1586,7 @@
           "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1616,7 +1616,7 @@
           "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1646,7 +1646,7 @@
           "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1676,7 +1676,7 @@
           "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1706,7 +1706,7 @@
           "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter], since dispatch depends on static types.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1735,7 +1735,7 @@
           "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1751,7 +1751,7 @@
           "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1767,7 +1767,7 @@
           "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
                 "uriBaseId": "$srcroot",
                 "region": {
@@ -1783,7 +1783,7 @@
           "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
                 "uriBaseId": "$srcroot",
                 "region": {}

@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'pOut->m_string[100]'\nBuffer accessed is MyStructA::m_string\nBuffer is of length 100 bytes [size of field]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer pOut is at offset 0 bytes from the start of pOut\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test137.cpp",
                 "region": {
                   "startLine": 49,
@@ -84,7 +84,7 @@
           "message": "Overflow using expression 'pOut->m_string[100]'\nBuffer accessed is MyStructW::m_string\nBuffer is of length 100 elements (2 bytes/element) [size of field]\nAccessing the element (2 bytes/element) at element offset 100\n\nValues of variables:\nPointer pOut is at offset 0 bytes from the start of pOut\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test137.cpp",
                 "region": {
                   "startLine": 58,

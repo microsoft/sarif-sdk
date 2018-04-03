@@ -33,7 +33,7 @@
           "message": "<code>for</code> loop replaceable with 'foreach' #loc",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {

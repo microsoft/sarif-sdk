@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'source'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
                 "region": {
                   "startLine": 7,

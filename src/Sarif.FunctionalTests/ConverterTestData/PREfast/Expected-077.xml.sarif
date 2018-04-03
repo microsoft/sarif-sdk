@@ -18,7 +18,7 @@
           "message": "Underflow using expression '* NextChar'\nBuffer FileName is a parameter to this function declared on line 6\nBuffer is of length offset(FileName)`6 + 64 bytes [from annotation SAL_writableTo(elementCount(32)) at c:\\somepath\\test077.cpp(6)]\nAccessing 2 bytes starting at byte offset delta_offset(NextChar)`22 - 2\n\nValues of variables:\nPointer NextChar is at offset delta_offset(NextChar)`22 - 2 bytes from the start of the buffer\n\nwhere\nIndexBase`22 == 0\noffset(FileName)`6 == 0\n{loop iterations}'34 == 6\n{loop iterations}'34(1) == 6\n{loop iterations}'34(2) == 6\n{loop iterations}'34(3) == 0\ndelta_offset(NextChar)`22 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test077.cpp",
                 "region": {
                   "startLine": 37,
@@ -844,7 +844,7 @@
           "message": "Potential overflow using expression '* (p ++)'\nBuffer accessed is s\nBuffer is of length 336 bytes [size of variable]\nAccessing the byte at byte offset delta_offset(p)`51 + 48\n\nValues of variables:\nPointer p is at offset delta_offset(p)`51 + 49 bytes from the start of the buffer\n\nwhere\n{loop iterations}'53 == 22\n{loop iterations}'53(2) == 0\n(*_espx_post_rval_p)`53 <= 24\ndelta_offset(p)`51 >= 0\n\nOverrun access occurs when\ndelta_offset(p)`51 >= 288\n\nThere are other instances of this error:\nPotential overflow using expression '* (p ++)' at line 56\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test077.cpp",
                 "region": {
                   "startLine": 55,
@@ -1320,7 +1320,7 @@
           "message": "Accessing buffer 'result.returnchar'93' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* (s ++)'\nBuffer result.returnchar created during call to returnchar on line 93\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer s is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(result.returnchar)`93 == 0\n{loop iterations}'94 == 0\n\nOverrun access occurs when\n\nThere are other instances of this error:\nWriting to buffer 'result.returnchar'93' of unspecified length.  Please annotate. at line 95\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test077.cpp",
                 "region": {
                   "startLine": 94,

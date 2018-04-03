@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'buf[n + 2]'\nBuffer accessed is buf\nBuffer is of length 4 bytes [size of variable]\nAccessing the byte at byte offset 5\n\nValues of variables:\nn = 3\n\nwhere\nnullpos(\"abc\")`17 == 3\nresult.MyStrLen`17a == 3\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test132.cpp",
                 "region": {
                   "startLine": 18,
@@ -104,7 +104,7 @@
           "message": "Overflow using expression 'buf[n + 2]'\nBuffer accessed is buf\nBuffer is of length 4 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset 5\n\nValues of variables:\nn = 3\n\nwhere\nnullpos(L\"abc\")`48 == 3\nresult.MyWcsLen`48a == 3\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test132.cpp",
                 "region": {
                   "startLine": 49,
@@ -190,7 +190,7 @@
           "message": "Overflow using expression 'wBuf[200]'\nBuffer accessed is wBuf\nBuffer is of length 100 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset 200\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test132.cpp",
                 "region": {
                   "startLine": 112,

@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines a dispatch routine.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/DispatchRoutine.slic",
                 "region": {
                   "startLine": 34

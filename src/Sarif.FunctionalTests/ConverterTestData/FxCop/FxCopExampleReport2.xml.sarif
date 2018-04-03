@@ -120,7 +120,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 14

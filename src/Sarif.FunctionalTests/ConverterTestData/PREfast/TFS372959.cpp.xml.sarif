@@ -33,7 +33,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 15,
@@ -118,7 +118,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 27,
@@ -203,7 +203,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 39,
@@ -288,7 +288,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 51,
@@ -373,7 +373,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 63,
@@ -463,7 +463,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 75,
@@ -553,7 +553,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 88,
@@ -627,7 +627,7 @@
           "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
                 "region": {
                   "startLine": 97,

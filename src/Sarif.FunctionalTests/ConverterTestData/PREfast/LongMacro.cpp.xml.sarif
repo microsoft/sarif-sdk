@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'simpleVar'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp",
                 "region": {
                   "startLine": 12,

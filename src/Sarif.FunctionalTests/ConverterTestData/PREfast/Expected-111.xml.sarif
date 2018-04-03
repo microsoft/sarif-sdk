@@ -18,7 +18,7 @@
           "message": "Cast cannot be proven safe: \"(EXTRST *)pb\" Accessing 12 bytes starting at byte offset 0\n\nValues of variables:\nPointer rgb is at offset offset(rgb)`103 bytes from the start of the buffer\npb = rgb\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 133,
@@ -304,7 +304,7 @@
           "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '((EXTRST *)pb)->cb'\nBuffer rgb is a parameter to this function declared on line 103\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(rgb)`103 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test111.cpp(103)]\nAccessing 4 bytes starting at byte offset 0\n\nValues of variables:\nPointer rgb is at offset 0 bytes from the start of the buffer\npb = rgb\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 135\nPossibly incorrect single element annotation on buffer at line 163\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 133,
@@ -590,7 +590,7 @@
           "message": "Potential overflow using expression '(void *)pb'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.min`161a is not constrained by offset((*ppbMax))`103\n\nBuffer pb is a parameter to this function declared on line 103\nBuffer is of length offset((*ppbMax))`103 bytes [from annotation SAL_writableTo(elementCount(* ppbMax - pb)) at c:\\somepath\\test111.cpp(103)] OR\n  offset(pb)`116 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(82) on function BltB called at line 135]\nAccessing result.min`161a bytes starting at byte offset 12\nAnnotation on function BltB requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)pb; {parameter 3} is (unsigned int )cb\n[Annotation SAL_writableTo(byteCount({parameter 3})) at c:\\somepath\\test111.cpp(82)]\n\n\nValues of variables:\nPointer pb is at offset 12 bytes from the start of the buffer\ncb = result.min`161a\n\nwhere\noffset(pb)`103 == 0\noffset(pb)`116 == 0\noffset(pb)`143 == 12\noffset((*ppbMax))`103 >= 13\n\nOverrun access occurs when\noffset((*ppbMax))`103 <= result.min`161a + 11\nresult.min`161a + 11 >= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 163,
@@ -886,7 +886,7 @@
           "message": "Potential Underflow using expression '(void *)pb'\nBuffer pb is a parameter to this function declared on line 103\nBuffer is of length offset((*ppbMax))`103 bytes [from annotation SAL_writableTo(elementCount(* ppbMax - pb)) at c:\\somepath\\test111.cpp(103)] OR\n  offset(pb)`116 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(82) on function BltB called at line 135] OR\n  offset(pb)`143 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(82) on function BltB called at line 163]\nAccessing result.min`161a bytes starting at byte offset result.min`161a + 12\nAnnotation on function BltB requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)pb; {parameter 3} is (unsigned int )cb\n[Annotation SAL_writableTo(byteCount({parameter 3})) at c:\\somepath\\test111.cpp(82)]\n\n\nValues of variables:\nPointer pb is at offset result.min`161a + 12 bytes from the start of the buffer\ncb = result.min`161a\n\nwhere\noffset(pb)`103 == 0\noffset(pb)`116 == 0\noffset(pb)`143 == 12\noffset((*ppbMax))`103 >= 13\n\nUnderflow access occurs when\nresult.min`161a + 13 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 163,
@@ -1302,7 +1302,7 @@
           "message": "Potential Underflow using expression '(void *)pb'\nBuffer rgb is a parameter to this function declared on line 103\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(rgb)`103 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test111.cpp(103)] OR\n  offset(rgb)`103 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(82) on function BltB called at line 163]\nAccessing result.min`161a bytes starting at byte offset result.min`161a\nAnnotation on function BltB requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)pb; {parameter 3} is (unsigned int )cb\n[Annotation SAL_writableTo(byteCount({parameter 3})) at c:\\somepath\\test111.cpp(82)]\n\n\nValues of variables:\nPointer pb is at offset result.min`161a bytes from the start of the buffer\ncb = result.min`161a\n\nUnderflow access occurs when\noffset(rgb)`103 == 0\nresult.min`161a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 163,
@@ -1818,7 +1818,7 @@
           "message": "Accessing buffer 'result.PerstFirstFromPrst'115' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '(void *)pbT'\nBuffer result.PerstFirstFromPrst created during call to PerstFirstFromPrst on line 115\nBuffer is of length 12 bytes [assumed because the buffer is unannotated] OR\n  offset(perst)`116 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(81) on function SwapBytes called at line 137]\nAccessing result.min`161a bytes starting at byte offset 12\nAnnotation on function BltB requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (void *)pbT; {parameter 3} is (unsigned int )cb\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test111.cpp(82)]\n\n\nValues of variables:\nPointer pbT is at offset 12 bytes from the start of the buffer\ncb = result.min`161a\n\nwhere\noffset(pbT)`143 == 12\noffset(perst)`116 == 0\noffset(result.PerstFirstFromPrst)`115 == 0\n\nOverrun access occurs when\nresult.min`161a >= 1\n\nThere are other instances of this error:\nWriting to buffer 'result.PerstFirstFromPrst'115' of unspecified length.  Please annotate. at line 164\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 163,
@@ -2114,7 +2114,7 @@
           "message": "Accessing buffer 'result.PerstNextFromPerst'199' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '(void *)pbT'\nBuffer result.PerstNextFromPerst created during call to PerstNextFromPerst on line 199\nBuffer is of length 12 bytes [assumed because the buffer is unannotated] OR\n  offset(result.PerstNextFromPerst)`199 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test111.cpp(81) on function SwapBytes called at line 137]\nAccessing result.min`161a bytes starting at byte offset 12\nAnnotation on function BltB requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (void *)pbT; {parameter 3} is (unsigned int )cb\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test111.cpp(82)]\n\n\nValues of variables:\nPointer pbT is at offset 12 bytes from the start of the buffer\ncb = result.min`161a\n\nwhere\noffset(pbT)`143(1) == 12\noffset(result.PerstNextFromPerst)`199 == 0\n\nOverrun access occurs when\nresult.min`161a >= 1\n\nThere are other instances of this error:\nWriting to buffer 'result.PerstNextFromPerst'199' of unspecified length.  Please annotate. at line 164\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test111.cpp",
                 "region": {
                   "startLine": 163,

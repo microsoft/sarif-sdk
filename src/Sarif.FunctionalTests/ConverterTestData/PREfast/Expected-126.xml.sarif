@@ -18,7 +18,7 @@
           "message": "Read overflow using expression '\".xml\"[5]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset 5\n\nwhere\nnullpos(\".xml\")`16 == 4\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test126.cpp",
                 "region": {
                   "startLine": 16,
@@ -74,7 +74,7 @@
           "message": "Read underflow using expression '\".xml\"[-1]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset -1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test126.cpp",
                 "region": {
                   "startLine": 23,

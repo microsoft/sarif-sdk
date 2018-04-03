@@ -18,7 +18,7 @@
           "message": "Potential overflow using expression 'a[i]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by {j / 2}`8\n\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset  - {j / 2}`8 + 10\n\nValues of variables:\ni =  - {j / 2}`8 + 10\n\nwhere\nj`4 == 2*{j / 2}`8 + {(j`4) % 2}`8\n{(j`4) % 2}`8 <= 1\n{(j`4) % 2}`8 >= 0\n\nOverrun access occurs when\n{j / 2}`8 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 9,
@@ -104,7 +104,7 @@
           "message": "Potential Underflow using expression 'a[i]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset  - {j / 2}`8 + 10\n\nValues of variables:\ni =  - {j / 2}`8 + 10\n\nwhere\nj`4 == 2*{j / 2}`8 + {(j`4) % 2}`8\n{(j`4) % 2}`8 <= 1\n{(j`4) % 2}`8 >= 0\n\nUnderflow access occurs when\n{j / 2}`8 >= 11\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 9,
@@ -190,7 +190,7 @@
           "message": "Overflow using expression 'b[i]'\nBuffer accessed is b\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\nValues of variables:\ni = 10\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 14,
@@ -316,7 +316,7 @@
           "message": "Overflow using expression 'p[20]'\nBuffer result.new[] created during call to operator new[] on line 34\nBuffer is of length 80 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 34]\nAccessing 4 bytes starting at byte offset 80\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 46,
@@ -452,7 +452,7 @@
           "message": "Accessing array s, whose length is not given in the declaration.  Please annotate\n\nThere are other instances of this error:\nAccessing array s, whose length is not given in the declaration.  Please annotate at line 65\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 64,
@@ -498,7 +498,7 @@
           "message": "Overflow using expression 'p[100]'\nBuffer result._alloca created during call to _alloca on line 73\nBuffer is of length 100 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function _alloca called at line 73]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 74,
@@ -574,7 +574,7 @@
           "message": "Overflow using expression 'q[100]'\nBuffer result._alloca created during call to _alloca on line 75\nBuffer is of length 100 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function _alloca called at line 75]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer q is at offset 0 bytes from the start of the buffer\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 76,
@@ -690,7 +690,7 @@
           "message": "Potential overflow using expression 'a[(int )g[i]]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (*g)`86 is not constrained by any constant\n\nBuffer accessed is a\nBuffer is of length 255 bytes [size of variable]\nAccessing the byte at byte offset (*g)`86\n\nValues of variables:\n(*g) = (*g)`86\ni = i`83\n\nwhere\n(*g)`86 >= 0\n\nOverrun access occurs when\n(*g)`86 >= 255\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 86,
@@ -746,7 +746,7 @@
           "message": "Overflow using expression 'buf[size]'\nBuffer result.new[] created during call to operator new[] on line 113\nBuffer is of length size`109a bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 113]\nAccessing the byte at byte offset size`109a\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nsize = size`109a\n\nwhere\noffset(result.new[])`113a == 0\nsize`109a >= 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 116,
@@ -882,7 +882,7 @@
           "message": "Read overflow using expression 'squares[5]'\nBuffer accessed is squares\nBuffer is of length 5 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 5\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 125,
@@ -928,7 +928,7 @@
           "message": "Read overflow using expression 'ints[5]'\nBuffer accessed is ints\nBuffer is of length 5 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 5\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test055.cpp",
                 "region": {
                   "startLine": 139,

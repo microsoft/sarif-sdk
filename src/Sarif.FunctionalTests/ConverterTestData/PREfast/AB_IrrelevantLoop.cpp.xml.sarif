@@ -33,7 +33,7 @@
           "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
                 "region": {
                   "startLine": 14,

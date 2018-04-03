@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'i'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6001example.cpp",
                 "region": {
                   "startLine": 9,

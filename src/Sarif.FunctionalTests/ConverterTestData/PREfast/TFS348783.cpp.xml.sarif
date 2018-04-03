@@ -33,7 +33,7 @@
           "message": "Buffer overrun while writing to 'buffer':  the writable size is '20' bytes, but '40' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
                 "region": {
                   "startLine": 10,

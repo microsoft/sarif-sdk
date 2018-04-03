@@ -18,7 +18,7 @@
           "message": "Overflow using expression 's->a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 18,
@@ -64,7 +64,7 @@
           "message": "Potential overflow using expression 's->a[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'23 + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\ni = {loop iterations}'23 + 2\n\nwhere\n{loop iterations}'23 <= 98\n{loop iterations}'23 >= 0\n\nOverrun access occurs when\n{loop iterations}'23 == 98\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 24,
@@ -230,7 +230,7 @@
           "message": "Possibly incorrect single element annotation on struct buffer\nOverflow using expression 's->arr[i]'\nBuffer s is a parameter to this function declared on line 28\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(s)`28 + 8 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test086.cpp(28)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(s)`28 == 0\n{loop iterations}'30 == 0\n(s->Flex::count)`30 >= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 31,
@@ -336,7 +336,7 @@
           "message": "Potential overflow using expression 's->a[i]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'36 + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\ni = {loop iterations}'36 + 2\n\nwhere\n(s->S::count)`36 >= {loop iterations}'36 + 3\n{loop iterations}'36 >= 0\n\nOverrun access occurs when\n{loop iterations}'36 >= 98\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 37,
@@ -502,7 +502,7 @@
           "message": "Overflow using expression 's.a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 43,
@@ -558,7 +558,7 @@
           "message": "Overflow using expression 'p->s.a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 54,
@@ -604,7 +604,7 @@
           "message": "Overflow using expression 'p->p->a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer (p->S1::p) is at offset 0 bytes from the start of (p->S1::p)\nPointer p is at offset 0 bytes from the start of p\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 55,
@@ -660,7 +660,7 @@
           "message": "Potential overflow using expression '(p->s[i]).a[j]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'67 + 2\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\ni = 0\nj = {loop iterations}'67 + 2\n\nwhere\n{loop iterations}'67 <= 98\n{loop iterations}'67 >= 0\n\nOverrun access occurs when\n{loop iterations}'67 == 98\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 68,
@@ -856,7 +856,7 @@
           "message": "Possibly incorrect single element annotation on struct buffer\nRead overflow using expression '(p[i]).a'\nBuffer p is a parameter to this function declared on line 72\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(p)`72 + 408 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test086.cpp(72)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`72 == 0\n{loop iterations}'74 == 0\nn`72 >= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 75,
@@ -962,7 +962,7 @@
           "message": "Potential read overflow using expression '(p[i]).a'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 79\nBuffer is of length offset(p)`79 + 408*n`79 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\\somepath\\test086.cpp(79)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`79 == 0\n{loop iterations}'81 == 0\nn`79 >= 1\n\nOverrun access occurs when\nn`79 == 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 82,
@@ -1068,7 +1068,7 @@
           "message": "Potential read overflow using expression '(p[i]).a'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 86\nBuffer is of length offset(p)`86 + 408*n`86 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\\somepath\\test086.cpp(86)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`86 == 0\n{loop iterations}'88 == 0\nn`86 >= 1\n\nOverrun access occurs when\nn`86 == 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 89,
@@ -1174,7 +1174,7 @@
           "message": "Overflow using expression '(p[i]).a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\ni = 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test086.cpp",
                 "region": {
                   "startLine": 89,

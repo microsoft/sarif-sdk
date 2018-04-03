@@ -33,7 +33,7 @@
           "message": "Reading invalid data from 'TwoElementArray':  the readable size is '8' bytes, but 'index' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
                 "region": {
                   "startLine": 9,

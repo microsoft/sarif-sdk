@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'y'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
                 "region": {
                   "startLine": 7,

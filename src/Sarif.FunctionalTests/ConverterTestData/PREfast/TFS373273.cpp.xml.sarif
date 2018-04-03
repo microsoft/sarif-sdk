@@ -33,7 +33,7 @@
           "message": "Reading invalid data from 'data':  the readable size is 'n*4' bytes, but '24' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
                 "region": {
                   "startLine": 16,
@@ -138,7 +138,7 @@
           "message": "Reading invalid data from 'data':  the readable size is 'n*4' bytes, but '24' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
                 "region": {
                   "startLine": 42,
