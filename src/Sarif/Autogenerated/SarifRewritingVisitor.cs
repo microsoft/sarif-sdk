@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
-                node.ResultFile = VisitNullChecked(node.ResultFile);
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
             }
 
             return node;

@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'data[100]'\nBuffer accessed is data\nBuffer is of length 100 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 100\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test138.cpp",
                 "region": {
                   "startLine": 18,

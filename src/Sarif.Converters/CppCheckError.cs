@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Location
                 {
-                    ResultFile = lastLocationConverted
+                    PhysicalLocation = lastLocationConverted
                 }
             };
 

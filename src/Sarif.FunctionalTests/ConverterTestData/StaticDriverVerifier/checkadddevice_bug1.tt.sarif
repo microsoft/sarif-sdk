@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines a AddDevice routine.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/CheckAddDevice.slic",
                 "region": {
                   "startLine": 35

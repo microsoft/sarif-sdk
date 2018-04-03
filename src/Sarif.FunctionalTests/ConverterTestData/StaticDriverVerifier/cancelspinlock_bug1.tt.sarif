@@ -23,7 +23,7 @@
           "message": "The dispatch routine has returned without releasing the cancel spinlock.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/CancelSpinLock.slic",
                 "region": {
                   "startLine": 60

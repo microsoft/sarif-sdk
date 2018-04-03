@@ -18,7 +18,7 @@
           "message": "Possible postcondition violation due to failure to null terminate string\nThe function has a __success annotation that is satisfied\nBuffer psz is a parameter to this function declared on line 27\nAnnotation on function MyFunction requires that psz is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\test096.cpp(19)]\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 39,
@@ -134,7 +134,7 @@
           "message": "Potential overflow using expression 'aa[hr]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.HRESULT_FROM_WIN32`50a is not constrained by any constant\n\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`50a\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`50a\n\nwhere\nresult.HRESULT_FROM_WIN32`50a >= 0\n\nOverrun access occurs when\nresult.HRESULT_FROM_WIN32`50a >= 10\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 51,
@@ -270,7 +270,7 @@
           "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`50a\n\n when function HRESULT_FROM_WIN32 called at line 50 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`50a\n\nwhere\nresult.HRESULT_FROM_WIN32`50a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 51,
@@ -406,7 +406,7 @@
           "message": "Potential overflow using expression 'bb[hr]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.HRESULT_FROM_WIN32`57a is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`57a\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`57a\n\nwhere\nresult.HRESULT_FROM_WIN32`57a >= 0\n\nOverrun access occurs when\nresult.HRESULT_FROM_WIN32`57a >= 10\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 58,
@@ -562,7 +562,7 @@
           "message": "Underflow using expression 'bb[hr]'\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`57a\n\n when function HRESULT_FROM_WIN32 called at line 57 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`57a\n\nwhere\nresult.HRESULT_FROM_WIN32`57a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 58,
@@ -718,7 +718,7 @@
           "message": "Potential overflow using expression 'cc[hr - 99]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.HRESULT_FROM_WIN32`64a is not constrained by any constant\n\nBuffer accessed is cc\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`64a - 99\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`64a\n\nwhere\nresult.HRESULT_FROM_WIN32`64a >= 0\n\nOverrun access occurs when\nresult.HRESULT_FROM_WIN32`64a >= 109\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 65,
@@ -894,7 +894,7 @@
           "message": "Underflow using expression 'cc[hr - 99]'\nBuffer accessed is cc\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`64a - 99\n\n when function HRESULT_FROM_WIN32 called at line 64 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`64a\n\nwhere\nresult.HRESULT_FROM_WIN32`64a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 65,
@@ -1070,7 +1070,7 @@
           "message": "Potential Underflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`76a + 1000\n\n when function HRESULT_FROM_WIN32 called at line 76 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`76a\n\nwhere\nresult.HRESULT_FROM_WIN32`76a + 1 <= 0\n\nUnderflow access occurs when\nresult.HRESULT_FROM_WIN32`76a + 1001 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 77,
@@ -1176,7 +1176,7 @@
           "message": "Overflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`76a + 1000\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`76a\n\nwhere\nresult.HRESULT_FROM_WIN32`76a >= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 77,
@@ -1282,7 +1282,7 @@
           "message": "Potential Underflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`86a + 1000\n\n when function HRESULT_FROM_WIN32 called at line 86 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`86a\n\nwhere\nresult.HRESULT_FROM_WIN32`86a + 1 <= 0\n\nUnderflow access occurs when\nresult.HRESULT_FROM_WIN32`86a + 1001 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 87,
@@ -1378,7 +1378,7 @@
           "message": "Overflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`86a + 1000\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`86a\n\nwhere\nresult.HRESULT_FROM_WIN32`86a >= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 87,
@@ -1474,7 +1474,7 @@
           "message": "Potential overflow using expression 'aa[hr]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.HRESULT_FROM_WIN32`96a is not constrained by any constant\n\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`96a\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`96a\n\nwhere\nresult.HRESULT_FROM_WIN32`96a >= 0\n\nOverrun access occurs when\nresult.HRESULT_FROM_WIN32`96a >= 10\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 97,
@@ -1570,7 +1570,7 @@
           "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`96a\n\n when function HRESULT_FROM_WIN32 called at line 96 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`96a\n\nwhere\nresult.HRESULT_FROM_WIN32`96a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 97,
@@ -1666,7 +1666,7 @@
           "message": "Potential overflow using expression 'aa[hr]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.HRESULT_FROM_WIN32`106a is not constrained by any constant\n\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`106a\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`106a\n\nwhere\nresult.HRESULT_FROM_WIN32`106a >= 0\n\nOverrun access occurs when\nresult.HRESULT_FROM_WIN32`106a >= 10\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 107,
@@ -1762,7 +1762,7 @@
           "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`106a\n\n when function HRESULT_FROM_WIN32 called at line 106 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`106a\n\nwhere\nresult.HRESULT_FROM_WIN32`106a + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test096.cpp",
                 "region": {
                   "startLine": 107,

@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'source'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
                 "region": {
                   "startLine": 13,
@@ -107,7 +107,7 @@
           "message": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
                 "region": {
                   "startLine": 23,
@@ -181,7 +181,7 @@
           "message": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
                 "region": {
                   "startLine": 33,

@@ -13,7 +13,7 @@
           "message": "Result message.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/src/file.c",
                 "region": {
                   "startLine": 2,

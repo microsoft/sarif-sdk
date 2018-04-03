@@ -18,7 +18,7 @@
           "message": "Writing to buffer '((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_pCache)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'allotemp.1'\nAccessing unannotated buffer ((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_pCache)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing ((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_CacheSize)`26 bytes starting at byte offset 0\nAssumed __inout annotation on function LEVEL_CACHE::`scalar deleting destructor' requires that {parameter 1}->m_pCache is of length >= {parameter 1}->m_CacheSize elements (1 bytes/element)\n  where {parameter 1}->m_pCache is allotemp.1; {parameter 1} is allotemp.1\n[Field annotation SAL_writableTo(elementCount({parameter 1}->m_CacheSize)) at c:\\somepath\\test104.cpp(12)]\n\n\nValues of variables:\n((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_CacheSize) = ((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_CacheSize)`26\n\nwhere\n((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_CacheSize)`26 >= 1\n\nOverrun access occurs when\n((this->CDXGKDX_DUMP_LOG::LevelCache)[0]->LEVEL_CACHE::m_CacheSize)`26 >= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test104.cpp",
                 "region": {
                   "startLine": 26,
@@ -264,7 +264,7 @@
           "message": "Writing to buffer '(LevelCache[0]->LEVEL_CACHE::m_pCache)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'allotemp.2'\nAccessing unannotated buffer (LevelCache[0]->LEVEL_CACHE::m_pCache)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing (LevelCache[0]->LEVEL_CACHE::m_CacheSize)`39 bytes starting at byte offset 0\nAssumed __inout annotation on function LEVEL_CACHE::`scalar deleting destructor' requires that {parameter 1}->m_pCache is of length >= {parameter 1}->m_CacheSize elements (1 bytes/element)\n  where {parameter 1}->m_pCache is allotemp.2; {parameter 1} is allotemp.2\n[Field annotation SAL_writableTo(elementCount({parameter 1}->m_CacheSize)) at c:\\somepath\\test104.cpp(12)]\n\n\nValues of variables:\n(LevelCache[0]->LEVEL_CACHE::m_CacheSize) = (LevelCache[0]->LEVEL_CACHE::m_CacheSize)`39\n\nwhere\n(LevelCache[0]->LEVEL_CACHE::m_CacheSize)`39 >= 1\n\nOverrun access occurs when\n(LevelCache[0]->LEVEL_CACHE::m_CacheSize)`39 >= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test104.cpp",
                 "region": {
                   "startLine": 42,

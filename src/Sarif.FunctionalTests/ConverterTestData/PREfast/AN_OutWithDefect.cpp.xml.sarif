@@ -33,7 +33,7 @@
           "message": "Returning uninitialized memory '*target'.  A successful path through the function does not set the named _Out_ parameter. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
                 "region": {
                   "startLine": 4,

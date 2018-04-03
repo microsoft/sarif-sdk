@@ -33,7 +33,7 @@
           "message": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
                 "region": {
                   "startLine": 10,
@@ -96,7 +96,7 @@
           "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
                 "region": {
                   "startLine": 17,
@@ -159,7 +159,7 @@
           "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
                 "region": {
                   "startLine": 29,
@@ -301,7 +301,7 @@
           "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
                 "region": {
                   "startLine": 40,

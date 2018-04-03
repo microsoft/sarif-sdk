@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'p[n]'\nBuffer result.Alloc created during call to Alloc on line 9\nBuffer is of length n`7 bytes [from annotation SAL_readableTo(elementCount({parameter 1})) at c:\\somepath\\test182.cpp(3) on function Alloc called at line 9]\nAccessing the byte at byte offset n`7\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nn = n`7\n\nwhere\noffset(result.Alloc)`9a == 0\nn`7 >= 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test182.cpp",
                 "region": {
                   "startLine": 17,

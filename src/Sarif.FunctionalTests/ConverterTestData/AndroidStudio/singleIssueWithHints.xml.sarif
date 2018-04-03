@@ -33,7 +33,7 @@
           "message": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {

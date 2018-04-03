@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'a[11]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test178.cpp",
                 "region": {
                   "startLine": 39,

@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines one or more Io Dpc routines.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/IoDpcRoutine.slic",
                 "region": {
                   "startLine": 34

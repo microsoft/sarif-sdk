@@ -18,7 +18,7 @@
           "message": "Accessing buffer '(hpclb->_clb::rgbrgcell)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read underflow using expression '(hpclb->rgbrgcell)[rw]'\nAccessing unannotated buffer (hpclb->_clb::rgbrgcell)\nBuffer is of length 1 elements (4 bytes/element) [assumed because the buffer is unannotated]\nAccessing the element (4 bytes/element) at element offset {rw &= rwMaxCLB_1}`105\n\nValues of variables:\nPointer (hpclb->_clb::rgbrgcell) is at offset 0 bytes from the start of the buffer\nPointer hpclb is at offset 0 bytes from the start of result.HpclbFromSbHrgsb'104\nrw = {rw &= rwMaxCLB_1}`105\n\nwhere\n(result.HpwsCur_pGws->ws::rwMac)`97 >= rw`82 + 1\n(result.HpwsCur_pGws->ws::rwMic)`96 <= rw`82\n{rw &= rwMaxCLB_1}`105 <= rwMaxCLB_1`105\n{rw &= rwMaxCLB_1}`105 <= rw`82\n\nUnderflow access occurs when\n{rw &= rwMaxCLB_1}`105 + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test110.cpp",
                 "region": {
                   "startLine": 110,
@@ -374,7 +374,7 @@
           "message": "Writing to buffer 'result.HpclbFromSbHrgsb'104' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential postcondition violation that could result in overflow\nBuffer result.HpclbFromSbHrgsb created during call to HpclbFromSbHrgsb on line 104\nBuffer is of length 16 bytes [assumed because the buffer is unannotated]\nAccessing 4 bytes starting at byte offset 4*col`82 + 4*{(hpclb->rgbrgcell)[rw] & grbiticell}`110\nAnnotation on function HpcellFromRwCol requires that result.HpcellFromRwCol is of length >= 1 elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test110.cpp(82)]\n\n\nValues of variables:\nPointer result.HpcellFromRwCol is at offset 4*col`82 + 4*{(hpclb->rgbrgcell)[rw] & grbiticell}`110 bytes from the start of the buffer\n\nwhere\noffset(result.HpclbFromSbHrgsb)`104 == 0\n(*(hpclb->_clb::rgbrgcell))`110 >= 0\ncol`82 >= 0\n{(hpclb->rgbrgcell)[rw] & grbiticell}`110 <= (*(hpclb->_clb::rgbrgcell))`110\n{(hpclb->rgbrgcell)[rw] & grbiticell}`110 <= grbiticell`110\n{(hpclb->rgbrgcell)[rw] & grbiticell}`110 >= 1\n{colMac &= 65535}`112 <= (hpclb->_clb::colMac)`109\n{colMac &= 65535}`112 <= 65535\n{colMac &= 65535}`112 >= 0\n{colMac &= 65535}`112 >= col`82 + 1\n\nOverrun access occurs when\n4*col`82 + 4*{(hpclb->rgbrgcell)[rw] & grbiticell}`110 >= 13\n\nThere are other instances of this error:\nAccessing buffer 'result.HpclbFromSbHrgsb'104' of unspecified length.  Please annotate. at line 125\nWriting to buffer 'result.HpclbFromSbHrgsb'104' of unspecified length.  Please annotate. at line 129\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test110.cpp",
                 "region": {
                   "startLine": 121,
@@ -810,7 +810,7 @@
           "message": "Potential postcondition violation that could result in overflow\nBuffer accessed is hpGhostRw\nBuffer is of length 256 elements (4 bytes/element) [size of variable]\nAccessing 1 elements (4 bytes/element) starting at element offset col`82\nAnnotation on function HpcellFromRwCol requires that result.HpcellFromRwCol is of length >= 1 elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test110.cpp(82)]\n\n\nValues of variables:\nPointer result.HpcellFromRwCol is at offset 4*col`82 bytes from the start of the buffer\n\nOverrun access occurs when\ncol`82 >= 256\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test110.cpp",
                 "region": {
                   "startLine": 136,
@@ -1116,7 +1116,7 @@
           "message": "Postcondition violation that could result in underflow\nBuffer accessed is hpGhostRw\nBuffer is of length 256 elements (4 bytes/element) [size of variable]\nAccessing 1 elements (4 bytes/element) starting at element offset col`82\nAnnotation on function HpcellFromRwCol requires that result.HpcellFromRwCol is of length >= 1 elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test110.cpp(82)]\n\n\nValues of variables:\nPointer result.HpcellFromRwCol is at offset 4*col`82 bytes from the start of the buffer\n\nwhere\ncol`82 + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test110.cpp",
                 "region": {
                   "startLine": 136,

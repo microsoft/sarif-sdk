@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines a IRP_MJ_PNP routine.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/CheckIrpMjPnp.slic",
                 "region": {
                   "startLine": 34

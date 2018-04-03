@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Location
                 {
-                    ResultFile = primaryOrSink
+                    PhysicalLocation = primaryOrSink
                 }
             };
 

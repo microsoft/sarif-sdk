@@ -33,7 +33,7 @@
           "message": "Using uninitialized memory 'data'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
                 "region": {
                   "startLine": 8,
@@ -107,7 +107,7 @@
           "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but 'b' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
                 "region": {
                   "startLine": 8,

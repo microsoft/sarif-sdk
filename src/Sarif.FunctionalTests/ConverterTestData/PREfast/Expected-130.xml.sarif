@@ -18,7 +18,7 @@
           "message": "Potential range precondition violation using expression '& b1'\nAssumed __inout annotation on function B::safe1 requires that {parameter 1}->n is <= 3\n  where {parameter 1}->n is & b1\n[Field annotation SAL_range(0, 3) at c:\\somepath\\test130.cpp(67)]\n\nValues of variables:\nb1.B::n = b1.B::n`103\n\nwhere\nb1.B::n`103 >= 0\n\nRange violation occurs when\nb1.B::n`103 <= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test130.cpp",
                 "region": {
                   "startLine": 103,
@@ -184,7 +184,7 @@
           "message": "Potential range precondition violation using expression '& b2'\nAssumed __inout annotation on function B::safe requires that {parameter 1}->n is <= 3\n  where {parameter 1}->n is & b2\n[Field annotation SAL_range(0, 3) at c:\\somepath\\test130.cpp(67)]\n\nValues of variables:\nb2.B::n = b2.B::n`106\n\nwhere\nb2.B::n`106 >= 0\n\nRange violation occurs when\nb2.B::n`106 <= 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test130.cpp",
                 "region": {
                   "startLine": 106,

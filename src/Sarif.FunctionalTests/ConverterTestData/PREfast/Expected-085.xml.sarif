@@ -18,7 +18,7 @@
           "message": "Function with irreducible control flow graph.\nESPX can only perform limited analysis of functions with irreducible control flow graph.\nThe function contains a loop with multiple entry points which usually indicates a poorly structured function.\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test085.cpp",
                 "region": {
                   "startLine": 5,

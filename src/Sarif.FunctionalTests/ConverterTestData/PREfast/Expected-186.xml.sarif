@@ -18,7 +18,7 @@
           "message": "Potential overflow using expression 'a[count ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {loop iterations}'9 is not constrained by any constant\n\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset {loop iterations}'9 + 2\n\nValues of variables:\ncount = {loop iterations}'9 + 3\n\nwhere\n{loop iterations}'9 >= 0\n\nOverrun access occurs when\n{loop iterations}'9 >= 98\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test186.cpp",
                 "region": {
                   "startLine": 11,
@@ -164,7 +164,7 @@
           "message": "Potential overflow using expression 'a[count ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: count`19 is not constrained by any constant\n\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset count`19\n\nValues of variables:\ncount = count`19 + 1\n\nwhere\ncount`19 <= {loop iterations}'19 + 1\ncount`19 >= 0\n\nOverrun access occurs when\ncount`19 >= 100\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test186.cpp",
                 "region": {
                   "startLine": 23,

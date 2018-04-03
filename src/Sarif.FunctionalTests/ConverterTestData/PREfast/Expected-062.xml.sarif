@@ -18,7 +18,7 @@
           "message": "Potential overflow using expression '(* ppwszOutput)[(int )iOutput]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (*ppwszOutput) is a parameter to this function declared on line 8\nBuffer is of length offset((*ppwszOutput))`8 + 2*(*pcOutput)`8 bytes [from annotation SAL_writableTo(elementCount(* pcOutput)) at c:\\somepath\\test062.cpp(8)]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer (*ppwszOutput) is at offset 0 bytes from the start of the buffer\nPointer ppwszOutput is at offset 0 bytes from the start of ppwszOutput\niOutput = 1\n\nwhere\noffset((*ppwszOutput))`8 == 0\noffset(pszText)`8 == 0\n{loop iterations}'17 == 0\n(*pcOutput)`8 >= 1\nnullpos(pszText)`8 >= 3\n\nOverrun access occurs when\n(*pcOutput)`8 == 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test062.cpp",
                 "region": {
                   "startLine": 20,
@@ -174,7 +174,7 @@
           "message": "Read overflow using expression 'wstr[(int )len]'\nBuffer wstr created during call to WriteOutput on line 37\nBuffer is of length 2*len`37a bytes [from annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test062.cpp(8) on function WriteOutput called at line 37]\nAccessing 2 bytes starting at byte offset 2*len`37a\n\nValues of variables:\nPointer wstr is at offset 0 bytes from the start of the buffer\nlen = len`37a\n\nwhere\noffset(wstr)`37a == 0\nlen`37a >= 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test062.cpp",
                 "region": {
                   "startLine": 39,

@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'a[6]'\nBuffer accessed is a\nBuffer is of length 5 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 6\n\nThere are other instances of this error:\nOverflow using expression 'a[6]' at line 28\nOverflow using expression 'a[6]' at line 41\nOverflow using expression 'a[6]' at line 48\nOverflow using expression 'a[6]' at line 54\nOverflow using expression 'a[6]' at line 67\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test203.cpp",
                 "region": {
                   "startLine": 22,

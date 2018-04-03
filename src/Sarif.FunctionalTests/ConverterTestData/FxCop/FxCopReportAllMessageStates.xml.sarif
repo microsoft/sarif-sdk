@@ -170,7 +170,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11
@@ -197,7 +197,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11

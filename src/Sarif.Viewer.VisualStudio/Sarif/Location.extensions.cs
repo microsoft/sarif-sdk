@@ -19,9 +19,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
             AnnotatedCodeLocationModel model = new AnnotatedCodeLocationModel();
             PhysicalLocation physicalLocation = null;
 
-            if (location.ResultFile != null)
+            if (location.PhysicalLocation != null)
             {
-                physicalLocation = location.ResultFile;
+                physicalLocation = location.PhysicalLocation;
             }
             else if (location.AnalysisTarget != null)
             {

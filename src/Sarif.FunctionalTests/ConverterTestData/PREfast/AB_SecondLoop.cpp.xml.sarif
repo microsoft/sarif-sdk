@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'source'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
                 "region": {
                   "startLine": 18,
@@ -200,7 +200,7 @@
           "message": "Dereferencing NULL pointer 'source'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
                 "region": {
                   "startLine": 33,
@@ -367,7 +367,7 @@
           "message": "Reading invalid data from 'x':  the readable size is '8' bytes, but 'param' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
                 "region": {
                   "startLine": 52,
@@ -593,7 +593,7 @@
           "message": "Reading invalid data from 'y':  the readable size is '8' bytes, but '12' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
                 "region": {
                   "startLine": 53,
@@ -778,7 +778,7 @@
           "message": "Dereferencing NULL pointer 'source'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
                 "region": {
                   "startLine": 49,

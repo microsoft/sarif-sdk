@@ -283,9 +283,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         CaptureFile(location.AnalysisTarget.Uri);
                     }
 
-                    if (location.ResultFile != null)
+                    if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.ResultFile.Uri);
+                        CaptureFile(location.PhysicalLocation.Uri);
                     }
                 }
             }

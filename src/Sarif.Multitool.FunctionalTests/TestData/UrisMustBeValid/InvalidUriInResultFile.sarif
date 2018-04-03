@@ -15,7 +15,7 @@
           },
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "fi&le:///c:/src/file.c",
                 "region": {
                   "startLine": 1

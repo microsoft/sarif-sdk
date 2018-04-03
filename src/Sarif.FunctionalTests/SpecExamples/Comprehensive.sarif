@@ -94,7 +94,7 @@
               "analysisTarget": {
                 "uri": "file:///home/buildAgent/src/collections/list.cpp"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
                   "startLine": 15,

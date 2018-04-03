@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'target'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp",
                 "region": {
                   "startLine": 12,
@@ -134,7 +134,7 @@
           "message": "Using uninitialized memory 'data'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp",
                 "region": {
                   "startLine": 27,
@@ -219,7 +219,7 @@
           "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp",
                 "region": {
                   "startLine": 27,
