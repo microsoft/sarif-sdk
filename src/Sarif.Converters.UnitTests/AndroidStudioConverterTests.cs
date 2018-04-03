@@ -197,7 +197,7 @@ Possible resolution: delete", result.Message);
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
             Location loc = GetLocationInfoForBuilder(builder).Location;
-            loc.ResultFile.Uri.ToString().Should().Be("expected_file.java");
+            loc.PhysicalLocation.Uri.ToString().Should().Be("expected_file.java");
         }
 
         [Fact]
@@ -208,7 +208,7 @@ Possible resolution: delete", result.Message);
             builder.EntryPointType = "file";
             builder.EntryPointName = "expected_file.java";
             Location loc = GetLocationInfoForBuilder(builder).Location;
-            loc.ResultFile.Should().BeNull();
+            loc.PhysicalLocation.Should().BeNull();
         }
 
         [Fact]
@@ -363,7 +363,7 @@ Possible resolution: delete", result.Message);
 
             var expectedLocation = new Location
             {
-                ResultFile = new PhysicalLocation
+                PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
                 },
@@ -395,7 +395,7 @@ Possible resolution: delete", result.Message);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
-            locationInfo.Location.ResultFile.Uri.ToString().Should().Be("mydir/myfile.xml");
+            locationInfo.Location.PhysicalLocation.Uri.ToString().Should().Be("mydir/myfile.xml");
         }
 
         [Fact]
@@ -404,7 +404,7 @@ Possible resolution: delete", result.Message);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
-            locationInfo.Location.ResultFile.Region.StartLine.Should().Be(42);
+            locationInfo.Location.PhysicalLocation.Region.StartLine.Should().Be(42);
         }
 
         private struct LocationInfo

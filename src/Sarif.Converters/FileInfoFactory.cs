@@ -33,9 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             AddFile(location.AnalysisTarget);
                         }
 
-                        if (location.ResultFile != null)
+                        if (location.PhysicalLocation != null)
                         {
-                            AddFile(location.ResultFile);
+                            AddFile(location.PhysicalLocation);
                         }
                     }
                 }

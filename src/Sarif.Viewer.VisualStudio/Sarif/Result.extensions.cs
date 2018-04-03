@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
             {
-                PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
+                PhysicalLocation physicalLocation = location.PhysicalLocation ?? location.AnalysisTarget;
                 Uri uri = physicalLocation.Uri;
                 string path = uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
@@ -52,9 +52,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             Location primaryLocation = result.Locations[0];
 
-            if (primaryLocation.ResultFile != null)
+            if (primaryLocation.PhysicalLocation != null)
             {
-                return primaryLocation.ResultFile.Uri.ToPath();
+                return primaryLocation.PhysicalLocation.Uri.ToPath();
             }
             else if (primaryLocation.AnalysisTarget != null)
             {
@@ -77,9 +77,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             Location primaryLocation = result.Locations[0];
 
-            if (primaryLocation.ResultFile != null)
+            if (primaryLocation.PhysicalLocation != null)
             {
-                return primaryLocation.ResultFile.Region;
+                return primaryLocation.PhysicalLocation.Region;
             }
             else if (primaryLocation.AnalysisTarget != null)
             {

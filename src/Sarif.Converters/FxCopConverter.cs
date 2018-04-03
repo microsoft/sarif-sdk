@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                location.ResultFile = new PhysicalLocation
+                location.PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)

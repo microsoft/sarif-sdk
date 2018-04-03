@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                         },
-                        ResultFile = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                     },
-                    ResultFile = new PhysicalLocation
+                    PhysicalLocation = new PhysicalLocation
                     {
                             Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
                             Region = new Region { StartLine = 13 }

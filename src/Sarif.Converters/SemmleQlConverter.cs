@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     new Location
                     {
-                        ResultFile = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
                             UriBaseId = "$srcroot",

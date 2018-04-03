@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.ResultFile, y.ResultFile))
+                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.PhysicalLocation, y.PhysicalLocation))
                 {
                     return false;
                 }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.AnalysisTarget) ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.ResultFile);
+                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.AnalysisTarget) ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
 
                 hs = hs ^ obj.DecoratedName.GetNullCheckedHashCode() ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 

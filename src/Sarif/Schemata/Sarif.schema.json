@@ -620,7 +620,7 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "resultFile": {
+        "physicalLocation": {
           "description": "Identifies the file where the analysis tool produced the result.",
           "$ref": "#/definitions/physicalLocation"
         },
