@@ -48,7 +48,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
                 "region": {
                   "startLine": 7,
@@ -68,7 +68,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
                 "region": {
                   "startLine": 8,
@@ -88,7 +88,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
                 "region": {
                   "startLine": 9,
@@ -108,7 +108,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
                 "region": {
                   "startLine": 11,
@@ -128,7 +128,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
                 "region": {
                   "startLine": 14,
@@ -148,7 +148,7 @@
           "message": "Forbidden call to document.cookie",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
                 "region": {
                   "startLine": 5,
@@ -168,7 +168,7 @@
           "message": "forbidden: Function constructor with string arguments ",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
                 "region": {
                   "startLine": 1,
@@ -188,7 +188,7 @@
           "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
                 "region": {
                   "startLine": 4,
@@ -208,7 +208,7 @@
           "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
                 "region": {
                   "startLine": 5,
@@ -228,7 +228,7 @@
           "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
                 "region": {
                   "startLine": 6,
@@ -248,7 +248,7 @@
           "message": "Forbidden setTimeout string parameter: anyVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
                 "region": {
                   "startLine": 4,
@@ -268,7 +268,7 @@
           "message": "Forbidden setTimeout string parameter: anyVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
                 "region": {
                   "startLine": 5,
@@ -288,7 +288,7 @@
           "message": "Forbidden setTimeout string parameter: anyVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
                 "region": {
                   "startLine": 6,
@@ -308,7 +308,7 @@
           "message": "Forbidden setTimeout string parameter: stringFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
                 "region": {
                   "startLine": 4,
@@ -328,7 +328,7 @@
           "message": "Forbidden setTimeout string parameter: stringFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
                 "region": {
                   "startLine": 5,
@@ -348,7 +348,7 @@
           "message": "Forbidden setTimeout string parameter: stringFunction()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
                 "region": {
                   "startLine": 6,
@@ -368,7 +368,7 @@
           "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
                 "region": {
                   "startLine": 3,
@@ -388,7 +388,7 @@
           "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
                 "region": {
                   "startLine": 4,
@@ -408,7 +408,7 @@
           "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
                 "region": {
                   "startLine": 5,
@@ -428,7 +428,7 @@
           "message": "Forbidden setTimeout string parameter: typedStringVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
                 "region": {
                   "startLine": 4,
@@ -448,7 +448,7 @@
           "message": "Forbidden setTimeout string parameter: typedStringVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
                 "region": {
                   "startLine": 5,
@@ -468,7 +468,7 @@
           "message": "Forbidden setTimeout string parameter: typedStringVariable",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
                 "region": {
                   "startLine": 6,
@@ -488,7 +488,7 @@
           "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
                 "region": {
                   "startLine": 11,
@@ -508,7 +508,7 @@
           "message": "Forbidden reference to banned term: arguments",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
                 "region": {
                   "startLine": 5,
@@ -528,7 +528,7 @@
           "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
                 "region": {
                   "startLine": 11,

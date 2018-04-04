@@ -94,12 +94,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA2210",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
           ],
@@ -110,12 +110,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1014",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
           ],
@@ -126,12 +126,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1824",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
           ],
@@ -142,14 +142,14 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1053",
           "level": "error",
           "message": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
           ],
@@ -162,14 +162,14 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1704",
           "level": "warning",
           "message": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
@@ -189,14 +189,14 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1822",
           "level": "warning",
           "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
@@ -212,12 +212,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1502",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
@@ -228,12 +228,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1800",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
@@ -244,12 +244,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1033",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
@@ -260,12 +260,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1812",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
             }
           ],
@@ -275,14 +275,14 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1812",
           "level": "warning",
           "message": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
             }
           ],
@@ -292,12 +292,12 @@
           }
         },
         {
+          "analysisTarget": {
+            "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+          },
           "ruleId": "CA1811",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
-              },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()"
             }
           ],

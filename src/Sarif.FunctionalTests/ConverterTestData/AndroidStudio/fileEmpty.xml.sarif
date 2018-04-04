@@ -24,14 +24,14 @@
       },
       "results": [
         {
+          "analysisTarget": {
+            "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+            "uriBaseId": "$PROJECT_DIR$"
+          },
           "ruleId": "Assertions",
           "message": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-                "uriBaseId": "$PROJECT_DIR$"
-              },
               "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
             }
           ],

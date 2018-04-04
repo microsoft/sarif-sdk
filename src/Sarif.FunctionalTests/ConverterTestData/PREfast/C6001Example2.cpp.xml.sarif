@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example2.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSkNCmludCBDNjAwMV9FeGFtcGxlMiggYm9vbCBiLCBib29sIGMgKQ0Kew0KICAgaW50IHg9NjsJCQkJDQogICBpbnQgaTsJCQkJDQogICBpZiAoIGMgKSB7CQkJCSANCgkgICB4PTU7CQkJDQoJICAgaWYgKCBiICkNCgkgICB7DQoJCSAgIGkgPSAwOw0KCSAgIH0gZWxzZSB7DQoJCSAgIHg9NzsNCgkgICB9DQogICB9IGVsc2Ugew0KCSAgIGk9MDsNCiAgIH0NCiAgIHJldHVybiBpOw0KfQ==",
-          "hashes": [
-            {
-              "value": "5BE0909623060208C6D22B9066CE80B5",
-              "algorithm": "md5"
-            },
-            {
-              "value": "F957FC440C8C7B116964E4E552974D033560E5BF",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "6144CAD32600485B71C0919D4ECDD25D5643A151B3D93BE3D4D0A22F29E12C54",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

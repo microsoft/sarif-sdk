@@ -31,7 +31,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -50,7 +50,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -69,7 +69,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -88,7 +88,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -107,7 +107,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -126,7 +126,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -145,7 +145,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -164,7 +164,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -183,7 +183,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -202,7 +202,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -221,7 +221,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -240,7 +240,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -259,7 +259,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -276,7 +276,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -293,7 +293,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -310,7 +310,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -328,7 +328,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }
@@ -345,7 +345,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedResourcesOnly.dll"
               }
             }

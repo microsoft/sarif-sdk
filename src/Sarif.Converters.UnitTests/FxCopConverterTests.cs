@@ -366,6 +366,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var expectedResult = new Result
             {
+                AnalysisTarget = new FileLocation
+                {
+                    Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
+                },
                 RuleId = "CA0000",
                 Message = "hello!",
                 SuppressionStates = SuppressionStates.SuppressedInSource,

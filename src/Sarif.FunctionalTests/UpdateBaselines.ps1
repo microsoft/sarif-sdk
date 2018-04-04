@@ -2,7 +2,7 @@
     [string]$ToolName
 )
 
-$utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Debug\net452\Sarif.Multitool.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Release\net452\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
 {
@@ -25,6 +25,16 @@ function Build-Baselines($toolName)
     if ($ToolName -eq "SemmleQL")
     {
       $sourceExtension = "csv"
+    }
+
+    if ($ToolName -eq "Pylint")
+    {
+      $sourceExtension = "json"
+    }
+
+    if ($ToolName -eq "TSLint")
+    {
+      $sourceExtension = "json"
     }
 
     Write-Host "Building baselines for $toolName..."

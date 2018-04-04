@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6001example.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSkNCmludCBDNjAwMV9FeGFtcGxlMSAoIGJvb2wgYiwgYm9vbCBjKQ0Kew0KICAgaW50IGk7DQogICBpZiAoIGIgJiYgYykNCiAgIHsNCiAgICAgIGkgPSAwOw0KICAgfQ0KICAgcmV0dXJuIGk7IA0KfQ0K",
-          "hashes": [
-            {
-              "value": "58C6CB07C191B4B567C9CF627DE3D9E9",
-              "algorithm": "md5"
-            },
-            {
-              "value": "19AC7361CE429E8386BD33FB22A013B786B4D86D",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "CBDEE58AD6475FE4A9438240031864A73631EB6D5809918D0D59BD63C86EAC10",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

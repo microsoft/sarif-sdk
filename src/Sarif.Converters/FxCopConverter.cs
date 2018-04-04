@@ -108,15 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Message = context.Message;
             var location = new Location();
 
-            if (!String.IsNullOrEmpty(context.Target))
-            {
-                result.AnalysisTarget = new FileLocation
-                {
-                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
-                };
-
-            }
-
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
@@ -125,6 +116,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
+            }
+
+            if (!String.IsNullOrEmpty(context.Target))
+            {
+                var uri = new Uri(context.Target, UriKind.RelativeOrAbsolute);
+
+                if (location.PhysicalLocation == null || !uri.Equals(location.PhysicalLocation.Uri))
+                {
+                    result.AnalysisTarget = new FileLocation
+                    {
+                        Uri = uri
+                    };
+                }
             }
 
             location.FullyQualifiedLogicalName = CreateSignature(context);

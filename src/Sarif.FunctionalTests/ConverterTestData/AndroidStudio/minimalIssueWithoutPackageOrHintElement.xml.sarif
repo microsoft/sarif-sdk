@@ -23,10 +23,6 @@
           "message": "Cannot resolve symbol'android:textColor'",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
-                "uriBaseId": "$PROJECT_DIR$"
-              },
               "physicalLocation": {
                 "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
                 "uriBaseId": "$PROJECT_DIR$",

@@ -27,7 +27,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 1,
@@ -54,7 +54,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 5,
@@ -86,7 +86,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
                 "region": {
                   "startLine": 1

@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_functionandinannotations.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgVXNlVmFsdWVzKF9Jbl8gaW50ICogaW5wdXQpOw0KDQp2b2lkIENhbGxVc2VWYWx1ZXMoYm9vbCBmbGFnKQ0Kew0KICAgIGludCBzb3VyY2U7DQogICAgaWYgKGZsYWcpDQogICAgICAgIFVzZVZhbHVlcygmc291cmNlKTsNCn0NCg==",
-          "hashes": [
-            {
-              "value": "C315407587879B2FA873646DCC7CD331",
-              "algorithm": "md5"
-            },
-            {
-              "value": "28F61B52D247B144D7C43CAA58B140B5924B7E15",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "0EFB15F3D4CA3E7FC50BF67B3ECF74609B3754AB8484293C68542AD42E3552DF",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

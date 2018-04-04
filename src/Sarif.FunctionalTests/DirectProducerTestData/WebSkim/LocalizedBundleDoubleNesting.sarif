@@ -27,7 +27,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle#/FoodAndDrink_4.0.35.0_x86.appx/AppxManifest.xml",
                 "region": {
                   "startLine": 1
