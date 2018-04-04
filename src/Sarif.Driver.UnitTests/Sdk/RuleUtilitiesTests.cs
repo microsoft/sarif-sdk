@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Driver
             result.TemplatedMessage.Arguments[1].Should().Be(Arguments[1]);
 
             result.Locations.Count.Should().Be(1);
-            result.Locations[0].AnalysisTarget.Region.ValueEquals(region).Should().BeTrue();
+            result.Locations[0].PhysicalLocation.Region.ValueEquals(region).Should().BeTrue();
 
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.None);
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.OneOrMoreErrorsFired);

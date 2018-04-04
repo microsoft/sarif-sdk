@@ -191,8 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Location
                             {
-                                AnalysisTarget = new PhysicalLocation {  Uri = new Uri(@"file:///file0.cpp")},
-                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
+                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file0.cpp")}
                             },
                         },
                         Fixes = new[]
@@ -203,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                    new FileChange
                                    {
-                                        Uri = new Uri(@"file:///file2.cpp")
+                                        Uri = new Uri(@"file:///file1.cpp")
                                    }
                                 }
                             }
@@ -212,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new AnnotatedCodeLocation
                             {
-                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file3.cpp")}
+                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file2.cpp")}
                             }
                         },
                         Stacks = new[]
@@ -223,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     new StackFrame
                                     {
-                                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file4.cpp") }
+                                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file3.cpp") }
                                     }
                                 }
                             }
@@ -236,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     new AnnotatedCodeLocation
                                     {
-                                        PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                        PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file4.cpp")}
                                     }
                                 }
                             }
@@ -251,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            int fileCount = 6;
+            int fileCount = 5;
 
             for (int i = 0; i < fileCount; ++i)
             {

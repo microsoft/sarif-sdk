@@ -39,7 +39,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 {
                                     new Location
                                     {
-                                        AnalysisTarget = new PhysicalLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
                                             Uri = new Uri("file:///item1.cpp")
                                         }
@@ -65,7 +65,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 {
                                     new Location
                                     {
-                                        AnalysisTarget = new PhysicalLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
                                             Uri = new Uri("file:///item2.cpp")
                                         }

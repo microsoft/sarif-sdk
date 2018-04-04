@@ -13,12 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                // Target and Result file should match.
-                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
-                {
-                    return false;
-                }
-
+                // Result files should match.
                 if (!PhysicalLocationBaselineEquals.Instance.Equals(x.PhysicalLocation, y.PhysicalLocation))
                 {
                     return false;
@@ -43,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.AnalysisTarget) ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
+                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
 
                 hs = hs ^ obj.DecoratedName.GetNullCheckedHashCode() ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 

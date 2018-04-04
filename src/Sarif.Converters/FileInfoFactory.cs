@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (Location location in result.Locations)
                     {
-                        if (location.AnalysisTarget != null)
-                        {
-                            AddFile(location.AnalysisTarget);
-                        }
-
                         if (location.PhysicalLocation != null)
                         {
                             AddFile(location.PhysicalLocation);

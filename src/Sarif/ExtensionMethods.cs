@@ -113,14 +113,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (var location in result.Locations)
             {
-                PhysicalLocation physicalLocation = location.PhysicalLocation ?? location.AnalysisTarget;
-                Uri uri = physicalLocation.Uri;
+                Uri uri = location.PhysicalLocation.Uri;
                 string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
-                        physicalLocation.Region.FormatForVisualStudio(),
+                        location.PhysicalLocation.Region.FormatForVisualStudio(),
                         result.Level.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)

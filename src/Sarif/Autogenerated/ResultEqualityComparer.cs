@@ -28,6 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!FileLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            {
+                return false;
+            }
+
             if (left.RuleId != right.RuleId)
             {
                 return false;
@@ -261,6 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                if (obj.AnalysisTarget != null)
+                {
+                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
+                }
+
                 if (obj.RuleId != null)
                 {
                     result = (result * 31) + obj.RuleId.GetHashCode();

@@ -21,14 +21,13 @@ namespace Microsoft.Sarif.Viewer.Sarif
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
             {
-                PhysicalLocation physicalLocation = location.PhysicalLocation ?? location.AnalysisTarget;
-                Uri uri = physicalLocation.Uri;
+                Uri uri = location.PhysicalLocation.Uri;
                 string path = uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
-                        physicalLocation.Region.FormatForVisualStudio(),
+                        location.PhysicalLocation.Region.FormatForVisualStudio(),
                         result.Level.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)
@@ -56,10 +55,6 @@ namespace Microsoft.Sarif.Viewer.Sarif
             {
                 return primaryLocation.PhysicalLocation.Uri.ToPath();
             }
-            else if (primaryLocation.AnalysisTarget != null)
-            {
-                return primaryLocation.AnalysisTarget.Uri.ToPath();
-            }
             else if (primaryLocation.FullyQualifiedLogicalName != null)
             {
                 return primaryLocation.FullyQualifiedLogicalName;
@@ -80,10 +75,6 @@ namespace Microsoft.Sarif.Viewer.Sarif
             if (primaryLocation.PhysicalLocation != null)
             {
                 return primaryLocation.PhysicalLocation.Region;
-            }
-            else if (primaryLocation.AnalysisTarget != null)
-            {
-                return primaryLocation.AnalysisTarget.Region;
             }
             else
             {

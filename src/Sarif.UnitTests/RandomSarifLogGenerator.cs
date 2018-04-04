@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         new Location
                         {
-                            AnalysisTarget = new PhysicalLocation()
+                            PhysicalLocation = new PhysicalLocation()
                             {
                                 Uri = filePaths[random.Next(filePaths.Count)],
                             }

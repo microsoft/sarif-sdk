@@ -114,8 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     actualResult.Level.Should().Be(expectedResult.Level);
 
-                    actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
-                        expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
+                    actualResult.Locations[0].PhysicalLocation.Region.ValueEquals(
+                        expectedResult.Locations[0].PhysicalLocation.Region).Should().BeTrue();
                 }
             }
         }

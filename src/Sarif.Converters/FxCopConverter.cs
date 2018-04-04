@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!String.IsNullOrEmpty(context.Target))
             {
-                location.AnalysisTarget = new PhysicalLocation
+                result.AnalysisTarget = new FileLocation
                 {
                     Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
                 };

@@ -283,7 +283,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
             }
 
@@ -342,6 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 node.TemplatedMessage = VisitNullChecked(node.TemplatedMessage);
                 if (node.Locations != null)
                 {
