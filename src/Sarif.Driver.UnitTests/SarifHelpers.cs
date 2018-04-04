@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 resultAction(result);
             }
 
-            if (run.Invocation.ToolNotifications != null)
+            if (run.Invocation?.ToolNotifications != null)
             {
                 foreach (Notification notification in run.Invocation.ToolNotifications)
                 {
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            if (run.Invocation.ConfigurationNotifications != null)
+            if (run.Invocation?.ConfigurationNotifications != null)
             {
                 foreach (Notification notification in run.Invocation.ConfigurationNotifications)
                 {

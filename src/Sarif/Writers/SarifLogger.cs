@@ -456,12 +456,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
+            if (_run.Invocation == null)
+            {
+                _run.Invocation = new Invocation();
+            }
+
             _run.Invocation.ToolNotifications = _run.Invocation.ToolNotifications ?? new List<Notification>();
             _run.Invocation.ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
+            if (_run.Invocation == null)
+            {
+                _run.Invocation = new Invocation();
+            }
+
             _run.Invocation.ConfigurationNotifications = _run.Invocation.ConfigurationNotifications ?? new List<Notification>();
             _run.Invocation.ConfigurationNotifications.Add(notification);
         }
