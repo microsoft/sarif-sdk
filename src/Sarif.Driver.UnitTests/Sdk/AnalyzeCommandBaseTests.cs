@@ -662,10 +662,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // Three notifications. One for each disabled rule. And an error
                 // notification that all rules have been disabled
                 configurationNotificationCount.Should().Be(4);
-                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
-                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
+                run.Invocation.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
+                run.Invocation.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
 
-                run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
+                run.Invocation.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
 
                 toolNotificationCount.Should().Be(0);
             }

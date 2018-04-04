@@ -338,17 +338,6 @@
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:29.607Z"
-        }
-      ],
       "rules": {
         "BA2008": {
           "id": "BA2008",
@@ -626,6 +615,17 @@
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_Default.exe --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\Native_x86_VS2013_Default.exe.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:29.427Z",
         "endTime": "2016-05-20T17:13:29.768Z",
+        "toolNotifications": [
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:29.607Z"
+          }
+        ],
         "processId": 1896,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"
