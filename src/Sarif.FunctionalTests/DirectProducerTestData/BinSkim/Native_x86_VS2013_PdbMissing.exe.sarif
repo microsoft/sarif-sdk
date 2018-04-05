@@ -233,73 +233,6 @@
           ]
         }
       ],
-      "configurationNotifications": [
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        }
-      ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:30.281Z"
-        }
-      ],
       "rules": {
         "BA2008": {
           "id": "BA2008",
@@ -493,6 +426,73 @@
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\Native_x86_VS2013_PdbMissing.exe.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:30.110Z",
         "endTime": "2016-05-20T17:13:30.396Z",
+        "configurationNotifications": [
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          }
+        ],
+        "toolNotifications": [
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:30.281Z"
+          }
+        ],
         "processId": 29268,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"

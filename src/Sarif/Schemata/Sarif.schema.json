@@ -205,6 +205,25 @@
       "required": [ "message", "locations" ]
     },
 
+    "attachment": {
+      "description": "A file relevant to a tool invocation or to a result.",
+      "type": "object",
+      "properties": {
+
+        "description": {
+          "description": "A message describing the role played by the attachment.",
+          "type": "string"
+        },
+
+        "fileLocation": {
+          "description": "The location of the attachment.",
+          "$ref": "#/definitions/fileLocation"
+        }
+      },
+
+      "required": [ "fileLocation" ]
+    },
+
     "codeFlow": {
       "type": "object",
       "properties": {
@@ -507,6 +526,16 @@
       "type": "object",
       "properties": {
 
+        "attachments": {
+          "description": "A set of files relevant to the invocation of the tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
+          }
+        },
+
         "commandLine": {
           "description": "The command line used to invoke the tool.",
           "type": "string"
@@ -536,6 +565,22 @@
           "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
+        },
+
+        "toolNotifications": {
+          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
+        "configurationNotifications": {
+          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
         },
 
         "machine": {
@@ -961,6 +1006,16 @@
           }
         },
 
+        "attachments": {
+          "description": "A set of files relevant to the result.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
+          }
+        },
+
         "baselineState": {
           "description": "The state of a result relative to a baseline of a previous run.",
           "enum": [
@@ -1147,22 +1202,6 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/result"
-          }
-        },
-
-        "toolNotifications": {
-          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
-          }
-        },
-
-        "configurationNotifications": {
-          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
           }
         },
 

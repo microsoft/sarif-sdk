@@ -52,6 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
                 case SarifNodeKind.Annotation:
                     return VisitAnnotation((Annotation)node);
+                case SarifNodeKind.Attachment:
+                    return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
                 case SarifNodeKind.Conversion:
@@ -151,6 +153,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual Attachment VisitAttachment(Attachment node)
+        {
+            if (node != null)
+            {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
             }
 
             return node;
@@ -270,6 +282,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.Attachments != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
+                    {
+                        node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
+                    }
+                }
+
+                if (node.ToolNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
+                    {
+                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
+                    }
+                }
+
+                if (node.ConfigurationNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
+                    {
+                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
+                    }
+                }
+
                 node.Stdin = VisitNullChecked(node.Stdin);
                 node.Stdout = VisitNullChecked(node.Stdout);
                 node.Stderr = VisitNullChecked(node.Stderr);
@@ -375,6 +411,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.Attachments != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
+                    {
+                        node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
+                    }
+                }
+
                 if (node.ConversionProvenance != null)
                 {
                     for (int index_0 = 0; index_0 < node.ConversionProvenance.Count; ++index_0)
@@ -442,22 +486,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
                     {
                         node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
-                    }
-                }
-
-                if (node.ToolNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
-                    {
-                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
-                    }
-                }
-
-                if (node.ConfigurationNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
-                    {
-                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
                     }
                 }
 

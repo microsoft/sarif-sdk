@@ -336,17 +336,6 @@
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_AtlProxyStubPS.dll"
-          },
-          "message": "Analyzing 'Native_x86_VS2015_AtlProxyStubPS.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:25.274Z"
-        }
-      ],
       "rules": {
         "BA2015": {
           "id": "BA2015",
@@ -624,6 +613,17 @@
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Native_x86_VS2015_AtlProxyStubPS.dll --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\Native_x86_VS2015_AtlProxyStubPS.dll.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:25.088Z",
         "endTime": "2016-05-20T17:13:25.425Z",
+        "toolNotifications": [
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_AtlProxyStubPS.dll"
+            },
+            "message": "Analyzing 'Native_x86_VS2015_AtlProxyStubPS.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:25.274Z"
+          }
+        ],
         "processId": 39632,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"

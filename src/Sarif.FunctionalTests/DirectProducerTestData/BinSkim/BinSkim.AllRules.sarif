@@ -3414,1585 +3414,6 @@
           ]
         }
       ],
-      "configurationNotifications": [
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2006",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2014",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2002",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2007",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2011",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        },
-        {
-          "id": "ERR997.ExceptionLoadingPdb",
-          "ruleId": "BA2013",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
-          "level": "error"
-        }
-      ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:54.002Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:54.808Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/NoVulnATL32.dll"
-          },
-          "message": "Analyzing 'NoVulnATL32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:54.831Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl100/VulnATL32.dll"
-          },
-          "message": "Analyzing 'VulnATL32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:54.967Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl90/VulnATL32.dll"
-          },
-          "message": "Analyzing 'VulnATL32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.077Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.173Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/AllFail32.dll"
-          },
-          "message": "Analyzing 'AllFail32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.195Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.204Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail32.dll"
-          },
-          "message": "Analyzing 'AllFail32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.228Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail64.dll"
-          },
-          "message": "Analyzing 'AllFail64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.237Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.242Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection32.dll"
-          },
-          "message": "Analyzing 'PassSharedSection32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.264Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection64.dll"
-          },
-          "message": "Analyzing 'PassSharedSection64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.267Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/internal.io.filesystem.primitives.ni.dll"
-          },
-          "message": "Analyzing 'internal.io.filesystem.primitives.ni.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.270Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/Native_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.318Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
-          },
-          "message": "Analyzing 'msidcrl.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.344Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
-          },
-          "message": "Analyzing 'msxml6.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.385Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
-          },
-          "message": "Analyzing 'xmllite.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.406Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.427Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
-          },
-          "message": "Analyzing 'msxml6.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.454Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
-          },
-          "message": "Analyzing 'xmllite.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.465Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail32/AllFail32.dll"
-          },
-          "message": "Analyzing 'AllFail32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.475Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail64/AllFail64.dll"
-          },
-          "message": "Analyzing 'AllFail64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.481Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
-          },
-          "message": "Analyzing 'ManagedFail.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.486Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.537Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB32.dll"
-          },
-          "message": "Analyzing 'PassDB32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.559Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB64.dll"
-          },
-          "message": "Analyzing 'PassDB64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.561Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x64_VS2015_Default.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2015_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.564Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.602Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/Native_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.624Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Pass/Native_x64_VS2015_ControlFlowGuardEnabled.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2015_ControlFlowGuardEnabled.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.647Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.669Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
-          },
-          "message": "Analyzing 'PassSafeSEHNative.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.690Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
-          },
-          "message": "Analyzing 'ManagedFail.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.724Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.775Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.796Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
-          },
-          "message": "Analyzing 'AllFail64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.818Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
-          },
-          "message": "Analyzing 'PassGSFriendlyInit32.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.845Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
-          },
-          "message": "Analyzing 'PassGSFriendlyInit64.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.889Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Pass/MixedMode_x64_VS2013_Default.dll"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.918Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
-          },
-          "message": "Analyzing 'ManagedFail.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.940Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/vccorlib110.dll"
-          },
-          "message": "Analyzing 'vccorlib110.dll'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:55.990Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
-          },
-          "message": "Analyzing 'Compiled2003.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:56.114Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
-          },
-          "message": "Analyzing 'managed2003.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:56.383Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
-          },
-          "message": "Analyzing 'native2005.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:56.637Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
-          },
-          "message": "Analyzing 'native2005x64.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:56.690Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2008/XRay.exe"
-          },
-          "message": "Analyzing 'XRay.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:56.735Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/comclient.exe"
-          },
-          "message": "Analyzing 'comclient.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.054Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
-          },
-          "message": "Analyzing 'vulnprocess.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.095Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.317Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.345Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Fail/MinimalSafeBuffers.exe"
-          },
-          "message": "Analyzing 'MinimalSafeBuffers.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.384Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Pass/HelloWorld.exe"
-          },
-          "message": "Analyzing 'HelloWorld.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.393Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Pass/WhitelistedFunctions.exe"
-          },
-          "message": "Analyzing 'WhitelistedFunctions.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.513Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
-          },
-          "message": "Analyzing 'MinimalAtlUse_VS2008RTM.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.523Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/sha256.exe"
-          },
-          "message": "Analyzing 'sha256.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.696Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2013_Update4.exe"
-          },
-          "message": "Analyzing 'UnknownHash_VS2013_Update4.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.706Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2015_Preview.exe"
-          },
-          "message": "Analyzing 'UnknownHash_VS2015_Preview.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:57.828Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2013_With_Update3.exe"
-          },
-          "message": "Analyzing 'VS2013_With_Update3.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.115Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2015_Preview.exe"
-          },
-          "message": "Analyzing 'VS2015_Preview.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.258Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
-          },
-          "message": "Analyzing 'badexecimports.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.516Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.526Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/TestFixed.exe"
-          },
-          "message": "Analyzing 'TestFixed.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.588Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/VS2003-DotNetProgram-WithWritableCode.exe"
-          },
-          "message": "Analyzing 'VS2003-DotNetProgram-WithWritableCode.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.663Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.666Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.692Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Fail/__security_cookie.exe"
-          },
-          "message": "Analyzing '__security_cookie.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.720Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.837Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.908Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/VS2003-DotNetProgram.exe"
-          },
-          "message": "Analyzing 'VS2003-DotNetProgram.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.951Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.953Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x86_VS2015_Default.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2015_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:58.980Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
-          },
-          "message": "Analyzing 'MixedMode_x64_VS2013_NoPdb.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.011Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Pass/Native_x86_VS2015_ControlFlowGuardEnabled.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2015_ControlFlowGuardEnabled.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.017Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_noWswitch_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.044Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_LTCG_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_noWswitch_LTCG_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.048Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_W2_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.065Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_LTCG_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_W2_LTCG_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.069Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd4018_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.079Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_LTCG_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd4018_LTCG_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.088Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_W2_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.099Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_LTCG_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_W2_LTCG_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.102Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_wd4018_W4_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.111Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_LTCG_FAIL.exe"
-          },
-          "message": "Analyzing 'testwarn_wd4018_W4_LTCG_FAIL.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.115Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W1_W4_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W1_W4_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.128Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W1_W4_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W1_W4_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.137Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.141Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.150Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_W4_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_W4_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.152Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_W4_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W3_W4_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.161Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd4999_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd4999_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.163Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd4999_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd4999_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.172Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd703_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd703_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.175Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd703_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_W4_wd703_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.184Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.186Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.196Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_wd4018_we4018_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_wd4018_we4018_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.200Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_wd4018_we4018_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_Wall_wd4018_we4018_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.211Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_wd4999_W4_LTCG_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_wd4999_W4_LTCG_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.220Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_wd4999_W4_PASS.exe"
-          },
-          "message": "Analyzing 'testwarn_wd4999_W4_PASS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.242Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/HIGHENTROPYVA/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.248Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/LARGEADDRESSAWARE/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.292Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/Nothing/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.324Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Pass/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.352Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Fail/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.384Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.418Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/TestFixed.exe"
-          },
-          "message": "Analyzing 'TestFixed.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.444Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.479Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/broken/TestFixed.exe"
-          },
-          "message": "Analyzing 'TestFixed.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.483Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ConsoleNoGS/ConsoleNoGS.exe"
-          },
-          "message": "Analyzing 'ConsoleNoGS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.523Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Mixed/Mixed.exe"
-          },
-          "message": "Analyzing 'Mixed.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.590Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.634Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.662Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/ConsoleGS/ConsoleGS.exe"
-          },
-          "message": "Analyzing 'ConsoleGS.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.702Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Fail/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.749Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Pass/vs2012.exe"
-          },
-          "message": "Analyzing 'vs2012.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.778Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/VS2003-DotNetProgram.exe"
-          },
-          "message": "Analyzing 'VS2003-DotNetProgram.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.807Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/MixedMode_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.809Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_Default.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.837Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
-          },
-          "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.876Z"
-        },
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/Sha1SignedUntrustedRoot.exe"
-          },
-          "message": "Analyzing 'Sha1SignedUntrustedRoot.exe'...",
-          "level": "note",
-          "time": "2016-05-20T17:13:59.884Z"
-        }
-      ],
       "rules": {
         "BA2006": {
           "id": "BA2006",
@@ -7310,6 +5731,1585 @@
         "commandLine": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe  analyze d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.dll d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\*.exe --hashes --recurse --config default -o .\\\\BinSkim.AllRules.sarif",
         "startTime": "2016-05-20T17:13:53.641Z",
         "endTime": "2016-05-20T17:13:59.903Z",
+        "configurationNotifications": [
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msidcrl.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\msxml6.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Fail\\xmllite.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\msxml6.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotShipVulnerableBinaries\\Pass\\xmllite.dll' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\DoNotMarkImportsSectionAsExecutable\\Fail\\badexecimports.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NO_DEBUG_INFO (Pdb is stripped of cv info)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableControlFlowGuard\\NotApplicable\\MixedMode_x64_VS2013_NoPdb.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\EnableStackProtection\\Fail\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2006",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'BuildWithSecureTools' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2014",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotDisableStackProtectionForFunctions' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2002",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'DoNotIncorporateVulnerableDependencies' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2007",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableCriticalCompilerWarnings' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2011",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'EnableStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          },
+          {
+            "id": "ERR997.ExceptionLoadingPdb",
+            "ruleId": "BA2013",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "'d:\\src\\binskim\\src\\BinSkim.Rules.FunctionalTests\\FunctionalTestsData\\MarkImageAsNXCompatible\\Pass\\Native_x86_VS2013_PdbMissing.exe' was not evaluated for check 'InitializeStackProtection' because its PDB could not be loaded. ('E_PDB_NOT_FOUND (File not found)')",
+            "level": "error"
+          }
+        ],
+        "toolNotifications": [
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:54.002Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:54.808Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/NoVulnATL32.dll"
+            },
+            "message": "Analyzing 'NoVulnATL32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:54.831Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl100/VulnATL32.dll"
+            },
+            "message": "Analyzing 'VulnATL32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:54.967Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl90/VulnATL32.dll"
+            },
+            "message": "Analyzing 'VulnATL32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.077Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.173Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/AllFail32.dll"
+            },
+            "message": "Analyzing 'AllFail32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.195Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.204Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail32.dll"
+            },
+            "message": "Analyzing 'AllFail32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.228Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail64.dll"
+            },
+            "message": "Analyzing 'AllFail64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.237Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.242Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection32.dll"
+            },
+            "message": "Analyzing 'PassSharedSection32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.264Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection64.dll"
+            },
+            "message": "Analyzing 'PassSharedSection64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.267Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/internal.io.filesystem.primitives.ni.dll"
+            },
+            "message": "Analyzing 'internal.io.filesystem.primitives.ni.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.270Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/Native_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.318Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
+            },
+            "message": "Analyzing 'msidcrl.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.344Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
+            },
+            "message": "Analyzing 'msxml6.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.385Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
+            },
+            "message": "Analyzing 'xmllite.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.406Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.427Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/msxml6.dll"
+            },
+            "message": "Analyzing 'msxml6.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.454Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/xmllite.dll"
+            },
+            "message": "Analyzing 'xmllite.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.465Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail32/AllFail32.dll"
+            },
+            "message": "Analyzing 'AllFail32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.475Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail64/AllFail64.dll"
+            },
+            "message": "Analyzing 'AllFail64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.481Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
+            },
+            "message": "Analyzing 'ManagedFail.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.486Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.537Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB32.dll"
+            },
+            "message": "Analyzing 'PassDB32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.559Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB64.dll"
+            },
+            "message": "Analyzing 'PassDB64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.561Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x64_VS2015_Default.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2015_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.564Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.602Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/Native_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.624Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Pass/Native_x64_VS2015_ControlFlowGuardEnabled.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2015_ControlFlowGuardEnabled.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.647Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.669Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
+            },
+            "message": "Analyzing 'PassSafeSEHNative.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.690Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
+            },
+            "message": "Analyzing 'ManagedFail.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.724Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.775Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'Native_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.796Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
+            },
+            "message": "Analyzing 'AllFail64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.818Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
+            },
+            "message": "Analyzing 'PassGSFriendlyInit32.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.845Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
+            },
+            "message": "Analyzing 'PassGSFriendlyInit64.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.889Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Pass/MixedMode_x64_VS2013_Default.dll"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_Default.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.918Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
+            },
+            "message": "Analyzing 'ManagedFail.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.940Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/vccorlib110.dll"
+            },
+            "message": "Analyzing 'vccorlib110.dll'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:55.990Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
+            },
+            "message": "Analyzing 'Compiled2003.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:56.114Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
+            },
+            "message": "Analyzing 'managed2003.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:56.383Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
+            },
+            "message": "Analyzing 'native2005.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:56.637Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
+            },
+            "message": "Analyzing 'native2005x64.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:56.690Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2008/XRay.exe"
+            },
+            "message": "Analyzing 'XRay.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:56.735Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/comclient.exe"
+            },
+            "message": "Analyzing 'comclient.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.054Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
+            },
+            "message": "Analyzing 'vulnprocess.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.095Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.317Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.345Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Fail/MinimalSafeBuffers.exe"
+            },
+            "message": "Analyzing 'MinimalSafeBuffers.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.384Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Pass/HelloWorld.exe"
+            },
+            "message": "Analyzing 'HelloWorld.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.393Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Pass/WhitelistedFunctions.exe"
+            },
+            "message": "Analyzing 'WhitelistedFunctions.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.513Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
+            },
+            "message": "Analyzing 'MinimalAtlUse_VS2008RTM.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.523Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/sha256.exe"
+            },
+            "message": "Analyzing 'sha256.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.696Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2013_Update4.exe"
+            },
+            "message": "Analyzing 'UnknownHash_VS2013_Update4.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.706Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2015_Preview.exe"
+            },
+            "message": "Analyzing 'UnknownHash_VS2015_Preview.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:57.828Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2013_With_Update3.exe"
+            },
+            "message": "Analyzing 'VS2013_With_Update3.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.115Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2015_Preview.exe"
+            },
+            "message": "Analyzing 'VS2015_Preview.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.258Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
+            },
+            "message": "Analyzing 'badexecimports.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.516Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.526Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/TestFixed.exe"
+            },
+            "message": "Analyzing 'TestFixed.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.588Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/VS2003-DotNetProgram-WithWritableCode.exe"
+            },
+            "message": "Analyzing 'VS2003-DotNetProgram-WithWritableCode.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.663Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.666Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.692Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Fail/__security_cookie.exe"
+            },
+            "message": "Analyzing '__security_cookie.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.720Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.837Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.908Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/VS2003-DotNetProgram.exe"
+            },
+            "message": "Analyzing 'VS2003-DotNetProgram.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.951Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.953Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x86_VS2015_Default.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2015_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:58.980Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/NotApplicable/MixedMode_x64_VS2013_NoPdb.exe"
+            },
+            "message": "Analyzing 'MixedMode_x64_VS2013_NoPdb.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.011Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Pass/Native_x86_VS2015_ControlFlowGuardEnabled.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2015_ControlFlowGuardEnabled.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.017Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_noWswitch_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.044Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_LTCG_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_noWswitch_LTCG_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.048Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_W2_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.065Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_LTCG_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_W2_LTCG_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.069Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd4018_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.079Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_LTCG_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd4018_LTCG_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.088Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_W2_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.099Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_LTCG_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_W2_LTCG_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.102Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_wd4018_W4_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.111Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_LTCG_FAIL.exe"
+            },
+            "message": "Analyzing 'testwarn_wd4018_W4_LTCG_FAIL.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.115Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W1_W4_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W1_W4_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.128Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W1_W4_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W1_W4_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.137Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.141Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.150Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_W4_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_W4_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.152Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_W4_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W3_W4_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.161Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd4999_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd4999_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.163Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd4999_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd4999_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.172Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd703_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd703_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.175Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd703_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_W4_wd703_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.184Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.186Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.196Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_wd4018_we4018_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_wd4018_we4018_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.200Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_wd4018_we4018_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_Wall_wd4018_we4018_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.211Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_wd4999_W4_LTCG_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_wd4999_W4_LTCG_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.220Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_wd4999_W4_PASS.exe"
+            },
+            "message": "Analyzing 'testwarn_wd4999_W4_PASS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.242Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/HIGHENTROPYVA/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.248Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/LARGEADDRESSAWARE/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.292Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/Nothing/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.324Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Pass/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.352Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Fail/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.384Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.418Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/TestFixed.exe"
+            },
+            "message": "Analyzing 'TestFixed.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.444Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.479Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/broken/TestFixed.exe"
+            },
+            "message": "Analyzing 'TestFixed.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.483Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ConsoleNoGS/ConsoleNoGS.exe"
+            },
+            "message": "Analyzing 'ConsoleNoGS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.523Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Mixed/Mixed.exe"
+            },
+            "message": "Analyzing 'Mixed.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.590Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.634Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.662Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/ConsoleGS/ConsoleGS.exe"
+            },
+            "message": "Analyzing 'ConsoleGS.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.702Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Fail/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.749Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Pass/vs2012.exe"
+            },
+            "message": "Analyzing 'vs2012.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.778Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/VS2003-DotNetProgram.exe"
+            },
+            "message": "Analyzing 'VS2003-DotNetProgram.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.807Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/MixedMode_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'MixedMode_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.809Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_Default.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_Default.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.837Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
+            },
+            "message": "Analyzing 'Native_x86_VS2013_PdbMissing.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.876Z"
+          },
+          {
+            "id": "MSG001.AnalyzingTarget",
+            "physicalLocation": {
+              "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/Sha1SignedUntrustedRoot.exe"
+            },
+            "message": "Analyzing 'Sha1SignedUntrustedRoot.exe'...",
+            "level": "note",
+            "time": "2016-05-20T17:13:59.884Z"
+          }
+        ],
         "processId": 10004,
         "fileName": "d:\\src\\binskim\\bld\\bin\\BinSkim.Driver\\x64_Release\\BinSkim.exe",
         "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\BinSkim"
