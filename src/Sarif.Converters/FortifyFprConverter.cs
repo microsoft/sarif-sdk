@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // TODO: Confirm that the traces are ordered chronologically
                     // (so that we really do want to use the last one as the
                     // overall result location).
-                    ResultFile = codeFlow.Locations.Last().PhysicalLocation
+                    PhysicalLocation = codeFlow.Locations.Last().PhysicalLocation
                 });
 
                 if (!String.IsNullOrEmpty(lastSnippetId))

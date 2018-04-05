@@ -18,7 +18,7 @@
           "message": "Cast cannot be proven safe: \"(struct S *)result.malloc\" Accessing 12 bytes starting at byte offset 0\n\nValues of variables:\nPointer result.malloc is at offset offset(result.malloc)`14a bytes from the start of the buffer\n\nThere are other instances of this error:\nOverflow using expression 'p->c' at line 22\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test031.cpp",
                 "region": {
                   "startLine": 14,
@@ -84,7 +84,7 @@
           "message": "Overflow using expression 'x->a[i]'\nBuffer result.malloc created during call to malloc on line 73\nBuffer is of length 4*fullLength`70 + 204 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 73]\nAccessing 4 bytes starting at byte offset 208\n\nValues of variables:\nPointer x is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\nfullLength`70 == 1\noffset(result.malloc)`73a == 0\n{loop iterations}'80 == 0\n{loop iterations}'85 == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test031.cpp",
                 "region": {
                   "startLine": 87,
@@ -300,7 +300,7 @@
           "message": "Overflow using expression 'x->b[25]'\nBuffer accessed is extensible::b\nBuffer is of length 20 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 25\n\nValues of variables:\nPointer x is at offset 0 bytes from the start of result.malloc'73\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test031.cpp",
                 "region": {
                   "startLine": 92,
@@ -576,7 +576,7 @@
           "message": "Overflow using expression '(void *)(signed char *)(& x->c)'\nBuffer accessed is extensible::c\nBuffer is of length 120 bytes [size of field]\nAccessing 200 bytes starting at byte offset 0\nAnnotation on function memset requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(signed char *)(& x->c); {parameter 3} is 200\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer x is at offset 0 bytes from the start of result.malloc'73\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test031.cpp",
                 "region": {
                   "startLine": 100,

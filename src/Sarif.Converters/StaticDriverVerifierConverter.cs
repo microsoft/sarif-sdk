@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         result.Locations.Add(new Location
                         {
-                            ResultFile = locations[i].PhysicalLocation
+                            PhysicalLocation = locations[i].PhysicalLocation
                         });
                         break;
                     }

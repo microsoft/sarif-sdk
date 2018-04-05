@@ -124,5 +124,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             // System.InvalidOperationException: Operation is not valid due to the current state of the object.
             return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];
         }
+
+        public static void AddOrUpdateDictionaryEntry<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue val)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                dictionary[key] = val;
+            }
+            else
+            {
+                dictionary.Add(key, val);
+            }
+        }
     }
 }

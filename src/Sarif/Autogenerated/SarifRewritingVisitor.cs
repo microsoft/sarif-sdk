@@ -289,6 +289,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
                     }
                 }
+
+                if (node.ToolNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
+                    {
+                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
+                    }
+                }
+
+                if (node.ConfigurationNotifications != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
+                    {
+                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
+                    }
+                }
+
+                node.Stdin = VisitNullChecked(node.Stdin);
+                node.Stdout = VisitNullChecked(node.Stdout);
+                node.Stderr = VisitNullChecked(node.Stderr);
+                node.StdoutStderr = VisitNullChecked(node.StdoutStderr);
             }
 
             return node;
@@ -299,7 +320,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
-                node.ResultFile = VisitNullChecked(node.ResultFile);
+                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
             }
 
             return node;
@@ -465,22 +486,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
                     {
                         node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
-                    }
-                }
-
-                if (node.ToolNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
-                    {
-                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
-                    }
-                }
-
-                if (node.ConfigurationNotifications != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
-                    {
-                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
                     }
                 }
 

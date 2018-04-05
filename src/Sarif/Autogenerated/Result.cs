@@ -87,10 +87,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// A string that contributes to the unique identity of the result.
+        /// A set of strings that contribute to the unique identity of the result.
         /// </summary>
-        [DataMember(Name = "toolFingerprintContribution", IsRequired = false, EmitDefaultValue = false)]
-        public string ToolFingerprintContribution { get; set; }
+        [DataMember(Name = "toolFingerprintContributions", IsRequired = false, EmitDefaultValue = false)]
+        public IDictionary<string, string> ToolFingerprintContributions { get; set; }
 
         /// <summary>
         /// An array of 'stack' objects relevant to the result.
@@ -179,8 +179,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="toolFingerprintContribution">
-        /// An initialization value for the <see cref="P: ToolFingerprintContribution" /> property.
+        /// <param name="toolFingerprintContributions">
+        /// An initialization value for the <see cref="P: ToolFingerprintContributions" /> property.
         /// </param>
         /// <param name="stacks">
         /// An initialization value for the <see cref="P: Stacks" /> property.
@@ -209,9 +209,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContribution, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
+            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContribution, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, string toolFingerprintContribution, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -283,7 +283,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Snippet = snippet;
             Id = id;
-            ToolFingerprintContribution = toolFingerprintContribution;
+            if (toolFingerprintContributions != null)
+            {
+                ToolFingerprintContributions = new Dictionary<string, string>(toolFingerprintContributions);
+            }
+
             if (stacks != null)
             {
                 var destination_1 = new List<Stack>();

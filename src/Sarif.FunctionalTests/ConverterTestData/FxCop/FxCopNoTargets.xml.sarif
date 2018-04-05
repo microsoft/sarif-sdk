@@ -13,7 +13,9 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContribution": "Microsoft.FxCop.Common.AssemblyLoadException"
+          "toolFingerprintContributions": {
+            "UniqueId": "Microsoft.FxCop.Common.AssemblyLoadException"
+          }
         },
         {
           "ruleId": "CA0052",
@@ -21,7 +23,9 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContribution": "Microsoft.FxCop.Sdk.FxCopException"
+          "toolFingerprintContributions": {
+            "UniqueId": "Microsoft.FxCop.Sdk.FxCopException"
+          }
         }
       ]
     }

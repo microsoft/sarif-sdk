@@ -83,7 +83,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "DES#Type",
+          "toolFingerprintContributions": {
+            "UniqueId": "DES#Type"
+          },
           "properties": {
             "Category": "Microsoft.Naming",
             "FixCategory": "Breaking"
@@ -101,7 +103,9 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -116,7 +120,7 @@
               "analysisTarget": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {
                   "startLine": 14

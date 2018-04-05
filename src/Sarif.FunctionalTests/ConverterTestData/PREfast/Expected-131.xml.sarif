@@ -18,7 +18,7 @@
           "message": "Read overflow using expression 'data[dw]'\nBuffer accessed is data\nBuffer is of length 2 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 2\n\nValues of variables:\ndw = 2\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test131.cpp",
                 "region": {
                   "startLine": 24,

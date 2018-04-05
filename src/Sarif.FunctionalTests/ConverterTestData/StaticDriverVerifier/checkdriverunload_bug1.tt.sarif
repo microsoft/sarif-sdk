@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines a DriverUnload routine.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/CheckDriverUnload.slic",
                 "region": {
                   "startLine": 34

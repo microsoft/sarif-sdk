@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp",
                 "region": {
                   "startLine": 16,

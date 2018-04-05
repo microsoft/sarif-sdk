@@ -18,7 +18,7 @@
           "message": "Potential read overflow using expression 'a[i + j]'\nBuffer accessed is a\nBuffer is of length 2000 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset delta_i`47 + {loop iterations}'55(2) + delta_i`55(2) + 2\n\nValues of variables:\ni = delta_i`47 + delta_i`55(2) + 1\nj = {loop iterations}'55(2) + 1\n\nwhere\ndelta_r`55(2) + 3*delta_i`55(2) == 0\n2*{loop iterations}'47 + delta_k`47 >= 0\ndelta_i`47 <= 8\ndelta_i`47 >= 5\ndelta_i`55(2) >= 0\ndelta_k`47 <= {loop iterations}'47\ndelta_offset(p)`47 <= 8*{loop iterations}'47\ndelta_offset(p)`47 >= 0\ndelta_r`55(2) <= 0\n{loop iterations}'47 <= delta_i`47\n{loop iterations}'47 >= 0\n{loop iterations}'55(2) <= 18\n{loop iterations}'55(2) >= 0\n\nOverrun access occurs when\ndelta_i`47 + {loop iterations}'55(2) + delta_i`55(2) >= 1998\n\nThere are other instances of this error:\nPotential read overflow using expression 'a[i + j]' at line 59\nPotential read overflow using expression 'a[i + j]' at line 64\nPotential read overflow using expression 'a[i + j]' at line 69\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test059.cpp",
                 "region": {
                   "startLine": 57,

@@ -153,7 +153,9 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
           ],
-          "toolFingerprintContribution": "CSharp2_0",
+          "toolFingerprintContributions": {
+            "UniqueId": "CSharp2_0"
+          },
           "properties": {
             "Category": "Microsoft.Design",
             "FixCategory": "Breaking"
@@ -168,7 +170,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11
@@ -177,7 +179,9 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
             }
           ],
-          "toolFingerprintContribution": "Baz#Member",
+          "toolFingerprintContributions": {
+            "UniqueId": "Baz#Member"
+          },
           "properties": {
             "Level": "CriticalWarning",
             "Category": "Microsoft.Naming",
@@ -193,7 +197,7 @@
               "analysisTarget": {
                 "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
                 "region": {
                   "startLine": 11

@@ -18,7 +18,7 @@
           "message": "Postcondition violation that could result in overflow\nBuffer result.new[] created during call to operator new[] on line 7\nBuffer is of length 4*n`5 - 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 7]\nAccessing 8 bytes starting at byte offset 0\nAnnotation on function f requires that result.f is of length >= n elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test042.cpp(5)]\n\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nn = 2\nresult.f = p\n\nwhere\nn`5 == 2\noffset(result.new[])`7a == 0\n{loop iterations}'10 == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 13,
@@ -164,7 +164,7 @@
           "message": "Postcondition violation that could result in overflow\nBuffer result.new[] created during call to operator new[] on line 18\nBuffer is of length 4*n`16 - 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 18]\nAccessing 8 bytes starting at byte offset 0\nAnnotation on function g requires that * buf is of length >= n elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test042.cpp(16)]\n\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nn = 2\n(*buf) = p\n\nwhere\nn`16 == 2\noffset(result.new[])`18a == 0\n{loop iterations}'21 == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 24,
@@ -310,7 +310,7 @@
           "message": "Postcondition violation that could result in overflow\nBuffer pbuf is a parameter to this function declared on line 27\nBuffer is of length offset(pbuf)`27 + 4*n`27 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\\somepath\\test042.cpp(27)]\nAccessing 4*n`27 bytes starting at byte offset 4\nAnnotation on function h requires that * ppbuf is of length >= n elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test042.cpp(27)]\n\n\nValues of variables:\nPointer (*ppbuf) is at offset 4 bytes from the start of the buffer\nn = n`27\n\nwhere\noffset(pbuf)`27 == 0\nn`27 >= 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 31,
@@ -386,7 +386,7 @@
           "message": "Potential postcondition violation that could result in overflow\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: n`34 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 36\nBuffer is of length 40 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 36]\nAccessing n`34 bytes starting at byte offset 0\nAnnotation on function g1 requires that result.g1 is of length >= n bytes\n[Annotation SAL_writableTo(byteCount(n)) at c:\\somepath\\test042.cpp(34)]\n\n\nValues of variables:\nPointer result.g1 is at offset 0 bytes from the start of the buffer\nn = n`34\n\nOverrun access occurs when\noffset(result.new[])`36a == 0\nn`34 >= 41\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 36,
@@ -442,7 +442,7 @@
           "message": "Potential postcondition violation that could result in overflow\nBuffer accessed is `g2'::`2'::a\nBuffer is of length 40 bytes [size of variable]\nAccessing n`39 bytes starting at byte offset -4\nAnnotation on function g2 requires that result.g2 is of length >= n bytes\n[Annotation SAL_writableTo(byteCount(n)) at c:\\somepath\\test042.cpp(39)]\n\n\nValues of variables:\nPointer result.g2 is at offset -4 bytes from the start of the buffer\nn = n`39\n\nOverrun access occurs when\nn`39 >= 45\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 42,
@@ -488,7 +488,7 @@
           "message": "Postcondition violation that could result in underflow\nBuffer accessed is `g2'::`2'::a\nBuffer is of length 40 bytes [size of variable]\nAccessing n`39 bytes starting at byte offset -4\nAnnotation on function g2 requires that result.g2 is of length >= n bytes\n[Annotation SAL_writableTo(byteCount(n)) at c:\\somepath\\test042.cpp(39)]\n\n\nValues of variables:\nPointer result.g2 is at offset -4 bytes from the start of the buffer\nn = n`39\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 42,
@@ -534,7 +534,7 @@
           "message": "Postcondition violation that could result in overflow\nBuffer a is a parameter to this function declared on line 56\nBuffer is of length offset(a)`56 + 4*(*n)`56 bytes [from annotation SAL_writableTo(elementCount(* n)) at c:\\somepath\\test042.cpp(56)]\nAccessing 44 bytes starting at byte offset 0\nAnnotation on function bar requires that a is of length >= * n elements (4 bytes/element)\n[Annotation SAL_readableTo(elementCount(* n)) at c:\\somepath\\test042.cpp(56)]\n\n\nValues of variables:\n(*n) = 11\nPointer a is at offset 0 bytes from the start of the buffer\n\nwhere\n(*n)`56 == 1\noffset(a)`56 == 0\n{loop iterations}'61 == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 64,
@@ -660,7 +660,7 @@
           "message": "Potential Underflow using expression 'a[(int )(i ++)]'\nBuffer a is a parameter to this function declared on line 72\nBuffer is of length offset(a)`72 + 4*size`72 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test042.cpp(72)]\nAccessing 4 bytes starting at byte offset 4*i`79\n\nValues of variables:\nPointer a is at offset 0 bytes from the start of the buffer\ni = i`79 + 1\n\nwhere\noffset(a)`72 == 0\ni`79 <= {loop iterations}'79 + 1\nsize`72 >= 1\nsize`72 >= i`79 + 1\n\nUnderflow access occurs when\n4*i`79 + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 82,
@@ -896,7 +896,7 @@
           "message": "Potential Underflow using expression 'a[(int )(i ++)]'\nBuffer a is a parameter to this function declared on line 88\nBuffer is of length offset(a)`88 + 4*size`88 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test042.cpp(88)]\nAccessing 4 bytes starting at byte offset 4*i`95\n\nValues of variables:\nPointer a is at offset 0 bytes from the start of the buffer\ni = i`95 + 1\n\nwhere\noffset(a)`88 == 0\ni`95 <= {loop iterations}'95 + 1\nsize`88 >= 1\nsize`88 >= i`95 + 1\n\nUnderflow access occurs when\n4*i`95 + 1 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 98,
@@ -1132,7 +1132,7 @@
           "message": "Potential read underflow using expression 'a[size - 1]'\nBuffer accessed is a\nBuffer is of length 20 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset size`162a - 1\n\nValues of variables:\nsize = size`162a\n\nwhere\nsize`162a <= 20\nsize`162a >= 0\n\nUnderflow access occurs when\nsize`162a == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test042.cpp",
                 "region": {
                   "startLine": 163,

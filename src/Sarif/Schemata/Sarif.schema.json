@@ -541,6 +541,14 @@
           "type": "string"
         },
 
+        "arguments": {
+          "description": "An array of strings, containing in order the command line arguments passed to the tool from the operating system.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
         "responseFiles": {
           "description": "The contents of any response files specified on the tool's command line.",
           "type": "object",
@@ -557,6 +565,22 @@
           "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
+        },
+
+        "toolNotifications": {
+          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
+        "configurationNotifications": {
+          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
         },
 
         "machine": {
@@ -591,6 +615,26 @@
           "default": {}
         },
 
+        "stdin": {
+          "description": "A file containing the standard input stream to the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stdout": {
+          "description": "A file containing the standard output stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stderr": {
+          "description": "A file containing the standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stdoutStderr": {
+          "description": "A file containing the interleaved standard output and standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "type": "object",
@@ -621,7 +665,7 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "resultFile": {
+        "physicalLocation": {
           "description": "Identifies the file where the analysis tool produced the result.",
           "$ref": "#/definitions/physicalLocation"
         },
@@ -913,9 +957,12 @@
           "type": "string"
         },
 
-        "toolFingerprintContribution": {
-          "description": "A string that contributes to the unique identity of the result.",
-          "type": "string"
+        "toolFingerprintContributions": {
+          "description": "A set of strings that contribute to the unique identity of the result.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "stacks": {
@@ -1123,6 +1170,15 @@
           "$ref": "#/definitions/conversion"
         },
 
+        "originalUriBaseIds": {
+          "description": "The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+
         "files": {
           "description": "A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.",
           "type": "object",
@@ -1146,22 +1202,6 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/result"
-          }
-        },
-
-        "toolNotifications": {
-          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
-          }
-        },
-
-        "configurationNotifications": {
-          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
           }
         },
 

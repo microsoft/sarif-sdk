@@ -82,9 +82,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result();
 
             string uniqueId = context.GetUniqueId();
+
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprintContribution = uniqueId;
+                if (result.ToolFingerprintContributions == null)
+                {
+                    result.ToolFingerprintContributions = new Dictionary<string, string>();
+                }
+
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.ToolFingerprintContributions, "UniqueId", uniqueId);
             }
 
             string status = context.Status;
@@ -114,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string sourceFile = GetFilePath(context);
             if (!String.IsNullOrWhiteSpace(sourceFile))
             {
-                location.ResultFile = new PhysicalLocation
+                location.PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)

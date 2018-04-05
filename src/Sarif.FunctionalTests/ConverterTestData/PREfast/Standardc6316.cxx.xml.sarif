@@ -33,7 +33,7 @@
           "message": "Incorrect operator:  tested expression is constant and non-zero.  Use bitwise-and to determine whether bits are set.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6316.cxx",
                 "region": {
                   "startLine": 19,

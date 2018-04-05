@@ -18,7 +18,7 @@
           "message": "Possible precondition violation due to failure to null terminate string '& _Right->second'\nAccessing unannotated buffer (_Right->std::pair<int,uls_perf_counter_info>::second).uls_perf_counter_info::wzCounterSetName\nAssumed __inout annotation on function std::forward<uls_perf_counter_info> requires that {parameter 1}->wzCounterSetName is null terminated\n  where {parameter 1}->wzCounterSetName is & _Right->second [Field annotation SAL_nullTerminated at d:\\espsrcp\\esp\\tests\\nosal\\test181.cpp(11)]\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/utility",
                 "region": {
                   "startLine": 156,

@@ -18,7 +18,7 @@
           "message": "Potential overflow using expression 'rgdwIpAddresses[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer rgdwIpAddresses is a parameter to this function declared on line 8\nBuffer is of length offset(rgdwIpAddresses)`8 + 4*(*pcIpAddresses)`8 bytes [from annotation SAL_writableTo(elementCount(* pcIpAddresses)) at c:\\somepath\\test063.cpp(8)]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer rgdwIpAddresses is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(rgdwIpAddresses)`8 == 0\n{loop iterations}'14 == 0\n(*pcIpAddresses)`8 >= 1\n\nOverrun access occurs when\n(*pcIpAddresses)`8 == 1\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test063.cpp",
                 "region": {
                   "startLine": 18,

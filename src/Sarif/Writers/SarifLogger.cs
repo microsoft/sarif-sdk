@@ -175,16 +175,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run != null && _run.ConfigurationNotifications != null)
-                {
-                    _issueLogJsonWriter.WriteConfigurationNotifications(_run.ConfigurationNotifications);
-                }
-
-                if (_run != null && _run.ToolNotifications != null)
-                {
-                    _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
-                }
-
                 if (_run != null &&
                     _run.Invocation != null &&
                     _run.Invocation.StartTime != new DateTime())
@@ -283,9 +273,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         CaptureFile(location.AnalysisTarget.Uri);
                     }
 
-                    if (location.ResultFile != null)
+                    if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.ResultFile.Uri);
+                        CaptureFile(location.PhysicalLocation.Uri);
                     }
                 }
             }
@@ -466,14 +456,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
-            _run.ToolNotifications = _run.ToolNotifications ?? new List<Notification>();
-            _run.ToolNotifications.Add(notification);
+            if (_run.Invocation == null)
+            {
+                _run.Invocation = new Invocation();
+            }
+
+            _run.Invocation.ToolNotifications = _run.Invocation.ToolNotifications ?? new List<Notification>();
+            _run.Invocation.ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            _run.ConfigurationNotifications = _run.ConfigurationNotifications ?? new List<Notification>();
-            _run.ConfigurationNotifications.Add(notification);
+            if (_run.Invocation == null)
+            {
+                _run.Invocation = new Invocation();
+            }
+
+            _run.Invocation.ConfigurationNotifications = _run.Invocation.ConfigurationNotifications ?? new List<Notification>();
+            _run.Invocation.ConfigurationNotifications.Add(notification);
         }
     }
 }

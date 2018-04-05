@@ -18,7 +18,7 @@
           "message": "Overflow using expression 'p[itemcnt ++]'\nBuffer result.new[] created during call to operator new[] on line 24\nBuffer is of length 2 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 24] OR\n  {loop iterations}'19 + offset(result.new[])`24a + 1 bytes [from annotation _Out_(byteCount({parameter 3})) on function memcpy called at line 27]\nAccessing the byte at byte offset 2\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nitemcnt = 3\n\nwhere\noffset(result.new[])`14a == 0\n{loop iterations}'19 == 0\ncnt`19 <= 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test070.cpp",
                 "region": {
                   "startLine": 30,

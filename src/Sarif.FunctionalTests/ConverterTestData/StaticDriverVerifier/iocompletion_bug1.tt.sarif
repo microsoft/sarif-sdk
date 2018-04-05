@@ -20,7 +20,7 @@
           "message": "The property is satisfied as the driver defines one or more Io Completion routines.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "../../../rules/WDM/IoCompletion.slic",
                 "region": {
                   "startLine": 34

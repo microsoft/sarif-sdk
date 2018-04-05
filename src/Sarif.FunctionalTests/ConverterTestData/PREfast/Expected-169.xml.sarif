@@ -18,7 +18,7 @@
           "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function MyAPI3 requires that * p == _Old_((* p)) + 1\n[Annotation SAL_satisfies(* p == _Old_((* p)) + 1) at c:\\somepath\\test169.cpp(19)]\n\nValues of variables:\n(*p) = (*p)`19\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test169.cpp",
                 "region": {
                   "startLine": 21,
@@ -64,7 +64,7 @@
           "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function MyAPI4 requires that * p is == _Old_((* p)) + 1\n[Annotation SAL_relop(\"==\", _Old_((* p)) + 1) at c:\\somepath\\test169.cpp(25)]\n\nValues of variables:\n(*p) = (*p)`25\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test169.cpp",
                 "region": {
                   "startLine": 27,

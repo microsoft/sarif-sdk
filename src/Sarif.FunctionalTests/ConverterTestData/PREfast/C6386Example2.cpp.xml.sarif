@@ -33,7 +33,7 @@
           "message": "Buffer overrun while writing to 'a':  the writable size is '80' bytes, but '84' bytes might be written.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
                 "region": {
                   "startLine": 7,

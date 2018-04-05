@@ -33,7 +33,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 11,
@@ -111,7 +111,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 24,
@@ -189,7 +189,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 33,
@@ -267,7 +267,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 42,
@@ -345,7 +345,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 51,
@@ -423,7 +423,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 64,
@@ -501,7 +501,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 73,
@@ -579,7 +579,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 82,
@@ -657,7 +657,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 91,
@@ -735,7 +735,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 100,
@@ -813,7 +813,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 109,
@@ -891,7 +891,7 @@
           "message": "Dereferencing NULL pointer 'data'. ",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
                 "region": {
                   "startLine": 118,

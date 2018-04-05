@@ -33,7 +33,7 @@
           "message": "Reading invalid data from 'a':  the readable size is '80' bytes, but '84' bytes may be read.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp",
                 "region": {
                   "startLine": 9,

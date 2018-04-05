@@ -33,7 +33,7 @@
           "message": "Labeled code is unreachable:  '(<expression> & 0x3)' in a switch-expr cannot evaluate to '0x4'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6259.cxx",
                 "region": {
                   "startLine": 22,

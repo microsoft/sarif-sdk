@@ -13,7 +13,9 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContribution": "Microsoft.FxCop.Sdk.InvalidMetadataException"
+          "toolFingerprintContributions": {
+            "UniqueId": "Microsoft.FxCop.Sdk.InvalidMetadataException"
+          }
         },
         {
           "ruleId": "CA0001",
@@ -21,7 +23,9 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContribution": "ManagedPlayToReceiver.PlayToReceiverPage.#ImgPlayer_SizeChanged(System.Object,Windows.UI.Xaml.SizeChangedEventArgs)#Microsoft.FxCop.Sdk.InvalidMetadataException"
+          "toolFingerprintContributions": {
+            "UniqueId": "ManagedPlayToReceiver.PlayToReceiverPage.#ImgPlayer_SizeChanged(System.Object,Windows.UI.Xaml.SizeChangedEventArgs)#Microsoft.FxCop.Sdk.InvalidMetadataException"
+          }
         }
       ]
     }

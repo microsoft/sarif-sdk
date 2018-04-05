@@ -17,7 +17,7 @@
           "message": "The function MiscTests() in bannedAPIs.m can crash the program by dereferencing a null pointer on line 172.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 172
@@ -25,7 +25,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "30C5553B949CCCBFDA3AEF5D98E90CC4",
+          "toolFingerprintContributions": {
+            "InstanceId": "30C5553B949CCCBFDA3AEF5D98E90CC4"
+          },
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -38,7 +40,7 @@
           "message": "The function gets() cannot be used safely.  It should not be used.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 243
@@ -46,7 +48,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "23A9EC956EBD4DE3265979412C99C399",
+          "toolFingerprintContributions": {
+            "InstanceId": "23A9EC956EBD4DE3265979412C99C399"
+          },
           "properties": {
             "kingdom": "API Abuse",
             "priority": "Critical",
@@ -59,7 +63,7 @@
           "message": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 240
@@ -67,7 +71,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BC721B0CA607643167C1FCF97A99049C",
+          "toolFingerprintContributions": {
+            "InstanceId": "BC721B0CA607643167C1FCF97A99049C"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -80,7 +86,7 @@
           "message": "The format string argument to sscanf() at bannedAPIs.m line 240 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 240
@@ -88,7 +94,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BC721B0CA607643167C1FCF97A99049D",
+          "toolFingerprintContributions": {
+            "InstanceId": "BC721B0CA607643167C1FCF97A99049D"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -101,7 +109,7 @@
           "message": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 238
@@ -109,7 +117,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "66E83DC8F1956DE5D779F9F4CBFEA340",
+          "toolFingerprintContributions": {
+            "InstanceId": "66E83DC8F1956DE5D779F9F4CBFEA340"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -122,7 +132,7 @@
           "message": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 236
@@ -130,7 +140,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F073D447A2825E29187509EFD3B86C65",
+          "toolFingerprintContributions": {
+            "InstanceId": "F073D447A2825E29187509EFD3B86C65"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -143,7 +155,7 @@
           "message": "The format string argument to scanf() at bannedAPIs.m line 236 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 236
@@ -151,7 +163,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F073D447A2825E29187509EFD3B86C66",
+          "toolFingerprintContributions": {
+            "InstanceId": "F073D447A2825E29187509EFD3B86C66"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -164,7 +178,7 @@
           "message": "The format string argument to vscanf() at bannedAPIs.m line 254 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 254
@@ -172,7 +186,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "6EDB6A8159343D7A730F8DA7AA953109",
+          "toolFingerprintContributions": {
+            "InstanceId": "6EDB6A8159343D7A730F8DA7AA953109"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -185,7 +201,7 @@
           "message": "The format string argument to fscanf() at bannedAPIs.m line 238 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 238
@@ -193,7 +209,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "66E83DC8F1956DE5D779F9F4CBFEA33F",
+          "toolFingerprintContributions": {
+            "InstanceId": "66E83DC8F1956DE5D779F9F4CBFEA33F"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -206,7 +224,7 @@
           "message": "The format string argument to vfscanf() at bannedAPIs.m line 256 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 256
@@ -214,7 +232,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "EDF54498D1601A642A13590D0AF7CDF0",
+          "toolFingerprintContributions": {
+            "InstanceId": "EDF54498D1601A642A13590D0AF7CDF0"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -227,7 +247,7 @@
           "message": "The format string argument to vsscanf() at bannedAPIs.m line 258 does not properly limit the amount of data the function can write, which allows the program to write outside the bounds of allocated memory. This behavior could corrupt data, crash the program, or lead to the execution of malicious code",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 258
@@ -235,7 +255,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B3851112605215EF7EE293C01F52625C",
+          "toolFingerprintContributions": {
+            "InstanceId": "B3851112605215EF7EE293C01F52625C"
+          },
           "properties": {
             "kingdom": "Input Validation and Representation",
             "priority": "High",
@@ -248,7 +270,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -256,7 +278,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BDC8FC3C5AAE67B07F46EC48B928AA6E",
+          "toolFingerprintContributions": {
+            "InstanceId": "BDC8FC3C5AAE67B07F46EC48B928AA6E"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -291,7 +315,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -299,7 +323,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F4EAD2528E3175B5202ADCFFED7C1FA0",
+          "toolFingerprintContributions": {
+            "InstanceId": "F4EAD2528E3175B5202ADCFFED7C1FA0"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -334,7 +360,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -342,7 +368,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "8893BCF1861EC9CF1A98B85B0E953FD7",
+          "toolFingerprintContributions": {
+            "InstanceId": "8893BCF1861EC9CF1A98B85B0E953FD7"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -377,7 +405,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -385,7 +413,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "A0B07FC1302B5E5E37E0C8E0505C2F53",
+          "toolFingerprintContributions": {
+            "InstanceId": "A0B07FC1302B5E5E37E0C8E0505C2F53"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -420,7 +450,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -428,7 +458,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "3806636845C687DD3D898C7687DF6047",
+          "toolFingerprintContributions": {
+            "InstanceId": "3806636845C687DD3D898C7687DF6047"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -463,7 +495,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -471,7 +503,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "75E96A16B6963CB20C667DDDE99FA4EC",
+          "toolFingerprintContributions": {
+            "InstanceId": "75E96A16B6963CB20C667DDDE99FA4EC"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -506,7 +540,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -514,7 +548,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "079F0BA2AF3FD6DE8D3044AAA2EC0976",
+          "toolFingerprintContributions": {
+            "InstanceId": "079F0BA2AF3FD6DE8D3044AAA2EC0976"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -549,7 +585,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -557,7 +593,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E2F4654ECCD989CC6542178BAF661260",
+          "toolFingerprintContributions": {
+            "InstanceId": "E2F4654ECCD989CC6542178BAF661260"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -592,7 +630,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -600,7 +638,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B7273D0D158330965C761515BD294F48",
+          "toolFingerprintContributions": {
+            "InstanceId": "B7273D0D158330965C761515BD294F48"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -635,7 +675,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -643,7 +683,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B61201418FA0655BB2B63FA66FBE5DA2",
+          "toolFingerprintContributions": {
+            "InstanceId": "B61201418FA0655BB2B63FA66FBE5DA2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -678,7 +720,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -686,7 +728,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E538381D55AF9DF1C2B83DEB26C17057",
+          "toolFingerprintContributions": {
+            "InstanceId": "E538381D55AF9DF1C2B83DEB26C17057"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -721,7 +765,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -729,7 +773,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "904355449876787C23BBEFFCC3652FD8",
+          "toolFingerprintContributions": {
+            "InstanceId": "904355449876787C23BBEFFCC3652FD8"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -764,7 +810,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -772,7 +818,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "9E7020B20F73EB80C1B9E8FFD1698E43",
+          "toolFingerprintContributions": {
+            "InstanceId": "9E7020B20F73EB80C1B9E8FFD1698E43"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -807,7 +855,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -815,7 +863,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "36D0CE5DFDCF68A4211DD991DF297401",
+          "toolFingerprintContributions": {
+            "InstanceId": "36D0CE5DFDCF68A4211DD991DF297401"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -850,7 +900,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -858,7 +908,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "59DDA3BCFAC68E8CE5F87A3410D1E4C5",
+          "toolFingerprintContributions": {
+            "InstanceId": "59DDA3BCFAC68E8CE5F87A3410D1E4C5"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -893,7 +945,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -901,7 +953,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "52C8C29C09C50723F93C057876945289",
+          "toolFingerprintContributions": {
+            "InstanceId": "52C8C29C09C50723F93C057876945289"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -936,7 +990,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -944,7 +998,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "9A97F79B12F672BB124D767DA1A39A50",
+          "toolFingerprintContributions": {
+            "InstanceId": "9A97F79B12F672BB124D767DA1A39A50"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -979,7 +1035,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -987,7 +1043,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BFB0F10810A1DA7A3C0565CB3558333F",
+          "toolFingerprintContributions": {
+            "InstanceId": "BFB0F10810A1DA7A3C0565CB3558333F"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1022,7 +1080,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -1030,7 +1088,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "47510283C86CAE3258A4116864B27A61",
+          "toolFingerprintContributions": {
+            "InstanceId": "47510283C86CAE3258A4116864B27A61"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1065,7 +1125,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -1073,7 +1133,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "82731CC5FB8AC8C7982CF7CEC49EE3A2",
+          "toolFingerprintContributions": {
+            "InstanceId": "82731CC5FB8AC8C7982CF7CEC49EE3A2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1108,7 +1170,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -1116,7 +1178,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "27BAADAEA67E3A01F374F982944504CC",
+          "toolFingerprintContributions": {
+            "InstanceId": "27BAADAEA67E3A01F374F982944504CC"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1151,7 +1215,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -1159,7 +1223,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "EF88307D8F6E4FEC828F7D03963E8CCB",
+          "toolFingerprintContributions": {
+            "InstanceId": "EF88307D8F6E4FEC828F7D03963E8CCB"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1194,7 +1260,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -1202,7 +1268,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "344BBA91D5E184883A40424532EE84E4",
+          "toolFingerprintContributions": {
+            "InstanceId": "344BBA91D5E184883A40424532EE84E4"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1237,7 +1305,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -1245,7 +1313,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B55FE3672FC2A0E466693855B5FE0815",
+          "toolFingerprintContributions": {
+            "InstanceId": "B55FE3672FC2A0E466693855B5FE0815"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1280,7 +1350,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -1288,7 +1358,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "5D50AA0FEB1A20778BFB7E4347D76973",
+          "toolFingerprintContributions": {
+            "InstanceId": "5D50AA0FEB1A20778BFB7E4347D76973"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1323,7 +1395,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -1331,7 +1403,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E37E8EFAFB4F6703FEF354C1D3957A31",
+          "toolFingerprintContributions": {
+            "InstanceId": "E37E8EFAFB4F6703FEF354C1D3957A31"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1366,7 +1440,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -1374,7 +1448,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B91BE4B2A10F34298E592DF1EB4D566A",
+          "toolFingerprintContributions": {
+            "InstanceId": "B91BE4B2A10F34298E592DF1EB4D566A"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1409,7 +1485,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -1417,7 +1493,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "19FE9DA1DE9428F0751A2552B44AB7D3",
+          "toolFingerprintContributions": {
+            "InstanceId": "19FE9DA1DE9428F0751A2552B44AB7D3"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1452,7 +1530,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -1460,7 +1538,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "10E19E731065F10BDAAF98F8095ED514",
+          "toolFingerprintContributions": {
+            "InstanceId": "10E19E731065F10BDAAF98F8095ED514"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1495,7 +1575,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -1503,7 +1583,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "2006F3F3FB10F19706D5D7D6013DD9A2",
+          "toolFingerprintContributions": {
+            "InstanceId": "2006F3F3FB10F19706D5D7D6013DD9A2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1538,7 +1620,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -1546,7 +1628,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "47510283C86CAE3258A4116864B27A62",
+          "toolFingerprintContributions": {
+            "InstanceId": "47510283C86CAE3258A4116864B27A62"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1581,7 +1665,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -1589,7 +1673,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "8D675A9184E5EE999DA1230CFCA31FF2",
+          "toolFingerprintContributions": {
+            "InstanceId": "8D675A9184E5EE999DA1230CFCA31FF2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1624,7 +1710,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -1632,7 +1718,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F4EAD2528E3175B5202ADCFFED7C1FA1",
+          "toolFingerprintContributions": {
+            "InstanceId": "F4EAD2528E3175B5202ADCFFED7C1FA1"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1667,7 +1755,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -1675,7 +1763,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F221C74F42779C7186A4B108AD32C9A9",
+          "toolFingerprintContributions": {
+            "InstanceId": "F221C74F42779C7186A4B108AD32C9A9"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1710,7 +1800,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -1718,7 +1808,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "52C8C29C09C50723F93C05787694528A",
+          "toolFingerprintContributions": {
+            "InstanceId": "52C8C29C09C50723F93C05787694528A"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1753,7 +1845,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -1761,7 +1853,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "44156512276E1548B5509F94381EACA4",
+          "toolFingerprintContributions": {
+            "InstanceId": "44156512276E1548B5509F94381EACA4"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1796,7 +1890,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -1804,7 +1898,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "88A313BC2B1970AD9A72CDE6984F1D7D",
+          "toolFingerprintContributions": {
+            "InstanceId": "88A313BC2B1970AD9A72CDE6984F1D7D"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1839,7 +1935,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -1847,7 +1943,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "0E8A2FECC2E40403211DA7125B360CFA",
+          "toolFingerprintContributions": {
+            "InstanceId": "0E8A2FECC2E40403211DA7125B360CFA"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1882,7 +1980,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -1890,7 +1988,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E64D9B15CDE12302F1E0BC7E4F81CC8D",
+          "toolFingerprintContributions": {
+            "InstanceId": "E64D9B15CDE12302F1E0BC7E4F81CC8D"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1925,7 +2025,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -1933,7 +2033,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BD1FA971642E27B8F6132EC97E3B9974",
+          "toolFingerprintContributions": {
+            "InstanceId": "BD1FA971642E27B8F6132EC97E3B9974"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -1968,7 +2070,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -1976,7 +2078,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "59DDA3BCFAC68E8CE5F87A3410D1E4C4",
+          "toolFingerprintContributions": {
+            "InstanceId": "59DDA3BCFAC68E8CE5F87A3410D1E4C4"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2011,7 +2115,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -2019,7 +2123,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "A33A049936ACEF1BBBE88CCA4297473B",
+          "toolFingerprintContributions": {
+            "InstanceId": "A33A049936ACEF1BBBE88CCA4297473B"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2054,7 +2160,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -2062,7 +2168,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F6D5C779C9BAA9FA70BB308389F9FB1F",
+          "toolFingerprintContributions": {
+            "InstanceId": "F6D5C779C9BAA9FA70BB308389F9FB1F"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2097,7 +2205,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -2105,7 +2213,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "EDDF4F65D3BED2F29F48521FCCB64F0A",
+          "toolFingerprintContributions": {
+            "InstanceId": "EDDF4F65D3BED2F29F48521FCCB64F0A"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2140,7 +2250,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -2148,7 +2258,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BC044DF5332F926B896F8936F416D6E8",
+          "toolFingerprintContributions": {
+            "InstanceId": "BC044DF5332F926B896F8936F416D6E8"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2183,7 +2295,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -2191,7 +2303,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "AB102E292739E6A26083D04E771F90C2",
+          "toolFingerprintContributions": {
+            "InstanceId": "AB102E292739E6A26083D04E771F90C2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2226,7 +2340,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -2234,7 +2348,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "39C90BE84174878645162127D2EEF7A5",
+          "toolFingerprintContributions": {
+            "InstanceId": "39C90BE84174878645162127D2EEF7A5"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2269,7 +2385,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -2277,7 +2393,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "7BEDDF5666EB0F4E889F65731A58D2D7",
+          "toolFingerprintContributions": {
+            "InstanceId": "7BEDDF5666EB0F4E889F65731A58D2D7"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2312,7 +2430,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -2320,7 +2438,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "ED8F0F4C67561029F8075C463B097306",
+          "toolFingerprintContributions": {
+            "InstanceId": "ED8F0F4C67561029F8075C463B097306"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2355,7 +2475,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -2363,7 +2483,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "9571D01CEF126F0AC62DECA8C9948D51",
+          "toolFingerprintContributions": {
+            "InstanceId": "9571D01CEF126F0AC62DECA8C9948D51"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2398,7 +2520,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -2406,7 +2528,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "A0B07FC1302B5E5E37E0C8E0505C2F52",
+          "toolFingerprintContributions": {
+            "InstanceId": "A0B07FC1302B5E5E37E0C8E0505C2F52"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2441,7 +2565,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -2449,7 +2573,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "3B1A3BF8E84286E49AE14B93537A3815",
+          "toolFingerprintContributions": {
+            "InstanceId": "3B1A3BF8E84286E49AE14B93537A3815"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2484,7 +2610,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -2492,7 +2618,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "6D6B130BB95150D28C0EA0989F13B76C",
+          "toolFingerprintContributions": {
+            "InstanceId": "6D6B130BB95150D28C0EA0989F13B76C"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2527,7 +2655,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -2535,7 +2663,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "44063AE6F90F88C349BC8348AC04F43C",
+          "toolFingerprintContributions": {
+            "InstanceId": "44063AE6F90F88C349BC8348AC04F43C"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2570,7 +2700,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -2578,7 +2708,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "40AA064CA5E749DAD9888A9590EB96CD",
+          "toolFingerprintContributions": {
+            "InstanceId": "40AA064CA5E749DAD9888A9590EB96CD"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2613,7 +2745,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -2621,7 +2753,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "26AEAC68BBF988FED92D872810DAA0A2",
+          "toolFingerprintContributions": {
+            "InstanceId": "26AEAC68BBF988FED92D872810DAA0A2"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2656,7 +2790,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -2664,7 +2798,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "EDAE315A9552940016EF8C009A0CD659",
+          "toolFingerprintContributions": {
+            "InstanceId": "EDAE315A9552940016EF8C009A0CD659"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2699,7 +2835,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -2707,7 +2843,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B33A31E8B58A12691BC68729582F6E50",
+          "toolFingerprintContributions": {
+            "InstanceId": "B33A31E8B58A12691BC68729582F6E50"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2742,7 +2880,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -2750,7 +2888,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "247C4B8ADE15F1B4B50C0C8C1FADC70C",
+          "toolFingerprintContributions": {
+            "InstanceId": "247C4B8ADE15F1B4B50C0C8C1FADC70C"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2785,7 +2925,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -2793,7 +2933,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E27AB6F7D5CB058B498C2829C7C4A2C0",
+          "toolFingerprintContributions": {
+            "InstanceId": "E27AB6F7D5CB058B498C2829C7C4A2C0"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2828,7 +2970,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -2836,7 +2978,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "1467EABFD44A49CF856C06F03477ACA8",
+          "toolFingerprintContributions": {
+            "InstanceId": "1467EABFD44A49CF856C06F03477ACA8"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2871,7 +3015,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -2879,7 +3023,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "4E16D65621351C2E580DB210E77F62CD",
+          "toolFingerprintContributions": {
+            "InstanceId": "4E16D65621351C2E580DB210E77F62CD"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2914,7 +3060,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -2922,7 +3068,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "19CCD2C8F0E97A3E2CE5AEE97B9E7F30",
+          "toolFingerprintContributions": {
+            "InstanceId": "19CCD2C8F0E97A3E2CE5AEE97B9E7F30"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -2957,7 +3105,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -2965,7 +3113,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "236007A7E2324B82AAE44CC2CC25F4BA",
+          "toolFingerprintContributions": {
+            "InstanceId": "236007A7E2324B82AAE44CC2CC25F4BA"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3000,7 +3150,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -3008,7 +3158,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "7925DB4016AE4B1174FC0EC71869F815",
+          "toolFingerprintContributions": {
+            "InstanceId": "7925DB4016AE4B1174FC0EC71869F815"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3043,7 +3195,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -3051,7 +3203,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "AA424588C1A8B265AF06B431DF09326B",
+          "toolFingerprintContributions": {
+            "InstanceId": "AA424588C1A8B265AF06B431DF09326B"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3086,7 +3240,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -3094,7 +3248,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "96D9D7CBC80B6B14ABAC9D07B2DB1E3C",
+          "toolFingerprintContributions": {
+            "InstanceId": "96D9D7CBC80B6B14ABAC9D07B2DB1E3C"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3129,7 +3285,7 @@
           "message": "An attacker can control the format string argument to vfwprintf() at bannedAPIs.m line 225, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 225
@@ -3137,7 +3293,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "84E9E10DEB89A40B0B597E654EBD3E45",
+          "toolFingerprintContributions": {
+            "InstanceId": "84E9E10DEB89A40B0B597E654EBD3E45"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3172,7 +3330,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -3180,7 +3338,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "330A5219AFAD58232673BDC844F05F8C",
+          "toolFingerprintContributions": {
+            "InstanceId": "330A5219AFAD58232673BDC844F05F8C"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3215,7 +3375,7 @@
           "message": "An attacker can control the format string argument to fwprintf() at bannedAPIs.m line 205, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 205
@@ -3223,7 +3383,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "7C71422FF16A25931644F5B63BE22B79",
+          "toolFingerprintContributions": {
+            "InstanceId": "7C71422FF16A25931644F5B63BE22B79"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3258,7 +3420,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -3266,7 +3428,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "A26FD1A933E9A17CE78C14E08C2A94D8",
+          "toolFingerprintContributions": {
+            "InstanceId": "A26FD1A933E9A17CE78C14E08C2A94D8"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3301,7 +3465,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -3309,7 +3473,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "349E661BC9DAB17F2B943A6FF0734FC0",
+          "toolFingerprintContributions": {
+            "InstanceId": "349E661BC9DAB17F2B943A6FF0734FC0"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3344,7 +3510,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -3352,7 +3518,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "F943FA9002D0649DE86DD64585CABCF6",
+          "toolFingerprintContributions": {
+            "InstanceId": "F943FA9002D0649DE86DD64585CABCF6"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3387,7 +3555,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -3395,7 +3563,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "079F0BA2AF3FD6DE8D3044AAA2EC0975",
+          "toolFingerprintContributions": {
+            "InstanceId": "079F0BA2AF3FD6DE8D3044AAA2EC0975"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3430,7 +3600,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -3438,7 +3608,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "62A32C7373CBDA644946AB9FC29ED44E",
+          "toolFingerprintContributions": {
+            "InstanceId": "62A32C7373CBDA644946AB9FC29ED44E"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3473,7 +3645,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -3481,7 +3653,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "BFB0F10810A1DA7A3C0565CB35583340",
+          "toolFingerprintContributions": {
+            "InstanceId": "BFB0F10810A1DA7A3C0565CB35583340"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3516,7 +3690,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -3524,7 +3698,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "2C723B1BE13419DE1EE73755B963A151",
+          "toolFingerprintContributions": {
+            "InstanceId": "2C723B1BE13419DE1EE73755B963A151"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3559,7 +3735,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -3567,7 +3743,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "369F89B3A439BA2AF8F1855325039376",
+          "toolFingerprintContributions": {
+            "InstanceId": "369F89B3A439BA2AF8F1855325039376"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3602,7 +3780,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -3610,7 +3788,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "2736DA7D7ACC4048BDEE38D4A10F4D76",
+          "toolFingerprintContributions": {
+            "InstanceId": "2736DA7D7ACC4048BDEE38D4A10F4D76"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3645,7 +3825,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -3653,7 +3833,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E71FA539B5E6073AAF585E88BCB22F5D",
+          "toolFingerprintContributions": {
+            "InstanceId": "E71FA539B5E6073AAF585E88BCB22F5D"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3688,7 +3870,7 @@
           "message": "An attacker can control the format string argument to vfwscanf() at bannedAPIs.m line 257, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 257
@@ -3696,7 +3878,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "8D675A9184E5EE999DA1230CFCA31FF1",
+          "toolFingerprintContributions": {
+            "InstanceId": "8D675A9184E5EE999DA1230CFCA31FF1"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3731,7 +3915,7 @@
           "message": "An attacker can control the format string argument to wprintf() at bannedAPIs.m line 204, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 204
@@ -3739,7 +3923,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "3D0258A36CF9480EE83ED0FF720CE317",
+          "toolFingerprintContributions": {
+            "InstanceId": "3D0258A36CF9480EE83ED0FF720CE317"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3774,7 +3960,7 @@
           "message": "An attacker can control the format string argument to vwprintf() at bannedAPIs.m line 223, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 223
@@ -3782,7 +3968,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "0AED1B3043F4DD47AE27EF691675B9FF",
+          "toolFingerprintContributions": {
+            "InstanceId": "0AED1B3043F4DD47AE27EF691675B9FF"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3817,7 +4005,7 @@
           "message": "An attacker can control the format string argument to vwscanf() at bannedAPIs.m line 255, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 255
@@ -3825,7 +4013,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "8D5D851CB3B5F07CF87266C1557F5356",
+          "toolFingerprintContributions": {
+            "InstanceId": "8D5D851CB3B5F07CF87266C1557F5356"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3860,7 +4050,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -3868,7 +4058,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "9660AD8BC1959880FD17723FA06BCCBC",
+          "toolFingerprintContributions": {
+            "InstanceId": "9660AD8BC1959880FD17723FA06BCCBC"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3903,7 +4095,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -3911,7 +4103,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "349E661BC9DAB17F2B943A6FF0734FC1",
+          "toolFingerprintContributions": {
+            "InstanceId": "349E661BC9DAB17F2B943A6FF0734FC1"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3946,7 +4140,7 @@
           "message": "An attacker can control the format string argument to fprintf() at bannedAPIs.m line 200, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 200
@@ -3954,7 +4148,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "175D03E66213F6F75A01CBDCB0AE3EB9",
+          "toolFingerprintContributions": {
+            "InstanceId": "175D03E66213F6F75A01CBDCB0AE3EB9"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -3989,7 +4185,7 @@
           "message": "An attacker can control the format string argument to printf() at bannedAPIs.m line 199, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 199
@@ -3997,7 +4193,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "1AC9B8150ED658E10BC361EF320AF5E9",
+          "toolFingerprintContributions": {
+            "InstanceId": "1AC9B8150ED658E10BC361EF320AF5E9"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4032,7 +4230,7 @@
           "message": "An attacker can control the format string argument to vswscanf() at bannedAPIs.m line 259, allowing an attack much like a buffer overflow.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 259
@@ -4040,7 +4238,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E22B697F1D4A2D0FF91C3F01B3226781",
+          "toolFingerprintContributions": {
+            "InstanceId": "E22B697F1D4A2D0FF91C3F01B3226781"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4075,7 +4275,7 @@
           "message": " The program uses an improperly constructed format string that contains a different number of conversion specifiers than the function has arguments. Incorrect format strings can lead the program to read data outside the bounds of allocated memory, which can allow access to sensitive information, introduce incorrect behavior, or crash the program. \n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 222
@@ -4083,7 +4283,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "B20E17F4A2B9C7A437696F31D05FD4A6",
+          "toolFingerprintContributions": {
+            "InstanceId": "B20E17F4A2B9C7A437696F31D05FD4A6"
+          },
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -4096,7 +4298,7 @@
           "message": " The program uses an improperly constructed format string that contains conversion specifiers that do not align with the types of the arguments passed to the function. Incorrect format strings can lead the program to convert values incorrectly and potentially read or write outside the bounds of allocated memory, which can introduce incorrect behavior or crash the program. \n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 201
@@ -4104,7 +4306,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "9B64D2BB197A4616AA23A98041CF1618",
+          "toolFingerprintContributions": {
+            "InstanceId": "9B64D2BB197A4616AA23A98041CF1618"
+          },
           "properties": {
             "kingdom": "Code Quality",
             "priority": "High",
@@ -4117,7 +4321,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4125,7 +4329,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "E97A2D6BAF232260AC303E4940AB5509",
+          "toolFingerprintContributions": {
+            "InstanceId": "E97A2D6BAF232260AC303E4940AB5509"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4160,7 +4366,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4168,7 +4374,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "65F814D3D0C6F5D61B8B07229C5054D5",
+          "toolFingerprintContributions": {
+            "InstanceId": "65F814D3D0C6F5D61B8B07229C5054D5"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4203,7 +4411,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4211,7 +4419,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "DB93D0F298DA2DDC22A9EC7D8A9D6B7F",
+          "toolFingerprintContributions": {
+            "InstanceId": "DB93D0F298DA2DDC22A9EC7D8A9D6B7F"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4246,7 +4456,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4254,7 +4464,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "4AD7C542C06E5B215D308282E30494BF",
+          "toolFingerprintContributions": {
+            "InstanceId": "4AD7C542C06E5B215D308282E30494BF"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4289,7 +4501,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4297,7 +4509,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "D82800828C73CF9882FABCC523B305FB",
+          "toolFingerprintContributions": {
+            "InstanceId": "D82800828C73CF9882FABCC523B305FB"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4332,7 +4546,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4340,7 +4554,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "C7916675D2052C6D8187E27154A47009",
+          "toolFingerprintContributions": {
+            "InstanceId": "C7916675D2052C6D8187E27154A47009"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4375,7 +4591,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4383,7 +4599,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "7167C91DAF29CF8FFC6F8102C238FA27",
+          "toolFingerprintContributions": {
+            "InstanceId": "7167C91DAF29CF8FFC6F8102C238FA27"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4418,7 +4636,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4426,7 +4644,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "1C80821B323D117284544B40EFD8A5B3",
+          "toolFingerprintContributions": {
+            "InstanceId": "1C80821B323D117284544B40EFD8A5B3"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4461,7 +4681,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4469,7 +4689,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "DB93D0F298DA2DDC22A9EC7D8A9D6B7E",
+          "toolFingerprintContributions": {
+            "InstanceId": "DB93D0F298DA2DDC22A9EC7D8A9D6B7E"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4504,7 +4726,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4512,7 +4734,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "D82800828C73CF9882FABCC523B305FC",
+          "toolFingerprintContributions": {
+            "InstanceId": "D82800828C73CF9882FABCC523B305FC"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4547,7 +4771,7 @@
           "message": "The function LikelyBannedTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 279, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 279
@@ -4555,7 +4779,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "AD182EE22933927AAC966D5DDC668E1B",
+          "toolFingerprintContributions": {
+            "InstanceId": "AD182EE22933927AAC966D5DDC668E1B"
+          },
           "codeFlows": [
             {
               "locations": [
@@ -4590,7 +4816,7 @@
           "message": "The function WideCharStringTests() in bannedAPIs.m writes outside the bounds of allocated memory on line 87, which could corrupt data, cause the program to crash, or lead to the execution of malicious code.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "bannedAPIs.m",
                 "region": {
                   "startLine": 87
@@ -4598,7 +4824,9 @@
               }
             }
           ],
-          "toolFingerprintContribution": "87CCC6BEFD09409265D8E7127CD280FE",
+          "toolFingerprintContributions": {
+            "InstanceId": "87CCC6BEFD09409265D8E7127CD280FE"
+          },
           "codeFlows": [
             {
               "locations": [

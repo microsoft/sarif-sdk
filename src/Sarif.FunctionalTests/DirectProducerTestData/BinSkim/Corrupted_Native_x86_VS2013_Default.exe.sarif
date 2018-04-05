@@ -17,16 +17,6 @@
           "ProductName": "BinSkim Portable Executable Analyzer"
         }
       },
-      "configurationNotifications": [
-        {
-          "id": "ERR997.ExceptionLoadingAnalysisTarget",
-          "physicalLocation": {
-            "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Corrupted_Native_x86_VS2013_Default.exe"
-          },
-          "message": "Could not load analysis target 'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Corrupted_Native_x86_VS2013_Default.exe'. ('Image is either too small or contains an invalid byte offset or count.')",
-          "level": "error"
-        }
-      ],
       "files": {
         "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Corrupted_Native_x86_VS2013_Default.exe": {
           "mimeType": "application/octet-stream",
@@ -50,6 +40,16 @@
         "commandLine": "\"Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe\" analyze Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Corrupted_Native_x86_VS2013_Default.exe --output Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Expected\\Corrupted_Native_x86_VS2013_Default.exe.sarif.temp --verbose --hashes --config default",
         "startTime": "2016-05-20T17:13:25.756Z",
         "endTime": "2016-05-20T17:13:25.953Z",
+        "configurationNotifications": [
+          {
+            "id": "ERR997.ExceptionLoadingAnalysisTarget",
+            "physicalLocation": {
+              "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Corrupted_Native_x86_VS2013_Default.exe"
+            },
+            "message": "Could not load analysis target 'Z:\\src\\BinSkim.Driver.FunctionalTests\\BaselineTestsData\\Corrupted_Native_x86_VS2013_Default.exe'. ('Image is either too small or contains an invalid byte offset or count.')",
+            "level": "error"
+          }
+        ],
         "processId": 9276,
         "fileName": "Z:\\bld\\bin\\BinSkim.Driver\\x86_Release\\BinSkim.exe",
         "workingDirectory": "Z:\\src\\BinSkim.Driver.FunctionalTests"

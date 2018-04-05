@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""message"": ""Message"",
           ""locations"": [
             {
-              ""resultFile"": {
+              ""physicalLocation"": {
                 ""uri"": ""RelativePath"",
                 ""uriBaseId"": ""$srcroot"",
                 ""region"": {
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""message"": ""Call to Equals() comparing incomparable types[IComparable] and [ClientAttributeValue]"",
           ""locations"": [
             {
-              ""resultFile"": {
+              ""physicalLocation"": {
                 ""uri"": ""ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"",
                 ""uriBaseId"": ""$srcroot"",
                 ""region"": {

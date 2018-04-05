@@ -57,7 +57,7 @@
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -81,7 +81,7 @@
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -105,7 +105,7 @@
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -129,7 +129,7 @@
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -153,7 +153,7 @@
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -177,7 +177,7 @@
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradle/wrapper/gradle-wrapper.properties",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -201,7 +201,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -225,7 +225,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -249,7 +249,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -273,7 +273,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -297,7 +297,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -321,7 +321,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -345,7 +345,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -369,7 +369,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -393,7 +393,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -417,7 +417,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -441,7 +441,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -465,7 +465,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -489,7 +489,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -513,7 +513,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -537,7 +537,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -561,7 +561,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -585,7 +585,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -609,7 +609,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -633,7 +633,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -657,7 +657,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -681,7 +681,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -705,7 +705,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -729,7 +729,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -753,7 +753,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -777,7 +777,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -801,7 +801,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -825,7 +825,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -849,7 +849,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -873,7 +873,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -897,7 +897,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -921,7 +921,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -945,7 +945,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -969,7 +969,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -993,7 +993,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1017,7 +1017,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1041,7 +1041,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1065,7 +1065,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1089,7 +1089,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1113,7 +1113,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1137,7 +1137,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1161,7 +1161,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1185,7 +1185,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1209,7 +1209,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1233,7 +1233,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1257,7 +1257,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1281,7 +1281,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1305,7 +1305,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1329,7 +1329,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1353,7 +1353,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1377,7 +1377,7 @@
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1401,7 +1401,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1425,7 +1425,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1449,7 +1449,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1473,7 +1473,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1497,7 +1497,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1521,7 +1521,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1545,7 +1545,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1569,7 +1569,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1593,7 +1593,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1617,7 +1617,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1641,7 +1641,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1665,7 +1665,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1689,7 +1689,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1713,7 +1713,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1737,7 +1737,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1761,7 +1761,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1785,7 +1785,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1809,7 +1809,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1833,7 +1833,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1857,7 +1857,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1881,7 +1881,7 @@
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "gradlew.bat",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1905,7 +1905,7 @@
                 "uri": "app/build.gradle",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/build.gradle",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1929,7 +1929,7 @@
                 "uri": "app/src/main/AndroidManifest.xml",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/main/AndroidManifest.xml",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1953,7 +1953,7 @@
                 "uri": "app/src/main/res/values-w820dp/dimens.xml",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/main/res/values-w820dp/dimens.xml",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {
@@ -1977,7 +1977,7 @@
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
                 "uriBaseId": "$PROJECT_DIR$"
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
                 "uriBaseId": "$PROJECT_DIR$",
                 "region": {

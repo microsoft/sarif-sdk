@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var physicalLocation = new PhysicalLocation(id: 0, uri: resultsFileUri, uriBaseId: null, region: region);
             var location = new Location()
             {
-                ResultFile = physicalLocation,
+                PhysicalLocation = physicalLocation,
                 FullyQualifiedLogicalName = defect.Function,
                 DecoratedName = defect.Decorated
             };

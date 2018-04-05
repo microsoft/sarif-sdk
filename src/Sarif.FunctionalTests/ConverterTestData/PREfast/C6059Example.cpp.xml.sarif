@@ -33,7 +33,7 @@
           "message": "Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'.",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
                 "region": {
                   "startLine": 10,

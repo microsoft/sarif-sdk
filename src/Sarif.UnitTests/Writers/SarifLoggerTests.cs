@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             new Location
                             {
                                 AnalysisTarget = new PhysicalLocation {  Uri = new Uri(@"file:///file0.cpp")},
-                                ResultFile = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
+                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
                             },
                         },
                         Fixes = new[]

@@ -18,7 +18,7 @@
           "message": "Read overflow using expression 'b[7]'\nBuffer result.mallocInt created during call to mallocInt on line 12\nBuffer is of length 40 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test005.cpp(5) on function mallocInt called at line 12] OR\n  offset(result.mallocInt)`12a + 40 bytes [from annotation _Out_(byteCount({parameter 3})) on function memset called at line 16]\nAccessing 4 bytes starting at byte offset 40\n\nValues of variables:\nPointer b is at offset 12 bytes from the start of the buffer\n\nwhere\noffset(result.mallocInt)`12a == 0\noffset(result.memset)`16a == 0\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test005.cpp",
                 "region": {
                   "startLine": 20,

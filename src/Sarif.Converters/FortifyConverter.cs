@@ -92,7 +92,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result();
             result.RuleId = fortify.Category;
-            result.ToolFingerprintContribution = fortify.InstanceId;
+
+            if (!string.IsNullOrWhiteSpace(fortify.InstanceId))
+            {
+                if (result.ToolFingerprintContributions == null)
+                {
+                    result.ToolFingerprintContributions = new Dictionary<string, string>();
+                }
+
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.ToolFingerprintContributions, "InstanceId", fortify.InstanceId);
+            }
+
             List<string> messageComponents = new List<string>();
             if (fortify.Abstract != null)
             {
@@ -135,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Location
                 {
-                    ResultFile = primaryOrSink
+                    PhysicalLocation = primaryOrSink
                 }
             };
 

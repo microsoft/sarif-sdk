@@ -18,7 +18,7 @@
           "message": "Cast cannot be proven safe: \"(VARSTR *)result.malloc\" Accessing 20 bytes starting at byte offset 0\n\nValues of variables:\nPointer result.malloc is at offset offset(result.malloc)`20a bytes from the start of the buffer\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test102.cpp",
                 "region": {
                   "startLine": 20,
@@ -84,7 +84,7 @@
           "message": "Cast cannot be proven safe: \"(VARSTR *)result.malloc\" Accessing 20 bytes starting at byte offset 0\n\nValues of variables:\nPointer result.malloc is at offset offset(result.malloc)`43a bytes from the start of the buffer\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test102.cpp",
                 "region": {
                   "startLine": 43,
@@ -150,7 +150,7 @@
           "message": "Postcondition violation that could result in overflow\nBuffer result.malloc created during call to malloc on line 43\nBuffer is of length 8 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 43]\nAccessing 20 bytes starting at byte offset 0\nAnnotation on function bad1 requires that result.bad1 is of length >= 1 elements (20 bytes/element)\n[Annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test102.cpp(41)]\n\n\nValues of variables:\nPointer v is at offset 0 bytes from the start of the buffer\nresult.bad1 = v\n",
           "locations": [
             {
-              "resultFile": {
+              "physicalLocation": {
                 "uri": "file:///c:/somepath/test102.cpp",
                 "region": {
                   "startLine": 49,
