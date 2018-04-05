@@ -205,6 +205,25 @@
       "required": [ "message", "locations" ]
     },
 
+    "attachment": {
+      "description": "A file relevant to a tool invocation or to a result.",
+      "type": "object",
+      "properties": {
+
+        "description": {
+          "description": "A message describing the role played by the attachment.",
+          "type": "string"
+        },
+
+        "fileLocation": {
+          "description": "The location of the attachment.",
+          "$ref": "#/definitions/fileLocation"
+        }
+      },
+
+      "required": [ "fileLocation" ]
+    },
+
     "codeFlow": {
       "type": "object",
       "properties": {
@@ -506,6 +525,16 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
+
+        "attachments": {
+          "description": "A set of files relevant to the invocation of the tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
+          }
+        },
 
         "commandLine": {
           "description": "The command line used to invoke the tool.",
@@ -974,6 +1003,16 @@
               "suppressedInSource",
               "suppressedExternally"
             ]
+          }
+        },
+
+        "attachments": {
+          "description": "A set of files relevant to the result.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
           }
         },
 
