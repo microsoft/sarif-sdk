@@ -17,8 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                // Only compare URI (so file path/relative file path).  UriBaseId may change run over run.
-                if (x.Uri != y.Uri)
+                if (x.Uri != y.Uri || x.UriBaseId != y.UriBaseId)
                 {
                     return false;
                 }
