@@ -31,7 +31,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -50,7 +50,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -69,7 +69,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -88,7 +88,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -107,7 +107,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -126,7 +126,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -145,7 +145,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -164,7 +164,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -183,7 +183,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -202,7 +202,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -221,7 +221,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -238,7 +238,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -255,7 +255,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -272,7 +272,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -291,7 +291,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -308,7 +308,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -325,7 +325,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }
@@ -342,7 +342,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/ManagedInteropAssemblyForAtlTestLibrary.dll"
               }
             }

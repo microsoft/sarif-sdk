@@ -17,7 +17,7 @@
           "message": "The left operand of '<' is a garbage value",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jcmaster.c",
                 "region": {
                   "startLine": 251,

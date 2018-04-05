@@ -136,6 +136,9 @@
       },
       "results": [
         {
+		  "analysisTarget": {
+			"uri": "file:///home/buildAgent/src/collections/list.cpp"
+		  },
           "ruleId": "C2001",
           "templatedMessage": {
             "templateId": "default",
@@ -148,10 +151,7 @@
           "level": "error",
           "snippet": "add_core(ptr, offset, val);\n    return;",
           "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///home/buildAgent/src/collections/list.cpp"
-              },
+		    {
               "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {

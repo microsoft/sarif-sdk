@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri(targetPath),
                             Region = region

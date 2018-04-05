@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
             Location location = new Location()
             {
-                AnalysisTarget = physLoc
+                PhysicalLocation = physLoc
             };
 
             testResult.Locations = new List<Location>()

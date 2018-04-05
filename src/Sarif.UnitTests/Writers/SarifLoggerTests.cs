@@ -187,11 +187,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var result = new Result()
                     {
                         RuleId = ruleId,
+                        AnalysisTarget = new FileLocation { Uri = new Uri(@"file:///file0.cpp") },
                         Locations = new[]
                         {
                             new Location
                             {
-                                AnalysisTarget = new PhysicalLocation {  Uri = new Uri(@"file:///file0.cpp")},
                                 PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
                             },
                         },

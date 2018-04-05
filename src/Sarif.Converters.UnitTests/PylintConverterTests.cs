@@ -62,7 +62,7 @@ namespace Sarif.Converters.UnitTests
                 {
                     new Location
                     {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri("test.py", UriKind.RelativeOrAbsolute),
                             Region = new Region

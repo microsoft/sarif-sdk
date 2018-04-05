@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var location = new Location
             {
-                AnalysisTarget = physicalLocation
+                PhysicalLocation = physicalLocation
             };
 
             result.Locations = new List<Location>

@@ -31,7 +31,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -50,7 +50,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -69,7 +69,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -86,7 +86,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -103,7 +103,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -120,7 +120,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -138,7 +138,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -155,7 +155,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -172,7 +172,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -189,7 +189,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -208,7 +208,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -225,7 +225,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -242,7 +242,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -260,7 +260,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -277,7 +277,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -295,7 +295,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -312,7 +312,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }
@@ -329,7 +329,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///Z:/src/BinSkim.Driver.FunctionalTests/BaselineTestsData/Native_x86_VS2015_Default.exe"
               }
             }

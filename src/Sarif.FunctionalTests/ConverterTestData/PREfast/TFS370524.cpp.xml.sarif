@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "DQovLyBLZXkgZXZlbnQgdGFyZ2V0IGluIHRoZSBwcmVzZW5jZSBvZiBjbGFzcyBtZW1iZXIgYWxpYXMNCi8vIExvb2sgZm9yICd0aGlzLT5zb3VyY2UnLCBub3QganVzdCAnc291cmNlJw0KDQpjbGFzcyBNaXNzZWRBbGlhc2VzDQp7DQoJaW50ICogc291cmNlOw0KDQoJaW50IE1pc3NlZEFsaWFzKCkNCgl7DQoJCWJvb2wgYXNzZXJ0ID0gc291cmNlICE9IDAgPyBmYWxzZSA6IHRydWU7IC8vIEV4cGVjdHM6ICdzb3VyY2UnIG1heSBiZSBOVUxMDQoJCWludCAqIHRhcmdldCA9IHNvdXJjZTsNCgkJaW50IHggPSAqc291cmNlOw0KDQoJCS8vIHN1cHByZXNzIDQxODkNCgkJaWYgKGFzc2VydCAmJiB0YXJnZXQpIHJldHVybiB4Ow0KCX0NCg0KCWludCBNaXNzZWRBbGlhczIoKQ0KCXsNCgkJYm9vbCBhc3NlcnQgPSBzb3VyY2UgIT0gMCA/IGZhbHNlIDogdHJ1ZTsgLy8gRXhwZWN0czogJ3RoaXMtPnNvdXJjZScgbWF5IGJlIE5VTEwNCgkJaW50ICogdGFyZ2V0ID0gc291cmNlOw0KCQlpbnQgeCA9ICp0YXJnZXQ7DQoNCgkJLy8gc3VwcHJlc3MgNDE4OQ0KCQlpZiAoYXNzZXJ0ICYmIHRhcmdldCkgcmV0dXJuIHg7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzMyhpbnQgKiB0YXJnZXQpDQoJew0KCQlib29sIGFzc2VydCA9IHRhcmdldCAhPSAwID8gZmFsc2UgOiB0cnVlOyAvLyBFeHBlY3RzOiAndGFyZ2V0JyBtYXkgYmUgTlVMTA0KCQlzb3VyY2UgPSB0YXJnZXQ7DQoJCWludCB4ID0gKnNvdXJjZTsNCg0KCQkvLyBzdXBwcmVzcyA0MTg5DQoJCWlmIChhc3NlcnQgJiYgdGFyZ2V0KSByZXR1cm4geDsNCgl9DQoNCn07DQoNCg==",
-          "hashes": [
-            {
-              "value": "9EB90F40ADA3B637A68517DDBCE913FA",
-              "algorithm": "md5"
-            },
-            {
-              "value": "FE4D86F0014CA0226372B5C9C1FB803CDC4E0AD7",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "4ED320350F0016E513FB10B5A3EFD3A63E5D2A2CACCC20A77EB244A1304A850D",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

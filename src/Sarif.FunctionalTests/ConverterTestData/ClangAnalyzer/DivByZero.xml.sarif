@@ -17,7 +17,7 @@
           "message": "Division by zero",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jquant1.c",
                 "region": {
                   "startLine": 254,

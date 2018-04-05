@@ -28,7 +28,7 @@
           "message": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          ",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
               },
               "fullyQualifiedLogicalName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources"

@@ -27,7 +27,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/AppxManifest.xml",
                 "region": {
                   "startLine": 1
@@ -47,7 +47,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/AppxManifest.xml",
                 "region": {
                   "startLine": 1
@@ -67,7 +67,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/AppxManifest.xml",
                 "region": {
                   "startLine": 1
@@ -89,7 +89,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.html",
                 "region": {
                   "startLine": 21,
@@ -115,7 +115,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.html",
                 "region": {
                   "startLine": 26,
@@ -136,7 +136,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/default.html",
                 "region": {
                   "startLine": 23,
@@ -162,7 +162,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.html",
                 "region": {
                   "startLine": 34,
@@ -188,7 +188,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.html",
                 "region": {
                   "startLine": 59,
@@ -214,7 +214,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.html",
                 "region": {
                   "startLine": 61,
@@ -239,7 +239,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
                   "startLine": 18,
@@ -262,7 +262,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
                   "startLine": 36,
@@ -286,7 +286,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
                   "startLine": 46,
@@ -313,7 +313,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
                   "startLine": 47,
@@ -336,7 +336,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
                   "startLine": 48,
@@ -360,7 +360,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 4,
@@ -386,7 +386,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 5,
@@ -410,7 +410,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 6,
@@ -435,7 +435,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 9,
@@ -459,7 +459,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 21,
@@ -482,7 +482,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 24,
@@ -510,7 +510,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 24,
@@ -538,7 +538,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 36,
@@ -565,7 +565,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 37,
@@ -589,7 +589,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 40,
@@ -616,7 +616,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
                   "startLine": 42,
@@ -635,7 +635,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 1,
@@ -661,7 +661,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 6,
@@ -687,7 +687,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 6,
@@ -714,7 +714,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 8,
@@ -741,7 +741,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 9,
@@ -767,7 +767,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 9,
@@ -790,7 +790,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 12,
@@ -814,7 +814,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 12,
@@ -837,7 +837,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 14,
@@ -864,7 +864,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 22,
@@ -887,7 +887,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 23,
@@ -910,7 +910,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 27,
@@ -933,7 +933,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 27,
@@ -952,7 +952,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 39,
@@ -978,7 +978,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 39,
@@ -1000,7 +1000,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 39,
@@ -1023,7 +1023,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 41,
@@ -1050,7 +1050,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 44,
@@ -1077,7 +1077,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 49,
@@ -1100,7 +1100,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
                   "startLine": 54,
@@ -1127,7 +1127,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 4,
@@ -1153,7 +1153,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 7,
@@ -1176,7 +1176,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 11,
@@ -1199,7 +1199,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 21,
@@ -1218,7 +1218,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 25,
@@ -1244,7 +1244,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 25,
@@ -1263,7 +1263,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 26,
@@ -1289,7 +1289,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 26,
@@ -1312,7 +1312,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 28,
@@ -1334,7 +1334,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 30,
@@ -1357,7 +1357,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 35,
@@ -1381,7 +1381,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 36,
@@ -1407,7 +1407,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 40,
@@ -1430,7 +1430,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 40,
@@ -1453,7 +1453,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 45,
@@ -1476,7 +1476,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 50,
@@ -1499,7 +1499,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 55,
@@ -1522,7 +1522,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 56,
@@ -1545,7 +1545,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 65,
@@ -1568,7 +1568,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 76,
@@ -1591,7 +1591,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 76,
@@ -1614,7 +1614,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 77,
@@ -1637,7 +1637,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 83,
@@ -1660,7 +1660,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 84,
@@ -1683,7 +1683,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 84,
@@ -1707,7 +1707,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 88,
@@ -1734,7 +1734,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 90,
@@ -1757,7 +1757,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 95,
@@ -1780,7 +1780,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 96,
@@ -1803,7 +1803,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 100,
@@ -1826,7 +1826,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 101,
@@ -1849,7 +1849,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 102,
@@ -1872,7 +1872,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 104,
@@ -1895,7 +1895,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 106,
@@ -1919,7 +1919,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 115,
@@ -1946,7 +1946,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 116,
@@ -1969,7 +1969,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 116,
@@ -1992,7 +1992,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
                   "startLine": 117,
@@ -2012,7 +2012,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/data.js",
                 "region": {
                   "startLine": 44,

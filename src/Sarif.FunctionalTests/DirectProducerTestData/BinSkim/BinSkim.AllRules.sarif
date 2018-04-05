@@ -32,7 +32,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/NoVulnATL32.dll"
               }
             }
@@ -52,7 +52,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl100/VulnATL32.dll"
               }
             }
@@ -70,7 +70,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl100/VulnATL32.dll"
               }
             }
@@ -88,7 +88,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl100/VulnATL32.dll"
               }
             }
@@ -108,7 +108,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl90/VulnATL32.dll"
               }
             }
@@ -126,7 +126,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl90/VulnATL32.dll"
               }
             }
@@ -144,7 +144,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/ATLVersion/atl90/VulnATL32.dll"
               }
             }
@@ -162,7 +162,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/AllFail32.dll"
               }
             }
@@ -179,7 +179,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Pass/AllFail32.dll"
               }
             }
@@ -197,7 +197,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail32.dll"
               }
             }
@@ -214,7 +214,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail32.dll"
               }
             }
@@ -232,7 +232,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail64.dll"
               }
             }
@@ -249,7 +249,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Fail/AllFail64.dll"
               }
             }
@@ -266,7 +266,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection32.dll"
               }
             }
@@ -283,7 +283,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsShared/Pass/PassSharedSection64.dll"
               }
             }
@@ -301,7 +301,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/internal.io.filesystem.primitives.ni.dll"
               }
             }
@@ -318,7 +318,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
               }
             }
@@ -337,7 +337,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
               }
             }
@@ -354,7 +354,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msidcrl.dll"
               }
             }
@@ -371,7 +371,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
               }
             }
@@ -390,7 +390,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
               }
             }
@@ -407,7 +407,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
               }
             }
@@ -424,7 +424,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/msxml6.dll"
               }
             }
@@ -441,7 +441,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
               }
             }
@@ -460,7 +460,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
               }
             }
@@ -477,7 +477,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
               }
             }
@@ -494,7 +494,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotShipVulnerableBinaries/Fail/xmllite.dll"
               }
             }
@@ -512,7 +512,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail32/AllFail32.dll"
               }
             }
@@ -529,7 +529,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail32/AllFail32.dll"
               }
             }
@@ -547,7 +547,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail64/AllFail64.dll"
               }
             }
@@ -564,7 +564,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/AllFail64/AllFail64.dll"
               }
             }
@@ -584,7 +584,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -601,7 +601,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -619,7 +619,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -636,7 +636,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -654,7 +654,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB32.dll"
               }
             }
@@ -672,7 +672,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Pass/PassDB64.dll"
               }
             }
@@ -690,7 +690,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x64_VS2015_Default.dll"
               }
             }
@@ -707,7 +707,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x64_VS2015_Default.dll"
               }
             }
@@ -727,7 +727,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
               }
             }
@@ -745,7 +745,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
               }
             }
@@ -762,7 +762,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
               }
             }
@@ -780,7 +780,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
               }
             }
@@ -797,7 +797,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/PassSafeSEHNative.dll"
               }
             }
@@ -817,7 +817,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -834,7 +834,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -852,7 +852,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -869,7 +869,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ManagedFail/ManagedFail.dll"
               }
             }
@@ -889,7 +889,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
               }
             }
@@ -909,7 +909,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
               }
             }
@@ -926,7 +926,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
               }
             }
@@ -943,7 +943,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Fail/AllFail64.dll"
               }
             }
@@ -963,7 +963,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
               }
             }
@@ -981,7 +981,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
               }
             }
@@ -998,7 +998,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
               }
             }
@@ -1016,7 +1016,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
               }
             }
@@ -1033,7 +1033,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSFriendly32/PassGSFriendlyInit32.dll"
               }
             }
@@ -1053,7 +1053,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
               }
             }
@@ -1071,7 +1071,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
               }
             }
@@ -1088,7 +1088,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
               }
             }
@@ -1106,7 +1106,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/InitializeStackProtection/Pass/PassGSriendly64/PassGSFriendlyInit64.dll"
               }
             }
@@ -1126,7 +1126,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
               }
             }
@@ -1143,7 +1143,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
               }
             }
@@ -1161,7 +1161,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
               }
             }
@@ -1178,7 +1178,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/ManagedFail.dll"
               }
             }
@@ -1198,7 +1198,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/vccorlib110.dll"
               }
             }
@@ -1216,7 +1216,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/vccorlib110.dll"
               }
             }
@@ -1236,7 +1236,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1254,7 +1254,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1271,7 +1271,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1289,7 +1289,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1309,7 +1309,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1327,7 +1327,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1345,7 +1345,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1363,7 +1363,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1380,7 +1380,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/Compiled2003.exe"
               }
             }
@@ -1400,7 +1400,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
               }
             }
@@ -1417,7 +1417,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
               }
             }
@@ -1437,7 +1437,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
               }
             }
@@ -1454,7 +1454,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/managed2003.exe"
               }
             }
@@ -1474,7 +1474,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1492,7 +1492,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1509,7 +1509,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1529,7 +1529,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1547,7 +1547,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1564,7 +1564,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005.exe"
               }
             }
@@ -1584,7 +1584,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
               }
             }
@@ -1601,7 +1601,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
               }
             }
@@ -1621,7 +1621,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
               }
             }
@@ -1638,7 +1638,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
               }
             }
@@ -1655,7 +1655,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/native2005x64.exe"
               }
             }
@@ -1675,7 +1675,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2008/XRay.exe"
               }
             }
@@ -1695,7 +1695,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2008/XRay.exe"
               }
             }
@@ -1712,7 +1712,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2008/XRay.exe"
               }
             }
@@ -1732,7 +1732,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/comclient.exe"
               }
             }
@@ -1750,7 +1750,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/comclient.exe"
               }
             }
@@ -1768,7 +1768,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/comclient.exe"
               }
             }
@@ -1788,7 +1788,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
               }
             }
@@ -1806,7 +1806,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
               }
             }
@@ -1824,7 +1824,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
               }
             }
@@ -1842,7 +1842,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Fail/vs2010/vulnprocess.exe"
               }
             }
@@ -1860,7 +1860,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -1878,7 +1878,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/BuildWithSecureTools/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -1896,7 +1896,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotDisableStackProtectionForFunctions/Fail/MinimalSafeBuffers.exe"
               }
             }
@@ -1916,7 +1916,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
               }
             }
@@ -1937,7 +1937,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
               }
             }
@@ -1954,7 +1954,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
               }
             }
@@ -1971,7 +1971,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Fail/MinimalAtlUse_VS2008RTM.exe"
               }
             }
@@ -1988,7 +1988,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/sha256.exe"
               }
             }
@@ -2005,7 +2005,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2015_Preview.exe"
               }
             }
@@ -2023,7 +2023,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2015_Preview.exe"
               }
             }
@@ -2041,7 +2041,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/UnknownHash_VS2015_Preview.exe"
               }
             }
@@ -2058,7 +2058,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2015_Preview.exe"
               }
             }
@@ -2076,7 +2076,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2015_Preview.exe"
               }
             }
@@ -2094,7 +2094,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotIncorporateVulnerableDependencies/Pass/VS2015_Preview.exe"
               }
             }
@@ -2111,7 +2111,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkImportsSectionAsExecutable/Fail/badexecimports.exe"
               }
             }
@@ -2131,7 +2131,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/TestFixed.exe"
               }
             }
@@ -2149,7 +2149,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/TestFixed.exe"
               }
             }
@@ -2167,7 +2167,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/TestFixed.exe"
               }
             }
@@ -2185,7 +2185,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/VS2003-DotNetProgram-WithWritableCode.exe"
               }
             }
@@ -2202,7 +2202,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/VS2003-DotNetProgram-WithWritableCode.exe"
               }
             }
@@ -2219,7 +2219,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotMarkWritableSectionsAsExecutable/Fail/VS2003-DotNetProgram-WithWritableCode.exe"
               }
             }
@@ -2237,7 +2237,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Fail/__security_cookie.exe"
               }
             }
@@ -2257,7 +2257,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/vs2012.exe"
               }
             }
@@ -2275,7 +2275,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/vs2012.exe"
               }
             }
@@ -2293,7 +2293,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/DoNotModifyStackProtectionCookie/Pass/vs2012.exe"
               }
             }
@@ -2310,7 +2310,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/VS2003-DotNetProgram.exe"
               }
             }
@@ -2327,7 +2327,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableAddressSpaceLayoutRandomization/Fail/VS2003-DotNetProgram.exe"
               }
             }
@@ -2345,7 +2345,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x86_VS2015_Default.exe"
               }
             }
@@ -2362,7 +2362,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x86_VS2015_Default.exe"
               }
             }
@@ -2380,7 +2380,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableControlFlowGuard/Fail/Native_x86_VS2015_Default.exe"
               }
             }
@@ -2400,7 +2400,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_FAIL.exe"
               }
             }
@@ -2420,7 +2420,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_LTCG_FAIL.exe"
               }
             }
@@ -2437,7 +2437,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_noWswitch_LTCG_FAIL.exe"
               }
             }
@@ -2457,7 +2457,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_FAIL.exe"
               }
             }
@@ -2477,7 +2477,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_LTCG_FAIL.exe"
               }
             }
@@ -2494,7 +2494,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W3_W2_LTCG_FAIL.exe"
               }
             }
@@ -2513,7 +2513,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_FAIL.exe"
               }
             }
@@ -2532,7 +2532,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_LTCG_FAIL.exe"
               }
             }
@@ -2549,7 +2549,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_W4_wd4018_LTCG_FAIL.exe"
               }
             }
@@ -2569,7 +2569,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_FAIL.exe"
               }
             }
@@ -2589,7 +2589,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_LTCG_FAIL.exe"
               }
             }
@@ -2606,7 +2606,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_Wall_W2_LTCG_FAIL.exe"
               }
             }
@@ -2625,7 +2625,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_FAIL.exe"
               }
             }
@@ -2644,7 +2644,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_LTCG_FAIL.exe"
               }
             }
@@ -2661,7 +2661,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Fail/testwarn_wd4018_W4_LTCG_FAIL.exe"
               }
             }
@@ -2678,7 +2678,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W1_W4_LTCG_PASS.exe"
               }
             }
@@ -2695,7 +2695,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_LTCG_PASS.exe"
               }
             }
@@ -2712,7 +2712,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W3_W4_LTCG_PASS.exe"
               }
             }
@@ -2729,7 +2729,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd4999_LTCG_PASS.exe"
               }
             }
@@ -2746,7 +2746,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_W4_wd703_LTCG_PASS.exe"
               }
             }
@@ -2763,7 +2763,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_LTCG_PASS.exe"
               }
             }
@@ -2780,7 +2780,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_Wall_wd4018_we4018_LTCG_PASS.exe"
               }
             }
@@ -2797,7 +2797,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableCriticalCompilerWarnings/Pass/testwarn_wd4999_W4_LTCG_PASS.exe"
               }
             }
@@ -2817,7 +2817,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/HIGHENTROPYVA/vs2012.exe"
               }
             }
@@ -2834,7 +2834,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/HIGHENTROPYVA/vs2012.exe"
               }
             }
@@ -2851,7 +2851,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/HIGHENTROPYVA/vs2012.exe"
               }
             }
@@ -2871,7 +2871,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/LARGEADDRESSAWARE/vs2012.exe"
               }
             }
@@ -2888,7 +2888,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/LARGEADDRESSAWARE/vs2012.exe"
               }
             }
@@ -2908,7 +2908,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/Nothing/vs2012.exe"
               }
             }
@@ -2925,7 +2925,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/Nothing/vs2012.exe"
               }
             }
@@ -2942,7 +2942,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Fail/Nothing/vs2012.exe"
               }
             }
@@ -2962,7 +2962,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableHighEntropyVirtualAddresses/Pass/vs2012.exe"
               }
             }
@@ -2982,7 +2982,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Fail/vs2012.exe"
               }
             }
@@ -3000,7 +3000,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Fail/vs2012.exe"
               }
             }
@@ -3020,7 +3020,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableSafeSEH/Pass/TestFixed.exe"
               }
             }
@@ -3038,7 +3038,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
               }
             }
@@ -3056,7 +3056,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Native_x86_VS2013_PdbMissing.exe"
               }
             }
@@ -3076,7 +3076,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/broken/TestFixed.exe"
               }
             }
@@ -3094,7 +3094,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/broken/TestFixed.exe"
               }
             }
@@ -3114,7 +3114,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ConsoleNoGS/ConsoleNoGS.exe"
               }
             }
@@ -3132,7 +3132,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/ConsoleNoGS/ConsoleNoGS.exe"
               }
             }
@@ -3152,7 +3152,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Mixed/Mixed.exe"
               }
             }
@@ -3170,7 +3170,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Fail/Mixed/Mixed.exe"
               }
             }
@@ -3188,7 +3188,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -3206,7 +3206,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -3226,7 +3226,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/EnableStackProtection/Pass/ConsoleGS/ConsoleGS.exe"
               }
             }
@@ -3246,7 +3246,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Fail/vs2012.exe"
               }
             }
@@ -3263,7 +3263,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Fail/vs2012.exe"
               }
             }
@@ -3283,7 +3283,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/LoadImageAboveFourGigabyteAddress/Pass/vs2012.exe"
               }
             }
@@ -3300,7 +3300,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/VS2003-DotNetProgram.exe"
               }
             }
@@ -3317,7 +3317,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Fail/VS2003-DotNetProgram.exe"
               }
             }
@@ -3335,7 +3335,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -3353,7 +3353,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_Default.exe"
               }
             }
@@ -3371,7 +3371,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
               }
             }
@@ -3389,7 +3389,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/MarkImageAsNXCompatible/Pass/Native_x86_VS2013_PdbMissing.exe"
               }
             }
@@ -3407,7 +3407,7 @@
           },
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/src/binskim/src/BinSkim.Rules.FunctionalTests/FunctionalTestsData/SignSecurely/Fail/Sha1SignedUntrustedRoot.exe"
               }
             }

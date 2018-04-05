@@ -161,22 +161,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 location.PhysicalLocation.Uri = uri;
             }
 
-            if ("file".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                if (location.AnalysisTarget != null)
-                {
-                    location.PhysicalLocation = location.AnalysisTarget;
-                }
-
-                location.AnalysisTarget = new PhysicalLocation();
-
-                if (RemoveBadRoot(problem.EntryPointName, out uri))
-                {
-                    location.AnalysisTarget.UriBaseId = PROJECT_DIR;
-                }
-                location.AnalysisTarget.Uri = uri;
-            }
-
             result.Locations = new List<Location> { location };
 
             return result;

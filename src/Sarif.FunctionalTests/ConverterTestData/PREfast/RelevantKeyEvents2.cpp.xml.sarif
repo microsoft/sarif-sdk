@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents2.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "IHR5cGVkZWYgc3RydWN0IHhsaXN0IHsNCiAgICBzdHJ1Y3QgeGxpc3QgKnBOZXh0Ow0KICAgIHN0cnVjdCB4bGlzdCAqcFByZXY7DQogfSBsaXN0Ow0KDQogbGlzdCAqcE5vZGVGcmVlOw0KIGxpc3QgKm1hc3Rlckxpc3Q7DQogaW50IG5CbG9ja1NpemU7DQoNCiB2b2lkIGZ1bigpDQogew0KICAgIGlmIChwTm9kZUZyZWUgPT0gMCkNCiAgICB7DQogICAgICAgIGxpc3QgKnBOb2RlID0gbWFzdGVyTGlzdDsNCg0KICAgICAgICBmb3IgKGludCBpID0gbkJsb2NrU2l6ZS0xOyBpID49IDA7IGktLSwgcE5vZGUtLSkNCiAgICAgICAgew0KICAgICAgICAgICAgcE5vZGUtPnBOZXh0ID0gcE5vZGVGcmVlOw0KICAgICAgICAgICAgcE5vZGVGcmVlID0gcE5vZGU7DQogICAgICAgIH0NCiAgICB9DQoNCiAgICBsaXN0KiBwTm9kZSA9IHBOb2RlRnJlZTsNCiAgICBwTm9kZS0+cFByZXYgPSAwOyAgLy8yODE4Mg0KIH0NCg0KDQoNCg==",
-          "hashes": [
-            {
-              "value": "00F8849BAEC2326B1B8896CCFD759C37",
-              "algorithm": "md5"
-            },
-            {
-              "value": "DB235E2603A0A3370F5B3DA2B174D640C6EEFB90",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "DEBD67C5F82E6D77C93E6D44CBAD808127B1129D8ED1AFE41CB24C735950C487",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

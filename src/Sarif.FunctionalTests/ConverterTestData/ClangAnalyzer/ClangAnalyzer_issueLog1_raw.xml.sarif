@@ -17,7 +17,7 @@
           "message": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jmemmgr.c",
                 "region": {
                   "startLine": 369,
@@ -38,7 +38,7 @@
           "message": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jmemmgr.c",
                 "region": {
                   "startLine": 824,
@@ -59,7 +59,7 @@
           "message": "Array access (via field 'mem_buffer') results in a null pointer dereference",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jmemmgr.c",
                 "region": {
                   "startLine": 909,
@@ -80,7 +80,7 @@
           "message": "Dereference of null pointer",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jmemmgr.c",
                 "region": {
                   "startLine": 1067,

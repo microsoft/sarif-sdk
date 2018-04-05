@@ -21,6 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
+                // Target file should match.
+                if (!FileLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
+                {
+                    return false;
+                }
+
                 // Locations should all be the same.
                 if (!ListComparisonHelpers.CompareListsAsSets(x.Locations, y.Locations, LocationBaselineEquals.Instance))
                 {

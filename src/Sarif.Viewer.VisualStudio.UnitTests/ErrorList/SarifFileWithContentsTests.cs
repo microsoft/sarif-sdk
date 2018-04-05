@@ -70,7 +70,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 {
                                     new Location
                                     {
-                                        AnalysisTarget = new PhysicalLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
                                             Uri = new Uri("file:///item.cpp")
                                         }

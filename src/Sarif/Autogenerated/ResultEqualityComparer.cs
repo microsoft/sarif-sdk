@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!FileLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Locations, right.Locations))
             {
                 if (left.Locations == null || right.Locations == null)
@@ -306,6 +311,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.TemplatedMessage != null)
                 {
                     result = (result * 31) + obj.TemplatedMessage.ValueGetHashCode();
+                }
+
+                if (obj.AnalysisTarget != null)
+                {
+                    result = (result * 31) + obj.AnalysisTarget.ValueGetHashCode();
                 }
 
                 if (obj.Locations != null)

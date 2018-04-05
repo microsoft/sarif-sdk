@@ -17,7 +17,7 @@
           "message": "",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jcparam.c",
                 "region": {
                   "startLine": 595,

@@ -17,16 +17,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
         public static Microsoft.Sarif.Viewer.Models.AnnotatedCodeLocationModel ToAnnotatedCodeLocationModel(this Location location)
         {
             AnnotatedCodeLocationModel model = new AnnotatedCodeLocationModel();
-            PhysicalLocation physicalLocation = null;
-
-            if (location.PhysicalLocation != null)
-            {
-                physicalLocation = location.PhysicalLocation;
-            }
-            else if (location.AnalysisTarget != null)
-            {
-                physicalLocation = location.AnalysisTarget;
-            }
+            PhysicalLocation physicalLocation = location.PhysicalLocation;
 
             if (physicalLocation != null)
             {

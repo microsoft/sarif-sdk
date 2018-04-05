@@ -108,17 +108,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Message = context.Message;
             var location = new Location();
 
-            if (!String.IsNullOrEmpty(context.Target))
-            {
-                location.AnalysisTarget = new PhysicalLocation
-                {
-                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
-                };
+            string sourceFile = GetFilePath(context);
+            string targetFile = context.Target;
 
+            // If both source and target have values and they're different, set analysis target
+            if (!string.IsNullOrWhiteSpace(sourceFile) &&
+                !string.IsNullOrWhiteSpace(targetFile) &&
+                !sourceFile.Equals(targetFile))
+            {
+                result.AnalysisTarget = new FileLocation()
+                {
+                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
+                };
+            }
+            else
+            {
+                // One or the other or both is null, or they're different
+                sourceFile = string.IsNullOrWhiteSpace(sourceFile) ? targetFile : sourceFile;
             }
 
-            string sourceFile = GetFilePath(context);
-            if (!String.IsNullOrWhiteSpace(sourceFile))
+            // If we have a value, set physical location
+            if (!string.IsNullOrWhiteSpace(sourceFile))
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {

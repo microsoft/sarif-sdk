@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
         {
           ""locations"": [
             {
-              ""analysisTarget"": {
+              ""physicalLocation"": {
                 ""uri"": """ + expectedUri + @"""
               }
             }
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                     {
                         new Location
                         {
-                            AnalysisTarget = new PhysicalLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
                                 Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
                             }

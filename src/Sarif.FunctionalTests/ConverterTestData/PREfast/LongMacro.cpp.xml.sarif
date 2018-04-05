@@ -9,22 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": "I2RlZmluZSBTVUNDRUVERUQoaHJMb25nVmFyKQkJKCgoaW50KShockxvbmdWYXIpKSA+IDQpDQoNCmludCBDNjAwMU1hY3JvRXhwYW5zaW9uX0V4YW1wbGUoaW50IGhyTG9uZ1ZhcikNCnsNCglpbnQgc2ltcGxlVmFyOw0KDQoJaWYgKCBTVUNDRUVERUQoaHJMb25nVmFyKSApDQoJew0KCQlzaW1wbGVWYXIgPSA1Ow0KCX0NCg0KCXJldHVybiBzaW1wbGVWYXI7DQp9",
-          "hashes": [
-            {
-              "value": "E967C459C6C1539698B3433128A3B8D7",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D1CF9FC77447CC0C135C7FC61E009A45F94DCE00",
-              "algorithm": "sha1"
-            },
-            {
-              "value": "C33AA82C064C9050609FF4A26DE823ACD5BF17EC382A9257493E82F0566D7EA9",
-              "algorithm": "sha256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "results": [

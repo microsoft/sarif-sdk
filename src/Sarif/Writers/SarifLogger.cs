@@ -264,15 +264,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void CaptureFilesInResult(Result result)
         {
+            if (result.AnalysisTarget != null)
+            {
+                CaptureFile(result.AnalysisTarget.Uri);
+            }
+
             if (result.Locations != null)
             {
                 foreach (Location location in result.Locations)
                 {
-                    if (location.AnalysisTarget != null)
-                    {
-                        CaptureFile(location.AnalysisTarget.Uri);
-                    }
-
                     if (location.PhysicalLocation != null)
                     {
                         CaptureFile(location.PhysicalLocation.Uri);
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri(targetPath),
                             Region = region

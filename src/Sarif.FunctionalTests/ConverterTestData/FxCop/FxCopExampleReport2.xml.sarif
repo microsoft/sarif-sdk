@@ -60,7 +60,7 @@
           "message": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
@@ -77,7 +77,7 @@
           "message": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
@@ -97,7 +97,7 @@
           "message": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
@@ -115,11 +115,11 @@
           "ruleId": "CA1811",
           "level": "warning",
           "message": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
+          "analysisTarget": {
+            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+          },
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
-              },
               "physicalLocation": {
                 "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
                 "region": {

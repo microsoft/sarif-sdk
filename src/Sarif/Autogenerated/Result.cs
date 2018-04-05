@@ -69,6 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public TemplatedMessage TemplatedMessage { get; set; }
 
         /// <summary>
+        /// Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.
+        /// </summary>
+        [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
+        public FileLocation AnalysisTarget { get; set; }
+
+        /// <summary>
         /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
@@ -170,6 +176,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="templatedMessage">
         /// An initialization value for the <see cref="P: TemplatedMessage" /> property.
         /// </param>
+        /// <param name="analysisTarget">
+        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
         /// </param>
@@ -209,9 +218,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, locations, snippet, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
+            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, analysisTarget, locations, snippet, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -230,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.AnalysisTarget, other.Locations, other.Snippet, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -251,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string snippet, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -261,6 +270,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (templatedMessage != null)
             {
                 TemplatedMessage = new TemplatedMessage(templatedMessage);
+            }
+
+            if (analysisTarget != null)
+            {
+                AnalysisTarget = new FileLocation(analysisTarget);
             }
 
             if (locations != null)

@@ -17,7 +17,7 @@
           "message": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jcparam.c",
                 "region": {}
               }
@@ -35,7 +35,7 @@
           "message": "Value stored to 'scanptr' is never read",
           "locations": [
             {
-              "analysisTarget": {
+              "physicalLocation": {
                 "uri": "jcparam.c",
                 "region": {}
               }
