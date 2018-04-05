@@ -109,26 +109,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var location = new Location();
 
             string sourceFile = GetFilePath(context);
-            if (!String.IsNullOrWhiteSpace(sourceFile))
+            string targetFile = context.Target;
+
+            // If both source and target have values and they're different, set analysis target
+            if (!string.IsNullOrWhiteSpace(sourceFile) &&
+                !string.IsNullOrWhiteSpace(targetFile) &&
+                !sourceFile.Equals(targetFile))
+            {
+                result.AnalysisTarget = new FileLocation()
+                {
+                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
+                };
+            }
+            else
+            {
+                // One or the other or both is null, or they're different
+                sourceFile = string.IsNullOrWhiteSpace(sourceFile) ? targetFile : sourceFile;
+            }
+
+            // If we have a value, set physical location
+            if (!string.IsNullOrWhiteSpace(sourceFile))
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
                     Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
-            }
-
-            if (!String.IsNullOrEmpty(context.Target))
-            {
-                var uri = new Uri(context.Target, UriKind.RelativeOrAbsolute);
-
-                if (location.PhysicalLocation == null || !uri.Equals(location.PhysicalLocation.Uri))
-                {
-                    result.AnalysisTarget = new FileLocation
-                    {
-                        Uri = uri
-                    };
-                }
             }
 
             location.FullyQualifiedLogicalName = CreateSignature(context);

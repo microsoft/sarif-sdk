@@ -341,8 +341,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 node.TemplatedMessage = VisitNullChecked(node.TemplatedMessage);
+                node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 if (node.Locations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)

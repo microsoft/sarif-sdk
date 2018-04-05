@@ -366,14 +366,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var expectedResult = new Result
             {
-                AnalysisTarget = new FileLocation
-                {
-                    Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                },
                 RuleId = "CA0000",
                 Message = "hello!",
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 ToolFingerprintContributions = new Dictionary<string, string>(),
+                AnalysisTarget = new FileLocation
+                {
+                    Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
+                },
                 Locations = new List<Location>
                 {
                     new Location
@@ -433,21 +433,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", null, null, null, null, null, null);
 
-            var expectedLogicalLocation = "mynamespace.mytype.mymember(string)";
-
-            var expectedLocations = new[]
-            {
-                new Location
-                {
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                    },
-
-                    FullyQualifiedLogicalName = expectedLogicalLocation
-                }
-            };
-
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
@@ -484,21 +469,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineResource("myresource.resx");
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", "test", null, null, @"source", "myfile.cs", 13);
-
-            var expectedLogicalLocation = "myresource.resx";
-
-            var expectedLocations = new[]
-            {
-                new Location
-                {
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                            Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
-                            Region = new Region { StartLine = 13 }
-                    },
-                    FullyQualifiedLogicalName = expectedLogicalLocation,
-                }
-            };
 
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {

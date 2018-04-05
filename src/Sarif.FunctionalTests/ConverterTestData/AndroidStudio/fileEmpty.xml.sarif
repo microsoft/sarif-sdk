@@ -6,11 +6,6 @@
       "tool": {
         "name": "AndroidStudio"
       },
-      "files": {
-        "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": {
-          "mimeType": "text/x-java-source"
-        }
-      },
       "logicalLocations": {
         "northwindtraders-droid-2": {
           "name": "northwindtraders-droid-2",
@@ -24,10 +19,6 @@
       },
       "results": [
         {
-          "analysisTarget": {
-            "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-            "uriBaseId": "$PROJECT_DIR$"
-          },
           "ruleId": "Assertions",
           "message": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
           "locations": [

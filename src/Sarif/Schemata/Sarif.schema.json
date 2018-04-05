@@ -856,11 +856,6 @@
       "type": "object",
       "properties": {
 
-        "analysisTarget": {
-          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
-          "$ref": "#/definitions/fileLocation"
-        },
-
         "ruleId": {
           "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
           "type": "string"
@@ -890,6 +885,11 @@
         "templatedMessage": {
           "description": "A 'templatedMessage' object that can be used to construct a message that describes the result.",
           "$ref": "#/definitions/templatedMessage"
+        },
+
+        "analysisTarget": {
+          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "locations": {

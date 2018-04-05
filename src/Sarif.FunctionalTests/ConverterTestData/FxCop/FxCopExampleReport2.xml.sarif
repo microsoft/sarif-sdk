@@ -55,14 +55,14 @@
           }
         },
         {
-          "analysisTarget": {
-            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
-          },
           "ruleId": "CA1014",
           "level": "error",
           "message": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
           "locations": [
             {
+              "physicalLocation": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
             }
           ],
@@ -72,14 +72,14 @@
           }
         },
         {
-          "analysisTarget": {
-            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
-          },
           "ruleId": "CA1709",
           "level": "error",
           "message": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
           "locations": [
             {
+              "physicalLocation": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
@@ -92,14 +92,14 @@
           }
         },
         {
-          "analysisTarget": {
-            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
-          },
           "ruleId": "CA1053",
           "level": "error",
           "message": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
           "locations": [
             {
+              "physicalLocation": {
+                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+              },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
@@ -112,12 +112,12 @@
           }
         },
         {
-          "analysisTarget": {
-            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
-          },
           "ruleId": "CA1811",
           "level": "warning",
           "message": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
+          "analysisTarget": {
+            "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (result.AnalysisTarget != null)
                 {
-                    AddFile(new PhysicalLocation() { Uri = result.AnalysisTarget.Uri });
+                    AddFile(new PhysicalLocation { Uri = result.AnalysisTarget.Uri });
                 }
 
                 if (result.Locations != null)

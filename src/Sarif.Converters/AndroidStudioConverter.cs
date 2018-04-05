@@ -149,32 +149,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
-                location.PhysicalLocation = new PhysicalLocation();
-                location.PhysicalLocation.Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line);
+                location.PhysicalLocation = new PhysicalLocation
+                {
+                    Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
+                };
 
                 if (RemoveBadRoot(file, out uri))
                 {
                     location.PhysicalLocation.UriBaseId = PROJECT_DIR;
                 }
                 location.PhysicalLocation.Uri = uri;
-            }
-            else if ("file".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                result.AnalysisTarget = new FileLocation();
-
-                if (RemoveBadRoot(problem.EntryPointName, out uri))
-                {
-                    result.AnalysisTarget.UriBaseId = PROJECT_DIR;
-                }
-                result.AnalysisTarget.Uri = uri;
-
-                //location.PhysicalLocation = new PhysicalLocation();
-
-                //if (RemoveBadRoot(problem.EntryPointName, out uri))
-                //{
-                //    location.PhysicalLocation.UriBaseId = PROJECT_DIR;
-                //}
-                //location.PhysicalLocation.Uri = uri;
             }
 
             result.Locations = new List<Location> { location };

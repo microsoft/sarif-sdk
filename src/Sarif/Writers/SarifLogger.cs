@@ -274,6 +274,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void CaptureFilesInResult(Result result)
         {
+            if (result.AnalysisTarget != null)
+            {
+                CaptureFile(result.AnalysisTarget.Uri);
+            }
+
             if (result.Locations != null)
             {
                 foreach (Location location in result.Locations)
