@@ -677,6 +677,11 @@
           "type": "string"
         },
 
+        "message": {
+          "description": "A message relevant to the location.",
+          "type": "string"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "type": "object",
