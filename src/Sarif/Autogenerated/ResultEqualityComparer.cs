@@ -84,11 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.Snippet != right.Snippet)
-            {
-                return false;
-            }
-
             if (left.Id != right.Id)
             {
                 return false;
@@ -328,11 +323,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_4.ValueGetHashCode();
                         }
                     }
-                }
-
-                if (obj.Snippet != null)
-                {
-                    result = (result * 31) + obj.Snippet.GetHashCode();
                 }
 
                 if (obj.Id != null)

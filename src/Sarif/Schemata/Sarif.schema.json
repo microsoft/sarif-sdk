@@ -26,6 +26,7 @@
       }
     }
   },
+
   "required": [ "version", "runs" ],
   "definitions": {
 
@@ -327,6 +328,7 @@
         }
       }
     },
+
     "fileChange": {
       "description": "A change to a single file.",
       "additionalProperties": false,
@@ -359,6 +361,7 @@
         "uriBaseId": [ "uri" ]
       }
     },
+
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
       "additionalProperties": false,
@@ -435,6 +438,25 @@
         "uriBaseId": [ "uri" ]
       }
     },
+
+    "fileContent": {
+      "description": "Represents content from an external file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "text": {
+          "description": "UTF-8-encoded content from a text file.",
+          "type": "string"
+        },
+
+        "binary": {
+          "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
+          "type": "string"
+        }
+      }
+    },
+
     "fileLocation": {
       "description": "Specifies the location of a file.",
       "additionalProperties": false,
@@ -455,6 +477,7 @@
 
       "required": [ "uri" ]
     },
+
     "fix": {
       "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
       "additionalProperties": false,
@@ -481,6 +504,7 @@
       },
       "required": [ "fileChanges" ]
     },
+
     "templatedMessage": {
       "description": "Contains information that can be used to construct a message that describes a result.",
       "additionalProperties": false,
@@ -502,6 +526,7 @@
       },
       "required": [ "templateId" ]
     },
+
     "hash": {
       "description": "A hash value of some file or collection of files, together with the algorithm used to compute the hash.",
       "additionalProperties": false,
@@ -654,6 +679,7 @@
         }
       }
     },
+
     "location": {
       "description": "The location where an analysis tool produced a result.",
       "additionalProperties": false,
@@ -699,6 +725,7 @@
         }
       }
     },
+
     "logicalLocation": {
       "description": "A logical location of a construct that produced a result.",
       "additionalProperties": false,
@@ -721,6 +748,7 @@
         }
       }
     },
+
     "notification": {
       "type": "object",
       "description": "Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.",
@@ -794,6 +822,7 @@
       },
       "required": [ "message" ]
     },
+
     "physicalLocation": {
       "description": "A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
@@ -819,6 +848,11 @@
         "region": {
           "description": "The region within the file where the result was detected.",
           "$ref": "#/definitions/region"
+        },
+
+        "contextRegion": {
+          "description": "Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.",
+          "$ref": "#/definitions/region"
         }
       },
 
@@ -826,6 +860,7 @@
         "uriBaseId": [ "uri" ]
       }
     },
+
     "region": {
       "description": "A region within a file where a result was detected.",
       "additionalProperties": false,
@@ -866,9 +901,15 @@
           "description": "The length of the region in bytes or characters.",
           "type": "integer",
           "minimum": 0
+        },
+
+        "snippet": {
+          "description": "The portion of the file contents within the specified region.",
+          "$ref": "#/definitions/fileContent"
         }
       }
     },
+
     "replacement": {
       "description": "The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.",
       "additionalProperties": false,
@@ -945,11 +986,6 @@
           "items": {
             "$ref": "#/definitions/location"
           }
-        },
-
-        "snippet": {
-          "description": "A source code or other file fragment that illustrates the result.",
-          "type": "string"
         },
 
         "id": {
@@ -1064,6 +1100,7 @@
         }
       }
     },
+
     "rule": {
       "description": "Describes an analysis rule.",
       "additionalProperties": false,
@@ -1264,6 +1301,7 @@
       },
       "required": [ "tool" ]
     },
+
     "stack": {
       "description": "A call stack that is relevant to a result.",
       "additionalProperties": false,
@@ -1309,6 +1347,7 @@
       },
       "required": [ "frames" ]
     },
+
     "stackFrame": {
       "description": "A function call within a stack trace.",
       "additionalProperties": false,
@@ -1395,6 +1434,7 @@
         "column": [ "line" ]
       }
     },
+
     "tool": {
       "description": "The analysis tool that was run.",
       "additionalProperties": false,

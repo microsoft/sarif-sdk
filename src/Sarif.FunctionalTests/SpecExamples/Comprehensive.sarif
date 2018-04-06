@@ -149,12 +149,14 @@
           "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing",
           "level": "error",
-          "snippet": "add_core(ptr, offset, val);\n    return;",
           "locations": [
 		    {
               "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
+                  "snippet": {
+				    "text": "add_core(ptr, offset, val);\n    return;"
+				  },
                   "startLine": 15,
                   "startColumn": 9,
                   "endLine": 15,
@@ -189,10 +191,12 @@
                   "kind": "declaration",
                   "importance": "essential",
                   "message": "Variable \"ptr\" declared.",
-                  "snippet": "int *ptr;",
                   "physicalLocation": {
                     "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
+                      "snippet": {
+					    "text": "int *ptr;"
+					  },
                       "startLine": 15
                     }
                   },
@@ -204,10 +208,12 @@
                   "step": 1,
                   "kind": "assignment",
                   "importance": "unimportant",
-                  "snippet": "offset = 0;",
                   "physicalLocation": {
                     "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
+                      "snippet": {
+					    "text": "offset = 0;"
+					  },
                       "startLine": 15
                     }
                   },
@@ -220,11 +226,13 @@
                   "kind": "call",
                   "importance": "essential",
                   "message": "Uninitialized variable \"ptr\" passed to method \"add_core\".",
-                  "snippet": "add_core(ptr, offset, val)",
                   "target": "collections::list:add_core",
                   "physicalLocation": {
                     "uri": "file:///home/buildAgent/src/collections/list.h",
                     "region": {
+                      "snippet": {
+					    "text": "add_core(ptr, offset, val)"
+					  },
                       "startLine": 25
                     }
                   },

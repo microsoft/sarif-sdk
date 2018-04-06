@@ -44,6 +44,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 10,
                   "endColumn": 12,
@@ -52,8 +53,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -102,6 +102,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 22,
                   "endColumn": 24,
@@ -110,8 +111,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -160,6 +160,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 34,
                   "endColumn": 36,
@@ -168,8 +169,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -218,6 +218,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 46,
                   "endColumn": 48,
@@ -226,8 +227,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -276,6 +276,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 58,
                   "endColumn": 60,
@@ -284,8 +285,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -334,6 +334,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 70,
                   "endColumn": 72,
@@ -342,8 +343,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -392,6 +392,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 82,
                   "endColumn": 84,
@@ -400,8 +401,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -450,6 +450,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 94,
                   "endColumn": 96,
@@ -458,8 +459,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -508,6 +508,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 106,
                   "endColumn": 108,
@@ -516,8 +517,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -566,6 +566,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 118,
                   "endColumn": 120,
@@ -574,8 +575,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -624,6 +624,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 130,
                   "endColumn": 132,
@@ -632,8 +633,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -682,6 +682,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 142,
                   "endColumn": 144,
@@ -690,8 +691,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -740,6 +740,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 154,
                   "endColumn": 156,
@@ -748,8 +749,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -798,6 +798,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 166,
                   "endColumn": 168,
@@ -806,8 +807,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -856,6 +856,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 178,
                   "endColumn": 180,
@@ -864,8 +865,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -914,6 +914,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 190,
                   "endColumn": 192,
@@ -922,8 +923,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -972,6 +972,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 202,
                   "endColumn": 204,
@@ -980,8 +981,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1030,6 +1030,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 214,
                   "endColumn": 216,
@@ -1038,8 +1039,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1088,6 +1088,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 226,
                   "endColumn": 228,
@@ -1096,8 +1097,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1146,6 +1146,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 238,
                   "endColumn": 240,
@@ -1154,8 +1155,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1204,6 +1204,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 250,
                   "endColumn": 252,
@@ -1212,8 +1213,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1262,6 +1262,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 262,
                   "endColumn": 264,
@@ -1270,8 +1271,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1320,6 +1320,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 274,
                   "endColumn": 276,
@@ -1328,8 +1329,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1378,6 +1378,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 286,
                   "endColumn": 288,
@@ -1386,8 +1387,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1436,6 +1436,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 298,
                   "endColumn": 300,
@@ -1444,8 +1445,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1494,6 +1494,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 310,
                   "endColumn": 312,
@@ -1502,8 +1503,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1552,6 +1552,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 322,
                   "endColumn": 324,
@@ -1560,8 +1561,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1610,6 +1610,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 334,
                   "endColumn": 336,
@@ -1618,8 +1619,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1668,6 +1668,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 346,
                   "endColumn": 348,
@@ -1676,8 +1677,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1726,6 +1726,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 358,
                   "endColumn": 360,
@@ -1734,8 +1735,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1784,6 +1784,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 370,
                   "endColumn": 372,
@@ -1792,8 +1793,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1842,6 +1842,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 382,
                   "endColumn": 384,
@@ -1850,8 +1851,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1900,6 +1900,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 394,
                   "endColumn": 396,
@@ -1908,8 +1909,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -1958,6 +1958,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 406,
                   "endColumn": 408,
@@ -1966,8 +1967,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2016,6 +2016,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 418,
                   "endColumn": 420,
@@ -2024,8 +2025,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2074,6 +2074,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 430,
                   "endColumn": 432,
@@ -2082,8 +2083,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2132,6 +2132,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 442,
                   "endColumn": 444,
@@ -2140,8 +2141,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2190,6 +2190,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 454,
                   "endColumn": 456,
@@ -2198,8 +2199,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2248,6 +2248,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 466,
                   "endColumn": 468,
@@ -2256,8 +2257,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2306,6 +2306,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 478,
                   "endColumn": 480,
@@ -2314,8 +2315,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2364,6 +2364,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 490,
                   "endColumn": 492,
@@ -2372,8 +2373,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2422,6 +2422,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 502,
                   "endColumn": 504,
@@ -2430,8 +2431,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2480,6 +2480,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 514,
                   "endColumn": 516,
@@ -2488,8 +2489,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2538,6 +2538,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 526,
                   "endColumn": 528,
@@ -2546,8 +2547,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2596,6 +2596,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 538,
                   "endColumn": 540,
@@ -2604,8 +2605,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2654,6 +2654,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 550,
                   "endColumn": 552,
@@ -2662,8 +2663,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2712,6 +2712,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 562,
                   "endColumn": 564,
@@ -2720,8 +2721,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2770,6 +2770,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 574,
                   "endColumn": 576,
@@ -2778,8 +2779,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2828,6 +2828,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 586,
                   "endColumn": 588,
@@ -2836,8 +2837,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2886,6 +2886,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 598,
                   "endColumn": 600,
@@ -2894,8 +2895,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -2944,6 +2944,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 610,
                   "endColumn": 612,
@@ -2952,8 +2953,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3002,6 +3002,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 622,
                   "endColumn": 624,
@@ -3010,8 +3011,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3060,6 +3060,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 634,
                   "endColumn": 636,
@@ -3068,8 +3069,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3118,6 +3118,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 646,
                   "endColumn": 648,
@@ -3126,8 +3127,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3176,6 +3176,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 658,
                   "endColumn": 660,
@@ -3184,8 +3185,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3234,6 +3234,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 670,
                   "endColumn": 672,
@@ -3242,8 +3243,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3292,6 +3292,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 682,
                   "endColumn": 684,
@@ -3300,8 +3301,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3350,6 +3350,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 694,
                   "endColumn": 696,
@@ -3358,8 +3359,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3408,6 +3408,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 706,
                   "endColumn": 708,
@@ -3416,8 +3417,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
@@ -3466,6 +3466,7 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/minified.js",
                 "region": {
+                  "snippet": { "text": "var apple=2" },
                   "startLine": 1,
                   "startColumn": 718,
                   "endColumn": 720,
@@ -3474,8 +3475,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var apple=2"
+          ]
         },
         {
           "ruleKey": "JS1003.SemanticAnalysisHalted",
@@ -3505,6 +3505,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+                  },
                   "startLine": 1,
                   "startColumn": 1,
                   "endLine": 2,
@@ -3513,8 +3516,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+          ]
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -3531,6 +3533,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+                  },
                   "startLine": 6,
                   "startColumn": 7,
                   "endColumn": 16,
@@ -3539,8 +3544,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+          ]
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -3557,6 +3561,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+                  },
                   "startLine": 6,
                   "startColumn": 21,
                   "endColumn": 27,
@@ -3565,8 +3572,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -3584,6 +3590,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
+                  },
                   "startLine": 11,
                   "startColumn": 23,
                   "endLine": 22,
@@ -3593,8 +3602,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
+          ]
         },
         {
           "ruleKey": "JS2045.ReviewEmptyBlocks",
@@ -3607,6 +3615,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+                  },
                   "startLine": 13,
                   "startColumn": 13,
                   "endLine": 19,
@@ -3616,8 +3627,7 @@
                 }
               }
             }
-          ],
-          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -3635,6 +3645,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise().\r\n    }"
+                  },
                   "startLine": 24,
                   "startColumn": 24,
                   "endLine": 31,
@@ -3644,8 +3657,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise().\r\n    }"
+          ]
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -3662,6 +3674,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp.appx#/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise()."
+                  },
                   "startLine": 35,
                   "startColumn": 328,
                   "endColumn": 332,
@@ -3670,8 +3685,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise()."
+          ]
         }
       ],
       "files": {
@@ -3698,7 +3712,7 @@
             "Default": "Do not ship obfuscated or minified code."
           },
           "properties": {
-            "tags": ["appx","sdl"]
+            "tags": [ "appx", "sdl" ]
           }
         },
         "JS2021.SeparateBinaryOperatorArgumentsWithSpaces": {
@@ -3709,7 +3723,7 @@
             "Default": "All binary and ternary operators (with the exception of the '.' operator) should be separated from operands with spaces."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS3085.VariableDeclaredMultipleTimes": {
@@ -3720,7 +3734,7 @@
             "Default": "Variable '{0}' was previously defined in this scope. {1}"
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS1003.SemanticAnalysisHalted": {
@@ -3731,7 +3745,7 @@
             "Default": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS2027.PunctuateCommentsCorrectly": {
@@ -3742,7 +3756,7 @@
             "Default": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS2073.CommentIsMisspelled": {
@@ -3753,7 +3767,7 @@
             "Default": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
           "properties": {
-            "tags": ["spelling","js"]
+            "tags": [ "spelling", "js" ]
           }
         },
         "JS2074.IdentifierNameIsMisspelled": {
@@ -3764,7 +3778,7 @@
             "Default": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
           },
           "properties": {
-            "tags": ["spelling","js"]
+            "tags": [ "spelling", "js" ]
           }
         },
         "JS2045.ReviewEmptyBlocks": {
@@ -3775,7 +3789,7 @@
             "Default": "Review empty blocks for correctness issues."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         }
       },

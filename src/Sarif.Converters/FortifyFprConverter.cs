@@ -594,9 +594,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 string snippetId, snippetText;
                 if (_resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
-                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
+                    result.Locations?[0]?.PhysicalLocation?.Region != null)
                 {
-                    result.Snippet = snippetText;
+                    result.Locations[0].PhysicalLocation.Region.Snippet.Text = snippetText;
                 }
             }
         }
