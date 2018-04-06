@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly string[] s_testFileDirectories = new string[]
         {
-            "DirectProducerTestData",
+            //"DirectProducerTestData",
             "ConverterTestData",
             "SpecExamples"
         };
