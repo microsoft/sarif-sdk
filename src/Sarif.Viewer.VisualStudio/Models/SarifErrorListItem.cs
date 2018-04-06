@@ -81,9 +81,9 @@ namespace Microsoft.Sarif.Viewer
 
             if (result.RelatedLocations != null)
             {
-                foreach (AnnotatedCodeLocation annotatedCodeLocation in result.RelatedLocations)
+                foreach (Location location in result.RelatedLocations)
                 {
-                    RelatedLocations.Add(annotatedCodeLocation.ToAnnotatedCodeLocationModel());
+                    RelatedLocations.Add(location.ToAnnotatedCodeLocationModel());
                 }
             }
 

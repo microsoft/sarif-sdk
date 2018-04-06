@@ -30,35 +30,6 @@
   "required": [ "version", "runs" ],
   "definitions": {
 
-    "analysisToolLogFileContents": {
-      "description": "A portion of an analysis tool's output that a converter transformed into a result object.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "region": {
-          "description": "The region of an analysis tool's log file that was transformed into the result object.",
-          "$ref": "#/definitions/region"
-        },
-
-        "snippet": {
-          "description": "The text of that region of the analysis tool's log file that was transformed into the result object.",
-          "type": "string"
-        },
-
-        "analysisToolLogFileUri": {
-          "description": "A string that represents the location of the analysis tool's log file as a valid URI.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "analysisToolLogFileUriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'analysisToolLogFileUri' property (if it is relative), e.g.,'$(LogDir)' or '%LOGROOT%'.",
-          "type": "string"
-        }
-      }
-    },
-
     "annotatedCodeLocation": {
       "description": "An annotation used to express code flows through a method or other locations that are related to a result.",
       "additionalProperties": false,
@@ -706,6 +677,11 @@
           "type": "string"
         },
 
+        "message": {
+          "description": "A message relevant to the location.",
+          "type": "string"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "type": "object",
@@ -1022,12 +998,12 @@
         },
 
         "relatedLocations": {
-          "description": "A grouped set of locations and messages, if available, that represent code areas that are related to this result.",
+          "description": "A set of locations relevant to this result.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/location"
           }
         },
 
@@ -1067,7 +1043,7 @@
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/analysisToolLogFileContents"
+            "$ref": "#/definitions/physicalLocation"
           }
         },
 

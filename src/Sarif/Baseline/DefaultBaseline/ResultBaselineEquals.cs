@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 }
 
                 // Related Locations should all be the same.
-                if (!ListComparisonHelpers.CompareListsAsSets(x.RelatedLocations, y.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance))
+                if (!ListComparisonHelpers.CompareListsAsSets(x.RelatedLocations, y.RelatedLocations, LocationBaselineEquals.Instance))
                 {
                     return false;
                 }
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 
-                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, LocationBaselineEquals.Instance);
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Stacks, StackBaselineEquals.Instance);
 

@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         },
                         RelatedLocations = new[]
                         {
-                            new AnnotatedCodeLocation
+                            new Location
                             {
                                 PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file3.cpp")}
                             }

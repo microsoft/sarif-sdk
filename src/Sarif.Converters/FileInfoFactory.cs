@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.RelatedLocations != null)
                 {
-                    foreach (AnnotatedCodeLocation relatedLocation in result.RelatedLocations)
+                    foreach (Location relatedLocation in result.RelatedLocations)
                     {
                         AddFile(relatedLocation.PhysicalLocation);
                     }
