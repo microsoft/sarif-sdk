@@ -171,7 +171,6 @@
           ],
           "relatedLocations": [
             {
-              "message": "\"count\" was declared here.",
               "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {

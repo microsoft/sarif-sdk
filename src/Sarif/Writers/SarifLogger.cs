@@ -280,7 +280,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            CaptureAnnotatedCodeLocations(result.RelatedLocations);
+            if (result.RelatedLocations != null)
+            {
+                foreach (Location relatedLocation in result.RelatedLocations)
+                {
+                    if (relatedLocation.PhysicalLocation != null)
+                    {
+                        CaptureFile(relatedLocation.PhysicalLocation.Uri);
+                    }
+                }
+            }
 
             if (result.Stacks != null)
             {

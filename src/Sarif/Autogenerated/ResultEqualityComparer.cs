@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_3 = 0; index_3 < left.RelatedLocations.Count; ++index_3)
                 {
-                    if (!AnnotatedCodeLocation.ValueComparer.Equals(left.RelatedLocations[index_3], right.RelatedLocations[index_3]))
+                    if (!Location.ValueComparer.Equals(left.RelatedLocations[index_3], right.RelatedLocations[index_3]))
                     {
                         return false;
                     }
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_5 = 0; index_5 < left.ConversionProvenance.Count; ++index_5)
                 {
-                    if (!AnalysisToolLogFileContents.ValueComparer.Equals(left.ConversionProvenance[index_5], right.ConversionProvenance[index_5]))
+                    if (!PhysicalLocation.ValueComparer.Equals(left.ConversionProvenance[index_5], right.ConversionProvenance[index_5]))
                     {
                         return false;
                     }

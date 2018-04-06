@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string rawMessage = fields[(int)FieldIndex.Message];
             string normalizedMessage;
-            IList<AnnotatedCodeLocation> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
+            IList<Location> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
 
             Region region = MakeRegion(fields);
             var result = new Result
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private IList<AnnotatedCodeLocation> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
+        private IList<Location> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
         {
             // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage embedded links wrapped in [brackets].
             // Example rawMessage
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             //     relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3
             //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3
             //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3
-            List<AnnotatedCodeLocation> relatedLocations = null;
+            List<Location> relatedLocations = null;
             normalizedMessage = String.Empty;
 
             var sb = new StringBuilder();
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string location = tokens[2];
                     string[] locationTokens = location.Split(':');
 
-                    relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
+                    relatedLocations = relatedLocations ?? new List<Location>();
                     PhysicalLocation physicalLocation;
 
                     if (locationTokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         };
                     }
 
-                    var relatedLocation = new AnnotatedCodeLocation
+                    var relatedLocation = new Location
                     {
                         PhysicalLocation = physicalLocation
                     };

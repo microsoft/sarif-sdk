@@ -46,8 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.AnalysisToolLogFileContents:
-                    return VisitAnalysisToolLogFileContents((AnalysisToolLogFileContents)node);
                 case SarifNodeKind.AnnotatedCodeLocation:
                     return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
                 case SarifNodeKind.Annotation:
@@ -115,16 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return (T)Visit(node);
-        }
-
-        public virtual AnalysisToolLogFileContents VisitAnalysisToolLogFileContents(AnalysisToolLogFileContents node)
-        {
-            if (node != null)
-            {
-                node.Region = VisitNullChecked(node.Region);
-            }
-
-            return node;
         }
 
         public virtual AnnotatedCodeLocation VisitAnnotatedCodeLocation(AnnotatedCodeLocation node)

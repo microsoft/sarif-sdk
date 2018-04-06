@@ -105,10 +105,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<CodeFlow> CodeFlows { get; set; }
 
         /// <summary>
-        /// A grouped set of locations and messages, if available, that represent code areas that are related to this result.
+        /// A set of locations relevant to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
-        public IList<AnnotatedCodeLocation> RelatedLocations { get; set; }
+        public IList<Location> RelatedLocations { get; set; }
         [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
         public SuppressionStates SuppressionStates { get; set; }
 
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.
         /// </summary>
         [DataMember(Name = "conversionProvenance", IsRequired = false, EmitDefaultValue = false)]
-        public IList<AnalysisToolLogFileContents> ConversionProvenance { get; set; }
+        public IList<PhysicalLocation> ConversionProvenance { get; set; }
 
         /// <summary>
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, analysisTarget, locations, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
         }
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<AnnotatedCodeLocation> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<AnalysisToolLogFileContents> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (relatedLocations != null)
             {
-                var destination_3 = new List<AnnotatedCodeLocation>();
+                var destination_3 = new List<Location>();
                 foreach (var value_3 in relatedLocations)
                 {
                     if (value_3 == null)
@@ -339,7 +339,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new AnnotatedCodeLocation(value_3));
+                        destination_3.Add(new Location(value_3));
                     }
                 }
 
@@ -368,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             BaselineState = baselineState;
             if (conversionProvenance != null)
             {
-                var destination_5 = new List<AnalysisToolLogFileContents>();
+                var destination_5 = new List<PhysicalLocation>();
                 foreach (var value_5 in conversionProvenance)
                 {
                     if (value_5 == null)
@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_5.Add(new AnalysisToolLogFileContents(value_5));
+                        destination_5.Add(new PhysicalLocation(value_5));
                     }
                 }
 
