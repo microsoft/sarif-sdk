@@ -89,7 +89,6 @@ Exit /B %ERRORLEVEL%
 
 :ExitFailed
 @echo Build did not complete successfully.
-popd
 Exit /B 1
 
 :Exit
