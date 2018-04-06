@@ -69,31 +69,31 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0),
+                Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0, null),
             });
 
             viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0),
+                Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0, null),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(21, 1, 21, 2, 0, 0),
+                Region = new CodeAnalysis.Sarif.Region(21, 1, 21, 2, 0, 0, null),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(22, 1, 22, 2, 0, 0),
+                Region = new CodeAnalysis.Sarif.Region(22, 1, 22, 2, 0, 0, null),
             });
 
             viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0),
+                Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0, null),
             });
 
             viewModel.CallTrees.Add(new CallTree(

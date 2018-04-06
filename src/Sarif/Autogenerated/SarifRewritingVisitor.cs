@@ -62,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.FileChange:
                     return VisitFileChange((FileChange)node);
+                case SarifNodeKind.FileContent:
+                    return VisitFileContent((FileContent)node);
                 case SarifNodeKind.FileData:
                     return VisitFileData((FileData)node);
                 case SarifNodeKind.FileLocation:
@@ -228,6 +230,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual FileContent VisitFileContent(FileContent node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual FileData VisitFileData(FileData node)
         {
             if (node != null)
@@ -350,6 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Region = VisitNullChecked(node.Region);
+                node.ContextRegion = VisitNullChecked(node.ContextRegion);
             }
 
             return node;
@@ -359,6 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Snippet = VisitNullChecked(node.Snippet);
             }
 
             return node;

@@ -56,6 +56,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Region Region { get; set; }
 
         /// <summary>
+        /// Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.
+        /// </summary>
+        [DataMember(Name = "contextRegion", IsRequired = false, EmitDefaultValue = false)]
+        public Region ContextRegion { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalLocation" /> class.
         /// </summary>
         public PhysicalLocation()
@@ -77,9 +83,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="region">
         /// An initialization value for the <see cref="P: Region" /> property.
         /// </param>
-        public PhysicalLocation(int id, Uri uri, string uriBaseId, Region region)
+        /// <param name="contextRegion">
+        /// An initialization value for the <see cref="P: ContextRegion" /> property.
+        /// </param>
+        public PhysicalLocation(int id, Uri uri, string uriBaseId, Region region, Region contextRegion)
         {
-            Init(id, uri, uriBaseId, region);
+            Init(id, uri, uriBaseId, region, contextRegion);
         }
 
         /// <summary>
@@ -98,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Uri, other.UriBaseId, other.Region);
+            Init(other.Id, other.Uri, other.UriBaseId, other.Region, other.ContextRegion);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -119,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(int id, Uri uri, string uriBaseId, Region region)
+        private void Init(int id, Uri uri, string uriBaseId, Region region, Region contextRegion)
         {
             Id = id;
             if (uri != null)
@@ -131,6 +140,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region != null)
             {
                 Region = new Region(region);
+            }
+
+            if (contextRegion != null)
+            {
+                ContextRegion = new Region(contextRegion);
             }
         }
     }

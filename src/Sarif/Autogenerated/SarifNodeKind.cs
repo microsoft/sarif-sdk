@@ -56,6 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         FileData,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileContent" />.
+        /// </summary>
+        FileContent,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileLocation" />.
         /// </summary>
         FileLocation,

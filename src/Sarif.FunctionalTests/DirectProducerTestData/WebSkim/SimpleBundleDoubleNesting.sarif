@@ -289,6 +289,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/section/section.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n            var item = this._items.getAt(args.detail.itemIndex);\r\n            WinJS.Navigation.navigate(\"/pages/item/item.html\", { item: Data.getItemReference(item) });\r\n        }"
+                  },
                   "startLine": 46,
                   "startColumn": 23,
                   "endLine": 49,
@@ -298,8 +301,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n            var item = this._items.getAt(args.detail.itemIndex);\r\n            WinJS.Navigation.navigate(\"/pages/item/item.html\", { item: Data.getItemReference(item) });\r\n        }"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -363,6 +365,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "var nav = WinJS.Navigation"
+                  },
                   "startLine": 4,
                   "startColumn": 9,
                   "endColumn": 12,
@@ -371,8 +376,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var nav = WinJS.Navigation"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -413,6 +417,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "var util = WinJS.Utilities"
+                  },
                   "startLine": 6,
                   "startColumn": 9,
                   "endColumn": 13,
@@ -421,8 +428,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var util = WinJS.Utilities"
+          ]
         },
         {
           "ruleKey": "JS3058.DeclareVariablesBeforeUse",
@@ -462,6 +468,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n                args.detail.section.onheaderinvoked(args);\r\n            }"
+                  },
                   "startLine": 21,
                   "startColumn": 35,
                   "endLine": 23,
@@ -471,8 +480,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n                args.detail.section.onheaderinvoked(args);\r\n            }"
+          ]
         },
         {
           "ruleKey": "JS3047.ProvideExplicitSemicolons",
@@ -485,6 +493,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "hub.onloadingstatechanged = function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
+                  },
                   "startLine": 24,
                   "startColumn": 13,
                   "endLine": 29,
@@ -494,8 +505,7 @@
                 }
               }
             }
-          ],
-          "snippet": "hub.onloadingstatechanged = function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -513,6 +523,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
+                  },
                   "startLine": 24,
                   "startColumn": 41,
                   "endLine": 29,
@@ -522,8 +535,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n                if (args.srcElement === hub.element && args.detail.loadingState === \"complete\") {\r\n                    hub.onloadingstatechanged = null;\r\n                    hub.element.focus();\r\n                }\r\n            }"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -541,6 +553,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n            nav.navigate(\"/pages/section/section.html\", { title: args.detail.section.header, groupKey: section3Group.key });\r\n        }"
+                  },
                   "startLine": 36,
                   "startColumn": 65,
                   "endLine": 38,
@@ -550,8 +565,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n            nav.navigate(\"/pages/section/section.html\", { title: args.detail.section.header, groupKey: section3Group.key });\r\n        }"
+          ]
         },
         {
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
@@ -592,6 +606,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/pages/hub/hub.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n            var item = Data.getItemReference(section3Items.getAt(args.detail.itemIndex));\r\n            nav.navigate(\"/pages/item/item.html\", { item: item });\r\n        }"
+                  },
                   "startLine": 40,
                   "startColumn": 63,
                   "endLine": 43,
@@ -601,8 +618,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n            var item = Data.getItemReference(section3Items.getAt(args.detail.itemIndex));\r\n            nav.navigate(\"/pages/item/item.html\", { item: item });\r\n        }"
+          ]
         },
         {
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
@@ -638,6 +654,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+                  },
                   "startLine": 1,
                   "startColumn": 1,
                   "endLine": 2,
@@ -646,8 +665,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+          ]
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -664,6 +682,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+                  },
                   "startLine": 6,
                   "startColumn": 5,
                   "endColumn": 14,
@@ -672,8 +693,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+          ]
         },
         {
           "ruleKey": "JS2073.CommentIsMisspelled",
@@ -690,6 +710,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+                  },
                   "startLine": 6,
                   "startColumn": 19,
                   "endColumn": 25,
@@ -698,8 +721,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// For an introduction to the Hub template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkID=286574"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -717,6 +739,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "var nav = WinJS.Navigation"
+                  },
                   "startLine": 8,
                   "startColumn": 9,
                   "endColumn": 12,
@@ -725,8 +750,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var nav = WinJS.Navigation"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -744,6 +768,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "var sched = WinJS.Utilities.Scheduler"
+                  },
                   "startLine": 9,
                   "startColumn": 9,
                   "endColumn": 14,
@@ -752,8 +779,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var sched = WinJS.Utilities.Scheduler"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -817,6 +843,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n\r\n            nav.history = app.sessionState.history || {};\r\n            nav.history.current.initialPlaceholder = true;\r\n\r\n            // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.\r\n            ui.disableAnimations();\r\n            var p = ui.processAll().then(function () {\r\n                return nav.navigate(nav.location || Application.navigator.home, nav.state);\r\n            }).then(function () {\r\n                return sched.requestDrain(sched.Priority.aboveNormal + 1);\r\n            }).then(function () {\r\n                ui.enableAnimations();\r\n            });\r\n\r\n            args.setPromise(p);\r\n        }\r\n    }"
+                  },
                   "startLine": 12,
                   "startColumn": 39,
                   "endLine": 37,
@@ -826,8 +855,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n\r\n            nav.history = app.sessionState.history || {};\r\n            nav.history.current.initialPlaceholder = true;\r\n\r\n            // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.\r\n            ui.disableAnimations();\r\n            var p = ui.processAll().then(function () {\r\n                return nav.navigate(nav.location || Application.navigator.home, nav.state);\r\n            }).then(function () {\r\n                return sched.requestDrain(sched.Priority.aboveNormal + 1);\r\n            }).then(function () {\r\n                ui.enableAnimations();\r\n            });\r\n\r\n            args.setPromise(p);\r\n        }\r\n    }"
+          ]
         },
         {
           "ruleKey": "JS2045.ReviewEmptyBlocks",
@@ -840,6 +868,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+                  },
                   "startLine": 14,
                   "startColumn": 13,
                   "endLine": 20,
@@ -849,8 +880,7 @@
                 }
               }
             }
-          ],
-          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -955,6 +985,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "app.insecureFunction(input)"
+                  },
                   "startLine": 39,
                   "startColumn": 5,
                   "endColumn": 32,
@@ -963,8 +996,7 @@
                 }
               }
             }
-          ],
-          "snippet": "app.insecureFunction(input)"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1026,6 +1058,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "eval(input)"
+                  },
                   "startLine": 41,
                   "startColumn": 9,
                   "endColumn": 20,
@@ -1034,8 +1069,7 @@
                 }
               }
             }
-          ],
-          "snippet": "eval(input)"
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -1053,6 +1087,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise().\r\n        app.sessionState.history = nav.history;\r\n    }"
+                  },
                   "startLine": 44,
                   "startColumn": 24,
                   "endLine": 50,
@@ -1062,8 +1099,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise().\r\n        app.sessionState.history = nav.history;\r\n    }"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1103,6 +1139,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/default.js",
                 "region": {
+                  "snippet": {
+                    "text": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise()."
+                  },
                   "startLine": 54,
                   "startColumn": 123,
                   "endColumn": 127,
@@ -1111,8 +1150,7 @@
                 }
               }
             }
-          ],
-          "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. If you need to \r\n        // complete an asynchronous operation before your application is \r\n        // suspended, call args.setPromise()."
+          ]
         },
         {
           "ruleKey": "JS2074.IdentifierNameIsMisspelled",
@@ -1130,6 +1168,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "var nav = WinJS.Navigation"
+                  },
                   "startLine": 4,
                   "startColumn": 9,
                   "endColumn": 12,
@@ -1138,8 +1179,7 @@
                 }
               }
             }
-          ],
-          "snippet": "var nav = WinJS.Navigation"
+          ]
         },
         {
           "ruleKey": "JS3053.IncorrectNumberOfArguments",
@@ -1221,6 +1261,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "'navigating'"
+                  },
                   "startLine": 25,
                   "startColumn": 48,
                   "endColumn": 60,
@@ -1229,8 +1272,7 @@
                 }
               }
             }
-          ],
-          "snippet": "'navigating'"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1266,6 +1308,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "'navigated'"
+                  },
                   "startLine": 26,
                   "startColumn": 48,
                   "endColumn": 59,
@@ -1274,8 +1319,7 @@
                 }
               }
             }
-          ],
-          "snippet": "'navigated'"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1384,6 +1428,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "_lastViewstate: 0"
+                  },
                   "startLine": 36,
                   "startColumn": 17,
                   "endColumn": 31,
@@ -1392,8 +1439,7 @@
                 }
               }
             }
-          ],
-          "snippet": "_lastViewstate: 0"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1710,6 +1756,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n                    var newElement = this._createPageElement();\r\n                    this._element.appendChild(newElement);\r\n\r\n                    this._lastNavigationPromise.cancel();\r\n\r\n                    var that = this;\r\n                    this._lastNavigationPromise = WinJS.Promise.as().then(function () {\r\n                        return WinJS.UI.Pages.render(args.detail.location, newElement, args.detail.state);\r\n                    }).then(function parentElement(control) {\r\n                        var oldElement = that.pageElement;\r\n                        // Cleanup and remove previous element\r\n                        if (oldElement.winControl) {\r\n                            if (oldElement.winControl.unload) {\r\n                                oldElement.winControl.unload();\r\n                            }\r\n                            oldElement.winControl.dispose();\r\n                        }\r\n                        oldElement.parentNode.removeChild(oldElement);\r\n                        oldElement.innerText = \"\";\r\n                    });\r\n\r\n                    args.detail.setPromise(this._lastNavigationPromise);\r\n                }"
+                  },
                   "startLine": 88,
                   "startColumn": 30,
                   "endLine": 111,
@@ -1719,8 +1768,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n                    var newElement = this._createPageElement();\r\n                    this._element.appendChild(newElement);\r\n\r\n                    this._lastNavigationPromise.cancel();\r\n\r\n                    var that = this;\r\n                    this._lastNavigationPromise = WinJS.Promise.as().then(function () {\r\n                        return WinJS.UI.Pages.render(args.detail.location, newElement, args.detail.state);\r\n                    }).then(function parentElement(control) {\r\n                        var oldElement = that.pageElement;\r\n                        // Cleanup and remove previous element\r\n                        if (oldElement.winControl) {\r\n                            if (oldElement.winControl.unload) {\r\n                                oldElement.winControl.unload();\r\n                            }\r\n                            oldElement.winControl.dispose();\r\n                        }\r\n                        oldElement.parentNode.removeChild(oldElement);\r\n                        oldElement.innerText = \"\";\r\n                    });\r\n\r\n                    args.detail.setPromise(this._lastNavigationPromise);\r\n                }"
+          ]
         },
         {
           "ruleKey": "JS3092.DeclarePropertiesBeforeUse",
@@ -1922,6 +1970,9 @@
               "physicalLocation": {
                 "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/SimpleJSApp.appxbundle#/SimpleJSApp_1.0.0.1_AnyCPU.appx/js/navigator.js",
                 "region": {
+                  "snippet": {
+                    "text": "function (args) {\r\n                    if (this.pageControl && this.pageControl.updateLayout) {\r\n                        this.pageControl.updateLayout.call(this.pageControl, this.pageElement);\r\n                    }\r\n                }"
+                  },
                   "startLine": 115,
                   "startColumn": 27,
                   "endLine": 119,
@@ -1931,8 +1982,7 @@
                 }
               }
             }
-          ],
-          "snippet": "function (args) {\r\n                    if (this.pageControl && this.pageControl.updateLayout) {\r\n                        this.pageControl.updateLayout.call(this.pageControl, this.pageElement);\r\n                    }\r\n                }"
+          ]
         },
         {
           "ruleKey": "JS3057.AvoidImplicitTypeCoercion",
@@ -2088,7 +2138,7 @@
             "Default": "Avoid use of dangerous application capabilities. Capability: {0}"
           },
           "properties": {
-            "tags": ["appx","sdl"]
+            "tags": [ "appx", "sdl" ]
           }
         },
         "WEB1080.AttributesAreNotOrderedCorrectly": {
@@ -2099,7 +2149,7 @@
             "Default": "The <{0}> tag attributes are not ordered as specified on the analysis command-line. This violation was prompted by the '{1}' attribute. As currently configured, attributes should appear in the following order: {2}"
           },
           "properties": {
-            "tags": ["html"]
+            "tags": [ "html" ]
           }
         },
         "WEB1088.IframeHasInvalidSandboxAttribute": {
@@ -2110,7 +2160,7 @@
             "Default": "The <iframe>  tag should have a 'sandbox' attribute set with at least one valid option ('allow-forms', 'allow-same-origin', 'allow-scripts', or 'allow-top-navigation'). Setting both 'allow-scripts' and 'allow-same-origin' for a single <iframe> tag is not advised."
           },
           "properties": {
-            "tags": ["html","sdl"]
+            "tags": [ "html", "sdl" ]
           }
         },
         "JS3092.DeclarePropertiesBeforeUse": {
@@ -2121,7 +2171,7 @@
             "Default": "'{0}' does not contain a definition for '{1}'. Declare this property explicitly before using it."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS2074.IdentifierNameIsMisspelled": {
@@ -2132,7 +2182,7 @@
             "Default": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
           },
           "properties": {
-            "tags": ["spelling","js"]
+            "tags": [ "spelling", "js" ]
           }
         },
         "JS3057.AvoidImplicitTypeCoercion": {
@@ -2143,7 +2193,7 @@
             "Default": "Call results in an implicit conversion of type '{0}' to '{1}'."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS3058.DeclareVariablesBeforeUse": {
@@ -2154,7 +2204,7 @@
             "Default": "Variable '{0}' undeclared. This error must be resolved before further semantic analysis can be done."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS3047.ProvideExplicitSemicolons": {
@@ -2165,7 +2215,7 @@
             "Default": "Provide an explicit semicolon."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS2027.PunctuateCommentsCorrectly": {
@@ -2176,7 +2226,7 @@
             "Default": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS2073.CommentIsMisspelled": {
@@ -2187,7 +2237,7 @@
             "Default": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
           },
           "properties": {
-            "tags": ["spelling","js"]
+            "tags": [ "spelling", "js" ]
           }
         },
         "JS3053.IncorrectNumberOfArguments": {
@@ -2198,7 +2248,7 @@
             "Default": "Function '{0}' does not take {1} arguments."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         },
         "JS2045.ReviewEmptyBlocks": {
@@ -2209,7 +2259,7 @@
             "Default": "Review empty blocks for correctness issues."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS2001.DoNotUseEval": {
@@ -2220,7 +2270,7 @@
             "Default": "Do not use the 'eval' function or its functional equivalents, which obscure code function, complicate tooling, and are a source of non-performant and insecure code patterns. This violation occurred due to use of '{0}' detected in source. {1}"
           },
           "properties": {
-            "tags": ["js","sdl"]
+            "tags": [ "js", "sdl" ]
           }
         },
         "JS2023.UseDoubleQuotesForStringLiterals": {
@@ -2231,7 +2281,7 @@
             "Default": "Use double quotes where possible to declare string literals. For string literals that represent HTML snippets, encapsulate embedded attribute names using single quotes."
           },
           "properties": {
-            "tags": ["js"]
+            "tags": [ "js" ]
           }
         },
         "JS3054.NotAllCodePathsReturnValue": {
@@ -2242,7 +2292,7 @@
             "Default": "Not all code paths return a value."
           },
           "properties": {
-            "tags": ["js","semantic"]
+            "tags": [ "js", "semantic" ]
           }
         }
       },
