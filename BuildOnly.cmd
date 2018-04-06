@@ -79,24 +79,6 @@ call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Versio
 ::Create layout directory of assemblies that need to be signed
 call CreateLayoutDirectory.cmd .\bld\bin\ %Configuration% %Platform%
 
-@REM Run all multitargeting xunit tests
-call :RunMultitargetingTests Sarif Unit                 || goto :ExitFailed
-call :RunMultitargetingTests Sarif Functional           || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Converters Unit      || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Driver Unit          || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Multitool Functional || goto :ExitFailed
-
-::Run all non-multitargeting unit tests
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
 goto Exit
 
 :CreatePublishPackage
@@ -105,15 +87,8 @@ set Framework=%2
 dotnet publish %~dp0src\%Project%\%Project%.csproj --no-restore -c %Configuration% -f %Framework%
 Exit /B %ERRORLEVEL%
 
-:RunMultitargetingTests
-set TestProject=%1
-set TestType=%2
-pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit --fx-version 2.0.0 -nobuild -configuration %Configuration% && popd
-if "%ERRORLEVEL%" NEQ "0" (echo %TestProject% %TestType% tests execution FAILED.)
-Exit /B %ERRORLEVEL%
-
 :ExitFailed
-@echo Build and test did not complete successfully.
+@echo Build did not complete successfully.
 popd
 Exit /B 1
 
