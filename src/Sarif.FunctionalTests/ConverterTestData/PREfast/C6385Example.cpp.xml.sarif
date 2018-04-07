@@ -37,14 +37,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 3,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 3,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'a' is an array of 5 elements (5 bytes)",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -53,113 +54,132 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 13
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 13
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 19
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 19
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 33
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 33
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 5,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 24
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 24
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 6,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 19
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 19
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 7,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 33
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 33
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 8,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 24
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 24
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 9,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 19
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 19
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 10,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 5,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 5,
+                        "startColumn": 9
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 11,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 6,
-                      "startColumn": 10
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 6,
+                        "startColumn": 10
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'i<=5')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -167,14 +187,15 @@
                 },
                 {
                   "step": 12,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
-                    "region": {
-                      "startLine": 8,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6385example.cpp",
+                      "region": {
+                        "startLine": 8,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "Invalid read from 'a[5]', (readable range is 0 to 4)",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

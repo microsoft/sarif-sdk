@@ -82,21 +82,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal(1, result.CodeFlows.Count);
             result.CodeFlows.First().Locations.SequenceEqual(new[]
                 {
-                    new AnnotatedCodeLocation {
-                        PhysicalLocation = new PhysicalLocation {
-                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
-                            Region = new Region { StartLine = 1234 },
+                    new CodeFlowLocation {
+                        Location = new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation {
+                                Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
+                                Region = new Region { StartLine = 1234 },
+                            }
                         },
-                        Importance = AnnotatedCodeLocationImportance.Essential
+                        Importance = CodeFlowLocationImportance.Essential
                     },
-                    new AnnotatedCodeLocation {
-                        PhysicalLocation = new PhysicalLocation {
-                            Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
-                            Region = new Region { StartLine = 5678 }
+                    new CodeFlowLocation {
+                        Location = new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation {
+                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
+                                Region = new Region { StartLine = 5678 }
+                            }
                         },
-                        Importance = AnnotatedCodeLocationImportance.Essential
+                        Importance = CodeFlowLocationImportance.Essential
                     }
-                }, AnnotatedCodeLocation.ValueComparer).Should().BeTrue();
+                }, CodeFlowLocation.ValueComparer).Should().BeTrue();
         }
 
         [Fact]

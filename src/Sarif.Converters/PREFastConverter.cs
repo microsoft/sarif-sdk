@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             int step = 0;
-            var locations = new List<AnnotatedCodeLocation>();
+            var locations = new List<CodeFlowLocation>();
             bool pathUsesKeyEvents = defect.Path.SFAs.Any(x => !string.IsNullOrWhiteSpace(x?.KeyEvent?.Id));
 
             foreach (var sfa in defect.Path.SFAs)
@@ -137,9 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
                 var fileLocation = new PhysicalLocation(id: 0, uri: uri, uriBaseId: null, region: region, contextRegion: null);
-                var annotatedCodeLocation = new AnnotatedCodeLocation
+                var codeFlowLocation = new CodeFlowLocation
                 {
-                    PhysicalLocation = fileLocation,
+                    Location = new Location
+                    {
+                        PhysicalLocation = fileLocation
+                    },
                     Step = ++step
                 };
 
@@ -147,29 +150,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (string.IsNullOrWhiteSpace(sfa.KeyEvent?.Id))
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Unimportant;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Unimportant;
                     }
                     else
                     {
-                        annotatedCodeLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
-                        if (Enum.TryParse(sfa.KeyEvent.Kind, true, out AnnotatedCodeLocationKind kind))
+                        codeFlowLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
+                        if (Enum.TryParse(sfa.KeyEvent.Kind, true, out CodeFlowLocationKind kind))
                         {
-                            annotatedCodeLocation.Kind = kind;
+                            codeFlowLocation.Kind = kind;
                         }
 
-                        if (Enum.TryParse(sfa.KeyEvent.Importance, true, out AnnotatedCodeLocationImportance importance))
+                        if (Enum.TryParse(sfa.KeyEvent.Importance, true, out CodeFlowLocationImportance importance))
                         {
-                            annotatedCodeLocation.Importance = importance;
+                            codeFlowLocation.Importance = importance;
                         }
 
-                        if (!string.IsNullOrWhiteSpace(sfa.KeyEvent.Message))
+                        if (!string.IsNullOrWhiteSpace(sfa.KeyEvent.Message) &&
+                            codeFlowLocation.Location?.Message != null)
                         {
-                            annotatedCodeLocation.Message = sfa.KeyEvent.Message;
+                            codeFlowLocation.Location.Message.Text = sfa.KeyEvent.Message;
                         }
                     }
                 }
 
-                locations.Add(annotatedCodeLocation);
+                locations.Add(codeFlowLocation);
             }
 
             result.CodeFlows = new List<CodeFlow>()

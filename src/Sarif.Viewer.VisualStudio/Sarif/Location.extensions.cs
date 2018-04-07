@@ -14,9 +14,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class LocationExtensions
     {
-        public static Microsoft.Sarif.Viewer.Models.AnnotatedCodeLocationModel ToAnnotatedCodeLocationModel(this Location location)
+        public static Microsoft.Sarif.Viewer.Models.CodeFlowLocationModel ToAnnotatedCodeLocationModel(this Location location)
         {
-            AnnotatedCodeLocationModel model = new AnnotatedCodeLocationModel();
+            CodeFlowLocationModel model = new CodeFlowLocationModel();
             PhysicalLocation physicalLocation = location.PhysicalLocation;
 
             if (physicalLocation != null)

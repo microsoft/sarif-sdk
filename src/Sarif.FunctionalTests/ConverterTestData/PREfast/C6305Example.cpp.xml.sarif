@@ -37,25 +37,28 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
-                    "region": {
-                      "startLine": 3,
-                      "startColumn": 8
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                      "region": {
+                        "startLine": 3,
+                        "startColumn": 8
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
-                    "region": {
-                      "startLine": 4,
-                      "startColumn": 8
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                      "region": {
+                        "startLine": 4,
+                        "startColumn": 8
+                      }
                     }
                   },
-                  "message": "'cb' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -64,14 +67,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
-                    "region": {
-                      "startLine": 6,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                      "region": {
+                        "startLine": 6,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

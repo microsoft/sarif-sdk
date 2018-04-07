@@ -37,14 +37,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 8,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 8,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -53,14 +54,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 9,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 9,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'SUCCEEDED(hr)')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -68,14 +70,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 11,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 11,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -115,14 +118,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 17,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 17,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -131,14 +135,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 18,
-                      "startColumn": 20
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 18,
+                        "startColumn": 20
+                      }
                     }
                   },
-                  "message": "Skip this branch, (assume 'SUCCEEDED(hr)&&b' is false)",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -146,14 +151,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 24,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 24,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -193,14 +199,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 30,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 30,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -209,14 +216,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 31,
-                      "startColumn": 27
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 31,
+                        "startColumn": 27
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume '((SUCCEEDED(hr)||b))&&c')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -224,14 +232,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 33,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 33,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -271,14 +280,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 39,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 39,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -287,14 +297,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 40,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 40,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume '!SUCCEEDED(_hResult)')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -302,14 +313,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 42,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 42,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -349,14 +361,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 48,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 48,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -365,14 +378,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 49,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 49,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'FAILED(hr)')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -380,14 +394,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 51,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 51,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -427,14 +442,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 57,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 57,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -443,14 +459,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 58,
-                      "startColumn": 22
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 58,
+                        "startColumn": 22
+                      }
                     }
                   },
-                  "message": "Skip this branch, (assume 'FAILED(hr)&&b||SUCCEEDED(hr)' is false)",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -458,14 +475,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 64,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 64,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -505,14 +523,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 70,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 70,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -521,14 +540,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 71,
-                      "startColumn": 26
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 71,
+                        "startColumn": 26
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume '((FAILED(Hr_2)||b))&&c')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -536,14 +556,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 73,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 73,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -583,14 +604,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 79,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 79,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -599,14 +621,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 80,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 80,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume '!FAILED(hr)')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -614,14 +637,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 82,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 82,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -661,14 +685,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 88,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 88,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -677,14 +702,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 89,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 89,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'hr==S_FALSE')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -692,14 +718,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 91,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 91,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -739,14 +766,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 97,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 97,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -755,14 +783,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 98,
-                      "startColumn": 8
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 98,
+                        "startColumn": 8
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'b&&((c||S_FALSE==hr))')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -770,14 +799,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 100,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 100,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -817,14 +847,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 106,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 106,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -833,14 +864,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 107,
-                      "startColumn": 11
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 107,
+                        "startColumn": 11
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume 'S_OK==hr')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -848,14 +880,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 109,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 109,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -895,14 +928,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 115,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 115,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'data' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -911,14 +945,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 116,
-                      "startColumn": 21
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 116,
+                        "startColumn": 21
+                      }
                     }
                   },
-                  "message": "Enter this branch, (assume '((S_FALSE+S_OK))==hr')",
                   "kind": "branch",
                   "properties": {
                     "keyEventId": "2"
@@ -926,14 +961,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
-                    "region": {
-                      "startLine": 118,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                      "region": {
+                        "startLine": 118,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'data' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

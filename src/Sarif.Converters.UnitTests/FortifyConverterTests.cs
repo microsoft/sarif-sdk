@@ -214,11 +214,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.Equal(1, result.CodeFlows.Count);
-            IList<AnnotatedCodeLocation> flowLocations = result.CodeFlows.First().Locations;
-            Assert.Equal("sourceFilePath", flowLocations[0].PhysicalLocation.Uri.ToString());
-            Assert.True(flowLocations[0].PhysicalLocation.Region.ValueEquals(new Region { StartLine = 42 }));
-            Assert.Equal("filePath", flowLocations[1].PhysicalLocation.Uri.ToString());
-            Assert.True(flowLocations[1].PhysicalLocation.Region.ValueEquals(new Region { StartLine = 1729 }));
+            IList<CodeFlowLocation> flowLocations = result.CodeFlows.First().Locations;
+            Assert.Equal("sourceFilePath", flowLocations[0].Location.PhysicalLocation.Uri.ToString());
+            Assert.True(flowLocations[0].Location.PhysicalLocation.Region.ValueEquals(new Region { StartLine = 42 }));
+            Assert.Equal("filePath", flowLocations[1].Location.PhysicalLocation.Uri.ToString());
+            Assert.True(flowLocations[1].Location.PhysicalLocation.Region.ValueEquals(new Region { StartLine = 1729 }));
         }
     }
 }

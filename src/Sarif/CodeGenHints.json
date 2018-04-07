@@ -1,5 +1,5 @@
 {
-  "annotatedCodeLocation": [
+  "codeFlowLocation": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -9,12 +9,12 @@
       }
     }
   ],
-  "AnnotatedCodeLocation.Kind": [
+  "CodeFlowLocation.Kind": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "AnnotatedCodeLocationKind",
-        "description": "Values specifying the kind of an annotated code location.",
+        "typeName": "CodeFlowLocationKind",
+        "description": "Values specifying the kind of an code flow location.",
         "zeroValueName": "Unknown",
         "memberNames": [
           "Alias",
@@ -32,12 +32,12 @@
       }
     }
   ],
-  "AnnotatedCodeLocation.TaintKind": [
+  "CodeFlowLocation.TaintKind": [
     {
       "kind": "EnumHint",
       "arguments": {
         "typeName": "TaintKind",
-        "description": "Values that classify the annotated code location in terms of a taint analysis.",
+        "description": "Values that classify the code flow location in terms of a taint analysis.",
         "zeroValueName": "Unknown",
         "memberNames": [
           "Sink",
@@ -47,12 +47,12 @@
       }
     }
   ],
-  "AnnotatedCodeLocation.Importance": [
+  "CodeFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "AnnotatedCodeLocationImportance",
-        "description": "Values specifying the importance of an \"annotatedCodeLocation\" within the \"codeFlow\" in which it occurs"
+        "typeName": "CodeFlowLocationImportance",
+        "description": "Values specifying the importance of an \"codeFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],

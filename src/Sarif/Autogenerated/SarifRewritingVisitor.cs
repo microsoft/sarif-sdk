@@ -46,14 +46,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.AnnotatedCodeLocation:
-                    return VisitAnnotatedCodeLocation((AnnotatedCodeLocation)node);
                 case SarifNodeKind.Annotation:
                     return VisitAnnotation((Annotation)node);
                 case SarifNodeKind.Attachment:
                     return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
+                case SarifNodeKind.CodeFlowLocation:
+                    return VisitCodeFlowLocation((CodeFlowLocation)node);
                 case SarifNodeKind.Conversion:
                     return VisitConversion((Conversion)node);
                 case SarifNodeKind.ExceptionData:
@@ -76,6 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitLocation((Location)node);
                 case SarifNodeKind.LogicalLocation:
                     return VisitLogicalLocation((LogicalLocation)node);
+                case SarifNodeKind.Message:
+                    return VisitMessage((Message)node);
                 case SarifNodeKind.Notification:
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
@@ -115,23 +117,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (T)Visit(node);
         }
 
-        public virtual AnnotatedCodeLocation VisitAnnotatedCodeLocation(AnnotatedCodeLocation node)
-        {
-            if (node != null)
-            {
-                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
-                if (node.Annotations != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Annotations.Count; ++index_0)
-                    {
-                        node.Annotations[index_0] = VisitNullChecked(node.Annotations[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
         public virtual Annotation VisitAnnotation(Annotation node)
         {
             if (node != null)
@@ -169,6 +154,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual CodeFlowLocation VisitCodeFlowLocation(CodeFlowLocation node)
+        {
+            if (node != null)
+            {
+                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;
@@ -319,12 +314,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+                node.Message = VisitNullChecked(node.Message);
+                if (node.Annotations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Annotations.Count; ++index_0)
+                    {
+                        node.Annotations[index_0] = VisitNullChecked(node.Annotations[index_0]);
+                    }
+                }
             }
 
             return node;
         }
 
         public virtual LogicalLocation VisitLogicalLocation(LogicalLocation node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
+        public virtual Message VisitMessage(Message node)
         {
             if (node != null)
             {
@@ -543,7 +555,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;

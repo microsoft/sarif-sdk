@@ -17,31 +17,31 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = new CodeFlow
             {
-                Locations = new List<AnnotatedCodeLocation>
+                Locations = new List<CodeFlowLocation>
                 {
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = CodeFlowLocationKind.Call
                     },
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Declaration
+                        Kind = CodeFlowLocationKind.Declaration
                     },
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Declaration
+                        Kind = CodeFlowLocationKind.Declaration
                     },
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
+                        Kind = CodeFlowLocationKind.CallReturn
                     },
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Declaration
+                        Kind = CodeFlowLocationKind.Declaration
                     },
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Declaration
+                        Kind = CodeFlowLocationKind.Declaration
                     }
                 }
             };
@@ -80,11 +80,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = new CodeFlow
             {
-                Locations = new List<AnnotatedCodeLocation>
+                Locations = new List<CodeFlowLocation>
                 {
-                    new AnnotatedCodeLocation
+                    new CodeFlowLocation
                     {
-                        Kind = AnnotatedCodeLocationKind.Call
+                        Kind = CodeFlowLocationKind.Call
                     }
                 }
             };

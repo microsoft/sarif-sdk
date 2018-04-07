@@ -118,14 +118,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (match.Success)
                 {
-                    stackFrame.FullyQualifiedLogicalName = match.Groups[1].Value;
+                    stackFrame.Location = new Location
+                    {
+                        FullyQualifiedLogicalName = match.Groups[1].Value
+                    };
 
                     if (!string.IsNullOrEmpty(match.Groups[2].Value))
                     {
                         string fileName = match.Groups[3].Value;
                         int lineNumber = int.Parse(match.Groups[4].Value);
 
-                        stackFrame.PhysicalLocation = new PhysicalLocation
+                        stackFrame.Location.PhysicalLocation = new PhysicalLocation
                         {
                             Uri = new Uri(fileName),
                             Region = new Region

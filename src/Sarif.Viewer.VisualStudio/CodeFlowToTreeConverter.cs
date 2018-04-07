@@ -26,7 +26,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
             {
                 switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
                 {
-                    case AnnotatedCodeLocationKind.Call:
+                    case CodeFlowLocationKind.Call:
                         var newNode = new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],
@@ -36,7 +36,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                         children.Add(newNode);
                         break;
 
-                    case AnnotatedCodeLocationKind.CallReturn:
+                    case CodeFlowLocationKind.CallReturn:
                         children.Add(new CallTreeNode
                         {
                             Location = codeFlow.Locations[currentCodeFlowIndex],

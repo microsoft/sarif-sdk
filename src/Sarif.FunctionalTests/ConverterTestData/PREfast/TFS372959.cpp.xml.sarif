@@ -37,36 +37,41 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 10,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 10,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 11,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 11,
+                        "startColumn": 5
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 13,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 13,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "'i' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -75,14 +80,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 15,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 15,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -122,36 +128,41 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 22,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 22,
+                        "startColumn": 5
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 23,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 23,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 25,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 25,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "'this->j' may equal 8",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -160,14 +171,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 27,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 27,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -207,36 +219,41 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 34,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 34,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 35,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 35,
+                        "startColumn": 5
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 37,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 37,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "'i' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -245,14 +262,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 39,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 39,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -292,36 +310,41 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 46,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 46,
+                        "startColumn": 5
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 47,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 47,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 49,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 49,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "'this->j' may equal 14",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -330,14 +353,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 51,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 51,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -377,25 +401,28 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 58,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 58,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 59,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 59,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'j2' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -404,14 +431,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 61,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 61,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "(alias) 'i' receives the value of 'j2' (which is in bytes)",
                   "kind": "alias",
                   "importance": "essential",
                   "properties": {
@@ -420,14 +448,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 63,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 63,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -467,25 +496,28 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 70,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 70,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 71,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 71,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'j2' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -494,14 +526,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 73,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 73,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "(alias) 'i' receives a byte quantity from 'j2'",
                   "kind": "alias",
                   "importance": "essential",
                   "properties": {
@@ -510,14 +543,15 @@
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 75,
-                      "startColumn": 5
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 75,
+                        "startColumn": 5
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -557,25 +591,28 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 85,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 85,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 86,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 86,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'this->cb' may equal 4",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -584,14 +621,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 88,
-                      "startColumn": 4
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 88,
+                        "startColumn": 4
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -631,25 +669,28 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 94,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 94,
+                        "startColumn": 7
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 95,
-                      "startColumn": 7
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 95,
+                        "startColumn": 7
+                      }
                     }
                   },
-                  "message": "'cb2' is a byte quantity",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -658,14 +699,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
-                    "region": {
-                      "startLine": 97,
-                      "startColumn": 4
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp",
+                      "region": {
+                        "startLine": 97,
+                        "startColumn": 4
+                      }
                     }
                   },
-                  "message": "Expression mixes element counts and byte quantities",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

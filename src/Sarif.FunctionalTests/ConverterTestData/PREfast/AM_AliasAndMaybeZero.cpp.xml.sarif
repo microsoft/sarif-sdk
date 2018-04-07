@@ -37,14 +37,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
-                    "region": {
-                      "startLine": 3,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                      "region": {
+                        "startLine": 3,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'source' is NULL",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -53,14 +54,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
-                    "region": {
-                      "startLine": 5,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                      "region": {
+                        "startLine": 5,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "(alias) 'y' receives the value of 'source' (which may be NULL)",
                   "kind": "alias",
                   "importance": "essential",
                   "properties": {
@@ -69,14 +71,15 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
-                    "region": {
-                      "startLine": 7,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                      "region": {
+                        "startLine": 7,
+                        "startColumn": 9
+                      }
                     }
                   },
-                  "message": "'y' is dereferenced, but may still be NULL",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

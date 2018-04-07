@@ -37,21 +37,25 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/test201.cpp",
-                    "region": {
-                      "startLine": 12,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/test201.cpp",
+                      "region": {
+                        "startLine": 12,
+                        "startColumn": 9
+                      }
                     }
                   }
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/test201.cpp",
-                    "region": {
-                      "startLine": 14,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/test201.cpp",
+                      "region": {
+                        "startLine": 14,
+                        "startColumn": 9
+                      }
                     }
                   }
                 }
@@ -83,21 +87,25 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/test201.cpp",
-                    "region": {
-                      "startLine": 38,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/test201.cpp",
+                      "region": {
+                        "startLine": 38,
+                        "startColumn": 9
+                      }
                     }
                   }
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/test201.cpp",
-                    "region": {
-                      "startLine": 40,
-                      "startColumn": 9
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/test201.cpp",
+                      "region": {
+                        "startLine": 40,
+                        "startColumn": 9
+                      }
                     }
                   }
                 }

@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.PhysicalLocation?.Uri);
+                        CaptureFile(frame.Location?.PhysicalLocation?.Uri);
                     }
                 }
             }
@@ -325,15 +325,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureAnnotatedCodeLocations(IList<AnnotatedCodeLocation> locations)
+        private void CaptureAnnotatedCodeLocations(IList<CodeFlowLocation> locations)
         {
             if (locations == null) { return; }
 
-            foreach (AnnotatedCodeLocation acl in locations)
+            foreach (CodeFlowLocation cfl in locations)
             {
-                if (acl.PhysicalLocation != null)
+                if (cfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(acl.PhysicalLocation.Uri);
+                    CaptureFile(cfl.Location.PhysicalLocation.Uri);
                 }
             }
         }

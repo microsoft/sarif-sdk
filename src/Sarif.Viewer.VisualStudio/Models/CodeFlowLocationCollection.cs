@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class AnnotatedCodeLocationCollection : ObservableCollection<AnnotatedCodeLocationModel>
+    public class CodeFlowLocationCollection : ObservableCollection<CodeFlowLocationModel>
     {
         private string _message;
-        private AnnotatedCodeLocationModel _selectedItem;
-        private DelegateCommand<AnnotatedCodeLocationModel> _selectedCommand;
+        private CodeFlowLocationModel _selectedItem;
+        private DelegateCommand<CodeFlowLocationModel> _selectedCommand;
 
-        public AnnotatedCodeLocationCollection(string message)
+        public CodeFlowLocationCollection(string message)
         {
             this._message = message;
         }
@@ -40,7 +40,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public AnnotatedCodeLocationModel SelectedItem
+        public CodeFlowLocationModel SelectedItem
         {
             get
             {
@@ -54,13 +54,13 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public DelegateCommand<AnnotatedCodeLocationModel> SelectedCommand
+        public DelegateCommand<CodeFlowLocationModel> SelectedCommand
         {
             get
             {
                 if (_selectedCommand == null)
                 {
-                    _selectedCommand = new DelegateCommand<AnnotatedCodeLocationModel>(l => SelectionChanged(l));
+                    _selectedCommand = new DelegateCommand<CodeFlowLocationModel>(l => SelectionChanged(l));
                 }
 
                 return _selectedCommand;
@@ -71,7 +71,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        private void SelectionChanged(AnnotatedCodeLocationModel selectedItem)
+        private void SelectionChanged(CodeFlowLocationModel selectedItem)
         {
             selectedItem.NavigateTo();
             selectedItem.ApplySelectionSourceFileHighlighting();

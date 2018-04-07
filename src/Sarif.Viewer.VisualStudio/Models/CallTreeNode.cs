@@ -13,14 +13,14 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class CallTreeNode : CodeLocationObject
     {
-        private AnnotatedCodeLocation _location;
+        private CodeFlowLocation _location;
         private CallTree _callTree;
         private CallTreeNode _parent;
         private bool _isExpanded;
         private Visibility _visbility;
 
         [Browsable(false)]
-        public AnnotatedCodeLocation Location
+        public CodeFlowLocation Location
         {
             get
             {
@@ -30,18 +30,18 @@ namespace Microsoft.Sarif.Viewer.Models
             {
                 _location = value;
 
-                if (value?.PhysicalLocation != null)
+                if (value?.Location?.PhysicalLocation != null)
                 {
                     // If the backing AnnotatedCodeLocation has a PhysicalLocation, set the 
                     // FilePath and Region properties. The FilePath and Region properties
                     // are used to navigate to the source location and highlight the line.
-                    Uri uri = value.PhysicalLocation.Uri;
+                    Uri uri = value.Location.PhysicalLocation.Uri;
                     if (uri != null)
                     {
                         FilePath = uri.ToPath();
                     }
 
-                    Region = value.PhysicalLocation.Region;
+                    Region = value.Location.PhysicalLocation.Region;
                 }
                 else
                 {
@@ -99,9 +99,9 @@ namespace Microsoft.Sarif.Viewer.Models
                     text = Path.GetFileName(FilePath) + " ";
                 }
 
-                if (Location?.PhysicalLocation?.Region != null)
+                if (Location?.Location?.PhysicalLocation?.Region != null)
                 {
-                    text += Location.PhysicalLocation.Region.FormatForVisualStudio();
+                    text += Location.Location.PhysicalLocation.Region.FormatForVisualStudio();
                 }
 
                 return text;
@@ -147,7 +147,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                if (this.Location.Importance == AnnotatedCodeLocationImportance.Essential)
+                if (this.Location.Importance == CodeFlowLocationImportance.Essential)
                 {
                     return ResultTextMarker.KEYEVENT_SELECTION_COLOR;
                 }
@@ -225,7 +225,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                Uri sourceUrl = Location?.PhysicalLocation?.Uri;
+                Uri sourceUrl = Location?.Location?.PhysicalLocation?.Uri;
 
                 if (sourceUrl != null)
                 {
@@ -242,7 +242,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.PhysicalLocation?.Region?.StartLine;
+                return Location?.Location?.PhysicalLocation?.Region?.StartLine;
             }
         }
 
@@ -252,7 +252,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.PhysicalLocation?.Region?.EndLine;
+                return Location?.Location?.PhysicalLocation?.Region?.EndLine;
             }
         }
 
@@ -262,7 +262,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.PhysicalLocation?.Region?.StartColumn;
+                return Location?.Location?.PhysicalLocation?.Region?.StartColumn;
             }
         }
 
@@ -272,11 +272,11 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.PhysicalLocation?.Region?.EndColumn;
+                return Location?.Location?.PhysicalLocation?.Region?.EndColumn;
             }
         }
 
-        public AnnotatedCodeLocationImportance? Importance
+        public CodeFlowLocationImportance? Importance
         {
             get
             {
@@ -288,7 +288,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.Message;
+                return Location?.Location?.Message.Text;
             }
         }
 
@@ -296,7 +296,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.Snippet;
+                return Location?.Location?.PhysicalLocation?.Region?.Snippet.Text;
             }
         }
 
@@ -346,7 +346,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
         internal void IntelligentExpand()
         {
-            if (Location?.Importance == AnnotatedCodeLocationImportance.Essential)
+            if (Location?.Importance == CodeFlowLocationImportance.Essential)
             {
                 CallTreeNode current = this;
 
@@ -370,21 +370,21 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        internal void SetVerbosity(CodeFlowLocationImportance importance)
         {
             Visibility visibility = Visibility.Visible;
-            AnnotatedCodeLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(AnnotatedCodeLocationImportance.Unimportant);
+            CodeFlowLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(CodeFlowLocationImportance.Unimportant);
 
             switch (importance)
             {
-                case AnnotatedCodeLocationImportance.Essential:
-                    if (myImportance != AnnotatedCodeLocationImportance.Essential)
+                case CodeFlowLocationImportance.Essential:
+                    if (myImportance != CodeFlowLocationImportance.Essential)
                     {
                         visibility = Visibility.Collapsed;
                     }
                     break;
-                case AnnotatedCodeLocationImportance.Important:
-                    if (myImportance == AnnotatedCodeLocationImportance.Unimportant)
+                case CodeFlowLocationImportance.Important:
+                    if (myImportance == CodeFlowLocationImportance.Unimportant)
                     {
                         visibility = Visibility.Collapsed;
                     }

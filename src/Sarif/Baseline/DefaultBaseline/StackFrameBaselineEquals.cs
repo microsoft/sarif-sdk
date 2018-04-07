@@ -13,18 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (x.PhysicalLocation.Uri != y.PhysicalLocation.Uri)
+                if (x.Location.PhysicalLocation.Uri != y.Location.PhysicalLocation.Uri)
                 {
                     return false;
                 }
-                if (x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
-                {
-                    return false;
-                }
+
                 if (x.Module != y.Module)
                 {
                     return false;
                 }
+
                 if (!ListComparisonHelpers.CompareListsOrdered(x.Parameters, y.Parameters))
                 {
                     return false;
@@ -43,9 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.PhysicalLocation.Uri.GetNullCheckedHashCode();
-
-                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
+                hs = hs ^ obj.Location.PhysicalLocation.Uri.GetNullCheckedHashCode();
 
                 hs = hs ^ obj.Module.GetNullCheckedHashCode();
 

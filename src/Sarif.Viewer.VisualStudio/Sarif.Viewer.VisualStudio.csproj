@@ -93,7 +93,7 @@
     <Compile Include="Sarif\IPropertyBagHolder.extensions.cs" />
     <Compile Include="Models\RuleModel.cs" />
     <Compile Include="Models\ToolModel.cs" />
-    <Compile Include="Sarif\AnnotatedCodeLocation.extensions.cs" />
+    <Compile Include="Sarif\CodeFlowLocationExtensions.cs" />
     <Compile Include="Sarif\Region.extensions.cs" />
     <Compile Include="Sarif\ResultLevel.extensions.cs" />
     <Compile Include="Sarif\Result.extensions.cs" />
@@ -116,8 +116,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="Guids.cs" />
-    <Compile Include="Models\AnnotatedCodeLocationModel.cs" />
-    <Compile Include="Models\AnnotatedCodeLocationCollection.cs" />
+    <Compile Include="Models\CodeFlowLocationModel.cs" />
+    <Compile Include="Models\CodeFlowLocationCollection.cs" />
     <Compile Include="OpenLogFileCommands.cs" />
     <Compile Include="ProjectHelper.cs" />
     <Compile Include="ProjectKind.cs" />
