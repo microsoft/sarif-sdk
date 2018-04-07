@@ -44,7 +44,6 @@
                 },
                 {
                   "step": 1,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -62,19 +61,16 @@
                 },
                 {
                   "step": 3,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 5,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
@@ -88,7 +84,6 @@
                 },
                 {
                   "step": 7,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -106,13 +101,11 @@
                 },
                 {
                   "step": 9,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 10,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -126,7 +119,6 @@
                 },
                 {
                   "step": 12,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -144,13 +136,11 @@
                 },
                 {
                   "step": 14,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 15,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -812,7 +802,6 @@
                 },
                 {
                   "step": 62,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -834,13 +823,11 @@
                 },
                 {
                   "step": 64,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 65,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -862,7 +849,6 @@
                 },
                 {
                   "step": 67,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -884,13 +870,11 @@
                 },
                 {
                   "step": 69,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 70,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -912,7 +896,6 @@
                 },
                 {
                   "step": 72,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -999,13 +982,11 @@
                 },
                 {
                   "step": 78,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 79,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1025,13 +1006,11 @@
                 },
                 {
                   "step": 81,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 82,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1051,6 +1030,12 @@
                 {
                   "step": 84,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4810
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1058,7 +1043,6 @@
                 },
                 {
                   "step": 85,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1078,13 +1062,11 @@
                 },
                 {
                   "step": 87,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 88,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1104,6 +1086,12 @@
                 {
                   "step": 90,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4822
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1111,7 +1099,6 @@
                 },
                 {
                   "step": 91,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1131,13 +1118,11 @@
                 },
                 {
                   "step": 93,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 94,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1157,6 +1142,12 @@
                 {
                   "step": 96,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4842
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1164,7 +1155,6 @@
                 },
                 {
                   "step": 97,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1184,13 +1174,11 @@
                 },
                 {
                   "step": 99,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 100,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1210,6 +1198,12 @@
                 {
                   "step": 102,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4857
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1217,7 +1211,6 @@
                 },
                 {
                   "step": 103,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1237,13 +1230,11 @@
                 },
                 {
                   "step": 105,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 106,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1263,6 +1254,12 @@
                 {
                   "step": 108,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4877
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1270,7 +1267,6 @@
                 },
                 {
                   "step": 109,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1290,13 +1286,11 @@
                 },
                 {
                   "step": 111,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 112,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1316,6 +1310,12 @@
                 {
                   "step": 114,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4912
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1323,7 +1323,6 @@
                 },
                 {
                   "step": 115,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1343,13 +1342,11 @@
                 },
                 {
                   "step": 117,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 118,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1369,6 +1366,12 @@
                 {
                   "step": 120,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4928
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1376,7 +1379,6 @@
                 },
                 {
                   "step": 121,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1396,13 +1398,11 @@
                 },
                 {
                   "step": 123,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 124,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1422,6 +1422,12 @@
                 {
                   "step": 126,
                   "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c",
+                      "region": {
+                        "startLine": 4946
+                      }
+                    },
                     "fullyQualifiedLogicalName": "sdv_main"
                   },
                   "kind": "callReturn",
@@ -1429,7 +1435,6 @@
                 },
                 {
                   "step": 127,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1449,13 +1454,11 @@
                 },
                 {
                   "step": 129,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 130,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1491,7 +1494,6 @@
                 },
                 {
                   "step": 133,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1530,13 +1532,11 @@
                 },
                 {
                   "step": 136,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 137,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
@@ -1545,7 +1545,6 @@
                 },
                 {
                   "step": 138,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
@@ -1566,13 +1565,11 @@
                 },
                 {
                   "step": 140,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 141,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
@@ -1586,7 +1583,6 @@
                 },
                 {
                   "step": 143,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1600,13 +1596,11 @@
                 },
                 {
                   "step": 145,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 146,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1615,13 +1609,11 @@
                 },
                 {
                   "step": 147,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 148,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1630,13 +1622,11 @@
                 },
                 {
                   "step": 149,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 150,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1645,13 +1635,11 @@
                 },
                 {
                   "step": 151,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 152,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1660,7 +1648,6 @@
                 },
                 {
                   "step": 153,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {

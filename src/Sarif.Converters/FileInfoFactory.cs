@@ -58,7 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         foreach (CodeFlowLocation codeLocation in codeFlow.Locations)
                         {
-                            AddFile(codeLocation.Location.PhysicalLocation);
+                            if (codeLocation.Location?.PhysicalLocation != null)
+                            {
+                                AddFile(codeLocation.Location.PhysicalLocation);
+                            }
                         }
                     }
                 }

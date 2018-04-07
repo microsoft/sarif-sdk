@@ -329,11 +329,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (locations == null) { return; }
 
-            foreach (CodeFlowLocation acl in locations)
+            foreach (CodeFlowLocation cfl in locations)
             {
-                if (acl.Location?.PhysicalLocation != null)
+                if (cfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(acl.Location.PhysicalLocation.Uri);
+                    CaptureFile(cfl.Location.PhysicalLocation.Uri);
                 }
             }
         }

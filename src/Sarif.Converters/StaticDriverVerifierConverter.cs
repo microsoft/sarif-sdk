@@ -150,19 +150,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Kind = kind,
                     Step = step,
-                    Importance = CodeFlowLocationImportance.Unimportant,
-                    Location = new Location
+                    Importance = CodeFlowLocationImportance.Unimportant
+                };
+
+                if (uri != null)
+                {
+                    codeFlowLocation.Location = new Location
                     {
-                        PhysicalLocation = (uri != null) ? new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
                             Uri = uri,
                             Region = new Region
                             {
                                 StartLine = line
                             }
-                        } : null,
-                    }
-                };
+                        }
+                    };
+                }
 
                 if (kind == CodeFlowLocationKind.Call)
                 {
@@ -172,6 +176,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
+                        if (codeFlowLocation.Location == null)
+                        {
+                            codeFlowLocation.Location = new Location();
+                        }
+
                         codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
                         codeFlowLocation.Target = callee;
                         _callers.Push(caller);
@@ -193,16 +202,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         codeFlowLocation.Importance = CodeFlowLocationImportance.Essential;
                     }
-
                 }
-
-                if (kind == CodeFlowLocationKind.CallReturn)
+                else if (kind == CodeFlowLocationKind.CallReturn)
                 {
                     Debug.Assert(_callers.Count > 0);
-                    codeFlowLocation.Location = new Location
+
+                    if (codeFlowLocation.Location == null)
                     {
-                        FullyQualifiedLogicalName = _callers.Pop()
-                    };
+                        codeFlowLocation.Location = new Location();
+                    }
+
+                    codeFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
                 }
 
                 string separatorText = "^====Auto=====";

@@ -44,7 +44,6 @@
                 },
                 {
                   "step": 1,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -62,19 +61,16 @@
                 },
                 {
                   "step": 3,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 5,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
@@ -88,7 +84,6 @@
                 },
                 {
                   "step": 7,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -106,13 +101,11 @@
                 },
                 {
                   "step": 9,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 10,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -126,7 +119,6 @@
                 },
                 {
                   "step": 12,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -144,13 +136,11 @@
                 },
                 {
                   "step": 14,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 15,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -812,7 +802,6 @@
                 },
                 {
                   "step": 62,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -834,13 +823,11 @@
                 },
                 {
                   "step": 64,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 65,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -862,7 +849,6 @@
                 },
                 {
                   "step": 67,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -884,13 +870,11 @@
                 },
                 {
                   "step": 69,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
                 {
                   "step": 70,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -912,7 +896,6 @@
                 },
                 {
                   "step": 72,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -999,13 +982,11 @@
                 },
                 {
                   "step": 78,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 79,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1025,13 +1006,11 @@
                 },
                 {
                   "step": 81,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 82,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1067,7 +1046,6 @@
                 },
                 {
                   "step": 85,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1106,13 +1084,11 @@
                 },
                 {
                   "step": 88,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 89,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
@@ -1121,7 +1097,6 @@
                 },
                 {
                   "step": 90,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant",
                   "properties": {
@@ -1142,13 +1117,11 @@
                 },
                 {
                   "step": 92,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 93,
-                  "location": {},
                   "kind": "assignment",
                   "importance": "unimportant"
                 },
@@ -1162,7 +1135,6 @@
                 },
                 {
                   "step": 95,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
@@ -1176,13 +1148,11 @@
                 },
                 {
                   "step": 97,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 98,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1191,13 +1161,11 @@
                 },
                 {
                   "step": 99,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 100,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1206,13 +1174,11 @@
                 },
                 {
                   "step": 101,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 102,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1221,13 +1187,11 @@
                 },
                 {
                   "step": 103,
-                  "location": {},
                   "kind": "continuation",
                   "importance": "unimportant"
                 },
                 {
                   "step": 104,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {
@@ -1236,7 +1200,6 @@
                 },
                 {
                   "step": 105,
-                  "location": {},
                   "kind": "branch",
                   "importance": "unimportant",
                   "properties": {

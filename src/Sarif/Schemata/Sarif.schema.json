@@ -207,9 +207,7 @@
             }
           }
         }
-      },
-
-      "required": [ "location" ]
+      }
     },
 
     "conversion": {
