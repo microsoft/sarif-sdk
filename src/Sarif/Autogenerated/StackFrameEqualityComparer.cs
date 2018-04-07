@@ -28,17 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Message != right.Message)
+            if (!Location.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
 
             if (left.RichMessage != right.RichMessage)
-            {
-                return false;
-            }
-
-            if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
             }
@@ -49,16 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.ThreadId != right.ThreadId)
-            {
-                return false;
-            }
-
-            if (left.FullyQualifiedLogicalName != right.FullyQualifiedLogicalName)
-            {
-                return false;
-            }
-
-            if (left.LogicalLocationKey != right.LogicalLocationKey)
             {
                 return false;
             }
@@ -129,19 +114,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Message != null)
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.Message.GetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
                 if (obj.RichMessage != null)
                 {
                     result = (result * 31) + obj.RichMessage.GetHashCode();
-                }
-
-                if (obj.PhysicalLocation != null)
-                {
-                    result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
                 }
 
                 if (obj.Module != null)
@@ -150,16 +130,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ThreadId.GetHashCode();
-                if (obj.FullyQualifiedLogicalName != null)
-                {
-                    result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
-                }
-
-                if (obj.LogicalLocationKey != null)
-                {
-                    result = (result * 31) + obj.LogicalLocationKey.GetHashCode();
-                }
-
                 result = (result * 31) + obj.Address.GetHashCode();
                 result = (result * 31) + obj.Offset.GetHashCode();
                 if (obj.Parameters != null)

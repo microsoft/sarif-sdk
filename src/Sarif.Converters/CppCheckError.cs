@@ -139,17 +139,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                var locations = new List<AnnotatedCodeLocation>
+                var locations = new List<CodeFlowLocation>
                 {
                     Capacity = this.Locations.Length
                 };
 
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    locations.Add(new AnnotatedCodeLocation
+                    locations.Add(new CodeFlowLocation
                     {
-                        PhysicalLocation = loc.ToSarifPhysicalLocation(),
-                        Importance = AnnotatedCodeLocationImportance.Essential
+                        Location = new Location
+                        {
+                            PhysicalLocation = loc.ToSarifPhysicalLocation()
+                        },
+                        Importance = CodeFlowLocationImportance.Essential
                     });
                 }
 
@@ -162,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.
-                lastLocationConverted = locations[locations.Count - 1].PhysicalLocation;
+                lastLocationConverted = locations[locations.Count - 1].Location.PhysicalLocation;
             }
 
             result.Locations = new List<Location>

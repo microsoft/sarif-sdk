@@ -262,12 +262,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     new StackFrame
                                     {
                                         Module = "a.dll",
-                                        FullyQualifiedLogicalName = "N1.N2.C.M1",
-                                        PhysicalLocation = new PhysicalLocation
+                                        Location = new Location
                                         {
-                                            Region = new Region
+                                            FullyQualifiedLogicalName = "N1.N2.C.M1",
+                                            PhysicalLocation = new PhysicalLocation
                                             {
-                                                StartLine = 10
+                                                Region = new Region
+                                                {
+                                                    StartLine = 10
+                                                }
                                             }
                                         }
                                     },
@@ -275,12 +278,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     new StackFrame
                                     {
                                         Module = "a.dll",
-                                        FullyQualifiedLogicalName = "N1.N2.C.M2",
-                                        PhysicalLocation = new PhysicalLocation
+                                        Location = new Location
                                         {
-                                            Region = new Region
+                                            FullyQualifiedLogicalName = "N1.N2.C.M2",
+                                            PhysicalLocation = new PhysicalLocation
                                             {
-                                                StartLine = 6
+                                                Region = new Region
+                                                {
+                                                    StartLine = 6
+                                                }
                                             }
                                         }
                                     }
@@ -316,22 +322,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 ""stack"": {
                   ""frames"": [
                     {
-                      ""physicalLocation"": {
-                        ""region"": {
-                          ""startLine"": 10
-                        }
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""region"": {
+                            ""startLine"": 10
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
                       },
-                      ""module"": ""a.dll"",
-                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
+                      ""module"": ""a.dll""
                     },
                     {
-                      ""physicalLocation"": {
-                        ""region"": {
-                          ""startLine"": 6
-                        }
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""region"": {
+                            ""startLine"": 6
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
                       },
-                      ""module"": ""a.dll"",
-                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
+                      ""module"": ""a.dll""
                     }
                   ]
                 }

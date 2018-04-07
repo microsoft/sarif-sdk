@@ -29,7 +29,7 @@
   "required": [ "version", "runs" ],
   "definitions": {
 
-    "annotatedCodeLocation": {
+    "codeFlowLocation": {
       "description": "An annotation used to express code flows through a method or other locations that are related to a result.",
       "additionalProperties": false,
       "type": "object",
@@ -188,11 +188,11 @@
         },
 
         "locations": {
-          "description": "An array of 'annotatedCodeLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+          "description": "An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/codeFlowLocation"
           }
         },
 
@@ -815,7 +815,7 @@
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/codeFlowLocation"
           }
         },
 

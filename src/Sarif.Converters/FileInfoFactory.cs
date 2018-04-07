@@ -42,11 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.Stacks != null)
                 {
-                    foreach (IList<AnnotatedCodeLocation> stack in result.Stacks)
+                    foreach (IList<CodeFlowLocation> stack in result.Stacks)
                     {
-                        foreach (AnnotatedCodeLocation stackFrame in stack)
+                        foreach (CodeFlowLocation stackFrame in stack)
                         {
-                            AddFile(stackFrame.PhysicalLocation);
+                            AddFile(stackFrame.Location.PhysicalLocation);
                         }
                     }
 
@@ -56,9 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        foreach (AnnotatedCodeLocation codeLocation in codeFlow.Locations)
+                        foreach (CodeFlowLocation codeLocation in codeFlow.Locations)
                         {
-                            AddFile(codeLocation.PhysicalLocation);
+                            AddFile(codeLocation.Location.PhysicalLocation);
                         }
                     }
                 }

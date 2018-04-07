@@ -66,31 +66,31 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 FileName = @"C:\Temp\Foo.exe",
             };
 
-            viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
+            viewModel.Locations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0, snippet: null),
             });
 
-            viewModel.Locations.Add(new Models.AnnotatedCodeLocationModel()
+            viewModel.Locations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0, snippet: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
+            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(21, 1, 21, 2, 0, 0, snippet: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
+            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(22, 1, 22, 2, 0, 0, snippet: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.AnnotatedCodeLocationModel()
+            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
                 Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0, snippet: null),
@@ -101,26 +101,26 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 {
                     new CallTreeNode
                     {
-                        Location = new AnnotatedCodeLocation
+                        Location = new CodeFlowLocation
                         {
-                            Kind = AnnotatedCodeLocationKind.Assignment
+                            Kind = CodeFlowLocationKind.Assignment
                         }
                     },
 
                     new CallTreeNode
                     {
-                        Location = new AnnotatedCodeLocation
+                        Location = new CodeFlowLocation
                         {
-                            Kind = AnnotatedCodeLocationKind.Call,
+                            Kind = CodeFlowLocationKind.Call,
                             Target = "my_func"
                         },
                         Children = new List<CallTreeNode>
                         {
                             new CallTreeNode
                             {
-                                Location = new AnnotatedCodeLocation
+                                Location = new CodeFlowLocation
                                 {
-                                    Kind = AnnotatedCodeLocationKind.CallReturn
+                                    Kind = CodeFlowLocationKind.CallReturn
                                 }
                             }
                         }

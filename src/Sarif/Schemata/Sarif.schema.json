@@ -30,127 +30,6 @@
   "required": [ "version", "runs" ],
   "definitions": {
 
-    "annotatedCodeLocation": {
-      "description": "An annotation used to express code flows through a method or other locations that are related to a result.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "step": {
-          "description": "The 0-based sequence number of the location in the code flow within which it occurs.",
-          "type": "integer",
-          "minimum": 0
-        },
-
-        "physicalLocation": {
-          "description": "A file location to which this annotation refers.",
-          "$ref": "#/definitions/physicalLocation"
-        },
-
-        "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the method or function that is executing.",
-          "type": "string"
-        },
-
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the annotation's logicalLocation from the logicalLocations dictionary.",
-          "type": "string"
-        },
-
-        "module": {
-          "description": "The name of the module that contains the code that is executing.",
-          "type": "string"
-        },
-
-        "threadId": {
-          "description": "The thread identifier of the code that is executing.",
-          "type": "integer"
-        },
-
-        "message": {
-          "description": "A plain text message relevant to this annotation.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this annotation.",
-          "type": "string"
-        },
-
-        "kind": {
-          "description": "Categorizes the location.",
-          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
-        },
-
-        "taintKind": {
-          "description": "Classifies state transitions in code locations relevant to a taint analysis.",
-          "enum": [ "source", "sink", "sanitizer" ]
-        },
-
-        "target": {
-          "description": "The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.",
-          "type": "string"
-        },
-
-        "values": {
-          "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          }
-        },
-
-        "state": {
-          "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
-          "type": "object"
-        },
-
-        "targetKey": {
-          "description": "A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.",
-          "type": "string"
-        },
-
-        "importance": {
-          "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
-          "enum": [ "important", "essential", "unimportant" ]
-        },
-
-        "snippet": {
-          "description": "The source code at the specified location.",
-          "type": "string"
-        },
-
-        "annotations": {
-          "description": "A set of messages relevant to the current annotated code location.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/annotation"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the code location.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-
     "annotation": {
       "type": "object",
       "properties": {
@@ -211,11 +90,11 @@
         },
 
         "locations": {
-          "description": "An array of 'annotatedCodeLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+          "description": "An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/codeFlowLocation"
           }
         },
 
@@ -238,6 +117,99 @@
         }
       },
       "required": [ "locations" ]
+    },
+
+    "codeFlowLocation": {
+      "description": "A location visited by an analysis tool in the course of simulating or monitoring the execution of a program.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "step": {
+          "description": "The 0-based sequence number of the location in the code flow within which it occurs.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "location": {
+          "description": "The code location.",
+          "$ref": "#/definitions/location"
+        },
+
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+
+        "threadId": {
+          "description": "The thread identifier of the code that is executing.",
+          "type": "integer"
+        },
+
+        "richMessage": {
+          "description": "A rich text message relevant to this annotation.",
+          "type": "string"
+        },
+
+        "kind": {
+          "description": "Categorizes the location.",
+          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
+        },
+
+        "taintKind": {
+          "description": "Classifies state transitions in code locations relevant to a taint analysis.",
+          "enum": [ "source", "sink", "sanitizer" ]
+        },
+
+        "target": {
+          "description": "The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.",
+          "type": "string"
+        },
+
+        "values": {
+          "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "state": {
+          "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
+          "type": "object"
+        },
+
+        "targetKey": {
+          "description": "A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.",
+          "type": "string"
+        },
+
+        "importance": {
+          "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
+          "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the code location.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "location" ]
     },
 
     "conversion": {
@@ -679,7 +651,17 @@
 
         "message": {
           "description": "A message relevant to the location.",
-          "type": "string"
+          "$ref": "#/definitions/message"
+        },
+
+        "annotations": {
+          "description": "A set of messages relevant to portions of the location.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/annotation"
+          }
         },
 
         "properties": {
@@ -721,6 +703,43 @@
         "kind": {
           "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.",
           "type": "string"
+        }
+      }
+    },
+
+    "message": {
+      "description": "Encapsulates a message intended to be read by the end user.",
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+
+        "text": {
+          "description": "A plain text message string.",
+          "type": "string"
+        },
+
+        "messageId": {
+          "description": "The resource id for a plain text message string.",
+          "type": "string"
+        },
+
+        "richText": {
+          "description": "A rich text message string.",
+          "type": "string"
+        },
+
+        "richMessageId": {
+          "description": "The resource id for a rich text message string.",
+          "type": "string"
+        },
+
+        "arguments": {
+          "description": "An array of strings to substitute into the message string.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -1330,19 +1349,14 @@
       "type": "object",
       "properties": {
 
-        "message": {
-          "description": "A plain text message relevant to this stack frame.",
-          "type": "string"
+        "location": {
+          "description": "The location to which this stack frame refers.",
+          "$ref": "#/definitions/location"
         },
 
         "richMessage": {
           "description": "A rich text message relevant to this stack frame.",
           "type": "string"
-        },
-
-        "physicalLocation": {
-          "description": "The physical location to which this stack frame refers.",
-          "$ref": "#/definitions/physicalLocation"
         },
 
         "module": {
@@ -1353,16 +1367,6 @@
         "threadId": {
           "description": "The thread identifier of the stack frame.",
           "type": "integer"
-        },
-
-        "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the method or function that is executing.",
-          "type": "string"
-        },
-
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the stack frame logicalLocation from the logicalLocations dictionary, when the 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
         },
 
         "address": {
@@ -1403,7 +1407,6 @@
         }
       },
 
-      "required": [ "fullyQualifiedLogicalName" ],
       "dependencies": {
         "uriBaseId": [ "uri" ],
         "line": [ "uri" ],

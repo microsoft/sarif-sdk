@@ -17,15 +17,18 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
+                    Kind = CodeFlowLocationKind.Call,
                     Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
@@ -39,14 +42,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    PhysicalLocation = new PhysicalLocation
+                    Kind = CodeFlowLocationKind.Call,
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
@@ -60,14 +66,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.CallReturn,
-                    PhysicalLocation = new PhysicalLocation
+                    Kind = CodeFlowLocationKind.CallReturn,
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
@@ -81,14 +90,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Continuation,
-                    PhysicalLocation = new PhysicalLocation
+                    Kind = CodeFlowLocationKind.Continuation,
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
@@ -102,10 +114,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.CallReturn,
-                    PhysicalLocation = new PhysicalLocation()
+                    Kind = CodeFlowLocationKind.CallReturn,
+                    Location = new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation()
+                    }
                 }
             };
 
@@ -121,18 +136,27 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Message = message,
+                    Kind = CodeFlowLocationKind.Call,
                     Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                        Message = new Message
                         {
-                            StartLine = 42
+                            Text = message
+                        },
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Uri = new System.Uri(sourceFile),
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
@@ -150,18 +174,27 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Message = message,
+                    Kind = CodeFlowLocationKind.Call,
                     Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                        Message = new Message
                         {
-                            StartLine = 42
+                            Text = message
+                        },
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Uri = new System.Uri(sourceFile),
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
@@ -178,17 +211,23 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
+                    Kind = CodeFlowLocationKind.Call,
                     Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Uri = new System.Uri(sourceFile),
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
@@ -205,17 +244,23 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
+                    Kind = CodeFlowLocationKind.Call,
                     Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Uri = new System.Uri(sourceFile),
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }

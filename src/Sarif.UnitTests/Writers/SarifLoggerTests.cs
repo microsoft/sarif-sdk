@@ -223,7 +223,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     new StackFrame
                                     {
-                                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file4.cpp") }
+                                        Location = new Location
+                                        {
+                                            PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file4.cpp")}
+                                        }
                                     }
                                 }
                             }
@@ -234,9 +237,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 Locations = new[]
                                 {
-                                    new AnnotatedCodeLocation
+                                    new CodeFlowLocation
                                     {
-                                        PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                        Location = new Location
+                                        {
+                                            PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                        }
                                     }
                                 }
                             }

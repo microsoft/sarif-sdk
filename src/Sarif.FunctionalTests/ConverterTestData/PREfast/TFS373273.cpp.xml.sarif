@@ -37,14 +37,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 10,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 10,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'n' is equal to 5",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -53,14 +54,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 11,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 11,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'data' is an array of 5 elements (20 bytes)",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -69,25 +71,28 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 12,
-                      "startColumn": 10
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 12,
+                        "startColumn": 10
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 14,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 14,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'n' is an In/Out argument to 'new[]' (declared at d:\\src\\sarif-sdk\\src\\sarif.functionaltests\\convertertestdata\\prefast\\predefined c++ types (compiler internal):38)",
                   "kind": "declaration",
                   "properties": {
                     "keyEventId": "3"
@@ -95,14 +100,15 @@
                 },
                 {
                   "step": 5,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 16,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 16,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "Invalid read from 'data[5]', (readable range is 0 to 4)",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {
@@ -142,14 +148,15 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 36,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 36,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'n' is equal to 5",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -158,14 +165,15 @@
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 37,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 37,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "'data' is an array of 5 elements (20 bytes)",
                   "kind": "declaration",
                   "importance": "essential",
                   "properties": {
@@ -174,25 +182,28 @@
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 38,
-                      "startColumn": 10
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 38,
+                        "startColumn": 10
+                      }
                     }
                   },
                   "importance": "unimportant"
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 40,
-                      "startColumn": 14
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 40,
+                        "startColumn": 14
+                      }
                     }
                   },
-                  "message": "'n' is an Input to 'SampleClass::{ctor}' (declared on line 28)",
                   "kind": "usage",
                   "properties": {
                     "keyEventId": "3"
@@ -200,14 +211,15 @@
                 },
                 {
                   "step": 5,
-                  "physicalLocation": {
-                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
-                    "region": {
-                      "startLine": 42,
-                      "startColumn": 6
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp",
+                      "region": {
+                        "startLine": 42,
+                        "startColumn": 6
+                      }
                     }
                   },
-                  "message": "Invalid read from 'data[5]', (readable range is 0 to 4)",
                   "kind": "usage",
                   "importance": "essential",
                   "properties": {

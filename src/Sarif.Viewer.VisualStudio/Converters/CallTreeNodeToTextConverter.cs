@@ -38,34 +38,34 @@ namespace Microsoft.Sarif.Viewer.Converters
             // 5. AnnotatedCodeLocation.Kind
             string text = string.Empty;
 
-            AnnotatedCodeLocation annotatedLocation = node.Location;
-            if (annotatedLocation != null)
+            CodeFlowLocation codeFlowLocation = node.Location;
+            if (codeFlowLocation != null)
             {
-                if (!String.IsNullOrEmpty(annotatedLocation.Message))
+                if (!String.IsNullOrEmpty(codeFlowLocation.Location?.Message?.Text))
                 {
-                    text = annotatedLocation.Message;
+                    text = codeFlowLocation.Location.Message.Text;
                 }
-                else if (!String.IsNullOrEmpty(annotatedLocation.Snippet))
+                else if (!String.IsNullOrEmpty(codeFlowLocation.Location?.PhysicalLocation?.Region?.Snippet?.Text))
                 {
-                    text = annotatedLocation.Snippet.Trim();
+                    text = codeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text.Trim();
                 }
                 else
                 {
-                    switch (annotatedLocation.Kind)
+                    switch (codeFlowLocation.Kind)
                     {
-                        case AnnotatedCodeLocationKind.Call:
-                            string callee = annotatedLocation.Target;
+                        case CodeFlowLocationKind.Call:
+                            string callee = codeFlowLocation.Target;
                             text = !string.IsNullOrEmpty(callee) ? callee : Resources.UnknownCalleeMessage;
                             break;
 
-                        case AnnotatedCodeLocationKind.CallReturn:
+                        case CodeFlowLocationKind.CallReturn:
                             text = Resources.ReturnMessage;
                             break;
 
                         default:
-                            if (annotatedLocation.Kind != default(AnnotatedCodeLocationKind))
+                            if (codeFlowLocation.Kind != default(CodeFlowLocationKind))
                             {
-                                text = annotatedLocation.Kind.ToString();
+                                text = codeFlowLocation.Kind.ToString();
                             }
                             break;
                     }

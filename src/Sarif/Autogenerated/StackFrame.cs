@@ -33,22 +33,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A plain text message relevant to this stack frame.
+        /// The location to which this stack frame refers.
         /// </summary>
-        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        public Location Location { get; set; }
 
         /// <summary>
         /// A rich text message relevant to this stack frame.
         /// </summary>
         [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
         public string RichMessage { get; set; }
-
-        /// <summary>
-        /// The physical location to which this stack frame refers.
-        /// </summary>
-        [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code of this stack frame.
@@ -61,18 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
         public int ThreadId { get; set; }
-
-        /// <summary>
-        /// The fully qualified name of the method or function that is executing.
-        /// </summary>
-        [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = true)]
-        public string FullyQualifiedLogicalName { get; set; }
-
-        /// <summary>
-        /// A key used to retrieve the stack frame logicalLocation from the logicalLocations dictionary, when the 'fullyQualifiedLogicalName' is not unique.
-        /// </summary>
-        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
-        public string LogicalLocationKey { get; set; }
 
         /// <summary>
         /// The address of the method or function that is executing.
@@ -108,26 +90,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="StackFrame" /> class from the supplied values.
         /// </summary>
-        /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// <param name="location">
+        /// An initialization value for the <see cref="P: Location" /> property.
         /// </param>
         /// <param name="richMessage">
         /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
-        /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
         /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
         /// <param name="threadId">
         /// An initialization value for the <see cref="P: ThreadId" /> property.
-        /// </param>
-        /// <param name="fullyQualifiedLogicalName">
-        /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
-        /// </param>
-        /// <param name="logicalLocationKey">
-        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
         /// </param>
         /// <param name="address">
         /// An initialization value for the <see cref="P: Address" /> property.
@@ -141,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(string message, string richMessage, PhysicalLocation physicalLocation, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(Location location, string richMessage, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, richMessage, physicalLocation, module, threadId, fullyQualifiedLogicalName, logicalLocationKey, address, offset, parameters, properties);
+            Init(location, richMessage, module, threadId, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -162,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.RichMessage, other.PhysicalLocation, other.Module, other.ThreadId, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Location, other.RichMessage, other.Module, other.ThreadId, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -183,19 +156,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(string message, string richMessage, PhysicalLocation physicalLocation, string module, int threadId, string fullyQualifiedLogicalName, string logicalLocationKey, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, string richMessage, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Message = message;
-            RichMessage = richMessage;
-            if (physicalLocation != null)
+            if (location != null)
             {
-                PhysicalLocation = new PhysicalLocation(physicalLocation);
+                Location = new Location(location);
             }
 
+            RichMessage = richMessage;
             Module = module;
             ThreadId = threadId;
-            FullyQualifiedLogicalName = fullyQualifiedLogicalName;
-            LogicalLocationKey = logicalLocationKey;
             Address = address;
             Offset = offset;
             if (parameters != null)

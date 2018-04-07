@@ -108,7 +108,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
             // For Call nodes, find the first visible child.
             CallTreeNode nextNode;
-            if (includeChildren && currentNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetFirstItem(currentNode.Children, out nextNode))
+            if (includeChildren && currentNode.Location.Kind == CodeFlowLocationKind.Call && TryGetFirstItem(currentNode.Children, out nextNode))
             {
                 return nextNode;
             }
@@ -160,7 +160,7 @@ namespace Microsoft.Sarif.Viewer.Models
             if (TryGetPreviousSibling(nodeList, currentNode, out previousNode))
             {
                 CallTreeNode previousNodeChild;
-                if (includeChildren && previousNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetLastItem(previousNode.Children, out previousNodeChild))
+                if (includeChildren && previousNode.Location.Kind == CodeFlowLocationKind.Call && TryGetLastItem(previousNode.Children, out previousNodeChild))
                 {
                     return previousNodeChild;
 
@@ -359,7 +359,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        internal void SetVerbosity(CodeFlowLocationImportance importance)
         {
             if (TopLevelNodes != null)
             {

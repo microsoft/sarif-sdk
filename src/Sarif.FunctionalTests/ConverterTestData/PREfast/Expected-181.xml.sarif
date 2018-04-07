@@ -37,41 +37,49 @@
               "locations": [
                 {
                   "step": 1,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/utility",
-                    "region": {
-                      "startLine": 152,
-                      "startColumn": 3
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/utility",
+                      "region": {
+                        "startLine": 152,
+                        "startColumn": 3
+                      }
                     }
                   }
                 },
                 {
                   "step": 2,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/utility",
-                    "region": {
-                      "startLine": 155,
-                      "startColumn": 32
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/utility",
+                      "region": {
+                        "startLine": 155,
+                        "startColumn": 32
+                      }
                     }
                   }
                 },
                 {
                   "step": 3,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/utility",
-                    "region": {
-                      "startLine": 155,
-                      "startColumn": 32
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/utility",
+                      "region": {
+                        "startLine": 155,
+                        "startColumn": 32
+                      }
                     }
                   }
                 },
                 {
                   "step": 4,
-                  "physicalLocation": {
-                    "uri": "file:///c:/somepath/utility",
-                    "region": {
-                      "startLine": 156,
-                      "startColumn": 32
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///c:/somepath/utility",
+                      "region": {
+                        "startLine": 156,
+                        "startColumn": 32
+                      }
                     }
                   }
                 }

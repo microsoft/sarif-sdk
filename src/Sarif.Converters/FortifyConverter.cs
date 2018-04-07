@@ -156,16 +156,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     new CodeFlow
                     {
-                        Locations = new List<AnnotatedCodeLocation>
+                        Locations = new List<CodeFlowLocation>
                         {
-                            new AnnotatedCodeLocation
+                            new CodeFlowLocation
                             {
-                                PhysicalLocation = source
+                                Location = new Location
+                                {
+                                    PhysicalLocation = source
+                                }
                             },
 
-                            new AnnotatedCodeLocation
+                            new CodeFlowLocation
                             {
-                                PhysicalLocation = primaryOrSink
+                                Location = new Location
+                                {
+                                    PhysicalLocation = primaryOrSink
+                                }
                             }
                         }
                     }

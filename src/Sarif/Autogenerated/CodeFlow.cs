@@ -42,10 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RichMessage { get; set; }
 
         /// <summary>
-        /// An array of 'annotatedCodeLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
+        /// An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
-        public IList<AnnotatedCodeLocation> Locations { get; set; }
+        public IList<CodeFlowLocation> Locations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code flow.
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public CodeFlow(string message, string richMessage, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        public CodeFlow(string message, string richMessage, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(message, richMessage, locations, properties);
         }
@@ -117,13 +117,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(string message, string richMessage, IEnumerable<AnnotatedCodeLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string message, string richMessage, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Message = message;
             RichMessage = richMessage;
             if (locations != null)
             {
-                var destination_0 = new List<AnnotatedCodeLocation>();
+                var destination_0 = new List<CodeFlowLocation>();
                 foreach (var value_0 in locations)
                 {
                     if (value_0 == null)
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new AnnotatedCodeLocation(value_0));
+                        destination_0.Add(new CodeFlowLocation(value_0));
                     }
                 }
 

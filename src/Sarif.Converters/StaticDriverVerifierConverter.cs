@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new CodeFlow
                 {
-                    Locations = new List<AnnotatedCodeLocation>()
+                    Locations = new List<CodeFlowLocation>()
                 }
             };
 
@@ -144,24 +144,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     sdvKind = tokens[KIND2];
                 }
 
-                AnnotatedCodeLocationKind kind = ConvertToAnnotatedCodeLocationKind(sdvKind.Trim());
+                CodeFlowLocationKind kind = ConvertToCodeFlowLocationKind(sdvKind.Trim());
 
-                var annotatedCodeLocation = new AnnotatedCodeLocation
+                var codeFlowLocation = new CodeFlowLocation
                 {
                     Kind = kind,
                     Step = step,
-                    Importance = AnnotatedCodeLocationImportance.Unimportant,
-                    PhysicalLocation = (uri != null) ? new PhysicalLocation
+                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Location = new Location
                     {
-                        Uri = uri,
-                        Region = new Region
+                        PhysicalLocation = (uri != null) ? new PhysicalLocation
                         {
-                            StartLine = line
-                        }
-                    } : null,    
+                            Uri = uri,
+                            Region = new Region
+                            {
+                                StartLine = line
+                            }
+                        } : null,
+                    }
                 };
 
-                if (kind == AnnotatedCodeLocationKind.Call)
+                if (kind == CodeFlowLocationKind.Call)
                 {
                     string extraMsg = tokens[KIND1] + " " + tokens[CALLER] + " " + tokens[CALLEE];
 
@@ -169,8 +172,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
-                        annotatedCodeLocation.FullyQualifiedLogicalName = caller;
-                        annotatedCodeLocation.Target = callee;
+                        codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
+                        codeFlowLocation.Target = callee;
                         _callers.Push(caller);
                     }
                     else
@@ -180,23 +183,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (uri == null)
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Unimportant;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Unimportant;
                     }
                     else if (IsHarnessOrRulesFiles(uriText))
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Important;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Important;
                     }
                     else
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Essential;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Essential;
                     }
 
                 }
 
-                if (kind == AnnotatedCodeLocationKind.CallReturn)
+                if (kind == CodeFlowLocationKind.CallReturn)
                 {
                     Debug.Assert(_callers.Count > 0);
-                    annotatedCodeLocation.FullyQualifiedLogicalName = _callers.Pop();
+                    codeFlowLocation.Location = new Location
+                    {
+                        FullyQualifiedLogicalName = _callers.Pop()
+                    };
                 }
 
                 string separatorText = "^====Auto=====";
@@ -207,24 +213,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (stateTokens.Length == 2)
                     {
-                        annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
-                        annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[1]);
+                        codeFlowLocation.SetProperty("currentDataValues", stateTokens[0]);
+                        codeFlowLocation.SetProperty("permanentDataValues", stateTokens[1]);
                     }
                     else
                     {
                         Debug.Assert(stateTokens.Length == 1);
                         if (stateTokens[0].StartsWith(separatorText))
                         {
-                            annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[0]);
+                            codeFlowLocation.SetProperty("permanentDataValues", stateTokens[0]);
                         }
                         else
                         {
-                            annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
+                            codeFlowLocation.SetProperty("currentDataValues", stateTokens[0]);
                         }
                     }
                 }
 
-                codeFlow.Locations.Add(annotatedCodeLocation);
+                codeFlow.Locations.Add(codeFlowLocation);
             }
             else
             {
@@ -249,15 +255,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // Finally, populate this result location with the
                 // last observed location in the code flow.
 
-                IList<AnnotatedCodeLocation> locations = result.CodeFlows[0].Locations;
+                IList<CodeFlowLocation> locations = result.CodeFlows[0].Locations;
 
                 for (int i = locations.Count - 1; i >= 0; --i)
                 {
-                    if (locations[i].PhysicalLocation != null)
+                    if (locations[i].Location?.PhysicalLocation != null)
                     {
                         result.Locations.Add(new Location
                         {
-                            PhysicalLocation = locations[i].PhysicalLocation
+                            PhysicalLocation = locations[i].Location.PhysicalLocation
                         });
                         break;
                     }
@@ -287,19 +293,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return false;
         }
 
-        private static AnnotatedCodeLocationKind ConvertToAnnotatedCodeLocationKind(string sdvKind)
+        private static CodeFlowLocationKind ConvertToCodeFlowLocationKind(string sdvKind)
         {
             switch (sdvKind)
             {
-                case "Assignment": return AnnotatedCodeLocationKind.Assignment;
-                case "Call": return AnnotatedCodeLocationKind.Call;
-                case "Conditional": return AnnotatedCodeLocationKind.Branch;
-                case "Continuation": return AnnotatedCodeLocationKind.Continuation;
-                case "Return": return AnnotatedCodeLocationKind.CallReturn;
+                case "Assignment": return CodeFlowLocationKind.Assignment;
+                case "Call": return CodeFlowLocationKind.Call;
+                case "Conditional": return CodeFlowLocationKind.Branch;
+                case "Continuation": return CodeFlowLocationKind.Continuation;
+                case "Return": return CodeFlowLocationKind.CallReturn;
             }
 
             Debug.Assert(false);
-            return AnnotatedCodeLocationKind.Unknown;
+            return CodeFlowLocationKind.Unknown;
         }
 
         private static ResultLevel ConvertToResultLevel(string sdvLevel)

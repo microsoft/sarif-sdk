@@ -32,7 +32,7 @@
             "id": "UnknownRule",
             "ruleId": "ABC0001",
             "level": "warning",
-            "message": "Could not disable rule \"ABC0001\" because there is no rule with that id." 
+            "message": "Could not disable rule \"ABC0001\" because there is no rule with that id."
           }
         ],
         "toolNotifications": [
@@ -57,16 +57,22 @@
               "stack": {
                 "frames": [
                   {
-                    "message": "Exception thrown",
+                    "location": {
+                      "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                      "message": {
+                        "text": "Exception thrown"
+                      }
+                    },
                     "module": "RuleLibrary",
                     "threadId": 52,
-                    "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
                     "address": 10092852
                   },
                   {
+                    "location": {
+                      "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                    },
                     "module": "ExecutionEngine",
                     "threadId": 52,
-                    "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
                     "address": 10073356
                   }
                 ]
@@ -108,14 +114,14 @@
           ]
         },
         "file:///home/buildAgent/bin/app.zip": {
-           "mimeType": "application/zip"
-         },
-         "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
-           "uri": "/docs/intro.docx",
-           "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-           "parentKey": "file:///home/buildAgent/bin/app.zip",
-           "offset": 17522,
-           "length": 4050
+          "mimeType": "application/zip"
+        },
+        "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
+          "uri": "/docs/intro.docx",
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "parentKey": "file:///home/buildAgent/bin/app.zip",
+          "offset": 17522,
+          "length": 4050
         }
       },
       "logicalLocations": {
@@ -136,9 +142,9 @@
       },
       "results": [
         {
-		  "analysisTarget": {
-			"uri": "file:///home/buildAgent/src/collections/list.cpp"
-		  },
+          "analysisTarget": {
+            "uri": "file:///home/buildAgent/src/collections/list.cpp"
+          },
           "ruleId": "C2001",
           "templatedMessage": {
             "templateId": "default",
@@ -150,13 +156,13 @@
           "baselineState": "existing",
           "level": "error",
           "locations": [
-		    {
+            {
               "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
                   "snippet": {
-				    "text": "add_core(ptr, offset, val);\n    return;"
-				  },
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  },
                   "startLine": 15,
                   "startColumn": 9,
                   "endLine": 15,
@@ -171,7 +177,9 @@
           ],
           "relatedLocations": [
             {
-              "message": "\"count\" was declared here.",
+              "message": {
+                "text": "\"count\" was declared here.",
+              },
               "physicalLocation": {
                 "uri": "file:///home/buildAgent/src/collections/list.h",
                 "region": {
@@ -190,17 +198,21 @@
                   "step": 0,
                   "kind": "declaration",
                   "importance": "essential",
-                  "message": "Variable \"ptr\" declared.",
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/collections/list.h",
-                    "region": {
-                      "snippet": {
-					    "text": "int *ptr;"
-					  },
-                      "startLine": 15
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "region": {
+                        "snippet": {
+                          "text": "int *ptr;"
+                        },
+                        "startLine": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add",
+                    "message": {
+                      "text": "Variable \"ptr\" declared."
                     }
                   },
-                  "fullyQualifiedLogicalName": "collections::list:add",
                   "module": "platform",
                   "threadId": 52
                 },
@@ -208,16 +220,18 @@
                   "step": 1,
                   "kind": "assignment",
                   "importance": "unimportant",
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/collections/list.h",
-                    "region": {
-                      "snippet": {
-					    "text": "offset = 0;"
-					  },
-                      "startLine": 15
-                    }
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "region": {
+                        "snippet": {
+                          "text": "offset = 0;"
+                        },
+                        "startLine": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add"
                   },
-                  "fullyQualifiedLogicalName": "collections::list:add",
                   "module": "platform",
                   "threadId": 52
                 },
@@ -225,18 +239,22 @@
                   "step": 2,
                   "kind": "call",
                   "importance": "essential",
-                  "message": "Uninitialized variable \"ptr\" passed to method \"add_core\".",
                   "target": "collections::list:add_core",
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/collections/list.h",
-                    "region": {
-                      "snippet": {
-					    "text": "add_core(ptr, offset, val)"
-					  },
-                      "startLine": 25
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "region": {
+                        "snippet": {
+                          "text": "add_core(ptr, offset, val)"
+                        },
+                        "startLine": 25
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add",
+                    "message": {
+                      "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
                     }
                   },
-                  "fullyQualifiedLogicalName": "collections::list:add",
                   "module": "platform",
                   "threadId": 52
                 }
@@ -248,52 +266,60 @@
               "message": "Call stack resulting from usage of uninitialized variable.",
               "frames": [
                 {
-                  "message": "Exception thrown.",
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/collections/list.h",
-                    "region": {
-                      "startLine": 110,
-                      "startColumn":  15
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "region": {
+                        "startLine": 110,
+                        "startColumn": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add_core",
+                    "message": {
+                      "text": "Exception thrown."
                     }
                   },
                   "module": "platform",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "collections::list:add_core",
                   "address": 10092852,
                   "offset": 16,
                   "parameters": [ "null", "0", "14" ]
                 },
                 {
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/collections/list.h",
-                    "region": {
-                      "startLine": 43,
-                      "startColumn": 15
-                    }
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "region": {
+                        "startLine": 43,
+                        "startColumn": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add"
                   },
                   "module": "platform",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "collections::list:add",
                   "address": 10092176,
                   "offset": 84,
                   "parameters": [ "14" ]
                 },
                 {
-                  "physicalLocation": {
-                    "uri": "file:///home/buildAgent/src/application/main.cpp",
-                    "region": {
-                      "startLine": 28,
-                      "startColumn": 9
-                    }
+                  "location": {
+                    "physicalLocation": {
+                      "uri": "file:///home/buildAgent/src/application/main.cpp",
+                      "region": {
+                        "startLine": 28,
+                        "startColumn": 9
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "main"
                   },
                   "module": "application",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "main",
                   "address": 10091200,
                   "offset": 156
                 }
               ]
-            } 
+            }
           ],
           "fixes": [
             {

@@ -36,18 +36,18 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     _verbosity = value;
 
-                    AnnotatedCodeLocationImportance importance;
+                    CodeFlowLocationImportance importance;
                     if (_verbosity >= 200)
                     {
-                        importance = AnnotatedCodeLocationImportance.Unimportant;
+                        importance = CodeFlowLocationImportance.Unimportant;
                     }
                     else if (_verbosity >= 100)
                     {
-                        importance = AnnotatedCodeLocationImportance.Important;
+                        importance = CodeFlowLocationImportance.Important;
                     }
                     else
                     {
-                        importance = AnnotatedCodeLocationImportance.Essential;
+                        importance = CodeFlowLocationImportance.Essential;
                     }
 
                     SetVerbosity(importance);
@@ -144,7 +144,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        internal void SetVerbosity(CodeFlowLocationImportance importance)
         {
             foreach (CallTree callTree in this)
             {

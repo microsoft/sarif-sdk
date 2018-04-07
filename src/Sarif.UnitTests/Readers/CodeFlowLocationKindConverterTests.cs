@@ -9,21 +9,21 @@ using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
-    public class AnnotatedCodeLocationKindConverterTests : JsonTests
+    public class CodeFlowLocationKindConverterTests : JsonTests
     {
         [Fact]
-        public void AnnotatedCodeLocationKind_AllMembers()
+        public void CodeFlowLocationKind_AllMembers()
         {
-            var testTuples = new List<Tuple<AnnotatedCodeLocationKind, string>>();
+            var testTuples = new List<Tuple<CodeFlowLocationKind, string>>();
 
-            foreach (string name in Enum.GetNames(typeof(AnnotatedCodeLocationKind)))
+            foreach (string name in Enum.GetNames(typeof(CodeFlowLocationKind)))
             {
-                var kind = (AnnotatedCodeLocationKind)Enum.Parse(typeof(AnnotatedCodeLocationKind), name);
+                var kind = (CodeFlowLocationKind)Enum.Parse(typeof(CodeFlowLocationKind), name);
 
                 if (kind == 0) { continue; }
 
                 string serializedValue = EnumConverter.ConvertToCamelCase(name);
-                testTuples.Add(new Tuple<AnnotatedCodeLocationKind, string>(kind, serializedValue));
+                testTuples.Add(new Tuple<CodeFlowLocationKind, string>(kind, serializedValue));
             }
 
             foreach (var testTuple in testTuples)
@@ -43,8 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
               ""locations"": [
                 {
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///c:/test.c""
+                  ""location"": {
+                    ""physicalLocation"": {
+                      ""uri"": ""file:///c:/test.c""
+                    }
                   },
                   ""kind"": """ +  testTuple.Item2 + @"""
                 }
@@ -71,13 +73,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                         {
                             new CodeFlow
                             {
-                                Locations = new AnnotatedCodeLocation[]
+                                Locations = new CodeFlowLocation[]
                                 {
-                                    new AnnotatedCodeLocation
+                                    new CodeFlowLocation
                                     {
-                                        PhysicalLocation = new PhysicalLocation
+                                        Location = new Location
                                         {
-                                            Uri = new Uri(@"c:\test.c", UriKind.Absolute),
+                                            PhysicalLocation = new PhysicalLocation
+                                            {
+                                                Uri = new Uri(@"c:\test.c", UriKind.Absolute)
+                                            }
                                         },
                                         Kind = testTuple.Item1
                                     }

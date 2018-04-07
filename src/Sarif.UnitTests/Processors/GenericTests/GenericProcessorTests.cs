@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
         private List<int> GenerateRandomIntList()
         {
             Random r = new Random();
-            int size = r.Next(100);
+            int size = r.Next(1, 100);
             List<int> list = new List<int>(size);
             for(int i=0; i<size; i++)
             {
