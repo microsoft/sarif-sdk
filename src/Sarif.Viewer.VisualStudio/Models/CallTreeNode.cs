@@ -38,13 +38,9 @@ namespace Microsoft.Sarif.Viewer.Models
                     // source location and highlight the line.
                     Region = value.Location.PhysicalLocation.Region;
 
-                    if (value.Location.PhysicalLocation.FileLocation != null)
+                    if (value.Location.PhysicalLocation.FileLocation?.Uri != null)
                     {
-                        Uri uri = value.Location.PhysicalLocation.FileLocation.Uri;
-                        if (uri != null)
-                        {
-                            FilePath = uri.ToPath();
-                        }
+                        FilePath = value.Location.PhysicalLocation.FileLocation.Uri.ToPath();
                     }
                 }
                 else

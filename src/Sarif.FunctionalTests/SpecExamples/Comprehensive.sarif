@@ -128,6 +128,9 @@
           "parentKey": "file:///home/buildAgent/bin/app.zip",
           "offset": 17522,
           "length": 4050
+        },
+        "collections.rsp": {
+          "contents": "\"-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\"."
         }
       },
       "logicalLocations": {

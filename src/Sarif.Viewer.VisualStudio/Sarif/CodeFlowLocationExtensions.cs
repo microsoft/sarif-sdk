@@ -19,14 +19,11 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 {
                     model.Region = codeFlowLocation.Location.PhysicalLocation.Region;
 
-                    if (codeFlowLocation.Location.PhysicalLocation.FileLocation != null)
+                    Uri uri = codeFlowLocation.Location.PhysicalLocation.FileLocation?.Uri;
+                    if (uri != null)
                     {
-                        Uri uri = codeFlowLocation.Location.PhysicalLocation.FileLocation.Uri;
-                        if (uri != null)
-                        {
-                            model.FilePath = uri.ToPath();
-                            model.UriBaseId = codeFlowLocation.Location.PhysicalLocation.FileLocation.UriBaseId;
-                        }
+                        model.FilePath = uri.ToPath();
+                        model.UriBaseId = codeFlowLocation.Location.PhysicalLocation.FileLocation.UriBaseId;
                     }
                 }
 
