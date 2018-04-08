@@ -132,7 +132,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             string snippet = "    contentStores[0] = contentStores[index];";
             string message = "The error happened here.";
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
 
             var callTreeNode = new CallTreeNode
             {
@@ -148,10 +147,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                         },
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
-                            {
-                                Uri = new System.Uri(sourceFile)
-                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -173,7 +168,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             string snippet = "    contentStores[0] = contentStores[index];";
             string message = null;
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
 
             var callTreeNode = new CallTreeNode
             {
@@ -189,10 +183,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                         },
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
-                            {
-                                Uri = new System.Uri(sourceFile)
-                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -213,7 +203,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         public void CallTreeNodeToTextConverter_HandlesSnippet()
         {
             string snippet = "    contentStores[0] = contentStores[index];";
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
 
             var callTreeNode = new CallTreeNode
             {
@@ -225,10 +214,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
-                            {
-                                Uri = new System.Uri(sourceFile)
-                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -249,7 +234,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         public void CallTreeNodeToTextConverter_HandlesNullSnippet()
         {
             string snippet = null;
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
 
             var callTreeNode = new CallTreeNode
             {
@@ -261,10 +245,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
-                            {
-                                Uri = new System.Uri(sourceFile)
-                            },
                             Region = new Region
                             {
                                 StartLine = 42,

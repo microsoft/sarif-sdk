@@ -22,9 +22,11 @@
       },
       "invocation": {
         "commandLine": "CodeScanner @collections.rsp",
-        "responseFiles": {
-          "collections.rsp": "-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999"
-        },
+        "responseFiles": [
+          {
+            "uri": "collections.rsp"
+          }
+        ],
         "startTime": "2016-07-16T14:18:25Z",
         "endTime": "2016-07-16T14:19:01Z",
         "configurationNotifications": [
