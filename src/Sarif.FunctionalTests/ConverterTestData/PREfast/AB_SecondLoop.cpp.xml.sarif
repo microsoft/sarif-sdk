@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
                 "region": {
                   "startLine": 18,
                   "startColumn": 8
@@ -39,7 +41,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 10,
                         "startColumn": 6
@@ -56,7 +60,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 11,
                         "startColumn": 7
@@ -69,7 +75,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 11
@@ -82,7 +90,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 17
@@ -98,7 +108,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 15,
                         "startColumn": 7
@@ -114,7 +126,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 16,
                         "startColumn": 9
@@ -127,7 +141,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 22
@@ -140,7 +156,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 17
@@ -156,7 +174,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 15,
                         "startColumn": 7
@@ -172,7 +192,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 18,
                         "startColumn": 8
@@ -200,7 +222,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
                 "region": {
                   "startLine": 33,
                   "startColumn": 8
@@ -220,7 +244,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 25,
                         "startColumn": 6
@@ -237,7 +263,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 26,
                         "startColumn": 7
@@ -250,7 +278,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 11
@@ -263,7 +293,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 17
@@ -279,7 +311,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 30,
                         "startColumn": 7
@@ -295,7 +329,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 31,
                         "startColumn": 9
@@ -308,7 +344,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 26
@@ -321,7 +359,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 17
@@ -337,7 +377,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 30,
                         "startColumn": 7
@@ -353,7 +395,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 33,
                         "startColumn": 8
@@ -381,7 +425,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
                 "region": {
                   "startLine": 52,
                   "startColumn": 9
@@ -401,7 +447,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 40,
                         "startColumn": 6
@@ -414,7 +462,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 41,
                         "startColumn": 7
@@ -427,7 +477,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 9
@@ -444,7 +496,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 23
@@ -457,7 +511,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 11
@@ -470,7 +526,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -486,7 +544,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 46,
                         "startColumn": 7
@@ -502,7 +562,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 47,
                         "startColumn": 9
@@ -515,7 +577,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 26
@@ -528,7 +592,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -544,7 +610,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 46,
                         "startColumn": 7
@@ -560,7 +628,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 49,
                         "startColumn": 8
@@ -573,7 +643,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 26
@@ -586,7 +658,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -602,7 +676,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 52,
                         "startColumn": 9
@@ -630,7 +706,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
                 "region": {
                   "startLine": 53,
                   "startColumn": 9
@@ -650,7 +728,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 40,
                         "startColumn": 6
@@ -663,7 +743,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 41,
                         "startColumn": 7
@@ -676,7 +758,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 9
@@ -689,7 +773,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 23
@@ -706,7 +792,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 11
@@ -719,7 +807,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -735,7 +825,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 46,
                         "startColumn": 7
@@ -751,7 +843,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 47,
                         "startColumn": 9
@@ -764,7 +858,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 26
@@ -777,7 +873,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -793,7 +891,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 52,
                         "startColumn": 9
@@ -806,7 +906,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 53,
                         "startColumn": 9
@@ -834,7 +936,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
                 "region": {
                   "startLine": 49,
                   "startColumn": 8
@@ -854,7 +958,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 40,
                         "startColumn": 6
@@ -871,7 +977,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 41,
                         "startColumn": 7
@@ -884,7 +992,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 9
@@ -897,7 +1007,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 23
@@ -910,7 +1022,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 11
@@ -923,7 +1037,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -939,7 +1055,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 46,
                         "startColumn": 7
@@ -955,7 +1073,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 47,
                         "startColumn": 9
@@ -968,7 +1088,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 26
@@ -981,7 +1103,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 44,
                         "startColumn": 17
@@ -997,7 +1121,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 46,
                         "startColumn": 7
@@ -1013,7 +1139,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                      },
                       "region": {
                         "startLine": 49,
                         "startColumn": 8

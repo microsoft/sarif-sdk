@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 71,
                   "startColumn": 74
@@ -39,7 +41,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 57,
                         "startColumn": 17
@@ -51,7 +55,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 59,
                         "startColumn": 15
@@ -63,7 +69,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 17
@@ -75,7 +83,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 32
@@ -87,7 +97,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -99,7 +111,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 38
@@ -111,7 +125,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -123,7 +139,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 13
@@ -135,7 +153,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 50
@@ -147,7 +167,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 15
@@ -159,7 +181,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -171,7 +195,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -183,7 +209,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 13
@@ -195,7 +223,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 46
@@ -207,7 +237,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 66,
                         "startColumn": 18
@@ -219,7 +251,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -231,7 +265,9 @@
                   "step": 17,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -243,7 +279,9 @@
                   "step": 18,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -255,7 +293,9 @@
                   "step": 19,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -267,7 +307,9 @@
                   "step": 20,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -279,7 +321,9 @@
                   "step": 21,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 29
@@ -291,7 +335,9 @@
                   "step": 22,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 69,
                         "startColumn": 17
@@ -303,7 +349,9 @@
                   "step": 23,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 71,
                         "startColumn": 74
@@ -321,7 +369,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 72,
                   "startColumn": 74
@@ -341,7 +391,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 57,
                         "startColumn": 17
@@ -353,7 +405,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 59,
                         "startColumn": 15
@@ -365,7 +419,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 17
@@ -377,7 +433,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 32
@@ -389,7 +447,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -401,7 +461,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 38
@@ -413,7 +475,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -425,7 +489,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 13
@@ -437,7 +503,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 50
@@ -449,7 +517,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 15
@@ -461,7 +531,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -473,7 +545,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -485,7 +559,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 13
@@ -497,7 +573,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 46
@@ -509,7 +587,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 66,
                         "startColumn": 18
@@ -521,7 +601,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -533,7 +615,9 @@
                   "step": 17,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -545,7 +629,9 @@
                   "step": 18,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -557,7 +643,9 @@
                   "step": 19,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -569,7 +657,9 @@
                   "step": 20,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -581,7 +671,9 @@
                   "step": 21,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 29
@@ -593,7 +685,9 @@
                   "step": 22,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 69,
                         "startColumn": 17
@@ -605,7 +699,9 @@
                   "step": 23,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 71,
                         "startColumn": 74
@@ -617,7 +713,9 @@
                   "step": 24,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 72,
                         "startColumn": 74
@@ -635,7 +733,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 73,
                   "startColumn": 74
@@ -655,7 +755,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 57,
                         "startColumn": 17
@@ -667,7 +769,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 59,
                         "startColumn": 15
@@ -679,7 +783,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 17
@@ -691,7 +797,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 60,
                         "startColumn": 32
@@ -703,7 +811,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -715,7 +825,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 38
@@ -727,7 +839,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 15
@@ -739,7 +853,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 13
@@ -751,7 +867,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 61,
                         "startColumn": 50
@@ -763,7 +881,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 15
@@ -775,7 +895,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -787,7 +909,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 63,
                         "startColumn": 36
@@ -799,7 +923,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 13
@@ -811,7 +937,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 64,
                         "startColumn": 46
@@ -823,7 +951,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 66,
                         "startColumn": 18
@@ -835,7 +965,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -847,7 +979,9 @@
                   "step": 17,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -859,7 +993,9 @@
                   "step": 18,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -871,7 +1007,9 @@
                   "step": 19,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -883,7 +1021,9 @@
                   "step": 20,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 31
@@ -895,7 +1035,9 @@
                   "step": 21,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 67,
                         "startColumn": 29
@@ -907,7 +1049,9 @@
                   "step": 22,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 69,
                         "startColumn": 17
@@ -919,7 +1063,9 @@
                   "step": 23,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 71,
                         "startColumn": 74
@@ -931,7 +1077,9 @@
                   "step": 24,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 72,
                         "startColumn": 74
@@ -943,7 +1091,9 @@
                   "step": 25,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 73,
                         "startColumn": 74
@@ -961,7 +1111,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 90,
                   "startColumn": 66
@@ -981,7 +1133,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 79,
                         "startColumn": 18
@@ -993,7 +1147,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 81,
                         "startColumn": 15
@@ -1005,7 +1161,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 17
@@ -1017,7 +1175,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 27
@@ -1029,7 +1189,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1041,7 +1203,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 38
@@ -1053,7 +1217,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1065,7 +1231,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 13
@@ -1077,7 +1245,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 50
@@ -1089,7 +1259,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 15
@@ -1101,7 +1273,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1113,7 +1287,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1125,7 +1301,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 27
@@ -1137,7 +1315,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 30
@@ -1149,7 +1329,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 88,
                         "startColumn": 26
@@ -1161,7 +1343,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 90,
                         "startColumn": 66
@@ -1179,7 +1363,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 91,
                   "startColumn": 66
@@ -1199,7 +1385,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 79,
                         "startColumn": 18
@@ -1211,7 +1399,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 81,
                         "startColumn": 15
@@ -1223,7 +1413,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 17
@@ -1235,7 +1427,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 27
@@ -1247,7 +1441,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1259,7 +1455,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 38
@@ -1271,7 +1469,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1283,7 +1483,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 13
@@ -1295,7 +1497,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 50
@@ -1307,7 +1511,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 15
@@ -1319,7 +1525,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1331,7 +1539,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1343,7 +1553,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 27
@@ -1355,7 +1567,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 30
@@ -1367,7 +1581,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 88,
                         "startColumn": 26
@@ -1379,7 +1595,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 90,
                         "startColumn": 66
@@ -1391,7 +1609,9 @@
                   "step": 17,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 91,
                         "startColumn": 66
@@ -1409,7 +1629,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test066.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test066.cpp"
+                },
                 "region": {
                   "startLine": 92,
                   "startColumn": 66
@@ -1429,7 +1651,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 79,
                         "startColumn": 18
@@ -1441,7 +1665,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 81,
                         "startColumn": 15
@@ -1453,7 +1679,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 17
@@ -1465,7 +1693,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 82,
                         "startColumn": 27
@@ -1477,7 +1707,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1489,7 +1721,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 38
@@ -1501,7 +1735,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 15
@@ -1513,7 +1749,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 13
@@ -1525,7 +1763,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 83,
                         "startColumn": 50
@@ -1537,7 +1777,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 15
@@ -1549,7 +1791,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1561,7 +1805,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 85,
                         "startColumn": 36
@@ -1573,7 +1819,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 27
@@ -1585,7 +1833,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 86,
                         "startColumn": 30
@@ -1597,7 +1847,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 88,
                         "startColumn": 26
@@ -1609,7 +1861,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 90,
                         "startColumn": 66
@@ -1621,7 +1875,9 @@
                   "step": 17,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 91,
                         "startColumn": 66
@@ -1633,7 +1889,9 @@
                   "step": 18,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test066.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test066.cpp"
+                      },
                       "region": {
                         "startLine": 92,
                         "startColumn": 66

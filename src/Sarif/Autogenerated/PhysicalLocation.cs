@@ -38,16 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Id { get; set; }
 
         /// <summary>
-        /// The location of the file as a valid URI.
+        /// The location of the file.
         /// </summary>
-        [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri Uri { get; set; }
-
-        /// <summary>
-        /// A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.
-        /// </summary>
-        [DataMember(Name = "uriBaseId", IsRequired = false, EmitDefaultValue = false)]
-        public string UriBaseId { get; set; }
+        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
+        public FileLocation FileLocation { get; set; }
 
         /// <summary>
         /// The region within the file where the result was detected.
@@ -74,11 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
-        /// <param name="uri">
-        /// An initialization value for the <see cref="P: Uri" /> property.
-        /// </param>
-        /// <param name="uriBaseId">
-        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// <param name="fileLocation">
+        /// An initialization value for the <see cref="P: FileLocation" /> property.
         /// </param>
         /// <param name="region">
         /// An initialization value for the <see cref="P: Region" /> property.
@@ -86,9 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="contextRegion">
         /// An initialization value for the <see cref="P: ContextRegion" /> property.
         /// </param>
-        public PhysicalLocation(int id, Uri uri, string uriBaseId, Region region, Region contextRegion)
+        public PhysicalLocation(int id, FileLocation fileLocation, Region region, Region contextRegion)
         {
-            Init(id, uri, uriBaseId, region, contextRegion);
+            Init(id, fileLocation, region, contextRegion);
         }
 
         /// <summary>
@@ -107,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Uri, other.UriBaseId, other.Region, other.ContextRegion);
+            Init(other.Id, other.FileLocation, other.Region, other.ContextRegion);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -128,15 +119,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(int id, Uri uri, string uriBaseId, Region region, Region contextRegion)
+        private void Init(int id, FileLocation fileLocation, Region region, Region contextRegion)
         {
             Id = id;
-            if (uri != null)
+            if (fileLocation != null)
             {
-                Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                FileLocation = new FileLocation(fileLocation);
             }
 
-            UriBaseId = uriBaseId;
             if (region != null)
             {
                 Region = new Region(region);

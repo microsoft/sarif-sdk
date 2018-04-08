@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/utility",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/utility"
+                },
                 "region": {
                   "startLine": 156,
                   "startColumn": 32
@@ -39,7 +41,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/utility",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/utility"
+                      },
                       "region": {
                         "startLine": 152,
                         "startColumn": 3
@@ -51,7 +55,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/utility",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/utility"
+                      },
                       "region": {
                         "startLine": 155,
                         "startColumn": 32
@@ -63,7 +69,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/utility",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/utility"
+                      },
                       "region": {
                         "startLine": 155,
                         "startColumn": 32
@@ -75,7 +83,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/utility",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/utility"
+                      },
                       "region": {
                         "startLine": 156,
                         "startColumn": 32

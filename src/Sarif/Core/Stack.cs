@@ -130,7 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         stackFrame.Location.PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(fileName),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(fileName)
+                            },
                             Region = new Region
                             {
                                 StartLine = lineNumber

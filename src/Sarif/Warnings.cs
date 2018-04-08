@@ -29,7 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = context.TargetUri
+                        }
+                    },
                     Id = Wrn997_InvalidTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
@@ -55,7 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = context.TargetUri
+                        }
+                    },
                     Id = Wrn998_UnsupportedPlatform,
                     Message = message,
                     Level = NotificationLevel.Warning,

@@ -148,7 +148,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                         },
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new System.Uri(sourceFile),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new System.Uri(sourceFile)
+                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -186,7 +189,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                         },
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new System.Uri(sourceFile),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new System.Uri(sourceFile)
+                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -219,7 +225,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new System.Uri(sourceFile),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new System.Uri(sourceFile)
+                            },
                             Region = new Region
                             {
                                 StartLine = 42,
@@ -252,7 +261,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new System.Uri(sourceFile),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new System.Uri(sourceFile)
+                            },
                             Region = new Region
                             {
                                 StartLine = 42,

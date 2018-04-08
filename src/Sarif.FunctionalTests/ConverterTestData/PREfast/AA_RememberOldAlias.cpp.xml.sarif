@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                },
                 "region": {
                   "startLine": 13,
                   "startColumn": 10
@@ -39,7 +41,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 7,
                         "startColumn": 6
@@ -56,7 +60,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 9,
                         "startColumn": 6
@@ -69,7 +75,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 10,
                         "startColumn": 6
@@ -82,7 +90,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 11,
                         "startColumn": 4
@@ -95,7 +105,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 10
@@ -123,7 +135,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                },
                 "region": {
                   "startLine": 13,
                   "startColumn": 10
@@ -143,7 +157,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 7,
                         "startColumn": 6
@@ -160,7 +176,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 9,
                         "startColumn": 6
@@ -173,7 +191,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 10,
                         "startColumn": 6
@@ -186,7 +206,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 11,
                         "startColumn": 4
@@ -203,7 +225,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 13,
                         "startColumn": 10
@@ -231,7 +255,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                },
                 "region": {
                   "startLine": 32,
                   "startColumn": 12
@@ -251,7 +277,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 18,
                         "startColumn": 6
@@ -268,7 +296,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 19,
                         "startColumn": 6
@@ -281,7 +311,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 20,
                         "startColumn": 6
@@ -294,7 +326,9 @@
                   "step": 4,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 21,
                         "startColumn": 7
@@ -307,7 +341,9 @@
                   "step": 5,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 23,
                         "startColumn": 11
@@ -320,7 +356,9 @@
                   "step": 6,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 23,
                         "startColumn": 18
@@ -336,7 +374,9 @@
                   "step": 7,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 25,
                         "startColumn": 7
@@ -352,7 +392,9 @@
                   "step": 8,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 26,
                         "startColumn": 6
@@ -369,7 +411,9 @@
                   "step": 9,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 27,
                         "startColumn": 6
@@ -386,7 +430,9 @@
                   "step": 10,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 9
@@ -399,7 +445,9 @@
                   "step": 11,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 23,
                         "startColumn": 24
@@ -412,7 +460,9 @@
                   "step": 12,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 23,
                         "startColumn": 18
@@ -428,7 +478,9 @@
                   "step": 13,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 25,
                         "startColumn": 7
@@ -444,7 +496,9 @@
                   "step": 14,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 30,
                         "startColumn": 6
@@ -457,7 +511,9 @@
                   "step": 15,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 31,
                         "startColumn": 6
@@ -470,7 +526,9 @@
                   "step": 16,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp"
+                      },
                       "region": {
                         "startLine": 32,
                         "startColumn": 12

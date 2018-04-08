@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jcparam.c",
+                "fileLocation": {
+                  "uri": "jcparam.c"
+                },
                 "region": {}
               }
             }
@@ -36,7 +38,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jcparam.c",
+                "fileLocation": {
+                  "uri": "jcparam.c"
+                },
                 "region": {}
               }
             }

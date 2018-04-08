@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 18
                 }
@@ -34,7 +36,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 19
                 }
@@ -49,7 +53,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 19
                 }
@@ -64,7 +70,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 24
                 }
@@ -79,7 +87,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 69
                 }
@@ -94,7 +104,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 74
                 }
@@ -109,7 +121,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 76
                 }
@@ -124,7 +138,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 79
                 }
@@ -139,7 +155,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 85
                 }
@@ -154,7 +172,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 102
                 }
@@ -169,7 +189,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 102
                 }
@@ -184,7 +206,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 103
                 }
@@ -199,7 +223,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 107
                 }
@@ -214,7 +240,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 114
                 }
@@ -229,7 +257,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 1
                 }
@@ -244,7 +274,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 13
                 }
@@ -259,7 +291,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 16
                 }
@@ -274,7 +308,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 17
                 }
@@ -289,7 +325,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 18
                 }
@@ -304,7 +342,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 21
                 }
@@ -319,7 +359,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 21
                 }
@@ -334,7 +376,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 22,
                   "startColumn": 4
@@ -350,7 +394,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 23,
                   "startColumn": 4
@@ -366,7 +412,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 26
                 }
@@ -381,7 +429,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 26
                 }
@@ -396,7 +446,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 26,
                   "startColumn": 8
@@ -412,7 +464,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 28,
                   "startColumn": 4
@@ -428,7 +482,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 32,
                   "startColumn": 4
@@ -444,7 +500,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 28,
                   "startColumn": 4
@@ -460,7 +518,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 47
                 }
@@ -475,7 +535,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 48
                 }
@@ -490,7 +552,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 48
                 }
@@ -505,7 +569,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 51
                 }
@@ -520,7 +586,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 51,
                   "startColumn": 16
@@ -536,7 +604,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 55
                 }
@@ -551,7 +621,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 57
                 }
@@ -566,7 +638,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 57
                 }
@@ -581,7 +655,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 57
                 }
@@ -596,7 +672,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 57,
                   "startColumn": 12
@@ -612,7 +690,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 57,
                   "startColumn": 16
@@ -628,7 +708,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 63
                 }
@@ -643,7 +725,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 63
                 }
@@ -658,7 +742,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 64,
                   "startColumn": 4
@@ -674,7 +760,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 73
                 }
@@ -689,7 +777,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 73
                 }
@@ -704,7 +794,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 74,
                   "startColumn": 4
@@ -720,7 +812,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 82
                 }
@@ -735,7 +829,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 82
                 }
@@ -750,7 +846,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 82,
                   "startColumn": 21
@@ -766,7 +864,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 82,
                   "startColumn": 25
@@ -782,7 +882,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 93
                 }
@@ -797,7 +899,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 94
                 }
@@ -812,7 +916,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 97
                 }
@@ -827,7 +933,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 98
                 }
@@ -842,7 +950,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 99
                 }
@@ -857,7 +967,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 101
                 }
@@ -872,7 +984,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 105,
                   "startColumn": 1
@@ -888,7 +1002,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 105,
                   "startColumn": 5
@@ -904,7 +1020,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 106
                 }
@@ -919,7 +1037,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 109
                 }
@@ -934,7 +1054,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 114
                 }
@@ -949,7 +1071,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 2
                 }
@@ -964,7 +1088,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 4
                 }
@@ -979,7 +1105,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 5
                 }
@@ -994,7 +1122,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 11
                 }
@@ -1009,7 +1139,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 13
                 }
@@ -1024,7 +1156,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 14
                 }
@@ -1039,7 +1173,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 8
                 }
@@ -1054,7 +1190,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 11
                 }
@@ -1069,7 +1207,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 12
                 }
@@ -1084,7 +1224,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 13
                 }
@@ -1099,7 +1241,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "test.py",
+                "fileLocation": {
+                  "uri": "test.py"
+                },
                 "region": {
                   "startLine": 14
                 }

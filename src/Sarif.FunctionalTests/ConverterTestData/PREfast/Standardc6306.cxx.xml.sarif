@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                },
                 "region": {
                   "startLine": 26,
                   "startColumn": 11
@@ -39,7 +41,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                },
                 "region": {
                   "startLine": 26,
                   "startColumn": 11

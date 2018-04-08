@@ -151,14 +151,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
+                    FileLocation = new FileLocation(),
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
 
                 if (RemoveBadRoot(file, out uri))
                 {
-                    location.PhysicalLocation.UriBaseId = PROJECT_DIR;
+                    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
                 }
-                location.PhysicalLocation.Uri = uri;
+                location.PhysicalLocation.FileLocation.Uri = uri;
             }
 
             result.Locations = new List<Location> { location };

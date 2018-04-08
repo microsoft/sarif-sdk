@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test049.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test049.cpp"
+                },
                 "region": {
                   "startLine": 7,
                   "startColumn": 25
@@ -39,7 +41,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test049.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test049.cpp"
+                },
                 "region": {
                   "startLine": 31,
                   "startColumn": 13
@@ -59,7 +63,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 29,
                         "startColumn": 14
@@ -71,7 +77,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 31,
                         "startColumn": 13
@@ -89,7 +97,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test049.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test049.cpp"
+                },
                 "region": {
                   "startLine": 36,
                   "startColumn": 13
@@ -109,7 +119,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 34,
                         "startColumn": 14
@@ -121,7 +133,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 36,
                         "startColumn": 13
@@ -139,7 +153,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test049.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test049.cpp"
+                },
                 "region": {
                   "startLine": 42,
                   "startColumn": 13
@@ -159,7 +175,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 40,
                         "startColumn": 14
@@ -171,7 +189,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///c:/somepath/test049.cpp",
+                      "fileLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp"
+                      },
                       "region": {
                         "startLine": 42,
                         "startColumn": 13

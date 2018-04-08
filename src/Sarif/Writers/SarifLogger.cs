@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.PhysicalLocation.Uri);
+                        CaptureFile(location.PhysicalLocation.FileLocation?.Uri);
                     }
                 }
             }
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (relatedLocation.PhysicalLocation != null)
                     {
-                        CaptureFile(relatedLocation.PhysicalLocation.Uri);
+                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation?.Uri);
                     }
                 }
             }
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Location?.PhysicalLocation?.Uri);
+                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation?.Uri);
                     }
                 }
             }
@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (FileChange fileChange in fix.FileChanges)
                         {
-                            CaptureFile(fileChange.Uri);
+                            CaptureFile(fileChange.FileLocation.Uri);
                         }
                     }
                 }
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (cfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(cfl.Location.PhysicalLocation.Uri);
+                    CaptureFile(cfl.Location.PhysicalLocation.FileLocation?.Uri);
                 }
             }
         }
@@ -375,7 +375,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             LogToolNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = context.TargetUri
+                        }
+                    },
                     Id = Notes.Msg001AnalyzingTarget,
                     Message = message,
                     Level = NotificationLevel.Note,
@@ -424,10 +430,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     new Sarif.Location {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(targetPath),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(targetPath)
+                            },
                             Region = region
                         }
-               }};
+                    }
+                };
             }
 
             _issueLogJsonWriter.WriteResult(result);

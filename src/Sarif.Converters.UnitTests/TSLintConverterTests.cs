@@ -99,7 +99,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
-                Uri = new Uri("name.test.value", UriKind.Relative),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri("name.test.value", UriKind.Relative)
+                },
                 Region = region
             };
             Location location = new Location()
@@ -127,7 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         new FileChange()
                         {
-                            Uri = new Uri("name.test.value", UriKind.Relative),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("name.test.value", UriKind.Relative)
+                            },
                             Replacements = new List<Replacement>()
                             {
                                 replacement

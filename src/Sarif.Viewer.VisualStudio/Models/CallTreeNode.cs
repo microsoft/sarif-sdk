@@ -32,16 +32,20 @@ namespace Microsoft.Sarif.Viewer.Models
 
                 if (value?.Location?.PhysicalLocation != null)
                 {
-                    // If the backing AnnotatedCodeLocation has a PhysicalLocation, set the 
-                    // FilePath and Region properties. The FilePath and Region properties
-                    // are used to navigate to the source location and highlight the line.
-                    Uri uri = value.Location.PhysicalLocation.Uri;
-                    if (uri != null)
-                    {
-                        FilePath = uri.ToPath();
-                    }
-
+                    // If the backing CodeFlowLocation has a PhysicalLocation, set the 
+                    // Region property. If it has a FileLocation, set the FilePath.
+                    // The FilePath and Region properties are used to navigate to the
+                    // source location and highlight the line.
                     Region = value.Location.PhysicalLocation.Region;
+
+                    if (value.Location.PhysicalLocation.FileLocation != null)
+                    {
+                        Uri uri = value.Location.PhysicalLocation.FileLocation.Uri;
+                        if (uri != null)
+                        {
+                            FilePath = uri.ToPath();
+                        }
+                    }
                 }
                 else
                 {
@@ -225,7 +229,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                Uri sourceUrl = Location?.Location?.PhysicalLocation?.Uri;
+                Uri sourceUrl = Location?.Location?.PhysicalLocation?.FileLocation?.Uri;
 
                 if (sourceUrl != null)
                 {

@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                },
                 "region": {
                   "startLine": 16,
                   "startColumn": 2
@@ -39,7 +41,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 7,
                         "startColumn": 6
@@ -56,7 +60,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 10,
                         "startColumn": 54
@@ -72,7 +78,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 16,
                         "startColumn": 2
@@ -100,7 +108,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                },
                 "region": {
                   "startLine": 28,
                   "startColumn": 2
@@ -120,7 +130,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 21,
                         "startColumn": 6
@@ -137,7 +149,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 23,
                         "startColumn": 7
@@ -153,7 +167,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 2
@@ -181,7 +197,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                },
                 "region": {
                   "startLine": 40,
                   "startColumn": 2
@@ -201,7 +219,9 @@
                   "step": 1,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 33,
                         "startColumn": 6
@@ -218,7 +238,9 @@
                   "step": 2,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 35,
                         "startColumn": 7
@@ -234,7 +256,9 @@
                   "step": 3,
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                      "fileLocation": {
+                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp"
+                      },
                       "region": {
                         "startLine": 40,
                         "startColumn": 2

@@ -159,7 +159,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = uri,
+                            FileLocation = new FileLocation
+                            {
+                                Uri = uri
+                            },
                             Region = new Region
                             {
                                 StartLine = line

@@ -72,7 +72,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         PhysicalLocation = new PhysicalLocation
                                         {
-                                            Uri = new Uri("file:///item.cpp")
+                                            FileLocation = new FileLocation
+                                            {
+                                                Uri = new Uri(@"file:///item.cpp")
+                                            }
                                         }
                                     }
                                 }

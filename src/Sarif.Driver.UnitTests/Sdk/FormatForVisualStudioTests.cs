@@ -208,7 +208,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(path, UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(path, UriKind.RelativeOrAbsolute)
+                            },
                             Region = region
                         }
                     }

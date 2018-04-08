@@ -49,7 +49,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                },
                 "region": {
                   "startLine": 7,
                   "startColumn": 1,
@@ -69,7 +71,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                },
                 "region": {
                   "startLine": 8,
                   "startColumn": 1,
@@ -89,7 +93,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                },
                 "region": {
                   "startLine": 9,
                   "startColumn": 1,
@@ -109,7 +115,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                },
                 "region": {
                   "startLine": 11,
                   "startColumn": 1,
@@ -129,7 +137,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesFailingTestInput.ts"
+                },
                 "region": {
                   "startLine": 14,
                   "startColumn": 1,
@@ -149,7 +159,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoCookies/NoCookiesTestInput-error.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 16,
@@ -169,7 +181,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoFunctionConstructorWithStringArgsTestInput.ts"
+                },
                 "region": {
                   "startLine": 1,
                   "startColumn": 9,
@@ -189,7 +203,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                },
                 "region": {
                   "startLine": 4,
                   "startColumn": 1,
@@ -209,7 +225,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 1,
@@ -229,7 +247,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-functions.ts"
+                },
                 "region": {
                   "startLine": 6,
                   "startColumn": 1,
@@ -249,7 +269,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                },
                 "region": {
                   "startLine": 4,
                   "startColumn": 1,
@@ -269,7 +291,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 1,
@@ -289,7 +313,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-any-variables.ts"
+                },
                 "region": {
                   "startLine": 6,
                   "startColumn": 1,
@@ -309,7 +335,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                },
                 "region": {
                   "startLine": 4,
                   "startColumn": 1,
@@ -329,7 +357,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 1,
@@ -349,7 +379,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-functions.ts"
+                },
                 "region": {
                   "startLine": 6,
                   "startColumn": 1,
@@ -369,7 +401,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                },
                 "region": {
                   "startLine": 3,
                   "startColumn": 1,
@@ -389,7 +423,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                },
                 "region": {
                   "startLine": 4,
                   "startColumn": 1,
@@ -409,7 +445,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-literals.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 1,
@@ -429,7 +467,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                },
                 "region": {
                   "startLine": 4,
                   "startColumn": 1,
@@ -449,7 +489,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 1,
@@ -469,7 +511,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-string-variables.ts"
+                },
                 "region": {
                   "startLine": 6,
                   "startColumn": 1,
@@ -489,7 +533,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutFailingTestInput-walker-error.ts"
+                },
                 "region": {
                   "startLine": 11,
                   "startColumn": 13,
@@ -509,7 +555,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error3.ts"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 44,
@@ -529,7 +577,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts",
+                "fileLocation": {
+                  "uri": "file:///C:/a2/_work/6/s/SecureApp/ts/test-data/NoStringBasedSetTimeout/NoStringBasedSetTimeoutTestInput-error4.ts"
+                },
                 "region": {
                   "startLine": 11,
                   "startColumn": 13,

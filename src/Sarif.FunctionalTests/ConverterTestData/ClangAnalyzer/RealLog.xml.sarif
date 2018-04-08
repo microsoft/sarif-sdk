@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jmemmgr.c",
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
                 "region": {
                   "startLine": 369,
                   "startColumn": 21
@@ -39,7 +41,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jmemmgr.c",
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
                 "region": {
                   "startLine": 824,
                   "startColumn": 25
@@ -60,7 +64,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jmemmgr.c",
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
                 "region": {
                   "startLine": 909,
                   "startColumn": 25
@@ -81,7 +87,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jmemmgr.c",
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
                 "region": {
                   "startLine": 1067,
                   "startColumn": 24

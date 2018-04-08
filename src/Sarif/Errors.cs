@@ -271,7 +271,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = context.TargetUri
+                        },
+                    },
                     Id = ERR997_MissingRuleConfiguration,
                     RuleId = context.Rule.Id,
                     Level = NotificationLevel.Error,
@@ -463,7 +469,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 : null;
 
             var physicalLocation = uri != null
-                ? new PhysicalLocation { Uri = uri }
+                ? new PhysicalLocation
+                {
+                    FileLocation = new FileLocation
+                    {
+                        Uri = uri
+                    },
+                }
                 : null;
 
             var notification = new Notification

@@ -44,16 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
-        /// A string that represents the location of the analysis tool's log file as a valid URI.
+        /// The location of the analysis tool's log file.
         /// </summary>
-        [DataMember(Name = "analysisToolLogFileUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri AnalysisToolLogFileUri { get; set; }
-
-        /// <summary>
-        /// A string that identifies the conceptual base for the 'analysisToolLogFileUri' property (if it is relative), e.g.,'$(LogDir)' or '%LOGROOT%'.
-        /// </summary>
-        [DataMember(Name = "analysisToolLogFileUriBaseId", IsRequired = false, EmitDefaultValue = false)]
-        public string AnalysisToolLogFileUriBaseId { get; set; }
+        [DataMember(Name = "analysisToolLogFileLocation", IsRequired = false, EmitDefaultValue = false)]
+        public FileLocation AnalysisToolLogFileLocation { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Conversion" /> class.
@@ -71,15 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
-        /// <param name="analysisToolLogFileUri">
-        /// An initialization value for the <see cref="P: AnalysisToolLogFileUri" /> property.
+        /// <param name="analysisToolLogFileLocation">
+        /// An initialization value for the <see cref="P: AnalysisToolLogFileLocation" /> property.
         /// </param>
-        /// <param name="analysisToolLogFileUriBaseId">
-        /// An initialization value for the <see cref="P: AnalysisToolLogFileUriBaseId" /> property.
-        /// </param>
-        public Conversion(Tool tool, Invocation invocation, Uri analysisToolLogFileUri, string analysisToolLogFileUriBaseId)
+        public Conversion(Tool tool, Invocation invocation, FileLocation analysisToolLogFileLocation)
         {
-            Init(tool, invocation, analysisToolLogFileUri, analysisToolLogFileUriBaseId);
+            Init(tool, invocation, analysisToolLogFileLocation);
         }
 
         /// <summary>
@@ -98,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisToolLogFileUri, other.AnalysisToolLogFileUriBaseId);
+            Init(other.Tool, other.Invocation, other.AnalysisToolLogFileLocation);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -119,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, Uri analysisToolLogFileUri, string analysisToolLogFileUriBaseId)
+        private void Init(Tool tool, Invocation invocation, FileLocation analysisToolLogFileLocation)
         {
             if (tool != null)
             {
@@ -131,12 +122,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Invocation = new Invocation(invocation);
             }
 
-            if (analysisToolLogFileUri != null)
+            if (analysisToolLogFileLocation != null)
             {
-                AnalysisToolLogFileUri = new Uri(analysisToolLogFileUri.OriginalString, analysisToolLogFileUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                AnalysisToolLogFileLocation = new FileLocation(analysisToolLogFileLocation);
             }
-
-            AnalysisToolLogFileUriBaseId = analysisToolLogFileUriBaseId;
         }
     }
 }

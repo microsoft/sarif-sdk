@@ -19,7 +19,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/somepath/test085.cpp",
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test085.cpp"
+                },
                 "region": {
                   "startLine": 5,
                   "startColumn": 6

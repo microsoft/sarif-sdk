@@ -19,9 +19,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
             model.Offset = stackFrame.Offset;
 
             PhysicalLocation physicalLocation = stackFrame.Location?.PhysicalLocation;
-            if (physicalLocation != null)
+            if (physicalLocation?.FileLocation != null)
             {
-                model.FilePath = physicalLocation.Uri.ToPath();
+                model.FilePath = physicalLocation.FileLocation.Uri.ToPath();
                 Region region = physicalLocation.Region;
                 if (region != null)
                 {

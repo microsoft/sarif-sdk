@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                // Only compare URI (so file path/relative file path).  UriBaseId and Region may change run over run.
-                if (x.Uri != y.Uri)
+                // Only compare URI (so file path/relative file path). UriBaseId and Region may change run over run.
+                if (x.FileLocation?.Uri != y.FileLocation?.Uri)
                 {
                     return false;
                 }
@@ -29,13 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(PhysicalLocation obj)
         {
-            if (ReferenceEquals(obj, null))
+            if (ReferenceEquals(obj, null) || obj.FileLocation?.Uri == null)
             {
                 return 0;
             }
             else
             {
-                return obj.Uri.GetNullCheckedHashCode();
+                return obj.FileLocation.Uri.GetNullCheckedHashCode();
             }
         }
     }

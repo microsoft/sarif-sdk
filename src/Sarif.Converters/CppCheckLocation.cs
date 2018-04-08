@@ -95,7 +95,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             return new PhysicalLocation
             {
-                Uri = new Uri(this.File, UriKind.RelativeOrAbsolute),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(this.File, UriKind.RelativeOrAbsolute)
+                },
                 Region = Extensions.CreateRegion(this.Line)
             };
         }

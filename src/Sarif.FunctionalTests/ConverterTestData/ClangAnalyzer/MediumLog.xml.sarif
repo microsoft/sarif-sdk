@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jcmarker.c",
+                "fileLocation": {
+                  "uri": "jcmarker.c"
+                },
                 "region": {
                   "startLine": 200,
                   "startColumn": 9

@@ -45,7 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                   ""location"": {
                     ""physicalLocation"": {
-                      ""uri"": ""file:///c:/test.c""
+                      ""fileLocation"": {
+                        ""uri"": ""file:///c:/test.c""
+                      }
                     }
                   },
                   ""kind"": """ +  testTuple.Item2 + @"""
@@ -81,7 +83,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                                         {
                                             PhysicalLocation = new PhysicalLocation
                                             {
-                                                Uri = new Uri(@"c:\test.c", UriKind.Absolute)
+                                                FileLocation = new FileLocation
+                                                {
+                                                    Uri = new Uri(@"c:\test.c", UriKind.Absolute)
+                                                }
                                             }
                                         },
                                         Kind = testTuple.Item1
