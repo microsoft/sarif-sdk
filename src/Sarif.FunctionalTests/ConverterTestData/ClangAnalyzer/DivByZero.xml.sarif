@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jquant1.c",
+                "fileLocation": {
+                  "uri": "jquant1.c"
+                },
                 "region": {
                   "startLine": 254,
                   "startColumn": 51

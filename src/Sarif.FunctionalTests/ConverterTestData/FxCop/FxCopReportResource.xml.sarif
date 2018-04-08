@@ -29,7 +29,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
+                "fileLocation": {
+                  "uri": "$(ProjectDir)/SpecifyCultureInfo/Microsoft.TeamFoundation.Build.Client.dll"
+                }
               },
               "fullyQualifiedLogicalName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources"
             }

@@ -28,7 +28,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             PhysicalLocation = new PhysicalLocation()
                             {
-                                Uri = new Uri(filePath)
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri(filePath)
+                                }
                             }
                         }
                     }

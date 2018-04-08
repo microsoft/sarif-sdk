@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Log(IRule rule, Result result)
         {
-            NoteTestResult(result.Level, result.Locations.First().PhysicalLocation.Uri.LocalPath);
+            NoteTestResult(result.Level, result.Locations.First().PhysicalLocation.FileLocation.Uri.LocalPath);
         }
 
         public void NoteTestResult(ResultLevel level, string targetPath)

@@ -50,12 +50,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation newNode = base.VisitPhysicalLocation(node);
             
-            if (string.IsNullOrEmpty(newNode.UriBaseId))
+            if (string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId))
             {
-                if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
+                if (newNode.FileLocation.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.FileLocation.Uri))
                 {
-                    newNode.UriBaseId = _baseName;
-                    newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
+                    newNode.FileLocation.UriBaseId = _baseName;
+                    newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
                 }
             }
 
@@ -120,10 +120,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Uri newUri = _baseUri.MakeRelativeUri(oldUri);
 
                     // Ensure the filedata reflects the correct base URI details.
-                    if (data != null)
+                    if (data?.FileLocation != null)
                     {
-                        data.Uri = newUri;
-                        data.UriBaseId = _baseName;
+                        data.FileLocation.Uri = newUri;
+                        data.FileLocation.UriBaseId = _baseName;
 
                         if (data.ParentKey != null)
                         {

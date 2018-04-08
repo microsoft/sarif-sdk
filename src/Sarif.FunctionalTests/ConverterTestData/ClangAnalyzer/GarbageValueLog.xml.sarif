@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "jcmaster.c",
+                "fileLocation": {
+                  "uri": "jcmaster.c"
+                },
                 "region": {
                   "startLine": 251,
                   "startColumn": 30

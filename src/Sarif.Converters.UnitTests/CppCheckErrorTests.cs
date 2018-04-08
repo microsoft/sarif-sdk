@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal("verbose", result.Message);
             result.PropertyNames.Count.Should().Be(1);
             result.GetProperty("Severity").Should().Be("style");
-            Assert.Equal("file.cpp", result.Locations.First().PhysicalLocation.Uri.ToString());
+            Assert.Equal("file.cpp", result.Locations.First().PhysicalLocation.FileLocation.Uri.ToString());
         }
 
         [Fact]
@@ -54,7 +54,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations.SequenceEqual(new[] { new Location {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
+                        FileLocation = new FileLocation
+                        {
+                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                        },
                         Region = new Region { StartLine = 1234 }
                     }
                 }
@@ -73,7 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations.SequenceEqual(new[] { new Location {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                            },
                             Region = new Region { StartLine = 5678 }
                         }
                     }
@@ -85,8 +91,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     new CodeFlowLocation {
                         Location = new Location
                         {
-                            PhysicalLocation = new PhysicalLocation {
-                                Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                                },
                                 Region = new Region { StartLine = 1234 },
                             }
                         },
@@ -95,8 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     new CodeFlowLocation {
                         Location = new Location
                         {
-                            PhysicalLocation = new PhysicalLocation {
-                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute),
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                FileLocation = new FileLocation
+                                { 
+                                    Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                                },
                                 Region = new Region { StartLine = 5678 }
                             }
                         },

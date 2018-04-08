@@ -197,7 +197,7 @@ Possible resolution: delete", result.Message);
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
             Location loc = GetLocationInfoForBuilder(builder).Location;
-            loc.PhysicalLocation.Uri.ToString().Should().Be("expected_file.java");
+            loc.PhysicalLocation.FileLocation.Uri.ToString().Should().Be("expected_file.java");
         }
 
         [Fact]
@@ -365,7 +365,10 @@ Possible resolution: delete", result.Message);
             {
                 PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute)
+                    },
                 },
                 FullyQualifiedLogicalName = "LastResortModule"
             };
@@ -395,7 +398,7 @@ Possible resolution: delete", result.Message);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
-            locationInfo.Location.PhysicalLocation.Uri.ToString().Should().Be("mydir/myfile.xml");
+            locationInfo.Location.PhysicalLocation.FileLocation.Uri.ToString().Should().Be("mydir/myfile.xml");
         }
 
         [Fact]

@@ -26,7 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (result.AnalysisTarget != null)
                 {
-                    AddFile(new PhysicalLocation { Uri = result.AnalysisTarget.Uri });
+                    AddFile(new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = result.AnalysisTarget.Uri
+                        }
+                    });
                 }
 
                 if (result.Locations != null)
@@ -80,12 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddFile(PhysicalLocation physicalLocation)
         {
-            if (physicalLocation == null)
+            if (physicalLocation?.FileLocation == null)
             {
                 return;
             }
 
-            Uri uri = physicalLocation.Uri;
+            Uri uri = physicalLocation.FileLocation.Uri;
             string key = UriHelper.MakeValidUri(uri.OriginalString);
             string filePath = key;
 

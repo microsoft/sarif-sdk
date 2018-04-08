@@ -37,12 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.AnalysisToolLogFileUri != right.AnalysisToolLogFileUri)
-            {
-                return false;
-            }
-
-            if (left.AnalysisToolLogFileUriBaseId != right.AnalysisToolLogFileUriBaseId)
+            if (!FileLocation.ValueComparer.Equals(left.AnalysisToolLogFileLocation, right.AnalysisToolLogFileLocation))
             {
                 return false;
             }
@@ -70,14 +65,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Invocation.ValueGetHashCode();
                 }
 
-                if (obj.AnalysisToolLogFileUri != null)
+                if (obj.AnalysisToolLogFileLocation != null)
                 {
-                    result = (result * 31) + obj.AnalysisToolLogFileUri.GetHashCode();
-                }
-
-                if (obj.AnalysisToolLogFileUriBaseId != null)
-                {
-                    result = (result * 31) + obj.AnalysisToolLogFileUriBaseId.GetHashCode();
+                    result = (result * 31) + obj.AnalysisToolLogFileLocation.ValueGetHashCode();
                 }
             }
 

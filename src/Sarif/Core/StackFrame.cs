@@ -47,7 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        Uri = new Uri(fileName),
+                        FileLocation = new FileLocation
+                        {
+                            Uri = new Uri(fileName)
+                        },
                         Region = new Region
                         {
                             StartLine = dotNetStackFrame.GetFileLineNumber(),
@@ -74,9 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string result = AT + this.Location?.FullyQualifiedLogicalName;
 
-            if (this.Location?.PhysicalLocation?.Uri != null)
+            if (this.Location?.PhysicalLocation?.FileLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.Uri.LocalPath;
+                string fileName = this.Location.PhysicalLocation.FileLocation.Uri.LocalPath;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)

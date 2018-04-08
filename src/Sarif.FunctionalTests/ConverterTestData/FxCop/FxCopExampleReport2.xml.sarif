@@ -61,7 +61,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                "fileLocation": {
+                  "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                }
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll"
             }
@@ -78,7 +80,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                "fileLocation": {
+                  "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                }
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
@@ -98,7 +102,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                "fileLocation": {
+                  "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
+                }
               },
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
@@ -121,7 +127,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs",
+                "fileLocation": {
+                  "uri": "file:///d:/SecDevTools/Main/src/FxCop/Source/FxCopTestData/SecurityCryptographyRuleTests/DESCannotBeUsed.cs"
+                },
                 "region": {
                   "startLine": 14
                 }

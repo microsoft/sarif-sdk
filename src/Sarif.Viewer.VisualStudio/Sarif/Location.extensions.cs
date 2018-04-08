@@ -19,16 +19,16 @@ namespace Microsoft.Sarif.Viewer.Sarif
             CodeFlowLocationModel model = new CodeFlowLocationModel();
             PhysicalLocation physicalLocation = location.PhysicalLocation;
 
-            if (physicalLocation != null)
+            if (physicalLocation?.FileLocation != null)
             {
                 model.Region = physicalLocation.Region;
 
-                Uri uri = physicalLocation.Uri;
+                Uri uri = physicalLocation.FileLocation.Uri;
 
                 if (uri != null)
                 {
                     model.FilePath = uri.ToPath();
-                    model.UriBaseId = physicalLocation.UriBaseId;
+                    model.UriBaseId = physicalLocation.FileLocation.UriBaseId;
                 }
             }
 

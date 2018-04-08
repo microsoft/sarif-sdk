@@ -175,6 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
+                node.AnalysisToolLogFileLocation = VisitNullChecked(node.AnalysisToolLogFileLocation);
             }
 
             return node;
@@ -201,6 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
                 if (node.Replacements != null)
                 {
                     for (int index_0 = 0; index_0 < node.Replacements.Count; ++index_0)
@@ -226,6 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
                 if (node.Hashes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Hashes.Count; ++index_0)
@@ -281,6 +284,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
                     {
                         node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
+                    }
+                }
+
+                if (node.ResponseFiles != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ResponseFiles.Count; ++index_0)
+                    {
+                        node.ResponseFiles[index_0] = VisitNullChecked(node.ResponseFiles[index_0]);
                     }
                 }
 
@@ -360,6 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
             }

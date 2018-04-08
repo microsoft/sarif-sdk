@@ -422,7 +422,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return new PhysicalLocation
             {
-                Uri = new Uri(path, UriKind.Relative),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(path, UriKind.Relative)
+                },
                 Region = new Region
                 {
                     StartLine = startLine,

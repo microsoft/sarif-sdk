@@ -126,8 +126,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
-                            UriBaseId = "$srcroot",
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
+                                UriBaseId = "$srcroot"
+                            },
                             Region = region
                         }
                     }
@@ -199,7 +202,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute)
+                            },
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[3]),
@@ -212,8 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
-                            UriBaseId = "$srcroot",
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
+                                UriBaseId = "$srcroot"
+                            },
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[2]),

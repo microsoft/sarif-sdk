@@ -98,7 +98,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
@@ -114,7 +116,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
@@ -130,7 +134,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe"
             }
@@ -148,7 +154,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
@@ -171,7 +179,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
+                "fileLocation": {
+                  "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs"
+                },
                 "region": {
                   "startLine": 11
                 }
@@ -198,7 +208,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
+                "fileLocation": {
+                  "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs"
+                },
                 "region": {
                   "startLine": 11
                 }
@@ -216,7 +228,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
@@ -232,7 +246,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
@@ -248,7 +264,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
@@ -264,7 +282,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
             }
@@ -281,7 +301,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
             }
@@ -296,7 +318,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                "fileLocation": {
+                  "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+                }
               },
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()"
             }

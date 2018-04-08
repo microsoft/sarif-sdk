@@ -22,9 +22,11 @@
       },
       "invocation": {
         "commandLine": "CodeScanner @collections.rsp",
-        "responseFiles": {
-          "collections.rsp": "-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999"
-        },
+        "responseFiles": [
+          {
+            "uri": "collections.rsp"
+          }
+        ],
         "startTime": "2016-07-16T14:18:25Z",
         "endTime": "2016-07-16T14:19:01Z",
         "configurationNotifications": [
@@ -47,7 +49,9 @@
             "level": "error",
             "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
             "physicalLocation": {
-              "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+              "fileLocation": {
+                "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+              }
             },
             "threadId": 52,
             "time": "2016-07-16T14:18:43.119Z",
@@ -117,11 +121,16 @@
           "mimeType": "application/zip"
         },
         "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
-          "uri": "/docs/intro.docx",
+          "fileLocation": {
+            "uri": "/docs/intro.docx"
+          },
           "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
           "parentKey": "file:///home/buildAgent/bin/app.zip",
           "offset": 17522,
           "length": 4050
+        },
+        "collections.rsp": {
+          "contents": "\"-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\"."
         }
       },
       "logicalLocations": {
@@ -158,7 +167,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
                 "region": {
                   "snippet": {
                     "text": "add_core(ptr, offset, val);\n    return;"
@@ -181,7 +192,9 @@
                 "text": "\"count\" was declared here.",
               },
               "physicalLocation": {
-                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
                 "region": {
                   "startLine": 8,
                   "startColumn": 5
@@ -200,7 +213,9 @@
                   "importance": "essential",
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
                       "region": {
                         "snippet": {
                           "text": "int *ptr;"
@@ -222,7 +237,9 @@
                   "importance": "unimportant",
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
                       "region": {
                         "snippet": {
                           "text": "offset = 0;"
@@ -242,7 +259,9 @@
                   "target": "collections::list:add_core",
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
                       "region": {
                         "snippet": {
                           "text": "add_core(ptr, offset, val)"
@@ -268,7 +287,9 @@
                 {
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
                       "region": {
                         "startLine": 110,
                         "startColumn": 15
@@ -288,7 +309,9 @@
                 {
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/collections/list.h",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
                       "region": {
                         "startLine": 43,
                         "startColumn": 15
@@ -305,7 +328,9 @@
                 {
                   "location": {
                     "physicalLocation": {
-                      "uri": "file:///home/buildAgent/src/application/main.cpp",
+                      "fileLocation": {
+                        "uri": "file:///home/buildAgent/src/application/main.cpp"
+                      },
                       "region": {
                         "startLine": 28,
                         "startColumn": 9
@@ -326,7 +351,9 @@
               "description": "Initialize the variable to null",
               "fileChanges": [
                 {
-                  "uri": "file:///home/buildAgent/src/collections/list.h",
+                  "fileLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h"
+                  },
                   "replacements": [
                     {
                       "offset": 109,

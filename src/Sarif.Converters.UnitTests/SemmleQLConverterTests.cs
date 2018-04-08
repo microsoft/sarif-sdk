@@ -33,8 +33,10 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""locations"": [
             {
               ""physicalLocation"": {
-                ""uri"": ""RelativePath"",
-                ""uriBaseId"": ""$srcroot"",
+                ""fileLocation"": {
+                  ""uri"": ""RelativePath"",
+                  ""uriBaseId"": ""$srcroot""
+                },
                 ""region"": {
                   ""startLine"": 1,
                   ""startColumn"": 2,
@@ -85,8 +87,10 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""locations"": [
             {
               ""physicalLocation"": {
-                ""uri"": ""ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"",
-                ""uriBaseId"": ""$srcroot"",
+                ""fileLocation"": {
+                  ""uri"": ""ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"",
+                  ""uriBaseId"": ""$srcroot""
+                },
                 ""region"": {
                   ""startLine"": 865,
                   ""startColumn"": 15,
@@ -99,14 +103,18 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""relatedLocations"": [
             {
               ""physicalLocation"": {
-                ""uri"": ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll"",
+                ""fileLocation"": {
+                  ""uri"": ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll""
+                },
                 ""region"": {}
               }
             },
             {
               ""physicalLocation"": {
-                ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"",
-                ""uriBaseId"": ""$srcroot"",
+                ""fileLocation"": {
+                  ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"",
+                  ""uriBaseId"": ""$srcroot""
+                },
                 ""region"": {
                   ""startLine"": 7,
                   ""offset"": 152,
@@ -116,8 +124,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             {
               ""physicalLocation"": {
-                ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"",
-                ""uriBaseId"": ""$srcroot"",
+                ""fileLocation"": {
+                  ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"",
+                  ""uriBaseId"": ""$srcroot""
+                },
                 ""region"": {
                   ""startLine"": 14,
                   ""offset"": 333,

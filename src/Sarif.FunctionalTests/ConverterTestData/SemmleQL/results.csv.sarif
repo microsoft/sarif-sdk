@@ -164,8 +164,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 211,
                   "startColumn": 13,
@@ -180,8 +182,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 2718,
                   "startColumn": 13,
@@ -193,8 +197,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 170,
                   "offset": 6561,
@@ -209,8 +215,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 2793,
                   "startColumn": 13,
@@ -222,8 +230,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 169,
                   "offset": 6517,
@@ -238,8 +248,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1708,
                   "startColumn": 21,
@@ -254,8 +266,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 418,
                   "startColumn": 21,
@@ -270,8 +284,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 473,
                   "startColumn": 17,
@@ -286,8 +302,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 188,
                   "startColumn": 17,
@@ -302,8 +320,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/Tailer.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 463,
                   "startColumn": 25,
@@ -315,8 +335,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/Tailer.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/Tailer.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 406,
                   "offset": 15061,
@@ -331,8 +353,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1580,
                   "startColumn": 11,
@@ -347,8 +371,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 189,
                   "startColumn": 15,
@@ -364,8 +390,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 269,
                   "startColumn": 36,
@@ -381,8 +409,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 270,
                   "startColumn": 36,
@@ -398,8 +428,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1145,
                   "startColumn": 13,
@@ -415,8 +447,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1430,
                   "startColumn": 13,
@@ -431,8 +465,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/CharSequenceReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 36,
                   "startColumn": 32,
@@ -447,8 +483,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/comparator/ReverseComparator.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 33,
                   "startColumn": 36,
@@ -463,8 +501,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 128,
                   "startColumn": 36,
@@ -479,8 +519,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 44,
                   "startColumn": 38,
@@ -495,8 +537,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 42,
                   "startColumn": 38,
@@ -511,8 +555,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 33,
                   "startColumn": 32,
@@ -527,8 +573,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 125,
                   "startColumn": 48,
@@ -543,8 +591,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 127,
                   "startColumn": 30,
@@ -559,8 +609,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 39,
                   "startColumn": 30,
@@ -575,8 +627,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 37,
                   "startColumn": 34,
@@ -592,8 +646,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/XmlStreamReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 745,
                   "startColumn": 32,
@@ -609,8 +665,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/XmlStreamWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 172,
                   "startColumn": 36,
@@ -626,8 +684,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/ByteOrderMark.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 185,
                   "startColumn": 28,
@@ -643,8 +703,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 57,
                   "startColumn": 14,
@@ -656,8 +718,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 100,
                   "offset": 4192,
@@ -673,8 +737,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 153,
                   "startColumn": 19,
@@ -686,8 +752,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 145,
                   "offset": 4336,
@@ -703,8 +771,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/CountingInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 107,
                   "startColumn": 16,
@@ -716,8 +786,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 86,
                   "offset": 3021,
@@ -733,8 +805,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 141,
                   "startColumn": 30,
@@ -746,8 +820,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 158,
                   "offset": 4876,
@@ -763,8 +839,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 86,
                   "startColumn": 16,
@@ -776,8 +854,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/CountingInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/CountingInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 107,
                   "offset": 3626,
@@ -793,8 +873,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 145,
                   "startColumn": 19,
@@ -806,8 +888,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 153,
                   "offset": 4515,
@@ -823,8 +907,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 102,
                   "startColumn": 17,
@@ -836,8 +922,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 208,
                   "offset": 6333,
@@ -853,8 +941,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 115,
                   "startColumn": 17,
@@ -866,8 +956,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 221,
                   "offset": 6647,
@@ -883,8 +975,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 208,
                   "startColumn": 17,
@@ -896,8 +990,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 102,
                   "offset": 3336,
@@ -913,8 +1009,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/ProxyWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 221,
                   "startColumn": 17,
@@ -926,8 +1024,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 115,
                   "offset": 3650,
@@ -943,8 +1043,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 158,
                   "startColumn": 30,
@@ -956,8 +1058,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 141,
                   "offset": 4390,
@@ -973,8 +1077,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/NullReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 170,
                   "startColumn": 16,
@@ -986,8 +1092,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 187,
                   "offset": 5773,
@@ -1003,8 +1111,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/NullInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 187,
                   "startColumn": 16,
@@ -1016,8 +1126,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 170,
                   "offset": 5297,
@@ -1033,8 +1145,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1042,8 +1156,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1055,8 +1171,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1064,8 +1182,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1077,8 +1197,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1086,8 +1208,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }
@@ -1099,8 +1223,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 188,
                   "startColumn": 12,
@@ -1116,8 +1242,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/WriterOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 339,
                   "startColumn": 10
@@ -1132,8 +1260,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileCleaningTracker.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 222,
                   "startColumn": 20,
@@ -1149,8 +1279,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 293,
                   "startColumn": 17,
@@ -1166,8 +1298,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 354,
                   "startColumn": 17,
@@ -1183,8 +1317,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 907,
                   "startColumn": 21,
@@ -1200,8 +1336,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 995,
                   "startColumn": 33,
@@ -1217,8 +1355,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1072,
                   "startColumn": 34,
@@ -1234,8 +1374,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1177,
                   "startColumn": 32,
@@ -1251,8 +1393,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1183,
                   "startColumn": 33,
@@ -1268,8 +1412,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1406,
                   "startColumn": 17,
@@ -1285,8 +1431,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1414,
                   "startColumn": 13,
@@ -1302,8 +1450,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 162,
                   "startColumn": 13,
@@ -1319,8 +1469,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FilenameUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 666,
                   "startColumn": 37,
@@ -1336,8 +1488,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 251,
                   "startColumn": 17,
@@ -1353,8 +1507,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 72,
                   "startColumn": 37,
@@ -1370,8 +1526,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileDeleteStrategy.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 93,
                   "startColumn": 38,
@@ -1387,8 +1545,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/LockableFileWriter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 274,
                   "startColumn": 17,
@@ -1404,8 +1564,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 2684,
                   "startColumn": 32,
@@ -1420,8 +1582,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationMonitor.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 108,
                   "startColumn": 48,
@@ -1437,8 +1601,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 257,
                   "startColumn": 48,
@@ -1455,8 +1621,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1124,
                   "startColumn": 48,
@@ -1472,8 +1640,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1138,
                   "startColumn": 50,
@@ -1489,8 +1659,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1139,
                   "startColumn": 51,
@@ -1506,8 +1678,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/MagicNumberFileFilter.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 264,
                   "startColumn": 79,
@@ -1523,8 +1697,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 32,
                   "startColumn": 38,
@@ -1539,8 +1715,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/BOMInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 290,
                   "startColumn": 9,
@@ -1557,8 +1735,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1472,
                   "startColumn": 31,
@@ -1570,8 +1750,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1521,
                   "offset": 59539,
@@ -1587,8 +1769,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1492,
                   "startColumn": 31,
@@ -1600,8 +1784,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1541,
                   "offset": 60543,
@@ -1617,8 +1803,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1778,
                   "startColumn": 24,
@@ -1630,8 +1818,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1859,
                   "offset": 73538,
@@ -1647,8 +1837,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1817,
                   "startColumn": 24,
@@ -1660,8 +1852,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1898,
                   "offset": 75031,
@@ -1677,8 +1871,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1842,
                   "startColumn": 24,
@@ -1690,8 +1886,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 1922,
                   "offset": 76152,
@@ -1707,8 +1905,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 503,
                   "startColumn": 32,
@@ -1720,8 +1920,10 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "/src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "/src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 515,
                   "offset": 18000,
@@ -1736,8 +1938,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 79,
                   "startColumn": 14,
@@ -1752,8 +1956,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/output/TeeOutputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 29,
                   "startColumn": 14,
@@ -1768,8 +1974,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/input/TeeInputStream.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {
                   "startLine": 40,
                   "startColumn": 14,
@@ -1784,8 +1992,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
-                "uriBaseId": "$srcroot",
+                "fileLocation": {
+                  "uri": "src/main/java/org/apache/commons/io/FileUtils.java",
+                  "uriBaseId": "$srcroot"
+                },
                 "region": {}
               }
             }

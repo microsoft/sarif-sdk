@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
             {
-                Uri uri = location.PhysicalLocation.Uri;
+                Uri uri = location.PhysicalLocation.FileLocation.Uri;
                 string path = uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
@@ -51,9 +51,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             Location primaryLocation = result.Locations[0];
 
-            if (primaryLocation.PhysicalLocation != null)
+            if (primaryLocation.PhysicalLocation?.FileLocation != null)
             {
-                return primaryLocation.PhysicalLocation.Uri.ToPath();
+                return primaryLocation.PhysicalLocation.FileLocation.Uri.ToPath();
             }
             else if (primaryLocation.FullyQualifiedLogicalName != null)
             {

@@ -110,7 +110,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
           ""locations"": [
             {
               ""physicalLocation"": {
-                ""uri"": """ + expectedUri + @"""
+                ""fileLocation"": {
+                  ""uri"": """ + expectedUri + @"""
+                }
               }
             }
           ]
@@ -135,7 +137,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
+                                }
                             }
                         }
                     }

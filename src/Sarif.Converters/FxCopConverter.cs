@@ -132,7 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute)
+                    },
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }

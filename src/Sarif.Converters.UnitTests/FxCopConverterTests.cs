@@ -380,7 +380,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute)
+                            },
                             Region = new Region { StartLine = 13 }
                         },
                         FullyQualifiedLogicalName = expectedLogicalLocation,

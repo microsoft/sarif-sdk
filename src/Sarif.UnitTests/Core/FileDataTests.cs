@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllText(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.ComputeFileHashes);
-                fileData.Uri.Should().Be(null);
+                fileData.FileLocation.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.MimeType.Should().Be(MimeType.Binary);
                 fileData.Contents.Should().BeNull();
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllText(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                fileData.Uri.Should().Be(null);
+                fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.Binary);
                 fileData.Hashes.Should().BeNull();
 
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 File.WriteAllBytes(filePath, fileContents);
                 FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: Encoding.BigEndianUnicode);
-                fileData.Uri.Should().Be(null);
+                fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
             FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-            fileData.Uri.Should().Be(null);
+            fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
             fileData.Contents.Should().Be(String.Empty);
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                    fileData.Uri.Should().Be(null);
+                    fileData.FileLocation.Should().Be(null);
                     fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
                     fileData.Contents.Should().BeNull();

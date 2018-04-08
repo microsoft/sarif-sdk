@@ -192,7 +192,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Location
                             {
-                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file1.cpp")}
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    FileLocation = new FileLocation
+                                    {
+                                        Uri = new Uri(@"file:///file1.cpp")
+                                    }
+                                }
                             },
                         },
                         Fixes = new[]
@@ -203,7 +209,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                    new FileChange
                                    {
+                                    FileLocation = new FileLocation
+                                    {
                                         Uri = new Uri(@"file:///file2.cpp")
+                                    }
                                    }
                                 }
                             }
@@ -212,7 +221,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Location
                             {
-                                PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file3.cpp")}
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                    FileLocation = new FileLocation
+                                    {
+                                        Uri = new Uri(@"file:///file3.cpp")
+                                    }
+                                }
                             }
                         },
                         Stacks = new[]
@@ -225,7 +240,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     {
                                         Location = new Location
                                         {
-                                            PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file4.cpp")}
+                                            PhysicalLocation = new PhysicalLocation
+                                            {
+                                                FileLocation = new FileLocation
+                                                {
+                                                    Uri = new Uri(@"file:///file4.cpp")
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -241,7 +262,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     {
                                         Location = new Location
                                         {
-                                            PhysicalLocation = new PhysicalLocation {  Uri = new Uri(@"file:///file5.cpp")}
+                                            PhysicalLocation = new PhysicalLocation
+                                            {
+                                                FileLocation = new FileLocation
+                                                {
+                                                    Uri = new Uri(@"file:///file5.cpp")
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -286,13 +313,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file0.cpp") }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { Uri = new Uri(@"file:///file0.cpp") }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 

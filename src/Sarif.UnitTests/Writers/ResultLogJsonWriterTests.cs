@@ -237,7 +237,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Message = "This is a test",
                 PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri("file:///C:/src/a.cs"),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri("file:///C:/src/a.cs")
+                    },
                     Region = new Region
                     {
                         StartLine = 3,
@@ -303,7 +306,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
           ""id"": ""NOT0001"",
           ""ruleId"": ""TST0001"",
           ""physicalLocation"": {
-            ""uri"": ""file:///C:/src/a.cs"",
+            ""fileLocation"": {
+              ""uri"": ""file:///C:/src/a.cs""
+            },
             ""region"": {
               ""startLine"": 3,
               ""startColumn"": 12

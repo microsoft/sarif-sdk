@@ -43,10 +43,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Sarif.Location {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(targetPath),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(targetPath)
+                            },
                             Region = region
                         }
-               }};
+                    }
+                };
             }
 
             if (level == ResultLevel.Warning)

@@ -102,7 +102,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             PhysicalLocation = new PhysicalLocation()
                             {
-                                Uri = filePaths[random.Next(filePaths.Count)],
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = filePaths[random.Next(filePaths.Count)]
+                                },
                             }
                         }
                     }
@@ -120,7 +123,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     path.ToString(), 
                     new FileData()
                     {
-                        Uri = path
+                        FileLocation = new FileLocation
+                        {
+                            Uri = path
+                        }
                     });
             }
             return dictionary;

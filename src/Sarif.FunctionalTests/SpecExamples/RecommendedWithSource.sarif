@@ -18,7 +18,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "uri": "file:///user/builder/work/src/collections/list.cpp",
+                "fileLocation": {
+                  "uri": "file:///user/builder/work/src/collections/list.cpp"
+                },
                 "region": {
                   "startLine": 15
                 }
