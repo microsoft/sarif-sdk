@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Run GenerateRandomRun(Random random, int? resultCount = null)
         {
-            Run run = new Run();
+            Run run = new Run() { Resources = new Resources() };
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
             List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).Select(a => new Uri(a)).ToList();
 

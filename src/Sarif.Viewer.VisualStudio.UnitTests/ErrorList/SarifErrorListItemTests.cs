@@ -81,7 +81,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
             };
 
             var run = new Run();
@@ -97,7 +96,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
             };
 
             var run = new Run
@@ -127,8 +125,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var result = new Result
             {
-                RuleId = "TST0001",
-                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
+                RuleId = "TST0001"
             };
 
             var run = new Run
@@ -163,7 +160,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                Message = new Message { Text = "greeting", Arguments = new[] { "Mary" } }
+                RuleMessageId = "greeting",
+                Message = new Message { Arguments = new[] { "Mary" } }
             };
 
             var run = new Run

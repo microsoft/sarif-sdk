@@ -26,10 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             Result result = new Result
             {
                 RuleId = context.Rule.Id,
+                RuleMessageId = ruleMessageId,
 
                 Message = new Message
                 {
-                    MessageId = ruleMessageId,
                     Arguments = arguments
                 },
 

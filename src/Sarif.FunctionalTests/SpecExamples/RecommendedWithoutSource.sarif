@@ -31,14 +31,16 @@
       "results": [
         {
           "ruleId": "B6412",
-          "message": "The insecure method \"Crypto.Sha1.Encrypt\" should not be used.",
-          "level": "warning",
-          "locations": [
-            {
-              "fullyQualifiedLogicalName": "Example.Worker.DoWork"
-            }
-          ]
-        }
+          "message": {
+            "text": "The insecure method \"Crypto.Sha1.Encrypt\" should not be used."
+          },
+            "level": "warning",
+            "locations": [
+              {
+                "fullyQualifiedLogicalName": "Example.Worker.DoWork"
+              }
+            ]
+          }
       ]
     }
   ]

@@ -34,14 +34,18 @@
             "id": "UnknownRule",
             "ruleId": "ABC0001",
             "level": "warning",
-            "message": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+            "message": {
+              "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+            }
           }
         ],
         "toolNotifications": [
           {
             "id": "CTN0001",
             "level": "note",
-            "message": "Run started."
+            "message": {
+              "text": "Run started."
+            }
           },
           {
             "id": "CTN9999",
@@ -159,12 +163,7 @@
             "uri": "file:///home/buildAgent/src/collections/list.cpp"
           },
           "ruleId": "C2001",
-          "templatedMessage": {
-            "templateId": "default",
-            "arguments": [
-              "ptr"
-            ]
-          },
+          "ruleMessageId": "default",
           "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing",
           "level": "error",
@@ -288,7 +287,9 @@
           ],
           "stacks": [
             {
-              "message": "Call stack resulting from usage of uninitialized variable.",
+              "message": {
+                "text": "Call stack resulting from usage of uninitialized variable."
+              },
               "frames": [
                 {
                   "location": {

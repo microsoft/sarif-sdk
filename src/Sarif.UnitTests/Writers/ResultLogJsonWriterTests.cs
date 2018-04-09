@@ -314,7 +314,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
               ""startColumn"": 12
             }
           },
-          ""message"": ""This is a test"",
+          ""message"": {
+            ""text"": ""This is a test""
+          },
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.000Z"",
           ""exception"": {

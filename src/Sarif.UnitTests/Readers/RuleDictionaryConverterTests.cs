@@ -22,11 +22,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
       ""tool"": {
         ""name"": null
       },
-      ""rules"": {
-        ""CA1000.1"": {
-          ""id"": ""CA1000""
+      ""resources"": {
+        ""rules"": {
+          ""CA1000.1"": {
+            ""id"": ""CA1000""
+          }
         }
-      }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""CA1000"",
+          ""message"": {
+            ""text"": ""Variable \""count\"" was used without being initialized.""
+          }
+        }
+      ]
     }
   ]
 }";
@@ -41,6 +51,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 uut.WriteRules(new Dictionary<string, IRule>
                 {
                     ["CA1000.1"] = new Rule { Id = "CA1000" }
+                });
+
+                uut.WriteResult(new Result
+                {
+                    RuleId = "CA1000",
+                    Message = new Message
+                    {
+                        Text = "Variable \"count\" was used without being initialized."
+                    }
                 });
             });
 

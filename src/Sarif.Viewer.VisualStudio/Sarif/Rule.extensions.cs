@@ -24,10 +24,10 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 model = new RuleModel()
                 {
                     Id = rule.Id,
-                    Name = rule.Name.Text,
+                    Name = rule.Name?.Text,
                     Category = rule.GetCategory(),
                     DefaultLevel = rule.DefaultLevel.ToString(),
-                    Description = rule.FullDescription.Text,
+                    Description = rule.FullDescription?.Text,
                     HelpUri = rule.HelpUri?.AbsoluteUri
                 };
             }
