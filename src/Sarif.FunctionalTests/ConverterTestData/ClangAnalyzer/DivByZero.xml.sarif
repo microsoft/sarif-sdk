@@ -14,7 +14,9 @@
       "results": [
         {
           "ruleId": "Division by zero",
-          "message": "Division by zero",
+          "message": {
+            "text": "Division by zero"
+          },
           "locations": [
             {
               "physicalLocation": {

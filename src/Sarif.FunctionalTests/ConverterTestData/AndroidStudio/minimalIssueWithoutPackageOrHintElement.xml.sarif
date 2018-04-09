@@ -20,7 +20,9 @@
       "results": [
         {
           "ruleId": "Android Resources Validation",
-          "message": "Cannot resolve symbol'android:textColor'",
+          "message": {
+            "text": "Cannot resolve symbol'android:textColor'"
+          },
           "locations": [
             {
               "physicalLocation": {

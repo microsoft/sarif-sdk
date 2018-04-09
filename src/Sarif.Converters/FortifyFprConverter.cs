@@ -447,11 +447,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
-                    rule.ShortDescription = _reader.ReadElementContentAsString();
+                    rule.ShortDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
-                    rule.FullDescription = _reader.ReadElementContentAsString();
+                    rule.FullDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else
                 {
@@ -535,7 +535,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Id = errorCode,
                         Level = NotificationLevel.Error,
-                        Message = message
+                        Message = new Message { Text = message }
                     });
                 }
                 else

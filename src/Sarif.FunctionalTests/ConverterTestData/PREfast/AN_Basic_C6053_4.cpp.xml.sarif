@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6053",
-          "message": "The prior call to 'DoesNotZ' might not zero-terminate string 'x'.",
+          "message": {
+            "text": "The prior call to 'DoesNotZ' might not zero-terminate string 'x'."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -104,7 +106,9 @@
         },
         {
           "ruleId": "6054",
-          "message": "String 'a' might not be zero-terminated.",
+          "message": {
+            "text": "String 'a' might not be zero-terminated."
+          },
           "locations": [
             {
               "physicalLocation": {

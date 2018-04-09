@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -101,7 +103,9 @@
         },
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -187,7 +191,9 @@
         },
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. "
+          },
           "locations": [
             {
               "physicalLocation": {

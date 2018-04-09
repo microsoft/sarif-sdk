@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '(const signed char *)strings[i]'\nAccessing unannotated buffer (*strings)\nAnnotation on function strlen requires that {parameter 1} is null terminated\n  where {parameter 1} is (const signed char *)strings[i] [Annotation _Null_terminated(0)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '(const signed char *)strings[i]'\nAccessing unannotated buffer (*strings)\nAnnotation on function strlen requires that {parameter 1} is null terminated\n  where {parameter 1} is (const signed char *)strings[i] [Annotation _Null_terminated(0)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -463,7 +465,9 @@
         },
         {
           "ruleId": "26053",
-          "message": "Potential overflow using expression 's[needed ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(result.new[])`15a is not constrained by needed`10\n\nBuffer length is computed by a loop.\n\nBuffer result.new[] created during call to operator new[] on line 15\nBuffer is of length 4*needed`10 + 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 15]\nAccessing 4 bytes starting at byte offset 4*result.strlen`23a\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nneeded = result.strlen`23a + 1\n\nwhere\noffset((*strings))`12 == 0\noffset(result.new[])`15a == 0\n{loop iterations}'19 == 0\noffset((*strings))`12 + result.strlen`23a == nullpos((*strings))`23\n{loop iterations}'10 + 2 == n`7\nn`7 >= 2\nneeded`10 <= {loop iterations}'10 + 1\nneeded`10 >= 0\nnullpos((*strings))`23 >= 0\nresult.strlen`23a >= 0\n{loop iterations}'10 >= 0\n\nOverrun access occurs when\nresult.strlen`23a >= needed`10 + 1\n\nThere are other instances of this error:\nPotential overflow using expression 's[needed]' at line 27\n",
+          "message": {
+            "text": "Potential overflow using expression 's[needed ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(result.new[])`15a is not constrained by needed`10\n\nBuffer length is computed by a loop.\n\nBuffer result.new[] created during call to operator new[] on line 15\nBuffer is of length 4*needed`10 + 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 15]\nAccessing 4 bytes starting at byte offset 4*result.strlen`23a\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nneeded = result.strlen`23a + 1\n\nwhere\noffset((*strings))`12 == 0\noffset(result.new[])`15a == 0\n{loop iterations}'19 == 0\noffset((*strings))`12 + result.strlen`23a == nullpos((*strings))`23\n{loop iterations}'10 + 2 == n`7\nn`7 >= 2\nneeded`10 <= {loop iterations}'10 + 1\nneeded`10 >= 0\nnullpos((*strings))`23 >= 0\nresult.strlen`23a >= 0\n{loop iterations}'10 >= 0\n\nOverrun access occurs when\nresult.strlen`23a >= needed`10 + 1\n\nThere are other instances of this error:\nPotential overflow using expression 's[needed]' at line 27\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -939,7 +943,9 @@
         },
         {
           "ruleId": "26003",
-          "message": "Accessing buffer 'result.new[]'57' with no known length\n",
+          "message": {
+            "text": "Accessing buffer 'result.new[]'57' with no known length\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1219,7 +1225,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'p[needed ++]'\nBuffer result.new[] created during call to operator new[] on line 57\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 57]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nneeded = 2\n",
+          "message": {
+            "text": "Overflow using expression 'p[needed ++]'\nBuffer result.new[] created during call to operator new[] on line 57\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 57]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nneeded = 2\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1695,7 +1703,9 @@
         },
         {
           "ruleId": "26014",
-          "message": "Potential overflow using expression 'p[needed ++]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 76\nBuffer is of length offset(p)`76 + 4*n`76 bytes [from annotation SAL_writableTo(elementCount(_Old_(n))) at c:\\somepath\\test089.cpp(76)]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nneeded = 2\n\nwhere\noffset(p)`76 == 0\nn`76 >= 1\n\nOverrun access occurs when\nn`76 == 1\n",
+          "message": {
+            "text": "Potential overflow using expression 'p[needed ++]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 76\nBuffer is of length offset(p)`76 + 4*n`76 bytes [from annotation SAL_writableTo(elementCount(_Old_(n))) at c:\\somepath\\test089.cpp(76)]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nneeded = 2\n\nwhere\noffset(p)`76 == 0\nn`76 >= 1\n\nOverrun access occurs when\nn`76 == 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2031,7 +2041,9 @@
         },
         {
           "ruleId": "26017",
-          "message": "Potential overflow using expression 'buf[cnt ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`108 is not constrained by any constant\ncnt`108 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 116\nBuffer is of length 1 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116] OR\n  3 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116]\nAccessing the element (4 bytes/element) at element offset cnt`108\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`108 + 1\n\nwhere\ncnt`108 <= {loop iterations}'108 + 1\nsize`108 <= {loop iterations}'108 + 2\ncnt`108 != size`108\n\nOverrun access occurs when\ncnt`108 >= 3\n",
+          "message": {
+            "text": "Potential overflow using expression 'buf[cnt ++]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`108 is not constrained by any constant\ncnt`108 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 116\nBuffer is of length 1 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116] OR\n  3 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116]\nAccessing the element (4 bytes/element) at element offset cnt`108\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`108 + 1\n\nwhere\ncnt`108 <= {loop iterations}'108 + 1\nsize`108 <= {loop iterations}'108 + 2\ncnt`108 != size`108\n\nOverrun access occurs when\ncnt`108 >= 3\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2731,7 +2743,9 @@
         },
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression 'buf[cnt ++]'\nBuffer result.new[] created during call to operator new[] on line 116\nBuffer is of length 1 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116] OR\n  3 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116]\nAccessing the element (4 bytes/element) at element offset cnt`108\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`108 + 1\n\nwhere\ncnt`108 <= {loop iterations}'108 + 1\nsize`108 <= {loop iterations}'108 + 2\ncnt`108 != size`108\n\nUnderflow access occurs when\ncnt`108 + 1 <= 0\n",
+          "message": {
+            "text": "Potential Underflow using expression 'buf[cnt ++]'\nBuffer result.new[] created during call to operator new[] on line 116\nBuffer is of length 1 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116] OR\n  3 elements (4 bytes/element) [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 116]\nAccessing the element (4 bytes/element) at element offset cnt`108\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`108 + 1\n\nwhere\ncnt`108 <= {loop iterations}'108 + 1\nsize`108 <= {loop iterations}'108 + 2\ncnt`108 != size`108\n\nUnderflow access occurs when\ncnt`108 + 1 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3431,7 +3445,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buf[size]'\nBuffer result.new[] created during call to operator new[] on line 150\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer newbuf is at offset 0 bytes from the start of the buffer\nsize = 1\nbuf = newbuf\n\nThere are other instances of this error:\nPotential overflow using expression 'buf[cnt ++]' at line 165\n",
+          "message": {
+            "text": "Overflow using expression 'buf[size]'\nBuffer result.new[] created during call to operator new[] on line 150\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer newbuf is at offset 0 bytes from the start of the buffer\nsize = 1\nbuf = newbuf\n\nThere are other instances of this error:\nPotential overflow using expression 'buf[cnt ++]' at line 165\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3795,7 +3811,9 @@
         },
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression 'buf[cnt ++]'\nBuffer result.new[] created during call to operator new[] on line 150\nBuffer is of length 12 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150] OR\n  4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150]\nAccessing the element (4 bytes/element) at element offset cnt`142\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`142 + 1\n\nwhere\ncnt`142 <= {loop iterations}'142 + 1\nsize`142 <= {loop iterations}'142 + 2\ncnt`142 != size`142\n\nUnderflow access occurs when\ncnt`142 + 1 <= 0\n",
+          "message": {
+            "text": "Potential Underflow using expression 'buf[cnt ++]'\nBuffer result.new[] created during call to operator new[] on line 150\nBuffer is of length 12 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150] OR\n  4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 150]\nAccessing the element (4 bytes/element) at element offset cnt`142\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\ncnt = cnt`142 + 1\n\nwhere\ncnt`142 <= {loop iterations}'142 + 1\nsize`142 <= {loop iterations}'142 + 2\ncnt`142 != size`142\n\nUnderflow access occurs when\ncnt`142 + 1 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

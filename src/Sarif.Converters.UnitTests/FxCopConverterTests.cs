@@ -367,7 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedResult = new Result
             {
                 RuleId = "CA0000",
-                Message = "hello!",
+                Message = new Message { Text = "hello!" },
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 ToolFingerprintContributions = new Dictionary<string, string>(),
                 AnalysisTarget = new FileLocation

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '(void *)(& a)'\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 1} is of length >= _Old_({parameter 3}) bytes\n  where {parameter 1} is (void *)(& a); {parameter 3} is 500\n[Annotation SAL_writableTo(byteCount(_Old_({parameter 3}))) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nOverflow using expression '(void *)(& a[0])' at line 16\n",
+          "message": {
+            "text": "Overflow using expression '(void *)(& a)'\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 1} is of length >= _Old_({parameter 3}) bytes\n  where {parameter 1} is (void *)(& a); {parameter 3} is 500\n[Annotation SAL_writableTo(byteCount(_Old_({parameter 3}))) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nOverflow using expression '(void *)(& a[0])' at line 16\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -141,7 +143,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression '(const void *)(& b)'\nBuffer accessed is b\nBuffer is of length 6 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)(& b); {parameter 3} is 500\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nRead overflow using expression '(const void *)(& b)' at line 16\n",
+          "message": {
+            "text": "Read overflow using expression '(const void *)(& b)'\nBuffer accessed is b\nBuffer is of length 6 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)(& b); {parameter 3} is 500\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nRead overflow using expression '(const void *)(& b)' at line 16\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -267,7 +271,9 @@
         },
         {
           "ruleId": "26037",
-          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function MadePAGAndBad requires that & data->DevicePath is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(27)]\n",
+          "message": {
+            "text": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function MadePAGAndBad requires that & data->DevicePath is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(27)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -323,7 +329,9 @@
         },
         {
           "ruleId": "26037",
-          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function NeverMadePAGAndBad requires that data->DevicePath is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(42)]\n",
+          "message": {
+            "text": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function NeverMadePAGAndBad requires that data->DevicePath is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(42)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -379,7 +387,9 @@
         },
         {
           "ruleId": "26061",
-          "message": "Range postcondition violation\nAnnotation on function EnsureIndexingWorksBad requires that (data->DevicePath)[0] is == 1\n[Annotation SAL_relop(\"==\", 1) at c:\\somepath\\test156.cpp(64)]\n\nValues of variables:\n(data->_MyStruct::DevicePath)[0] = 2\n",
+          "message": {
+            "text": "Range postcondition violation\nAnnotation on function EnsureIndexingWorksBad requires that (data->DevicePath)[0] is == 1\n[Annotation SAL_relop(\"==\", 1) at c:\\somepath\\test156.cpp(64)]\n\nValues of variables:\n(data->_MyStruct::DevicePath)[0] = 2\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -435,7 +445,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'valueName'\nBuffer result.malloc created during call to malloc on line 94\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 94]\nAccessing 20 bytes starting at byte offset 0\nAssumed __inout annotation on function AcceptsUnicodeString requires that (& {parameter 1})->Buffer is of length >= {parameter 1}.Length bytes\n  where (& {parameter 1})->Buffer is valueName; {parameter 1} is valueName\n[Field annotation SAL_readableTo(byteCount({parameter 1}.Length)) at c:\\somepath\\test156.cpp(75)]\n\n\nValues of variables:\nPointer valueName._UNICODE_STRING::Buffer is at offset 0 bytes from the start of the buffer\nvalueName._UNICODE_STRING::Length = 20\n",
+          "message": {
+            "text": "Overflow using expression 'valueName'\nBuffer result.malloc created during call to malloc on line 94\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 94]\nAccessing 20 bytes starting at byte offset 0\nAssumed __inout annotation on function AcceptsUnicodeString requires that (& {parameter 1})->Buffer is of length >= {parameter 1}.Length bytes\n  where (& {parameter 1})->Buffer is valueName; {parameter 1} is valueName\n[Field annotation SAL_readableTo(byteCount({parameter 1}.Length)) at c:\\somepath\\test156.cpp(75)]\n\n\nValues of variables:\nPointer valueName._UNICODE_STRING::Buffer is at offset 0 bytes from the start of the buffer\nvalueName._UNICODE_STRING::Length = 20\n"
+          },
           "locations": [
             {
               "physicalLocation": {

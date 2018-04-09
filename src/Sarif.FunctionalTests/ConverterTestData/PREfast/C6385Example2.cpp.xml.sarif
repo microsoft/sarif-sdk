@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'a':  the readable size is '80' bytes, but 'i' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'a':  the readable size is '80' bytes, but 'i' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {

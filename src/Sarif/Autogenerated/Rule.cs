@@ -42,37 +42,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A rule identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public string Name { get; set; }
+        public Message Name { get; set; }
 
         /// <summary>
         /// A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
-        public string ShortDescription { get; set; }
+        public Message ShortDescription { get; set; }
 
         /// <summary>
-        /// A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
+        /// A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
-        public string FullDescription { get; set; }
-
-        /// <summary>
-        /// A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
-        /// </summary>
-        [DataMember(Name = "richDescription", IsRequired = false, EmitDefaultValue = false)]
-        public string RichDescription { get; set; }
+        public Message FullDescription { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
-        [DataMember(Name = "messageTemplates", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> MessageTemplates { get; set; }
+        [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
+        public IDictionary<string, string> MessageStrings { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
-        [DataMember(Name = "richMessageTemplates", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> RichMessageTemplates { get; set; }
+        [DataMember(Name = "richMessageStrings", IsRequired = false, EmitDefaultValue = false)]
+        public IDictionary<string, string> RichMessageStrings { get; set; }
 
         /// <summary>
         /// A value specifying whether a rule is enabled.
@@ -96,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Provides the primary documentation for the rule, useful when there is no online documentation.
         /// </summary>
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
-        public string Help { get; set; }
+        public Message Help { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the rule.
@@ -126,14 +120,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fullDescription">
         /// An initialization value for the <see cref="P: FullDescription" /> property.
         /// </param>
-        /// <param name="richDescription">
-        /// An initialization value for the <see cref="P: RichDescription" /> property.
+        /// <param name="messageStrings">
+        /// An initialization value for the <see cref="P: MessageStrings" /> property.
         /// </param>
-        /// <param name="messageTemplates">
-        /// An initialization value for the <see cref="P: MessageTemplates" /> property.
-        /// </param>
-        /// <param name="richMessageTemplates">
-        /// An initialization value for the <see cref="P: RichMessageTemplates" /> property.
+        /// <param name="richMessageStrings">
+        /// An initialization value for the <see cref="P: RichMessageStrings" /> property.
         /// </param>
         /// <param name="configuration">
         /// An initialization value for the <see cref="P: Configuration" /> property.
@@ -150,9 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Rule(string id, string name, string shortDescription, string fullDescription, string richDescription, IDictionary<string, string> messageTemplates, IDictionary<string, string> richMessageTemplates, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, richDescription, messageTemplates, richMessageTemplates, configuration, defaultLevel, helpUri, help, properties);
+            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, defaultLevel, helpUri, help, properties);
         }
 
         /// <summary>
@@ -171,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.RichDescription, other.MessageTemplates, other.RichMessageTemplates, other.Configuration, other.DefaultLevel, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.DefaultLevel, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -192,21 +183,32 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, string richDescription, IDictionary<string, string> messageTemplates, IDictionary<string, string> richMessageTemplates, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
-            Name = name;
-            ShortDescription = shortDescription;
-            FullDescription = fullDescription;
-            RichDescription = richDescription;
-            if (messageTemplates != null)
+            if (name != null)
             {
-                MessageTemplates = new Dictionary<string, string>(messageTemplates);
+                Name = new Message(name);
             }
 
-            if (richMessageTemplates != null)
+            if (shortDescription != null)
             {
-                RichMessageTemplates = new Dictionary<string, string>(richMessageTemplates);
+                ShortDescription = new Message(shortDescription);
+            }
+
+            if (fullDescription != null)
+            {
+                FullDescription = new Message(fullDescription);
+            }
+
+            if (messageStrings != null)
+            {
+                MessageStrings = new Dictionary<string, string>(messageStrings);
+            }
+
+            if (richMessageStrings != null)
+            {
+                RichMessageStrings = new Dictionary<string, string>(richMessageStrings);
             }
 
             Configuration = configuration;
@@ -216,7 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 HelpUri = new Uri(helpUri.OriginalString, helpUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
-            Help = help;
+            if (help != null)
+            {
+                Help = new Message(help);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

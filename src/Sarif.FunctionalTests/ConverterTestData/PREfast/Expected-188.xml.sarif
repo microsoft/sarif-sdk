@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buf[off]'\nBuffer length is computed by current loop.\n\nBuffer result.new[] created during call to operator new[] on line 12\nBuffer is of length {loop iterations}'8 + 2 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 12]\nAccessing the byte at byte offset 2\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\noff = 2\n\nwhere\noffset(result.new[])`7a == 0\n{loop iterations}'8 == 0\nalloced`8 >= 3\nneed`8 <= 1\nneed`8 >= 0\n",
+          "message": {
+            "text": "Overflow using expression 'buf[off]'\nBuffer length is computed by current loop.\n\nBuffer result.new[] created during call to operator new[] on line 12\nBuffer is of length {loop iterations}'8 + 2 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 12]\nAccessing the byte at byte offset 2\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\noff = 2\n\nwhere\noffset(result.new[])`7a == 0\n{loop iterations}'8 == 0\nalloced`8 >= 3\nneed`8 <= 1\nneed`8 >= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

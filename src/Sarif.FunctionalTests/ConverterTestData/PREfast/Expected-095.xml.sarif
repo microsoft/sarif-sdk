@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26014",
-          "message": "Potential overflow using expression 'aa[b]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nwhere\n(*q)`36a <= 10\n(*q)`36a >= 0\n\nOverrun access occurs when\n(*q)`36a == 10\n",
+          "message": {
+            "text": "Potential overflow using expression 'aa[b]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nwhere\n(*q)`36a <= 10\n(*q)`36a >= 0\n\nOverrun access occurs when\n(*q)`36a == 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -141,7 +143,9 @@
         },
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression 'aa[b]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n",
+          "message": {
+            "text": "Potential Underflow using expression 'aa[b]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -267,7 +271,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression 'bb[b]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (*q)`36a is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nOverrun access occurs when\n(*q)`36a >= 10\n",
+          "message": {
+            "text": "Potential overflow using expression 'bb[b]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (*q)`36a is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nOverrun access occurs when\n(*q)`36a >= 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -393,7 +399,9 @@
         },
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression 'bb[b]'\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n",
+          "message": {
+            "text": "Potential Underflow using expression 'bb[b]'\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

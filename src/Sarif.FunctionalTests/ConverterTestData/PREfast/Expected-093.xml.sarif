@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression '* (p - 2)'\nBuffer accessed is ss::a\nBuffer is of length 1024 bytes [size of field]\nAccessing the byte at byte offset {d % 1024}`50 - 2\n\nValues of variables:\nPointer p is at offset {d % 1024}`50 bytes from the start of the buffer\n\nwhere\nd`48 >= 0\n{d % 1024}`50 <= 1023\n{d % 1024}`50 <= d`48\n{d % 1024}`50 >= 1\n\nUnderflow access occurs when\n{d % 1024}`50 == 1\nd`48 >= 1\n",
+          "message": {
+            "text": "Potential Underflow using expression '* (p - 2)'\nBuffer accessed is ss::a\nBuffer is of length 1024 bytes [size of field]\nAccessing the byte at byte offset {d % 1024}`50 - 2\n\nValues of variables:\nPointer p is at offset {d % 1024}`50 bytes from the start of the buffer\n\nwhere\nd`48 >= 0\n{d % 1024}`50 <= 1023\n{d % 1024}`50 <= d`48\n{d % 1024}`50 >= 1\n\nUnderflow access occurs when\n{d % 1024}`50 == 1\nd`48 >= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {

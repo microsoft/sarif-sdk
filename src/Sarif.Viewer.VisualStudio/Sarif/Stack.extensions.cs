@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
 
-            StackCollection model = new StackCollection(stack.Message);
+            StackCollection model = new StackCollection(stack.Message.Text);
 
             if (stack.Frames != null)
             {

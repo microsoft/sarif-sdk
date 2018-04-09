@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '& b'\nBuffer accessed is b\nAnnotation on function GetLongPathNameA requires that {parameter 2} is null terminated\n  where {parameter 2} is & b [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '& b'\nBuffer accessed is b\nAnnotation on function GetLongPathNameA requires that {parameter 2} is null terminated\n  where {parameter 2} is & b [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -127,7 +129,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '(LPCSTR)(& a)'\nBuffer accessed is a\nAnnotation on function GetLongPathNameA requires that {parameter 1} is null terminated\n  where {parameter 1} is (LPCSTR)(& a) [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(64)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '(LPCSTR)(& a)'\nBuffer accessed is a\nAnnotation on function GetLongPathNameA requires that {parameter 1} is null terminated\n  where {parameter 1} is (LPCSTR)(& a) [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(64)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -239,7 +243,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '& a'\nBuffer accessed is a\nAnnotation on function GetLongPathNameA requires that {parameter 2} is null terminated\n  where {parameter 2} is & a [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '& a'\nBuffer accessed is a\nAnnotation on function GetLongPathNameA requires that {parameter 2} is null terminated\n  where {parameter 2} is & a [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -351,7 +357,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '(LPCSTR)(& b)'\nBuffer accessed is b\nAnnotation on function GetLongPathNameA requires that {parameter 1} is null terminated\n  where {parameter 1} is (LPCSTR)(& b) [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(64)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '(LPCSTR)(& b)'\nBuffer accessed is b\nAnnotation on function GetLongPathNameA requires that {parameter 1} is null terminated\n  where {parameter 1} is (LPCSTR)(& b) [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(64)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {

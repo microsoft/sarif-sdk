@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26030",
-          "message": "Postcondition violation that could result in overflow\nBuffer result.MemAlloc created during call to MemAlloc on line 33\nBuffer is of length 80 bytes [from annotation SAL_readableTo(byteCount({parameter 1})) at c:\\somepath\\test180.cpp(6) on function MemAlloc called at line 33]\nAccessing 80 bytes starting at byte offset 80\nAnnotation on function InvalidAliasing requires that * ppPeerInformation is of length >= * pdwPeerInfoCount elements (8 bytes/element)\n[Annotation SAL_writableTo(elementCount(* pdwPeerInfoCount)) at c:\\somepath\\test180.cpp(26)]\n\n\nValues of variables:\n(*pdwPeerInfoCount) = 10\nPointer pPeerInfoList is at offset 80 bytes from the start of the buffer\n(*ppPeerInformation) = pPeerInfoList\n\nwhere\noffset((*ppPeerInformation))`36 == 0\noffset(result.MemAlloc)`33a == 0\n{loop iterations}'36 == 8\n",
+          "message": {
+            "text": "Postcondition violation that could result in overflow\nBuffer result.MemAlloc created during call to MemAlloc on line 33\nBuffer is of length 80 bytes [from annotation SAL_readableTo(byteCount({parameter 1})) at c:\\somepath\\test180.cpp(6) on function MemAlloc called at line 33]\nAccessing 80 bytes starting at byte offset 80\nAnnotation on function InvalidAliasing requires that * ppPeerInformation is of length >= * pdwPeerInfoCount elements (8 bytes/element)\n[Annotation SAL_writableTo(elementCount(* pdwPeerInfoCount)) at c:\\somepath\\test180.cpp(26)]\n\n\nValues of variables:\n(*pdwPeerInfoCount) = 10\nPointer pPeerInfoList is at offset 80 bytes from the start of the buffer\n(*ppPeerInformation) = pPeerInfoList\n\nwhere\noffset((*ppPeerInformation))`36 == 0\noffset(result.MemAlloc)`33a == 0\n{loop iterations}'36 == 8\n"
+          },
           "locations": [
             {
               "physicalLocation": {

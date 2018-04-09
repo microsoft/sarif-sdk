@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26016",
-          "message": "Read overflow of null terminated buffer using expression 'mwszStrings[cch]'\nBuffer mwszStrings is a parameter to this function declared on line 4\nBuffer is of length 2*nullpos(mwszStrings)`4 + 2 bytes [length of zero terminated string] OR\n  offset(mwszStrings)`4 + 2*cch`9 + 2*result.lstrlenW`10a + 2 bytes [from annotation _In_(elementCount(return + 1)) on function lstrlenW called at line 10]\nAccessing 2 bytes starting at byte offset 2*result.lstrlenW`10a + 2\n\nValues of variables:\nPointer mwszStrings is at offset 0 bytes from the start of the buffer\ncch = result.lstrlenW`10a + 1\n\nwhere\ncch`9 == 0\noffset(mwszStrings)`4 == 0\nresult.lstrlenW`10a == nullpos(mwszStrings)`4\n2*nullpos(mwszStrings)`4 >= 4\nnullpos(mwszStrings)`4 >= 0\nresult.lstrlenW`10a + 1 >= 0\nresult.lstrlenW`10a >= 0\n",
+          "message": {
+            "text": "Read overflow of null terminated buffer using expression 'mwszStrings[cch]'\nBuffer mwszStrings is a parameter to this function declared on line 4\nBuffer is of length 2*nullpos(mwszStrings)`4 + 2 bytes [length of zero terminated string] OR\n  offset(mwszStrings)`4 + 2*cch`9 + 2*result.lstrlenW`10a + 2 bytes [from annotation _In_(elementCount(return + 1)) on function lstrlenW called at line 10]\nAccessing 2 bytes starting at byte offset 2*result.lstrlenW`10a + 2\n\nValues of variables:\nPointer mwszStrings is at offset 0 bytes from the start of the buffer\ncch = result.lstrlenW`10a + 1\n\nwhere\ncch`9 == 0\noffset(mwszStrings)`4 == 0\nresult.lstrlenW`10a == nullpos(mwszStrings)`4\n2*nullpos(mwszStrings)`4 >= 4\nnullpos(mwszStrings)`4 >= 0\nresult.lstrlenW`10a + 1 >= 0\nresult.lstrlenW`10a >= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

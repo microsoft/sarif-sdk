@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26060",
-          "message": "Range precondition violation using expression '10'\nAnnotation on function Range<100,200>::Set requires that {parameter 2} is >= 100\n  where {parameter 2} is 10\n[Annotation SAL_range(100, 200) at c:\\somepath\\test107.cpp(39)]\n",
+          "message": {
+            "text": "Range precondition violation using expression '10'\nAnnotation on function Range<100,200>::Set requires that {parameter 2} is >= 100\n  where {parameter 2} is 10\n[Annotation SAL_range(100, 200) at c:\\somepath\\test107.cpp(39)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -239,7 +241,9 @@
         },
         {
           "ruleId": "26070",
-          "message": "Potential range precondition violation using expression 'v1'\nAnnotation on function Range<150,200>::Set requires that {parameter 2} is >= 150\n  where {parameter 2} is v1\n[Annotation SAL_range(150, 200) at c:\\somepath\\test107.cpp(39)]\n\nValues of variables:\nv1 = result.Get`80a\n\nwhere\nresult.Get`80a <= 200\nresult.Get`80a >= 100\n\nRange violation occurs when\nresult.Get`80a <= 149\n",
+          "message": {
+            "text": "Potential range precondition violation using expression 'v1'\nAnnotation on function Range<150,200>::Set requires that {parameter 2} is >= 150\n  where {parameter 2} is v1\n[Annotation SAL_range(150, 200) at c:\\somepath\\test107.cpp(39)]\n\nValues of variables:\nv1 = result.Get`80a\n\nwhere\nresult.Get`80a <= 200\nresult.Get`80a >= 100\n\nRange violation occurs when\nresult.Get`80a <= 149\n"
+          },
           "locations": [
             {
               "physicalLocation": {

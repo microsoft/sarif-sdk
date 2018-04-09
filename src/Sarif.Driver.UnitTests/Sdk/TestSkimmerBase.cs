@@ -12,19 +12,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     {
         public override Uri HelpUri => throw new NotImplementedException();
 
-        public override string Help => throw new NotImplementedException();
+        public override Message Help => throw new NotImplementedException();
 
         public override string Id => throw new NotImplementedException();
 
-        public override string FullDescription => throw new NotImplementedException();
-
-        public override string RichDescription => throw new NotImplementedException();
+        public override Message FullDescription => throw new NotImplementedException();
 
         protected override ResourceManager ResourceManager => throw new NotImplementedException();
 
-        protected override IEnumerable<string> TemplateResourceNames => throw new NotImplementedException();
+        protected override IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        protected override IEnumerable<string> RichTemplateResourceNames => throw new NotImplementedException();
+        protected override IEnumerable<string> RichMessageResourceNames => throw new NotImplementedException();
 
         // Most of the members of this class throw NotImplementedException so that,
         // if you write a test that requires that member, you will be reminded to

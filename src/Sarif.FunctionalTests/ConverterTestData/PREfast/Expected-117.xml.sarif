@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'p[20]'\nBuffer result.new[] created during call to operator new[] on line 20\nBuffer is of length 80 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 20]\nAccessing 4 bytes starting at byte offset 80\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression 'p[20]'\nBuffer result.new[] created during call to operator new[] on line 20\nBuffer is of length 80 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 20]\nAccessing 4 bytes starting at byte offset 80\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -197,7 +199,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '* ((double *)p)'\nBuffer result.new[] created during call to operator new[] on line 108\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 108]\nAccessing 8 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 4 bytes from the start of the buffer\n\nThere are other instances of this error:\nOverflow using expression '* ((double *)p)' at line 135\n",
+          "message": {
+            "text": "Overflow using expression '* ((double *)p)'\nBuffer result.new[] created during call to operator new[] on line 108\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 108]\nAccessing 8 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 4 bytes from the start of the buffer\n\nThere are other instances of this error:\nOverflow using expression '* ((double *)p)' at line 135\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -421,7 +425,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression 'bb[x + 3]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: x`143 is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset x`143 + 3\n\nValues of variables:\nx = x`143\n\nwhere\n{x % 7}`147 == 3\nx`143 >= 3\n\nOverrun access occurs when\nx`143 >= 7\n",
+          "message": {
+            "text": "Potential overflow using expression 'bb[x + 3]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: x`143 is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset x`143 + 3\n\nValues of variables:\nx = x`143\n\nwhere\n{x % 7}`147 == 3\nx`143 >= 3\n\nOverrun access occurs when\nx`143 >= 7\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -547,7 +553,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression 'cc[x]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: x`143 is not constrained by any constant\n\nBuffer accessed is cc\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset x`143\n\nValues of variables:\nx = x`143\n\nwhere\n{x % 7}`147 == 2\nx`143 >= 2\n\nOverrun access occurs when\nx`143 >= 10\n",
+          "message": {
+            "text": "Potential overflow using expression 'cc[x]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: x`143 is not constrained by any constant\n\nBuffer accessed is cc\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset x`143\n\nValues of variables:\nx = x`143\n\nwhere\n{x % 7}`147 == 2\nx`143 >= 2\n\nOverrun access occurs when\nx`143 >= 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {

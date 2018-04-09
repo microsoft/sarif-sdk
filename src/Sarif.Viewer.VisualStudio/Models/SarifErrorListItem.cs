@@ -120,8 +120,8 @@ namespace Microsoft.Sarif.Viewer
             IRule rule;
             string ruleId = notification.RuleId ?? notification.Id;
             run.TryGetRule(ruleId, notification.RuleKey, out rule);
-            Message = notification.Message;
-            ShortMessage = notification.Message;
+            Message = notification.Message.Text;
+            ShortMessage = notification.Message.Text;
             LogFilePath = logFilePath;
             FileName = notification.PhysicalLocation?.FileLocation?.Uri.LocalPath ?? run.Tool.FullName;
             ProjectName = projectNameCache.GetName(FileName);

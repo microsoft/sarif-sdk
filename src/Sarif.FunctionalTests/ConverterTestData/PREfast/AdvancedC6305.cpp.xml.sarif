@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -119,7 +121,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -205,7 +209,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -336,7 +342,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -437,7 +445,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -553,7 +563,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -624,7 +636,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -770,7 +784,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -875,7 +891,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -957,7 +975,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1039,7 +1059,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -38,7 +38,9 @@
       "results": [
         {
           "ruleId": "Declaration access can be weaker",
-          "message": "Can be package local\r\nPossible resolution: packageLocal",
+          "message": {
+            "text": "Can be package local\r\nPossible resolution: packageLocal"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -60,7 +62,9 @@
         },
         {
           "ruleId": "Declaration access can be weaker",
-          "message": "Can be package local\r\nPossible resolution: packageLocal",
+          "message": {
+            "text": "Can be package local\r\nPossible resolution: packageLocal"
+          },
           "locations": [
             {
               "physicalLocation": {

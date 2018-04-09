@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 stack = Create(current.StackTrace);
 
-                stack.Message = current.FormatMessage();
+                stack.Message = new Message { Text = current.FormatMessage() };
 
                 stacks.Add(stack);
             }

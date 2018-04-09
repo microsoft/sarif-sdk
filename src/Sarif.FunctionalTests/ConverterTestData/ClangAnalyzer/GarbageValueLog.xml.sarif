@@ -14,7 +14,9 @@
       "results": [
         {
           "ruleId": "Result of operation is garbage or undefined",
-          "message": "The left operand of '<' is a garbage value",
+          "message": {
+            "text": "The left operand of '<' is a garbage value"
+          },
           "locations": [
             {
               "physicalLocation": {

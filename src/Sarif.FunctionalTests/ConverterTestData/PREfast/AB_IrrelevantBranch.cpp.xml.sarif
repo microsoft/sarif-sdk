@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'target'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'target'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -135,7 +137,9 @@
         },
         {
           "ruleId": "6001",
-          "message": "Using uninitialized memory 'data'.",
+          "message": {
+            "text": "Using uninitialized memory 'data'."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -236,7 +240,9 @@
         },
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {

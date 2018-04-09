@@ -25,7 +25,9 @@
       "results": [
         {
           "ruleId": "CA1701",
-          "message": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          ",
+          "message": {
+            "text": "In resource 'OMStrings.resx', referenced by name 'FailedGrantingRightsLogonAsService', correct the spelling of 'Logon' in string value 'Failed to grant rights 'Logon as Service' to {0} ({1}).'\n          "
+          },
           "locations": [
             {
               "physicalLocation": {

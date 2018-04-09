@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee1 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(5)]\n\n\nValues of variables:\nc = 0\n",
+          "message": {
+            "text": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee1 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(5)]\n\n\nValues of variables:\nc = 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -99,7 +101,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee2 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(4)]\n\n\nValues of variables:\nc = 0\n",
+          "message": {
+            "text": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee2 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(4)]\n\n\nValues of variables:\nc = 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

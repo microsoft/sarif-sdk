@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Id = ERR997_MissingRuleConfiguration,
                     RuleId = context.Rule.Id,
                     Level = NotificationLevel.Error,
-                    Message = message
+                    Message = new Message { Text = message }
                 });
 
             context.RuntimeErrors |= RuntimeConditions.RuleMissingRequiredConfiguration;
@@ -484,7 +484,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Id = notificationId,
                 RuleId = ruleId,
                 Level = level,
-                Message = message,
+                Message = new Message { Text = message },
                 Exception = exceptionData
             };
 

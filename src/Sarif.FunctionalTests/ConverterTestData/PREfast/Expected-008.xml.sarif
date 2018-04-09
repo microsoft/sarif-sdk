@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26014",
-          "message": "Potential overflow using expression '(myBuffer.content)[j + 2]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer result.mallocChar created during call to mallocChar on line 28\nBuffer is of length sizeA`15 + sizeB`15 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test008.cpp(4) on function mallocChar called at line 28]\nAccessing the byte at byte offset 2\n\nValues of variables:\nPointer myBuffer.buffer::content is at offset 0 bytes from the start of the buffer\nj = 0\n\nwhere\noffset(result.mallocChar)`28a == 0\nsizeA`15 == 1\n{loop iterations}'35 == 0\n{loop iterations}'40 == 0\nsizeB`15 >= 1\n\nOverrun access occurs when\nsizeB`15 == 1\n",
+          "message": {
+            "text": "Potential overflow using expression '(myBuffer.content)[j + 2]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer result.mallocChar created during call to mallocChar on line 28\nBuffer is of length sizeA`15 + sizeB`15 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test008.cpp(4) on function mallocChar called at line 28]\nAccessing the byte at byte offset 2\n\nValues of variables:\nPointer myBuffer.buffer::content is at offset 0 bytes from the start of the buffer\nj = 0\n\nwhere\noffset(result.mallocChar)`28a == 0\nsizeA`15 == 1\n{loop iterations}'35 == 0\n{loop iterations}'40 == 0\nsizeB`15 >= 1\n\nOverrun access occurs when\nsizeB`15 == 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6101",
-          "message": "Returning uninitialized memory '*target'.  A successful path through the function does not set the named _Out_ parameter. ",
+          "message": {
+            "text": "Returning uninitialized memory '*target'.  A successful path through the function does not set the named _Out_ parameter. "
+          },
           "locations": [
             {
               "physicalLocation": {

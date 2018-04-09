@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26003",
-          "message": "Writing to buffer '(mdl->_MyMDL::MappedSystemVa)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression '((signed char *)(mdl->MappedSystemVa))[0]'\nAccessing unannotated buffer (mdl->_MyMDL::MappedSystemVa)\nBuffer is of length 0 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 0\n\nValues of variables:\nPointer (mdl->_MyMDL::MappedSystemVa) is at offset 0 bytes from the start of the buffer\nPointer mdl is at offset 0 bytes from the start of mdl\n\nThere are other instances of this error:\nWriting to buffer '(mdl->_MyMDL::MappedSystemVa)' of unspecified length.  Please annotate. at line 99\n",
+          "message": {
+            "text": "Writing to buffer '(mdl->_MyMDL::MappedSystemVa)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression '((signed char *)(mdl->MappedSystemVa))[0]'\nAccessing unannotated buffer (mdl->_MyMDL::MappedSystemVa)\nBuffer is of length 0 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 0\n\nValues of variables:\nPointer (mdl->_MyMDL::MappedSystemVa) is at offset 0 bytes from the start of the buffer\nPointer mdl is at offset 0 bytes from the start of mdl\n\nThere are other instances of this error:\nWriting to buffer '(mdl->_MyMDL::MappedSystemVa)' of unspecified length.  Please annotate. at line 99\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -141,7 +143,9 @@
         },
         {
           "ruleId": "26001",
-          "message": "Underflow using expression '((signed char *)bp)[-1]'\nBuffer result.MyMmMapLockedPagesWithReservedMapping created during call to MyMmMapLockedPagesWithReservedMapping on line 91\nBuffer is of length (mdl->_MyMDL::ByteCount)`91 bytes [from annotation SAL_writableTo(byteCount({parameter 3}->ByteCount)) at c:\\somepath\\test136.cpp(49) on function MyMmMapLockedPagesWithReservedMapping called at line 91]\nAccessing the byte at byte offset -1\n\nValues of variables:\nPointer bp is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Underflow using expression '((signed char *)bp)[-1]'\nBuffer result.MyMmMapLockedPagesWithReservedMapping created during call to MyMmMapLockedPagesWithReservedMapping on line 91\nBuffer is of length (mdl->_MyMDL::ByteCount)`91 bytes [from annotation SAL_writableTo(byteCount({parameter 3}->ByteCount)) at c:\\somepath\\test136.cpp(49) on function MyMmMapLockedPagesWithReservedMapping called at line 91]\nAccessing the byte at byte offset -1\n\nValues of variables:\nPointer bp is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -295,7 +299,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '((signed char *)bp)[mdl->ByteCount]'\nBuffer result.MyMmMapLockedPagesWithReservedMapping created during call to MyMmMapLockedPagesWithReservedMapping on line 91\nBuffer is of length (mdl->_MyMDL::ByteCount)`91 bytes [from annotation SAL_writableTo(byteCount({parameter 3}->ByteCount)) at c:\\somepath\\test136.cpp(49) on function MyMmMapLockedPagesWithReservedMapping called at line 91]\nAccessing the byte at byte offset (mdl->_MyMDL::ByteCount)`91\n\nValues of variables:\n(mdl->_MyMDL::ByteCount) = (mdl->_MyMDL::ByteCount)`91\nPointer bp is at offset 0 bytes from the start of the buffer\nPointer mdl is at offset 0 bytes from the start of mdl\n\nwhere\noffset(result.MyMmMapLockedPagesWithReservedMapping)`91a == 0\n(mdl->_MyMDL::ByteCount)`91 >= 1\n",
+          "message": {
+            "text": "Overflow using expression '((signed char *)bp)[mdl->ByteCount]'\nBuffer result.MyMmMapLockedPagesWithReservedMapping created during call to MyMmMapLockedPagesWithReservedMapping on line 91\nBuffer is of length (mdl->_MyMDL::ByteCount)`91 bytes [from annotation SAL_writableTo(byteCount({parameter 3}->ByteCount)) at c:\\somepath\\test136.cpp(49) on function MyMmMapLockedPagesWithReservedMapping called at line 91]\nAccessing the byte at byte offset (mdl->_MyMDL::ByteCount)`91\n\nValues of variables:\n(mdl->_MyMDL::ByteCount) = (mdl->_MyMDL::ByteCount)`91\nPointer bp is at offset 0 bytes from the start of the buffer\nPointer mdl is at offset 0 bytes from the start of mdl\n\nwhere\noffset(result.MyMmMapLockedPagesWithReservedMapping)`91a == 0\n(mdl->_MyMDL::ByteCount)`91 >= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -477,7 +483,9 @@
         },
         {
           "ruleId": "26006",
-          "message": "Possibly incorrect single element annotation on string buffer\nOverflow using expression 'data[1]'\nBuffer data created during call to GetData on line 158\nBuffer is of length 1 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test136.cpp(113) on function GetData called at line 158]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer data is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Possibly incorrect single element annotation on string buffer\nOverflow using expression 'data[1]'\nBuffer data created during call to GetData on line 158\nBuffer is of length 1 bytes [from annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test136.cpp(113) on function GetData called at line 158]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer data is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
