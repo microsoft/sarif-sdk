@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     string[] arguments = null;
 
-                    if (result.Message.Arguments != null)
+                    if (result.Message?.Arguments != null)
                     {
                         arguments = new string[result.Message.Arguments.Count];
                         result.Message.Arguments.CopyTo(arguments, 0);

@@ -164,6 +164,11 @@
           },
           "ruleId": "C2001",
           "ruleMessageId": "default",
+          "message": {
+            "arguments": [
+              "ptr"
+            ]
+          },
           "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing",
           "level": "error",
