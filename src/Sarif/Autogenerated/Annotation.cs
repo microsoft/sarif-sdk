@@ -29,16 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A plain text message relevant to the set of locations specified by this annotation.
+        /// A message relevant to the set of locations specified by this annotation.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
-        public string Message { get; set; }
-
-        /// <summary>
-        /// A rich text message relevant to the set of locations specified by this annotation.
-        /// </summary>
-        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessage { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
         /// An array of 'physicalLocation' objects associated with this annotation.
@@ -59,15 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="richMessage">
-        /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
         /// </param>
-        public Annotation(string message, string richMessage, IEnumerable<PhysicalLocation> locations)
+        public Annotation(Message message, IEnumerable<PhysicalLocation> locations)
         {
-            Init(message, richMessage, locations);
+            Init(message, locations);
         }
 
         /// <summary>
@@ -86,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.RichMessage, other.Locations);
+            Init(other.Message, other.Locations);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -107,10 +98,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Annotation(this);
         }
 
-        private void Init(string message, string richMessage, IEnumerable<PhysicalLocation> locations)
+        private void Init(Message message, IEnumerable<PhysicalLocation> locations)
         {
-            Message = message;
-            RichMessage = richMessage;
+            if (message != null)
+            {
+                Message = new Message(message);
+            }
+
             if (locations != null)
             {
                 var destination_0 = new List<PhysicalLocation>();

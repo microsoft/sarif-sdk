@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var result = new Result
                 {
                     RuleId = issueType,
-                    Message = description,
+                    Message = new Message { Text = description },
                     Locations = new List<Location>
                     {
                         new Location

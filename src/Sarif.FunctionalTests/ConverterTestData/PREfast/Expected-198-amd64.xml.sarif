@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26001",
-          "message": "Underflow using expression 'bb578[-99]'\nBuffer accessed is bb578\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -99\n",
+          "message": {
+            "text": "Underflow using expression 'bb578[-99]'\nBuffer accessed is bb578\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -99\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -239,7 +241,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'bb578[99]'\nBuffer accessed is bb578\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 99\n",
+          "message": {
+            "text": "Overflow using expression 'bb578[99]'\nBuffer accessed is bb578\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 99\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -547,7 +551,9 @@
         },
         {
           "ruleId": "26018",
-          "message": "Potential read overflow of null terminated buffer using expression 'prgpFoo[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer prgpFoo is a parameter to this function declared on line 64\nBuffer is of length 8*nullpos(prgpFoo)`64 + 8 bytes [length of zero terminated string]\nAccessing 8 bytes starting at byte offset 16\n\nValues of variables:\nPointer prgpFoo is at offset 0 bytes from the start of the buffer\ni = 2\n\nwhere\noffset(prgpFoo)`64 == 0\n{loop iterations}'68 == 0\n{loop iterations}'71 == 0\nnullpos(prgpFoo)`64 >= 1\n\nOverrun access occurs when\nnullpos(prgpFoo)`64 == 1\n",
+          "message": {
+            "text": "Potential read overflow of null terminated buffer using expression 'prgpFoo[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer prgpFoo is a parameter to this function declared on line 64\nBuffer is of length 8*nullpos(prgpFoo)`64 + 8 bytes [length of zero terminated string]\nAccessing 8 bytes starting at byte offset 16\n\nValues of variables:\nPointer prgpFoo is at offset 0 bytes from the start of the buffer\ni = 2\n\nwhere\noffset(prgpFoo)`64 == 0\n{loop iterations}'68 == 0\n{loop iterations}'71 == 0\nnullpos(prgpFoo)`64 >= 1\n\nOverrun access occurs when\nnullpos(prgpFoo)`64 == 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {

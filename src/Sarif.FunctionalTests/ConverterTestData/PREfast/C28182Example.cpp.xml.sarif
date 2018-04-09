@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. "
+          },
           "locations": [
             {
               "physicalLocation": {

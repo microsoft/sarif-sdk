@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6387",
-          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -104,7 +106,9 @@
         },
         {
           "ruleId": "6387",
-          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -193,7 +197,9 @@
         },
         {
           "ruleId": "6387",
-          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -282,7 +288,9 @@
         },
         {
           "ruleId": "6387",
-          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNullOut'. ",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNullOut'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -371,7 +379,9 @@
         },
         {
           "ruleId": "6387",
-          "message": "'*pOut' could be '0':  this does not adhere to the specification for the function 'BasicC6387_OutNotNull'. ",
+          "message": {
+            "text": "'*pOut' could be '0':  this does not adhere to the specification for the function 'BasicC6387_OutNotNull'. "
+          },
           "locations": [
             {
               "physicalLocation": {

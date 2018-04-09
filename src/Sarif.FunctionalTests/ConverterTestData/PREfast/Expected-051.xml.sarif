@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '& a'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 11 elements (4 bytes/element) starting at element offset 0\nAnnotation on function I::Fill requires that {parameter 2} is of length >= * {parameter 3} elements (4 bytes/element)\n  where {parameter 2} is & a; {parameter 3} is & size\n[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test051.cpp(6)]\n\n\nValues of variables:\nsize = 11\n",
+          "message": {
+            "text": "Overflow using expression '& a'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 11 elements (4 bytes/element) starting at element offset 0\nAnnotation on function I::Fill requires that {parameter 2} is of length >= * {parameter 3} elements (4 bytes/element)\n  where {parameter 2} is & a; {parameter 3} is & size\n[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test051.cpp(6)]\n\n\nValues of variables:\nsize = 11\n"
+          },
           "locations": [
             {
               "physicalLocation": {

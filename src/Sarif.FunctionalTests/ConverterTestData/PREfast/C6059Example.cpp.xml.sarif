@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6059",
-          "message": "Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'.",
+          "message": {
+            "text": "Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'."
+          },
           "locations": [
             {
               "physicalLocation": {

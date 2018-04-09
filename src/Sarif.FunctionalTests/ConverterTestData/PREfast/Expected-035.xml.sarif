@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression '(p[i + s1.a]).b[j]'\nBuffer accessed is S::b\nBuffer is of length 100 bytes [size of field]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer p is at offset 104 bytes from the start of arr\ni = 1\nj = 100\ns1.S::a = 7\n\nThere are other instances of this error:\nRead overflow using expression '(p[i + s1.a]).b[j]' at line 29\n",
+          "message": {
+            "text": "Read overflow using expression '(p[i + s1.a]).b[j]'\nBuffer accessed is S::b\nBuffer is of length 100 bytes [size of field]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer p is at offset 104 bytes from the start of arr\ni = 1\nj = 100\ns1.S::a = 7\n\nThere are other instances of this error:\nRead overflow using expression '(p[i + s1.a]).b[j]' at line 29\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -253,7 +255,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression '(p[i + s1.a]).b'\nBuffer accessed is arr\nBuffer is of length 1040 bytes [size of variable]\nAccessing 100 bytes starting at byte offset 1044\n\nValues of variables:\nPointer p is at offset 104 bytes from the start of the buffer\ni = 1\ns1.S::a = 8\n\nThere are other instances of this error:\nRead overflow using expression '(p[i + s1.a]).b' at line 29\n",
+          "message": {
+            "text": "Read overflow using expression '(p[i + s1.a]).b'\nBuffer accessed is arr\nBuffer is of length 1040 bytes [size of variable]\nAccessing 100 bytes starting at byte offset 1044\n\nValues of variables:\nPointer p is at offset 104 bytes from the start of the buffer\ni = 1\ns1.S::a = 8\n\nThere are other instances of this error:\nRead overflow using expression '(p[i + s1.a]).b' at line 29\n"
+          },
           "locations": [
             {
               "physicalLocation": {

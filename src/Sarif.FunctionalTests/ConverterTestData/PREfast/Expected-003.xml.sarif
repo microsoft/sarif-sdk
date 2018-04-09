@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '& a + 2'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 9 elements (4 bytes/element) starting at element offset 2\nAnnotation on function useBuffer requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is & a + 2; {parameter 2} is 9\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test003.cpp(4)]\n\n\nThere are other instances of this error:\nOverflow using expression 'b' at line 17\nRead overflow using expression 'a[12]' at line 19\n",
+          "message": {
+            "text": "Overflow using expression '& a + 2'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 9 elements (4 bytes/element) starting at element offset 2\nAnnotation on function useBuffer requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is & a + 2; {parameter 2} is 9\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test003.cpp(4)]\n\n\nThere are other instances of this error:\nOverflow using expression 'b' at line 17\nRead overflow using expression 'a[12]' at line 19\n"
+          },
           "locations": [
             {
               "physicalLocation": {

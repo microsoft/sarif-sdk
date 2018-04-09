@@ -81,15 +81,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
+                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
             };
 
-            var run = new Run
-            {
-                Rules = new Dictionary<string, Rule>
-                {
-                }
-            };
+            var run = new Run();
 
             var item = MakeErrorListItem(run, result);
 
@@ -102,18 +97,21 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
+                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }
@@ -130,21 +128,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
+                Message = new Message { Text = "nonExistentTemplateId", Arguments = new string[0] }
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001",
-                            MessageTemplates = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "realTemplateId", "The message" }
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "realTemplateId", "The message" }
+                                }
                             }
                         }
                     }
@@ -162,21 +163,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("greeting", new[] { "Mary" })
+                Message = new Message { Text = "greeting", Arguments = new[] { "Mary" } }
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001",
-                            MessageTemplates = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "greeting", "Hello, {0}!" }
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "greeting", "Hello, {0}!" }
+                                }
                             }
                         }
                     }
@@ -230,13 +234,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001-1",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001-1",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }
@@ -257,9 +264,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
-                    // No metadata for rule TST0001.
+                    Rules = new Dictionary<string, Rule>
+                    {
+                        // No metadata for rule TST0001.
+                    }
                 }
             };
 
@@ -280,13 +290,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }

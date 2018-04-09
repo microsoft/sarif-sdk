@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression 'x[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`39a is not constrained by any constant\n\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nOverrun access occurs when\nindex`39a >= 10\n",
+          "message": {
+            "text": "Potential overflow using expression 'x[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`39a is not constrained by any constant\n\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nOverrun access occurs when\nindex`39a >= 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -113,7 +115,9 @@
         },
         {
           "ruleId": "26011",
-          "message": "Potential Underflow using expression 'x[index]'\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nUnderflow access occurs when\nindex`39a + 1 <= 0\n",
+          "message": {
+            "text": "Potential Underflow using expression 'x[index]'\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nUnderflow access occurs when\nindex`39a + 1 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

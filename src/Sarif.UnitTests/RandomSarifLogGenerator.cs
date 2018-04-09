@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).Select(a => new Uri(a)).ToList();
 
             run.Tool = new Tool() { Name = "Test", Version = "1.0", };
-            run.Rules = GenerateRules(ruleIds);
+            run.Resources.Rules = GenerateRules(ruleIds);
             run.Files = GenerateFiles(filePaths);
 
             int results = resultCount == null ? random.Next(100) : (int)resultCount;
@@ -142,7 +142,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Rule()
                     {
                         Id = ruleId,
-                        FullDescription = "TestRule",
+                        FullDescription = new Message
+                        {
+                            Text = "TestRule"
+                        },
                         DefaultLevel = ResultLevel.Pass
                     });
             }

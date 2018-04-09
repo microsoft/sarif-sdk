@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = context.Message;
+            result.Message = new Message { Text = context.Message };
             var location = new Location();
 
             string sourceFile = GetFilePath(context);

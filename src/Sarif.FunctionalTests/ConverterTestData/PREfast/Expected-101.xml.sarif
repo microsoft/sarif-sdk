@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression '(void *)(& f->arr)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`10 is not constrained by (f->_FLEXARRAY::count)`10\n\nBuffer (f->_FLEXARRAY::arr) is a parameter to this function declared on line 10\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length 4*(f->_FLEXARRAY::count)`10 bytes [from type annotation SAL_writableTo(elementCount(f->count)) at c:\\somepath\\test101.cpp(7)]\nAccessing 4*cnt`10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& f->arr); {parameter 3} is cnt * 4\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer f is at offset 0 bytes from the start of f\ncnt = cnt`10\n\nwhere\n(f->_FLEXARRAY::count)`10 >= 1\ncnt`10 >= 1\n\nOverrun access occurs when\ncnt`10 >= (f->_FLEXARRAY::count)`10 + 1\n",
+          "message": {
+            "text": "Potential overflow using expression '(void *)(& f->arr)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`10 is not constrained by (f->_FLEXARRAY::count)`10\n\nBuffer (f->_FLEXARRAY::arr) is a parameter to this function declared on line 10\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length 4*(f->_FLEXARRAY::count)`10 bytes [from type annotation SAL_writableTo(elementCount(f->count)) at c:\\somepath\\test101.cpp(7)]\nAccessing 4*cnt`10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& f->arr); {parameter 3} is cnt * 4\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer f is at offset 0 bytes from the start of f\ncnt = cnt`10\n\nwhere\n(f->_FLEXARRAY::count)`10 >= 1\ncnt`10 >= 1\n\nOverrun access occurs when\ncnt`10 >= (f->_FLEXARRAY::count)`10 + 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -71,7 +73,9 @@
         },
         {
           "ruleId": "26030",
-          "message": "Postcondition violation that could result in overflow\nBuffer result.malloc created during call to malloc on line 28\nBuffer is of length 4*cnt`26 + 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 28]\nAccessing 4*cnt`26 + 8 bytes starting at byte offset 0\nAnnotation on function bad2 requires that result.bad2 is of length >= result.bad2->count * 4 + 4 bytes\n[Type annotation SAL_writableTo(byteCount(result.bad2->count * 4 + 4)) at c:\\somepath\\test101.cpp(7)]\n\n\nValues of variables:\n(f->_FLEXARRAY::count) = cnt`26 + 1\nPointer f is at offset 0 bytes from the start of the buffer\nresult.bad2 = f\n\nwhere\noffset(result.malloc)`28a == 0\ncnt`26 >= 1\n",
+          "message": {
+            "text": "Postcondition violation that could result in overflow\nBuffer result.malloc created during call to malloc on line 28\nBuffer is of length 4*cnt`26 + 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 28]\nAccessing 4*cnt`26 + 8 bytes starting at byte offset 0\nAnnotation on function bad2 requires that result.bad2 is of length >= result.bad2->count * 4 + 4 bytes\n[Type annotation SAL_writableTo(byteCount(result.bad2->count * 4 + 4)) at c:\\somepath\\test101.cpp(7)]\n\n\nValues of variables:\n(f->_FLEXARRAY::count) = cnt`26 + 1\nPointer f is at offset 0 bytes from the start of the buffer\nresult.bad2 = f\n\nwhere\noffset(result.malloc)`28a == 0\ncnt`26 >= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -197,7 +201,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression '(void *)(& f->arr)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`36 is not constrained by (f->_FLEXARRAY::count)`36\n\nBuffer (f->_FLEXARRAY::arr) is a parameter to this function declared on line 36\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length 4*(f->_FLEXARRAY::count)`36 bytes [from type annotation SAL_writableTo(elementCount(f->count)) at c:\\somepath\\test101.cpp(7)]\nAccessing 4*cnt`36 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& f->arr); {parameter 3} is cnt * 4\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer f is at offset 0 bytes from the start of f\ncnt = cnt`36\n\nwhere\n(f->_FLEXARRAY::count)`36 >= 1\ncnt`36 >= 1\n\nOverrun access occurs when\ncnt`36 >= (f->_FLEXARRAY::count)`36 + 1\n",
+          "message": {
+            "text": "Potential overflow using expression '(void *)(& f->arr)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cnt`36 is not constrained by (f->_FLEXARRAY::count)`36\n\nBuffer (f->_FLEXARRAY::arr) is a parameter to this function declared on line 36\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length 4*(f->_FLEXARRAY::count)`36 bytes [from type annotation SAL_writableTo(elementCount(f->count)) at c:\\somepath\\test101.cpp(7)]\nAccessing 4*cnt`36 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& f->arr); {parameter 3} is cnt * 4\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer f is at offset 0 bytes from the start of f\ncnt = cnt`36\n\nwhere\n(f->_FLEXARRAY::count)`36 >= 1\ncnt`36 >= 1\n\nOverrun access occurs when\ncnt`36 >= (f->_FLEXARRAY::count)`36 + 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -253,7 +259,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression '& f1'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: f1._FLEXARRAY::count`48 is not constrained by any constant\n\nBuffer accessed is f1\nBuffer is of length 8 bytes [size of variable]\nAccessing 4*f1._FLEXARRAY::count`48 + 4 bytes starting at byte offset 0\nAssumed __inout annotation on function Foo::what requires that {parameter 2} is of length >= {parameter 2}->count * 4 + 4 bytes\n  where {parameter 2} is & f1; {parameter 2} is & f1\n[Type annotation SAL_writableTo(byteCount({parameter 2}->count * 4 + 4)) at c:\\somepath\\test101.cpp(7)]\n\n\nValues of variables:\nf1._FLEXARRAY::count = f1._FLEXARRAY::count`48\n\nwhere\nf1._FLEXARRAY::count`48 >= 1\n\nOverrun access occurs when\nf1._FLEXARRAY::count`48 >= 2\n",
+          "message": {
+            "text": "Potential overflow using expression '& f1'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: f1._FLEXARRAY::count`48 is not constrained by any constant\n\nBuffer accessed is f1\nBuffer is of length 8 bytes [size of variable]\nAccessing 4*f1._FLEXARRAY::count`48 + 4 bytes starting at byte offset 0\nAssumed __inout annotation on function Foo::what requires that {parameter 2} is of length >= {parameter 2}->count * 4 + 4 bytes\n  where {parameter 2} is & f1; {parameter 2} is & f1\n[Type annotation SAL_writableTo(byteCount({parameter 2}->count * 4 + 4)) at c:\\somepath\\test101.cpp(7)]\n\n\nValues of variables:\nf1._FLEXARRAY::count = f1._FLEXARRAY::count`48\n\nwhere\nf1._FLEXARRAY::count`48 >= 1\n\nOverrun access occurs when\nf1._FLEXARRAY::count`48 >= 2\n"
+          },
           "locations": [
             {
               "physicalLocation": {

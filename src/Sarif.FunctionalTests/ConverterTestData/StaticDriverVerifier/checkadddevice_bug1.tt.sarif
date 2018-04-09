@@ -17,7 +17,9 @@
       "results": [
         {
           "level": "pass",
-          "message": "The property is satisfied as the driver defines a AddDevice routine.",
+          "message": {
+            "text": "The property is satisfied as the driver defines a AddDevice routine."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -17,7 +17,9 @@
       "results": [
         {
           "level": "pass",
-          "message": "The property is satisfied as the driver defines a IRP_MJ_PNP routine.",
+          "message": {
+            "text": "The property is satisfied as the driver defines a IRP_MJ_PNP routine."
+          },
           "locations": [
             {
               "physicalLocation": {

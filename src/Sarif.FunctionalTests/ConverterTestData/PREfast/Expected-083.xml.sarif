@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'p[1]'\nBuffer p is a parameter to this function declared on line 3\nBuffer is of length offset(p)`3 + cb`3 - 3*{(cb`3 + 2) / 3}`3 + 3 bytes [from annotation SAL_writableTo(elementCount(((cb + 2) - ((cb + 2) / 3) * 3) + 1)) at c:\\somepath\\test083.cpp(3)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(p)`3 == 0\n{(cb`3 + 2) % 3}`3 == 0\n{cb % 3}`5 == 1\ncb`3 + 2 == 3*{(cb`3 + 2) / 3}`3 + {(cb`3 + 2) % 3}`3\n3*{(cb`3 + 2) / 3}`3 <= cb`3 + 2\ncb`3 >= 1\n",
+          "message": {
+            "text": "Overflow using expression 'p[1]'\nBuffer p is a parameter to this function declared on line 3\nBuffer is of length offset(p)`3 + cb`3 - 3*{(cb`3 + 2) / 3}`3 + 3 bytes [from annotation SAL_writableTo(elementCount(((cb + 2) - ((cb + 2) / 3) * 3) + 1)) at c:\\somepath\\test083.cpp(3)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(p)`3 == 0\n{(cb`3 + 2) % 3}`3 == 0\n{cb % 3}`5 == 1\ncb`3 + 2 == 3*{(cb`3 + 2) / 3}`3 + {(cb`3 + 2) % 3}`3\n3*{(cb`3 + 2) / 3}`3 <= cb`3 + 2\ncb`3 >= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = defect.DefectCode,
-                Message = RemovePREfastNewLine(defect.Description),
+                Message = new Message { Text = RemovePREfastNewLine(defect.Description) },
                 Locations = new List<Location>()
             };
 

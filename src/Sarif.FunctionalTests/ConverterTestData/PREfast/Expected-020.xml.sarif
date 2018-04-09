@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26018",
-          "message": "Potential read overflow of null terminated buffer using expression '* s'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer s is a parameter to this function declared on line 9\nBuffer is of length 2*nullpos(s)`9 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer s is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(s)`9 == 0\nnullpos(s)`9 >= 0\n\nOverrun access occurs when\n2*nullpos(s)`9 <= 1\n",
+          "message": {
+            "text": "Potential read overflow of null terminated buffer using expression '* s'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer s is a parameter to this function declared on line 9\nBuffer is of length 2*nullpos(s)`9 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer s is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(s)`9 == 0\nnullpos(s)`9 >= 0\n\nOverrun access occurs when\n2*nullpos(s)`9 <= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {

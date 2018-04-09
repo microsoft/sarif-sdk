@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '* (lpDstCursor ++)'\nBuffer result.malloc created during call to malloc on line 78\nBuffer is of length 3 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 78]\nAccessing the byte at byte offset 4\n\nValues of variables:\nPointer lpDstCursor is at offset 5 bytes from the start of the buffer\n\nwhere\ndelta_offset(lpDstCursor)`94 == 0\noffset(StringToFormat)`33 == 0\noffset(result.malloc)`78a == 0\n{loop iterations}'94 == 0\nnullpos(StringToFormat)`33 >= 4\n\nThere are other instances of this error:\nOverflow using expression '* (lpDstCursor ++)' at line 99\nOverflow using expression '* (lpDstCursor ++)' at line 103\n",
+          "message": {
+            "text": "Overflow using expression '* (lpDstCursor ++)'\nBuffer result.malloc created during call to malloc on line 78\nBuffer is of length 3 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 78]\nAccessing the byte at byte offset 4\n\nValues of variables:\nPointer lpDstCursor is at offset 5 bytes from the start of the buffer\n\nwhere\ndelta_offset(lpDstCursor)`94 == 0\noffset(StringToFormat)`33 == 0\noffset(result.malloc)`78a == 0\n{loop iterations}'94 == 0\nnullpos(StringToFormat)`33 >= 4\n\nThere are other instances of this error:\nOverflow using expression '* (lpDstCursor ++)' at line 99\nOverflow using expression '* (lpDstCursor ++)' at line 103\n"
+          },
           "locations": [
             {
               "physicalLocation": {

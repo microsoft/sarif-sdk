@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n",
+          "message": {
+            "text": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -127,7 +129,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression 'buf[size]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: size`54a is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`54a\n\nValues of variables:\nsize = size`54a\n\nwhere\nsize`54a >= 0\n\nOverrun access occurs when\nsize`54a >= 100\n",
+          "message": {
+            "text": "Potential overflow using expression 'buf[size]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: size`54a is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`54a\n\nValues of variables:\nsize = size`54a\n\nwhere\nsize`54a >= 0\n\nOverrun access occurs when\nsize`54a >= 100\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -239,7 +243,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n",
+          "message": {
+            "text": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -351,7 +357,9 @@
         },
         {
           "ruleId": "26014",
-          "message": "Potential overflow using expression 'buf[size]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`70a\n\nValues of variables:\nsize = size`70a\n\nwhere\nsize`70a <= 100\nsize`70a >= 0\n\nOverrun access occurs when\nsize`70a == 100\n",
+          "message": {
+            "text": "Potential overflow using expression 'buf[size]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`70a\n\nValues of variables:\nsize = size`70a\n\nwhere\nsize`70a <= 100\nsize`70a >= 0\n\nOverrun access occurs when\nsize`70a == 100\n"
+          },
           "locations": [
             {
               "physicalLocation": {

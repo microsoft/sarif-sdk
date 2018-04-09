@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Region region = MakeRegion(fields);
             var result = new Result
             {
-                Message = normalizedMessage,
+                Message = new Message { Text = normalizedMessage },
                 Locations = new Location[]
                 {
                     new Location
@@ -356,7 +356,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Id = id,
                 Time = DateTime.Now,
                 Level = level,
-                Message = messageWithLineNumber
+                Message = new Message { Text = messageWithLineNumber }
             });
         }
 

@@ -119,7 +119,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Results = new List<Result>();
 
             log.Runs.Add(run);
-            run.Rules = new Dictionary<string, Rule>();
+            run.Resources = new Resources
+            {
+                Rules = new Dictionary<string, Rule>()
+            };
 
             SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
 
@@ -131,8 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 newRule.Name = rule.Name;
                 newRule.HelpUri = rule.HelpUri;
                 newRule.FullDescription = rule.FullDescription;
-                newRule.MessageTemplates = rule.MessageTemplates;
-                newRule.RichMessageTemplates = rule.RichMessageTemplates;
+                newRule.MessageStrings = rule.MessageStrings;
+                newRule.RichMessageStrings = rule.RichMessageStrings;
 
                 newRule.ShortDescription = rule.ShortDescription;
 
@@ -148,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             foreach (Rule rule in sortedRules.Values)
             {
-                run.Rules[rule.Id] = rule;
+                run.Resources.Rules[rule.Id] = rule;
             }
 
             var settings = new JsonSerializerSettings()

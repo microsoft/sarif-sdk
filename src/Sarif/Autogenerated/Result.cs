@@ -51,22 +51,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ResultLevel Level { get; set; }
 
         /// <summary>
-        /// A plain text message that describes the result. The first sentence of the message only will be displayed when visible space is limited.
+        /// A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
-        /// A rich text message that describes the result.
+        /// A string that identifies the message within the metadata for the rule used in this result.
         /// </summary>
-        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessage { get; set; }
-
-        /// <summary>
-        /// A 'templatedMessage' object that can be used to construct a message that describes the result.
-        /// </summary>
-        [DataMember(Name = "templatedMessage", IsRequired = false, EmitDefaultValue = false)]
-        public TemplatedMessage TemplatedMessage { get; set; }
+        [DataMember(Name = "ruleMessageId", IsRequired = false, EmitDefaultValue = false)]
+        public string RuleMessageId { get; set; }
 
         /// <summary>
         /// Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.
@@ -164,11 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="richMessage">
-        /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
-        /// <param name="templatedMessage">
-        /// An initialization value for the <see cref="P: TemplatedMessage" /> property.
+        /// <param name="ruleMessageId">
+        /// An initialization value for the <see cref="P: RuleMessageId" /> property.
         /// </param>
         /// <param name="analysisTarget">
         /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
@@ -209,9 +200,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, richMessage, templatedMessage, analysisTarget, locations, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
+            Init(ruleId, ruleKey, level, message, ruleMessageId, analysisTarget, locations, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -230,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RichMessage, other.TemplatedMessage, other.AnalysisTarget, other.Locations, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -251,18 +242,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, string message, string richMessage, TemplatedMessage templatedMessage, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
             Level = level;
-            Message = message;
-            RichMessage = richMessage;
-            if (templatedMessage != null)
+            if (message != null)
             {
-                TemplatedMessage = new TemplatedMessage(templatedMessage);
+                Message = new Message(message);
             }
 
+            RuleMessageId = ruleMessageId;
             if (analysisTarget != null)
             {
                 AnalysisTarget = new FileLocation(analysisTarget);

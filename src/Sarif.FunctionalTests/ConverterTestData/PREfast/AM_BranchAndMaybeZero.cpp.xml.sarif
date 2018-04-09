@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'p'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'p'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -115,7 +117,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'input'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'input'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -185,7 +189,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'p'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'p'. "
+          },
           "locations": [
             {
               "physicalLocation": {

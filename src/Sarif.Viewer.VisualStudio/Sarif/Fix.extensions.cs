@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
 
-            FixModel model = new FixModel(fix.Description, new FileSystem());
+            FixModel model = new FixModel(fix.Description.Text, new FileSystem());
 
             if (fix.FileChanges != null)
             {

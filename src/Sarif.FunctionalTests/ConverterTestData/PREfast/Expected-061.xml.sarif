@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26007",
-          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* _Str'\nBuffer _Str is a parameter to this function declared on line 7\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(_Str)`7 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test061.cpp(7)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer _Str is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(_Str)`7 == 0\n{loop iterations}'9 == 0\n",
+          "message": {
+            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* _Str'\nBuffer _Str is a parameter to this function declared on line 7\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(_Str)`7 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test061.cpp(7)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer _Str is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(_Str)`7 == 0\n{loop iterations}'9 == 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -113,7 +115,9 @@
         },
         {
           "ruleId": "26002",
-          "message": "Accessing buffer 'result.strchr'48' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* pszToken'\nBuffer result.strchr created during call to strchr on line 48\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer pszToken is at offset 1 bytes from the start of the buffer\n\nOverrun access occurs when\noffset(result.strchr)`48 == 0\n\nThere are other instances of this error:\nAccessing buffer 'result.strchr'48' of unspecified length.  Please annotate. at line 65\n",
+          "message": {
+            "text": "Accessing buffer 'result.strchr'48' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* pszToken'\nBuffer result.strchr created during call to strchr on line 48\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer pszToken is at offset 1 bytes from the start of the buffer\n\nOverrun access occurs when\noffset(result.strchr)`48 == 0\n\nThere are other instances of this error:\nAccessing buffer 'result.strchr'48' of unspecified length.  Please annotate. at line 65\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -491,7 +495,9 @@
         },
         {
           "ruleId": "26014",
-          "message": "Potential overflow using expression '& wcsAttribute'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is wcsAttribute\nBuffer is of length 200 elements (2 bytes/element) [size of variable]\nAccessing  - offset(pszToken)`34 elements (2 bytes/element) starting at element offset 0\nAnnotation on function DecodeURLEscapes requires that {parameter 3} is of length >= * {parameter 2} elements (2 bytes/element)\n  where {parameter 3} is & wcsAttribute; {parameter 2} is & cchAttribute\n[Annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\\somepath\\test061.cpp(18)]\n\n\nValues of variables:\ncchAttribute =  - offset(pszToken)`34\n\nwhere\noffset(pszBuffer)`31 == 0\noffset(result.strchr)`40 == 0\noffset(result.strchr)`48 == 0\nnullpos(pszBuffer)`31 >= 0\nnullpos(pszBuffer)`31 >= 2\noffset(pszToken)`34 + 1 <= 0\noffset(pszToken)`34 + 399 >= 0\n{loop iterations}'34 <= offset(pszToken)`34 + 1\n\nOverrun access occurs when\noffset(pszToken)`34 + 201 <= 0\n",
+          "message": {
+            "text": "Potential overflow using expression '& wcsAttribute'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is wcsAttribute\nBuffer is of length 200 elements (2 bytes/element) [size of variable]\nAccessing  - offset(pszToken)`34 elements (2 bytes/element) starting at element offset 0\nAnnotation on function DecodeURLEscapes requires that {parameter 3} is of length >= * {parameter 2} elements (2 bytes/element)\n  where {parameter 3} is & wcsAttribute; {parameter 2} is & cchAttribute\n[Annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\\somepath\\test061.cpp(18)]\n\n\nValues of variables:\ncchAttribute =  - offset(pszToken)`34\n\nwhere\noffset(pszBuffer)`31 == 0\noffset(result.strchr)`40 == 0\noffset(result.strchr)`48 == 0\nnullpos(pszBuffer)`31 >= 0\nnullpos(pszBuffer)`31 >= 2\noffset(pszToken)`34 + 1 <= 0\noffset(pszToken)`34 + 399 >= 0\n{loop iterations}'34 <= offset(pszToken)`34 + 1\n\nOverrun access occurs when\noffset(pszToken)`34 + 201 <= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

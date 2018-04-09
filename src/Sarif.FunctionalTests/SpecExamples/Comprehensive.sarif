@@ -47,7 +47,9 @@
             "id": "CTN9999",
             "ruleId": "C2152",
             "level": "error",
-            "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
+            "message": {
+              "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
+            },
             "physicalLocation": {
               "fileLocation": {
                 "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
@@ -92,7 +94,9 @@
           {
             "id": "CTN0002",
             "level": "note",
-            "message": "Run ended."
+            "message": {
+              "text": "Run ended."
+            }
           }
         ],
         "machine": "BLD01",
@@ -189,7 +193,7 @@
           "relatedLocations": [
             {
               "message": {
-                "text": "\"count\" was declared here.",
+                "text": "\"count\" was declared here."
               },
               "physicalLocation": {
                 "fileLocation": {
@@ -205,7 +209,9 @@
           ],
           "codeFlows": [
             {
-              "message": "Path from declaration to usage",
+              "message": {
+                "text": "Path from declaration to usage"
+              },
               "locations": [
                 {
                   "step": 0,
@@ -348,7 +354,9 @@
           ],
           "fixes": [
             {
-              "description": "Initialize the variable to null",
+              "description": {
+                "text": "Initialize the variable to null"
+              },
               "fileChanges": [
                 {
                   "fileLocation": {
@@ -366,13 +374,19 @@
           ]
         }
       ],
-      "rules": {
-        "C2001": {
-          "id": "C2001",
-          "shortDescription": "A variable was used without being initialized.",
-          "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.",
-          "messageTemplates": {
-            "default": "Variable \"{0}\" was used without being initialized."
+      "resources": {
+        "rules": {
+          "C2001": {
+            "id": "C2001",
+            "shortDescription": {
+              "text": "A variable was used without being initialized."
+            },
+            "fullDescription": {
+              "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
+            },
+            "messageStrings": {
+              "default": "Variable \"{0}\" was used without being initialized."
+            }
           }
         }
       }

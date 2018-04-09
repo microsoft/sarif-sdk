@@ -255,12 +255,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Level = ConvertToResultLevel(levelText);
 
                 // Everything on the line following defect level comprises the message
-                result.Message = logFileLine.Substring(levelText.Length).Trim();
+                result.Message = new Message { Text = logFileLine.Substring(levelText.Length).Trim() };
 
                 // SDV currently produces 'pass' notifications when 
                 // the final line is prefixed with 'Error'. We'll examine
                 // the message text to detect this condition
-                if (result.Message.Contains("is satisfied"))
+                if (result.Message.Text.Contains("is satisfied"))
                 {
                     result.Level = ResultLevel.Pass;
                 }

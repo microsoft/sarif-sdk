@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -86,7 +88,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -157,7 +161,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -328,7 +334,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {

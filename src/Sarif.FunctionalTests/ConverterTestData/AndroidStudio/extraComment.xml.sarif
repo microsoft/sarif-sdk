@@ -25,7 +25,9 @@
       "results": [
         {
           "ruleId": "Assertions",
-          "message": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
+          "message": {
+            "text": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     },
                     Id = Notes.Msg001AnalyzingTarget,
-                    Message = message,
+                    Message = new Message { Text = message },
                     Level = NotificationLevel.Note,
                     Time = DateTime.UtcNow,
                 });
@@ -401,11 +401,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[context.Rule.Id] = context.Rule;
             }
 
-            templateId = RuleUtilities.NormalizeTemplateId(templateId, context.Rule.Id);
+            templateId = RuleUtilities.NormalizeRuleMessageId(templateId, context.Rule.Id);
             LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, templateId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string templateId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
@@ -416,9 +416,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             result.RuleId = ruleId;
 
-            result.TemplatedMessage = new TemplatedMessage()
+            result.Message = new Message()
             {
-                TemplateId = templateId,
+                MessageId = ruleMessageId,
                 Arguments = arguments
             };
 

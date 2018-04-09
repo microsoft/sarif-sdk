@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'p[11]'\nBuffer accessed is buf\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression 'p[11]'\nBuffer accessed is buf\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -141,7 +143,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'p[11]'\nBuffer accessed is buf\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression 'p[11]'\nBuffer accessed is buf\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -267,7 +271,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression 'q[13]'\nBuffer accessed is g1\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Read overflow using expression 'q[13]'\nBuffer accessed is g1\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -379,7 +385,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression 'q[13]'\nBuffer accessed is g2\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Read overflow using expression 'q[13]'\nBuffer accessed is g2\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -491,7 +499,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression 'q[13]'\nBuffer accessed is g1\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Read overflow using expression 'q[13]'\nBuffer accessed is g1\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -603,7 +613,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression 'q[13]'\nBuffer accessed is g2\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Read overflow using expression 'q[13]'\nBuffer accessed is g2\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 18\n\nValues of variables:\nPointer q is at offset 20 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {

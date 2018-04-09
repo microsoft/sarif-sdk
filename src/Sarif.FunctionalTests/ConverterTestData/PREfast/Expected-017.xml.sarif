@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buf4[2]'\nBuffer result.new created during call to operator new on line 47\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new called at line 47]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer buf4 is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression 'buf4[2]'\nBuffer result.new created during call to operator new on line 47\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new called at line 47]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer buf4 is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -407,7 +409,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '(void *)widgets'\nBuffer result.new[] created during call to Widget::operator new[] on line 53\nBuffer is of length 5 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function Widget::operator new[] called at line 53]\nAccessing 10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)widgets; {parameter 3} is 10\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer widgets is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression '(void *)widgets'\nBuffer result.new[] created during call to Widget::operator new[] on line 53\nBuffer is of length 5 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function Widget::operator new[] called at line 53]\nAccessing 10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)widgets; {parameter 3} is 10\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer widgets is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {

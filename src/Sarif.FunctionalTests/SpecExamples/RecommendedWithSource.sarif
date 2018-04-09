@@ -30,10 +30,12 @@
           ]
         }
       ],
-      "rules": {
-        "C2001": {
-          "id": "C2001",
-          "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions"
+      "resources": {
+        "rules": {
+          "C2001": {
+            "id": "C2001",
+            "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions"
+          }
         }
       }
     }

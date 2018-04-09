@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {

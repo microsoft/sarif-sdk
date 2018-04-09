@@ -33,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.RichMessage != right.RichMessage)
-            {
-                return false;
-            }
-
             if (left.Module != right.Module)
             {
                 return false;
@@ -117,11 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
-                }
-
-                if (obj.RichMessage != null)
-                {
-                    result = (result * 31) + obj.RichMessage.GetHashCode();
                 }
 
                 if (obj.Module != null)

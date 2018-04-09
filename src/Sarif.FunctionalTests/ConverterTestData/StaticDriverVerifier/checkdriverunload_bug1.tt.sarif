@@ -17,7 +17,9 @@
       "results": [
         {
           "level": "pass",
-          "message": "The property is satisfied as the driver defines a DriverUnload routine.",
+          "message": {
+            "text": "The property is satisfied as the driver defines a DriverUnload routine."
+          },
           "locations": [
             {
               "physicalLocation": {

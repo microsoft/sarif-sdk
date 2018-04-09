@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public override string Id => "TEST002";
 
-        public override string FullDescription { get { return String.Empty; } }
+        public override Message FullDescription { get { return new Message { Text = String.Empty }; } }
 
         public override void Analyze(TestAnalysisContext context)
         {
@@ -26,8 +26,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         RuleId = this.Id,
                         Level = ResultLevel.Error,
-                        Message = "Simple test rule message."
-                    });
+                        Message = new Message { Text = "Simple test rule message." }
+                        });
             }
         }
 

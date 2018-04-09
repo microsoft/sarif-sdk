@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26061",
-          "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function TestFailOnImpl requires that result.TestFailOnImpl is == 0\n[Annotation SAL_relop(\"==\", 0) at c:\\somepath\\test139.cpp(14)]\n\nValues of variables:\nresult.TestFailOnImpl = 3\n",
+          "message": {
+            "text": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function TestFailOnImpl requires that result.TestFailOnImpl is == 0\n[Annotation SAL_relop(\"==\", 0) at c:\\somepath\\test139.cpp(14)]\n\nValues of variables:\nresult.TestFailOnImpl = 3\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -127,7 +129,9 @@
         },
         {
           "ruleId": "26001",
-          "message": "Underflow using expression 'buf[result.TestFailOnImpl - 1]'\nBuffer accessed is buf\nBuffer is of length 2 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -1\n\n when function TestFailOnImpl called at line 28 fails.\n\nValues of variables:\nresult.TestFailOnImpl = 0\n\nwhere\nresult.TestFailOnImpl`28a == 0\n",
+          "message": {
+            "text": "Underflow using expression 'buf[result.TestFailOnImpl - 1]'\nBuffer accessed is buf\nBuffer is of length 2 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -1\n\n when function TestFailOnImpl called at line 28 fails.\n\nValues of variables:\nresult.TestFailOnImpl = 0\n\nwhere\nresult.TestFailOnImpl`28a == 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -239,7 +243,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'buffer[10]'\nBuffer result.WeirdAlloc created during call to WeirdAlloc on line 51\nBuffer is of length 10 bytes [from annotation SAL_writableTo(byteCount({parameter 1})) at c:\\somepath\\test139.cpp(36) on function WeirdAlloc called at line 51]\nAccessing the byte at byte offset 10\n\n when function WeirdAlloc called at line 51 fails.\n\nValues of variables:\nPointer buffer is at offset 0 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Overflow using expression 'buffer[10]'\nBuffer result.WeirdAlloc created during call to WeirdAlloc on line 51\nBuffer is of length 10 bytes [from annotation SAL_writableTo(byteCount({parameter 1})) at c:\\somepath\\test139.cpp(36) on function WeirdAlloc called at line 51]\nAccessing the byte at byte offset 10\n\n when function WeirdAlloc called at line 51 fails.\n\nValues of variables:\nPointer buffer is at offset 0 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {

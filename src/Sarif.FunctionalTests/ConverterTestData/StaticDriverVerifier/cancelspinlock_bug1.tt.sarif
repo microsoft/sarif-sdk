@@ -20,7 +20,9 @@
       "results": [
         {
           "level": "error",
-          "message": "The dispatch routine has returned without releasing the cancel spinlock.",
+          "message": {
+            "text": "The dispatch routine has returned without releasing the cancel spinlock."
+          },
           "locations": [
             {
               "physicalLocation": {

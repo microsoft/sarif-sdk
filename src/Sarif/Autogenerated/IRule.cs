@@ -22,32 +22,27 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A rule identifier that is understandable to an end user.
         /// </summary>
-        string Name { get; }
+        Message Name { get; }
 
         /// <summary>
         /// A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
-        string ShortDescription { get; }
+        Message ShortDescription { get; }
 
         /// <summary>
         /// A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
-        string FullDescription { get; }
-
-        /// <summary>
-        /// A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
-        /// </summary>
-        string RichDescription { get; }
+        Message FullDescription { get; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
-        IDictionary<string, string> MessageTemplates { get; }
+        IDictionary<string, string> MessageStrings { get; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
-        IDictionary<string, string> RichMessageTemplates { get; }
+        IDictionary<string, string> RichMessageStrings { get; }
 
         /// <summary>
         /// A value specifying whether a rule is enabled.
@@ -67,6 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Provides the primary documentation for the rule, useful when there is no online documentation.
         /// </summary>
-        string Help { get; }
+        Message Help { get; }
     }
 }

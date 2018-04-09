@@ -12,6 +12,12 @@
         },
         "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs": {
           "mimeType": "text/x-csharp"
+        },
+        "file:///C:/Users/user/Documents/Visual Studio 2015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe": {
+          "mimeType": "application/octet-stream"
+        },
+        "file:///c:/users/user/documents/visual studio 2015/Projects/WpfApplication5/WpfApplication5/Frz.cs": {
+          "mimeType": "text/x-csharp"
         }
       },
       "logicalLocations": {
@@ -67,6 +73,7 @@
       "results": [
         {
           "ruleId": "CA904",
+          "message": {},
           "locations": [
             {
               "fullyQualifiedLogicalName": "WpfApplication5"
@@ -81,7 +88,9 @@
         {
           "ruleId": "CA904",
           "level": "error",
-          "message": "Redefine the types in namespace 'WpfApplication5' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "message": {
+            "text": "Redefine the types in namespace 'WpfApplication5' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally."
+          },
           "locations": [
             {
               "fullyQualifiedLogicalName": "WpfApplication5"
@@ -95,6 +104,7 @@
         },
         {
           "ruleId": "CA2210",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -113,6 +123,7 @@
         },
         {
           "ruleId": "CA1014",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -131,6 +142,7 @@
         },
         {
           "ruleId": "CA1824",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -150,7 +162,9 @@
         {
           "ruleId": "CA1053",
           "level": "error",
-          "message": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "message": {
+            "text": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -172,7 +186,9 @@
         {
           "ruleId": "CA1704",
           "level": "warning",
-          "message": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
+          "message": {
+            "text": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation."
+          },
           "analysisTarget": {
             "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
           },
@@ -201,7 +217,9 @@
         {
           "ruleId": "CA1822",
           "level": "warning",
-          "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
+          "message": {
+            "text": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate."
+          },
           "analysisTarget": {
             "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
           },
@@ -225,6 +243,7 @@
         },
         {
           "ruleId": "CA1502",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -243,6 +262,7 @@
         },
         {
           "ruleId": "CA1800",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -261,6 +281,7 @@
         },
         {
           "ruleId": "CA1033",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -279,6 +300,7 @@
         },
         {
           "ruleId": "CA1812",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -297,7 +319,9 @@
         {
           "ruleId": "CA1812",
           "level": "warning",
-          "message": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.",
+          "message": {
+            "text": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -315,6 +339,7 @@
         },
         {
           "ruleId": "CA1811",
+          "message": {},
           "locations": [
             {
               "physicalLocation": {

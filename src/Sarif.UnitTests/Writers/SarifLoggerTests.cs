@@ -444,7 +444,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var result = new Result()
                 {
                     RuleId = "IncorrectRuleId",
-                    Message = "test message"
+                    Message = new Message { Text = "test message" }
                 };
 
                 Assert.Throws<ArgumentException>(() => sarifLogger.Log(rule, result));

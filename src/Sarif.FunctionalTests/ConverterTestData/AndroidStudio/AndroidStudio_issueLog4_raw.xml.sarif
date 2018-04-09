@@ -30,7 +30,9 @@
       "results": [
         {
           "ruleId": "'if' statement may be replaced with && or || expression",
-          "message": "<code>if</code> statement can be replaced with 'return id == R.id.action_settings || super.onOptionsItemSelected(item);' #loc",
+          "message": {
+            "text": "<code>if</code> statement can be replaced with 'return id == R.id.action_settings || super.onOptionsItemSelected(item);' #loc"
+          },
           "locations": [
             {
               "physicalLocation": {

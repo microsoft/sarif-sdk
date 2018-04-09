@@ -27,12 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Message != right.Message)
-            {
-                return false;
-            }
-
-            if (left.RichMessage != right.RichMessage)
+            if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
             }
@@ -73,12 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.Message != null)
                 {
-                    result = (result * 31) + obj.Message.GetHashCode();
-                }
-
-                if (obj.RichMessage != null)
-                {
-                    result = (result * 31) + obj.RichMessage.GetHashCode();
+                    result = (result * 31) + obj.Message.ValueGetHashCode();
                 }
 
                 if (obj.Locations != null)

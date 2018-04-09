@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.Equal("CA1000", sarifLog.Runs[0].Rules["CA1000.1"].Id);
+            Assert.Equal("CA1000", sarifLog.Runs[0].Resources.Rules["CA1000.1"].Id);
         }
     }
 }

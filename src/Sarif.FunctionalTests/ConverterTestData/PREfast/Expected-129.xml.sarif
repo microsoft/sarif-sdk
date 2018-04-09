@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26002",
-          "message": "Accessing buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* (* ((WORD **)pBuf))'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n\nwhere\noffset((*pBuf))`32a == 0\n",
+          "message": {
+            "text": "Accessing buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* (* ((WORD **)pBuf))'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n\nwhere\noffset((*pBuf))`32a == 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -113,7 +115,9 @@
         },
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression '* (* ((WORD **)pBuf))'\nBuffer (*pBuf) is a parameter to this function declared on line 36\nBuffer is of length 1 elements (2 bytes/element) [from annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(36)]\nAccessing the element (2 bytes/element) at element offset 1\n\nValues of variables:\nPointer (*pBuf) is at offset 2 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n",
+          "message": {
+            "text": "Read overflow using expression '* (* ((WORD **)pBuf))'\nBuffer (*pBuf) is a parameter to this function declared on line 36\nBuffer is of length 1 elements (2 bytes/element) [from annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(36)]\nAccessing the element (2 bytes/element) at element offset 1\n\nValues of variables:\nPointer (*pBuf) is at offset 2 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -211,7 +215,9 @@
         },
         {
           "ruleId": "26003",
-          "message": "Writing to buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'pBuf'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\nAnnotation on function GetWord requires that * {parameter 1} is of length >= 2 elements (1 bytes/element)\n  where * {parameter 1} is pBuf\n[Annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(13)]\n\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\n\nwhere\noffset((*pBuf))`51a == 0\n",
+          "message": {
+            "text": "Writing to buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'pBuf'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\nAnnotation on function GetWord requires that * {parameter 1} is of length >= 2 elements (1 bytes/element)\n  where * {parameter 1} is pBuf\n[Annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(13)]\n\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\n\nwhere\noffset((*pBuf))`51a == 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -57,10 +57,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// A plain text message that describes the condition that was encountered.
+        /// A message that describes the condition that was encountered.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
-        public string Message { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
         /// A value specifying the severity level of the notification.
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, string message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, ruleId, ruleKey, physicalLocation, message, level, threadId, time, exception, properties);
         }
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, string message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, string ruleKey, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
@@ -184,7 +184,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
-            Message = message;
+            if (message != null)
+            {
+                Message = new Message(message);
+            }
+
             Level = level;
             ThreadId = threadId;
             Time = time;
