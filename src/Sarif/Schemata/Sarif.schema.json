@@ -136,11 +136,6 @@
           "type": "integer"
         },
 
-        "richMessage": {
-          "description": "A rich text message relevant to this annotation.",
-          "type": "string"
-        },
-
         "kind": {
           "description": "Categorizes the location.",
           "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
