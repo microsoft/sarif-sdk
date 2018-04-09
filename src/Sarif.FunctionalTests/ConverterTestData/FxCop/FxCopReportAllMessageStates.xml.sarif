@@ -67,7 +67,6 @@
       "results": [
         {
           "ruleId": "CA904",
-          "message": {},
           "locations": [
             {
               "fullyQualifiedLogicalName": "WpfApplication5"
@@ -98,7 +97,6 @@
         },
         {
           "ruleId": "CA2210",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -117,7 +115,6 @@
         },
         {
           "ruleId": "CA1014",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -136,7 +133,6 @@
         },
         {
           "ruleId": "CA1824",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -237,7 +233,6 @@
         },
         {
           "ruleId": "CA1502",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -256,7 +251,6 @@
         },
         {
           "ruleId": "CA1800",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -275,7 +269,6 @@
         },
         {
           "ruleId": "CA1033",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -294,7 +287,6 @@
         },
         {
           "ruleId": "CA1812",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -333,7 +325,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {

@@ -391,7 +391,7 @@
       "properties": {
 
         "description": {
-          "description": "A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
+          "description": "A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
           "$ref": "#/definitions/message"
         },
 
@@ -1065,7 +1065,7 @@
         },
 
         "fullDescription": {
-          "description": "A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "description": "A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
           "$ref": "#/definitions/message"
         },
 
@@ -1239,7 +1239,7 @@
           }
         }
       },
-      "required": [ "results", "tool" ]
+      "required": [ "tool" ]
     },
 
     "stack": {
@@ -1249,7 +1249,7 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to this call stack.",
+          "description": "A message relevant to this call stack.",
           "$ref": "#/definitions/message"
         },
 

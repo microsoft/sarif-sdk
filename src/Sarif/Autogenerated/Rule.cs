@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message ShortDescription { get; set; }
 
         /// <summary>
-        /// A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
+        /// A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
         public Message FullDescription { get; set; }

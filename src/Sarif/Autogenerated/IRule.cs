@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Message ShortDescription { get; }
 
         /// <summary>
-        /// A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
+        /// A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         Message FullDescription { get; }
 

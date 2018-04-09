@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A plain text message relevant to this call stack.
+        /// A message relevant to this call stack.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public Message Message { get; set; }

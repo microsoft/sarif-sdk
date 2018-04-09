@@ -91,7 +91,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageTemplates_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageStrings_ContainsBlankMessage()
         {
             var result = new Result
             {
@@ -121,7 +121,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageTemplate_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageString_ContainsBlankMessage()
         {
             var result = new Result
             {
@@ -141,7 +141,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 Id = "TST0001",
                                 MessageStrings = new Dictionary<string, string>
                                 {
-                                    { "realTemplateId", "The message" }
+                                    { "realMessageId", "The message" }
                                 }
                             }
                         }
@@ -155,7 +155,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToExistingMessageTemplate_ContainsExpectedMessage()
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageString_ContainsExpectedMessage()
         {
             var result = new Result
             {
@@ -280,7 +280,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         public void SarifErrorListItem_WhenMessageAndTemplatedMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
         {
             // This test prevents regression of #647,
-            // "Viewer NRE when result lacks message/templatedMessage but rule metadata is present"
+            // "Viewer NRE when result lacks message but rule metadata is present"
             var result = new Result
             {
                 RuleId = "TST0001"

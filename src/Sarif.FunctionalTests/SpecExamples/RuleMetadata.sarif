@@ -7,27 +7,6 @@
         "name": "BinaryAnalyzer",
         "semanticVersion": "2.1.0"
       },
-      "results": [
-        {
-          "ruleId": "C2001",
-          "message": {
-            "text": "Variable \"count\" was used without being initialized."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///user/builder/work/src/collections/list.cpp"
-                },
-                "region": {
-                  "startLine": 15
-                }
-              },
-              "fullyQualifiedLogicalName": "collections::list:add"
-            }
-          ]
-        }
-      ],
       "resources": {
         "rules": {
           "BA2006": {

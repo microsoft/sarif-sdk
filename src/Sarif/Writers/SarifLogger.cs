@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 });
         }
 
-        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string templateId, params string[] arguments)
+        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -398,8 +398,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[context.Rule.Id] = context.Rule;
             }
 
-            templateId = RuleUtilities.NormalizeRuleMessageId(templateId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, templateId, arguments);
+            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleMessageId, arguments);
         }
 
         private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)

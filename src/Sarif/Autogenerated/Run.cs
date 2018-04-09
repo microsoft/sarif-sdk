@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
         /// </summary>
-        [DataMember(Name = "results", IsRequired = true)]
+        [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<Result> Results { get; set; }
 
         /// <summary>

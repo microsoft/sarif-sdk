@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     public class SkimmerBaseTests
     {
         [Fact]
-        public void SkimmerBase_GetsPlainAndRichMessageTemplatesFromResources()
+        public void SkimmerBase_GetsPlainAndRichMessageStringsFromResources()
         {
             var skimmer = new TestSkimmer();
 

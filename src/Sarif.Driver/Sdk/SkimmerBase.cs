@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (this.messageStrings == null)
                 {
-                    this.messageStrings = InitializeMessageTemplates();
+                    this.messageStrings = InitializeMessageStrings();
                 }
                 return this.messageStrings;
             }
@@ -49,18 +49,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 if (this.richMessageStrings == null)
                 {
-                    this.richMessageStrings = InitializeRichMessageTemplates();
+                    this.richMessageStrings = InitializeRichMessageStrings();
                 }
                 return this.richMessageStrings;
             }
         }
 
-        private Dictionary<string, string> InitializeMessageTemplates()
+        private Dictionary<string, string> InitializeMessageStrings()
         {
             return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
 
-        private Dictionary<string, string> InitializeRichMessageTemplates()
+        private Dictionary<string, string> InitializeRichMessageStrings()
         {
             return RuleUtilities.BuildDictionary(ResourceManager, RichMessageResourceNames,ruleId: Id, prefix: "Rich");
         }
