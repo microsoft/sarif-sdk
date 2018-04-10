@@ -234,6 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
+                node.Contents = VisitNullChecked(node.Contents);
                 if (node.Hashes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Hashes.Count; ++index_0)
@@ -420,6 +421,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Message = VisitNullChecked(node.Message);
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
+                node.Snippet = VisitNullChecked(node.Snippet);
                 if (node.Locations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)

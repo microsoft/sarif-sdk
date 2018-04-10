@@ -307,7 +307,7 @@
 
         "contents": {
           "description": "The contents of the file, expressed as a MIME Base64-encoded byte sequence.",
-          "type": "string"
+          "$ref": "#/definitions/fileContent"
         },
 
         "hashes": {
@@ -913,6 +913,11 @@
         "analysisTarget": {
           "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
           "$ref": "#/definitions/fileLocation"
+        },
+
+        "snippet": {
+          "description": "A source code or other file fragment that illustrates the result.",
+          "$ref": "#/definitions/fileContent"
         },
 
         "locations": {

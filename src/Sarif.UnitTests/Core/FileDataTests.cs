@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
-                fileData.Contents.Should().Be(encodedFileContents);
+                fileData.Contents.Text.Should().Be(encodedFileContents);
             }
             finally
             {
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = Convert.ToBase64String(Encoding.UTF8.GetBytes(textValue));
-                fileData.Contents.Should().Be(encodedFileContents);
+                fileData.Contents.Text.Should().Be(encodedFileContents);
             }
             finally
             {
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
-            fileData.Contents.Should().Be(String.Empty);
+            fileData.Contents.Text.Should().Be(String.Empty);
         }
 
         [Fact]
