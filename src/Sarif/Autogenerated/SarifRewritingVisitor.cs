@@ -421,7 +421,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Message = VisitNullChecked(node.Message);
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
-                node.Snippet = VisitNullChecked(node.Snippet);
                 if (node.Locations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
