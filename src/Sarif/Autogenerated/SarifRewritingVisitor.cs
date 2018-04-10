@@ -234,6 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
+                node.Contents = VisitNullChecked(node.Contents);
                 if (node.Hashes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Hashes.Count; ++index_0)

@@ -40,7 +40,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 new FileData
                                 {
                                     MimeType = "text/x-c",
-                                    Contents = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=",
+                                    Contents = new FileContent { Text = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=" },
                                     Hashes = new List<Hash>
                                     {
                                         new Hash
@@ -56,7 +56,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 new FileData
                                 {
                                     MimeType = "text/x-c",
-                                    Contents = "VGhpcyBpcyBhIHRlc3QgZmlsZS4="
+                                    Contents = new FileContent { Text = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=" }
                                 }
                             }
                         },

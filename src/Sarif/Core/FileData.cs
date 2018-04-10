@@ -51,7 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
                 {
-                    fileData.Contents = EncodeFileContents(fileSystem, filePath, mimeType, encoding);
+                    fileData.Contents = new FileContent
+                    {
+                        Text = EncodeFileContents(fileSystem, filePath, mimeType, encoding)
+                    };
                 }
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))

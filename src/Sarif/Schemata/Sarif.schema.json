@@ -307,7 +307,7 @@
 
         "contents": {
           "description": "The contents of the file, expressed as a MIME Base64-encoded byte sequence.",
-          "type": "string"
+          "$ref": "#/definitions/fileContent"
         },
 
         "hashes": {
