@@ -48,7 +48,7 @@ namespace Microsoft.Sarif.Viewer
 
         private readonly IFileSystem _fileSystem;
 
-        internal delegate string PromptForResolvedPathDelegate(string fullPathFromLogFile);
+        internal delegate string PromptForResolvedPathDelegate(string pathFromLogFile);
         PromptForResolvedPathDelegate _promptForResolvedPathDelegate;
 
         // This ctor is internal rather than private for unit test purposes.
@@ -448,13 +448,13 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            string fullPathFromLogFile = Path.GetFullPath(pathFromLogFile);
-            string resolvedPath = _promptForResolvedPathDelegate(fullPathFromLogFile);
+            string resolvedPath = _promptForResolvedPathDelegate(pathFromLogFile);
             if (resolvedPath == null)
             {
                 return pathFromLogFile;
             }
 
+            string fullPathFromLogFile = Path.GetFullPath(pathFromLogFile);
             string commonSuffix = GetCommonSuffix(fullPathFromLogFile, resolvedPath);
             if (commonSuffix == null)
             {
@@ -553,7 +553,7 @@ namespace Microsoft.Sarif.Viewer
             return S_OK;
         }
 
-        private string PromptForResolvedPath(string fullPathFromLogFile)
+        private string PromptForResolvedPath(string pathFromLogFile)
         {
             // Opening the OpenFileDialog causes the TreeView to lose focus,
             // which in turn causes the TreeViewItem selection to be unpredictable
@@ -562,11 +562,12 @@ namespace Microsoft.Sarif.Viewer
             // focus after the OpenFileDialog is closed.
             var elementWithFocus = Keyboard.FocusedElement as UIElement;
 
-            string fileName = Path.GetFileName(fullPathFromLogFile);
+            string fileName = Path.GetFileName(pathFromLogFile);
             var openFileDialog = new OpenFileDialog
             {
-                Title = "Locate missing file: " + fullPathFromLogFile,
-                Filter = fileName + "|" + fileName,
+                Title = $"Locate missing file: {pathFromLogFile}",
+                InitialDirectory = Path.GetDirectoryName(CurrentSarifError.LogFilePath),
+                Filter = $"{fileName}|{fileName}",
                 RestoreDirectory = true
             };
 
