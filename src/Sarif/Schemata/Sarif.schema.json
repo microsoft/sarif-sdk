@@ -469,6 +469,11 @@
           "format": "date-time"
         },
 
+        "exitCode": {
+          "description": "The process exit code.",
+          "type": "integer"
+        },
+
         "toolNotifications": {
           "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
           "type": "array",
@@ -483,6 +488,31 @@
           "items": {
             "$ref": "#/definitions/notification"
           }
+        },
+
+        "exitCodeDescription": {
+          "description": "The reason for the process exit.",
+          "type": "string"
+        },
+
+        "exitSignalName": {
+          "description": "The name of the signal that caused the process to exit.",
+          "type": "string"
+        },
+
+        "exitSignalNumber": {
+          "description": "The numeric value of the signal that caused the process to exit.",
+          "type": "integer"
+        },
+
+        "processStartFailureMessage": {
+          "description": "The reason given by the operating system that the process failed to start.",
+          "type": "string"
+        },
+
+        "toolExecutionSuccessful": {
+          "description": "A value indicating whether the tool's execution completed successfully.",
+          "type": "boolean"
         },
 
         "machine": {
@@ -1208,7 +1238,6 @@
           "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/result"
           }
