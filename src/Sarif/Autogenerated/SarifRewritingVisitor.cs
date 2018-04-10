@@ -484,8 +484,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-<<<<<<< HEAD
+                node.Name = VisitNullChecked(node.Name);
+                node.ShortDescription = VisitNullChecked(node.ShortDescription);
+                node.FullDescription = VisitNullChecked(node.FullDescription);
                 node.Configuration = VisitNullChecked(node.Configuration);
+                node.Help = VisitNullChecked(node.Help);
             }
 
             return node;
@@ -495,12 +498,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-=======
-                node.Name = VisitNullChecked(node.Name);
-                node.ShortDescription = VisitNullChecked(node.ShortDescription);
-                node.FullDescription = VisitNullChecked(node.FullDescription);
-                node.Help = VisitNullChecked(node.Help);
->>>>>>> sarif-v2
             }
 
             return node;

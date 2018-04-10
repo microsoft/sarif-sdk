@@ -314,25 +314,6 @@
       }
     }
   ],
-
-  "Rule.DefaultLevel": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultLevel",
-        "description": "The level of a result.",
-        "zeroValueName": "Default",
-        "memberNames": [
-          "NotApplicable",
-          "Pass",
-          "Note",
-          "Warning",
-          "Error"
-        ],
-        "allowMemberCountMismatch": true
-      }
-    }
-  ],
   "Rule.MessageStrings": [
     {
       "kind": "DictionaryHint"

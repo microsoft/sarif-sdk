@@ -132,15 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-<<<<<<< HEAD
-        public Rule(string id, string name, string shortDescription, string fullDescription, string richDescription, IDictionary<string, string> messageTemplates, IDictionary<string, string> richMessageTemplates, RuleConfiguration configuration, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, richDescription, messageTemplates, richMessageTemplates, configuration, helpUri, help, properties);
-=======
-        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
-        {
-            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, defaultLevel, helpUri, help, properties);
->>>>>>> sarif-v2
+            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
         }
 
         /// <summary>
@@ -159,11 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-<<<<<<< HEAD
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.RichDescription, other.MessageTemplates, other.RichMessageTemplates, other.Configuration, other.HelpUri, other.Help, other.Properties);
-=======
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.DefaultLevel, other.HelpUri, other.Help, other.Properties);
->>>>>>> sarif-v2
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -184,11 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-<<<<<<< HEAD
-        private void Init(string id, string name, string shortDescription, string fullDescription, string richDescription, IDictionary<string, string> messageTemplates, IDictionary<string, string> richMessageTemplates, RuleConfiguration configuration, Uri helpUri, string help, IDictionary<string, SerializedPropertyInfo> properties)
-=======
-        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
->>>>>>> sarif-v2
+        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (name != null)
