@@ -117,25 +117,28 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
             }
 
-            if (run.Invocations != null && run.Invocations.Count > 0)
+            if (run.Invocations != null)
             {
-                if (run.Invocations[0].ConfigurationNotifications != null)
+                foreach (var invocation in run.Invocations)
                 {
-                    foreach (Notification configurationNotification in run.Invocations[0].ConfigurationNotifications)
+                    if (invocation.ConfigurationNotifications != null)
                     {
-                        var sarifError = new SarifErrorListItem(run, configurationNotification, logFilePath, projectNameCache);
-                        sarifErrors.Add(sarifError);
-                    }
-                }
-
-                if (run.Invocations[0].ToolNotifications != null)
-                {
-                    foreach (Notification toolNotification in run.Invocations[0].ToolNotifications)
-                    {
-                        if (toolNotification.Level != NotificationLevel.Note)
+                        foreach (Notification configurationNotification in invocation.ConfigurationNotifications)
                         {
-                            var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
+                            var sarifError = new SarifErrorListItem(run, configurationNotification, logFilePath, projectNameCache);
                             sarifErrors.Add(sarifError);
+                        }
+                    }
+
+                    if (invocation.ToolNotifications != null)
+                    {
+                        foreach (Notification toolNotification in invocation.ToolNotifications)
+                        {
+                            if (toolNotification.Level != NotificationLevel.Note)
+                            {
+                                var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
+                                sarifErrors.Add(sarifError);
+                            }
                         }
                     }
                 }

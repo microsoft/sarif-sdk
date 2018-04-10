@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal abstract class TestRuleBase : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
     {
+        protected RuleConfiguration _ruleConfiguration = null;
+
         public virtual SupportedPlatform SupportedPlatforms
         {
             get
@@ -39,7 +41,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
-        public RuleConfiguration Configuration { get { return new RuleConfiguration(); } }
+        public RuleConfiguration Configuration
+        {
+            get
+            {
+                if (_ruleConfiguration == null)
+                {
+                    _ruleConfiguration = new RuleConfiguration();
+                }
+
+                return _ruleConfiguration;
+            }
+        }
 
         public string RichDescription => throw new NotImplementedException();
 

@@ -640,7 +640,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string location = GetThisTestAssemblyFilePath();
 
                 Run run = AnalyzeFile(
-                    location, 
+                    location,
                     configFileName: path,
                     runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.NoRulesLoaded,
                     expectedReturnCode: TestAnalyzeCommand.FAILURE);
@@ -663,13 +663,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // notification that all rules have been disabled
                 configurationNotificationCount.Should().Be(4);
 
-                if (run.Invocations != null && run.Invocations.Count > 0)
-                {
-                    run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
-                    run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
+                run.Invocations.Should().NotBeNull();
+                run.Invocations.Count.Should().Be(1);
 
-                    run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
-                }
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
+
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
 
                 toolNotificationCount.Should().Be(0);
             }

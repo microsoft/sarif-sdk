@@ -298,6 +298,21 @@
       }
     }
   ],
+  "RuleConfiguration.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "RuleConfigurationDefaultLevel",
+        "description": "A value that specifies the default severity level of the result",
+        "memberNames": [
+          "Note",
+          "Warning",
+          "Error",
+          "Open"
+        ]
+      }
+    }
+  ],
   "rule": [
     {
       "kind": "InterfaceHint",

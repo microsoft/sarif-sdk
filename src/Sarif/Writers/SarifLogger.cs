@@ -180,15 +180,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run?.Invocations != null)
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTime != new DateTime())
                 {
-                    foreach (var invocation in _run.Invocations)
-                    {
-                        if (invocation.StartTime != new DateTime())
-                        {
-                            invocation.EndTime = DateTime.UtcNow;
-                        }
-                    }
+                    _run.Invocations[0].EndTime = DateTime.UtcNow;
                 }
 
                 // Note: we write out the backing rules
@@ -227,7 +221,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.Invocations.Add(Invocation.Create());
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
