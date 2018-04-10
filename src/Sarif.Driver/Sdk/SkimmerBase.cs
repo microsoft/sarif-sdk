@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         virtual protected IEnumerable<string> RichTemplateResourceNames => new List<string>();
 
-        virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
+        virtual public RuleConfiguration Configuration {  get; }
 
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 

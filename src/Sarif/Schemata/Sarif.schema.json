@@ -1104,15 +1104,8 @@
         },
 
         "configuration": {
-          "description": "A value specifying whether a rule is enabled.",
-          "default": "unknown",
-          "enum": [ "unknown", "enabled", "disabled" ]
-        },
-
-        "defaultLevel": {
-          "description": "A value specifying the default severity level of the result.",
-          "default": "warning",
-          "enum": [ "note", "warning", "error" ]
+          "description": "Information about the rule that can be configured at runtime.",
+          "$ref": "#/definitions/ruleConfiguration"
         },
 
         "helpUri": {
@@ -1145,6 +1138,41 @@
         }
       },
       "required": [ "id" ]
+    },
+
+    "ruleConfiguration": {
+      "description": "Information about a rule that can be configured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "enabled": {
+          "description": "Specifies whether the rule will be evaluated during the scan.",
+          "type": "boolean"
+        },
+
+        "defaultLevel": {
+          "description": "Specifies the default severity level of the result.",
+          "enum": [ "note", "warning", "error", "open" ]
+        },
+
+        "parameters": {
+          "description": "Contains configuration information specific to this rule.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional configuration information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
 
     "run": {

@@ -293,21 +293,6 @@
     }
   ],
 
-  "Rule.Configuration": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "RuleConfiguration",
-        "description": "A value that specifies whether a rule is enabled.",
-        "memberNames": [
-          "Unknown",
-          "Enabled",
-          "Disabled"
-        ]
-      }
-    }
-  ],
-
   "Rule.DefaultLevel": [
     {
       "kind": "EnumHint",

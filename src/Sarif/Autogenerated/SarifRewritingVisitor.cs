@@ -90,6 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitResult((Result)node);
                 case SarifNodeKind.Rule:
                     return VisitRule((Rule)node);
+                case SarifNodeKind.RuleConfiguration:
+                    return VisitRuleConfiguration((RuleConfiguration)node);
                 case SarifNodeKind.Run:
                     return VisitRun((Run)node);
                 case SarifNodeKind.SarifLog:
@@ -465,6 +467,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public virtual Rule VisitRule(Rule node)
+        {
+            if (node != null)
+            {
+                node.Configuration = VisitNullChecked(node.Configuration);
+            }
+
+            return node;
+        }
+
+        public virtual RuleConfiguration VisitRuleConfiguration(RuleConfiguration node)
         {
             if (node != null)
             {

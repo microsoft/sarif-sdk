@@ -189,7 +189,7 @@
           "relatedLocations": [
             {
               "message": {
-                "text": "\"count\" was declared here.",
+                "text": "\"count\" was declared here."
               },
               "physicalLocation": {
                 "fileLocation": {

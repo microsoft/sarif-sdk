@@ -39,13 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
-        public RuleConfiguration Configuration
-        {
-            get
-            {
-                return RuleConfiguration.Enabled;
-            }
-        }
+        public RuleConfiguration Configuration { get { return new RuleConfiguration(); } }
 
         public string RichDescription => throw new NotImplementedException();
 

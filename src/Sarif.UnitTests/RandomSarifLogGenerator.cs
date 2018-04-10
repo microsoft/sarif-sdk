@@ -142,8 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Rule()
                     {
                         Id = ruleId,
-                        FullDescription = "TestRule",
-                        DefaultLevel = ResultLevel.Pass
+                        FullDescription = "TestRule"
                     });
             }
             return dictionary;

@@ -112,6 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Rule,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="RuleConfiguration" />.
+        /// </summary>
+        RuleConfiguration,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>
         Run,

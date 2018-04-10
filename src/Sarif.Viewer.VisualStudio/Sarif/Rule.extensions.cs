@@ -26,7 +26,6 @@ namespace Microsoft.Sarif.Viewer.Sarif
                     Id = rule.Id,
                     Name = rule.Name,
                     Category = rule.GetCategory(),
-                    DefaultLevel = rule.DefaultLevel.ToString(),
                     Description = rule.FullDescription,
                     HelpUri = rule.HelpUri?.AbsoluteUri
                 };
