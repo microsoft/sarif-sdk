@@ -145,8 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         FullDescription = new Message
                         {
                             Text = "TestRule"
-                        },
-                        DefaultLevel = ResultLevel.Pass
+                        }
                     });
             }
             return dictionary;

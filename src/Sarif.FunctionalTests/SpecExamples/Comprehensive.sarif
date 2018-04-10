@@ -20,100 +20,102 @@
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
         }
       },
-      "invocation": {
-        "commandLine": "CodeScanner @collections.rsp",
-        "responseFiles": [
-          {
-            "uri": "collections.rsp"
-          }
-        ],
-        "startTime": "2016-07-16T14:18:25Z",
-        "endTime": "2016-07-16T14:19:01Z",
-        "configurationNotifications": [
-          {
-            "id": "UnknownRule",
-            "ruleId": "ABC0001",
-            "level": "warning",
-            "message": {
-              "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+      "invocations": [
+        {
+          "commandLine": "CodeScanner @collections.rsp",
+          "responseFiles": [
+            {
+              "uri": "collections.rsp"
             }
-          }
-        ],
-        "toolNotifications": [
-          {
-            "id": "CTN0001",
-            "level": "note",
-            "message": {
-              "text": "Run started."
+          ],
+          "startTime": "2016-07-16T14:18:25Z",
+          "endTime": "2016-07-16T14:19:01Z",
+          "configurationNotifications": [
+            {
+              "id": "UnknownRule",
+              "ruleId": "ABC0001",
+              "level": "warning",
+              "message": {
+                "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+              }
             }
-          },
-          {
-            "id": "CTN9999",
-            "ruleId": "C2152",
-            "level": "error",
-            "message": {
-              "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
-            },
-            "physicalLocation": {
-              "fileLocation": {
-                "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+          ],
+          "toolNotifications": [
+            {
+              "id": "CTN0001",
+              "level": "note",
+              "message": {
+                "text": "Run started."
               }
             },
-            "threadId": 52,
-            "time": "2016-07-16T14:18:43.119Z",
-            "exception": {
-              "kind": "ExecutionEngine.RuleFailureException",
-              "message": "Unhandled exception during rule evaluation.",
-              "stack": {
-                "frames": [
-                  {
-                    "location": {
-                      "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
-                      "message": {
-                        "text": "Exception thrown"
-                      }
+            {
+              "id": "CTN9999",
+              "ruleId": "C2152",
+              "level": "error",
+              "message": {
+                "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+                }
+              },
+              "threadId": 52,
+              "time": "2016-07-16T14:18:43.119Z",
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": "Unhandled exception during rule evaluation.",
+                "stack": {
+                  "frames": [
+                    {
+                      "location": {
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                        "message": {
+                          "text": "Exception thrown"
+                        }
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": 10092852
                     },
-                    "module": "RuleLibrary",
-                    "threadId": 52,
-                    "address": 10092852
-                  },
+                    {
+                      "location": {
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                      },
+                      "module": "ExecutionEngine",
+                      "threadId": 52,
+                      "address": 10073356
+                    }
+                  ]
+                },
+                "innerExceptions": [
                   {
-                    "location": {
-                      "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
-                    },
-                    "module": "ExecutionEngine",
-                    "threadId": 52,
-                    "address": 10073356
+                    "kind": "System.ArgumentException",
+                    "message": "length is < 0"
                   }
                 ]
-              },
-              "innerExceptions": [
-                {
-                  "kind": "System.ArgumentException",
-                  "message": "length is < 0"
-                }
-              ]
+              }
+            },
+            {
+              "id": "CTN0002",
+              "level": "note",
+              "message": {
+                "text": "Run ended."
+              }
             }
-          },
-          {
-            "id": "CTN0002",
-            "level": "note",
-            "message": {
-              "text": "Run ended."
-            }
+          ],
+          "machine": "BLD01",
+          "account": "buildAgent",
+          "processId": 1218,
+          "fileName": "/bin/tools/CodeScanner",
+          "workingDirectory": "/home/buildAgent/src",
+          "environmentVariables": {
+            "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
+            "HOME": "/home/buildAgent",
+            "TZ": "EST"
           }
-        ],
-        "machine": "BLD01",
-        "account": "buildAgent",
-        "processId": 1218,
-        "fileName": "/bin/tools/CodeScanner",
-        "workingDirectory": "/home/buildAgent/src",
-        "environmentVariables": {
-          "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
-          "HOME": "/home/buildAgent",
-          "TZ": "EST"
         }
-      },
+      ],
       "files": {
         "file:///home/buildAgent/src/collections/list.cpp": {
           "mimeType": "text/x-c",

@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal abstract class TestRuleBase : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
     {
+        protected RuleConfiguration _ruleConfiguration = null;
+
         public virtual SupportedPlatform SupportedPlatforms
         {
             get
@@ -43,7 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                return RuleConfiguration.Enabled;
+                if (_ruleConfiguration == null)
+                {
+                    _ruleConfiguration = new RuleConfiguration();
+                }
+
+                return _ruleConfiguration;
             }
         }
 

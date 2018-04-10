@@ -92,6 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitResult((Result)node);
                 case SarifNodeKind.Rule:
                     return VisitRule((Rule)node);
+                case SarifNodeKind.RuleConfiguration:
+                    return VisitRuleConfiguration((RuleConfiguration)node);
                 case SarifNodeKind.Run:
                     return VisitRun((Run)node);
                 case SarifNodeKind.SarifLog:
@@ -485,7 +487,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Name = VisitNullChecked(node.Name);
                 node.ShortDescription = VisitNullChecked(node.ShortDescription);
                 node.FullDescription = VisitNullChecked(node.FullDescription);
+                node.Configuration = VisitNullChecked(node.Configuration);
                 node.Help = VisitNullChecked(node.Help);
+            }
+
+            return node;
+        }
+
+        public virtual RuleConfiguration VisitRuleConfiguration(RuleConfiguration node)
+        {
+            if (node != null)
+            {
             }
 
             return node;
@@ -496,7 +508,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Tool = VisitNullChecked(node.Tool);
-                node.Invocation = VisitNullChecked(node.Invocation);
+                if (node.Invocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Invocations.Count; ++index_0)
+                    {
+                        node.Invocations[index_0] = VisitNullChecked(node.Invocations[index_0]);
+                    }
+                }
+
                 node.Conversion = VisitNullChecked(node.Conversion);
                 if (node.Files != null)
                 {

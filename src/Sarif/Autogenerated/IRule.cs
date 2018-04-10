@@ -45,14 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         IDictionary<string, string> RichMessageStrings { get; }
 
         /// <summary>
-        /// A value specifying whether a rule is enabled.
+        /// Information about the rule that can be configured at runtime.
         /// </summary>
         RuleConfiguration Configuration { get; }
-
-        /// <summary>
-        /// A value specifying the default severity level of the result.
-        /// </summary>
-        ResultLevel DefaultLevel { get; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.

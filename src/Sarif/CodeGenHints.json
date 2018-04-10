@@ -298,6 +298,21 @@
       }
     }
   ],
+  "RuleConfiguration.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "RuleConfigurationDefaultLevel",
+        "description": "A value that specifies the default severity level of the result",
+        "memberNames": [
+          "Note",
+          "Warning",
+          "Error",
+          "Open"
+        ]
+      }
+    }
+  ],
   "rule": [
     {
       "kind": "InterfaceHint",
@@ -311,40 +326,6 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
-      }
-    }
-  ],
-
-  "Rule.Configuration": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "RuleConfiguration",
-        "description": "A value that specifies whether a rule is enabled.",
-        "memberNames": [
-          "Unknown",
-          "Enabled",
-          "Disabled"
-        ]
-      }
-    }
-  ],
-
-  "Rule.DefaultLevel": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultLevel",
-        "description": "The level of a result.",
-        "zeroValueName": "Default",
-        "memberNames": [
-          "NotApplicable",
-          "Pass",
-          "Note",
-          "Warning",
-          "Error"
-        ],
-        "allowMemberCountMismatch": true
       }
     }
   ],

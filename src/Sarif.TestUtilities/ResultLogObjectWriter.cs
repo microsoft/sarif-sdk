@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void WriteInvocation(Invocation invocation)
+        public void WriteInvocations(IEnumerable<Invocation> invocations)
         {
         }
 

@@ -26,7 +26,9 @@
               "Error": "{0} was compiled with one or tools that do not satisfy configured policy.",
               "NotApplicable_InvalidMetadata": "{0} was not evaluated for check '{1}'."
             },
-            "defaultLevel": "warning",
+            "configuration": {
+              "defaultLevel": "warning"
+            },
             "helpUri": "http://www.example.com/tools/BinaryAnalyzer/rules/BA2006"
           }
         }

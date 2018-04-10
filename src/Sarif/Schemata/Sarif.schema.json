@@ -1081,15 +1081,8 @@
         },
 
         "configuration": {
-          "description": "A value specifying whether a rule is enabled.",
-          "default": "unknown",
-          "enum": [ "unknown", "enabled", "disabled" ]
-        },
-
-        "defaultLevel": {
-          "description": "A value specifying the default severity level of the result.",
-          "default": "warning",
-          "enum": [ "note", "warning", "error" ]
+          "description": "Information about the rule that can be configured at runtime.",
+          "$ref": "#/definitions/ruleConfiguration"
         },
 
         "helpUri": {
@@ -1124,6 +1117,42 @@
       "required": [ "id" ]
     },
 
+    "ruleConfiguration": {
+      "description": "Information about a rule that can be configured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "enabled": {
+          "description": "Specifies whether the rule will be evaluated during the scan.",
+          "type": "boolean"
+        },
+
+        "defaultLevel": {
+          "description": "Specifies the default severity level of the result.",
+          "default": "warning",
+          "enum": [ "note", "warning", "error", "open" ]
+        },
+
+        "parameters": {
+          "description": "Contains configuration information specific to this rule.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional configuration information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
     "run": {
       "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
@@ -1135,9 +1164,14 @@
           "$ref": "#/definitions/tool"
         },
 
-        "invocation": {
-          "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
-          "$ref": "#/definitions/invocation"
+        "invocations": {
+          "description": "Describes the invocation of the analysis tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/invocation"
+          }
         },
 
         "conversion": {

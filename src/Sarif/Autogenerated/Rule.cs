@@ -69,16 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> RichMessageStrings { get; set; }
 
         /// <summary>
-        /// A value specifying whether a rule is enabled.
+        /// Information about the rule that can be configured at runtime.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
         public RuleConfiguration Configuration { get; set; }
-
-        /// <summary>
-        /// A value specifying the default severity level of the result.
-        /// </summary>
-        [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
-        public ResultLevel DefaultLevel { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
@@ -129,9 +123,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="configuration">
         /// An initialization value for the <see cref="P: Configuration" /> property.
         /// </param>
-        /// <param name="defaultLevel">
-        /// An initialization value for the <see cref="P: DefaultLevel" /> property.
-        /// </param>
         /// <param name="helpUri">
         /// An initialization value for the <see cref="P: HelpUri" /> property.
         /// </param>
@@ -141,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, defaultLevel, helpUri, help, properties);
+            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
         }
 
         /// <summary>
@@ -162,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.DefaultLevel, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -183,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, ResultLevel defaultLevel, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (name != null)
@@ -211,8 +202,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RichMessageStrings = new Dictionary<string, string>(richMessageStrings);
             }
 
-            Configuration = configuration;
-            DefaultLevel = defaultLevel;
+            if (configuration != null)
+            {
+                Configuration = new RuleConfiguration(configuration);
+            }
+
             if (helpUri != null)
             {
                 HelpUri = new Uri(helpUri.OriginalString, helpUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);

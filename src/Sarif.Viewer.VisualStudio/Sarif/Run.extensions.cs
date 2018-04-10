@@ -81,10 +81,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
                             ruleName,
                             shortDescription: null,
                             fullDescription: null,
+                            configuration: null,
                             messageStrings: null,
                             richMessageStrings: null,
-                            configuration: RuleConfiguration.Unknown,
-                            defaultLevel: ResultLevel.Warning,
                             helpUri: helpUri,
                             help: null, // PREfast rules don't need a "help" property; they all have online documentation.
                             properties: null);

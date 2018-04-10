@@ -29,7 +29,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog)
         {
-            var run = new Run();
+            var run = new Run
+            {
+                Invocations = new List<Invocation>()
+            };
 
             if (analysisTargets != null)
             {
@@ -47,28 +50,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
+            var invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
             if (invocationTokensToRedact != null)
             {
-                run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
-                run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
-                run.Invocation.Account = Redact(run.Invocation.Account, invocationTokensToRedact);
-                run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
+                invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
+                invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
+                invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
+                invocation.WorkingDirectory = Redact(invocation.WorkingDirectory, invocationTokensToRedact);
 
-                if (run.Invocation.EnvironmentVariables != null)
+                if (invocation.EnvironmentVariables != null)
                 {
-                    string[] keys = run.Invocation.EnvironmentVariables.Keys.ToArray();
+                    string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
 
                     foreach (string key in keys)
                     {
-                        string value = run.Invocation.EnvironmentVariables[key];
-                        run.Invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                        string value = invocation.EnvironmentVariables[key];
+                        invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
                     }
                 }
             }
+
+            run.Invocations.Add(invocation);
             return run;
         }
 
@@ -175,11 +180,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run != null &&
-                    _run.Invocation != null &&
-                    _run.Invocation.StartTime != new DateTime())
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTime != new DateTime())
                 {
-                    _run.Invocation.EndTime = DateTime.UtcNow;
+                    _run.Invocations[0].EndTime = DateTime.UtcNow;
                 }
 
                 // Note: we write out the backing rules
@@ -190,14 +193,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteRules(_rules);
                 }
 
-                if (_run != null && _run.Files != null)
+                if (_run?.Files != null)
                 {
                     _issueLogJsonWriter.WriteFiles(_run.Files);
                 }
 
-                if (_run != null && _run.Invocation != null)
+                if (_run?.Invocations != null)
                 {
-                    _issueLogJsonWriter.WriteInvocation(invocation: _run.Invocation);
+                    _issueLogJsonWriter.WriteInvocations(invocations: _run.Invocations);
                 }
 
                 _issueLogJsonWriter.Dispose();
@@ -218,12 +221,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.Invocation = Invocation.Create();
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            _run.Invocation.EndTime = DateTime.UtcNow;
+            if (_run.Invocations != null && _run.Invocations.Count > 0)
+            {
+                _run.Invocations[0].EndTime = DateTime.UtcNow;
+            }
         }
 
         public void Log(IRule rule, Result result)
@@ -472,24 +477,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
-            if (_run.Invocation == null)
+            if (_run.Invocations.Count == 0)
             {
-                _run.Invocation = new Invocation();
+                _run.Invocations.Add(new Invocation());
             }
 
-            _run.Invocation.ToolNotifications = _run.Invocation.ToolNotifications ?? new List<Notification>();
-            _run.Invocation.ToolNotifications.Add(notification);
+            _run.Invocations[0].ToolNotifications = _run.Invocations[0].ToolNotifications ?? new List<Notification>();
+            _run.Invocations[0].ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            if (_run.Invocation == null)
+            if (_run.Invocations.Count == 0)
             {
-                _run.Invocation = new Invocation();
+                _run.Invocations.Add(new Invocation());
             }
 
-            _run.Invocation.ConfigurationNotifications = _run.Invocation.ConfigurationNotifications ?? new List<Notification>();
-            _run.Invocation.ConfigurationNotifications.Add(notification);
+            _run.Invocations[0].ConfigurationNotifications = _run.Invocations[0].ConfigurationNotifications ?? new List<Notification>();
+            _run.Invocations[0].ConfigurationNotifications.Add(notification);
         }
     }
 }
