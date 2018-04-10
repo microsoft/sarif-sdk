@@ -29,7 +29,9 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""results"": [
         {
           ""level"": ""error"",
-          ""message"": ""Message"",
+          ""message"": {
+            ""text"": ""Message""
+          },
           ""locations"": [
             {
               ""physicalLocation"": {
@@ -83,7 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [
         {
-          ""message"": ""Call to Equals() comparing incomparable types[IComparable] and [ClientAttributeValue]"",
+          ""message"": {
+            ""text"": ""Call to Equals() comparing incomparable types[IComparable] and [ClientAttributeValue]""
+          },
           ""locations"": [
             {
               ""physicalLocation"": {

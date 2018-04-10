@@ -64,10 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Fix,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="TemplatedMessage" />.
-        /// </summary>
-        TemplatedMessage,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Hash" />.
         /// </summary>
         Hash,
@@ -103,6 +99,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Replacement" />.
         /// </summary>
         Replacement,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Resources" />.
+        /// </summary>
+        Resources,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>

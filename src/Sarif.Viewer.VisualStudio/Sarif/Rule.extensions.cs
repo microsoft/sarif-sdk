@@ -24,9 +24,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 model = new RuleModel()
                 {
                     Id = rule.Id,
-                    Name = rule.Name,
+                    Name = rule.Name?.Text,
                     Category = rule.GetCategory(),
-                    Description = rule.FullDescription,
+                    Description = rule.FullDescription?.Text,
                     HelpUri = rule.HelpUri?.AbsoluteUri
                 };
             }

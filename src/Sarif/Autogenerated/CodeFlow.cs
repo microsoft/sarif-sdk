@@ -30,16 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A plain text message relevant to the code flow.
+        /// A message relevant to the code flow.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        /// <summary>
-        /// A rich text message relevant to the code flow.
-        /// </summary>
-        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessage { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
         /// An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
@@ -66,18 +60,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="richMessage">
-        /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public CodeFlow(string message, string richMessage, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        public CodeFlow(Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, richMessage, locations, properties);
+            Init(message, locations, properties);
         }
 
         /// <summary>
@@ -96,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.RichMessage, other.Locations, other.Properties);
+            Init(other.Message, other.Locations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -117,10 +108,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(string message, string richMessage, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Message = message;
-            RichMessage = richMessage;
+            if (message != null)
+            {
+                Message = new Message(message);
+            }
+
             if (locations != null)
             {
                 var destination_0 = new List<CodeFlowLocation>();

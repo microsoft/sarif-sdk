@@ -213,6 +213,28 @@
       }
     }
   ],
+  "resources": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Resources.Rules": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "Rule",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    }
+  ],
   "result": [
     {
       "kind": "BaseTypeHint",
@@ -311,12 +333,12 @@
       }
     }
   ],
-  "Rule.MessageTemplates": [
+  "Rule.MessageStrings": [
     {
       "kind": "DictionaryHint"
     }
   ],
-  "Rule.RichMessageTemplates": [
+  "Rule.RichMessageStrings": [
     {
       "kind": "DictionaryHint"
     }

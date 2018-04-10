@@ -116,11 +116,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (messageComponents.Count == 0)
             {
-                result.Message = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId);
+                result.Message = new Message
+                {
+                    Text = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId)
+                };
             }
             else
             {
-                result.Message = String.Join(Environment.NewLine, messageComponents);
+                result.Message = new Message
+                {
+                    Text = String.Join(Environment.NewLine, messageComponents)
+                };
             }
 
             result.SetProperty("kingdom", fortify.Kingdom);

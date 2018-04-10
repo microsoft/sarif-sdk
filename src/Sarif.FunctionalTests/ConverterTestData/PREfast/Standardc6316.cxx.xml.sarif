@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6316",
-          "message": "Incorrect operator:  tested expression is constant and non-zero.  Use bitwise-and to determine whether bits are set.",
+          "message": {
+            "text": "Incorrect operator:  tested expression is constant and non-zero.  Use bitwise-and to determine whether bits are set."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -218,7 +220,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -421,7 +425,9 @@
         },
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'x':  the readable size is '8' bytes, but 'param' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'x':  the readable size is '8' bytes, but 'param' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -702,7 +708,9 @@
         },
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'y':  the readable size is '8' bytes, but '12' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'y':  the readable size is '8' bytes, but '12' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -932,7 +940,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {

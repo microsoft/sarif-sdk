@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'a[result.get_g + 10]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 19\n\n when function get_g called at line 15 is inline analyzed.\n when function get_g called at line 17 is inline analyzed.\n\nValues of variables:\nresult.get_g = 9\n",
+          "message": {
+            "text": "Overflow using expression 'a[result.get_g + 10]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 19\n\n when function get_g called at line 15 is inline analyzed.\n when function get_g called at line 17 is inline analyzed.\n\nValues of variables:\nresult.get_g = 9\n"
+          },
           "locations": [
             {
               "physicalLocation": {

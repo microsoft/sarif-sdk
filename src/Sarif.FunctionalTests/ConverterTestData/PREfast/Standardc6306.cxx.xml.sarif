@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6273",
-          "message": "Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used.",
+          "message": {
+            "text": "Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -37,7 +39,9 @@
         },
         {
           "ruleId": "6306",
-          "message": "Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument.",
+          "message": {
+            "text": "Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument."
+          },
           "locations": [
             {
               "physicalLocation": {

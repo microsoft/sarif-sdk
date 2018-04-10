@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26006",
-          "message": "Possibly incorrect single element annotation on string buffer\nPossible precondition violation due to failure to null terminate string 'q'\nBuffer q is a parameter to this function declared on line 25\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(q)`25 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test088.cpp(25)]\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is q [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "message": {
+            "text": "Possibly incorrect single element annotation on string buffer\nPossible precondition violation due to failure to null terminate string 'q'\nBuffer q is a parameter to this function declared on line 25\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(q)`25 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test088.cpp(25)]\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is q [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -71,7 +73,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string 's'\nBuffer s is a parameter to this function declared on line 36\nAnnotation on function Fill requires that {parameter 1} is null terminated\n  where {parameter 1} is s [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string 's'\nBuffer s is a parameter to this function declared on line 36\nAnnotation on function Fill requires that {parameter 1} is null terminated\n  where {parameter 1} is s [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -127,7 +131,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '& buf'\nBuffer accessed is buf\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & buf [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '& buf'\nBuffer accessed is buf\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & buf [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -379,7 +385,9 @@
         },
         {
           "ruleId": "26036",
-          "message": "Possible postcondition violation due to failure to null terminate string\nThe function has a __success annotation that is satisfied\nAccessing unannotated buffer (item->Item::text)\nAnnotation on function GetItem requires that item->text is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n",
+          "message": {
+            "text": "Possible postcondition violation due to failure to null terminate string\nThe function has a __success annotation that is satisfied\nAccessing unannotated buffer (item->Item::text)\nAnnotation on function GetItem requires that item->text is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -477,7 +485,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '& s'\nBuffer accessed is s\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & s [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '& s'\nBuffer accessed is s\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & s [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -561,7 +571,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '(WCHAR *)(& str)'\nBuffer accessed is str\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is (WCHAR *)(& str) [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(15)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '(WCHAR *)(& str)'\nBuffer accessed is str\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is (WCHAR *)(& str) [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(15)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -645,7 +657,9 @@
         },
         {
           "ruleId": "26036",
-          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer p is a parameter to this function declared on line 147\nAnnotation on function BadMemset requires that p is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n",
+          "message": {
+            "text": "Possible postcondition violation due to failure to null terminate string\nBuffer p is a parameter to this function declared on line 147\nAnnotation on function BadMemset requires that p is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {

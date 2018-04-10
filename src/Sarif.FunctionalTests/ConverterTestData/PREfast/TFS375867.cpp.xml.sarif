@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -104,7 +106,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -193,7 +197,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -282,7 +288,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -371,7 +379,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -460,7 +470,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -549,7 +561,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -638,7 +652,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -727,7 +743,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -816,7 +834,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -905,7 +925,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -994,7 +1016,9 @@
         },
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'data'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'data'. "
+          },
           "locations": [
             {
               "physicalLocation": {

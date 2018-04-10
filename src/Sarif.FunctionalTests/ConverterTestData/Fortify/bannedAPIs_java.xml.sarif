@@ -14,7 +14,9 @@
       "results": [
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -38,7 +40,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -62,7 +66,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -86,7 +92,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -110,7 +118,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -134,7 +144,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -158,7 +170,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -182,7 +196,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -206,7 +222,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -230,7 +248,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -254,7 +274,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -278,7 +300,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -302,7 +326,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -326,7 +352,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -350,7 +378,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by next() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -374,7 +404,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -398,7 +430,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -422,7 +456,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -446,7 +482,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -470,7 +508,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -494,7 +534,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by random() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by random() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -518,7 +560,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -542,7 +586,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -566,7 +612,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -590,7 +638,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -614,7 +664,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by next() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -638,7 +690,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by next() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by next() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -662,7 +716,9 @@
         },
         {
           "ruleId": "Insecure Randomness",
-          "message": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.",
+          "message": {
+            "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -686,7 +742,9 @@
         },
         {
           "ruleId": "Insecure Randomness: Poor Seed",
-          "message": "Random.setSeed should not be called with a constant integer argument.",
+          "message": {
+            "text": "Random.setSeed should not be called with a constant integer argument."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -710,7 +768,9 @@
         },
         {
           "ruleId": "Insecure Randomness: Poor Seed",
-          "message": "Random.setSeed should not be called with a constant integer argument.",
+          "message": {
+            "text": "Random.setSeed should not be called with a constant integer argument."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -734,7 +794,9 @@
         },
         {
           "ruleId": "Insecure Randomness: Poor Seed",
-          "message": "Random.setSeed should not be called with a constant integer argument.",
+          "message": {
+            "text": "Random.setSeed should not be called with a constant integer argument."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -758,7 +820,9 @@
         },
         {
           "ruleId": "Insecure Randomness: Poor Seed",
-          "message": "Random.setSeed should not be called with a constant integer argument.",
+          "message": {
+            "text": "Random.setSeed should not be called with a constant integer argument."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -782,7 +846,9 @@
         },
         {
           "ruleId": "Insecure Randomness: Poor Seed",
-          "message": "Random.setSeed should not be called with a constant integer argument.",
+          "message": {
+            "text": "Random.setSeed should not be called with a constant integer argument."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'contentStores':  the readable size is '2*4' bytes, but 'index' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'contentStores':  the readable size is '2*4' bytes, but 'index' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {

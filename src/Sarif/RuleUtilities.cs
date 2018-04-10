@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string templateId, params string[] arguments)
+        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -21,15 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            templateId = RuleUtilities.NormalizeTemplateId(templateId, context.Rule.Id);
+            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
 
             Result result = new Result
             {
                 RuleId = context.Rule.Id,
+                RuleMessageId = ruleMessageId,
 
-                TemplatedMessage = new TemplatedMessage
+                Message = new Message
                 {
-                    TemplateId = templateId,
                     Arguments = arguments
                 },
 
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeTemplateId(resourceName, ruleId, prefix);
+                string normalizedResourceName = NormalizeRuleMessageId(resourceName, ruleId, prefix);
 
                 // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
@@ -99,24 +99,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static string NormalizeTemplateId(string templateId, string ruleId, string prefix = null)
+        public static string NormalizeRuleMessageId(string ruleMessageId, string ruleId, string prefix = null)
         {
-            if (templateId == null)
+            if (ruleMessageId == null)
             {
-                throw new ArgumentNullException(nameof(templateId));
+                throw new ArgumentNullException(nameof(ruleMessageId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && templateId.StartsWith(ruleId + "_", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(ruleId) && ruleMessageId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
-                templateId = templateId.Substring(ruleId.Length + 1);
+                ruleMessageId = ruleMessageId.Substring(ruleId.Length + 1);
             }
 
-            if (!string.IsNullOrEmpty(prefix) && templateId.StartsWith(prefix + "_", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(prefix) && ruleMessageId.StartsWith(prefix + "_", StringComparison.Ordinal))
             {
-                templateId = templateId.Substring(prefix.Length + 1);
+                ruleMessageId = ruleMessageId.Substring(prefix.Length + 1);
             }
 
-            return templateId;
+            return ruleMessageId;
         }
     }
 }

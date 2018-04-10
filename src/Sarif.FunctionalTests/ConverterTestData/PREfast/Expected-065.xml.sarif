@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26018",
-          "message": "Potential read overflow of null terminated buffer using expression '* pwszTemp'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(pwszPath)`5 is not constrained by nullpos(pwszPath)`5\n\nBuffer pwszPath is a parameter to this function declared on line 5\nBuffer is of length 2*nullpos(pwszPath)`5 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 4\n\nValues of variables:\nPointer pwszTemp is at offset 4 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\n{loop iterations}'17 == 0\nnullpos(pwszPath)`5 >= 0\n\nOverrun access occurs when\nnullpos(pwszPath)`5 <= 1\n",
+          "message": {
+            "text": "Potential read overflow of null terminated buffer using expression '* pwszTemp'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(pwszPath)`5 is not constrained by nullpos(pwszPath)`5\n\nBuffer pwszPath is a parameter to this function declared on line 5\nBuffer is of length 2*nullpos(pwszPath)`5 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 4\n\nValues of variables:\nPointer pwszTemp is at offset 4 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\n{loop iterations}'17 == 0\nnullpos(pwszPath)`5 >= 0\n\nOverrun access occurs when\nnullpos(pwszPath)`5 <= 1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -127,7 +129,9 @@
         },
         {
           "ruleId": "26015",
-          "message": "Potential overflow using expression '* (pwszServerName ++)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {loop iterations}'17 is not constrained by any constant\n\nBuffer wszMachineName is a parameter to this function declared on line 5\nBuffer is of length offset(wszMachineName)`5 + 32 bytes [from annotation SAL_writableTo(elementCount(16)) at c:\\somepath\\test065.cpp(5)]\nAccessing 2 bytes starting at byte offset 2*{loop iterations}'17 + 4\n\nValues of variables:\nPointer pwszServerName is at offset 2*{loop iterations}'17 + 6 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\noffset(wszMachineName)`5 == 0\n2*nullpos(pwszPath)`5 >= 2*{loop iterations}'17 + 12\nnullpos(pwszPath)`5 >= 0\n{loop iterations}'17 >= 0\n\nOverrun access occurs when\n{loop iterations}'17 >= 14\n",
+          "message": {
+            "text": "Potential overflow using expression '* (pwszServerName ++)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {loop iterations}'17 is not constrained by any constant\n\nBuffer wszMachineName is a parameter to this function declared on line 5\nBuffer is of length offset(wszMachineName)`5 + 32 bytes [from annotation SAL_writableTo(elementCount(16)) at c:\\somepath\\test065.cpp(5)]\nAccessing 2 bytes starting at byte offset 2*{loop iterations}'17 + 4\n\nValues of variables:\nPointer pwszServerName is at offset 2*{loop iterations}'17 + 6 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\noffset(wszMachineName)`5 == 0\n2*nullpos(pwszPath)`5 >= 2*{loop iterations}'17 + 12\nnullpos(pwszPath)`5 >= 0\n{loop iterations}'17 >= 0\n\nOverrun access occurs when\n{loop iterations}'17 >= 14\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -393,7 +397,9 @@
         },
         {
           "ruleId": "26035",
-          "message": "Possible precondition violation due to failure to null terminate string '& wstr1'\nBuffer accessed is wstr1\nAnnotation on function GetMachineName requires that {parameter 1} is null terminated\n  where {parameter 1} is & wstr1 [Annotation SAL_nullTerminated at c:\\somepath\\test065.cpp(5)]\n",
+          "message": {
+            "text": "Possible precondition violation due to failure to null terminate string '& wstr1'\nBuffer accessed is wstr1\nAnnotation on function GetMachineName requires that {parameter 1} is null terminated\n  where {parameter 1} is & wstr1 [Annotation SAL_nullTerminated at c:\\somepath\\test065.cpp(5)]\n"
+          },
           "locations": [
             {
               "physicalLocation": {

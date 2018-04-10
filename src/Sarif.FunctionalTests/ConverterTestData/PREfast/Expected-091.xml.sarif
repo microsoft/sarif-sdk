@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26061",
-          "message": "Range postcondition violation\nAnnotation on function RtlEncodeUtf16LE requires that (& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end\n[Annotation SAL_satisfies((& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end) at c:\\somepath\\test091.cpp(21)]\n\nValues of variables:\nPointer begin is at offset offset(begin)`21 bytes from the start of begin\n",
+          "message": {
+            "text": "Range postcondition violation\nAnnotation on function RtlEncodeUtf16LE requires that (& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end\n[Annotation SAL_satisfies((& result.RtlEncodeUtf16LE)->NewCursorValue >= begin && (& result.RtlEncodeUtf16LE)->NewCursorValue <= end) at c:\\somepath\\test091.cpp(21)]\n\nValues of variables:\nPointer begin is at offset offset(begin)`21 bytes from the start of begin\n"
+          },
           "locations": [
             {
               "physicalLocation": {

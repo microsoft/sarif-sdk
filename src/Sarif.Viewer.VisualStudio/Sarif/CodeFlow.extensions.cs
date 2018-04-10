@@ -17,7 +17,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
 
-            CodeFlowLocationCollection model = new CodeFlowLocationCollection(codeFlow.Message);
+            CodeFlowLocationCollection model = new CodeFlowLocationCollection(codeFlow.Message.Text);
 
             if (codeFlow.Locations != null)
             {

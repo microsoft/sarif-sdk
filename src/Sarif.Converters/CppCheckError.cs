@@ -125,11 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(this.VerboseMessage))
             { 
-                result.Message = this.VerboseMessage;
+                result.Message = new Message { Text = this.VerboseMessage };
             }
             else
             {
-                result.Message = this.Message;
+                result.Message = new Message { Text = this.Message };
             }
 
             PhysicalLocation lastLocationConverted;

@@ -253,10 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            if (rule != null)
-            {
-                Rules[result.RuleKey ?? result.RuleId] = rule;
-            }
+            Rules[result.RuleKey ?? result.RuleId] = rule;
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
@@ -383,13 +380,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     },
                     Id = Notes.Msg001AnalyzingTarget,
-                    Message = message,
+                    Message = new Message { Text = message },
                     Level = NotificationLevel.Note,
                     Time = DateTime.UtcNow,
                 });
         }
 
-        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string templateId, params string[] arguments)
+        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -401,11 +398,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[context.Rule.Id] = context.Rule;
             }
 
-            templateId = RuleUtilities.NormalizeTemplateId(templateId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, templateId, arguments);
+            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string templateId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
@@ -416,9 +413,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             result.RuleId = ruleId;
 
-            result.TemplatedMessage = new TemplatedMessage()
+            result.Message = new Message()
             {
-                TemplateId = templateId,
+                MessageId = ruleMessageId,
                 Arguments = arguments
             };
 

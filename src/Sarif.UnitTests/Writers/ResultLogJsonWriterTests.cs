@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Id = "NOT0001",
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
-                Message = "This is a test",
+                Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {
                     FileLocation = new FileLocation
@@ -314,7 +314,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
               ""startColumn"": 12
             }
           },
-          ""message"": ""This is a test"",
+          ""message"": {
+            ""text"": ""This is a test""
+          },
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.000Z"",
           ""exception"": {

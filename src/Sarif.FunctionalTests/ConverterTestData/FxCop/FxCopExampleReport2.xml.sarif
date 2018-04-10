@@ -43,7 +43,9 @@
         {
           "ruleId": "CA904",
           "level": "error",
-          "message": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "message": {
+            "text": "Redefine the types in namespace 'SecurityCryptographyRuleTests' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally."
+          },
           "locations": [
             {
               "fullyQualifiedLogicalName": "SecurityCryptographyRuleTests"
@@ -57,7 +59,9 @@
         {
           "ruleId": "CA1014",
           "level": "error",
-          "message": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types.",
+          "message": {
+            "text": "Mark 'SecurityCryptographyRuleTests.dll' with CLSCompliant(true) because it exposes externally visible types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -76,7 +80,9 @@
         {
           "ruleId": "CA1709",
           "level": "error",
-          "message": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'.",
+          "message": {
+            "text": "Correct the casing of 'DES' in type name 'DESCannotBeUsed' by changing it to 'Des'."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -98,7 +104,9 @@
         {
           "ruleId": "CA1053",
           "level": "error",
-          "message": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "message": {
+            "text": "Because type 'DESCannotBeUsed' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -120,7 +128,9 @@
         {
           "ruleId": "CA1811",
           "level": "warning",
-          "message": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers.",
+          "message": {
+            "text": "'DESCannotBeUsed.EncryptData(string, string, byte[], byte[])' appears to have no upstream public or protected callers."
+          },
           "analysisTarget": {
             "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
           },

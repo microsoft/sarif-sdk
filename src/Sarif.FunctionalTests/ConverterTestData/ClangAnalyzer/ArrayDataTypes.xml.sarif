@@ -14,7 +14,9 @@
       "results": [
         {
           "ruleId": "Dead assignment",
-          "message": "Value stored to 'scanptr' is never read",
+          "message": {
+            "text": "Value stored to 'scanptr' is never read"
+          },
           "locations": [
             {
               "physicalLocation": {

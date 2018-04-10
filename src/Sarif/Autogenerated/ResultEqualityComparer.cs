@@ -43,17 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Message != right.Message)
+            if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
             }
 
-            if (left.RichMessage != right.RichMessage)
-            {
-                return false;
-            }
-
-            if (!TemplatedMessage.ValueComparer.Equals(left.TemplatedMessage, right.TemplatedMessage))
+            if (left.RuleMessageId != right.RuleMessageId)
             {
                 return false;
             }
@@ -295,17 +290,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.Level.GetHashCode();
                 if (obj.Message != null)
                 {
-                    result = (result * 31) + obj.Message.GetHashCode();
+                    result = (result * 31) + obj.Message.ValueGetHashCode();
                 }
 
-                if (obj.RichMessage != null)
+                if (obj.RuleMessageId != null)
                 {
-                    result = (result * 31) + obj.RichMessage.GetHashCode();
-                }
-
-                if (obj.TemplatedMessage != null)
-                {
-                    result = (result * 31) + obj.TemplatedMessage.ValueGetHashCode();
+                    result = (result * 31) + obj.RuleMessageId.GetHashCode();
                 }
 
                 if (obj.AnalysisTarget != null)

@@ -160,7 +160,9 @@
       },
       "results": [
         {
-          "message": "Avoid using thread priorities. The effect is unpredictable and not portable.",
+          "message": {
+            "text": "Avoid using thread priorities. The effect is unpredictable and not portable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -178,7 +180,9 @@
           ]
         },
         {
-          "message": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER]: Missing synchronization.",
+          "message": {
+            "text": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER]: Missing synchronization."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -211,7 +215,9 @@
           ]
         },
         {
-          "message": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER]: Missing synchronization.",
+          "message": {
+            "text": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER]: Missing synchronization."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -244,7 +250,9 @@
           ]
         },
         {
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "message": {
+            "text": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -262,7 +270,9 @@
           ]
         },
         {
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "message": {
+            "text": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -280,7 +290,9 @@
           ]
         },
         {
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "message": {
+            "text": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -298,7 +310,9 @@
           ]
         },
         {
-          "message": "Prefer wait/notify or java.util.concurrent to communicate between threads.",
+          "message": {
+            "text": "Prefer wait/notify or java.util.concurrent to communicate between threads."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -316,7 +330,9 @@
           ]
         },
         {
-          "message": "Variable [reader] may be null here.",
+          "message": {
+            "text": "Variable [reader] may be null here."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -349,7 +365,9 @@
           ]
         },
         {
-          "message": "Exceptions should not be dropped.",
+          "message": {
+            "text": "Exceptions should not be dropped."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -367,7 +385,9 @@
           ]
         },
         {
-          "message": "Exceptions should not be dropped.",
+          "message": {
+            "text": "Exceptions should not be dropped."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -386,7 +406,9 @@
         },
         {
           "level": "error",
-          "message": "This BOMInputStream is not always closed on method exit.",
+          "message": {
+            "text": "This BOMInputStream is not always closed on method exit."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -405,7 +427,9 @@
         },
         {
           "level": "error",
-          "message": "This BOMInputStream is not always closed on method exit.",
+          "message": {
+            "text": "This BOMInputStream is not always closed on method exit."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -424,7 +448,9 @@
         },
         {
           "level": "note",
-          "message": "Method doCopyFile ignores exceptional return value of File.setLastModified.",
+          "message": {
+            "text": "Method doCopyFile ignores exceptional return value of File.setLastModified."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -443,7 +469,9 @@
         },
         {
           "level": "note",
-          "message": "Method doCopyDirectory ignores exceptional return value of File.setLastModified.",
+          "message": {
+            "text": "Method doCopyDirectory ignores exceptional return value of File.setLastModified."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -461,7 +489,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because CharSequence is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -479,7 +509,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -497,7 +529,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because Comparator<File> is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -515,7 +549,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -533,7 +569,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -551,7 +589,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because IOFileFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -569,7 +609,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because FileAlterationListener is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -587,7 +629,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -605,7 +649,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because FileFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -623,7 +669,9 @@
           ]
         },
         {
-          "message": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable.",
+          "message": {
+            "text": "This field is in a serializable class,  but is not serializable itself because FilenameFilter is not serializable."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -642,7 +690,9 @@
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter.",
+          "message": {
+            "text": "toUpperCase without locale parameter."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -661,7 +711,9 @@
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter.",
+          "message": {
+            "text": "toUpperCase without locale parameter."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -680,7 +732,9 @@
         },
         {
           "level": "note",
-          "message": "toUpperCase without locale parameter.",
+          "message": {
+            "text": "toUpperCase without locale parameter."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -699,7 +753,9 @@
         },
         {
           "level": "note",
-          "message": "This type and type [IOUtils] are mutually dependent.",
+          "message": {
+            "text": "This type and type [IOUtils] are mutually dependent."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -733,7 +789,9 @@
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter].",
+          "message": {
+            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -767,7 +825,9 @@
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream].",
+          "message": {
+            "text": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -801,7 +861,9 @@
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream].",
+          "message": {
+            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -835,7 +897,9 @@
         },
         {
           "level": "note",
-          "message": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream].",
+          "message": {
+            "text": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -869,7 +933,9 @@
         },
         {
           "level": "note",
-          "message": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter].",
+          "message": {
+            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -903,7 +969,9 @@
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter].",
+          "message": {
+            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -937,7 +1005,9 @@
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter].",
+          "message": {
+            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -971,7 +1041,9 @@
         },
         {
           "level": "note",
-          "message": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
+          "message": {
+            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1005,7 +1077,9 @@
         },
         {
           "level": "note",
-          "message": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream].",
+          "message": {
+            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1039,7 +1113,9 @@
         },
         {
           "level": "note",
-          "message": "Method mark is duplicated in [org.apache.commons.io.input.NullReader].",
+          "message": {
+            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullReader]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1073,7 +1149,9 @@
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in [NullInputStream.read()].",
+          "message": {
+            "text": "83% of the statements in read are duplicated in [NullInputStream.read()]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1107,7 +1185,9 @@
         },
         {
           "level": "note",
-          "message": "83% of the statements in read are duplicated in [NullReader.read()].",
+          "message": {
+            "text": "83% of the statements in read are duplicated in [NullReader.read()]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1141,7 +1221,9 @@
         },
         {
           "level": "note",
-          "message": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter].",
+          "message": {
+            "text": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1167,7 +1249,9 @@
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream].",
+          "message": {
+            "text": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1193,7 +1277,9 @@
         },
         {
           "level": "note",
-          "message": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream].",
+          "message": {
+            "text": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream]."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1219,7 +1305,9 @@
         },
         {
           "level": "note",
-          "message": "Inefficient comparison to empty string, check for zero length instead.",
+          "message": {
+            "text": "Inefficient comparison to empty string, check for zero length instead."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1238,7 +1326,9 @@
         },
         {
           "level": "note",
-          "message": "This empty statement should be deleted.",
+          "message": {
+            "text": "This empty statement should be deleted."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1256,7 +1346,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1275,7 +1367,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1294,7 +1388,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1313,7 +1409,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1332,7 +1430,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1351,7 +1451,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1370,7 +1472,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1389,7 +1493,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1408,7 +1514,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1427,7 +1535,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1446,7 +1556,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1465,7 +1577,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1484,7 +1598,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1503,7 +1619,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1522,7 +1640,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1541,7 +1661,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A == false\" can be simplified to \"!A\".",
+          "message": {
+            "text": "Expressions of the form \"A == false\" can be simplified to \"!A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1560,7 +1682,9 @@
         },
         {
           "level": "note",
-          "message": "Expressions of the form \"A ? true : false\" can be simplified to \"A\".",
+          "message": {
+            "text": "Expressions of the form \"A ? true : false\" can be simplified to \"A\"."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1578,7 +1702,9 @@
           ]
         },
         {
-          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "message": {
+            "text": "The body of a loop should not be empty. Typographical error or missing code?"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1597,7 +1723,9 @@
           ]
         },
         {
-          "message": "The body of a loop should not be empty. Typographical error or missing code?",
+          "message": {
+            "text": "The body of a loop should not be empty. Typographical error or missing code?"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1617,7 +1745,9 @@
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment.",
+          "message": {
+            "text": "TODO/FIXME comment."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1636,7 +1766,9 @@
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment.",
+          "message": {
+            "text": "TODO/FIXME comment."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1655,7 +1787,9 @@
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment.",
+          "message": {
+            "text": "TODO/FIXME comment."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1674,7 +1808,9 @@
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment.",
+          "message": {
+            "text": "TODO/FIXME comment."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1693,7 +1829,9 @@
         },
         {
           "level": "note",
-          "message": "TODO/FIXME comment.",
+          "message": {
+            "text": "TODO/FIXME comment."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1711,7 +1849,9 @@
           ]
         },
         {
-          "message": "This comment appears to contain commented-out code.",
+          "message": {
+            "text": "This comment appears to contain commented-out code."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1731,7 +1871,9 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
+          "message": {
+            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1765,7 +1907,9 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types.",
+          "message": {
+            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1799,7 +1943,9 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
+          "message": {
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1833,7 +1979,9 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
+          "message": {
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1867,7 +2015,9 @@
         },
         {
           "level": "note",
-          "message": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types.",
+          "message": {
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1901,7 +2051,9 @@
         },
         {
           "level": "note",
-          "message": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter], since dispatch depends on static types.",
+          "message": {
+            "text": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter], since dispatch depends on static types."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1934,7 +2086,9 @@
           ]
         },
         {
-          "message": "Class response too high (430). It is a warning for the value to be higher or equal to 350.",
+          "message": {
+            "text": "Class response too high (430). It is a warning for the value to be higher or equal to 350."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1952,7 +2106,9 @@
           ]
         },
         {
-          "message": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4.",
+          "message": {
+            "text": "Type specialization index too high (5). It is a warning for the value to be higher or equal to 4."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1970,7 +2126,9 @@
           ]
         },
         {
-          "message": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4.",
+          "message": {
+            "text": "Type specialization index too high (4). It is a warning for the value to be higher or equal to 4."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1988,7 +2146,9 @@
           ]
         },
         {
-          "message": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000.",
+          "message": {
+            "text": "Lines of code in files too high (1168). It is a warning for the value to be higher or equal to 1000."
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6200",
-          "message": "Index '14' is out of valid index range '0' to '2' for non-stack buffer 'buff'.",
+          "message": {
+            "text": "Index '14' is out of valid index range '0' to '2' for non-stack buffer 'buff'."
+          },
           "locations": [
             {
               "physicalLocation": {

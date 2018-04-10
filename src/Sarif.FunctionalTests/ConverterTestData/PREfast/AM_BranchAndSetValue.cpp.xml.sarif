@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6001",
-          "message": "Using uninitialized memory 'data'.",
+          "message": {
+            "text": "Using uninitialized memory 'data'."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -101,7 +103,9 @@
         },
         {
           "ruleId": "6385",
-          "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but 'b' bytes may be read.",
+          "message": {
+            "text": "Reading invalid data from 'data':  the readable size is '40' bytes, but 'b' bytes may be read."
+          },
           "locations": [
             {
               "physicalLocation": {

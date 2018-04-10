@@ -42,16 +42,16 @@ namespace Microsoft.Sarif.Viewer.Sarif
         {
             rule = null;
 
-            if (run != null && run.Rules != null && (ruleId != null || ruleKey != null))
+            if (run != null && run.Resources?.Rules != null && (ruleId != null || ruleKey != null))
             {
                 Rule concreteRule = null;
                 if (ruleKey != null)
                 {
-                    run.Rules.TryGetValue(ruleKey, out concreteRule);
+                    run.Resources.Rules.TryGetValue(ruleKey, out concreteRule);
                 }
                 else
                 {
-                    run.Rules.TryGetValue(ruleId, out concreteRule);
+                    run.Resources.Rules.TryGetValue(ruleId, out concreteRule);
                 }
 
                 rule = concreteRule;
@@ -62,10 +62,10 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 // If the rule is a PREfast rule. create a "fake" rule using the external rule metadata file.
                 if (RuleMetadata[ruleId] != null)
                 {
-                    string ruleName = null;
+                    Message ruleName = null;
                     if (RuleMetadata[ruleId]["heading"] != null)
                     {
-                        ruleName = RuleMetadata[ruleId]["heading"].Value<string>();
+                        ruleName = new Message { Text = RuleMetadata[ruleId]["heading"].Value<string>() };
                     }
 
                     Uri helpUri = null;
@@ -81,10 +81,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
                             ruleName,
                             shortDescription: null,
                             fullDescription: null,
-                            richDescription: null,
-                            messageTemplates: null,
-                            richMessageTemplates: null,
                             configuration: null,
+                            messageStrings: null,
+                            richMessageStrings: null,
                             helpUri: helpUri,
                             help: null, // PREfast rules don't need a "help" property; they all have online documentation.
                             properties: null);

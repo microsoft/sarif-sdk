@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6001",
-          "message": "Using uninitialized memory 'simpleVar'.",
+          "message": {
+            "text": "Using uninitialized memory 'simpleVar'."
+          },
           "locations": [
             {
               "physicalLocation": {

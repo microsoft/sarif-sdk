@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26007",
-          "message": "Possibly incorrect single element annotation on buffer\nOverflow using expression '* n'\nBuffer n is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(n)`4 + 4 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test194.cpp(4)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer n is at offset 8 bytes from the start of the buffer\n",
+          "message": {
+            "text": "Possibly incorrect single element annotation on buffer\nOverflow using expression '* n'\nBuffer n is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(n)`4 + 4 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test194.cpp(4)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer n is at offset 8 bytes from the start of the buffer\n"
+          },
           "locations": [
             {
               "physicalLocation": {

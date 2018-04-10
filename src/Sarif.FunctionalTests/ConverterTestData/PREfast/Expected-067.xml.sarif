@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26007",
-          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* src'\nBuffer src is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(src)`4 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test067.cpp(4)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer src is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(src)`4 == 0\n{loop iterations}'9 == 0\nsize`4 >= 3\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 10\n",
+          "message": {
+            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* src'\nBuffer src is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(src)`4 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test067.cpp(4)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer src is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(src)`4 == 0\n{loop iterations}'9 == 0\nsize`4 >= 3\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {

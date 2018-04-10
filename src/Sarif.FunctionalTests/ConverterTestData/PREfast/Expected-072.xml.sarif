@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26014",
-          "message": "Potential overflow of null terminated buffer using expression 'buf[index + 2]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer buf is a parameter to this function declared on line 36\nBuffer is of length 2*nullpos(buf)`38 + 2 bytes [length of zero terminated string] OR\n  offset(buf)`36 + 40 bytes [from annotation SAL_writableTo(elementCount(20)) at c:\\somepath\\test072.cpp(36)]\nAccessing 2 bytes starting at byte offset 2*result.find`39a + 4\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nindex = result.find`39a\n\nwhere\noffset(buf)`36 == 0\nnullpos(buf)`38 <= 19\nnullpos(buf)`38 >= 1\nnullpos(buf)`38 >= result.find`39a + 1\nresult.find`39a >= 0\n\nOverrun access occurs when\n2*nullpos(buf)`38 <= 2*result.find`39a + 3\nresult.find`39a >= 18\n",
+          "message": {
+            "text": "Potential overflow of null terminated buffer using expression 'buf[index + 2]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer buf is a parameter to this function declared on line 36\nBuffer is of length 2*nullpos(buf)`38 + 2 bytes [length of zero terminated string] OR\n  offset(buf)`36 + 40 bytes [from annotation SAL_writableTo(elementCount(20)) at c:\\somepath\\test072.cpp(36)]\nAccessing 2 bytes starting at byte offset 2*result.find`39a + 4\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nindex = result.find`39a\n\nwhere\noffset(buf)`36 == 0\nnullpos(buf)`38 <= 19\nnullpos(buf)`38 >= 1\nnullpos(buf)`38 >= result.find`39a + 1\nresult.find`39a >= 0\n\nOverrun access occurs when\n2*nullpos(buf)`38 <= 2*result.find`39a + 3\nresult.find`39a >= 18\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -141,7 +143,9 @@
         },
         {
           "ruleId": "26016",
-          "message": "Read overflow of null terminated buffer using expression 's[result.wcslen + 1]'\nBuffer s is a parameter to this function declared on line 44\nBuffer is of length 2*nullpos(s)`44 + 2 bytes [length of zero terminated string] OR\n  offset(s)`44 + 2*result.wcslen`46a + 2 bytes [from annotation _In_(elementCount(return + 1)) on function wcslen called at line 46]\nAccessing 2 bytes starting at byte offset 2*result.wcslen`46a + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nresult.wcslen = result.wcslen`46a\n\nwhere\noffset(s)`44 == 0\nresult.wcslen`46a == nullpos(s)`44\nnullpos(s)`44 >= 0\nresult.wcslen`46a >= 0\n",
+          "message": {
+            "text": "Read overflow of null terminated buffer using expression 's[result.wcslen + 1]'\nBuffer s is a parameter to this function declared on line 44\nBuffer is of length 2*nullpos(s)`44 + 2 bytes [length of zero terminated string] OR\n  offset(s)`44 + 2*result.wcslen`46a + 2 bytes [from annotation _In_(elementCount(return + 1)) on function wcslen called at line 46]\nAccessing 2 bytes starting at byte offset 2*result.wcslen`46a + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nresult.wcslen = result.wcslen`46a\n\nwhere\noffset(s)`44 == 0\nresult.wcslen`46a == nullpos(s)`44\nnullpos(s)`44 >= 0\nresult.wcslen`46a >= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -211,7 +215,9 @@
         },
         {
           "ruleId": "26016",
-          "message": "Read overflow of null terminated buffer using expression 's[result.mywcslen + 1]'\nBuffer s is a parameter to this function declared on line 49\nBuffer is of length 2*nullpos(s)`49 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2*result.mywcslen`51a + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nresult.mywcslen = result.mywcslen`51a\n\nwhere\noffset(s)`49 == 0\nresult.mywcslen`51a == nullpos(s)`49\nnullpos(s)`49 >= 0\nresult.mywcslen`51a >= 0\n",
+          "message": {
+            "text": "Read overflow of null terminated buffer using expression 's[result.mywcslen + 1]'\nBuffer s is a parameter to this function declared on line 49\nBuffer is of length 2*nullpos(s)`49 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2*result.mywcslen`51a + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nresult.mywcslen = result.mywcslen`51a\n\nwhere\noffset(s)`49 == 0\nresult.mywcslen`51a == nullpos(s)`49\nnullpos(s)`49 >= 0\nresult.mywcslen`51a >= 0\n"
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
 
-        public override string Name
+        public override Message Name
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     throw new InvalidOperationException(nameof(ExceptionCondition.AccessingName));
                 }
-                return nameof(ExceptionRaisingRule);
+                return new Message { Text = nameof(ExceptionRaisingRule) };
             }
         }
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             RuleId = Id,
                             Level = ResultLevel.Warning,
-                            Message = "Default message from exception raising rule."
+                            Message = new Message { Text = "Default message from exception raising rule." }
                         });
 
                     break;

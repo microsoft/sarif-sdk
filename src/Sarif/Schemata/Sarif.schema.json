@@ -35,13 +35,8 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to the set of locations specified by this annotation.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to the set of locations specified by this annotation.",
-          "type": "string"
+          "description": "A message relevant to the set of locations specified by this annotation.",
+          "$ref": "#/definitions/message"
         },
 
         "locations": {
@@ -63,7 +58,7 @@
 
         "description": {
           "description": "A message describing the role played by the attachment.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "fileLocation": {
@@ -80,13 +75,8 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to the code flow.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to the code flow.",
-          "type": "string"
+          "description": "A message relevant to the code flow.",
+          "$ref": "#/definitions/message"
         },
 
         "locations": {
@@ -144,11 +134,6 @@
         "threadId": {
           "description": "The thread identifier of the code that is executing.",
           "type": "integer"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this annotation.",
-          "type": "string"
         },
 
         "kind": {
@@ -401,13 +386,8 @@
       "properties": {
 
         "description": {
-          "description": "A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
-          "type": "string"
-        },
-
-        "richDescription": {
-          "description": "A rich text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
-          "type": "string"
+          "description": "A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
+          "$ref": "#/definitions/message"
         },
 
         "fileChanges": {
@@ -419,28 +399,6 @@
         }
       },
       "required": [ "fileChanges" ]
-    },
-
-    "templatedMessage": {
-      "description": "Contains information that can be used to construct a message that describes a result.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "templateId": {
-          "description": "A string that identifies the message template used to construct the message that describes this result. The value of templateId must correspond to one of the names in the set of name/value pairs contained in the 'messageTemplates' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
-          "type": "string"
-        },
-
-        "arguments": {
-          "description": "An array of strings that will be used, in combination with a message template, to construct a result message.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [ "templateId" ]
     },
 
     "hash": {
@@ -747,8 +705,8 @@
         },
 
         "message": {
-          "description": "A plain text message that describes the condition that was encountered.",
-          "type": "string"
+          "description": "A message that describes the condition that was encountered.",
+          "$ref": "#/definitions/message"
         },
 
         "level": {
@@ -897,6 +855,29 @@
       "required": [ "offset" ]
     },
 
+    "resources": {
+      "description": "Container for items that require localization.",
+      "type": "object",
+      "properties": {
+
+        "messageStrings": {
+          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "rules": {
+          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/rule"
+          }
+        }
+      }
+    },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -920,18 +901,13 @@
         },
 
         "message": {
-          "description": "A plain text message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
-          "type": "string"
+          "description": "A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
+          "$ref": "#/definitions/message"
         },
 
-        "richMessage": {
-          "description": "A rich text message that describes the result.",
+        "ruleMessageId": {
+          "description": "A string that identifies the message within the metadata for the rule used in this result.",
           "type": "string"
-        },
-
-        "templatedMessage": {
-          "description": "A 'templatedMessage' object that can be used to construct a message that describes the result.",
-          "$ref": "#/definitions/templatedMessage"
         },
 
         "analysisTarget": {
@@ -1075,32 +1051,33 @@
 
         "name": {
           "description": "A rule identifier that is understandable to an end user.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "shortDescription": {
           "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "fullDescription": {
-          "description": "A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "type": "string"
+          "description": "A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/message"
         },
 
-        "richDescription": {
-          "description": "A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "type": "string"
-        },
-
-        "messageTemplates": {
+        "messageStrings": {
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
-        "richMessageTemplates": {
+        "richMessageStrings": {
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "configuration": {
@@ -1116,7 +1093,7 @@
 
         "help": {
           "description": "Provides the primary documentation for the rule, useful when there is no online documentation.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "properties": {
@@ -1231,12 +1208,9 @@
           }
         },
 
-        "rules": {
-          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/rule"
-          }
+        "resources": {
+          "description": "Items that can be localized, such as message strings and rule metadata.",
+          "$ref": "#/definitions/resources"
         },
 
         "id": {
@@ -1298,13 +1272,8 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to this call stack.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this call stack.",
-          "type": "string"
+          "description": "A message relevant to this call stack.",
+          "$ref": "#/definitions/message"
         },
 
         "frames": {
@@ -1346,11 +1315,6 @@
         "location": {
           "description": "The location to which this stack frame refers.",
           "$ref": "#/definitions/location"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this stack frame.",
-          "type": "string"
         },
 
         "module": {

@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new CppCheckError("id", "message", "verbose", "style", _dummyLocations)
                 .ToSarifIssue();
             Assert.Equal("id", result.RuleId);
-            Assert.Equal("verbose", result.Message);
+            Assert.Equal("verbose", result.Message.Text);
             result.PropertyNames.Count.Should().Be(1);
             result.GetProperty("Severity").Should().Be("style");
             Assert.Equal("file.cpp", result.Locations.First().PhysicalLocation.FileLocation.Uri.ToString());
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 new CppCheckLocation("foo.cpp", 1234)
                 )).ToSarifIssue();
             Assert.Equal("id", result.RuleId);
-            Assert.Equal("verbose", result.Message);
+            Assert.Equal("verbose", result.Message.Text);
             result.PropertyNames.Count.Should().Be(1);
             result.GetProperty("Severity").Should().Be("my fancy severity");
             result.Locations.SequenceEqual(new[] { new Location {
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new CppCheckError("id", "message", "message", "style", _dummyLocations)
                 .ToSarifIssue();
-            Assert.Equal("message", result.Message);
+            Assert.Equal("message", result.Message.Text);
         }
 
         [Fact]

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression '++ a'\nBuffer result.mallocInt created during call to mallocInt on line 42\nBuffer is of length 40 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test002.cpp(4) on function mallocInt called at line 42]\nAccessing 36 bytes starting at byte offset 8\nAnnotation on function funny requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is ++ a; {parameter 2} is ++ b\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test002.cpp(27)]\n\n\nValues of variables:\nPointer a is at offset 8 bytes from the start of the buffer\nb = 9\n",
+          "message": {
+            "text": "Overflow using expression '++ a'\nBuffer result.mallocInt created during call to mallocInt on line 42\nBuffer is of length 40 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test002.cpp(4) on function mallocInt called at line 42]\nAccessing 36 bytes starting at byte offset 8\nAnnotation on function funny requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is ++ a; {parameter 2} is ++ b\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test002.cpp(27)]\n\n\nValues of variables:\nPointer a is at offset 8 bytes from the start of the buffer\nb = 9\n"
+          },
           "locations": [
             {
               "physicalLocation": {

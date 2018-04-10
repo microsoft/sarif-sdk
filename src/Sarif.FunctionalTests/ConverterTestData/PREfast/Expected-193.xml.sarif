@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Overflow using expression 'a[10]'\nBuffer accessed is a\nBuffer is of length 10 bytes [size of variable]\nAccessing the byte at byte offset 10\n",
+          "message": {
+            "text": "Overflow using expression 'a[10]'\nBuffer accessed is a\nBuffer is of length 10 bytes [size of variable]\nAccessing the byte at byte offset 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {

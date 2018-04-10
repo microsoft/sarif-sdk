@@ -39,12 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Location Location { get; set; }
 
         /// <summary>
-        /// A rich text message relevant to this stack frame.
-        /// </summary>
-        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessage { get; set; }
-
-        /// <summary>
         /// The name of the module that contains the code of this stack frame.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
@@ -93,9 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="location">
         /// An initialization value for the <see cref="P: Location" /> property.
         /// </param>
-        /// <param name="richMessage">
-        /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
@@ -114,9 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public StackFrame(Location location, string richMessage, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(Location location, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(location, richMessage, module, threadId, address, offset, parameters, properties);
+            Init(location, module, threadId, address, offset, parameters, properties);
         }
 
         /// <summary>
@@ -135,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Location, other.RichMessage, other.Module, other.ThreadId, other.Address, other.Offset, other.Parameters, other.Properties);
+            Init(other.Location, other.Module, other.ThreadId, other.Address, other.Offset, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,14 +147,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(Location location, string richMessage, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {
                 Location = new Location(location);
             }
 
-            RichMessage = richMessage;
             Module = module;
             ThreadId = threadId;
             Address = address;
