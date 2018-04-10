@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             FilesWritten = 0x8,
             ResultsInitialized = 0x10,
             ResultsClosed = 0x20,
-            InvocationWritten = 0x40,
+            InvocationsWritten = 0x40,
             LogicalLocationsWritten = 0x80,
             ToolNotificationsWritten = 0x100,
             ConfigurationNotificationsWritten = 0x200,
@@ -281,21 +281,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        public void WriteInvocation(Invocation invocation)
+        public void WriteInvocations(IEnumerable<Invocation> invocations)
         {
-            if (invocation == null)
+            if (invocations == null)
             {
-                throw new ArgumentNullException(nameof(invocation));
+                throw new ArgumentNullException(nameof(invocations));
             }
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationsWritten);
 
-            _jsonWriter.WritePropertyName("invocation");
-            _serializer.Serialize(_jsonWriter, invocation, typeof(Invocation));
+            _jsonWriter.WritePropertyName("invocations");
+            _serializer.Serialize(_jsonWriter, invocations, typeof(List<Invocation>));
 
-            _writeConditions |= Conditions.InvocationWritten;
+            _writeConditions |= Conditions.InvocationsWritten;
         }
 
         public void WriteToolNotifications(IEnumerable<Notification> notifications)

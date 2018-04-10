@@ -39,10 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Tool Tool { get; set; }
 
         /// <summary>
-        /// Describes the runtime environment, including parameterization, of the analysis tool run.
+        /// Describes the invocation of the analysis tool.
         /// </summary>
-        [DataMember(Name = "invocation", IsRequired = false, EmitDefaultValue = false)]
-        public Invocation Invocation { get; set; }
+        [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Invocation> Invocations { get; set; }
 
         /// <summary>
         /// A conversion object that describes how a converter transformed an analysis tool's native output format into the SARIF format.
@@ -135,8 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tool">
         /// An initialization value for the <see cref="P: Tool" /> property.
         /// </param>
-        /// <param name="invocation">
-        /// An initialization value for the <see cref="P: Invocation" /> property.
+        /// <param name="invocations">
+        /// An initialization value for the <see cref="P: Invocations" /> property.
         /// </param>
         /// <param name="conversion">
         /// An initialization value for the <see cref="P: Conversion" /> property.
@@ -177,9 +177,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, conversion, originalUriBaseIds, files, logicalLocations, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
+            Init(tool, invocations, conversion, originalUriBaseIds, files, logicalLocations, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -219,16 +219,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
                 Tool = new Tool(tool);
             }
 
-            if (invocation != null)
+            if (invocations != null)
             {
-                Invocation = new Invocation(invocation);
+                var destination_0 = new List<Invocation>();
+                foreach (var value_0 in invocations)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Invocation(value_0));
+                    }
+                }
+
+                Invocations = destination_0;
             }
 
             if (conversion != null)
@@ -240,37 +253,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (files != null)
             {
                 Files = new Dictionary<string, FileData>();
-                foreach (var value_0 in files)
+                foreach (var value_1 in files)
                 {
-                    Files.Add(value_0.Key, new FileData(value_0.Value));
+                    Files.Add(value_1.Key, new FileData(value_1.Value));
                 }
             }
 
             if (logicalLocations != null)
             {
                 LogicalLocations = new Dictionary<string, LogicalLocation>();
-                foreach (var value_1 in logicalLocations)
+                foreach (var value_2 in logicalLocations)
                 {
-                    LogicalLocations.Add(value_1.Key, new LogicalLocation(value_1.Value));
+                    LogicalLocations.Add(value_2.Key, new LogicalLocation(value_2.Value));
                 }
             }
 
             if (results != null)
             {
-                var destination_0 = new List<Result>();
-                foreach (var value_2 in results)
+                var destination_1 = new List<Result>();
+                foreach (var value_3 in results)
                 {
-                    if (value_2 == null)
+                    if (value_3 == null)
                     {
-                        destination_0.Add(null);
+                        destination_1.Add(null);
                     }
                     else
                     {
-                        destination_0.Add(new Result(value_2));
+                        destination_1.Add(new Result(value_3));
                     }
                 }
 
-                Results = destination_0;
+                Results = destination_1;
             }
 
             if (resources != null)

@@ -162,10 +162,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
@@ -173,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.Initialize(id: null, automationId: null);
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -196,10 +198,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
@@ -207,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.Initialize(id: id, automationId: automationId);
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -221,8 +225,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocation(s_invocation));
+                uut.WriteInvocations(new[] { s_invocation });
+                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocations(new[] { s_invocation }));
             }
         }
 

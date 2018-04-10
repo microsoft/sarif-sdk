@@ -508,7 +508,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Tool = VisitNullChecked(node.Tool);
-                node.Invocation = VisitNullChecked(node.Invocation);
+                if (node.Invocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Invocations.Count; ++index_0)
+                    {
+                        node.Invocations[index_0] = VisitNullChecked(node.Invocations[index_0]);
+                    }
+                }
+
                 node.Conversion = VisitNullChecked(node.Conversion);
                 if (node.Files != null)
                 {

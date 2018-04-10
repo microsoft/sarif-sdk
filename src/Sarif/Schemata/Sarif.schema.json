@@ -1163,9 +1163,14 @@
           "$ref": "#/definitions/tool"
         },
 
-        "invocation": {
-          "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
-          "$ref": "#/definitions/invocation"
+        "invocations": {
+          "description": "Describes the invocation of the analysis tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/invocation"
+          }
         },
 
         "conversion": {

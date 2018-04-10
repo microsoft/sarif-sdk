@@ -60,7 +60,7 @@ namespace Microsoft.Sarif.Viewer
 
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(result.RuleId);
-            Invocation = run.Invocation.ToInvocationModel();
+            Invocation = run.Invocations?[0]?.ToInvocationModel();
 
             if (string.IsNullOrWhiteSpace(run.Id))
             {
@@ -131,7 +131,7 @@ namespace Microsoft.Sarif.Viewer
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(ruleId);
             Rule.DefaultLevel = notification.Level.ToString();
-            Invocation = run.Invocation.ToInvocationModel();
+            Invocation = run.Invocations?[0]?.ToInvocationModel();
 
             if (string.IsNullOrWhiteSpace(run.Id))
             {

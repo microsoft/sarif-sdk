@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.Initialize(id: _runId, automationId: _automationId);
 
             output.WriteTool(tool);
-            output.WriteInvocation(_invocation);
+            output.WriteInvocations(new[] { _invocation });
 
             if (_fileDictionary.Any())
             {
