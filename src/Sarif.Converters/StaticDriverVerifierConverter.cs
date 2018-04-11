@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var codeFlowLocation = new CodeFlowLocation
                 {
-                    Step = step,
+                    Step = step + 1,
                     Importance = CodeFlowLocationImportance.Unimportant
                 };
 

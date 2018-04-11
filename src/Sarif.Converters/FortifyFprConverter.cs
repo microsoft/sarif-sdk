@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     var cfl = new CodeFlowLocation
                     {
-                        Step = step++,
+                        Step = ++step,
                         Location = new Location
                         {
                             PhysicalLocation = physLoc
