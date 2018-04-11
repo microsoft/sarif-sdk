@@ -187,10 +187,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj">
-      <Project>{febe7a56-524c-4b76-a899-23dbd8951c23}</Project>
-      <Name>Sarif.Viewer.VisualStudio</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{c5fc2683-47cf-447f-b5ea-9fde0fd78754}</Project>
       <Name>Sarif</Name>

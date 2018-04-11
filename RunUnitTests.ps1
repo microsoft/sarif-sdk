@@ -10,7 +10,6 @@ $testProjects = @(
     @{ Name = "Sarif.FunctionalTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.Multitool.FunctionalTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.ValidationTests"; IsMultiTargeting = $False },
-    @{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False; Parallel = "-parallel none" }
 )
 
 Foreach ($project in $testProjects)
