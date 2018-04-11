@@ -38,6 +38,7 @@
                 {
                   "locations": [
                     {
+                      "step": 1,
                       "location": {
                         "fullyQualifiedLogicalName": "OS"
                       },
@@ -48,12 +49,12 @@
                       }
                     },
                     {
-                      "step": 1,
+                      "step": 2,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 2,
+                      "step": 3,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -63,11 +64,6 @@
                         "target": "_sdv_init4",
                         "currentDataValues": "^====Pre=====^____true"
                       }
-                    },
-                    {
-                      "step": 3,
-                      "nestingLevel": 2,
-                      "importance": "unimportant"
                     },
                     {
                       "step": 4,
@@ -81,6 +77,11 @@
                     },
                     {
                       "step": 6,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -88,12 +89,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 7,
+                      "step": 8,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 8,
+                      "step": 9,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -105,17 +106,17 @@
                       }
                     },
                     {
-                      "step": 9,
-                      "nestingLevel": 2,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 10,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 11,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 12,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -123,12 +124,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 12,
+                      "step": 13,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 13,
+                      "step": 14,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -140,17 +141,17 @@
                       }
                     },
                     {
-                      "step": 14,
-                      "nestingLevel": 2,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 15,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 16,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 17,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -165,7 +166,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 17,
+                      "step": 18,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -180,7 +181,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 18,
+                      "step": 19,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -195,7 +196,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 19,
+                      "step": 20,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -213,7 +214,7 @@
                       }
                     },
                     {
-                      "step": 20,
+                      "step": 21,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -231,7 +232,7 @@
                       }
                     },
                     {
-                      "step": 21,
+                      "step": 22,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -249,7 +250,7 @@
                       }
                     },
                     {
-                      "step": 22,
+                      "step": 23,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -267,7 +268,7 @@
                       }
                     },
                     {
-                      "step": 23,
+                      "step": 24,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -285,7 +286,7 @@
                       }
                     },
                     {
-                      "step": 24,
+                      "step": 25,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -303,7 +304,7 @@
                       }
                     },
                     {
-                      "step": 25,
+                      "step": 26,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -321,7 +322,7 @@
                       }
                     },
                     {
-                      "step": 26,
+                      "step": 27,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -339,7 +340,7 @@
                       }
                     },
                     {
-                      "step": 27,
+                      "step": 28,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -357,7 +358,7 @@
                       }
                     },
                     {
-                      "step": 28,
+                      "step": 29,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -375,7 +376,7 @@
                       }
                     },
                     {
-                      "step": 29,
+                      "step": 30,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -393,7 +394,7 @@
                       }
                     },
                     {
-                      "step": 30,
+                      "step": 31,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -411,7 +412,7 @@
                       }
                     },
                     {
-                      "step": 31,
+                      "step": 32,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -429,7 +430,7 @@
                       }
                     },
                     {
-                      "step": 32,
+                      "step": 33,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -444,7 +445,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 33,
+                      "step": 34,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -459,7 +460,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 34,
+                      "step": 35,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -474,7 +475,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 35,
+                      "step": 36,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -489,7 +490,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 36,
+                      "step": 37,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -504,7 +505,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 37,
+                      "step": 38,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -519,7 +520,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 38,
+                      "step": 39,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -534,7 +535,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 39,
+                      "step": 40,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -549,7 +550,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 40,
+                      "step": 41,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -567,7 +568,7 @@
                       }
                     },
                     {
-                      "step": 41,
+                      "step": 42,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -585,7 +586,7 @@
                       }
                     },
                     {
-                      "step": 42,
+                      "step": 43,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -600,7 +601,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 43,
+                      "step": 44,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -618,7 +619,7 @@
                       }
                     },
                     {
-                      "step": 44,
+                      "step": 45,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -636,7 +637,7 @@
                       }
                     },
                     {
-                      "step": 45,
+                      "step": 46,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -654,7 +655,7 @@
                       }
                     },
                     {
-                      "step": 46,
+                      "step": 47,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -672,7 +673,7 @@
                       }
                     },
                     {
-                      "step": 47,
+                      "step": 48,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -687,7 +688,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 48,
+                      "step": 49,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -702,7 +703,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 49,
+                      "step": 50,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -717,7 +718,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 50,
+                      "step": 51,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -735,7 +736,7 @@
                       }
                     },
                     {
-                      "step": 51,
+                      "step": 52,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -750,7 +751,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 52,
+                      "step": 53,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -765,7 +766,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 53,
+                      "step": 54,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -780,7 +781,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 54,
+                      "step": 55,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -795,7 +796,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 55,
+                      "step": 56,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -810,7 +811,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 56,
+                      "step": 57,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -825,7 +826,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 57,
+                      "step": 58,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -840,7 +841,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 58,
+                      "step": 59,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -855,7 +856,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 59,
+                      "step": 60,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -873,7 +874,7 @@
                       }
                     },
                     {
-                      "step": 60,
+                      "step": 61,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -888,7 +889,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 61,
+                      "step": 62,
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
@@ -896,12 +897,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 62,
+                      "step": 63,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 63,
+                      "step": 64,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -919,17 +920,17 @@
                       }
                     },
                     {
-                      "step": 64,
-                      "nestingLevel": 1,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 65,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
                       "step": 66,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 67,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -947,12 +948,12 @@
                       }
                     },
                     {
-                      "step": 67,
+                      "step": 68,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 68,
+                      "step": 69,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -970,17 +971,17 @@
                       }
                     },
                     {
-                      "step": 69,
-                      "nestingLevel": 1,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 70,
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
                       "step": 71,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 72,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -998,27 +999,9 @@
                       }
                     },
                     {
-                      "step": 72,
+                      "step": 73,
                       "nestingLevel": 1,
                       "importance": "unimportant"
-                    },
-                    {
-                      "step": 73,
-                      "location": {
-                        "physicalLocation": {
-                          "fileLocation": {
-                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                          },
-                          "region": {
-                            "startLine": 6710
-                          }
-                        }
-                      },
-                      "nestingLevel": 1,
-                      "importance": "unimportant",
-                      "properties": {
-                        "currentDataValues": "^sdv_harnessDeviceExtension=13864"
-                      }
                     },
                     {
                       "step": 74,
@@ -1035,7 +1018,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^sdv_harnessDeviceExtension_two=13792"
+                        "currentDataValues": "^sdv_harnessDeviceExtension=13864"
                       }
                     },
                     {
@@ -1053,7 +1036,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harnessStackLocation=4517"
+                        "currentDataValues": "^sdv_harnessDeviceExtension_two=13792"
                       }
                     },
                     {
@@ -1071,11 +1054,29 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_other_harnessStackLocation=13256"
+                        "currentDataValues": "^\u0026sdv_harnessStackLocation=4517"
                       }
                     },
                     {
                       "step": 77,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_other_harnessStackLocation=13256"
+                      }
+                    },
+                    {
+                      "step": 78,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1094,17 +1095,17 @@
                       }
                     },
                     {
-                      "step": 78,
-                      "nestingLevel": 2,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 79,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 80,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 81,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1122,17 +1123,17 @@
                       }
                     },
                     {
-                      "step": 81,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 82,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 83,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 84,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1147,7 +1148,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 84,
+                      "step": 85,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1163,12 +1164,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 85,
+                      "step": 86,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 86,
+                      "step": 87,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1186,17 +1187,17 @@
                       }
                     },
                     {
-                      "step": 87,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 88,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 89,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 90,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1211,7 +1212,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 90,
+                      "step": 91,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1227,12 +1228,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 91,
+                      "step": 92,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 92,
+                      "step": 93,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1250,17 +1251,17 @@
                       }
                     },
                     {
-                      "step": 93,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 94,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 95,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 96,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1275,7 +1276,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 96,
+                      "step": 97,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1291,12 +1292,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 97,
+                      "step": 98,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 98,
+                      "step": 99,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1314,17 +1315,17 @@
                       }
                     },
                     {
-                      "step": 99,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 100,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 101,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 102,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1339,7 +1340,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 102,
+                      "step": 103,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1355,12 +1356,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 103,
+                      "step": 104,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 104,
+                      "step": 105,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1378,17 +1379,17 @@
                       }
                     },
                     {
-                      "step": 105,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 106,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 107,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 108,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1403,7 +1404,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 108,
+                      "step": 109,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1419,12 +1420,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 109,
+                      "step": 110,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 110,
+                      "step": 111,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1442,17 +1443,17 @@
                       }
                     },
                     {
-                      "step": 111,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 112,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 113,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 114,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1467,7 +1468,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 114,
+                      "step": 115,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1483,12 +1484,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 115,
+                      "step": 116,
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 116,
+                      "step": 117,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1506,17 +1507,17 @@
                       }
                     },
                     {
-                      "step": 117,
-                      "nestingLevel": 3,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 118,
                       "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 119,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 120,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1531,7 +1532,7 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 120,
+                      "step": 121,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1550,12 +1551,12 @@
                       }
                     },
                     {
-                      "step": 121,
+                      "step": 122,
                       "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 122,
+                      "step": 123,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1573,7 +1574,7 @@
                       }
                     },
                     {
-                      "step": 123,
+                      "step": 124,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1592,12 +1593,12 @@
                       }
                     },
                     {
-                      "step": 124,
+                      "step": 125,
                       "nestingLevel": 5,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 125,
+                      "step": 126,
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -1605,7 +1606,7 @@
                       }
                     },
                     {
-                      "step": 126,
+                      "step": 127,
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -1613,7 +1614,7 @@
                       }
                     },
                     {
-                      "step": 127,
+                      "step": 128,
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
@@ -1625,17 +1626,17 @@
                       }
                     },
                     {
-                      "step": 128,
-                      "nestingLevel": 6,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 129,
                       "nestingLevel": 6,
                       "importance": "unimportant"
                     },
                     {
                       "step": 130,
+                      "nestingLevel": 6,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 131,
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
@@ -1643,12 +1644,12 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 131,
+                      "step": 132,
                       "nestingLevel": 5,
                       "importance": "unimportant"
                     },
                     {
-                      "step": 132,
+                      "step": 133,
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_sdv_IoCompletionRoutines_exit"
                       },
@@ -1656,56 +1657,48 @@
                       "importance": "unimportant"
                     },
                     {
-                      "step": 133,
-                      "nestingLevel": 4,
-                      "importance": "unimportant"
-                    },
-                    {
                       "step": 134,
                       "nestingLevel": 4,
-                      "importance": "unimportant",
-                      "properties": {
-                        "currentDataValues": "^yogi_error=1"
-                      }
+                      "importance": "unimportant"
                     },
                     {
                       "step": 135,
                       "nestingLevel": 4,
-                      "importance": "unimportant"
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
                     },
                     {
                       "step": 136,
                       "nestingLevel": 4,
-                      "importance": "unimportant",
-                      "properties": {
-                        "currentDataValues": "^yogi_error=1"
-                      }
+                      "importance": "unimportant"
                     },
                     {
                       "step": 137,
                       "nestingLevel": 4,
-                      "importance": "unimportant"
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
                     },
                     {
                       "step": 138,
                       "nestingLevel": 4,
-                      "importance": "unimportant",
-                      "properties": {
-                        "currentDataValues": "^yogi_error=1"
-                      }
+                      "importance": "unimportant"
                     },
                     {
                       "step": 139,
                       "nestingLevel": 4,
-                      "importance": "unimportant"
-                    },
-                    {
-                      "step": 140,
-                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
                       }
+                    },
+                    {
+                      "step": 140,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
                     },
                     {
                       "step": 141,
@@ -1717,6 +1710,14 @@
                     },
                     {
                       "step": 142,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 143,
                       "location": {
                         "fullyQualifiedLogicalName": "sdv_IoCompletionRoutines"
                       },
