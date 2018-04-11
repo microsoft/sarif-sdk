@@ -63,7 +63,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
+msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
