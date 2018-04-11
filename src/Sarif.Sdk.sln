@@ -17,11 +17,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.FunctionalTests", "Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{330F1729-2F3A-40C8-A29D-E4C3F389C46B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF28F85-2236-48A3-AEB6-8ED8E65AC3CB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3160166D-3C2E-48E0-8B3C-B10DA3B42D34}"
 	ProjectSection(SolutionItems) = preProject
+		..\appveyor.yml = ..\appveyor.yml
 		..\BeforeBuild.cmd = ..\BeforeBuild.cmd
+		build.common.props = build.common.props
+		build.props = build.props
 		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
 		netcorebuild.props = netcorebuild.props
+		..\RunUnitTests.ps1 = ..\RunUnitTests.ps1
+		..\SetCurrentVersion.cmd = ..\SetCurrentVersion.cmd
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.TestUtilities", "Sarif.TestUtilities\Sarif.TestUtilities.csproj", "{33E446C2-65D1-457C-B678-DD9F4526FDEE}"
