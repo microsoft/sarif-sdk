@@ -276,17 +276,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new CodeFlow
                             {
-                                Locations = new[]
+                                ThreadFlows = new[]
                                 {
-                                    new CodeFlowLocation
+                                    new ThreadFlow
                                     {
-                                        Location = new Location
+                                        Locations = new[]
                                         {
-                                            PhysicalLocation = new PhysicalLocation
+                                            new CodeFlowLocation
                                             {
-                                                FileLocation = new FileLocation
+                                                Location = new Location
                                                 {
-                                                    Uri = new Uri(@"file:///file5.cpp")
+                                                    PhysicalLocation = new PhysicalLocation
+                                                    {
+                                                        FileLocation = new FileLocation
+                                                        {
+                                                            Uri = new Uri(@"file:///file5.cpp")
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

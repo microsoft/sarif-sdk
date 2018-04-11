@@ -102,6 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitStack((Stack)node);
                 case SarifNodeKind.StackFrame:
                     return VisitStackFrame((StackFrame)node);
+                case SarifNodeKind.ThreadFlow:
+                    return VisitThreadFlow((ThreadFlow)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
                 default:
@@ -152,11 +154,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Message = VisitNullChecked(node.Message);
-                if (node.Locations != null)
+                if (node.ThreadFlows != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.ThreadFlows.Count; ++index_0)
                     {
-                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
+                        node.ThreadFlows[index_0] = VisitNullChecked(node.ThreadFlows[index_0]);
                     }
                 }
             }
@@ -596,6 +598,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Location = VisitNullChecked(node.Location);
+            }
+
+            return node;
+        }
+
+        public virtual ThreadFlow VisitThreadFlow(ThreadFlow node)
+        {
+            if (node != null)
+            {
+                node.Message = VisitNullChecked(node.Message);
+                if (node.Locations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    {
+                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
+                    }
+                }
             }
 
             return node;

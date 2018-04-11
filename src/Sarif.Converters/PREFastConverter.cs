@@ -155,10 +155,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else
                     {
                         codeFlowLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
-                        if (Enum.TryParse(sfa.KeyEvent.Kind, true, out CodeFlowLocationKind kind))
-                        {
-                            codeFlowLocation.Kind = kind;
-                        }
 
                         if (Enum.TryParse(sfa.KeyEvent.Importance, true, out CodeFlowLocationImportance importance))
                         {
@@ -178,10 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result.CodeFlows = new List<CodeFlow>()
             {
-                new CodeFlow
-                {
-                    Locations = locations
-                }
+                SarifUtilities.CreateSingleThreadedCodeFlow(locations)
             };
         }
 

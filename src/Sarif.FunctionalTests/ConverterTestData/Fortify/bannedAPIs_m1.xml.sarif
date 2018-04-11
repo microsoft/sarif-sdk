@@ -331,30 +331,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -388,30 +392,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -445,30 +453,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -502,30 +514,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -559,30 +575,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -616,30 +636,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -673,30 +697,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -730,30 +758,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -787,30 +819,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -844,30 +880,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -901,30 +941,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -958,30 +1002,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1015,30 +1063,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1072,30 +1124,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1129,30 +1185,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1186,30 +1246,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1243,30 +1307,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1300,30 +1368,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1357,30 +1429,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1414,30 +1490,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1471,30 +1551,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1528,30 +1612,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1585,30 +1673,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1642,30 +1734,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1699,30 +1795,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1756,30 +1856,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1813,30 +1917,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1870,30 +1978,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1927,30 +2039,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1984,30 +2100,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2041,30 +2161,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2098,30 +2222,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2155,30 +2283,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2212,30 +2344,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2269,30 +2405,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2326,30 +2466,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2383,30 +2527,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2440,30 +2588,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2497,30 +2649,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2554,30 +2710,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2611,30 +2771,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2668,30 +2832,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2725,30 +2893,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2782,30 +2954,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2839,30 +3015,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2896,30 +3076,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -2953,30 +3137,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3010,30 +3198,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3067,30 +3259,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3124,30 +3320,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3181,30 +3381,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3238,30 +3442,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3295,30 +3503,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3352,30 +3564,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3409,30 +3625,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3466,30 +3686,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3523,30 +3747,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3580,30 +3808,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3637,30 +3869,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3694,30 +3930,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3751,30 +3991,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3808,30 +4052,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3865,30 +4113,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3922,30 +4174,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -3979,30 +4235,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4036,30 +4296,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4093,30 +4357,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4150,30 +4418,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4207,30 +4479,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4264,30 +4540,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4321,30 +4601,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4378,30 +4662,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4435,30 +4723,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4492,30 +4784,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4549,30 +4845,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4606,30 +4906,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 259
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 259
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4663,30 +4967,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4720,30 +5028,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 257
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 257
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4777,30 +5089,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4834,30 +5150,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4891,30 +5211,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -4948,30 +5272,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 243
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 243
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5005,30 +5333,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 199
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 199
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5062,30 +5394,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 225
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 225
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5119,30 +5455,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 255
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 255
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5176,30 +5516,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5233,30 +5577,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 200
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 200
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5290,30 +5638,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5347,30 +5699,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 223
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 223
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5458,30 +5814,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5515,30 +5875,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 236
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 236
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5572,30 +5936,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5629,30 +5997,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5686,30 +6058,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5743,30 +6119,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5800,30 +6180,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 142
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 142
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5857,30 +6241,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 237
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5914,30 +6302,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 239
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 239
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -5971,30 +6363,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -6028,30 +6424,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 238
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 238
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 279
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 279
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -6085,30 +6485,34 @@
           },
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 134
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 134
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "bannedAPIs.m"
+                          },
+                          "region": {
+                            "startLine": 87
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "bannedAPIs.m"
-                      },
-                      "region": {
-                        "startLine": 87
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }

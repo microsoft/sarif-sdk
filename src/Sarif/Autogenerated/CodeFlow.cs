@@ -9,6 +9,9 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// A set of threadFlows which together describe a pattern of code execution relevant to detecting a result.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
     public partial class CodeFlow : PropertyBagHolder, ISarifNode
@@ -36,10 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
+        /// An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.
         /// </summary>
-        [DataMember(Name = "locations", IsRequired = true)]
-        public IList<CodeFlowLocation> Locations { get; set; }
+        [DataMember(Name = "threadFlows", IsRequired = true)]
+        public IList<ThreadFlow> ThreadFlows { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code flow.
@@ -60,15 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="locations">
-        /// An initialization value for the <see cref="P: Locations" /> property.
+        /// <param name="threadFlows">
+        /// An initialization value for the <see cref="P: ThreadFlows" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public CodeFlow(Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        public CodeFlow(Message message, IEnumerable<ThreadFlow> threadFlows, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, locations, properties);
+            Init(message, threadFlows, properties);
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.Locations, other.Properties);
+            Init(other.Message, other.ThreadFlows, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -108,17 +111,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message message, IEnumerable<ThreadFlow> threadFlows, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (message != null)
             {
                 Message = new Message(message);
             }
 
-            if (locations != null)
+            if (threadFlows != null)
             {
-                var destination_0 = new List<CodeFlowLocation>();
-                foreach (var value_0 in locations)
+                var destination_0 = new List<ThreadFlow>();
+                foreach (var value_0 in threadFlows)
                 {
                     if (value_0 == null)
                     {
@@ -126,11 +129,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new CodeFlowLocation(value_0));
+                        destination_0.Add(new ThreadFlow(value_0));
                     }
                 }
 
-                Locations = destination_0;
+                ThreadFlows = destination_0;
             }
 
             if (properties != null)

@@ -38,34 +38,38 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 12,
-                        "startColumn": 9
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 9
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 14,
-                        "startColumn": 9
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -96,34 +100,38 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 38,
-                        "startColumn": 9
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 9
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 40,
-                        "startColumn": 9
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
