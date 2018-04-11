@@ -52,6 +52,7 @@
                     },
                     {
                       "step": 1,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -59,6 +60,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init4",
@@ -67,6 +69,7 @@
                     },
                     {
                       "step": 3,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -81,10 +84,12 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 5,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -92,6 +97,7 @@
                     },
                     {
                       "step": 6,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -102,6 +108,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -109,6 +116,7 @@
                     },
                     {
                       "step": 8,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -119,6 +127,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init1",
@@ -127,6 +136,7 @@
                     },
                     {
                       "step": 10,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -134,6 +144,7 @@
                     },
                     {
                       "step": 11,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -144,6 +155,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -151,6 +163,7 @@
                     },
                     {
                       "step": 13,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -161,6 +174,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init2",
@@ -169,6 +183,7 @@
                     },
                     {
                       "step": 15,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -176,6 +191,7 @@
                     },
                     {
                       "step": 16,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -193,6 +209,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -210,6 +227,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -227,6 +245,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -244,6 +263,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_ControllerIrp=8520",
@@ -262,6 +282,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_StartIoIrp=14976",
@@ -280,6 +301,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_PowerIrp=15228",
@@ -298,6 +320,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harnessIrp=13708",
@@ -316,6 +339,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_other_harnessIrp=15708",
@@ -334,6 +358,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=13028",
@@ -352,6 +377,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=15468",
@@ -370,6 +396,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=14484",
@@ -388,6 +415,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=12260",
@@ -406,6 +434,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=8508",
@@ -424,6 +453,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=7292",
@@ -442,6 +472,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15216",
@@ -460,6 +491,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=9212",
@@ -478,6 +510,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -495,6 +528,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -512,6 +546,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -529,6 +564,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -546,6 +582,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -563,6 +600,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -580,6 +618,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -597,6 +636,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -614,6 +654,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_kdpc_val3=12216",
@@ -632,6 +673,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_fdo=14536",
@@ -650,6 +692,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -667,6 +710,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_pdo=8760",
@@ -685,6 +729,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_child_pdo=13268",
@@ -703,6 +748,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_kinterrupt_val=14496",
@@ -721,6 +767,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_MapRegisterBase_val=13008",
@@ -739,6 +786,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -756,6 +804,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -773,6 +822,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -790,6 +840,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_fx_dev_object=14496",
@@ -808,6 +859,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -825,6 +877,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -842,6 +895,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -859,6 +913,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -876,6 +931,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -893,6 +949,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -910,6 +967,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -927,6 +985,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -944,6 +1003,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_top=11776",
@@ -962,6 +1022,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -972,6 +1033,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -979,6 +1041,7 @@
                     },
                     {
                       "step": 63,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -996,6 +1059,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension=16768",
@@ -1004,6 +1068,7 @@
                     },
                     {
                       "step": 65,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1011,6 +1076,7 @@
                     },
                     {
                       "step": 66,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1028,6 +1094,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^Tmp=1",
@@ -1036,6 +1103,7 @@
                     },
                     {
                       "step": 68,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1053,6 +1121,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension_two=16700",
@@ -1061,6 +1130,7 @@
                     },
                     {
                       "step": 70,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1068,6 +1138,7 @@
                     },
                     {
                       "step": 71,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1085,6 +1156,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^Tmp=1",
@@ -1093,6 +1165,7 @@
                     },
                     {
                       "step": 73,
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1110,6 +1183,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension=16768",
@@ -1128,6 +1202,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension_two=16700",
@@ -1146,6 +1221,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harnessStackLocation=11180",
@@ -1164,6 +1240,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_other_harnessStackLocation=16164",
@@ -1183,6 +1260,7 @@
                         },
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "properties": {
                         "target": "sdv_main",
                         "currentDataValues": "^s=0^====Pre=====^____true"
@@ -1190,6 +1268,7 @@
                     },
                     {
                       "step": 79,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1197,6 +1276,7 @@
                     },
                     {
                       "step": 80,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1215,6 +1295,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckDispatchRoutines",
                         "currentDataValues": "^s=0"
@@ -1222,6 +1303,7 @@
                     },
                     {
                       "step": 82,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1229,6 +1311,7 @@
                     },
                     {
                       "step": 83,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1246,6 +1329,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1264,6 +1348,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1271,6 +1356,7 @@
                     },
                     {
                       "step": 86,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1289,6 +1375,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckStartIoRoutines",
                         "currentDataValues": "^s=0"
@@ -1296,6 +1383,7 @@
                     },
                     {
                       "step": 88,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1303,6 +1391,7 @@
                     },
                     {
                       "step": 89,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1320,6 +1409,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1338,6 +1428,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1345,6 +1436,7 @@
                     },
                     {
                       "step": 92,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1363,6 +1455,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckDpcRoutines",
                         "currentDataValues": "^s=0"
@@ -1370,6 +1463,7 @@
                     },
                     {
                       "step": 94,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1377,6 +1471,7 @@
                     },
                     {
                       "step": 95,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1394,6 +1489,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1412,6 +1508,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1419,6 +1516,7 @@
                     },
                     {
                       "step": 98,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1437,6 +1535,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIsrRoutines",
                         "currentDataValues": "^s=0"
@@ -1444,6 +1543,7 @@
                     },
                     {
                       "step": 100,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1451,6 +1551,7 @@
                     },
                     {
                       "step": 101,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1468,6 +1569,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1486,6 +1588,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1493,6 +1596,7 @@
                     },
                     {
                       "step": 104,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1511,6 +1615,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckCancelRoutines",
                         "currentDataValues": "^s=0"
@@ -1518,6 +1623,7 @@
                     },
                     {
                       "step": 106,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1525,6 +1631,7 @@
                     },
                     {
                       "step": 107,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1542,6 +1649,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1560,6 +1668,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1567,6 +1676,7 @@
                     },
                     {
                       "step": 110,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1585,6 +1695,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIoDpcRoutines",
                         "currentDataValues": "^s=0"
@@ -1592,6 +1703,7 @@
                     },
                     {
                       "step": 112,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1599,6 +1711,7 @@
                     },
                     {
                       "step": 113,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1616,6 +1729,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1634,6 +1748,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1641,6 +1756,7 @@
                     },
                     {
                       "step": 116,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1659,6 +1775,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_IoCompletionRoutines",
                         "currentDataValues": "^s=0"
@@ -1666,6 +1783,7 @@
                     },
                     {
                       "step": 118,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1673,6 +1791,7 @@
                     },
                     {
                       "step": 119,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1690,6 +1809,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1708,6 +1828,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1715,6 +1836,7 @@
                     },
                     {
                       "step": 122,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1733,6 +1855,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckWorkerRoutines",
                         "currentDataValues": "^s=0"
@@ -1740,6 +1863,7 @@
                     },
                     {
                       "step": 124,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1747,6 +1871,7 @@
                     },
                     {
                       "step": 125,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1764,6 +1889,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1782,6 +1908,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1789,6 +1916,7 @@
                     },
                     {
                       "step": 128,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1807,6 +1935,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckAddDevice",
                         "currentDataValues": "^s=0"
@@ -1814,6 +1943,7 @@
                     },
                     {
                       "step": 130,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1821,6 +1951,7 @@
                     },
                     {
                       "step": 131,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1838,6 +1969,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1856,6 +1988,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1863,6 +1996,7 @@
                     },
                     {
                       "step": 134,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1881,6 +2015,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIrpMjPnp",
                         "currentDataValues": "^s=0"
@@ -1888,6 +2023,7 @@
                     },
                     {
                       "step": 136,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1895,6 +2031,7 @@
                     },
                     {
                       "step": 137,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1912,6 +2049,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1930,6 +2068,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1937,6 +2076,7 @@
                     },
                     {
                       "step": 140,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1955,6 +2095,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIrpMjPower",
                         "currentDataValues": "^s=0"
@@ -1962,6 +2103,7 @@
                     },
                     {
                       "step": 142,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1969,6 +2111,7 @@
                     },
                     {
                       "step": 143,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -1986,6 +2129,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2004,6 +2148,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2011,6 +2156,7 @@
                     },
                     {
                       "step": 146,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2029,6 +2175,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckDriverUnload",
                         "currentDataValues": "^s=0"
@@ -2036,6 +2183,7 @@
                     },
                     {
                       "step": 148,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2043,6 +2191,7 @@
                     },
                     {
                       "step": 149,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2060,6 +2209,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2078,6 +2228,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2085,6 +2236,7 @@
                     },
                     {
                       "step": 152,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2102,6 +2254,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2119,6 +2272,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv=1",
@@ -2138,6 +2292,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_stub_driver_init",
                         "currentDataValues": "^s=0"
@@ -2145,6 +2300,7 @@
                     },
                     {
                       "step": 156,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2152,6 +2308,7 @@
                     },
                     {
                       "step": 157,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2170,6 +2327,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2177,6 +2335,7 @@
                     },
                     {
                       "step": 159,
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2195,6 +2354,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_RunDispatchFunction",
                         "currentDataValues": "^arg1=14536^arg2=13708",
@@ -2203,6 +2363,7 @@
                     },
                     {
                       "step": 161,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2210,6 +2371,7 @@
                     },
                     {
                       "step": 162,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2227,6 +2389,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2234,6 +2397,7 @@
                     },
                     {
                       "step": 164,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2251,6 +2415,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv=80",
@@ -2269,6 +2434,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^pirp-\u003eTail.Overlay.CurrentStackLocation=11180",
@@ -2287,6 +2453,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2304,6 +2471,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^pirp-\u003eIoStatus.Information=72",
@@ -2322,6 +2490,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_start_info=72",
@@ -2341,6 +2510,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
+                      "nestingLevel": 3,
                       "properties": {
                         "target": "sdv_SetStatus",
                         "currentDataValues": "^arg1=13708",
@@ -2349,6 +2519,7 @@
                     },
                     {
                       "step": 171,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2356,6 +2527,7 @@
                     },
                     {
                       "step": 172,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2373,6 +2545,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2390,6 +2563,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2397,6 +2571,7 @@
                     },
                     {
                       "step": 175,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2415,6 +2590,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2422,6 +2598,7 @@
                     },
                     {
                       "step": 177,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2439,6 +2616,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2456,6 +2634,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2473,6 +2652,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^minor=80",
@@ -2491,6 +2671,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2508,6 +2689,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2525,6 +2707,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2542,6 +2725,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2559,6 +2743,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2577,6 +2762,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
+                      "nestingLevel": 3,
                       "properties": {
                         "target": "sdv_stub_dispatch_begin",
                         "currentDataValues": "^s=0"
@@ -2584,6 +2770,7 @@
                     },
                     {
                       "step": 187,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2591,6 +2778,7 @@
                     },
                     {
                       "step": 188,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2608,6 +2796,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_4=0",
@@ -2626,6 +2815,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_3=0",
@@ -2644,6 +2834,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_2=0",
@@ -2662,6 +2853,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous=0",
@@ -2680,6 +2872,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_current=0",
@@ -2698,6 +2891,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2716,6 +2910,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2723,6 +2918,7 @@
                     },
                     {
                       "step": 196,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2740,6 +2936,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2747,6 +2944,7 @@
                     },
                     {
                       "step": 198,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2754,6 +2952,7 @@
                     },
                     {
                       "step": 199,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2761,6 +2960,7 @@
                     },
                     {
                       "step": 200,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2768,6 +2968,7 @@
                     },
                     {
                       "step": 201,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2775,6 +2976,7 @@
                     },
                     {
                       "step": 202,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2782,6 +2984,7 @@
                     },
                     {
                       "step": 203,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2789,6 +2992,7 @@
                     },
                     {
                       "step": 204,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2796,6 +3000,7 @@
                     },
                     {
                       "step": 205,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2803,6 +3008,7 @@
                     },
                     {
                       "step": 206,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2810,6 +3016,7 @@
                     },
                     {
                       "step": 207,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2817,6 +3024,7 @@
                     },
                     {
                       "step": 208,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2824,6 +3032,7 @@
                     },
                     {
                       "step": 209,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2831,6 +3040,7 @@
                     },
                     {
                       "step": 210,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2838,6 +3048,7 @@
                     },
                     {
                       "step": 211,
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2855,6 +3066,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2873,6 +3085,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
+                      "nestingLevel": 3,
                       "properties": {
                         "target": "DispatchSystemControl",
                         "currentDataValues": "^arg1=14536^arg2=13708",
@@ -2881,6 +3094,7 @@
                     },
                     {
                       "step": 214,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2888,6 +3102,7 @@
                     },
                     {
                       "step": 215,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2905,6 +3120,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2922,6 +3138,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2939,6 +3156,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2956,6 +3174,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2963,6 +3182,7 @@
                     },
                     {
                       "step": 220,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -2970,6 +3190,7 @@
                     },
                     {
                       "step": 221,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^oldIrql=90",
@@ -2989,6 +3210,7 @@
                         },
                         "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
+                      "nestingLevel": 4,
                       "importance": "essential",
                       "properties": {
                         "target": "IoAcquireCancelSpinLock",
@@ -2998,6 +3220,7 @@
                     },
                     {
                       "step": 223,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -3005,6 +3228,7 @@
                     },
                     {
                       "step": 224,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -3022,6 +3246,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_4=0",
@@ -3040,6 +3265,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_3=0",
@@ -3058,6 +3284,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous_2=0",
@@ -3076,6 +3303,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous=0",
@@ -3094,6 +3322,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_current=0",
@@ -3112,6 +3341,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -3129,6 +3359,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_irql_previous=0",
@@ -3148,6 +3379,7 @@
                         },
                         "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock"
                       },
+                      "nestingLevel": 5,
                       "properties": {
                         "target": "SLIC_IoAcquireCancelSpinLock_exit",
                         "currentDataValues": "^arg1=8",
@@ -3156,6 +3388,7 @@
                     },
                     {
                       "step": 233,
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -3173,6 +3406,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0",
@@ -3191,6 +3425,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=0"
@@ -3198,6 +3433,7 @@
                     },
                     {
                       "step": 236,
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3208,6 +3444,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock"
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3215,6 +3452,7 @@
                     },
                     {
                       "step": 238,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3222,6 +3460,7 @@
                     },
                     {
                       "step": 239,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=0",
@@ -3241,6 +3480,7 @@
                         },
                         "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3248,6 +3488,7 @@
                     },
                     {
                       "step": 241,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3255,6 +3496,7 @@
                     },
                     {
                       "step": 242,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=0",
@@ -3263,6 +3505,7 @@
                     },
                     {
                       "step": 243,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^*Tmp=0",
@@ -3271,6 +3514,7 @@
                     },
                     {
                       "step": 244,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3288,6 +3532,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3306,6 +3551,7 @@
                         },
                         "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
+                      "nestingLevel": 4,
                       "importance": "essential",
                       "properties": {
                         "target": "SLIC_DispatchSystemControl_exit",
@@ -3315,6 +3561,7 @@
                     },
                     {
                       "step": 247,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3332,6 +3579,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1",
@@ -3351,6 +3599,7 @@
                         },
                         "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit"
                       },
+                      "nestingLevel": 5,
                       "properties": {
                         "target": "SLIC_ABORT_7_0",
                         "currentDataValues": "^arg1=8",
@@ -3359,6 +3608,7 @@
                     },
                     {
                       "step": 250,
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3366,6 +3616,7 @@
                     },
                     {
                       "step": 251,
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^caller=8",
@@ -3377,6 +3628,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_7_0"
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "target": "SLIC_ERROR_ROUTINE",
@@ -3386,6 +3638,7 @@
                     },
                     {
                       "step": 253,
+                      "nestingLevel": 7,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3393,6 +3646,7 @@
                     },
                     {
                       "step": 254,
+                      "nestingLevel": 7,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3403,6 +3657,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_7_0"
                       },
+                      "nestingLevel": 7,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3410,6 +3665,7 @@
                     },
                     {
                       "step": 256,
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3420,6 +3676,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit"
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3427,6 +3684,7 @@
                     },
                     {
                       "step": 258,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3434,6 +3692,7 @@
                     },
                     {
                       "step": 259,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3442,6 +3701,7 @@
                     },
                     {
                       "step": 260,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3449,6 +3709,7 @@
                     },
                     {
                       "step": 261,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3457,6 +3718,7 @@
                     },
                     {
                       "step": 262,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3464,6 +3726,7 @@
                     },
                     {
                       "step": 263,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3472,6 +3735,7 @@
                     },
                     {
                       "step": 264,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3479,6 +3743,7 @@
                     },
                     {
                       "step": 265,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3487,6 +3752,7 @@
                     },
                     {
                       "step": 266,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"
@@ -3494,6 +3760,7 @@
                     },
                     {
                       "step": 267,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3502,6 +3769,7 @@
                     },
                     {
                       "step": 268,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1",
@@ -3513,6 +3781,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^s=1"

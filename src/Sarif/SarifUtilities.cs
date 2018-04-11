@@ -136,5 +136,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 dictionary.Add(key, val);
             }
         }
+
+        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<CodeFlowLocation> locations = null)
+        {
+            return new CodeFlow
+            {
+                ThreadFlows = new List<ThreadFlow>()
+                {
+                    new ThreadFlow
+                    {
+                        Locations = new List<CodeFlowLocation>(locations ?? new CodeFlowLocation[]{ })
+                    }
+                }
+            };
+        }
     }
 }

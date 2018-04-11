@@ -224,8 +224,7 @@
                 {
                   "locations": [
                     {
-                      "step": 0,
-                      "nestingLevel": 0,
+                      "step": 1,
                       "importance": "essential",
                       "location": {
                         "physicalLocation": {
@@ -247,8 +246,7 @@
                       "module": "platform"
                     },
                     {
-                      "step": 1,
-                      "nestingLevel": 1,
+                      "step": 2,
                       "importance": "unimportant",
                       "location": {
                         "physicalLocation": {
@@ -267,8 +265,7 @@
                       "module": "platform"
                     },
                     {
-                      "step": 2,
-                      "nestingLevel": 2,
+                      "step": 3,
                       "importance": "essential",
                       "location": {
                         "physicalLocation": {

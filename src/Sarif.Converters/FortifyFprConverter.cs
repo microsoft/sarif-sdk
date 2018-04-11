@@ -303,18 +303,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
-                CodeFlows = new List<CodeFlow>
+                CodeFlows = new []
                 {
-                    new CodeFlow
-                    {
-                        ThreadFlows = new List<ThreadFlow>()
-                        {
-                            new ThreadFlow
-                            {
-                                Locations = new List<CodeFlowLocation>()
-                            }
-                        }
-                    }
+                    SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
             };
 

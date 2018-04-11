@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                     {
-                        CaptureAnnotatedCodeLocations(threadFlow.Locations);
+                        CaptureCodeFlowLocations(threadFlow.Locations);
                     }
                 }
             }
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureAnnotatedCodeLocations(IList<CodeFlowLocation> locations)
+        private void CaptureCodeFlowLocations(IList<CodeFlowLocation> locations)
         {
             if (locations == null) { return; }
 

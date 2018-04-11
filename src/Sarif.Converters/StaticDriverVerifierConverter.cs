@@ -66,21 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ProcessSdvDefectStream(Stream input)
         {
-            var result = new Result();
-
-            result.Locations = new List<Location>();
-
-            result.CodeFlows = new[]
+            var result = new Result
             {
-                new CodeFlow
+                Locations = new List<Location>(),
+                CodeFlows = new []
                 {
-                    ThreadFlows = new List<ThreadFlow>()
-                    {
-                        new ThreadFlow
-                        {
-                            Locations = new List<CodeFlowLocation>()
-                        }
-                    }
+                    SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
             };
 
@@ -91,14 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
-                    ProcessLine(line, nestingLevel, result);
+                    ProcessLine(line, ref nestingLevel, result);
                 }
             }
 
             return result;
         }
 
-        private void ProcessLine(string logFileLine, int nestingLevel, Result result)
+        private void ProcessLine(string logFileLine, ref int nestingLevel, Result result)
         {
             var codeFlow = result.CodeFlows[0];
 
@@ -225,6 +216,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     codeFlowLocation.NestingLevel = nestingLevel--;
                     codeFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
+                }
+                else
+                {
+                    codeFlowLocation.NestingLevel = nestingLevel;
                 }
 
                 string separatorText = "^====Auto=====";

@@ -49,6 +49,7 @@
                     },
                     {
                       "step": 1,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -56,6 +57,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init4",
@@ -64,14 +66,17 @@
                     },
                     {
                       "step": 3,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 4,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 5,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -79,10 +84,12 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 7,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -90,6 +97,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init1",
@@ -98,10 +106,12 @@
                     },
                     {
                       "step": 9,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 10,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -109,10 +119,12 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 12,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -120,6 +132,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "target": "_sdv_init2",
@@ -128,10 +141,12 @@
                     },
                     {
                       "step": 14,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 15,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -146,6 +161,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -160,6 +176,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -174,6 +191,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -188,6 +206,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_ControllerIrp=2919"
@@ -205,6 +224,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_StartIoIrp=9375"
@@ -222,6 +242,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_PowerIrp=9627"
@@ -239,6 +260,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harnessIrp=8107"
@@ -256,6 +278,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_other_harnessIrp=10107"
@@ -273,6 +296,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=7427"
@@ -290,6 +314,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867"
@@ -307,6 +332,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883"
@@ -324,6 +350,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659"
@@ -341,6 +368,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907"
@@ -358,6 +386,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691"
@@ -375,6 +404,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615"
@@ -392,6 +422,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=3611"
@@ -409,6 +440,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -423,6 +455,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -437,6 +470,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -451,6 +485,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -465,6 +500,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -479,6 +515,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -493,6 +530,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -507,6 +545,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -521,6 +560,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_kdpc_val3=6615"
@@ -538,6 +578,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_fdo=8935"
@@ -555,6 +596,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -569,6 +611,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_pdo=3159"
@@ -586,6 +629,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_child_pdo=7667"
@@ -603,6 +647,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_kinterrupt_val=8895"
@@ -620,6 +665,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_MapRegisterBase_val=7407"
@@ -637,6 +683,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -651,6 +698,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -665,6 +713,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -679,6 +728,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_fx_dev_object=8895"
@@ -696,6 +746,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -710,6 +761,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -724,6 +776,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -738,6 +791,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -752,6 +806,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -766,6 +821,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -780,6 +836,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -794,6 +851,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -808,6 +866,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_devobj_top=6175"
@@ -825,6 +884,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -832,10 +892,12 @@
                       "location": {
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 62,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -850,6 +912,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension=11167"
@@ -857,10 +920,12 @@
                     },
                     {
                       "step": 64,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
                       "step": 65,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -875,6 +940,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^Tmp=1"
@@ -882,6 +948,7 @@
                     },
                     {
                       "step": 67,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -896,6 +963,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
@@ -903,10 +971,12 @@
                     },
                     {
                       "step": 69,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
                       "step": 70,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -921,6 +991,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^Tmp=1"
@@ -928,6 +999,7 @@
                     },
                     {
                       "step": 72,
+                      "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
@@ -942,6 +1014,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension=11167"
@@ -959,6 +1032,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
@@ -976,6 +1050,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_harnessStackLocation=5043"
@@ -993,6 +1068,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^\u0026sdv_other_harnessStackLocation=10563"
@@ -1011,6 +1087,7 @@
                         },
                         "fullyQualifiedLogicalName": "main"
                       },
+                      "nestingLevel": 1,
                       "properties": {
                         "target": "sdv_main",
                         "currentDataValues": "^====Pre=====^____true"
@@ -1018,10 +1095,12 @@
                     },
                     {
                       "step": 78,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
                       "step": 79,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1037,16 +1116,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckDispatchRoutines"
                       }
                     },
                     {
                       "step": 81,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 82,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1061,6 +1143,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1076,10 +1159,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 85,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1095,16 +1180,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckStartIoRoutines"
                       }
                     },
                     {
                       "step": 87,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 88,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1119,6 +1207,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1134,10 +1223,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 91,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1153,16 +1244,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckDpcRoutines"
                       }
                     },
                     {
                       "step": 93,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 94,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1177,6 +1271,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1192,10 +1287,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 97,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1211,16 +1308,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIsrRoutines"
                       }
                     },
                     {
                       "step": 99,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 100,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1235,6 +1335,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1250,10 +1351,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 103,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1269,16 +1372,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckCancelRoutines"
                       }
                     },
                     {
                       "step": 105,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 106,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1293,6 +1399,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1308,10 +1415,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 109,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1327,16 +1436,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIoDpcRoutines"
                       }
                     },
                     {
                       "step": 111,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 112,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1351,6 +1463,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1366,10 +1479,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 115,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1385,16 +1500,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_IoCompletionRoutines"
                       }
                     },
                     {
                       "step": 117,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 118,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1409,6 +1527,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1424,10 +1543,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 121,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1443,16 +1564,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckWorkerRoutines"
                       }
                     },
                     {
                       "step": 123,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 124,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1467,6 +1591,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1482,10 +1607,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 127,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1501,16 +1628,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckAddDevice"
                       }
                     },
                     {
                       "step": 129,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 130,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1525,6 +1655,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1540,10 +1671,12 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 133,
+                      "nestingLevel": 2,
                       "importance": "unimportant"
                     },
                     {
@@ -1559,16 +1692,19 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_main"
                       },
+                      "nestingLevel": 2,
                       "properties": {
                         "target": "sdv_CheckIrpMjPnp"
                       }
                     },
                     {
                       "step": 135,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
                       "step": 136,
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1583,6 +1719,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 3,
                       "importance": "unimportant"
                     },
                     {
@@ -1598,6 +1735,7 @@
                         },
                         "fullyQualifiedLogicalName": "sdv_CheckIrpMjPnp"
                       },
+                      "nestingLevel": 3,
                       "properties": {
                         "target": "SLIC_sdv_CheckIrpMjPnp_exit",
                         "currentDataValues": "^arg1=5^arg2=1"
@@ -1605,6 +1743,7 @@
                     },
                     {
                       "step": 139,
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
@@ -1619,6 +1758,7 @@
                           }
                         }
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv=1"
@@ -1637,6 +1777,7 @@
                         },
                         "fullyQualifiedLogicalName": "SLIC_sdv_CheckIrpMjPnp_exit"
                       },
+                      "nestingLevel": 4,
                       "properties": {
                         "target": "SLIC_ABORT_1_0",
                         "currentDataValues": "^arg1=5^arg2=1"
@@ -1644,10 +1785,12 @@
                     },
                     {
                       "step": 142,
+                      "nestingLevel": 5,
                       "importance": "unimportant"
                     },
                     {
                       "step": 143,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^caller=5"
@@ -1655,6 +1798,7 @@
                     },
                     {
                       "step": 144,
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^sdv=1"
@@ -1665,6 +1809,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
                         "target": "SLIC_ERROR_ROUTINE",
@@ -1673,10 +1818,12 @@
                     },
                     {
                       "step": 146,
+                      "nestingLevel": 6,
                       "importance": "unimportant"
                     },
                     {
                       "step": 147,
+                      "nestingLevel": 6,
                       "importance": "unimportant"
                     },
                     {
@@ -1684,10 +1831,12 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
+                      "nestingLevel": 6,
                       "importance": "unimportant"
                     },
                     {
                       "step": 149,
+                      "nestingLevel": 5,
                       "importance": "unimportant"
                     },
                     {
@@ -1695,14 +1844,17 @@
                       "location": {
                         "fullyQualifiedLogicalName": "SLIC_sdv_CheckIrpMjPnp_exit"
                       },
+                      "nestingLevel": 5,
                       "importance": "unimportant"
                     },
                     {
                       "step": 151,
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
                       "step": 152,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
@@ -1710,10 +1862,12 @@
                     },
                     {
                       "step": 153,
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
                       "step": 154,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
@@ -1721,10 +1875,12 @@
                     },
                     {
                       "step": 155,
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
                       "step": 156,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
@@ -1732,10 +1888,12 @@
                     },
                     {
                       "step": 157,
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     },
                     {
                       "step": 158,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
@@ -1743,6 +1901,7 @@
                     },
                     {
                       "step": 159,
+                      "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
                         "currentDataValues": "^yogi_error=1"
@@ -1753,6 +1912,7 @@
                       "location": {
                         "fullyQualifiedLogicalName": "sdv_CheckIrpMjPnp"
                       },
+                      "nestingLevel": 4,
                       "importance": "unimportant"
                     }
                   ]

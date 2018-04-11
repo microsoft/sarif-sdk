@@ -166,16 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
                 result.CodeFlows = new List<CodeFlow>()
                 {
-                    new CodeFlow
-                    {
-                        ThreadFlows = new List<ThreadFlow>()
-                        {
-                            new ThreadFlow
-                            {
-                                Locations = locations
-                            }
-                        }
-                    }
+                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
                 };
             }
 
