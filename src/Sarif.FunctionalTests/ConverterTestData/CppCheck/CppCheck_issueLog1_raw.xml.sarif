@@ -1286,32 +1286,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "zutil.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "zutil.c"
+                          },
+                          "region": {
+                            "startLine": 309
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 309
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "zutil.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "zutil.c"
+                          },
+                          "region": {
+                            "startLine": 309
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 309
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -1990,32 +1994,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/miniunz.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/miniunz.c"
+                          },
+                          "region": {
+                            "startLine": 632
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 632
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/miniunz.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/miniunz.c"
+                          },
+                          "region": {
+                            "startLine": 602
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 602
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -2169,32 +2177,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/minizip.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/minizip.c"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/minizip.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/minizip.c"
+                          },
+                          "region": {
+                            "startLine": 193
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 193
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -2453,32 +2465,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/unzip.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/unzip.c"
+                          },
+                          "region": {
+                            "startLine": 1665
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1665
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/unzip.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/unzip.c"
+                          },
+                          "region": {
+                            "startLine": 1663
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1663
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -2527,32 +2543,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1037
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1037
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1038
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1038
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -2580,32 +2600,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1038
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1038
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1040
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1040
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -2633,32 +2657,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1040
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1040
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "contrib/minizip/zip.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "contrib/minizip/zip.c"
+                          },
+                          "region": {
+                            "startLine": 1041
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 1041
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }
@@ -3610,32 +3638,36 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "examples/gzappend.c"
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "examples/gzappend.c"
+                          },
+                          "region": {
+                            "startLine": 415
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 415
-                      }
-                    }
-                  },
-                  "importance": "essential"
-                },
-                {
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "examples/gzappend.c"
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "examples/gzappend.c"
+                          },
+                          "region": {
+                            "startLine": 396
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 396
-                      }
+                      "importance": "essential"
                     }
-                  },
-                  "importance": "essential"
+                  ]
                 }
               ]
             }

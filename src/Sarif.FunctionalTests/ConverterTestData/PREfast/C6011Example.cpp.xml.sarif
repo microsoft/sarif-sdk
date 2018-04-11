@@ -38,44 +38,46 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 7
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 5,
-                        "startColumn": 7
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp"
-                      },
-                      "region": {
-                        "startLine": 6,
-                        "startColumn": 5
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }

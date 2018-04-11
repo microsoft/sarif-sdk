@@ -156,12 +156,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     });
                 }
 
-                var flow = new CodeFlow
+                result.CodeFlows = new List<CodeFlow>()
                 {
-                    Locations = locations
+                    new CodeFlow
+                    {
+                        ThreadFlows = new List<ThreadFlow>()
+                        {
+                            new ThreadFlow
+                            {
+                                Locations = locations
+                            }
+                        }
+                    }
                 };
-
-                result.CodeFlows = new List<CodeFlow> { flow };
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.

@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
-    internal class CodeFlowBaselineEqualityComparator : IEqualityComparer<CodeFlow>
+    internal class ThreadFlowBaselineEqualityComparator : IEqualityComparer<ThreadFlow>
     {
-        internal static readonly CodeFlowBaselineEqualityComparator Instance = new CodeFlowBaselineEqualityComparator();
+        internal static readonly ThreadFlowBaselineEqualityComparator Instance = new ThreadFlowBaselineEqualityComparator();
 
-        public bool Equals(CodeFlow x, CodeFlow y)
+        public bool Equals(ThreadFlow x, ThreadFlow y)
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (!ListComparisonHelpers.CompareListsOrdered(x.ThreadFlows, y.ThreadFlows, ThreadFlowBaselineEqualityComparator.Instance))
+                if (!ListComparisonHelpers.CompareListsOrdered(x.Locations, y.Locations, CodeFlowLocationBaselineEquals.DefaultInstance))
                 {
                     return false;
                 }
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             return true;
         }
 
-        public int GetHashCode(CodeFlow obj)
+        public int GetHashCode(ThreadFlow obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.ThreadFlows);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Locations);
 
                 return hs;
             }

@@ -69,29 +69,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result();
 
             result.Locations = new List<Location>();
-       
+
             result.CodeFlows = new[]
             {
                 new CodeFlow
                 {
-                    Locations = new List<CodeFlowLocation>()
+                    ThreadFlows = new List<ThreadFlow>()
+                    {
+                        new ThreadFlow
+                        {
+                            Locations = new List<CodeFlowLocation>()
+                        }
+                    }
                 }
             };
 
             using (var reader = new StreamReader(input))
             {
+                int nestingLevel = 0;
                 string line;
 
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
-                    ProcessLine(line, result);
+                    ProcessLine(line, nestingLevel, result);
                 }
             }
 
             return result;
         }
 
-        private void ProcessLine(string logFileLine, Result result)
+        private void ProcessLine(string logFileLine, int nestingLevel, Result result)
         {
             var codeFlow = result.CodeFlows[0];
 
@@ -144,11 +151,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     sdvKind = tokens[KIND2];
                 }
 
-                CodeFlowLocationKind kind = ConvertToCodeFlowLocationKind(sdvKind.Trim());
+                sdvKind = sdvKind.Trim();
 
                 var codeFlowLocation = new CodeFlowLocation
                 {
-                    Kind = kind,
                     Step = step,
                     Importance = CodeFlowLocationImportance.Unimportant
                 };
@@ -171,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     };
                 }
 
-                if (kind == CodeFlowLocationKind.Call)
+                if (sdvKind == "Call")
                 {
                     string extraMsg = tokens[KIND1] + " " + tokens[CALLER] + " " + tokens[CALLEE];
 
@@ -185,13 +191,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
 
                         codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
-                        codeFlowLocation.Target = callee;
+                        codeFlowLocation.SetProperty<string>("target", callee);
                         _callers.Push(caller);
                     }
                     else
                     {
                         Debug.Assert(false);
                     }
+
+                    codeFlowLocation.NestingLevel = nestingLevel++;
 
                     if (uri == null)
                     {
@@ -206,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         codeFlowLocation.Importance = CodeFlowLocationImportance.Essential;
                     }
                 }
-                else if (kind == CodeFlowLocationKind.CallReturn)
+                else if (sdvKind == "Return")
                 {
                     Debug.Assert(_callers.Count > 0);
 
@@ -215,6 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         codeFlowLocation.Location = new Location();
                     }
 
+                    codeFlowLocation.NestingLevel = nestingLevel--;
                     codeFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
                 }
 
@@ -243,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                codeFlow.Locations.Add(codeFlowLocation);
+                codeFlow.ThreadFlows[0].Locations.Add(codeFlowLocation);
             }
             else
             {
@@ -268,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // Finally, populate this result location with the
                 // last observed location in the code flow.
 
-                IList<CodeFlowLocation> locations = result.CodeFlows[0].Locations;
+                IList<CodeFlowLocation> locations = result.CodeFlows[0].ThreadFlows[0].Locations;
 
                 for (int i = locations.Count - 1; i >= 0; --i)
                 {
@@ -304,21 +313,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return true;
             }
             return false;
-        }
-
-        private static CodeFlowLocationKind ConvertToCodeFlowLocationKind(string sdvKind)
-        {
-            switch (sdvKind)
-            {
-                case "Assignment": return CodeFlowLocationKind.Assignment;
-                case "Call": return CodeFlowLocationKind.Call;
-                case "Conditional": return CodeFlowLocationKind.Branch;
-                case "Continuation": return CodeFlowLocationKind.Continuation;
-                case "Return": return CodeFlowLocationKind.CallReturn;
-            }
-
-            Debug.Assert(false);
-            return CodeFlowLocationKind.Unknown;
         }
 
         private static ResultLevel ConvertToResultLevel(string sdvLevel)

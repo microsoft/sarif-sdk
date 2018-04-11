@@ -51,46 +51,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Module { get; set; }
 
         /// <summary>
-        /// The thread identifier of the code that is executing.
-        /// </summary>
-        [DataMember(Name = "threadId", IsRequired = false, EmitDefaultValue = false)]
-        public int ThreadId { get; set; }
-
-        /// <summary>
-        /// Categorizes the location.
-        /// </summary>
-        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public CodeFlowLocationKind Kind { get; set; }
-
-        /// <summary>
-        /// Classifies state transitions in code locations relevant to a taint analysis.
-        /// </summary>
-        [DataMember(Name = "taintKind", IsRequired = false, EmitDefaultValue = false)]
-        public TaintKind TaintKind { get; set; }
-
-        /// <summary>
-        /// The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.
-        /// </summary>
-        [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
-        public string Target { get; set; }
-
-        /// <summary>
-        /// An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.
-        /// </summary>
-        [DataMember(Name = "values", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Values { get; set; }
-
-        /// <summary>
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
         public object State { get; set; }
 
         /// <summary>
-        /// A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.
+        /// An integer representing a containment hierarchy within the thread flow
         /// </summary>
-        [DataMember(Name = "targetKey", IsRequired = false, EmitDefaultValue = false)]
-        public string TargetKey { get; set; }
+        [DataMember(Name = "nestingLevel", IsRequired = false, EmitDefaultValue = false)]
+        public int NestingLevel { get; set; }
+
+        /// <summary>
+        /// An integer representing the temporal order in which execution reached this location.
+        /// </summary>
+        [DataMember(Name = "executionOrder", IsRequired = false, EmitDefaultValue = false)]
+        public int ExecutionOrder { get; set; }
 
         /// <summary>
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
@@ -123,26 +99,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
-        /// <param name="threadId">
-        /// An initialization value for the <see cref="P: ThreadId" /> property.
-        /// </param>
-        /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
-        /// </param>
-        /// <param name="taintKind">
-        /// An initialization value for the <see cref="P: TaintKind" /> property.
-        /// </param>
-        /// <param name="target">
-        /// An initialization value for the <see cref="P: Target" /> property.
-        /// </param>
-        /// <param name="values">
-        /// An initialization value for the <see cref="P: Values" /> property.
-        /// </param>
         /// <param name="state">
         /// An initialization value for the <see cref="P: State" /> property.
         /// </param>
-        /// <param name="targetKey">
-        /// An initialization value for the <see cref="P: TargetKey" /> property.
+        /// <param name="nestingLevel">
+        /// An initialization value for the <see cref="P: NestingLevel" /> property.
+        /// </param>
+        /// <param name="executionOrder">
+        /// An initialization value for the <see cref="P: ExecutionOrder" /> property.
         /// </param>
         /// <param name="importance">
         /// An initialization value for the <see cref="P: Importance" /> property.
@@ -150,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public CodeFlowLocation(int step, Location location, string module, int threadId, CodeFlowLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public CodeFlowLocation(int step, Location location, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(step, location, module, threadId, kind, taintKind, target, values, state, targetKey, importance, properties);
+            Init(step, location, module, state, nestingLevel, executionOrder, importance, properties);
         }
 
         /// <summary>
@@ -171,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Step, other.Location, other.Module, other.ThreadId, other.Kind, other.TaintKind, other.Target, other.Values, other.State, other.TargetKey, other.Importance, other.Properties);
+            Init(other.Step, other.Location, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -192,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlowLocation(this);
         }
 
-        private void Init(int step, Location location, string module, int threadId, CodeFlowLocationKind kind, TaintKind taintKind, string target, IEnumerable<string> values, object state, string targetKey, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int step, Location location, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Step = step;
             if (location != null)
@@ -201,23 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Module = module;
-            ThreadId = threadId;
-            Kind = kind;
-            TaintKind = taintKind;
-            Target = target;
-            if (values != null)
-            {
-                var destination_0 = new List<string>();
-                foreach (var value_0 in values)
-                {
-                    destination_0.Add(value_0);
-                }
-
-                Values = destination_0;
-            }
-
             State = state;
-            TargetKey = targetKey;
+            NestingLevel = nestingLevel;
+            ExecutionOrder = executionOrder;
             Importance = importance;
             if (properties != null)
             {

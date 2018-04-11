@@ -9,44 +9,6 @@
       }
     }
   ],
-  "CodeFlowLocation.Kind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "CodeFlowLocationKind",
-        "description": "Values specifying the kind of an code flow location.",
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "Alias",
-          "Assignment",
-          "Branch",
-          "Call",
-          "CallReturn",
-          "Continuation",
-          "Declaration",
-          "FunctionEnter",
-          "FunctionExit",
-          "FunctionReturn",
-          "Usage"
-        ]
-      }
-    }
-  ],
-  "CodeFlowLocation.TaintKind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "TaintKind",
-        "description": "Values that classify the code flow location in terms of a taint analysis.",
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "Sink",
-          "Source",
-          "Sanitizer"
-        ]
-      }
-    }
-  ],
   "CodeFlowLocation.Importance": [
     {
       "kind": "EnumHint",
@@ -399,6 +361,16 @@
     }
   ],
   "stackFrame": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "threadFlow": [
     {
       "kind": "BaseTypeHint",
       "arguments": {

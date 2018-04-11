@@ -220,76 +220,76 @@
               "message": {
                 "text": "Path from declaration to usage"
               },
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 0,
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                      },
-                      "region": {
-                        "snippet": {
-                          "text": "int *ptr;"
+                  "locations": [
+                    {
+                      "step": 0,
+                      "nestingLevel": 0,
+                      "importance": "essential",
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "int *ptr;"
+                            },
+                            "startLine": 15
+                          }
                         },
-                        "startLine": 15
-                      }
+                        "fullyQualifiedLogicalName": "collections::list:add",
+                        "message": {
+                          "text": "Variable \"ptr\" declared."
+                        }
+                      },
+                      "module": "platform"
                     },
-                    "fullyQualifiedLogicalName": "collections::list:add",
-                    "message": {
-                      "text": "Variable \"ptr\" declared."
+                    {
+                      "step": 1,
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "offset = 0;"
+                            },
+                            "startLine": 15
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "collections::list:add"
+                      },
+                      "module": "platform"
+                    },
+                    {
+                      "step": 2,
+                      "nestingLevel": 2,
+                      "importance": "essential",
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "add_core(ptr, offset, val)"
+                            },
+                            "startLine": 25
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "collections::list:add",
+                        "message": {
+                          "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
+                        }
+                      },
+                      "module": "platform"
                     }
-                  },
-                  "module": "platform",
-                  "threadId": 52
-                },
-                {
-                  "step": 1,
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                      },
-                      "region": {
-                        "snippet": {
-                          "text": "offset = 0;"
-                        },
-                        "startLine": 15
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "collections::list:add"
-                  },
-                  "module": "platform",
-                  "threadId": 52
-                },
-                {
-                  "step": 2,
-                  "kind": "call",
-                  "importance": "essential",
-                  "target": "collections::list:add_core",
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                      },
-                      "region": {
-                        "snippet": {
-                          "text": "add_core(ptr, offset, val)"
-                        },
-                        "startLine": 25
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "collections::list:add",
-                    "message": {
-                      "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
-                    }
-                  },
-                  "module": "platform",
-                  "threadId": 52
+                  ]
                 }
               ]
             }

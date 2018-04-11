@@ -43,53 +43,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ThreadId != right.ThreadId)
-            {
-                return false;
-            }
-
-            if (left.Kind != right.Kind)
-            {
-                return false;
-            }
-
-            if (left.TaintKind != right.TaintKind)
-            {
-                return false;
-            }
-
-            if (left.Target != right.Target)
-            {
-                return false;
-            }
-
-            if (!object.ReferenceEquals(left.Values, right.Values))
-            {
-                if (left.Values == null || right.Values == null)
-                {
-                    return false;
-                }
-
-                if (left.Values.Count != right.Values.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < left.Values.Count; ++index_0)
-                {
-                    if (left.Values[index_0] != right.Values[index_0])
-                    {
-                        return false;
-                    }
-                }
-            }
-
             if (!object.Equals(left.State, right.State))
             {
                 return false;
             }
 
-            if (left.TargetKey != right.TargetKey)
+            if (left.NestingLevel != right.NestingLevel)
+            {
+                return false;
+            }
+
+            if (left.ExecutionOrder != right.ExecutionOrder)
             {
                 return false;
             }
@@ -145,47 +109,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Module.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ThreadId.GetHashCode();
-                result = (result * 31) + obj.Kind.GetHashCode();
-                result = (result * 31) + obj.TaintKind.GetHashCode();
-                if (obj.Target != null)
-                {
-                    result = (result * 31) + obj.Target.GetHashCode();
-                }
-
-                if (obj.Values != null)
-                {
-                    foreach (var value_2 in obj.Values)
-                    {
-                        result = result * 31;
-                        if (value_2 != null)
-                        {
-                            result = (result * 31) + value_2.GetHashCode();
-                        }
-                    }
-                }
-
                 if (obj.State != null)
                 {
                     result = (result * 31) + obj.State.GetHashCode();
                 }
 
-                if (obj.TargetKey != null)
-                {
-                    result = (result * 31) + obj.TargetKey.GetHashCode();
-                }
-
+                result = (result * 31) + obj.NestingLevel.GetHashCode();
+                result = (result * 31) + obj.ExecutionOrder.GetHashCode();
                 result = (result * 31) + obj.Importance.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_3 in obj.Properties)
+                    foreach (var value_2 in obj.Properties)
                     {
-                        xor_0 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_0 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_0 ^= value_2.Value.GetHashCode();
                         }
                     }
 
