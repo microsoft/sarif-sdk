@@ -63,7 +63,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
+msbuild /verbosity:minimal /target:rebuild src\Sarif.Sdk.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
@@ -88,11 +88,6 @@ call :RunMultitargetingTests Sarif.Multitool Functional || goto :ExitFailed
 
 ::Run all non-multitargeting unit tests
 src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
 )
