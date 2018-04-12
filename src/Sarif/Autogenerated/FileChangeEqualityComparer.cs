@@ -8,14 +8,14 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type TemplatedMessage for equality.
+    /// Defines methods to support the comparison of objects of type FileChange for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    internal sealed class TemplatedMessageEqualityComparer : IEqualityComparer<TemplatedMessage>
+    internal sealed class FileChangeEqualityComparer : IEqualityComparer<FileChange>
     {
-        internal static readonly TemplatedMessageEqualityComparer Instance = new TemplatedMessageEqualityComparer();
+        internal static readonly FileChangeEqualityComparer Instance = new FileChangeEqualityComparer();
 
-        public bool Equals(TemplatedMessage left, TemplatedMessage right)
+        public bool Equals(FileChange left, FileChange right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -27,26 +27,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.TemplateId != right.TemplateId)
+            if (!FileLocation.ValueComparer.Equals(left.FileLocation, right.FileLocation))
             {
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Arguments, right.Arguments))
+            if (!object.ReferenceEquals(left.Replacements, right.Replacements))
             {
-                if (left.Arguments == null || right.Arguments == null)
+                if (left.Replacements == null || right.Replacements == null)
                 {
                     return false;
                 }
 
-                if (left.Arguments.Count != right.Arguments.Count)
+                if (left.Replacements.Count != right.Replacements.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Arguments.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Replacements.Count; ++index_0)
                 {
-                    if (left.Arguments[index_0] != right.Arguments[index_0])
+                    if (!Replacement.ValueComparer.Equals(left.Replacements[index_0], right.Replacements[index_0]))
                     {
                         return false;
                     }
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(TemplatedMessage obj)
+        public int GetHashCode(FileChange obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -66,19 +66,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.TemplateId != null)
+                if (obj.FileLocation != null)
                 {
-                    result = (result * 31) + obj.TemplateId.GetHashCode();
+                    result = (result * 31) + obj.FileLocation.ValueGetHashCode();
                 }
 
-                if (obj.Arguments != null)
+                if (obj.Replacements != null)
                 {
-                    foreach (var value_0 in obj.Arguments)
+                    foreach (var value_0 in obj.Replacements)
                     {
                         result = result * 31;
                         if (value_0 != null)
                         {
-                            result = (result * 31) + value_0.GetHashCode();
+                            result = (result * 31) + value_0.ValueGetHashCode();
                         }
                     }
                 }

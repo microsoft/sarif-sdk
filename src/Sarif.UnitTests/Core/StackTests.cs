@@ -94,10 +94,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Assert.Equal("[No frames]", stacks[2].ToString());
                 stacks[3].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
 
-                Assert.Equal(aggregated.FormatMessage(), stacks[0].Message);
-                Assert.Equal(innerException1.FormatMessage(), stacks[1].Message);
-                Assert.Equal(innerException2.FormatMessage(), stacks[2].Message);
-                Assert.Equal(exception.FormatMessage(), stacks[3].Message);
+                Assert.Equal(aggregated.FormatMessage(), stacks[0].Message.Text);
+                Assert.Equal(innerException1.FormatMessage(), stacks[1].Message.Text);
+                Assert.Equal(innerException2.FormatMessage(), stacks[2].Message.Text);
+                Assert.Equal(exception.FormatMessage(), stacks[3].Message.Text);
 
                 caughtException = true;
             }

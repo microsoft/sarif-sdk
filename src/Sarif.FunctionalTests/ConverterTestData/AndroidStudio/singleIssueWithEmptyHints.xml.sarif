@@ -30,7 +30,9 @@
       "results": [
         {
           "ruleId": "unused declaration",
-          "message": "Method is never used.\r\nPossible resolution:   ",
+          "message": {
+            "text": "Method is never used.\r\nPossible resolution:   "
+          },
           "locations": [
             {
               "physicalLocation": {

@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,62 +38,63 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 19
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 13,
-                        "startColumn": 19
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "kind": "branch",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
-                      },
-                      "region": {
-                        "startLine": 15,
-                        "startColumn": 8
-                      }
-                    }
-                  },
-                  "kind": "alias",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp"
-                      },
-                      "region": {
-                        "startLine": 16,
-                        "startColumn": 23
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }

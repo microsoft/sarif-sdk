@@ -60,7 +60,7 @@ namespace Microsoft.Sarif.Viewer
 
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(result.RuleId);
-            Invocation = run.Invocation.ToInvocationModel();
+            Invocation = run.Invocations?[0]?.ToInvocationModel();
 
             if (string.IsNullOrWhiteSpace(run.Id))
             {
@@ -120,8 +120,8 @@ namespace Microsoft.Sarif.Viewer
             IRule rule;
             string ruleId = notification.RuleId ?? notification.Id;
             run.TryGetRule(ruleId, notification.RuleKey, out rule);
-            Message = notification.Message;
-            ShortMessage = notification.Message;
+            Message = notification.Message.Text;
+            ShortMessage = notification.Message.Text;
             LogFilePath = logFilePath;
             FileName = notification.PhysicalLocation?.FileLocation?.Uri.LocalPath ?? run.Tool.FullName;
             ProjectName = projectNameCache.GetName(FileName);
@@ -131,7 +131,7 @@ namespace Microsoft.Sarif.Viewer
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(ruleId);
             Rule.DefaultLevel = notification.Level.ToString();
-            Invocation = run.Invocation.ToInvocationModel();
+            Invocation = run.Invocations?[0]?.ToInvocationModel();
 
             if (string.IsNullOrWhiteSpace(run.Id))
             {

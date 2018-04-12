@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26000",
-          "message": "Read overflow using expression '\".xml\"[5]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset 5\n\nwhere\nnullpos(\".xml\")`16 == 4\n",
+          "message": {
+            "text": "Read overflow using expression '\".xml\"[5]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset 5\n\nwhere\nnullpos(\".xml\")`16 == 4\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,48 +38,52 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 12,
-                        "startColumn": 6
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "startColumn": 5
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 14,
-                        "startColumn": 13
-                      }
-                    }
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 16,
-                        "startColumn": 5
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -85,7 +91,9 @@
         },
         {
           "ruleId": "26001",
-          "message": "Read underflow using expression '\".xml\"[-1]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset -1\n",
+          "message": {
+            "text": "Read underflow using expression '\".xml\"[-1]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset -1\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -106,48 +114,52 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 19,
-                        "startColumn": 6
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "startColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 13
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test126.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 5
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 21,
-                        "startColumn": 13
-                      }
-                    }
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test126.cpp"
-                      },
-                      "region": {
-                        "startLine": 23,
-                        "startColumn": 5
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }

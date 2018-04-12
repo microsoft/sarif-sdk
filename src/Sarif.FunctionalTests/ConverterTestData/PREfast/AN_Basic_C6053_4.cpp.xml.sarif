@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6053",
-          "message": "The prior call to 'DoesNotZ' might not zero-terminate string 'x'.",
+          "message": {
+            "text": "The prior call to 'DoesNotZ' might not zero-terminate string 'x'."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,62 +38,63 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 13
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 11,
-                        "startColumn": 13
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
-                      },
-                      "region": {
-                        "startLine": 13,
-                        "startColumn": 14
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
-                      },
-                      "region": {
-                        "startLine": 13,
-                        "startColumn": 14
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }
@@ -104,7 +107,9 @@
         },
         {
           "ruleId": "6054",
-          "message": "String 'a' might not be zero-terminated.",
+          "message": {
+            "text": "String 'a' might not be zero-terminated."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -125,62 +130,63 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 19,
+                            "startColumn": 10
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 19,
-                        "startColumn": 10
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
-                      },
-                      "region": {
-                        "startLine": 21,
-                        "startColumn": 14
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6053_4.cpp"
-                      },
-                      "region": {
-                        "startLine": 21,
-                        "startColumn": 14
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }

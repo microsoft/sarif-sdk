@@ -30,7 +30,9 @@
       "results": [
         {
           "ruleId": "'for' loop replaceable with 'foreach'",
-          "message": "<code>for</code> loop replaceable with 'foreach' #loc",
+          "message": {
+            "text": "<code>for</code> loop replaceable with 'foreach' #loc"
+          },
           "locations": [
             {
               "physicalLocation": {

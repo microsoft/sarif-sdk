@@ -22,11 +22,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
       ""tool"": {
         ""name"": null
       },
-      ""rules"": {
-        ""CA1000.1"": {
-          ""id"": ""CA1000""
+      ""resources"": {
+        ""rules"": {
+          ""CA1000.1"": {
+            ""id"": ""CA1000""
+          }
         }
-      }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""CA1000"",
+          ""message"": {
+            ""text"": ""Variable \""count\"" was used without being initialized.""
+          }
+        }
+      ]
     }
   ]
 }";
@@ -42,12 +52,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     ["CA1000.1"] = new Rule { Id = "CA1000" }
                 });
+
+                uut.WriteResult(new Result
+                {
+                    RuleId = "CA1000",
+                    Message = new Message
+                    {
+                        Text = "Variable \"count\" was used without being initialized."
+                    }
+                });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.Equal("CA1000", sarifLog.Runs[0].Rules["CA1000.1"].Id);
+            Assert.Equal("CA1000", sarifLog.Runs[0].Resources.Rules["CA1000.1"].Id);
         }
     }
 }

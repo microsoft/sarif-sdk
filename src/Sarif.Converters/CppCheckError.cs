@@ -125,11 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(this.VerboseMessage))
             { 
-                result.Message = this.VerboseMessage;
+                result.Message = new Message { Text = this.VerboseMessage };
             }
             else
             {
-                result.Message = this.Message;
+                result.Message = new Message { Text = this.Message };
             }
 
             PhysicalLocation lastLocationConverted;
@@ -156,12 +156,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     });
                 }
 
-                var flow = new CodeFlow
+                result.CodeFlows = new List<CodeFlow>()
                 {
-                    Locations = locations
+                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
                 };
-
-                result.CodeFlows = new List<CodeFlow> { flow };
 
                 // In the N != 1 case, set the overall location's location to
                 // the last entry in the execution flow.

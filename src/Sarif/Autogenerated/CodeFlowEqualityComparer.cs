@@ -28,31 +28,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Message != right.Message)
+            if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
             }
 
-            if (left.RichMessage != right.RichMessage)
+            if (!object.ReferenceEquals(left.ThreadFlows, right.ThreadFlows))
             {
-                return false;
-            }
-
-            if (!object.ReferenceEquals(left.Locations, right.Locations))
-            {
-                if (left.Locations == null || right.Locations == null)
+                if (left.ThreadFlows == null || right.ThreadFlows == null)
                 {
                     return false;
                 }
 
-                if (left.Locations.Count != right.Locations.Count)
+                if (left.ThreadFlows.Count != right.ThreadFlows.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Locations.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.ThreadFlows.Count; ++index_0)
                 {
-                    if (!CodeFlowLocation.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
+                    if (!ThreadFlow.ValueComparer.Equals(left.ThreadFlows[index_0], right.ThreadFlows[index_0]))
                     {
                         return false;
                     }
@@ -96,17 +91,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.Message != null)
                 {
-                    result = (result * 31) + obj.Message.GetHashCode();
+                    result = (result * 31) + obj.Message.ValueGetHashCode();
                 }
 
-                if (obj.RichMessage != null)
+                if (obj.ThreadFlows != null)
                 {
-                    result = (result * 31) + obj.RichMessage.GetHashCode();
-                }
-
-                if (obj.Locations != null)
-                {
-                    foreach (var value_2 in obj.Locations)
+                    foreach (var value_2 in obj.ThreadFlows)
                     {
                         result = result * 31;
                         if (value_2 != null)

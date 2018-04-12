@@ -16,64 +16,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract public Uri HelpUri { get;  }
 
-        abstract public string Help { get; }
+        abstract public Message Help { get; }
 
-        private IDictionary<string, string> messageTemplates;
-        private IDictionary<string, string> richMessageTemplates;
+        private IDictionary<string, string> messageStrings;
+        private IDictionary<string, string> richMessageStrings;
 
         abstract protected ResourceManager ResourceManager { get; }
 
-        abstract protected IEnumerable<string> TemplateResourceNames { get; }
+        abstract protected IEnumerable<string> MessageResourceNames { get; }
 
-        virtual protected IEnumerable<string> RichTemplateResourceNames => new List<string>();
+        virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
 
-        virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
+        virtual public RuleConfiguration Configuration {  get; }
 
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        virtual public IDictionary<string, string> MessageTemplates
+        virtual public IDictionary<string, string> MessageStrings
         {
             get
             {
-                if (this.messageTemplates == null)
+                if (this.messageStrings == null)
                 {
-                    this.messageTemplates = InitializeMessageTemplates();
+                    this.messageStrings = InitializeMessageStrings();
                 }
-                return this.messageTemplates;
+                return this.messageStrings;
             }
         }
 
-        virtual public IDictionary<string, string> RichMessageTemplates
+        virtual public IDictionary<string, string> RichMessageStrings
         {
             get
             {
-                if (this.richMessageTemplates == null)
+                if (this.richMessageStrings == null)
                 {
-                    this.richMessageTemplates = InitializeRichMessageTemplates();
+                    this.richMessageStrings = InitializeRichMessageStrings();
                 }
-                return this.richMessageTemplates;
+                return this.richMessageStrings;
             }
         }
 
-        private Dictionary<string, string> InitializeMessageTemplates()
+        private Dictionary<string, string> InitializeMessageStrings()
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, TemplateResourceNames, ruleId: Id);
+            return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }
 
-        private Dictionary<string, string> InitializeRichMessageTemplates()
+        private Dictionary<string, string> InitializeRichMessageStrings()
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, RichTemplateResourceNames,ruleId: Id, prefix: "Rich");
+            return RuleUtilities.BuildDictionary(ResourceManager, RichMessageResourceNames,ruleId: Id, prefix: "Rich");
         }
 
         abstract public string Id { get; }
 
-        abstract public string FullDescription { get; }
+        abstract public Message FullDescription { get; }
 
-        abstract public string RichDescription { get; }
-
-        public virtual string ShortDescription
+        public virtual Message ShortDescription
         {
-            get { return FirstSentence(FullDescription); }
+            get { return new Message { Text = FirstSentence(FullDescription.Text) }; }
         }
 
         internal static string FirstSentence(string fullDescription)
@@ -104,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
         }
 
-        public virtual string Name {  get { return this.GetType().Name; } }
+        public virtual Message Name {  get { return new Message { Text = this.GetType().Name }; } }
 
         public IDictionary<string, string> Options { get; }
 

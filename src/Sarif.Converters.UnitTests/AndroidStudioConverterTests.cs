@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uut = new AndroidStudioProblem(builder);
 
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Equal("hungry EVIL zombies", result.Message);
+            Assert.Equal("hungry EVIL zombies", result.Message.Text);
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.Equal(@"hungry EVIL zombies
 Possible resolution: comment
-Possible resolution: delete", result.Message);
+Possible resolution: delete", result.Message.Text);
         }
 
         [Fact]

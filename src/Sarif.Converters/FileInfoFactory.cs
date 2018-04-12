@@ -62,11 +62,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        foreach (CodeFlowLocation codeLocation in codeFlow.Locations)
+                        foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                         {
-                            if (codeLocation.Location?.PhysicalLocation != null)
+                            foreach (CodeFlowLocation codeLocation in threadFlow.Locations)
                             {
-                                AddFile(codeLocation.Location.PhysicalLocation);
+                                if (codeLocation.Location?.PhysicalLocation != null)
+                                {
+                                    AddFile(codeLocation.Location.PhysicalLocation);
+                                }
                             }
                         }
                     }

@@ -9,7 +9,7 @@ branches:
     - sarif-v2
 
 before_build:
-  - nuget restore src\Everything.sln -ConfigFile src\NuGet.Config -verbosity detailed
+  - nuget restore src\Sarif.Sdk.sln -ConfigFile src\NuGet.Config -verbosity detailed
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
   - BeforeBuild.cmd
 
@@ -25,7 +25,7 @@ configuration:
   - Release
 
 build:
-  project: src/Everything.sln
+  project: src/Sarif.Sdk.sln
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1

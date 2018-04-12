@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,77 +38,78 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 25
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 5,
-                        "startColumn": 25
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 10,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 11,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 12,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }
@@ -119,7 +122,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -140,59 +145,61 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 9
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 20,
-                        "startColumn": 9
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 24,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 22,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 24,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -205,7 +212,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -226,104 +235,106 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 6
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 34,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 35,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 5,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 36,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 6,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 38,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -336,7 +347,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -357,74 +370,76 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 6
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 34,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 35,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -437,7 +452,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -458,89 +475,91 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 6
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 34,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 35,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 5,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 36,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -553,7 +572,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -574,44 +595,46 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 6
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -624,7 +647,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -645,119 +670,121 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 6
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 34,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 35,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 39,
+                            "startColumn": 4
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 34,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 35,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 5,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 36,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 6,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 38,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 7,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 39,
-                        "startColumn": 4
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -770,7 +797,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -791,78 +820,79 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 9
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 46,
-                        "startColumn": 9
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 51,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 47,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 49,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "alias",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 51,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }
@@ -875,7 +905,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -896,55 +928,58 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "startColumn": 9
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 58,
-                        "startColumn": 9
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 59,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 59,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 61,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
+                  ]
                 }
               ]
             }
@@ -957,7 +992,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -978,55 +1015,58 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "startColumn": 6
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 68,
-                        "startColumn": 6
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 69,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 70,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 69,
-                        "startColumn": 5
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 70,
-                        "startColumn": 5
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
+                  ]
                 }
               ]
             }
@@ -1039,7 +1079,9 @@
         },
         {
           "ruleId": "6305",
-          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "message": {
+            "text": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1060,44 +1102,46 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 75,
+                            "startColumn": 8
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 75,
-                        "startColumn": 8
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
+                          },
+                          "region": {
+                            "startLine": 77,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp"
-                      },
-                      "region": {
-                        "startLine": 77,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }

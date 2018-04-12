@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,44 +38,46 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "startColumn": 17
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 6,
-                        "startColumn": 17
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 10,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -86,7 +90,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -107,44 +113,46 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 22
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 13,
-                        "startColumn": 22
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 17,
-                        "startColumn": 12
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -157,7 +165,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -178,144 +188,143 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 21
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 20,
-                        "startColumn": 21
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 24,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 27,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 29,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "5"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 24,
-                        "startColumn": 6
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 25,
-                        "startColumn": 8
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 25,
-                        "startColumn": 13
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 5,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 27,
-                        "startColumn": 10
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 6,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 25,
-                        "startColumn": 22
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
-                },
-                {
-                  "step": 7,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 25,
-                        "startColumn": 13
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "properties": {
-                    "keyEventId": "4"
-                  }
-                },
-                {
-                  "step": 8,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 29,
-                        "startColumn": 9
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "5"
-                  }
+                  ]
                 }
               ]
             }
@@ -328,7 +337,9 @@
         },
         {
           "ruleId": "6386",
-          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "message": {
+            "text": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -349,77 +360,78 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 32,
+                            "startColumn": 24
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 32,
-                        "startColumn": 24
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 36,
-                        "startColumn": 11
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 38,
-                        "startColumn": 10
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp"
-                      },
-                      "region": {
-                        "startLine": 40,
-                        "startColumn": 12
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "3"
-                  }
+                  ]
                 }
               ]
             }

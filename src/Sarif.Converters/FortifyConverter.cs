@@ -116,11 +116,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (messageComponents.Count == 0)
             {
-                result.Message = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId);
+                result.Message = new Message
+                {
+                    Text = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId)
+                };
             }
             else
             {
-                result.Message = String.Join(Environment.NewLine, messageComponents);
+                result.Message = new Message
+                {
+                    Text = String.Join(Environment.NewLine, messageComponents)
+                };
             }
 
             result.SetProperty("kingdom", fortify.Kingdom);
@@ -152,29 +158,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (fortify.Source != null)
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
-                result.CodeFlows = new List<CodeFlow>
-                {
-                    new CodeFlow
-                    {
-                        Locations = new List<CodeFlowLocation>
-                        {
-                            new CodeFlowLocation
-                            {
-                                Location = new Location
-                                {
-                                    PhysicalLocation = source
-                                }
-                            },
 
-                            new CodeFlowLocation
-                            {
-                                Location = new Location
-                                {
-                                    PhysicalLocation = primaryOrSink
-                                }
-                            }
-                        }
-                    }
+                var locations = new List<CodeFlowLocation>()
+                {
+                    new CodeFlowLocation { Location = new Location { PhysicalLocation = source } },
+                    new CodeFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
+                };
+                result.CodeFlows = new List<CodeFlow>()
+                {
+                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
                 };
             }
 

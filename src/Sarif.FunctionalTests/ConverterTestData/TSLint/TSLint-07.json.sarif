@@ -219,7 +219,9 @@
         {
           "ruleId": "no-function-constructor-with-string-args",
           "level": "error",
-          "message": "forbidden: Function constructor with string arguments ",
+          "message": {
+            "text": "forbidden: Function constructor with string arguments "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -241,7 +243,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -263,7 +267,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -285,7 +291,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -307,7 +315,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -329,7 +339,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -351,7 +363,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -373,7 +387,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -395,7 +411,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -417,7 +435,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -439,7 +459,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -461,7 +483,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -483,7 +507,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: any",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: any"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -505,7 +531,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -527,7 +555,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -549,7 +579,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -571,7 +603,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -593,7 +627,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -615,7 +651,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -637,7 +675,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -659,7 +699,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -681,7 +723,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -703,7 +747,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -725,7 +771,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -747,7 +795,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: as",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: as"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -769,7 +819,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -791,7 +843,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -813,7 +867,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -835,7 +891,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -857,7 +915,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -879,7 +939,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -901,7 +963,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -923,7 +987,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -945,7 +1011,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -967,7 +1035,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -989,7 +1059,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1011,7 +1083,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: boolean",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: boolean"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1033,7 +1107,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: break",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: break"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1055,7 +1131,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1077,7 +1155,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: break",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: break"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1099,7 +1179,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: break",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: break"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1121,7 +1203,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: break",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: break"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1143,7 +1227,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: break",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: break"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1165,7 +1251,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: case",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: case"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1187,7 +1275,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1209,7 +1299,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: case",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: case"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1231,7 +1323,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: case",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: case"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1253,7 +1347,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: case",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: case"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1275,7 +1371,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: case",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: case"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1297,7 +1395,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: catch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: catch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1319,7 +1419,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1341,7 +1443,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: catch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: catch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1363,7 +1467,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: catch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: catch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1385,7 +1491,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: catch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: catch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1407,7 +1515,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: catch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: catch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1429,7 +1539,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: class",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: class"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1451,7 +1563,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: class",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: class"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1473,7 +1587,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: class",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: class"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1495,7 +1611,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: const",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: const"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1517,7 +1635,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1539,7 +1659,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: const",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: const"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1561,7 +1683,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: const",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: const"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1583,7 +1707,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: const",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: const"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1605,7 +1731,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: const",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: const"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1627,7 +1755,9 @@
         {
           "ruleId": "no-duplicate-parameter-names",
           "level": "error",
-          "message": "Duplicate parameter name: 'constructor'",
+          "message": {
+            "text": "Duplicate parameter name: 'constructor'"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1649,7 +1779,9 @@
         {
           "ruleId": "no-duplicate-parameter-names",
           "level": "error",
-          "message": "Duplicate parameter name: 'constructor'",
+          "message": {
+            "text": "Duplicate parameter name: 'constructor'"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1671,7 +1803,9 @@
         {
           "ruleId": "no-duplicate-parameter-names",
           "level": "error",
-          "message": "Duplicate parameter name: 'constructor'",
+          "message": {
+            "text": "Duplicate parameter name: 'constructor'"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1693,7 +1827,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1715,7 +1851,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1737,7 +1875,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1759,7 +1899,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1781,7 +1923,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1803,7 +1947,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1825,7 +1971,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1847,7 +1995,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1869,7 +2019,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1891,7 +2043,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: constructor",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: constructor"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1913,7 +2067,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: continue",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: continue"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1935,7 +2091,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1957,7 +2115,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: continue",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: continue"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1979,7 +2139,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: continue",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: continue"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2001,7 +2163,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: continue",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: continue"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2023,7 +2187,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: continue",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: continue"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2045,7 +2211,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: debugger",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: debugger"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2067,7 +2235,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2089,7 +2259,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: debugger",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: debugger"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2111,7 +2283,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: debugger",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: debugger"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2133,7 +2307,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: debugger",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: debugger"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2155,7 +2331,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: debugger",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: debugger"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2177,7 +2355,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2199,7 +2379,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2221,7 +2403,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2243,7 +2427,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2265,7 +2451,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2287,7 +2475,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2309,7 +2499,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2331,7 +2523,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2353,7 +2547,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2375,7 +2571,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2397,7 +2595,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2419,7 +2619,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: declare",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: declare"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2441,7 +2643,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: default",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: default"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2463,7 +2667,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2485,7 +2691,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: default",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: default"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2507,7 +2715,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: default",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: default"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2529,7 +2739,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: default",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: default"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2551,7 +2763,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: default",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: default"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2573,7 +2787,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: delete",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2595,7 +2811,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2617,7 +2835,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: delete",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2639,7 +2859,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: delete",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2661,7 +2883,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: delete",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2683,7 +2907,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: delete",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2705,7 +2931,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: do",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: do"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2727,7 +2955,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2749,7 +2979,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: do",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: do"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2771,7 +3003,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: do",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: do"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2793,7 +3027,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: do",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: do"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2815,7 +3051,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: do",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: do"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2837,7 +3075,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: else",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: else"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2859,7 +3099,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2881,7 +3123,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: else",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: else"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2903,7 +3147,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: else",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: else"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2925,7 +3171,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: else",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: else"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2947,7 +3195,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: else",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: else"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2969,7 +3219,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: enum",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: enum"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -2991,7 +3243,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3013,7 +3267,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: enum",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: enum"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3035,7 +3291,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: enum",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: enum"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3057,7 +3315,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: enum",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: enum"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3079,7 +3339,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: enum",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: enum"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3101,7 +3363,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: export",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: export"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3123,7 +3387,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3145,7 +3411,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: export",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: export"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3167,7 +3435,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: export",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: export"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3189,7 +3459,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: export",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: export"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3211,7 +3483,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: export",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: export"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3233,7 +3507,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: extends",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: extends"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3255,7 +3531,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3277,7 +3555,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: extends",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: extends"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3299,7 +3579,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: extends",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: extends"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3321,7 +3603,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: extends",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: extends"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3343,7 +3627,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: extends",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: extends"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3365,7 +3651,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: false",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: false"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3387,7 +3675,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3409,7 +3699,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: false",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: false"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3431,7 +3723,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: false",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: false"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3453,7 +3747,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: false",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: false"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3475,7 +3771,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: false",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: false"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3497,7 +3795,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: finally",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: finally"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3519,7 +3819,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3541,7 +3843,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: finally",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: finally"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3563,7 +3867,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: finally",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: finally"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3585,7 +3891,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: finally",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: finally"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3607,7 +3915,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: finally",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: finally"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3629,7 +3939,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: for",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: for"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3651,7 +3963,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3673,7 +3987,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: for",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: for"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3695,7 +4011,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: for",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: for"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3717,7 +4035,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: for",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: for"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3739,7 +4059,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: for",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: for"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3761,7 +4083,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3783,7 +4107,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3805,7 +4131,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3827,7 +4155,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3849,7 +4179,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3871,7 +4203,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3893,7 +4227,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3915,7 +4251,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3937,7 +4275,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3959,7 +4299,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -3981,7 +4323,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4003,7 +4347,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: from",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: from"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4025,7 +4371,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: function",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: function"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4047,7 +4395,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4069,7 +4419,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: function",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: function"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4091,7 +4443,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: function",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: function"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4113,7 +4467,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: function",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: function"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4135,7 +4491,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: function",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: function"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4157,7 +4515,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4179,7 +4539,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4201,7 +4563,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4223,7 +4587,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4245,7 +4611,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4267,7 +4635,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4289,7 +4659,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4311,7 +4683,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4333,7 +4707,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4355,7 +4731,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4377,7 +4755,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4399,7 +4779,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: get",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: get"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4421,7 +4803,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: if",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: if"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4443,7 +4827,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4465,7 +4851,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: if",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: if"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4487,7 +4875,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: if",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: if"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4509,7 +4899,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: if",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: if"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4531,7 +4923,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: if",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: if"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4553,7 +4947,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4575,7 +4971,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4597,7 +4995,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4619,7 +5019,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4641,7 +5043,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4663,7 +5067,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4685,7 +5091,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4707,7 +5115,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4729,7 +5139,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4751,7 +5163,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: implements",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: implements"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4773,7 +5187,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: import",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: import"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4795,7 +5211,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4817,7 +5235,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: import",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: import"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4839,7 +5259,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: import",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: import"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4861,7 +5283,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: import",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: import"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4883,7 +5307,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: import",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: import"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4905,7 +5331,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: in",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: in"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4927,7 +5355,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4949,7 +5379,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: in",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: in"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4971,7 +5403,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: in",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: in"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -4993,7 +5427,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: in",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: in"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5015,7 +5451,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: in",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: in"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5037,7 +5475,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: instanceof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: instanceof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5059,7 +5499,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5081,7 +5523,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: instanceof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: instanceof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5103,7 +5547,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: instanceof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: instanceof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5125,7 +5571,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: instanceof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: instanceof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5147,7 +5595,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: instanceof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: instanceof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5169,7 +5619,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5191,7 +5643,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5213,7 +5667,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5235,7 +5691,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5257,7 +5715,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5279,7 +5739,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5301,7 +5763,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5323,7 +5787,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5345,7 +5811,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5367,7 +5835,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: interface",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: interface"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5389,7 +5859,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5411,7 +5883,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5433,7 +5907,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5455,7 +5931,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5477,7 +5955,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5499,7 +5979,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5521,7 +6003,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5543,7 +6027,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5565,7 +6051,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5587,7 +6075,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: let",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: let"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5609,7 +6099,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5631,7 +6123,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5653,7 +6147,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5675,7 +6171,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5697,7 +6195,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5719,7 +6219,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5741,7 +6243,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5763,7 +6267,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5785,7 +6291,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5807,7 +6315,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5829,7 +6339,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: module",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: module"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5851,7 +6363,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: new",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: new"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5873,7 +6387,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5895,7 +6411,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: new",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: new"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5917,7 +6435,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: new",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: new"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5939,7 +6459,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: new",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: new"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5961,7 +6483,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: new",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: new"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -5983,7 +6507,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: null",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: null"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6005,7 +6531,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6027,7 +6555,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: null",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: null"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6049,7 +6579,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: null",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: null"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6071,7 +6603,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: null",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: null"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6093,7 +6627,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: null",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: null"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6115,7 +6651,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6137,7 +6675,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6159,7 +6699,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6181,7 +6723,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6203,7 +6747,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6225,7 +6771,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6247,7 +6795,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6269,7 +6819,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6291,7 +6843,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6313,7 +6867,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6335,7 +6891,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6357,7 +6915,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: number",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: number"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6379,7 +6939,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6401,7 +6963,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6423,7 +6987,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6445,7 +7011,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6467,7 +7035,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6489,7 +7059,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6511,7 +7083,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6533,7 +7107,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6555,7 +7131,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6577,7 +7155,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6599,7 +7179,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6621,7 +7203,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: of",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: of"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6643,7 +7227,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6665,7 +7251,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6687,7 +7275,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6709,7 +7299,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6731,7 +7323,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6753,7 +7347,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6775,7 +7371,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6797,7 +7395,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6819,7 +7419,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6841,7 +7443,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: package",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: package"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6863,7 +7467,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6885,7 +7491,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6907,7 +7515,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6929,7 +7539,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6951,7 +7563,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6973,7 +7587,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -6995,7 +7611,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7017,7 +7635,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7039,7 +7659,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7061,7 +7683,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: private",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: private"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7083,7 +7707,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7105,7 +7731,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7127,7 +7755,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7149,7 +7779,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7171,7 +7803,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7193,7 +7827,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7215,7 +7851,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7237,7 +7875,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7259,7 +7899,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7281,7 +7923,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: protected",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: protected"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7303,7 +7947,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7325,7 +7971,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7347,7 +7995,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7369,7 +8019,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7391,7 +8043,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7413,7 +8067,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7435,7 +8091,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7457,7 +8115,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7479,7 +8139,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7501,7 +8163,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: public",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: public"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7523,7 +8187,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7545,7 +8211,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7567,7 +8235,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7589,7 +8259,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7611,7 +8283,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7633,7 +8307,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7655,7 +8331,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7677,7 +8355,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7699,7 +8379,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7721,7 +8403,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7743,7 +8427,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: require",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: require"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7765,7 +8451,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: return",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: return"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7787,7 +8475,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7809,7 +8499,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: return",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: return"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7831,7 +8523,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: return",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: return"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7853,7 +8547,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: return",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: return"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7875,7 +8571,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: return",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: return"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7897,7 +8595,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7919,7 +8619,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7941,7 +8643,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7963,7 +8667,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -7985,7 +8691,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8007,7 +8715,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8029,7 +8739,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8051,7 +8763,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8073,7 +8787,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8095,7 +8811,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8117,7 +8835,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8139,7 +8859,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: set",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: set"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8161,7 +8883,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8183,7 +8907,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8205,7 +8931,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8227,7 +8955,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8249,7 +8979,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8271,7 +9003,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8293,7 +9027,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8315,7 +9051,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8337,7 +9075,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8359,7 +9099,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: static",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: static"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8381,7 +9123,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8403,7 +9147,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8425,7 +9171,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8447,7 +9195,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8469,7 +9219,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8491,7 +9243,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8513,7 +9267,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8535,7 +9291,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8557,7 +9315,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8579,7 +9339,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8601,7 +9363,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8623,7 +9387,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: string",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: string"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8645,7 +9411,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: super",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: super"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8667,7 +9435,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8689,7 +9459,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: super",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: super"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8711,7 +9483,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: super",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: super"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8733,7 +9507,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: super",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: super"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8755,7 +9531,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: super",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: super"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8777,7 +9555,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: switch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: switch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8799,7 +9579,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8821,7 +9603,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: switch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: switch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8843,7 +9627,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: switch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: switch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8865,7 +9651,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: switch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: switch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8887,7 +9675,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: switch",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: switch"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8909,7 +9699,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8931,7 +9723,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8953,7 +9747,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8975,7 +9771,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -8997,7 +9795,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9019,7 +9819,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9041,7 +9843,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9063,7 +9867,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9085,7 +9891,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9107,7 +9915,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9129,7 +9939,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9151,7 +9963,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: symbol",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: symbol"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9173,7 +9987,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: this",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: this"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9195,7 +10011,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9217,7 +10035,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: this",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: this"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9239,7 +10059,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: this",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: this"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9261,7 +10083,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: this",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: this"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9283,7 +10107,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: this",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: this"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9305,7 +10131,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: throw",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: throw"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9327,7 +10155,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9349,7 +10179,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: throw",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: throw"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9371,7 +10203,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: throw",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: throw"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9393,7 +10227,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: throw",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: throw"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9415,7 +10251,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: throw",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: throw"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9437,7 +10275,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: true",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: true"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9459,7 +10299,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9481,7 +10323,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: true",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: true"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9503,7 +10347,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: true",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: true"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9525,7 +10371,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: true",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: true"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9547,7 +10395,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: true",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: true"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9569,7 +10419,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: try",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: try"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9591,7 +10443,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9613,7 +10467,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: try",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: try"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9635,7 +10491,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: try",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: try"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9657,7 +10515,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: try",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: try"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9679,7 +10539,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: try",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: try"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9701,7 +10563,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9723,7 +10587,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9745,7 +10611,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9767,7 +10635,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9789,7 +10659,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9811,7 +10683,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9833,7 +10707,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9855,7 +10731,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9877,7 +10755,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9899,7 +10779,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9921,7 +10803,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9943,7 +10827,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: type",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: type"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9965,7 +10851,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: typeof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: typeof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -9987,7 +10875,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10009,7 +10899,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: typeof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: typeof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10031,7 +10923,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: typeof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: typeof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10053,7 +10947,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: typeof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: typeof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10075,7 +10971,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: typeof",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: typeof"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10097,7 +10995,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10119,7 +11019,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10141,7 +11043,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10163,7 +11067,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10185,7 +11091,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10207,7 +11115,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10229,7 +11139,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: void",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: void"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10251,7 +11163,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10273,7 +11187,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: void",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: void"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10295,7 +11211,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: void",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: void"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10317,7 +11235,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: void",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: void"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10339,7 +11259,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: void",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: void"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10361,7 +11283,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: while",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: while"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10383,7 +11307,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10405,7 +11331,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: while",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: while"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10427,7 +11355,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: while",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: while"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10449,7 +11379,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: while",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: while"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10471,7 +11403,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: while",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: while"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10493,7 +11427,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: with",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: with"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10515,7 +11451,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10537,7 +11475,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: with",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: with"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10559,7 +11499,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: with",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: with"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10581,7 +11523,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: with",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: with"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10603,7 +11547,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: with",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: with"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10625,7 +11571,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10647,7 +11595,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10669,7 +11619,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10691,7 +11643,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: var",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: var"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10713,7 +11667,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10735,7 +11691,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10757,7 +11715,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10779,7 +11739,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10801,7 +11763,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10823,7 +11787,9 @@
         {
           "ruleId": "no-reserved-keywords",
           "level": "error",
-          "message": "Forbidden reference to reserved keyword: yield",
+          "message": {
+            "text": "Forbidden reference to reserved keyword: yield"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10845,7 +11811,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: untypedCreateFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10867,7 +11835,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: untypedCreateFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10889,7 +11859,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: untypedCreateFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: untypedCreateFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10911,7 +11883,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: anyVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10933,7 +11907,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: anyVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10955,7 +11931,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: anyVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: anyVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10977,7 +11955,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: stringFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -10999,7 +11979,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: stringFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11021,7 +12003,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: stringFunction()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: stringFunction()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11043,7 +12027,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: \"var x = 'should fail'\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11065,7 +12051,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: \"var x = 'should fail'\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11087,7 +12075,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: \"var x = 'should fail'\"",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: \"var x = 'should fail'\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11109,7 +12099,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: typedStringVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11131,7 +12123,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: typedStringVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11153,7 +12147,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: typedStringVariable",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: typedStringVariable"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11175,7 +12171,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: this.onAnimationEnd()"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11197,7 +12195,9 @@
         {
           "ruleId": "no-banned-terms",
           "level": "error",
-          "message": "Forbidden reference to banned term: arguments",
+          "message": {
+            "text": "Forbidden reference to banned term: arguments"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -11219,7 +12219,9 @@
         {
           "ruleId": "no-string-based-set-timeout",
           "level": "error",
-          "message": "Forbidden setTimeout string parameter: this.onAnimationEnd()",
+          "message": {
+            "text": "Forbidden setTimeout string parameter: this.onAnimationEnd()"
+          },
           "locations": [
             {
               "physicalLocation": {

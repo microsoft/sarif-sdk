@@ -15,7 +15,9 @@
         {
           "ruleId": "C0301(line-too-long)",
           "level": "warning",
-          "message": "Line too long (110/100)",
+          "message": {
+            "text": "Line too long (110/100)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -32,7 +34,9 @@
         {
           "ruleId": "C0330(bad-continuation)",
           "level": "warning",
-          "message": "Wrong continued indentation (add 2 spaces).\n        'jason', \"oof\", 'png', 'jeff', 'wdg', 'ryley', 'yossi', 'faucon', 'christopher', 'scott', 'riese']\r\n        ^ |",
+          "message": {
+            "text": "Wrong continued indentation (add 2 spaces).\n        'jason', \"oof\", 'png', 'jeff', 'wdg', 'ryley', 'yossi', 'faucon', 'christopher', 'scott', 'riese']\r\n        ^ |"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -49,7 +53,9 @@
         {
           "ruleId": "C0301(line-too-long)",
           "level": "warning",
-          "message": "Line too long (106/100)",
+          "message": {
+            "text": "Line too long (106/100)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -66,7 +72,9 @@
         {
           "ruleId": "C0325(superfluous-parens)",
           "level": "warning",
-          "message": "Unnecessary parens after 'return' keyword",
+          "message": {
+            "text": "Unnecessary parens after 'return' keyword"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -83,7 +91,9 @@
         {
           "ruleId": "C0303(trailing-whitespace)",
           "level": "warning",
-          "message": "Trailing whitespace",
+          "message": {
+            "text": "Trailing whitespace"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -100,7 +110,9 @@
         {
           "ruleId": "C0303(trailing-whitespace)",
           "level": "warning",
-          "message": "Trailing whitespace",
+          "message": {
+            "text": "Trailing whitespace"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -117,7 +129,9 @@
         {
           "ruleId": "C0303(trailing-whitespace)",
           "level": "warning",
-          "message": "Trailing whitespace",
+          "message": {
+            "text": "Trailing whitespace"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -134,7 +148,9 @@
         {
           "ruleId": "C0325(superfluous-parens)",
           "level": "warning",
-          "message": "Unnecessary parens after 'if' keyword",
+          "message": {
+            "text": "Unnecessary parens after 'if' keyword"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -151,7 +167,9 @@
         {
           "ruleId": "C0303(trailing-whitespace)",
           "level": "warning",
-          "message": "Trailing whitespace",
+          "message": {
+            "text": "Trailing whitespace"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -168,7 +186,9 @@
         {
           "ruleId": "C0330(bad-continuation)",
           "level": "warning",
-          "message": "Wrong continued indentation (remove 4 spaces).\n                                 min_df=2, stop_words= swords,\r\n                             |   ^",
+          "message": {
+            "text": "Wrong continued indentation (remove 4 spaces).\n                                 min_df=2, stop_words= swords,\r\n                             |   ^"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -185,7 +205,9 @@
         {
           "ruleId": "C0326(bad-whitespace)",
           "level": "warning",
-          "message": "No space allowed after keyword argument assignment\n                                 min_df=2, stop_words= swords,\r\n                                                     ^",
+          "message": {
+            "text": "No space allowed after keyword argument assignment\n                                 min_df=2, stop_words= swords,\r\n                                                     ^"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -202,7 +224,9 @@
         {
           "ruleId": "C0330(bad-continuation)",
           "level": "warning",
-          "message": "Wrong continued indentation (remove 4 spaces).\n                                 use_idf=True)\r\n                             |   ^",
+          "message": {
+            "text": "Wrong continued indentation (remove 4 spaces).\n                                 use_idf=True)\r\n                             |   ^"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -219,7 +243,9 @@
         {
           "ruleId": "C0330(bad-continuation)",
           "level": "warning",
-          "message": "Wrong continued indentation (remove 4 spaces).\n                         init_size=1000, batch_size=1000, verbose=True)\r\n                     |   ^",
+          "message": {
+            "text": "Wrong continued indentation (remove 4 spaces).\n                         init_size=1000, batch_size=1000, verbose=True)\r\n                     |   ^"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -236,7 +262,9 @@
         {
           "ruleId": "C0304(missing-final-newline)",
           "level": "warning",
-          "message": "Final newline missing",
+          "message": {
+            "text": "Final newline missing"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -253,7 +281,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing module docstring",
+          "message": {
+            "text": "Missing module docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -270,7 +300,9 @@
         {
           "ruleId": "W0402(deprecated-module)",
           "level": "warning",
-          "message": "Uses of a deprecated module 'optparse'",
+          "message": {
+            "text": "Uses of a deprecated module 'optparse'"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -287,7 +319,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"today\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"today\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -304,7 +338,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"clusters\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"clusters\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -321,7 +357,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"swords\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"swords\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -338,7 +376,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Function name \"getLast30daysMails\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Function name \"getLast30daysMails\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -355,7 +395,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -372,7 +414,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Variable name \"sentOn\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Variable name \"sentOn\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -390,7 +434,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Variable name \"mailTime\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Variable name \"mailTime\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -408,7 +454,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Argument name \"X\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Argument name \"X\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -425,7 +473,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -442,7 +492,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'X' from outer scope (line 104)",
+          "message": {
+            "text": "Redefining name 'X' from outer scope (line 104)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -460,7 +512,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 't0' from outer scope (line 109)",
+          "message": {
+            "text": "Redefining name 't0' from outer scope (line 109)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -478,7 +532,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'svd' from outer scope (line 105)",
+          "message": {
+            "text": "Redefining name 'svd' from outer scope (line 105)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -496,7 +552,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Variable name \"t0\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Variable name \"t0\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -514,7 +572,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"hcorpus\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"hcorpus\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -531,7 +591,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Function name \"getHash\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Function name \"getHash\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -548,7 +610,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -565,7 +629,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -582,7 +648,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'corpus' from outer scope (line 99)",
+          "message": {
+            "text": "Redefining name 'corpus' from outer scope (line 99)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -600,7 +668,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"groups\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"groups\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -617,7 +687,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Function name \"getData\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Function name \"getData\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -634,7 +706,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Argument name \"km\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Argument name \"km\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -651,7 +725,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -668,7 +744,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'km' from outer scope (line 106)",
+          "message": {
+            "text": "Redefining name 'km' from outer scope (line 106)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -686,7 +764,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'svd' from outer scope (line 105)",
+          "message": {
+            "text": "Redefining name 'svd' from outer scope (line 105)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -704,7 +784,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Function name \"groupCluster\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Function name \"groupCluster\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -721,7 +803,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -738,7 +822,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Variable name \"hs\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Variable name \"hs\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -756,7 +842,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Function name \"mapCluster\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Function name \"mapCluster\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -773,7 +861,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -790,7 +880,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Variable name \"cd\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Variable name \"cd\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -808,7 +900,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Argument name \"km\" doesn't conform to snake_case naming style",
+          "message": {
+            "text": "Argument name \"km\" doesn't conform to snake_case naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -825,7 +919,9 @@
         {
           "ruleId": "C0111(missing-docstring)",
           "level": "warning",
-          "message": "Missing function docstring",
+          "message": {
+            "text": "Missing function docstring"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -842,7 +938,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'km' from outer scope (line 106)",
+          "message": {
+            "text": "Redefining name 'km' from outer scope (line 106)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -860,7 +958,9 @@
         {
           "ruleId": "W0621(redefined-outer-name)",
           "level": "warning",
-          "message": "Redefining name 'svd' from outer scope (line 105)",
+          "message": {
+            "text": "Redefining name 'svd' from outer scope (line 105)"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -878,7 +978,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"outlook\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"outlook\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -895,7 +997,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"inbox\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"inbox\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -912,7 +1016,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"messages\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"messages\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -929,7 +1035,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"filter_messages\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"filter_messages\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -946,7 +1054,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"corpus\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"corpus\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -963,7 +1073,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"vectorizer\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"vectorizer\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -980,7 +1092,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"dx\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"dx\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -998,7 +1112,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"svd\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"svd\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1016,7 +1132,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"km\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"km\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1033,7 +1151,9 @@
         {
           "ruleId": "C0103(invalid-name)",
           "level": "warning",
-          "message": "Constant name \"t0\" doesn't conform to UPPER_CASE naming style",
+          "message": {
+            "text": "Constant name \"t0\" doesn't conform to UPPER_CASE naming style"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1050,7 +1170,9 @@
         {
           "ruleId": "W0104(pointless-statement)",
           "level": "warning",
-          "message": "Statement seems to have no effect",
+          "message": {
+            "text": "Statement seems to have no effect"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1067,7 +1189,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused timedelta imported from datetime as td",
+          "message": {
+            "text": "Unused timedelta imported from datetime as td"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1084,7 +1208,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused HashingVectorizer imported from sklearn.feature_extraction.text",
+          "message": {
+            "text": "Unused HashingVectorizer imported from sklearn.feature_extraction.text"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1101,7 +1227,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused TfidfTransformer imported from sklearn.feature_extraction.text",
+          "message": {
+            "text": "Unused TfidfTransformer imported from sklearn.feature_extraction.text"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1118,7 +1246,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused import sys",
+          "message": {
+            "text": "Unused import sys"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1135,7 +1265,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused OptionParser imported from optparse",
+          "message": {
+            "text": "Unused OptionParser imported from optparse"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1152,7 +1284,9 @@
         {
           "ruleId": "W0611(unused-import)",
           "level": "warning",
-          "message": "Unused KMeans imported from sklearn.cluster",
+          "message": {
+            "text": "Unused KMeans imported from sklearn.cluster"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1169,7 +1303,9 @@
         {
           "ruleId": "C0411(wrong-import-order)",
           "level": "warning",
-          "message": "standard import \"from time import time\" should be placed before \"from sklearn.decomposition import TruncatedSVD\"",
+          "message": {
+            "text": "standard import \"from time import time\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1186,7 +1322,9 @@
         {
           "ruleId": "C0411(wrong-import-order)",
           "level": "warning",
-          "message": "standard import \"import sys\" should be placed before \"from sklearn.decomposition import TruncatedSVD\"",
+          "message": {
+            "text": "standard import \"import sys\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1203,7 +1341,9 @@
         {
           "ruleId": "C0411(wrong-import-order)",
           "level": "warning",
-          "message": "standard import \"import hashlib\" should be placed before \"from sklearn.decomposition import TruncatedSVD\"",
+          "message": {
+            "text": "standard import \"import hashlib\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1220,7 +1360,9 @@
         {
           "ruleId": "C0411(wrong-import-order)",
           "level": "warning",
-          "message": "standard import \"from optparse import OptionParser\" should be placed before \"from sklearn.decomposition import TruncatedSVD\"",
+          "message": {
+            "text": "standard import \"from optparse import OptionParser\" should be placed before \"from sklearn.decomposition import TruncatedSVD\""
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -1237,7 +1379,9 @@
         {
           "ruleId": "C0412(ungrouped-imports)",
           "level": "warning",
-          "message": "Imports from package sklearn are not grouped",
+          "message": {
+            "text": "Imports from package sklearn are not grouped"
+          },
           "locations": [
             {
               "physicalLocation": {

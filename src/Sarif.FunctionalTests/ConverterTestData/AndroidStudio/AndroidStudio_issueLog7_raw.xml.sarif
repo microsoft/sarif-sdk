@@ -23,7 +23,9 @@
       "results": [
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -45,7 +47,9 @@
         },
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -67,7 +71,9 @@
         },
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -89,7 +95,9 @@
         },
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -111,7 +119,9 @@
         },
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -133,7 +143,9 @@
         },
         {
           "ruleId": "Unused Property",
-          "message": "Unused property",
+          "message": {
+            "text": "Unused property"
+          },
           "locations": [
             {
               "physicalLocation": {

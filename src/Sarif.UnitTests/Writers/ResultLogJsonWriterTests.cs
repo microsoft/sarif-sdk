@@ -162,10 +162,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
@@ -173,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.Initialize(id: null, automationId: null);
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -196,10 +198,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
@@ -207,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 uut.Initialize(id: id, automationId: automationId);
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -221,8 +225,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocation(s_invocation));
+                uut.WriteInvocations(new[] { s_invocation });
+                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocations(new[] { s_invocation }));
             }
         }
 
@@ -234,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Id = "NOT0001",
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
-                Message = "This is a test",
+                Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {
                     FileLocation = new FileLocation
@@ -314,7 +318,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
               ""startColumn"": 12
             }
           },
-          ""message"": ""This is a test"",
+          ""message"": {
+            ""text"": ""This is a test""
+          },
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.000Z"",
           ""exception"": {

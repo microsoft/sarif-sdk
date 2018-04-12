@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyConverter_Convert_FullMessageFallsBackToCategoryIfNoAbstractPresent()
         {
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(FortifyConverterTests.GetBasicIssue());
-            result.Message.Should().Contain("cat");
+            result.Message.Text.Should().Contain("cat");
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.Abstract = "Some abstract message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.Equal("Some abstract message", result.Message);
+            Assert.Equal("Some abstract message", result.Message.Text);
         }
 
         [Fact]
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Builder builder = FortifyConverterTests.GetBasicBuilder();
             builder.AbstractCustom = "Some abstract custom message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
-            Assert.Equal("Some abstract custom message", result.Message);
+            Assert.Equal("Some abstract custom message", result.Message.Text);
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.AbstractCustom = "Some abstract custom message";
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.Equal("Some abstract message" + Environment.NewLine + "Some abstract custom message",
-                result.Message);
+                result.Message.Text);
         }
 
         [Fact]
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             builder.Source = FortifyConverterTests.s_dummyPathSourceElement;
             Result result = FortifyConverter.ConvertFortifyIssueToSarifIssue(builder.ToImmutable());
             Assert.Equal(1, result.CodeFlows.Count);
-            IList<CodeFlowLocation> flowLocations = result.CodeFlows.First().Locations;
+            IList<CodeFlowLocation> flowLocations = result.CodeFlows.First().ThreadFlows.First().Locations;
             Assert.Equal("sourceFilePath", flowLocations[0].Location.PhysicalLocation.FileLocation.Uri.ToString());
             Assert.True(flowLocations[0].Location.PhysicalLocation.Region.ValueEquals(new Region { StartLine = 42 }));
             Assert.Equal("filePath", flowLocations[1].Location.PhysicalLocation.FileLocation.Uri.ToString());

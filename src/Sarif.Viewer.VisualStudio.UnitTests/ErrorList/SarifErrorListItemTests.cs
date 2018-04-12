@@ -81,15 +81,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
             };
 
-            var run = new Run
-            {
-                Rules = new Dictionary<string, Rule>
-                {
-                }
-            };
+            var run = new Run();
 
             var item = MakeErrorListItem(run, result);
 
@@ -97,54 +91,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageTemplates_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageStrings_ContainsBlankMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
-                        }
-                    }
-                }
-            };
-
-            var item = MakeErrorListItem(run, result);
-
-            item.Message.Should().Be(string.Empty);
-        }
-
-        [Fact]
-        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageTemplate_ContainsBlankMessage()
-        {
-            var result = new Result
-            {
-                RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("nonExistentTemplateId", arguments: new string[0])
-            };
-
-            var run = new Run
-            {
-                Rules = new Dictionary<string, Rule>
-                {
-                    {
-                        "TST0001",
-                        new Rule
-                        {
-                            Id = "TST0001",
-                            MessageTemplates = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "realTemplateId", "The message" }
+                                Id = "TST0001"
                             }
                         }
                     }
@@ -157,26 +121,64 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToExistingMessageTemplate_ContainsExpectedMessage()
+        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageString_ContainsBlankMessage()
         {
             var result = new Result
             {
-                RuleId = "TST0001",
-                TemplatedMessage = new TemplatedMessage("greeting", new[] { "Mary" })
+                RuleId = "TST0001"
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001",
-                            MessageTemplates = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "greeting", "Hello, {0}!" }
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "realMessageId", "The message" }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var item = MakeErrorListItem(run, result);
+
+            item.Message.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageString_ContainsExpectedMessage()
+        {
+            var result = new Result
+            {
+                RuleId = "TST0001",
+                RuleMessageId = "greeting",
+                Message = new Message { Arguments = new[] { "Mary" } }
+            };
+
+            var run = new Run
+            {
+                Resources = new CodeAnalysis.Sarif.Resources
+                {
+                    Rules = new Dictionary<string, Rule>
+                    {
+                        {
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "greeting", "Hello, {0}!" }
+                                }
                             }
                         }
                     }
@@ -230,13 +232,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001-1",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001-1",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }
@@ -257,9 +262,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
-                    // No metadata for rule TST0001.
+                    Rules = new Dictionary<string, Rule>
+                    {
+                        // No metadata for rule TST0001.
+                    }
                 }
             };
 
@@ -272,7 +280,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         public void SarifErrorListItem_WhenMessageAndTemplatedMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
         {
             // This test prevents regression of #647,
-            // "Viewer NRE when result lacks message/templatedMessage but rule metadata is present"
+            // "Viewer NRE when result lacks message but rule metadata is present"
             var result = new Result
             {
                 RuleId = "TST0001"
@@ -280,13 +288,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }

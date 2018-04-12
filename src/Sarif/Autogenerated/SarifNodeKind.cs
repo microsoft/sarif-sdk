@@ -64,10 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Fix,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="TemplatedMessage" />.
-        /// </summary>
-        TemplatedMessage,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Hash" />.
         /// </summary>
         Hash,
@@ -104,6 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Replacement,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Resources" />.
+        /// </summary>
+        Resources,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,
@@ -111,6 +111,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rule" />.
         /// </summary>
         Rule,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="RuleConfiguration" />.
+        /// </summary>
+        RuleConfiguration,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>
@@ -123,6 +127,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="StackFrame" />.
         /// </summary>
         StackFrame,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlow" />.
+        /// </summary>
+        ThreadFlow,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Tool" />.
         /// </summary>

@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.Initialize(id: _runId, automationId: _automationId);
 
             output.WriteTool(tool);
-            output.WriteInvocation(_invocation);
+            output.WriteInvocations(new[] { _invocation });
 
             if (_fileDictionary.Any())
             {
@@ -303,12 +303,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
-                CodeFlows = new List<CodeFlow>
+                CodeFlows = new []
                 {
-                    new CodeFlow
-                    {
-                        Locations = new List<CodeFlowLocation>()
-                    }
+                    SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
             };
 
@@ -348,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     var cfl = new CodeFlowLocation
                     {
-                        Step = step++,
+                        Step = ++step,
                         Location = new Location
                         {
                             PhysicalLocation = physLoc
@@ -362,7 +359,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         _cflToSnippetIdDictionary.Add(cfl, snippetId);
                     }
 
-                    codeFlow.Locations.Add(cfl);
+                    codeFlow.ThreadFlows[0].Locations.Add(cfl);
 
                     // Keep track of the snippet associated with the last location in the
                     // CodeFlow; that's the snippet that we'll associate with the Result
@@ -378,14 +375,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (codeFlow.Locations.Any())
+            if (codeFlow.ThreadFlows[0].Locations.Any())
             {
                 result.Locations.Add(new Location
                 {
                     // TODO: Confirm that the traces are ordered chronologically
                     // (so that we really do want to use the last one as the
                     // overall result location).
-                    PhysicalLocation = codeFlow.Locations.Last().Location?.PhysicalLocation
+                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
                 });
 
                 if (!String.IsNullOrEmpty(lastSnippetId))
@@ -447,11 +444,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
-                    rule.ShortDescription = _reader.ReadElementContentAsString();
+                    rule.ShortDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
-                    rule.FullDescription = _reader.ReadElementContentAsString();
+                    rule.FullDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else
                 {
@@ -535,7 +532,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Id = errorCode,
                         Level = NotificationLevel.Error,
-                        Message = message
+                        Message = new Message { Text = message }
                     });
                 }
                 else
@@ -616,9 +613,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        if (codeFlow.Locations != null)
+                        if (codeFlow.ThreadFlows[0].Locations != null)
                         {
-                            foreach (CodeFlowLocation cfl in codeFlow.Locations)
+                            foreach (CodeFlowLocation cfl in codeFlow.ThreadFlows[0].Locations)
                             {
                                 string snippetId, snippetText;
                                 if (_cflToSnippetIdDictionary.TryGetValue(cfl, out snippetId) &&

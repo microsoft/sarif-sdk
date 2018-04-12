@@ -35,13 +35,8 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to the set of locations specified by this annotation.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to the set of locations specified by this annotation.",
-          "type": "string"
+          "description": "A message relevant to the set of locations specified by this annotation.",
+          "$ref": "#/definitions/message"
         },
 
         "locations": {
@@ -63,7 +58,7 @@
 
         "description": {
           "description": "A message describing the role played by the attachment.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "fileLocation": {
@@ -76,25 +71,23 @@
     },
 
     "codeFlow": {
+      "description": "A set of threadFlows which together describe a pattern of code execution relevant to detecting a result.",
+      "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to the code flow.",
-          "type": "string"
+          "description": "A message relevant to the code flow.",
+          "$ref": "#/definitions/message"
         },
 
-        "richMessage": {
-          "description": "A rich text message relevant to the code flow.",
-          "type": "string"
-        },
-
-        "locations": {
-          "description": "An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+        "threadFlows": {
+          "description": "An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/codeFlowLocation"
+            "$ref": "#/definitions/threadFlow"
           }
         },
 
@@ -116,7 +109,8 @@
           }
         }
       },
-      "required": [ "locations" ]
+
+      "required": [ "threadFlows" ]
     },
 
     "codeFlowLocation": {
@@ -141,48 +135,19 @@
           "type": "string"
         },
 
-        "threadId": {
-          "description": "The thread identifier of the code that is executing.",
-          "type": "integer"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this annotation.",
-          "type": "string"
-        },
-
-        "kind": {
-          "description": "Categorizes the location.",
-          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
-        },
-
-        "taintKind": {
-          "description": "Classifies state transitions in code locations relevant to a taint analysis.",
-          "enum": [ "source", "sink", "sanitizer" ]
-        },
-
-        "target": {
-          "description": "The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.",
-          "type": "string"
-        },
-
-        "values": {
-          "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
-          "type": "array",
-          "default": [],
-          "items": {
-            "type": "string"
-          }
-        },
-
         "state": {
           "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
           "type": "object"
         },
 
-        "targetKey": {
-          "description": "A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.",
-          "type": "string"
+        "nestingLevel": {
+          "description": "An integer representing a containment hierarchy within the thread flow",
+          "type": "integer"
+        },
+
+        "executionOrder": {
+          "description": "An integer representing the temporal order in which execution reached this location.",
+          "type": "integer"
         },
 
         "importance": {
@@ -322,7 +287,7 @@
 
         "contents": {
           "description": "The contents of the file, expressed as a MIME Base64-encoded byte sequence.",
-          "type": "string"
+          "$ref": "#/definitions/fileContent"
         },
 
         "hashes": {
@@ -401,13 +366,8 @@
       "properties": {
 
         "description": {
-          "description": "A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
-          "type": "string"
-        },
-
-        "richDescription": {
-          "description": "A rich text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
-          "type": "string"
+          "description": "A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
+          "$ref": "#/definitions/message"
         },
 
         "fileChanges": {
@@ -419,28 +379,6 @@
         }
       },
       "required": [ "fileChanges" ]
-    },
-
-    "templatedMessage": {
-      "description": "Contains information that can be used to construct a message that describes a result.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "templateId": {
-          "description": "A string that identifies the message template used to construct the message that describes this result. The value of templateId must correspond to one of the names in the set of name/value pairs contained in the 'messageTemplates' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
-          "type": "string"
-        },
-
-        "arguments": {
-          "description": "An array of strings that will be used, in combination with a message template, to construct a result message.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": [ "templateId" ]
     },
 
     "hash": {
@@ -511,6 +449,11 @@
           "format": "date-time"
         },
 
+        "exitCode": {
+          "description": "The process exit code.",
+          "type": "integer"
+        },
+
         "toolNotifications": {
           "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
           "type": "array",
@@ -525,6 +468,31 @@
           "items": {
             "$ref": "#/definitions/notification"
           }
+        },
+
+        "exitCodeDescription": {
+          "description": "The reason for the process exit.",
+          "type": "string"
+        },
+
+        "exitSignalName": {
+          "description": "The name of the signal that caused the process to exit.",
+          "type": "string"
+        },
+
+        "exitSignalNumber": {
+          "description": "The numeric value of the signal that caused the process to exit.",
+          "type": "integer"
+        },
+
+        "processStartFailureMessage": {
+          "description": "The reason given by the operating system that the process failed to start.",
+          "type": "string"
+        },
+
+        "toolExecutionSuccessful": {
+          "description": "A value indicating whether the tool's execution completed successfully.",
+          "type": "boolean"
         },
 
         "machine": {
@@ -747,8 +715,8 @@
         },
 
         "message": {
-          "description": "A plain text message that describes the condition that was encountered.",
-          "type": "string"
+          "description": "A message that describes the condition that was encountered.",
+          "$ref": "#/definitions/message"
         },
 
         "level": {
@@ -897,6 +865,29 @@
       "required": [ "offset" ]
     },
 
+    "resources": {
+      "description": "Container for items that require localization.",
+      "type": "object",
+      "properties": {
+
+        "messageStrings": {
+          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "rules": {
+          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/rule"
+          }
+        }
+      }
+    },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -920,18 +911,13 @@
         },
 
         "message": {
-          "description": "A plain text message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
-          "type": "string"
+          "description": "A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
+          "$ref": "#/definitions/message"
         },
 
-        "richMessage": {
-          "description": "A rich text message that describes the result.",
+        "ruleMessageId": {
+          "description": "A string that identifies the message within the metadata for the rule used in this result.",
           "type": "string"
-        },
-
-        "templatedMessage": {
-          "description": "A 'templatedMessage' object that can be used to construct a message that describes the result.",
-          "$ref": "#/definitions/templatedMessage"
         },
 
         "analysisTarget": {
@@ -1075,44 +1061,38 @@
 
         "name": {
           "description": "A rule identifier that is understandable to an end user.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "shortDescription": {
           "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "fullDescription": {
-          "description": "A plain text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "type": "string"
+          "description": "A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/message"
         },
 
-        "richDescription": {
-          "description": "A rich text description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "type": "string"
-        },
-
-        "messageTemplates": {
+        "messageStrings": {
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
-        "richMessageTemplates": {
+        "richMessageStrings": {
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "configuration": {
-          "description": "A value specifying whether a rule is enabled.",
-          "default": "unknown",
-          "enum": [ "unknown", "enabled", "disabled" ]
-        },
-
-        "defaultLevel": {
-          "description": "A value specifying the default severity level of the result.",
-          "default": "warning",
-          "enum": [ "note", "warning", "error" ]
+          "description": "Information about the rule that can be configured at runtime.",
+          "$ref": "#/definitions/ruleConfiguration"
         },
 
         "helpUri": {
@@ -1123,7 +1103,7 @@
 
         "help": {
           "description": "Provides the primary documentation for the rule, useful when there is no online documentation.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "properties": {
@@ -1147,6 +1127,42 @@
       "required": [ "id" ]
     },
 
+    "ruleConfiguration": {
+      "description": "Information about a rule that can be configured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "enabled": {
+          "description": "Specifies whether the rule will be evaluated during the scan.",
+          "type": "boolean"
+        },
+
+        "defaultLevel": {
+          "description": "Specifies the default severity level of the result.",
+          "default": "warning",
+          "enum": [ "note", "warning", "error", "open" ]
+        },
+
+        "parameters": {
+          "description": "Contains configuration information specific to this rule.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional configuration information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
     "run": {
       "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
@@ -1158,9 +1174,14 @@
           "$ref": "#/definitions/tool"
         },
 
-        "invocation": {
-          "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
-          "$ref": "#/definitions/invocation"
+        "invocations": {
+          "description": "Describes the invocation of the analysis tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/invocation"
+          }
         },
 
         "conversion": {
@@ -1197,18 +1218,14 @@
           "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/result"
           }
         },
 
-        "rules": {
-          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/rule"
-          }
+        "resources": {
+          "description": "Items that can be localized, such as message strings and rule metadata.",
+          "$ref": "#/definitions/resources"
         },
 
         "id": {
@@ -1270,13 +1287,8 @@
       "properties": {
 
         "message": {
-          "description": "A plain text message relevant to this call stack.",
-          "type": "string"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this call stack.",
-          "type": "string"
+          "description": "A message relevant to this call stack.",
+          "$ref": "#/definitions/message"
         },
 
         "frames": {
@@ -1318,11 +1330,6 @@
         "location": {
           "description": "The location to which this stack frame refers.",
           "$ref": "#/definitions/location"
-        },
-
-        "richMessage": {
-          "description": "A rich text message relevant to this stack frame.",
-          "type": "string"
         },
 
         "module": {
@@ -1372,6 +1379,50 @@
           }
         }
       }
+    },
+
+    "threadFlow": {
+      "type": "object",
+      "properties": {
+
+        "id": {
+          "description": "An string that uniquely identifies the threadFlow within the codeFlow in which it occurs.",
+          "type": "string"
+        },
+
+        "message": {
+          "description": "A message relevant to the code flow.",
+          "$ref": "#/definitions/message"
+        },
+
+        "locations": {
+          "description": "An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/codeFlowLocation"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the code flow.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [ "locations" ]
     },
 
     "tool": {

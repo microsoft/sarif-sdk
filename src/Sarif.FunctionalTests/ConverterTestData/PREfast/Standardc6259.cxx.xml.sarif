@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6259",
-          "message": "Labeled code is unreachable:  '(<expression> & 0x3)' in a switch-expr cannot evaluate to '0x4'.",
+          "message": {
+            "text": "Labeled code is unreachable:  '(<expression> & 0x3)' in a switch-expr cannot evaluate to '0x4'."
+          },
           "locations": [
             {
               "physicalLocation": {

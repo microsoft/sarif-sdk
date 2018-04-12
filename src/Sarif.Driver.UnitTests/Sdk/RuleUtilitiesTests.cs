@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Driver
         public void BuildResult_BuildsExpectedResult()
         {
             // Arrange
-            const string TemplateId = "Default";
+            const string RuleMessageId = "Default";
             const string RuleId = "TST0001";
             string[] Arguments = new string[] { "42", "54" };
 
@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Driver
                 Rule = new Rule
                 {
                     Id = RuleId,
-                    MessageTemplates = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, string>
                     {
-                        [TemplateId] = "Expected {0} but got {1}."
+                        [RuleMessageId] = "Expected {0} but got {1}."
                     }
                 }
             };
@@ -45,17 +45,17 @@ namespace Microsoft.CodeAnalysis.Driver
                 ResultLevel.Error,
                 context,
                 region,
-                TemplateId,
+                RuleMessageId,
                 Arguments);
 
             // Assert.
             result.RuleId.Should().Be(RuleId);
 
-            result.TemplatedMessage.TemplateId.Should().Be(TemplateId);
+            result.RuleMessageId.Should().Be(RuleMessageId);
 
-            result.TemplatedMessage.Arguments.Count.Should().Be(Arguments.Length);
-            result.TemplatedMessage.Arguments[0].Should().Be(Arguments[0]);
-            result.TemplatedMessage.Arguments[1].Should().Be(Arguments[1]);
+            result.Message.Arguments.Count.Should().Be(Arguments.Length);
+            result.Message.Arguments[0].Should().Be(Arguments[0]);
+            result.Message.Arguments[1].Should().Be(Arguments[1]);
 
             result.Locations.Count.Should().Be(1);
             result.Locations[0].PhysicalLocation.Region.ValueEquals(region).Should().BeTrue();
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Driver
                 ResultLevel.Warning,
                 context,
                 region,
-                TemplateId,
+                RuleMessageId,
                 Arguments);
 
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.OneOrMoreWarningsFired);

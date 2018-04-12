@@ -18,7 +18,7 @@ namespace Microsoft.Sarif.Viewer.Models
         public FileDetailsModel(FileData fileData)
         {
             Sha256Hash = fileData.Hashes.First(x => x.Algorithm == AlgorithmKind.Sha256).Value;
-            _rawContents = fileData.Contents;
+            _rawContents = fileData.Contents.Text;
             _decodedContents = new Lazy<string>(DecodeContents);
         }
 

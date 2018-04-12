@@ -23,16 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                if (x.Kind != y.Kind)
-                {
-                    return false;
-                }
-
-                if (x.Target != y.Target || x.TargetKey != y.TargetKey)
-                {
-                    return false;
-                }
-
                 if (!LocationBaselineEquals.Instance.Equals(x.Location, y.Location))
                 {
                     return false;
@@ -50,10 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             else
             {
                 int hs = 0;
-
-                hs = hs ^ obj.Target.GetNullCheckedHashCode() ^ obj.TargetKey.GetNullCheckedHashCode();
                 
-                hs = hs ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location);
+                hs = hs ^ obj.NestingLevel ^ LocationBaselineEquals.Instance.GetHashCode(obj.Location);
 
                 return hs;
             }

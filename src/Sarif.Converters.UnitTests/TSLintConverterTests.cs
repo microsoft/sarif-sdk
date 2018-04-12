@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result testResult = new Result()
             {
                 RuleId = "ruleName.test.value",
-                Message = "failure.test.value",
+                Message = new Message { Text = "failure.test.value" },
                 Level = ResultLevel.Warning
             };
 

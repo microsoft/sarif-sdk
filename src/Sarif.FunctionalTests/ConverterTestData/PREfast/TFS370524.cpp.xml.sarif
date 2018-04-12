@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "6011",
-          "message": "Dereferencing NULL pointer 'source'. ",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,59 +38,61 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 8
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 11,
-                        "startColumn": 8
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 12,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 13,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -101,7 +105,9 @@
         },
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -122,59 +128,61 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 8
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 21,
-                        "startColumn": 8
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 22,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 23,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }
@@ -187,7 +195,9 @@
         },
         {
           "ruleId": "28182",
-          "message": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. ",
+          "message": {
+            "text": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. "
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -208,59 +218,61 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 8
+                          }
+                        }
                       },
-                      "region": {
-                        "startLine": 31,
-                        "startColumn": 8
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 32,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
                       }
                     }
-                  },
-                  "kind": "declaration",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "1"
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 32,
-                        "startColumn": 10
-                      }
-                    }
-                  },
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 3,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp"
-                      },
-                      "region": {
-                        "startLine": 33,
-                        "startColumn": 7
-                      }
-                    }
-                  },
-                  "kind": "usage",
-                  "importance": "essential",
-                  "properties": {
-                    "keyEventId": "2"
-                  }
+                  ]
                 }
               ]
             }

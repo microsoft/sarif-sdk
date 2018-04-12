@@ -15,7 +15,9 @@
       "results": [
         {
           "ruleId": "26020",
-          "message": "Potential read overflow using expression '(this->m_Values)[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`12 is not constrained by (this->MyClass::m_Size)`12\n\nBuffer (this->MyClass::m_Values) is a parameter to this function declared on line 12\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (this->MyClass::m_Size)`12 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this->m_Size)) at c:\\somepath\\test201.cpp(32)]\nAccessing the element (4 bytes/element) at element offset index`12\n\nValues of variables:\nPointer (this->MyClass::m_Values) is at offset 0 bytes from the start of the buffer\nPointer this is at offset 0 bytes from the start of this\nindex = index`12\n\nwhere\n(this->MyClass::m_Size)`12 >= 1\nindex`12 >= 0\n\nOverrun access occurs when\n(this->MyClass::m_Size)`12 <= index`12\n",
+          "message": {
+            "text": "Potential read overflow using expression '(this->m_Values)[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`12 is not constrained by (this->MyClass::m_Size)`12\n\nBuffer (this->MyClass::m_Values) is a parameter to this function declared on line 12\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (this->MyClass::m_Size)`12 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this->m_Size)) at c:\\somepath\\test201.cpp(32)]\nAccessing the element (4 bytes/element) at element offset index`12\n\nValues of variables:\nPointer (this->MyClass::m_Values) is at offset 0 bytes from the start of the buffer\nPointer this is at offset 0 bytes from the start of this\nindex = index`12\n\nwhere\n(this->MyClass::m_Size)`12 >= 1\nindex`12 >= 0\n\nOverrun access occurs when\n(this->MyClass::m_Size)`12 <= index`12\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -36,34 +38,38 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 12,
-                        "startColumn": 9
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 9
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 14,
-                        "startColumn": 9
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -71,7 +77,9 @@
         },
         {
           "ruleId": "26017",
-          "message": "Potential read overflow using expression 'this->m_Values[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`38 is not constrained by any constant\n\nBuffer accessed is MyFixedSizeClass::m_Values\nBuffer is of length 10 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset index`38\n\nValues of variables:\nPointer this is at offset 0 bytes from the start of this\nindex = index`38\n\nwhere\nindex`38 >= 0\n\nOverrun access occurs when\nindex`38 >= 10\n",
+          "message": {
+            "text": "Potential read overflow using expression 'this->m_Values[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`38 is not constrained by any constant\n\nBuffer accessed is MyFixedSizeClass::m_Values\nBuffer is of length 10 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset index`38\n\nValues of variables:\nPointer this is at offset 0 bytes from the start of this\nindex = index`38\n\nwhere\nindex`38 >= 0\n\nOverrun access occurs when\nindex`38 >= 10\n"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -92,34 +100,38 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "step": 1,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 38,
-                        "startColumn": 9
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test201.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 9
+                          }
+                        }
                       }
                     }
-                  }
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///c:/somepath/test201.cpp"
-                      },
-                      "region": {
-                        "startLine": 40,
-                        "startColumn": 9
-                      }
-                    }
-                  }
+                  ]
                 }
               ]
             }

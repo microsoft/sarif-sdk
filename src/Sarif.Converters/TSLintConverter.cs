@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result()
             {
                 RuleId = entry.RuleName,
-                Message = entry.Failure
+                Message = new Message { Text = entry.Failure }
             };
 
             switch (entry.RuleSeverity)
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 FileChange sarifFileChange = new FileChange(fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null), replacements: replacements);
 
-                Fix sarifFix = new Fix(description: null, richDescription: null, fileChanges: new List<FileChange>() { sarifFileChange });
+                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange });
                 result.Fixes = new List<Fix> { sarifFix };
             } 
 

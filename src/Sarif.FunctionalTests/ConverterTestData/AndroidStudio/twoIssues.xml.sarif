@@ -43,7 +43,9 @@
       "results": [
         {
           "ruleId": "unused declaration",
-          "message": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "message": {
+            "text": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete"
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -65,7 +67,9 @@
         },
         {
           "ruleId": "unused declaration",
-          "message": "Constructor has 5 usages but they are not reachable from entry points.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "message": {
+            "text": "Constructor has 5 usages but they are not reachable from entry points.\r\nPossible resolution: comment\r\nPossible resolution: delete"
+          },
           "locations": [
             {
               "physicalLocation": {

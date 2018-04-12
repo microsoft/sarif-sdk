@@ -40,7 +40,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 new FileData
                                 {
                                     MimeType = "text/x-c",
-                                    Contents = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=",
+                                    Contents = new FileContent { Text = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=" },
                                     Hashes = new List<Hash>
                                     {
                                         new Hash
@@ -56,7 +56,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 new FileData
                                 {
                                     MimeType = "text/x-c",
-                                    Contents = "VGhpcyBpcyBhIHRlc3QgZmlsZS4="
+                                    Contents = new FileContent { Text = "VGhpcyBpcyBhIHRlc3QgZmlsZS4=" }
                                 }
                             }
                         },
@@ -65,7 +65,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                             new Result
                             {
                                 RuleId = "C0001",
-                                Message = "Error 1",
+                                Message = new Message { Text = "Error 1" },
                                 Locations = new List<Location>
                                 {
                                     new Location

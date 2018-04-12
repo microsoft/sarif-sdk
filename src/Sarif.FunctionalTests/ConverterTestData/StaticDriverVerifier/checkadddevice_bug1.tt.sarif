@@ -17,7 +17,9 @@
       "results": [
         {
           "level": "pass",
-          "message": "The property is satisfied as the driver defines a AddDevice routine.",
+          "message": {
+            "text": "The property is satisfied as the driver defines a AddDevice routine."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -32,1803 +34,1825 @@
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "location": {
-                    "fullyQualifiedLogicalName": "OS"
-                  },
-                  "kind": "call",
-                  "target": "main",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^"
-                  }
-                },
-                {
-                  "step": 1,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 2,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "call",
-                  "target": "_sdv_init4",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^====Pre=====^____true"
-                  }
-                },
-                {
-                  "step": 3,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 4,
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 5,
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 6,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 7,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 8,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "call",
-                  "target": "_sdv_init1",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^====Pre=====^____true"
-                  }
-                },
-                {
-                  "step": 9,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 10,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 11,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 12,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 13,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "call",
-                  "target": "_sdv_init2",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^====Pre=====^____true"
-                  }
-                },
-                {
-                  "step": 14,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 15,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 16,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "fullyQualifiedLogicalName": "OS"
                       },
-                      "region": {
-                        "startLine": 77
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 17,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 81
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 18,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 83
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 19,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 88
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_ControllerIrp=2919"
-                  }
-                },
-                {
-                  "step": 20,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 91
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_StartIoIrp=9375"
-                  }
-                },
-                {
-                  "step": 21,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 95
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_PowerIrp=9627"
-                  }
-                },
-                {
-                  "step": 22,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 99
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_harnessIrp=8107"
-                  }
-                },
-                {
-                  "step": 23,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 106
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_other_harnessIrp=10107"
-                  }
-                },
-                {
-                  "step": 24,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 111
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=7427"
-                  }
-                },
-                {
-                  "step": 25,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 116
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867"
-                  }
-                },
-                {
-                  "step": 26,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 120
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883"
-                  }
-                },
-                {
-                  "step": 27,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 127
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659"
-                  }
-                },
-                {
-                  "step": 28,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 131
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907"
-                  }
-                },
-                {
-                  "step": 29,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 135
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691"
-                  }
-                },
-                {
-                  "step": 30,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 139
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615"
-                  }
-                },
-                {
-                  "step": 31,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 144
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=3611"
-                  }
-                },
-                {
-                  "step": 32,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 159
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 33,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 202
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 34,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 203
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 35,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 204
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 36,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 205
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 37,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 206
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 38,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 207
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 39,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 209
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 40,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 217
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_kdpc_val3=6615"
-                  }
-                },
-                {
-                  "step": 41,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 237
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_devobj_fdo=8935"
-                  }
-                },
-                {
-                  "step": 42,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 240
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 43,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 245
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_devobj_pdo=3159"
-                  }
-                },
-                {
-                  "step": 44,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 249
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_devobj_child_pdo=7667"
-                  }
-                },
-                {
-                  "step": 45,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 253
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_kinterrupt_val=8895"
-                  }
-                },
-                {
-                  "step": 46,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 256
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_MapRegisterBase_val=7407"
-                  }
-                },
-                {
-                  "step": 47,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 260
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 48,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 263
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 49,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 266
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 50,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 272
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_fx_dev_object=8895"
-                  }
-                },
-                {
-                  "step": 51,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1219
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 52,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1220
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 53,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1221
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 54,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1224
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 55,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1235
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 56,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1250
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 57,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1252
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 58,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 1266
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 59,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 9532
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_devobj_top=6175"
-                  }
-                },
-                {
-                  "step": 60,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 13920
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 61,
-                  "location": {
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 62,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 63,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv_harnessDeviceExtension=11167"
-                  }
-                },
-                {
-                  "step": 64,
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 65,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 66,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^Tmp=1"
-                  }
-                },
-                {
-                  "step": 67,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 68,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
-                  }
-                },
-                {
-                  "step": 69,
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 70,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 71,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "continuation",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^Tmp=1"
-                  }
-                },
-                {
-                  "step": 72,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 73,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv_harnessDeviceExtension=11167"
-                  }
-                },
-                {
-                  "step": 74,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
-                  }
-                },
-                {
-                  "step": 75,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_harnessStackLocation=5579"
-                  }
-                },
-                {
-                  "step": 76,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6710
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^\u0026sdv_other_harnessStackLocation=10563"
-                  }
-                },
-                {
-                  "step": 77,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 6711
+                      "importance": "unimportant",
+                      "properties": {
+                        "target": "main",
+                        "currentDataValues": "^"
                       }
                     },
-                    "fullyQualifiedLogicalName": "main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_main",
-                  "properties": {
-                    "currentDataValues": "^====Pre=====^____true"
-                  }
-                },
-                {
-                  "step": 78,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 79,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 80,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                    {
+                      "step": 2,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
                       },
-                      "region": {
-                        "startLine": 5350
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "target": "_sdv_init4",
+                        "currentDataValues": "^====Pre=====^____true"
                       }
                     },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckDispatchRoutines"
-                },
-                {
-                  "step": 81,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 82,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 83,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                    {
+                      "step": 4,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
                       },
-                      "region": {
-                        "startLine": 4810
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 8,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "target": "_sdv_init1",
+                        "currentDataValues": "^====Pre=====^____true"
                       }
+                    },
+                    {
+                      "step": 10,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 11,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 12,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 13,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 14,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "target": "_sdv_init2",
+                        "currentDataValues": "^====Pre=====^____true"
+                      }
+                    },
+                    {
+                      "step": 15,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 16,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 17,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 77
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 18,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 81
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 19,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 83
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 20,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 88
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_ControllerIrp=2919"
+                      }
+                    },
+                    {
+                      "step": 21,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 91
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_StartIoIrp=9375"
+                      }
+                    },
+                    {
+                      "step": 22,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 95
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_PowerIrp=9627"
+                      }
+                    },
+                    {
+                      "step": 23,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 99
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_harnessIrp=8107"
+                      }
+                    },
+                    {
+                      "step": 24,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 106
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_other_harnessIrp=10107"
+                      }
+                    },
+                    {
+                      "step": 25,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 111
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=7427"
+                      }
+                    },
+                    {
+                      "step": 26,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 116
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=9867"
+                      }
+                    },
+                    {
+                      "step": 27,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 120
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=8883"
+                      }
+                    },
+                    {
+                      "step": 28,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 127
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=6659"
+                      }
+                    },
+                    {
+                      "step": 29,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 131
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=2907"
+                      }
+                    },
+                    {
+                      "step": 30,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 135
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=1691"
+                      }
+                    },
+                    {
+                      "step": 31,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 139
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=9615"
+                      }
+                    },
+                    {
+                      "step": 32,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 144
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=3611"
+                      }
+                    },
+                    {
+                      "step": 33,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 159
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 34,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 202
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 35,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 203
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 36,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 204
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 37,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 205
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 38,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 206
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 39,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 207
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 40,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 209
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 41,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 217
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_kdpc_val3=6615"
+                      }
+                    },
+                    {
+                      "step": 42,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 237
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_devobj_fdo=8935"
+                      }
+                    },
+                    {
+                      "step": 43,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 240
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 44,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 245
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_devobj_pdo=3159"
+                      }
+                    },
+                    {
+                      "step": 45,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 249
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_devobj_child_pdo=7667"
+                      }
+                    },
+                    {
+                      "step": 46,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 253
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_kinterrupt_val=8895"
+                      }
+                    },
+                    {
+                      "step": 47,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 256
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_MapRegisterBase_val=7407"
+                      }
+                    },
+                    {
+                      "step": 48,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 260
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 49,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 263
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 50,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 266
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 51,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 272
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_fx_dev_object=8895"
+                      }
+                    },
+                    {
+                      "step": 52,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1219
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 53,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1220
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 54,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1221
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 55,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1224
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 56,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1235
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 57,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1250
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 58,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1252
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 59,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 1266
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 60,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 9532
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_devobj_top=6175"
+                      }
+                    },
+                    {
+                      "step": 61,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 13920
+                          }
+                        }
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 62,
+                      "location": {
+                        "fullyQualifiedLogicalName": "main"
+                      },
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 63,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 64,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv_harnessDeviceExtension=11167"
+                      }
+                    },
+                    {
+                      "step": 65,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 66,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 67,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^Tmp=1"
+                      }
+                    },
+                    {
+                      "step": 68,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 69,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
+                      }
+                    },
+                    {
+                      "step": 70,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 71,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 72,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^Tmp=1"
+                      }
+                    },
+                    {
+                      "step": 73,
+                      "nestingLevel": 1,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 74,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv_harnessDeviceExtension=11167"
+                      }
+                    },
+                    {
+                      "step": 75,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv_harnessDeviceExtension_two=11099"
+                      }
+                    },
+                    {
+                      "step": 76,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_harnessStackLocation=5579"
+                      }
+                    },
+                    {
+                      "step": 77,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6710
+                          }
+                        }
+                      },
+                      "nestingLevel": 1,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^\u0026sdv_other_harnessStackLocation=10563"
+                      }
+                    },
+                    {
+                      "step": 78,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 6711
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "main"
+                      },
+                      "nestingLevel": 1,
+                      "properties": {
+                        "target": "sdv_main",
+                        "currentDataValues": "^====Pre=====^____true"
+                      }
+                    },
+                    {
+                      "step": 79,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 80,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 81,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5350
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckDispatchRoutines"
+                      }
+                    },
+                    {
+                      "step": 82,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 83,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 84,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4810
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 85,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4810
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 86,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 87,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5351
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckStartIoRoutines"
+                      }
+                    },
+                    {
+                      "step": 88,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 89,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 90,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4822
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 91,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4822
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 92,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 93,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5352
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckDpcRoutines"
+                      }
+                    },
+                    {
+                      "step": 94,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 95,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 96,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4842
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 97,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4842
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 98,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 99,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5353
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckIsrRoutines"
+                      }
+                    },
+                    {
+                      "step": 100,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 101,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 102,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4857
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 103,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4857
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 104,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 105,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5354
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckCancelRoutines"
+                      }
+                    },
+                    {
+                      "step": 106,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 107,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 108,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4877
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 109,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4877
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 110,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 111,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5356
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckIoDpcRoutines"
+                      }
+                    },
+                    {
+                      "step": 112,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 113,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 114,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4912
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 115,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4912
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 116,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 117,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5357
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_IoCompletionRoutines"
+                      }
+                    },
+                    {
+                      "step": 118,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 119,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 120,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4928
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 121,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4928
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 122,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 123,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5358
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckWorkerRoutines"
+                      }
+                    },
+                    {
+                      "step": 124,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 125,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 126,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4946
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 127,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4946
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 128,
+                      "nestingLevel": 2,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 129,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 5359
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_main"
+                      },
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckAddDevice"
+                      }
+                    },
+                    {
+                      "step": 130,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 131,
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 132,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4955
+                          }
+                        }
+                      },
+                      "nestingLevel": 3,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 133,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
+                          },
+                          "region": {
+                            "startLine": 4955
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "sdv_CheckAddDevice"
+                      },
+                      "nestingLevel": 3,
+                      "properties": {
+                        "target": "SLIC_sdv_CheckAddDevice_exit",
+                        "currentDataValues": "^arg1=5^arg2=1"
+                      }
+                    },
+                    {
+                      "step": 134,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 135,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "../../../rules/WDM/CheckAddDevice.slic"
+                          },
+                          "region": {
+                            "startLine": 33
+                          }
+                        }
+                      },
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv=1"
+                      }
+                    },
+                    {
+                      "step": 136,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "../../../rules/WDM/CheckAddDevice.slic"
+                          },
+                          "region": {
+                            "startLine": 35
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit"
+                      },
+                      "nestingLevel": 4,
+                      "properties": {
+                        "target": "SLIC_ABORT_1_0",
+                        "currentDataValues": "^arg1=5^arg2=1"
+                      }
+                    },
+                    {
+                      "step": 137,
+                      "nestingLevel": 5,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 138,
+                      "nestingLevel": 5,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^caller=5"
+                      }
+                    },
+                    {
+                      "step": 139,
+                      "nestingLevel": 5,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^sdv=1"
+                      }
+                    },
+                    {
+                      "step": 140,
+                      "location": {
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
+                      },
+                      "nestingLevel": 5,
+                      "importance": "unimportant",
+                      "properties": {
+                        "target": "SLIC_ERROR_ROUTINE",
+                        "currentDataValues": "^arg1=3"
+                      }
+                    },
+                    {
+                      "step": 141,
+                      "nestingLevel": 6,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 142,
+                      "nestingLevel": 6,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 143,
+                      "location": {
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
+                      },
+                      "nestingLevel": 6,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 144,
+                      "nestingLevel": 5,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 145,
+                      "location": {
+                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit"
+                      },
+                      "nestingLevel": 5,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 146,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 147,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 148,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 149,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 150,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 151,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 152,
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 153,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 154,
+                      "nestingLevel": 4,
+                      "importance": "unimportant",
+                      "properties": {
+                        "currentDataValues": "^yogi_error=1"
+                      }
+                    },
+                    {
+                      "step": 155,
+                      "location": {
+                        "fullyQualifiedLogicalName": "sdv_CheckAddDevice"
+                      },
+                      "nestingLevel": 4,
+                      "importance": "unimportant"
                     }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 84,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4810
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 85,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 86,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5351
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckStartIoRoutines"
-                },
-                {
-                  "step": 87,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 88,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 89,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4822
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 90,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4822
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 91,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 92,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5352
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckDpcRoutines"
-                },
-                {
-                  "step": 93,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 94,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 95,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4842
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 96,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4842
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 97,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 98,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5353
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckIsrRoutines"
-                },
-                {
-                  "step": 99,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 100,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 101,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4857
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 102,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4857
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 103,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 104,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5354
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckCancelRoutines"
-                },
-                {
-                  "step": 105,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 106,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 107,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4877
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 108,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4877
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 109,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 110,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5356
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckIoDpcRoutines"
-                },
-                {
-                  "step": 111,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 112,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 113,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4912
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 114,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4912
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 115,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 116,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5357
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_IoCompletionRoutines"
-                },
-                {
-                  "step": 117,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 118,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 119,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4928
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 120,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4928
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 121,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 122,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5358
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckWorkerRoutines"
-                },
-                {
-                  "step": 123,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 124,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 125,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4946
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 126,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4946
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 127,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 128,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 5359
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_main"
-                  },
-                  "kind": "call",
-                  "target": "sdv_CheckAddDevice"
-                },
-                {
-                  "step": 129,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 130,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 131,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4955
-                      }
-                    }
-                  },
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 132,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file:///d:/slam1/wdk/src_5043/fail_drivers/wdm/fail_driver1/sdv/sdv-harness.c"
-                      },
-                      "region": {
-                        "startLine": 4955
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "sdv_CheckAddDevice"
-                  },
-                  "kind": "call",
-                  "target": "SLIC_sdv_CheckAddDevice_exit",
-                  "properties": {
-                    "currentDataValues": "^arg1=5^arg2=1"
-                  }
-                },
-                {
-                  "step": 133,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 134,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "../../../rules/WDM/CheckAddDevice.slic"
-                      },
-                      "region": {
-                        "startLine": 33
-                      }
-                    }
-                  },
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv=1"
-                  }
-                },
-                {
-                  "step": 135,
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "../../../rules/WDM/CheckAddDevice.slic"
-                      },
-                      "region": {
-                        "startLine": 35
-                      }
-                    },
-                    "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit"
-                  },
-                  "kind": "call",
-                  "target": "SLIC_ABORT_1_0",
-                  "properties": {
-                    "currentDataValues": "^arg1=5^arg2=1"
-                  }
-                },
-                {
-                  "step": 136,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 137,
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^caller=5"
-                  }
-                },
-                {
-                  "step": 138,
-                  "kind": "assignment",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^sdv=1"
-                  }
-                },
-                {
-                  "step": 139,
-                  "location": {
-                    "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
-                  },
-                  "kind": "call",
-                  "target": "SLIC_ERROR_ROUTINE",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^arg1=3"
-                  }
-                },
-                {
-                  "step": 140,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 141,
-                  "kind": "assignment",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 142,
-                  "location": {
-                    "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 143,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 144,
-                  "location": {
-                    "fullyQualifiedLogicalName": "SLIC_sdv_CheckAddDevice_exit"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 145,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 146,
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^yogi_error=1"
-                  }
-                },
-                {
-                  "step": 147,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 148,
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^yogi_error=1"
-                  }
-                },
-                {
-                  "step": 149,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 150,
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^yogi_error=1"
-                  }
-                },
-                {
-                  "step": 151,
-                  "kind": "continuation",
-                  "importance": "unimportant"
-                },
-                {
-                  "step": 152,
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^yogi_error=1"
-                  }
-                },
-                {
-                  "step": 153,
-                  "kind": "branch",
-                  "importance": "unimportant",
-                  "properties": {
-                    "currentDataValues": "^yogi_error=1"
-                  }
-                },
-                {
-                  "step": 154,
-                  "location": {
-                    "fullyQualifiedLogicalName": "sdv_CheckAddDevice"
-                  },
-                  "kind": "callReturn",
-                  "importance": "unimportant"
+                  ]
                 }
               ]
             }

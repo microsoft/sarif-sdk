@@ -30,7 +30,9 @@
       "results": [
         {
           "ruleId": "Default File Template Usage",
-          "message": "Default File template",
+          "message": {
+            "text": "Default File template"
+          },
           "locations": [
             {
               "physicalLocation": {

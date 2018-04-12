@@ -33,16 +33,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A plain text message relevant to this call stack.
+        /// A message relevant to this call stack.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
-
-        /// <summary>
-        /// A rich text message relevant to this call stack.
-        /// </summary>
-        [DataMember(Name = "richMessage", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessage { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
         /// An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
@@ -69,18 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        /// <param name="richMessage">
-        /// An initialization value for the <see cref="P: RichMessage" /> property.
-        /// </param>
         /// <param name="frames">
         /// An initialization value for the <see cref="P: Frames" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Stack(string message, string richMessage, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
+        public Stack(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(message, richMessage, frames, properties);
+            Init(message, frames, properties);
         }
 
         /// <summary>
@@ -99,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Message, other.RichMessage, other.Frames, other.Properties);
+            Init(other.Message, other.Frames, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -120,10 +111,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Stack(this);
         }
 
-        private void Init(string message, string richMessage, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Message = message;
-            RichMessage = richMessage;
+            if (message != null)
+            {
+                Message = new Message(message);
+            }
+
             if (frames != null)
             {
                 var destination_0 = new List<StackFrame>();
