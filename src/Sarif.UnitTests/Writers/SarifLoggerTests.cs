@@ -406,7 +406,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.CommandLine.Should().BeNull();
             invocation.WorkingDirectory.Should().BeNull();
             invocation.ProcessId.Should().Be(0);
-            invocation.FileName.Should().BeNull();
+            invocation.ExecutableLocation.Should().BeNull();
         }
 
         [Fact]
@@ -452,7 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Other properties should be empty.
             invocation.CommandLine.Should().BeNull();
-            invocation.FileName.Should().BeNull();
+            invocation.ExecutableLocation.Should().BeNull();
         }
 
         [Fact]

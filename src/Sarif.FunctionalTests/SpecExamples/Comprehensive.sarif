@@ -107,7 +107,9 @@
           "machine": "BLD01",
           "account": "buildAgent",
           "processId": 1218,
-          "fileName": "/bin/tools/CodeScanner",
+          "executableLocation": {
+            "uri": "/bin/tools/CodeScanner"
+          },
           "workingDirectory": "/home/buildAgent/src",
           "environmentVariables": {
             "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",

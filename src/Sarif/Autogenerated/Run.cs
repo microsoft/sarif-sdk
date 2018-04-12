@@ -117,6 +117,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RichMessageMimeType { get; set; }
 
         /// <summary>
+        /// The string used to replace sensitive information in a redaction-aware property.
+        /// </summary>
+        [DataMember(Name = "redactionToken", IsRequired = false, EmitDefaultValue = false)]
+        public string RedactionToken { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -174,12 +180,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="richMessageMimeType">
         /// An initialization value for the <see cref="P: RichMessageMimeType" /> property.
         /// </param>
+        /// <param name="redactionToken">
+        /// An initialization value for the <see cref="P: RedactionToken" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, originalUriBaseIds, files, logicalLocations, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, properties);
+            Init(tool, invocations, conversion, originalUriBaseIds, files, logicalLocations, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, redactionToken, properties);
         }
 
         /// <summary>
@@ -198,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -219,7 +228,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -297,6 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             BaselineId = baselineId;
             Architecture = architecture;
             RichMessageMimeType = richMessageMimeType;
+            RedactionToken = redactionToken;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
