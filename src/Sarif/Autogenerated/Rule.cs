@@ -77,8 +77,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
-        [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri HelpUri { get; set; }
+        [DataMember(Name = "helpLocation", IsRequired = false, EmitDefaultValue = false)]
+        public FileLocation HelpLocation { get; set; }
 
         /// <summary>
         /// Provides the primary documentation for the rule, useful when there is no online documentation.
@@ -123,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="configuration">
         /// An initialization value for the <see cref="P: Configuration" /> property.
         /// </param>
-        /// <param name="helpUri">
-        /// An initialization value for the <see cref="P: HelpUri" /> property.
+        /// <param name="helpLocation">
+        /// An initialization value for the <see cref="P: HelpLocation" /> property.
         /// </param>
         /// <param name="help">
         /// An initialization value for the <see cref="P: Help" /> property.
@@ -132,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, FileLocation helpLocation, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
+            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpLocation, help, properties);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpLocation, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, FileLocation helpLocation, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (name != null)
@@ -207,9 +207,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Configuration = new RuleConfiguration(configuration);
             }
 
-            if (helpUri != null)
+            if (helpLocation != null)
             {
-                HelpUri = new Uri(helpUri.OriginalString, helpUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                HelpLocation = new FileLocation(helpLocation);
             }
 
             if (help != null)

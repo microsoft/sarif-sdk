@@ -46,10 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 invocation.EnvironmentVariables = CopyEnvironmentVariables();
             }
 
-            if (invocation.ShouldLog(nameof(FileName)))
+            if (invocation.ShouldLog(nameof(ExecutableLocation)))
             {
                 Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-                invocation.FileName = assembly.Location;
+                invocation.ExecutableLocation.Uri = new Uri(assembly.Location);
             }
 
             return invocation;

@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 newRule.Id = rule.Id;
                 newRule.Name = rule.Name;
-                newRule.HelpUri = rule.HelpUri;
+                newRule.HelpLocation = rule.HelpLocation;
                 newRule.FullDescription = rule.FullDescription;
                 newRule.MessageStrings = rule.MessageStrings;
                 newRule.RichMessageStrings = rule.RichMessageStrings;

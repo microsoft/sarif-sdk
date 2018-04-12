@@ -510,9 +510,9 @@
           "type": "integer"
         },
 
-        "fileName": {
-          "description": "The fully qualified path to the analysis tool.",
-          "type": "string"
+        "executableLocation": {
+          "description": "An absolute URI specifying the location of the analysis tool's executable.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "workingDirectory": {
@@ -906,7 +906,6 @@
 
         "level": {
           "description": "A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.",
-          "default": "warning",
           "enum": [ "notApplicable", "pass", "note", "warning", "error", "open" ]
         },
 
@@ -1095,10 +1094,10 @@
           "$ref": "#/definitions/ruleConfiguration"
         },
 
-        "helpUri": {
+        "helpLocation": {
           "description": "A URI where the primary documentation for the rule can be found.",
           "type": "string",
-          "format": "uri"
+          "$ref": "#/definitions/fileLocation"
         },
 
         "help": {
@@ -1257,6 +1256,11 @@
           "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
           "type": "string",
           "default": "text/markdown;variant=GFM"
+        },
+
+        "redactionToken": {
+          "description": "The string used to replace sensitive information in a redaction-aware property.",
+          "type": "string"
         },
 
         "properties": {
