@@ -29,7 +29,9 @@
             "configuration": {
               "defaultLevel": "warning"
             },
-            "helpUri": "http://www.example.com/tools/BinaryAnalyzer/rules/BA2006"
+            "helpLocation": {
+              "uri": "http://www.example.com/tools/BinaryAnalyzer/rules/BA2006"
+            }
           }
         }
       }

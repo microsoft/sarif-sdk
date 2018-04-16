@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ParseFprFile(input);
             AddMessagesToResults();
             AddSnippetsToResults();
-            AddSnippetsToAnnotatedCodeLocations();
+            AddSnippetsToCodeFlowLocations();
 
             output.Initialize(id: _runId, automationId: _automationId);
 
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void AddSnippetsToAnnotatedCodeLocations()
+        private void AddSnippetsToCodeFlowLocations()
         {
             foreach (Result result in _results)
             {

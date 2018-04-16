@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public Uri HelpUri { get; set; }
+        public FileLocation HelpLocation { get; set; }
 
         public abstract string Id { get; }
 

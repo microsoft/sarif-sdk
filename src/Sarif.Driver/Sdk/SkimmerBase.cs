@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Options = new Dictionary<string, string>();
         }
 
-        abstract public Uri HelpUri { get;  }
+        abstract public FileLocation HelpLocation { get;  }
 
         abstract public Message Help { get; }
 

@@ -320,6 +320,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                node.ExecutableLocation = VisitNullChecked(node.ExecutableLocation);
                 node.Stdin = VisitNullChecked(node.Stdin);
                 node.Stdout = VisitNullChecked(node.Stdout);
                 node.Stderr = VisitNullChecked(node.Stderr);
@@ -491,6 +492,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.ShortDescription = VisitNullChecked(node.ShortDescription);
                 node.FullDescription = VisitNullChecked(node.FullDescription);
                 node.Configuration = VisitNullChecked(node.Configuration);
+                node.HelpLocation = VisitNullChecked(node.HelpLocation);
                 node.Help = VisitNullChecked(node.Help);
             }
 

@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.FileName != right.FileName)
+            if (!FileLocation.ValueComparer.Equals(left.ExecutableLocation, right.ExecutableLocation))
             {
                 return false;
             }
@@ -376,9 +376,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ProcessId.GetHashCode();
-                if (obj.FileName != null)
+                if (obj.ExecutableLocation != null)
                 {
-                    result = (result * 31) + obj.FileName.GetHashCode();
+                    result = (result * 31) + obj.ExecutableLocation.ValueGetHashCode();
                 }
 
                 if (obj.WorkingDirectory != null)

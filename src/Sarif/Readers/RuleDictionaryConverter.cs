@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     Configuration = iRule.Configuration,
                     FullDescription = iRule.FullDescription,
-                    HelpUri = iRule.HelpUri,
+                    HelpLocation = iRule.HelpLocation,
                     Id = iRule.Id,
                     MessageStrings = iRule.MessageStrings,
                     RichMessageStrings = iRule.RichMessageStrings,
