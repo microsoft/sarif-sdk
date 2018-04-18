@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Microsoft.Sarif.Viewer.Michael C. Fanning.f17e897a-fd38-4e1f-99db-19fa34a4e184" Version="1.0" Language="en-US" Publisher="Michael C. Fanning" />
+        <Identity Id="Microsoft.Sarif.Viewer.Michael C. Fanning.f17e897a-fd38-4e1f-99db-19fa34a4e184" Version="1.0.1" Language="en-US" Publisher="Microsoft" />
         <DisplayName>Microsoft SARIF Viewer</DisplayName>
         <Description xml:space="preserve">Visual Studio Static Analysis Results Interchange Format (SARIF) log file viewer</Description>
         <License>License.txt</License>
