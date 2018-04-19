@@ -8,8 +8,23 @@ SET NuGetPackageDir=src\packages
 
 md bld\bin\nuget
 
+::Restore nuget packages
+%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+
+if "%ERRORLEVEL%" NEQ "0" (
+echo NuGet restore failed.
+goto ExitFailed
+)
+
+%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+
+if "%ERRORLEVEL%" NEQ "0" (
+echo NuGet restore failed.
+goto ExitFailed
+)
+
 %~dp0.nuget\NuGet.exe restore src\Sarif.ValidationTests\Sarif.ValidationTests.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
-dotnet restore src\Sarif.Sdk.sln --configfile %NuGetConfigFile% --packages %NuGetPackageDir%
+dotnet restore src\Everything.sln --configfile %NuGetConfigFile% --packages %NuGetPackageDir%
 
 if "%ERRORLEVEL%" NEQ "0" (
 echo NuGet restore failed.
