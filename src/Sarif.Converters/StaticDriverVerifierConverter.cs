@@ -179,6 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
                         codeFlowLocation.Location.Message.Text = callee;
+                        codeFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
                     }
                     else
