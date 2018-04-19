@@ -124,15 +124,6 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="Sarif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Sdk.2.0.0\lib\net452\Sarif.dll</HintPath>
-    </Reference>
-    <Reference Include="Sarif.Converters, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Converters.2.0.0\lib\net452\Sarif.Converters.dll</HintPath>
-    </Reference>
-    <Reference Include="Sarif.Driver, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Driver.2.0.0-beta\lib\net452\Sarif.Driver.dll</HintPath>
-    </Reference>
     <Reference Include="StreamJsonRpc, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\StreamJsonRpc.1.3.23\lib\net45\StreamJsonRpc.dll</HintPath>
       <Private>True</Private>
@@ -229,9 +220,21 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
+      <Project>{d0d4ac36-b339-47be-ad61-ec08a967d20c}</Project>
+      <Name>Sarif.Converters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
+      <Project>{c06f0cf1-3505-4715-b6da-047ec86c4308}</Project>
+      <Name>Sarif.Driver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj">
       <Project>{febe7a56-524c-4b76-a899-23dbd8951c23}</Project>
       <Name>Sarif.Viewer.VisualStudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sarif\Sarif.csproj">
+      <Project>{c5fc2683-47cf-447f-b5ea-9fde0fd78754}</Project>
+      <Name>Sarif</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

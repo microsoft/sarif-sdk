@@ -329,15 +329,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Sarif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Sdk.2.0.0\lib\net452\Sarif.dll</HintPath>
-    </Reference>
-    <Reference Include="Sarif.Converters, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Converters.2.0.0\lib\net452\Sarif.Converters.dll</HintPath>
-    </Reference>
-    <Reference Include="Sarif.Driver, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Driver.2.0.0-beta\lib\net452\Sarif.Driver.dll</HintPath>
-    </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\packages\stdole.7.0.3302\lib\net10\stdole.dll</HintPath>
@@ -514,6 +505,23 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
+      <Project>{d0d4ac36-b339-47be-ad61-ec08a967d20c}</Project>
+      <Name>Sarif.Converters</Name>
+	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+    </ProjectReference>
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
+      <Project>{c06f0cf1-3505-4715-b6da-047ec86c4308}</Project>
+	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+      <Name>Sarif.Driver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sarif\Sarif.csproj">
+      <Project>{c5fc2683-47cf-447f-b5ea-9fde0fd78754}</Project>
+	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+      <Name>Sarif</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
