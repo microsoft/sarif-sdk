@@ -62,7 +62,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     Contents = new FileContent()
                                     {
                                         Binary = "VGhpcyBpcyBhIHRlc3QgZmlsZS4="
-                                    },
+                                    }
                                 }
                             }
                         },

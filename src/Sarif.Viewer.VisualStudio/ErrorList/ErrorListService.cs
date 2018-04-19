@@ -163,7 +163,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
             if (!hasSha256Hash)
             {
-                string hashString = GenerateHash(file.Contents.Text);
+                string hashString = GenerateHash(file.Contents.Binary);
 
                 file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
             }
