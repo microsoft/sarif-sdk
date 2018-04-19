@@ -47,6 +47,7 @@
                       },
                       "importance": "unimportant",
                       "properties": {
+                        "target": "main",
                         "currentDataValues": "^"
                       }
                     },
@@ -71,6 +72,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init4",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -134,6 +136,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init1",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -187,6 +190,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init2",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -1348,6 +1352,7 @@
                       },
                       "nestingLevel": 1,
                       "properties": {
+                        "target": "sdv_main",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -1387,7 +1392,10 @@
                           "text": "sdv_CheckDispatchRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckDispatchRoutines"
+                      }
                     },
                     {
                       "step": 82,
@@ -1470,7 +1478,10 @@
                           "text": "sdv_CheckStartIoRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckStartIoRoutines"
+                      }
                     },
                     {
                       "step": 88,
@@ -1553,7 +1564,10 @@
                           "text": "sdv_CheckDpcRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckDpcRoutines"
+                      }
                     },
                     {
                       "step": 94,
@@ -1636,7 +1650,10 @@
                           "text": "sdv_CheckIsrRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckIsrRoutines"
+                      }
                     },
                     {
                       "step": 100,
@@ -1719,7 +1736,10 @@
                           "text": "sdv_CheckCancelRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckCancelRoutines"
+                      }
                     },
                     {
                       "step": 106,
@@ -1802,7 +1822,10 @@
                           "text": "sdv_CheckIoDpcRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckIoDpcRoutines"
+                      }
                     },
                     {
                       "step": 112,
@@ -1885,7 +1908,10 @@
                           "text": "sdv_IoCompletionRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_IoCompletionRoutines"
+                      }
                     },
                     {
                       "step": 118,
@@ -1968,7 +1994,10 @@
                           "text": "sdv_CheckWorkerRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckWorkerRoutines"
+                      }
                     },
                     {
                       "step": 124,
@@ -2051,7 +2080,10 @@
                           "text": "sdv_CheckAddDevice"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckAddDevice"
+                      }
                     },
                     {
                       "step": 130,
@@ -2109,6 +2141,7 @@
                       },
                       "nestingLevel": 3,
                       "properties": {
+                        "target": "SLIC_sdv_CheckAddDevice_exit",
                         "currentDataValues": "^arg1=5^arg2=1"
                       }
                     },
@@ -2161,6 +2194,7 @@
                       },
                       "nestingLevel": 4,
                       "properties": {
+                        "target": "SLIC_ABORT_1_0",
                         "currentDataValues": "^arg1=5^arg2=1"
                       }
                     },
@@ -2211,6 +2245,7 @@
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "SLIC_ERROR_ROUTINE",
                         "currentDataValues": "^arg1=3"
                       }
                     },

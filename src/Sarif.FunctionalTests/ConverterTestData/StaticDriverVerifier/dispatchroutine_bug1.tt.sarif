@@ -47,6 +47,7 @@
                       },
                       "importance": "unimportant",
                       "properties": {
+                        "target": "main",
                         "currentDataValues": "^"
                       }
                     },
@@ -71,6 +72,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init4",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -134,6 +136,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init1",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -187,6 +190,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "_sdv_init2",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -1348,6 +1352,7 @@
                       },
                       "nestingLevel": 1,
                       "properties": {
+                        "target": "sdv_main",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
@@ -1387,7 +1392,10 @@
                           "text": "sdv_CheckDispatchRoutines"
                         }
                       },
-                      "nestingLevel": 2
+                      "nestingLevel": 2,
+                      "properties": {
+                        "target": "sdv_CheckDispatchRoutines"
+                      }
                     },
                     {
                       "step": 82,
@@ -1445,6 +1453,7 @@
                       },
                       "nestingLevel": 3,
                       "properties": {
+                        "target": "SLIC_sdv_CheckDispatchRoutines_exit",
                         "currentDataValues": "^arg1=5^arg2=1"
                       }
                     },
@@ -1497,6 +1506,7 @@
                       },
                       "nestingLevel": 4,
                       "properties": {
+                        "target": "SLIC_ABORT_1_0",
                         "currentDataValues": "^arg1=5^arg2=1"
                       }
                     },
@@ -1547,6 +1557,7 @@
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
+                        "target": "SLIC_ERROR_ROUTINE",
                         "currentDataValues": "^arg1=3"
                       }
                     },
