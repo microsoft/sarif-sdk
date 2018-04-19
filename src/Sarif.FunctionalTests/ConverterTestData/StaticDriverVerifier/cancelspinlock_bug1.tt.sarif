@@ -43,33 +43,47 @@
                     {
                       "step": 1,
                       "location": {
-                        "fullyQualifiedLogicalName": "OS"
+                        "fullyQualifiedLogicalName": "OS",
+                        "message": {
+                          "text": "main"
+                        }
                       },
                       "importance": "unimportant",
                       "properties": {
-                        "target": "main",
                         "currentDataValues": "^"
                       }
                     },
                     {
                       "step": 2,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant"
                     },
                     {
                       "step": 3,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {
+                          "text": "_sdv_init4"
+                        }
                       },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "target": "_sdv_init4",
                         "currentDataValues": "^====Pre=====^____true"
                       }
                     },
                     {
                       "step": 4,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant"
                     },
@@ -83,6 +97,9 @@
                           "region": {
                             "startLine": 32
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -90,6 +107,11 @@
                     },
                     {
                       "step": 6,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -98,6 +120,11 @@
                     },
                     {
                       "step": 7,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -107,7 +134,8 @@
                     {
                       "step": 8,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {}
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -117,6 +145,11 @@
                     },
                     {
                       "step": 9,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -126,17 +159,24 @@
                     {
                       "step": 10,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {
+                          "text": "_sdv_init1"
+                        }
                       },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "target": "_sdv_init1",
                         "currentDataValues": "^s=0^====Pre=====^____true"
                       }
                     },
                     {
                       "step": 11,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -145,6 +185,11 @@
                     },
                     {
                       "step": 12,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -154,7 +199,8 @@
                     {
                       "step": 13,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {}
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -164,6 +210,11 @@
                     },
                     {
                       "step": 14,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -173,17 +224,24 @@
                     {
                       "step": 15,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {
+                          "text": "_sdv_init2"
+                        }
                       },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "target": "_sdv_init2",
                         "currentDataValues": "^s=0^====Pre=====^____true"
                       }
                     },
                     {
                       "step": 16,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -192,6 +250,11 @@
                     },
                     {
                       "step": 17,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -208,6 +271,9 @@
                           "region": {
                             "startLine": 77
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -226,6 +292,9 @@
                           "region": {
                             "startLine": 81
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -244,6 +313,9 @@
                           "region": {
                             "startLine": 83
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -262,6 +334,9 @@
                           "region": {
                             "startLine": 88
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -281,6 +356,9 @@
                           "region": {
                             "startLine": 91
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -300,6 +378,9 @@
                           "region": {
                             "startLine": 95
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -319,6 +400,9 @@
                           "region": {
                             "startLine": 99
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -338,6 +422,9 @@
                           "region": {
                             "startLine": 106
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -357,6 +444,9 @@
                           "region": {
                             "startLine": 111
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -376,6 +466,9 @@
                           "region": {
                             "startLine": 116
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -395,6 +488,9 @@
                           "region": {
                             "startLine": 120
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -414,6 +510,9 @@
                           "region": {
                             "startLine": 127
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -433,6 +532,9 @@
                           "region": {
                             "startLine": 131
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -452,6 +554,9 @@
                           "region": {
                             "startLine": 135
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -471,6 +576,9 @@
                           "region": {
                             "startLine": 139
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -490,6 +598,9 @@
                           "region": {
                             "startLine": 144
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -509,6 +620,9 @@
                           "region": {
                             "startLine": 159
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -527,6 +641,9 @@
                           "region": {
                             "startLine": 202
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -545,6 +662,9 @@
                           "region": {
                             "startLine": 203
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -563,6 +683,9 @@
                           "region": {
                             "startLine": 204
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -581,6 +704,9 @@
                           "region": {
                             "startLine": 205
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -599,6 +725,9 @@
                           "region": {
                             "startLine": 206
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -617,6 +746,9 @@
                           "region": {
                             "startLine": 207
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -635,6 +767,9 @@
                           "region": {
                             "startLine": 209
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -653,6 +788,9 @@
                           "region": {
                             "startLine": 217
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -672,6 +810,9 @@
                           "region": {
                             "startLine": 237
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -691,6 +832,9 @@
                           "region": {
                             "startLine": 240
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -709,6 +853,9 @@
                           "region": {
                             "startLine": 245
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -728,6 +875,9 @@
                           "region": {
                             "startLine": 249
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -747,6 +897,9 @@
                           "region": {
                             "startLine": 253
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -766,6 +919,9 @@
                           "region": {
                             "startLine": 256
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -785,6 +941,9 @@
                           "region": {
                             "startLine": 260
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -803,6 +962,9 @@
                           "region": {
                             "startLine": 263
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -821,6 +983,9 @@
                           "region": {
                             "startLine": 266
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -839,6 +1004,9 @@
                           "region": {
                             "startLine": 272
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -858,6 +1026,9 @@
                           "region": {
                             "startLine": 1219
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -876,6 +1047,9 @@
                           "region": {
                             "startLine": 1220
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -894,6 +1068,9 @@
                           "region": {
                             "startLine": 1221
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -912,6 +1089,9 @@
                           "region": {
                             "startLine": 1224
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -930,6 +1110,9 @@
                           "region": {
                             "startLine": 1235
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -948,6 +1131,9 @@
                           "region": {
                             "startLine": 1250
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -966,6 +1152,9 @@
                           "region": {
                             "startLine": 1252
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -984,6 +1173,9 @@
                           "region": {
                             "startLine": 1266
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -1002,6 +1194,9 @@
                           "region": {
                             "startLine": 9532
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -1021,6 +1216,9 @@
                           "region": {
                             "startLine": 13920
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 2,
@@ -1032,7 +1230,8 @@
                     {
                       "step": 63,
                       "location": {
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {}
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -1042,6 +1241,11 @@
                     },
                     {
                       "step": 64,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1058,6 +1262,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Conditional"
                         }
                       },
                       "nestingLevel": 1,
@@ -1069,6 +1276,11 @@
                     },
                     {
                       "step": 66,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1077,6 +1289,11 @@
                     },
                     {
                       "step": 67,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1093,6 +1310,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 1,
@@ -1104,6 +1324,11 @@
                     },
                     {
                       "step": 69,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1120,6 +1345,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Conditional"
                         }
                       },
                       "nestingLevel": 1,
@@ -1131,6 +1359,11 @@
                     },
                     {
                       "step": 71,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1139,6 +1372,11 @@
                     },
                     {
                       "step": 72,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1155,6 +1393,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 1,
@@ -1166,6 +1407,11 @@
                     },
                     {
                       "step": 74,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
@@ -1182,6 +1428,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 1,
@@ -1201,6 +1450,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 1,
@@ -1220,6 +1472,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 1,
@@ -1239,6 +1494,9 @@
                           "region": {
                             "startLine": 6710
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 1,
@@ -1259,16 +1517,23 @@
                             "startLine": 6711
                           }
                         },
-                        "fullyQualifiedLogicalName": "main"
+                        "fullyQualifiedLogicalName": "main",
+                        "message": {
+                          "text": "sdv_main"
+                        }
                       },
                       "nestingLevel": 1,
                       "properties": {
-                        "target": "sdv_main",
                         "currentDataValues": "^s=0^====Pre=====^____true"
                       }
                     },
                     {
                       "step": 80,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1277,6 +1542,11 @@
                     },
                     {
                       "step": 81,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1294,16 +1564,23 @@
                             "startLine": 5350
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckDispatchRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckDispatchRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 83,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1312,6 +1589,11 @@
                     },
                     {
                       "step": 84,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1328,6 +1610,9 @@
                           "region": {
                             "startLine": 4810
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1347,7 +1632,8 @@
                             "startLine": 4810
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1357,6 +1643,11 @@
                     },
                     {
                       "step": 87,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1374,16 +1665,23 @@
                             "startLine": 5351
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckStartIoRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckStartIoRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 89,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1392,6 +1690,11 @@
                     },
                     {
                       "step": 90,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1408,6 +1711,9 @@
                           "region": {
                             "startLine": 4822
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1427,7 +1733,8 @@
                             "startLine": 4822
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1437,6 +1744,11 @@
                     },
                     {
                       "step": 93,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1454,16 +1766,23 @@
                             "startLine": 5352
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckDpcRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckDpcRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 95,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1472,6 +1791,11 @@
                     },
                     {
                       "step": 96,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1488,6 +1812,9 @@
                           "region": {
                             "startLine": 4842
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1507,7 +1834,8 @@
                             "startLine": 4842
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1517,6 +1845,11 @@
                     },
                     {
                       "step": 99,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1534,16 +1867,23 @@
                             "startLine": 5353
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckIsrRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckIsrRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 101,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1552,6 +1892,11 @@
                     },
                     {
                       "step": 102,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1568,6 +1913,9 @@
                           "region": {
                             "startLine": 4857
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1587,7 +1935,8 @@
                             "startLine": 4857
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1597,6 +1946,11 @@
                     },
                     {
                       "step": 105,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1614,16 +1968,23 @@
                             "startLine": 5354
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckCancelRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckCancelRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 107,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1632,6 +1993,11 @@
                     },
                     {
                       "step": 108,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1648,6 +2014,9 @@
                           "region": {
                             "startLine": 4877
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1667,7 +2036,8 @@
                             "startLine": 4877
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1677,6 +2047,11 @@
                     },
                     {
                       "step": 111,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1694,16 +2069,23 @@
                             "startLine": 5356
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckIoDpcRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckIoDpcRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 113,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1712,6 +2094,11 @@
                     },
                     {
                       "step": 114,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1728,6 +2115,9 @@
                           "region": {
                             "startLine": 4912
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1747,7 +2137,8 @@
                             "startLine": 4912
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1757,6 +2148,11 @@
                     },
                     {
                       "step": 117,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1774,16 +2170,23 @@
                             "startLine": 5357
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_IoCompletionRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_IoCompletionRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 119,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1792,6 +2195,11 @@
                     },
                     {
                       "step": 120,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1808,6 +2216,9 @@
                           "region": {
                             "startLine": 4928
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1827,7 +2238,8 @@
                             "startLine": 4928
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1837,6 +2249,11 @@
                     },
                     {
                       "step": 123,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1854,16 +2271,23 @@
                             "startLine": 5358
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckWorkerRoutines"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckWorkerRoutines",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 125,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1872,6 +2296,11 @@
                     },
                     {
                       "step": 126,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1888,6 +2317,9 @@
                           "region": {
                             "startLine": 4946
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1907,7 +2339,8 @@
                             "startLine": 4946
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1917,6 +2350,11 @@
                     },
                     {
                       "step": 129,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -1934,16 +2372,23 @@
                             "startLine": 5359
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckAddDevice"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckAddDevice",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 131,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1952,6 +2397,11 @@
                     },
                     {
                       "step": 132,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -1968,6 +2418,9 @@
                           "region": {
                             "startLine": 4955
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -1987,7 +2440,8 @@
                             "startLine": 4955
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1997,6 +2451,11 @@
                     },
                     {
                       "step": 135,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -2014,16 +2473,23 @@
                             "startLine": 5360
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckIrpMjPnp"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckIrpMjPnp",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 137,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2032,6 +2498,11 @@
                     },
                     {
                       "step": 138,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2048,6 +2519,9 @@
                           "region": {
                             "startLine": 4966
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2067,7 +2541,8 @@
                             "startLine": 4966
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2077,6 +2552,11 @@
                     },
                     {
                       "step": 141,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -2094,16 +2574,23 @@
                             "startLine": 5361
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckIrpMjPower"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckIrpMjPower",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 143,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2112,6 +2599,11 @@
                     },
                     {
                       "step": 144,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2128,6 +2620,9 @@
                           "region": {
                             "startLine": 4978
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2147,7 +2642,8 @@
                             "startLine": 4978
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2157,6 +2653,11 @@
                     },
                     {
                       "step": 147,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -2174,16 +2675,23 @@
                             "startLine": 5362
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_CheckDriverUnload"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_CheckDriverUnload",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 149,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2192,6 +2700,11 @@
                     },
                     {
                       "step": 150,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2208,6 +2721,9 @@
                           "region": {
                             "startLine": 4989
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2227,7 +2743,8 @@
                             "startLine": 4989
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2237,6 +2754,11 @@
                     },
                     {
                       "step": 153,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -2253,6 +2775,9 @@
                           "region": {
                             "startLine": 5367
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 2,
@@ -2271,6 +2796,9 @@
                           "region": {
                             "startLine": 5380
                           }
+                        },
+                        "message": {
+                          "text": "Conditional"
                         }
                       },
                       "nestingLevel": 2,
@@ -2291,16 +2819,23 @@
                             "startLine": 5382
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_stub_driver_init"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_stub_driver_init",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 157,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2309,6 +2844,11 @@
                     },
                     {
                       "step": 158,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2326,7 +2866,8 @@
                             "startLine": 6725
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {}
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2336,6 +2877,11 @@
                     },
                     {
                       "step": 160,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
@@ -2353,17 +2899,24 @@
                             "startLine": 5383
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main"
+                        "fullyQualifiedLogicalName": "sdv_main",
+                        "message": {
+                          "text": "sdv_RunDispatchFunction"
+                        }
                       },
                       "nestingLevel": 2,
                       "properties": {
-                        "target": "sdv_RunDispatchFunction",
                         "currentDataValues": "^arg1=14536^arg2=13708",
                         "permanentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 162,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2372,6 +2925,11 @@
                     },
                     {
                       "step": 163,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2388,6 +2946,9 @@
                           "region": {
                             "startLine": 1632
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2398,6 +2959,11 @@
                     },
                     {
                       "step": 165,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2414,6 +2980,9 @@
                           "region": {
                             "startLine": 1635
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2433,6 +3002,9 @@
                           "region": {
                             "startLine": 1637
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2452,6 +3024,9 @@
                           "region": {
                             "startLine": 1638
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2470,6 +3045,9 @@
                           "region": {
                             "startLine": 1639
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2489,6 +3067,9 @@
                           "region": {
                             "startLine": 1639
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2509,17 +3090,24 @@
                             "startLine": 1641
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
+                        "message": {
+                          "text": "sdv_SetStatus"
+                        }
                       },
                       "nestingLevel": 3,
                       "properties": {
-                        "target": "sdv_SetStatus",
                         "currentDataValues": "^arg1=13708",
                         "permanentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 172,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -2528,6 +3116,11 @@
                     },
                     {
                       "step": 173,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -2544,6 +3137,9 @@
                           "region": {
                             "startLine": 1512
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 4,
@@ -2562,6 +3158,9 @@
                           "region": {
                             "startLine": 1514
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2572,6 +3171,11 @@
                     },
                     {
                       "step": 176,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -2589,7 +3193,8 @@
                             "startLine": 1521
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
+                        "message": {}
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant",
@@ -2599,6 +3204,11 @@
                     },
                     {
                       "step": 178,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2615,6 +3225,9 @@
                           "region": {
                             "startLine": 1643
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2633,6 +3246,9 @@
                           "region": {
                             "startLine": 1644
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2651,6 +3267,9 @@
                           "region": {
                             "startLine": 1648
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2670,6 +3289,9 @@
                           "region": {
                             "startLine": 1649
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2688,6 +3310,9 @@
                           "region": {
                             "startLine": 1650
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2706,6 +3331,9 @@
                           "region": {
                             "startLine": 1650
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2724,6 +3352,9 @@
                           "region": {
                             "startLine": 1650
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2742,6 +3373,9 @@
                           "region": {
                             "startLine": 1652
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -2761,16 +3395,23 @@
                             "startLine": 1654
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
+                        "message": {
+                          "text": "sdv_stub_dispatch_begin"
+                        }
                       },
                       "nestingLevel": 3,
                       "properties": {
-                        "target": "sdv_stub_dispatch_begin",
                         "currentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 188,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -2779,6 +3420,11 @@
                     },
                     {
                       "step": 189,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -2795,6 +3441,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2814,6 +3463,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2833,6 +3485,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2852,6 +3507,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2871,6 +3529,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2890,6 +3551,9 @@
                           "region": {
                             "startLine": 6761
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -2909,7 +3573,8 @@
                             "startLine": 6762
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
+                        "message": {}
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant",
@@ -2919,6 +3584,11 @@
                     },
                     {
                       "step": 197,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2935,6 +3605,9 @@
                           "region": {
                             "startLine": 1656
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 3,
@@ -2945,6 +3618,11 @@
                     },
                     {
                       "step": 199,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2953,6 +3631,11 @@
                     },
                     {
                       "step": 200,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2961,6 +3644,11 @@
                     },
                     {
                       "step": 201,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2969,6 +3657,11 @@
                     },
                     {
                       "step": 202,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2977,6 +3670,11 @@
                     },
                     {
                       "step": 203,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2985,6 +3683,11 @@
                     },
                     {
                       "step": 204,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -2993,6 +3696,11 @@
                     },
                     {
                       "step": 205,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3001,6 +3709,11 @@
                     },
                     {
                       "step": 206,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3009,6 +3722,11 @@
                     },
                     {
                       "step": 207,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3017,6 +3735,11 @@
                     },
                     {
                       "step": 208,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3025,6 +3748,11 @@
                     },
                     {
                       "step": 209,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3033,6 +3761,11 @@
                     },
                     {
                       "step": 210,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3041,6 +3774,11 @@
                     },
                     {
                       "step": 211,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3049,6 +3787,11 @@
                     },
                     {
                       "step": 212,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
@@ -3065,6 +3808,9 @@
                           "region": {
                             "startLine": 1870
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 3,
@@ -3084,17 +3830,24 @@
                             "startLine": 1872
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
+                        "message": {
+                          "text": "DispatchSystemControl"
+                        }
                       },
                       "nestingLevel": 3,
                       "properties": {
-                        "target": "DispatchSystemControl",
                         "currentDataValues": "^arg1=14536^arg2=13708",
                         "permanentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 215,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3103,6 +3856,11 @@
                     },
                     {
                       "step": 216,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3119,6 +3877,9 @@
                           "region": {
                             "startLine": 169
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -3137,6 +3898,9 @@
                           "region": {
                             "startLine": 169
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 4,
@@ -3155,6 +3919,9 @@
                           "region": {
                             "startLine": 170
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -3173,6 +3940,9 @@
                           "region": {
                             "startLine": 170
                           }
+                        },
+                        "message": {
+                          "text": "Continuation"
                         }
                       },
                       "nestingLevel": 4,
@@ -3183,6 +3953,11 @@
                     },
                     {
                       "step": 221,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3191,6 +3966,11 @@
                     },
                     {
                       "step": 222,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3209,18 +3989,25 @@
                             "startLine": 172
                           }
                         },
-                        "fullyQualifiedLogicalName": "DispatchSystemControl"
+                        "fullyQualifiedLogicalName": "DispatchSystemControl",
+                        "message": {
+                          "text": "IoAcquireCancelSpinLock"
+                        }
                       },
                       "nestingLevel": 4,
                       "importance": "essential",
                       "properties": {
-                        "target": "IoAcquireCancelSpinLock",
                         "currentDataValues": "^arg1=17116",
                         "permanentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 224,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3229,6 +4016,11 @@
                     },
                     {
                       "step": 225,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3245,6 +4037,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3264,6 +4059,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3283,6 +4081,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3302,6 +4103,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3321,6 +4125,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3340,6 +4147,9 @@
                           "region": {
                             "startLine": 9556
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3358,6 +4168,9 @@
                           "region": {
                             "startLine": 9557
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 5,
@@ -3378,17 +4191,24 @@
                             "startLine": 9558
                           }
                         },
-                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock"
+                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock",
+                        "message": {
+                          "text": "SLIC_IoAcquireCancelSpinLock_exit"
+                        }
                       },
                       "nestingLevel": 5,
                       "properties": {
-                        "target": "SLIC_IoAcquireCancelSpinLock_exit",
                         "currentDataValues": "^arg1=8",
                         "permanentDataValues": "^s=0"
                       }
                     },
                     {
                       "step": 234,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
@@ -3405,6 +4225,9 @@
                           "region": {
                             "startLine": 38
                           }
+                        },
+                        "message": {
+                          "text": "Conditional"
                         }
                       },
                       "nestingLevel": 6,
@@ -3424,6 +4247,9 @@
                           "region": {
                             "startLine": 41
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 6,
@@ -3434,6 +4260,11 @@
                     },
                     {
                       "step": 237,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
@@ -3443,7 +4274,8 @@
                     {
                       "step": 238,
                       "location": {
-                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock"
+                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock",
+                        "message": {}
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant",
@@ -3453,6 +4285,11 @@
                     },
                     {
                       "step": 239,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3461,6 +4298,11 @@
                     },
                     {
                       "step": 240,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3479,7 +4321,8 @@
                             "startLine": 9558
                           }
                         },
-                        "fullyQualifiedLogicalName": "DispatchSystemControl"
+                        "fullyQualifiedLogicalName": "DispatchSystemControl",
+                        "message": {}
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant",
@@ -3489,6 +4332,11 @@
                     },
                     {
                       "step": 242,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3497,6 +4345,11 @@
                     },
                     {
                       "step": 243,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3506,6 +4359,11 @@
                     },
                     {
                       "step": 244,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3515,6 +4373,11 @@
                     },
                     {
                       "step": 245,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 4,
                       "importance": "unimportant",
                       "properties": {
@@ -3531,6 +4394,9 @@
                           "region": {
                             "startLine": 174
                           }
+                        },
+                        "message": {
+                          "text": "Assignment"
                         }
                       },
                       "nestingLevel": 4,
@@ -3550,18 +4416,25 @@
                             "startLine": 174
                           }
                         },
-                        "fullyQualifiedLogicalName": "DispatchSystemControl"
+                        "fullyQualifiedLogicalName": "DispatchSystemControl",
+                        "message": {
+                          "text": "SLIC_DispatchSystemControl_exit"
+                        }
                       },
                       "nestingLevel": 4,
                       "importance": "essential",
                       "properties": {
-                        "target": "SLIC_DispatchSystemControl_exit",
                         "currentDataValues": "^arg1=8",
                         "permanentDataValues": "^s=1"
                       }
                     },
                     {
                       "step": 248,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3578,6 +4451,9 @@
                           "region": {
                             "startLine": 58
                           }
+                        },
+                        "message": {
+                          "text": "Conditional"
                         }
                       },
                       "nestingLevel": 5,
@@ -3598,17 +4474,24 @@
                             "startLine": 60
                           }
                         },
-                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit"
+                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit",
+                        "message": {
+                          "text": "SLIC_ABORT_7_0"
+                        }
                       },
                       "nestingLevel": 5,
                       "properties": {
-                        "target": "SLIC_ABORT_7_0",
                         "currentDataValues": "^arg1=8",
                         "permanentDataValues": "^s=1"
                       }
                     },
                     {
                       "step": 251,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
@@ -3617,6 +4500,11 @@
                     },
                     {
                       "step": 252,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
@@ -3627,18 +4515,25 @@
                     {
                       "step": 253,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0"
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0",
+                        "message": {
+                          "text": "SLIC_ERROR_ROUTINE"
+                        }
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
-                        "target": "SLIC_ERROR_ROUTINE",
                         "currentDataValues": "^arg1=5",
                         "permanentDataValues": "^s=1"
                       }
                     },
                     {
                       "step": 254,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 7,
                       "importance": "unimportant",
                       "properties": {
@@ -3647,6 +4542,11 @@
                     },
                     {
                       "step": 255,
+                      "location": {
+                        "message": {
+                          "text": "Assignment"
+                        }
+                      },
                       "nestingLevel": 7,
                       "importance": "unimportant",
                       "properties": {
@@ -3656,7 +4556,8 @@
                     {
                       "step": 256,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0"
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0",
+                        "message": {}
                       },
                       "nestingLevel": 7,
                       "importance": "unimportant",
@@ -3666,6 +4567,11 @@
                     },
                     {
                       "step": 257,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 6,
                       "importance": "unimportant",
                       "properties": {
@@ -3675,7 +4581,8 @@
                     {
                       "step": 258,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit"
+                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit",
+                        "message": {}
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant",
@@ -3685,6 +4592,11 @@
                     },
                     {
                       "step": 259,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3693,6 +4605,11 @@
                     },
                     {
                       "step": 260,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3702,6 +4619,11 @@
                     },
                     {
                       "step": 261,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3710,6 +4632,11 @@
                     },
                     {
                       "step": 262,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3719,6 +4646,11 @@
                     },
                     {
                       "step": 263,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3727,6 +4659,11 @@
                     },
                     {
                       "step": 264,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3736,6 +4673,11 @@
                     },
                     {
                       "step": 265,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3744,6 +4686,11 @@
                     },
                     {
                       "step": 266,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3753,6 +4700,11 @@
                     },
                     {
                       "step": 267,
+                      "location": {
+                        "message": {
+                          "text": "Continuation"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3761,6 +4713,11 @@
                     },
                     {
                       "step": 268,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3770,6 +4727,11 @@
                     },
                     {
                       "step": 269,
+                      "location": {
+                        "message": {
+                          "text": "Conditional"
+                        }
+                      },
                       "nestingLevel": 5,
                       "importance": "unimportant",
                       "properties": {
@@ -3780,7 +4742,8 @@
                     {
                       "step": 270,
                       "location": {
-                        "fullyQualifiedLogicalName": "DispatchSystemControl"
+                        "fullyQualifiedLogicalName": "DispatchSystemControl",
+                        "message": {}
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant",
