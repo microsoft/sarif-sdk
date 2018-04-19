@@ -19,8 +19,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
-                    Target = "my_function",
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -31,8 +29,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                             }
                         }
                     }
-                }
+                },
+                Kind = CallTreeNodeKind.Call
             };
+            callTreeNode.Location.SetProperty("target", "my_function");
 
             VerifyConversion(callTreeNode, "my_function");
         }
@@ -44,7 +44,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -55,7 +54,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                             }
                         }
                     }
-                }
+                },
+                Kind = CallTreeNodeKind.Call
             };
 
             VerifyConversion(callTreeNode, "<unknown callee>");
@@ -68,7 +68,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.CallReturn,
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -79,7 +78,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                             }
                         }
                     }
-                }
+                },
+                Kind = CallTreeNodeKind.Return
             };
 
             VerifyConversion(callTreeNode, "Return");
@@ -92,7 +92,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Continuation,
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -106,7 +105,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, "Continuation");
+            VerifyConversion(callTreeNode, string.Empty);
         }
 
         [Fact]
@@ -116,12 +115,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.CallReturn,
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation()
                     }
-                }
+                },
+                Kind = CallTreeNodeKind.Return
             };
 
             VerifyConversion(callTreeNode, "Return");
@@ -137,8 +136,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
-                    Target = "my_function",
                     Location = new Location
                     {
                         Message = new Message
@@ -159,6 +156,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     }
                 }
             };
+            callTreeNode.Location.SetProperty("target", "my_function");
 
             VerifyConversion(callTreeNode, message);
         }
@@ -173,8 +171,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
-                    Target = "my_function",
                     Location = new Location
                     {
                         Message = new Message
@@ -195,6 +191,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     }
                 }
             };
+            callTreeNode.Location.SetProperty("target", "my_function");
 
             VerifyConversion(callTreeNode, snippet.Trim());
         }
@@ -208,8 +205,6 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
-                    Target = "my_function",
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -226,6 +221,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                     }
                 }
             };
+            callTreeNode.Location.SetProperty("target", "my_function");
 
             VerifyConversion(callTreeNode, snippet.Trim());
         }
@@ -233,30 +229,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         [Fact]
         public void CallTreeNodeToTextConverter_HandlesNullSnippet()
         {
-            string snippet = null;
-
             var callTreeNode = new CallTreeNode
             {
                 Location = new CodeFlowLocation
                 {
-                    Kind = CodeFlowLocationKind.Call,
-                    Target = "my_function",
                     Location = new Location
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
                             Region = new Region
                             {
-                                StartLine = 42,
-                                Snippet = new FileContent
-                                {
-                                    Text = snippet
-                                }
+                                StartLine = 42
                             }
                         }
                     }
-                }
+                },
+                Kind = CallTreeNodeKind.Call
             };
+            callTreeNode.Location.SetProperty("target", "my_function");
 
             VerifyConversion(callTreeNode, "my_function");
         }
@@ -269,6 +259,5 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             text.Should().Be(expectedText);
         }
-
     }
 }

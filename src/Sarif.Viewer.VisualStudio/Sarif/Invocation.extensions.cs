@@ -3,11 +3,6 @@
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -29,7 +24,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 Machine = invocation.Machine,
                 Account = invocation.Account,
                 ProcessId = invocation.ProcessId,
-                FileName = invocation.FileName,
+                FileName = invocation.ExecutableLocation.Uri.ToString(),
                 WorkingDirectory = invocation.WorkingDirectory,
                 EnvironmentVariables = invocation.EnvironmentVariables,
             };

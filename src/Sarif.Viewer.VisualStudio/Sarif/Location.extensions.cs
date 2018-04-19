@@ -1,22 +1,17 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class LocationExtensions
     {
-        public static Microsoft.Sarif.Viewer.Models.CodeFlowLocationModel ToAnnotatedCodeLocationModel(this Location location)
+        public static CodeFlowLocationModel ToCodeFlowLocationModel(this Location location)
         {
-            CodeFlowLocationModel model = new CodeFlowLocationModel();
+            var model = new CodeFlowLocationModel();
             PhysicalLocation physicalLocation = location.PhysicalLocation;
 
             if (physicalLocation?.FileLocation != null)

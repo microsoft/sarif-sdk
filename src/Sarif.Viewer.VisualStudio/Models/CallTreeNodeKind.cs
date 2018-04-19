@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-namespace Microsoft.Sarif.Viewer
+namespace Microsoft.Sarif.Viewer.Models
 {
-    public interface IToolWindow
+    public enum CallTreeNodeKind
     {
-        void UpdateSelectionList(params object[] items);
+        Default = 0,
+        Call = 1,
+        Return = 2
     }
 }

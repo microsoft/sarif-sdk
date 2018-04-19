@@ -81,9 +81,18 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
+                RuleMessageId = "nonExistentMessageId"
             };
 
-            var run = new Run();
+            var run = new Run
+            {
+                Resources = new CodeAnalysis.Sarif.Resources()
+                {
+                    Rules = new Dictionary<string, Rule>
+                    {
+                    }
+                }
+            };
 
             var item = MakeErrorListItem(run, result);
 
@@ -91,16 +100,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageStrings_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageFormats_ContainsBlankMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
+                RuleMessageId = "nonExistentMessageId"
             };
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {
@@ -121,16 +131,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageString_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToNonExistentMessageFormat_ContainsBlankMessage()
         {
             var result = new Result
             {
-                RuleId = "TST0001"
+                RuleId = "TST0001",
+                RuleMessageId = "nonExistentFormatId"
             };
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {
@@ -141,7 +152,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 Id = "TST0001",
                                 MessageStrings = new Dictionary<string, string>
                                 {
-                                    { "realMessageId", "The message" }
+                                    { "realFormatId", "The message" }
                                 }
                             }
                         }
@@ -155,18 +166,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToExistingMessageString_ContainsExpectedMessage()
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageFormat_ContainsExpectedMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                RuleMessageId = "greeting",
-                Message = new Message { Arguments = new[] { "Mary" } }
+                RuleMessageId = "greeting", 
+                Message = new Message()
+                {
+                    Arguments = new string[]
+                    {
+                        "Mary"
+                    }
+                }
             };
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {
@@ -232,7 +249,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {
@@ -262,7 +279,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {
@@ -277,10 +294,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenMessageAndTemplatedMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenMessageAndFormattedRuleMessageAreAbsentButRuleMetadataIsPresent_ContainsBlankMessage()
         {
             // This test prevents regression of #647,
-            // "Viewer NRE when result lacks message but rule metadata is present"
+            // "Viewer NRE when result lacks message/formattedRuleMessage but rule metadata is present"
             var result = new Result
             {
                 RuleId = "TST0001"
@@ -288,7 +305,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
                     Rules = new Dictionary<string, Rule>
                     {

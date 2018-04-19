@@ -9,7 +9,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class CodeFlowLocationExtensions
     {
-        public static Microsoft.Sarif.Viewer.Models.CodeFlowLocationModel ToAnnotatedCodeLocationModel(this CodeFlowLocation codeFlowLocation)
+        public static CodeFlowLocationModel ToCodeFlowLocationModel(this CodeFlowLocation codeFlowLocation)
         {
             CodeFlowLocationModel model = new CodeFlowLocationModel();
 
@@ -31,7 +31,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 model.LogicalLocation = codeFlowLocation.Location.FullyQualifiedLogicalName;
             }
 
-            model.Kind = codeFlowLocation.Kind.ToString();
+            model.Kind = "NODE_KIND";
             model.IsEssential = codeFlowLocation.Importance == CodeFlowLocationImportance.Essential;
 
             return model;

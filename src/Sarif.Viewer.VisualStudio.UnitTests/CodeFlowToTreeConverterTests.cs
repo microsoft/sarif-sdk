@@ -14,87 +14,84 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void CanConvertCodeFlowToTree()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<CodeFlowLocation>
+                new CodeFlowLocation
                 {
-                    new CodeFlowLocation
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "first parent"
-                            }
+                            Text = "first parent"
                         }
-                    },
-                    new CodeFlowLocation
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "second parent"
-                            }
+                            Text = "second parent"
                         }
-                    },
-                    new CodeFlowLocation
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "third parent"
-                            }
+                            Text = "third parent"
                         }
-                    },
-                    new CodeFlowLocation
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "fourth parent"
-                            }
+                            Text = "fourth parent"
                         }
-                    },
-                    new CodeFlowLocation
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "fifth parent"
-                            }
+                            Text = "fifth parent"
                         }
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.CallReturn,
-                    },
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn,
                 }
-            };
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -103,16 +100,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Children[2].Children.Count.Should().Be(1);
 
             // Check that we have the right nodes at the right places in the tree.
-            topLevelNodes[0].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[0].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[0].Children[0].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
-            topLevelNodes[0].Children[1].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[0].Children[1].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
-            topLevelNodes[0].Children[2].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[0].Children[2].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
-            topLevelNodes[0].Children[3].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
-            topLevelNodes[1].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[1].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0);                         // Call
+            topLevelNodes[0].Children[0].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[0].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[1].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[1].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[2].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[2].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[3].Location.NestingLevel.Should().Be(1);             // CallReturn
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0);                         // Call
+            topLevelNodes[1].Children[0].Location.NestingLevel.Should().Be(1);             // CallReturn
 
             // Check parents
             topLevelNodes[0].Parent.Should().Be(null);
@@ -130,62 +127,59 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void CanConvertCodeFlowToTreeNonCallOrReturn()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<CodeFlowLocation>
+                new CodeFlowLocation
                 {
-                    new CodeFlowLocation
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "first parent"
-                            }
+                            Text = "first parent"
                         }
-                    },
-                    new CodeFlowLocation
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Call,
-                        Location = new Location
+                        Message = new Message
                         {
-                            Message = new Message
-                            {
-                                Text = "second parent"
-                            }
+                            Text = "second parent"
                         }
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.CallReturn
-                    },
-                }
-            };
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -194,11 +188,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[1].Children.Count.Should().Be(3);
 
             // Spot-check that we have the right nodes at the right places in the tree.
-            topLevelNodes[0].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[0].Children[0].Location.Kind.Should().Be(CodeFlowLocationKind.Declaration);
-            topLevelNodes[0].Children[3].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
-            topLevelNodes[1].Location.Kind.Should().Be(CodeFlowLocationKind.Call);
-            topLevelNodes[1].Children[2].Location.Kind.Should().Be(CodeFlowLocationKind.CallReturn);
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0);             // Call
+            topLevelNodes[0].Children[0].Location.NestingLevel.Should().Be(1); // Declaration
+            topLevelNodes[0].Children[3].Location.NestingLevel.Should().Be(1); // CallReturn
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0);             // Call
+            topLevelNodes[1].Children[2].Location.NestingLevel.Should().Be(1); // CallReturn
 
             // Check parents
             topLevelNodes[0].Parent.Should().Be(null);
@@ -215,24 +209,21 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void CanConvertCodeFlowToTreeOnlyDeclarations()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<CodeFlowLocation>
+                new CodeFlowLocation
                 {
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                    new CodeFlowLocation
-                    {
-                        Kind = CodeFlowLocationKind.Declaration
-                    },
-                }
-            };
+                    NestingLevel = 0, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Declaration
+                },
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -241,9 +232,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[1].Children.Should().BeEmpty();
             topLevelNodes[2].Children.Should().BeEmpty();
 
-            topLevelNodes[0].Location.Kind.Should().Be(CodeFlowLocationKind.Declaration);
-            topLevelNodes[1].Location.Kind.Should().Be(CodeFlowLocationKind.Declaration);
-            topLevelNodes[2].Location.Kind.Should().Be(CodeFlowLocationKind.Declaration);
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0); // Declaration
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0); // Declaration
+            topLevelNodes[2].Location.NestingLevel.Should().Be(0); // Declaration
 
             topLevelNodes[0].Parent.Should().Be(null);
             topLevelNodes[1].Parent.Should().Be(null);

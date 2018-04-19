@@ -1,14 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.Sarif.Viewer.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
 
 namespace Microsoft.Sarif.Viewer.ViewModels
 {
@@ -69,31 +64,31 @@ namespace Microsoft.Sarif.Viewer.ViewModels
             viewModel.Locations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(11, 1, 11, 2, 0, 0, snippet: null),
+                Region = new Region(11, 1, 11, 2, 0, 0, snippet: null),
             });
 
             viewModel.Locations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(12, 1, 12, 2, 0, 0, snippet: null),
+                Region = new Region(12, 1, 12, 2, 0, 0, snippet: null),
             });
 
             viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(21, 1, 21, 2, 0, 0, snippet: null),
+                Region = new Region(21, 1, 21, 2, 0, 0, snippet: null),
             });
 
             viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(22, 1, 22, 2, 0, 0, snippet: null),
+                Region = new Region(22, 1, 22, 2, 0, 0, snippet: null),
             });
 
             viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new CodeAnalysis.Sarif.Region(23, 1, 23, 2, 0, 0, snippet: null),
+                Region = new Region(23, 1, 23, 2, 0, 0, snippet: null),
             });
 
             viewModel.CallTrees.Add(new CallTree(
@@ -101,31 +96,24 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 {
                     new CallTreeNode
                     {
-                        Location = new CodeFlowLocation
-                        {
-                            Kind = CodeFlowLocationKind.Assignment
-                        }
+                        Location = new CodeFlowLocation()
                     },
 
                     new CallTreeNode
                     {
-                        Location = new CodeFlowLocation
-                        {
-                            Kind = CodeFlowLocationKind.Call,
-                            Target = "my_func"
-                        },
+                        Kind = CallTreeNodeKind.Call,
+                        Location = new CodeFlowLocation(),
                         Children = new List<CallTreeNode>
                         {
                             new CallTreeNode
                             {
-                                Location = new CodeFlowLocation
-                                {
-                                    Kind = CodeFlowLocationKind.CallReturn
-                                }
+                                Kind = CallTreeNodeKind.Return,
+                                Location = new CodeFlowLocation()
                             }
                         }
                     }
                 }, SarifViewerPackage.SarifToolWindow));
+            viewModel.CallTrees[0].TopLevelNodes[1].Location.SetProperty("target", "my_func");
 
             StackCollection stack1 = new StackCollection("Stack A1");
             stack1.Add(new StackFrameModel()

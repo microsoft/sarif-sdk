@@ -64,6 +64,9 @@
     <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
+    <Compile Include="Models\CallTreeNodeKind.cs" />
+    <Compile Include="Models\CodeFlowLocationCollection.cs" />
+    <Compile Include="Models\CodeFlowLocationModel.cs" />
     <Compile Include="Models\FileDetailsModel.cs" />
     <Compile Include="Models\FixOffsetList.cs" />
     <Compile Include="Models\InvocationModel.cs" />
@@ -93,7 +96,7 @@
     <Compile Include="Sarif\IPropertyBagHolder.extensions.cs" />
     <Compile Include="Models\RuleModel.cs" />
     <Compile Include="Models\ToolModel.cs" />
-    <Compile Include="Sarif\CodeFlowLocationExtensions.cs" />
+    <Compile Include="Sarif\CodeFlowLocation.extensions.cs" />
     <Compile Include="Sarif\Region.extensions.cs" />
     <Compile Include="Sarif\ResultLevel.extensions.cs" />
     <Compile Include="Sarif\Result.extensions.cs" />
@@ -116,8 +119,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="Guids.cs" />
-    <Compile Include="Models\CodeFlowLocationModel.cs" />
-    <Compile Include="Models\CodeFlowLocationCollection.cs" />
     <Compile Include="OpenLogFileCommands.cs" />
     <Compile Include="ProjectHelper.cs" />
     <Compile Include="ProjectKind.cs" />
@@ -163,14 +164,6 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=2.2.1.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommandLineParser.2.2.1\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.7.1.0\lib\net45\CsvHelper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>..\packages\EnvDTE.8.0.2\lib\net10\EnvDTE.dll</HintPath>
@@ -331,19 +324,19 @@
       <HintPath>..\packages\Microsoft.VisualStudio.Validation.15.3.15\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Sarif, Version=1.7.5.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Sdk.1.7.5\lib\net452\Sarif.dll</HintPath>
+    <Reference Include="Sarif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Sdk.2.0.0\lib\net452\Sarif.dll</HintPath>
     </Reference>
-    <Reference Include="Sarif.Converters, Version=1.7.5.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Converters.1.7.5\lib\net452\Sarif.Converters.dll</HintPath>
+    <Reference Include="Sarif.Converters, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Converters.2.0.0\lib\net452\Sarif.Converters.dll</HintPath>
     </Reference>
-    <Reference Include="Sarif.Driver, Version=1.7.5.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sarif.Driver.1.7.5\lib\net452\Sarif.Driver.dll</HintPath>
+    <Reference Include="Sarif.Driver, Version=2.0.0.0, Culture=neutral, PublicKeyToken=21a5e83f6f5bb844, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sarif.Driver.2.0.0-beta\lib\net452\Sarif.Driver.dll</HintPath>
     </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
