@@ -86,12 +86,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Resources = new CodeAnalysis.Sarif.Resources()
-                {
-                    Rules = new Dictionary<string, Rule>
-                    {
-                    }
-                }
+                Resources = new CodeAnalysis.Sarif.Resources() { }
             };
 
             var item = MakeErrorListItem(run, result);

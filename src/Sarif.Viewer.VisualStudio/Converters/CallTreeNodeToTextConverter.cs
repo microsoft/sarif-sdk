@@ -28,8 +28,7 @@ namespace Microsoft.Sarif.Viewer.Converters
             // Use the following preferences for the CallTreeNode text.
             // 1. CodeFlowLocation.Location.Message.Text
             // 2. CodeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text
-            // 3. Callee for calls
-            // 4. "Return" for returns
+            // 3. "<unknown callee>"
             string text = string.Empty;
 
             CodeFlowLocation codeFlowLocation = node.Location;
@@ -45,20 +44,7 @@ namespace Microsoft.Sarif.Viewer.Converters
                 }
                 else
                 {
-                    switch (node.Kind)
-                    {
-                        case CallTreeNodeKind.Call:
-                            string callee;
-                            
-                            text = codeFlowLocation.TryGetProperty("target", out callee) ?
-                                        callee :
-                                        Resources.UnknownCalleeMessage;
-                            break;
-
-                        case CallTreeNodeKind.Return:
-                            text = Resources.ReturnMessage;
-                            break;
-                    }
+                    text = Resources.UnknownCalleeMessage;
                 }
             }
 

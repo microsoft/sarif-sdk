@@ -64,7 +64,6 @@
     <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
-    <Compile Include="Models\CallTreeNodeKind.cs" />
     <Compile Include="Models\CodeFlowLocationCollection.cs" />
     <Compile Include="Models\CodeFlowLocationModel.cs" />
     <Compile Include="Models\FileDetailsModel.cs" />
@@ -404,7 +403,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
@@ -510,16 +509,16 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
       <Project>{d0d4ac36-b339-47be-ad61-ec08a967d20c}</Project>
       <Name>Sarif.Converters</Name>
-	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
     </ProjectReference>
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj">
       <Project>{c06f0cf1-3505-4715-b6da-047ec86c4308}</Project>
-	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
       <Name>Sarif.Driver</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sarif\Sarif.csproj">
       <Project>{c5fc2683-47cf-447f-b5ea-9fde0fd78754}</Project>
-	  <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
+      <AdditionalProperties>TargetFramework=net452</AdditionalProperties>
       <Name>Sarif</Name>
     </ProjectReference>
   </ItemGroup>

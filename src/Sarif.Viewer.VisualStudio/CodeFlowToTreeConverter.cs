@@ -32,13 +32,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                     {
                         // Previous node was a call
                         lastParent = lastParent.Children.Last();
-                        lastParent.Kind = CallTreeNodeKind.Call;
                     }
                     else if (location.NestingLevel < lastNestingLevel)
                     {
                         // Previous node was a return
                         CallTreeNode node = lastParent.Children.Last(); // Get the last node we created
-                        node.Kind = CallTreeNodeKind.Call;
                         lastParent = node.Parent.Parent;
                     }
 

@@ -22,7 +22,7 @@ namespace Microsoft.Sarif.Viewer {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Microsoft.Sarif.Viewer {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Sarif.Viewer.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Microsoft.Sarif.Viewer {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Always allow downloads from &apos;{0}&apos;.
         /// </summary>
-        internal static string ConfirmDownloadDialog_CheckboxLabel {
+        public static string ConfirmDownloadDialog_CheckboxLabel {
             get {
                 return ResourceManager.GetString("ConfirmDownloadDialog_CheckboxLabel", resourceCulture);
             }
@@ -74,7 +74,7 @@ namespace Microsoft.Sarif.Viewer {
         ///
         ///{0}.
         /// </summary>
-        internal static string ConfirmDownloadDialog_Message {
+        public static string ConfirmDownloadDialog_Message {
             get {
                 return ResourceManager.GetString("ConfirmDownloadDialog_Message", resourceCulture);
             }
@@ -83,7 +83,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Confirm Download.
         /// </summary>
-        internal static string ConfirmDownloadDialog_Title {
+        public static string ConfirmDownloadDialog_Title {
             get {
                 return ResourceManager.GetString("ConfirmDownloadDialog_Title", resourceCulture);
             }
@@ -92,7 +92,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Open File.
         /// </summary>
-        internal static string FileOpenFail_DialogCaption {
+        public static string FileOpenFail_DialogCaption {
             get {
                 return ResourceManager.GetString("FileOpenFail_DialogCaption", resourceCulture);
             }
@@ -101,7 +101,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to The file &apos;{0}&apos; couldn&apos;t be opened by Visual Studio. Would you like to open the containing folder?.
         /// </summary>
-        internal static string FileOpenFail_DialogMessage {
+        public static string FileOpenFail_DialogMessage {
             get {
                 return ResourceManager.GetString("FileOpenFail_DialogMessage", resourceCulture);
             }
@@ -110,7 +110,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Original.
         /// </summary>
-        internal static string FixPreviewWindow_OriginalFileTitle {
+        public static string FixPreviewWindow_OriginalFileTitle {
             get {
                 return ResourceManager.GetString("FixPreviewWindow_OriginalFileTitle", resourceCulture);
             }
@@ -119,7 +119,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Fix Preview.
         /// </summary>
-        internal static string FixPreviewWindow_PreviewFixedFileTitle {
+        public static string FixPreviewWindow_PreviewFixedFileTitle {
             get {
                 return ResourceManager.GetString("FixPreviewWindow_PreviewFixedFileTitle", resourceCulture);
             }
@@ -128,7 +128,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to The log file &apos;{0}&apos; is invalid and couldn&apos;t be opened..
         /// </summary>
-        internal static string LogOpenFail_InvalidFormat_DialogMessage {
+        public static string LogOpenFail_InvalidFormat_DialogMessage {
             get {
                 return ResourceManager.GetString("LogOpenFail_InvalidFormat_DialogMessage", resourceCulture);
             }
@@ -137,7 +137,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to SARIF Explorer found no results in analysis log &apos;{0}&apos;..
         /// </summary>
-        internal static string NoResults_DialogMessage {
+        public static string NoResults_DialogMessage {
             get {
                 return ResourceManager.GetString("NoResults_DialogMessage", resourceCulture);
             }
@@ -146,7 +146,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to Return.
         /// </summary>
-        internal static string ReturnMessage {
+        public static string ReturnMessage {
             get {
                 return ResourceManager.GetString("ReturnMessage", resourceCulture);
             }
@@ -155,7 +155,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] RuleLookup {
+        public static byte[] RuleLookup {
             get {
                 object obj = ResourceManager.GetObject("RuleLookup", resourceCulture);
                 return ((byte[])(obj));
@@ -165,7 +165,7 @@ namespace Microsoft.Sarif.Viewer {
         /// <summary>
         ///   Looks up a localized string similar to &lt;unknown callee&gt;.
         /// </summary>
-        internal static string UnknownCalleeMessage {
+        public static string UnknownCalleeMessage {
             get {
                 return ResourceManager.GetString("UnknownCalleeMessage", resourceCulture);
             }

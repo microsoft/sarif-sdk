@@ -83,8 +83,6 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public CallTreeNodeKind Kind { get; set; } = CallTreeNodeKind.Default;
-
         /// <summary>
         /// Returns the location string formatted for Visual Studio.
         /// e.g. myfile.c (24,10)

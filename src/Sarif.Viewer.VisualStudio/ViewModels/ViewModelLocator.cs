@@ -101,13 +101,11 @@ namespace Microsoft.Sarif.Viewer.ViewModels
 
                     new CallTreeNode
                     {
-                        Kind = CallTreeNodeKind.Call,
                         Location = new CodeFlowLocation(),
                         Children = new List<CallTreeNode>
                         {
                             new CallTreeNode
                             {
-                                Kind = CallTreeNodeKind.Return,
                                 Location = new CodeFlowLocation()
                             }
                         }

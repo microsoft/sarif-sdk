@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public object OriginalUriBaseIds { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
+        /// A dictionary each of whose keys is a URI and each of whose values is a file object.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, FileData> Files { get; set; }
