@@ -346,7 +346,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_ControllerIrp=8520",
+                        "currentDataValues": "^&sdv_ControllerIrp=8520",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -368,7 +368,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_StartIoIrp=14976",
+                        "currentDataValues": "^&sdv_StartIoIrp=14976",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -390,7 +390,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_PowerIrp=15228",
+                        "currentDataValues": "^&sdv_PowerIrp=15228",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -412,7 +412,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harnessIrp=13708",
+                        "currentDataValues": "^&sdv_harnessIrp=13708",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -434,7 +434,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_other_harnessIrp=15708",
+                        "currentDataValues": "^&sdv_other_harnessIrp=15708",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -456,7 +456,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=13028",
+                        "currentDataValues": "^&sdv_IoMakeAssociatedIrp_harnessIrp=13028",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -478,7 +478,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=15468",
+                        "currentDataValues": "^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=15468",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -500,7 +500,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=14484",
+                        "currentDataValues": "^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=14484",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -522,7 +522,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=12260",
+                        "currentDataValues": "^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=12260",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -544,7 +544,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=8508",
+                        "currentDataValues": "^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=8508",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -566,7 +566,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=7292",
+                        "currentDataValues": "^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=7292",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -588,7 +588,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15216",
+                        "currentDataValues": "^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15216",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -610,7 +610,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=9212",
+                        "currentDataValues": "^&sdv_IoInitializeIrp_harnessIrp=9212",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -800,7 +800,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_kdpc_val3=12216",
+                        "currentDataValues": "^&sdv_kdpc_val3=12216",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -822,7 +822,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_devobj_fdo=14536",
+                        "currentDataValues": "^&sdv_devobj_fdo=14536",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -865,7 +865,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_devobj_pdo=8760",
+                        "currentDataValues": "^&sdv_devobj_pdo=8760",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -887,7 +887,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_devobj_child_pdo=13268",
+                        "currentDataValues": "^&sdv_devobj_child_pdo=13268",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -909,7 +909,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_kinterrupt_val=14496",
+                        "currentDataValues": "^&sdv_kinterrupt_val=14496",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -931,7 +931,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_MapRegisterBase_val=13008",
+                        "currentDataValues": "^&sdv_MapRegisterBase_val=13008",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -1016,7 +1016,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_fx_dev_object=14496",
+                        "currentDataValues": "^&sdv_fx_dev_object=14496",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -1206,7 +1206,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_devobj_top=11776",
+                        "currentDataValues": "^&sdv_devobj_top=11776",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -1484,7 +1484,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_harnessStackLocation=11180",
+                        "currentDataValues": "^&sdv_harnessStackLocation=11180",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -1506,7 +1506,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^\u0026sdv_other_harnessStackLocation=16164",
+                        "currentDataValues": "^&sdv_other_harnessStackLocation=16164",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -3029,7 +3029,7 @@
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^pirp-\u003eTail.Overlay.CurrentStackLocation=11180",
+                        "currentDataValues": "^pirp->Tail.Overlay.CurrentStackLocation=11180",
                         "permanentDataValues": "^s=0"
                       }
                     },
@@ -3072,7 +3072,7 @@
                       "nestingLevel": 3,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^pirp-\u003eIoStatus.Information=72",
+                        "currentDataValues": "^pirp->IoStatus.Information=72",
                         "permanentDataValues": "^s=0"
                       }
                     },

@@ -288,7 +288,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.Location?.Message.Text;
+                return Location?.Location?.Message?.Text;
             }
         }
 
@@ -296,7 +296,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                return Location?.Location?.PhysicalLocation?.Region?.Snippet.Text;
+                return Location?.Location?.PhysicalLocation?.Region?.Snippet?.Text;
             }
         }
 

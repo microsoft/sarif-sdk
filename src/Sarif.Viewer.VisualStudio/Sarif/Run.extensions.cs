@@ -1,14 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -42,7 +38,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
         {
             rule = null;
 
-            if (run != null && run.Resources?.Rules != null && (ruleId != null || ruleKey != null))
+            if (run?.Resources?.Rules != null && (ruleId != null || ruleKey != null))
             {
                 Rule concreteRule = null;
                 if (ruleKey != null)
@@ -84,7 +80,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                             configuration: null,
                             messageStrings: null,
                             richMessageStrings: null,
-                            helpUri: helpUri,
+                            helpLocation: new FileLocation { Uri = helpUri },
                             help: null, // PREfast rules don't need a "help" property; they all have online documentation.
                             properties: null);
                     }

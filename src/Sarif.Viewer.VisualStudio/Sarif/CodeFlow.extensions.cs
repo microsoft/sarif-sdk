@@ -10,25 +10,25 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class CodeFlowExtensions
     {
-        public static CodeFlowLocationCollection ToAnnotatedCodeLocationCollection(this CodeFlow codeFlow)
+        public static CodeFlowLocationCollection ToCodeFlowLocationCollection (this CodeFlow codeFlow)
         {
             if (codeFlow == null)
             {
                 return null;
             }
 
-            CodeFlowLocationCollection model = new CodeFlowLocationCollection(codeFlow.Message.Text);
+            var model = new CodeFlowLocationCollection(codeFlow.Message.Text);
 
-            if (codeFlow.Locations != null)
+            if (codeFlow.ThreadFlows?[0]?.Locations != null)
             {
-                foreach (CodeFlowLocation location in codeFlow.Locations)
+                foreach (CodeFlowLocation location in codeFlow.ThreadFlows[0].Locations)
                 {
                     // TODO we are not yet properly hardened against locationless
                     // code locations (and what this means is also in flux as
                     // far as SARIF producers). For now we skip these.
                     if (location.Location?.PhysicalLocation == null) { continue; }
 
-                    model.Add(location.ToAnnotatedCodeLocationModel());
+                    model.Add(location.ToCodeFlowLocationModel());
                 }
             }
 
@@ -37,7 +37,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
         public static CallTree ToCallTree(this CodeFlow codeFlow)
         {
-            if (codeFlow.Locations?.Count == 0)
+            if (codeFlow.ThreadFlows?[0]?.Locations?.Count == 0)
             {
                 return null;
             }

@@ -102,7 +102,6 @@ namespace Microsoft.Sarif.Viewer.Models
         }
 
         public int Index { get; set; }
-        public string Kind { get; set; }
         public bool IsSelected { get; set; }
         public string Location { get { return Region.FormatForVisualStudio(); } }
     }
