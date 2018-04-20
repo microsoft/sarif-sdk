@@ -90,6 +90,15 @@ namespace Microsoft.Sarif.Viewer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continuing.
+        /// </summary>
+        public static string ContinuingCallTreeNodeMessage {
+            get {
+                return ResourceManager.GetString("ContinuingCallTreeNodeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open File.
         /// </summary>
         public static string FileOpenFail_DialogCaption {

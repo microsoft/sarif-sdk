@@ -90,7 +90,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
                 }
             };
 
-            VerifyConversion(callTreeNode, Microsoft.Sarif.Viewer.Resources.UnknownCalleeMessage);
+            VerifyConversion(callTreeNode, Microsoft.Sarif.Viewer.Resources.ContinuingCallTreeNodeMessage);
         }
 
         [Fact]

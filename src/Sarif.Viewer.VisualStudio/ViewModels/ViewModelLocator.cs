@@ -111,7 +111,6 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                         }
                     }
                 }, SarifViewerPackage.SarifToolWindow));
-            viewModel.CallTrees[0].TopLevelNodes[1].Location.SetProperty("target", "my_func");
 
             StackCollection stack1 = new StackCollection("Stack A1");
             stack1.Add(new StackFrameModel()

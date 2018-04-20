@@ -19,6 +19,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
             {
                 int lastNestingLevel = 0;
                 CallTreeNode lastParent = root;
+                CallTreeNode lastNewNode = null;
 
                 foreach (CodeFlowLocation location in threadFlow.Locations)
                 {
@@ -30,18 +31,18 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
 
                     if (location.NestingLevel > lastNestingLevel)
                     {
-                        // Previous node was a call
-                        lastParent = lastParent.Children.Last();
+                        // The previous node was a call, so this new node's parent is that node
+                        lastParent = lastNewNode;
                     }
                     else if (location.NestingLevel < lastNestingLevel)
                     {
-                        // Previous node was a return
-                        CallTreeNode node = lastParent.Children.Last(); // Get the last node we created
-                        lastParent = node.Parent.Parent;
+                        // The previous node was a return, so this new node's parent is the previous node's grandparent
+                        lastParent = lastNewNode.Parent.Parent;
                     }
 
                     newNode.Parent = lastParent;
                     lastParent.Children.Add(newNode);
+                    lastNewNode = newNode;
                     lastNestingLevel = location.NestingLevel;
                 }
 
