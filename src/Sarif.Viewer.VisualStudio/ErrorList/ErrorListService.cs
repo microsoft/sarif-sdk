@@ -163,37 +163,29 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
             if (!hasSha256Hash)
             {
-                string content = null;
-
-                if (!string.IsNullOrWhiteSpace(file.Contents.Binary))
+                byte[] data = null;
+                if (file.Contents?.Binary != null)
                 {
-                    content = DecodeBase64String(file.Contents.Binary);
+                    data = Convert.FromBase64String(file.Contents.Binary);
                 }
-                else if (!string.IsNullOrWhiteSpace(file.Contents.Text))
+                else if (file.Contents?.Text != null)
                 {
-                    content = file.Contents.Text;
+                    data = Encoding.UTF8.GetBytes(file.Contents.Text);
                 }
 
-                if (!string.IsNullOrWhiteSpace(content))
+                if (data != null)
                 {
-                    string hashString = GenerateHash(content);
+                    string hashString = GenerateHash(data);
                     file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
                 }
             }
         }
 
-        internal string GenerateHash(string content)
+        internal string GenerateHash(byte[] data)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(content);
-            SHA256Managed hashstring = new SHA256Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
+            SHA256Managed hashFunction = new SHA256Managed();
+            byte[] hash = hashFunction.ComputeHash(data);
             return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
-        }
-
-        internal string DecodeBase64String(string s)
-        {
-            byte[] data = Convert.FromBase64String(s);
-            return Encoding.UTF8.GetString(data);
         }
       
         private void StoreFileDetails(IDictionary<string, FileData> files)
