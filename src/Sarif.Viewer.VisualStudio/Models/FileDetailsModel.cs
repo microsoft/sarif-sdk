@@ -32,7 +32,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             string content = _fileContent.Text;
 
-            if (string.IsNullOrWhiteSpace(content))
+            if (content == null)
             {
                 byte[] data = Convert.FromBase64String(_fileContent.Binary);
                 content = Encoding.UTF8.GetString(data);
