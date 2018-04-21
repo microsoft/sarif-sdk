@@ -16,15 +16,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
     [Collection("SarifObjectTests")]
     public class SarifFileWithContentsTests
     {
-        private const string key1 = "/item.cpp#fragment";
-        private const string key2 = "/binary.cpp";
-        private const string key3 = "/text.cpp";
-        private const string key4 = "/both.cpp";
-        private const string key5 = "/emptybinary.cpp";
-        private const string key6 = "/emptytext.cpp";
-        private const string key7 = "/existinghash.cpp";
-        private const string expectedContents1 = "This is a test file.";
-        private const string expectedContents2 = "The quick brown fox jumps over the lazy dog.";
+        private const string Key1 = "/item.cpp#fragment";
+        private const string Key2 = "/binary.cpp";
+        private const string Key3 = "/text.cpp";
+        private const string Key4 = "/both.cpp";
+        private const string Key5 = "/emptybinary.cpp";
+        private const string Key6 = "/emptytext.cpp";
+        private const string Key7 = "/existinghash.cpp";
+        private const string ExpectedContents1 = "This is a test file.";
+        private const string ExpectedContents2 = "The quick brown fox jumps over the lazy dog.";
+        private const string ExpectedHashValue1 = "HashValue";
+        private const string ExpectedHashValue2 = "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c";
 
         public SarifFileWithContentsTests()
         {
@@ -55,7 +57,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                         new Hash
                                         {
                                             Algorithm = AlgorithmKind.Sha256,
-                                            Value = "HashValue"
+                                            Value = ExpectedHashValue1
                                         }
                                     }
                                 }
@@ -74,7 +76,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                         new Hash
                                         {
                                             Algorithm = AlgorithmKind.Sha256,
-                                            Value = "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c"
+                                            Value = ExpectedHashValue2
                                         }
                                     }
                                 }
@@ -86,7 +88,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     MimeType = "text/x-c",
                                     Contents = new FileContent()
                                     {
-                                        Text = expectedContents1
+                                        Text = ExpectedContents1
                                     }
                                 }
                             },
@@ -98,14 +100,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     Contents = new FileContent()
                                     {
                                         Binary = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=",
-                                        Text = expectedContents2
+                                        Text = ExpectedContents2
                                     },
                                     Hashes = new List<Hash>
                                     {
                                         new Hash
                                         {
                                             Algorithm = AlgorithmKind.Sha256,
-                                            Value = "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c"
+                                            Value = ExpectedHashValue2
                                         }
                                     }
                                 }
@@ -139,14 +141,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     MimeType = "text/x-c",
                                     Contents = new FileContent()
                                     {
-                                        Text = expectedContents2
+                                        Text = ExpectedContents2
                                     },
                                     Hashes = new List<Hash>
                                     {
                                         new Hash
                                         {
                                             Algorithm = AlgorithmKind.Sha256,
-                                            Value = "HashValue"
+                                            Value = ExpectedHashValue1
                                         }
                                     }
                                 }
@@ -181,49 +183,53 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var fileDetails = CodeAnalysisResultManager.Instance.FileDetails;
 
-            fileDetails.Should().ContainKey(key1);
+            fileDetails.Should().ContainKey(Key1);
         }
 
         [Fact]
         public void SarifFileWithContents_DecodesBinaryContents()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key2];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key2];
             var contents = fileDetail.GetContents();
 
-            contents.Should().Be(expectedContents2);
+            fileDetail.Sha256Hash.Should().Be(ExpectedHashValue2);
+            contents.Should().Be(ExpectedContents2);
         }
 
         [Fact]
         public void SarifFileWithContents_OpensEmbeddedBinaryFile()
         {
-            var rebaselinedFile = CodeAnalysisResultManager.Instance.CreateFileFromContents(key2);
+            var rebaselinedFile = CodeAnalysisResultManager.Instance.CreateFileFromContents(Key2);
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key2];
             var fileText = File.ReadAllText(rebaselinedFile);
 
-            fileText.Should().Be(expectedContents2);
+            fileDetail.Sha256Hash.Should().Be(ExpectedHashValue2);
+            fileText.Should().Be(ExpectedContents2);
         }
 
         [Fact]
         public void SarifFileWithContents_DecodesTextContents()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key3];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key3];
             var contents = fileDetail.GetContents();
 
-            contents.Should().Be(expectedContents1);
+            contents.Should().Be(ExpectedContents1);
         }
 
         [Fact]
         public void SarifFileWithContents_DecodesBinaryContentsWithText()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key4];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key4];
             var contents = fileDetail.GetContents();
 
-            contents.Should().Be(expectedContents2);
+            fileDetail.Sha256Hash.Should().Be(ExpectedHashValue2);
+            contents.Should().Be(ExpectedContents2);
         }
 
         [Fact]
         public void SarifFileWithContents_HandlesEmptyBinaryContents()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key5];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key5];
             var contents = fileDetail.GetContents();
 
             contents.Should().Be(string.Empty);
@@ -232,7 +238,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SarifFileWithContents_HandlesEmptyTextContents()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key6];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key6];
             var contents = fileDetail.GetContents();
 
             contents.Should().Be(String.Empty);
@@ -241,19 +247,21 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SarifFileWithContents_HandlesExistingHash()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key7];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key7];
             var contents = fileDetail.GetContents();
 
-            contents.Should().Be(expectedContents2);
+            fileDetail.Sha256Hash.Should().Be(ExpectedHashValue1);
+            contents.Should().Be(ExpectedContents2);
         }
 
         [Fact]
         public void SarifFileWithContents_GeneratesHash()
         {
-            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[key1];
+            var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key1];
             var contents = fileDetail.GetContents();
 
-            contents.Should().Be(expectedContents1);
+            fileDetail.Sha256Hash.Should().Be(ExpectedHashValue1);
+            contents.Should().Be(ExpectedContents1);
         }
     }
 }

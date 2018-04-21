@@ -164,11 +164,11 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             if (!hasSha256Hash)
             {
                 byte[] data = null;
-                if (file?.Contents.Binary != null)
+                if (file.Contents?.Binary != null)
                 {
                     data = Convert.FromBase64String(file.Contents.Binary);
                 }
-                else if (file?.Contents.Text != null)
+                else if (file.Contents?.Text != null)
                 {
                     data = Encoding.UTF8.GetBytes(file.Contents.Text);
                 }
