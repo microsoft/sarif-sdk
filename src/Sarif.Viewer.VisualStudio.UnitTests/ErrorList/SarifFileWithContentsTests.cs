@@ -27,6 +27,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         private const string ExpectedContents2 = "The quick brown fox jumps over the lazy dog.";
         private const string ExpectedHashValue1 = "HashValue";
         private const string ExpectedHashValue2 = "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c";
+        private const string EmptyStringHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
         public SarifFileWithContentsTests()
         {
@@ -232,6 +233,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key5];
             var contents = fileDetail.GetContents();
 
+            fileDetail.Sha256Hash.Should().Be(EmptyStringHash);
             contents.Should().Be(string.Empty);
         }
 
@@ -241,6 +243,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var fileDetail = CodeAnalysisResultManager.Instance.FileDetails[Key6];
             var contents = fileDetail.GetContents();
 
+            fileDetail.Sha256Hash.Should().Be(EmptyStringHash);
             contents.Should().Be(String.Empty);
         }
 
