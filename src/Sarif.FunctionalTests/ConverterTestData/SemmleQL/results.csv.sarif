@@ -181,7 +181,7 @@
         },
         {
           "message": {
-            "text": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER]: Missing synchronization."
+            "text": "Incorrect lazy initialization of static field [SKIP_BYTE_BUFFER](1): Missing synchronization."
           },
           "locations": [
             {
@@ -201,6 +201,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -216,7 +217,7 @@
         },
         {
           "message": {
-            "text": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER]: Missing synchronization."
+            "text": "Incorrect lazy initialization of static field [SKIP_CHAR_BUFFER](1): Missing synchronization."
           },
           "locations": [
             {
@@ -236,6 +237,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -331,7 +333,7 @@
         },
         {
           "message": {
-            "text": "Variable [reader] may be null here."
+            "text": "Variable [reader](1) may be null here."
           },
           "locations": [
             {
@@ -351,6 +353,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/Tailer.java",
                   "uriBaseId": "$srcroot"
@@ -754,7 +757,7 @@
         {
           "level": "note",
           "message": {
-            "text": "This type and type [IOUtils] are mutually dependent."
+            "text": "This type and type [IOUtils](1) are mutually dependent."
           },
           "locations": [
             {
@@ -774,6 +777,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -790,7 +794,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter]."
+            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.OrFileFilter](1)."
           },
           "locations": [
             {
@@ -810,6 +814,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java",
                   "uriBaseId": "$srcroot"
@@ -826,7 +831,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream]."
+            "text": "Method resetCount is duplicated in [org.apache.commons.io.output.CountingOutputStream](1)."
           },
           "locations": [
             {
@@ -846,6 +851,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/CountingOutputStream.java",
                   "uriBaseId": "$srcroot"
@@ -862,7 +868,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream]."
+            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullInputStream](1)."
           },
           "locations": [
             {
@@ -882,6 +888,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
                   "uriBaseId": "$srcroot"
@@ -898,7 +905,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream]."
+            "text": "Method resetCount is duplicated in [org.apache.commons.io.input.CountingInputStream](1)."
           },
           "locations": [
             {
@@ -918,6 +925,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/CountingInputStream.java",
                   "uriBaseId": "$srcroot"
@@ -934,7 +942,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter]."
+            "text": "Method toString is duplicated in [org.apache.commons.io.filefilter.AndFileFilter](1)."
           },
           "locations": [
             {
@@ -954,6 +962,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java",
                   "uriBaseId": "$srcroot"
@@ -970,7 +979,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter]."
+            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyWriter](1)."
           },
           "locations": [
             {
@@ -990,6 +999,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                   "uriBaseId": "$srcroot"
@@ -1006,7 +1016,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter]."
+            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyWriter](1)."
           },
           "locations": [
             {
@@ -1026,6 +1036,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/ProxyWriter.java",
                   "uriBaseId": "$srcroot"
@@ -1042,7 +1053,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream]."
+            "text": "Method flush is duplicated in [org.apache.commons.io.output.ProxyOutputStream](1)."
           },
           "locations": [
             {
@@ -1062,6 +1073,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                   "uriBaseId": "$srcroot"
@@ -1078,7 +1090,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream]."
+            "text": "Method close is duplicated in [org.apache.commons.io.output.ProxyOutputStream](1)."
           },
           "locations": [
             {
@@ -1098,6 +1110,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/ProxyOutputStream.java",
                   "uriBaseId": "$srcroot"
@@ -1114,7 +1127,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullReader]."
+            "text": "Method mark is duplicated in [org.apache.commons.io.input.NullReader](1)."
           },
           "locations": [
             {
@@ -1134,6 +1147,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
                   "uriBaseId": "$srcroot"
@@ -1150,7 +1164,7 @@
         {
           "level": "note",
           "message": {
-            "text": "83% of the statements in read are duplicated in [NullInputStream.read()]."
+            "text": "83% of the statements in read are duplicated in [NullInputStream.read()](1)."
           },
           "locations": [
             {
@@ -1170,6 +1184,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/NullInputStream.java",
                   "uriBaseId": "$srcroot"
@@ -1186,7 +1201,7 @@
         {
           "level": "note",
           "message": {
-            "text": "83% of the statements in read are duplicated in [NullReader.read()]."
+            "text": "83% of the statements in read are duplicated in [NullReader.read()](1)."
           },
           "locations": [
             {
@@ -1206,6 +1221,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/NullReader.java",
                   "uriBaseId": "$srcroot"
@@ -1222,7 +1238,7 @@
         {
           "level": "note",
           "message": {
-            "text": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter]."
+            "text": "91% of the lines in SuffixFileFilter are similar to lines in [PrefixFileFilter](1)."
           },
           "locations": [
             {
@@ -1238,6 +1254,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java",
                   "uriBaseId": "$srcroot"
@@ -1250,7 +1267,7 @@
         {
           "level": "note",
           "message": {
-            "text": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream]."
+            "text": "86% of the lines in TaggedOutputStream are similar to lines in [TaggedInputStream](1)."
           },
           "locations": [
             {
@@ -1266,6 +1283,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/input/TaggedInputStream.java",
                   "uriBaseId": "$srcroot"
@@ -1278,7 +1296,7 @@
         {
           "level": "note",
           "message": {
-            "text": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream]."
+            "text": "86% of the lines in TaggedInputStream are similar to lines in [TaggedOutputStream](1)."
           },
           "locations": [
             {
@@ -1294,6 +1312,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/output/TaggedOutputStream.java",
                   "uriBaseId": "$srcroot"
@@ -1872,7 +1891,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types."
+            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -1892,6 +1911,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -1908,7 +1928,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream], since dispatch depends on static types."
+            "text": "Method IOUtils.toInputStream(..) could be confused with overloaded method [toInputStream](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -1928,6 +1948,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -1944,7 +1965,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -1964,6 +1985,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -1980,7 +2002,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -2000,6 +2022,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -2016,7 +2039,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method IOUtils.write(..) could be confused with overloaded method [write], since dispatch depends on static types."
+            "text": "Method IOUtils.write(..) could be confused with overloaded method [write](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -2036,6 +2059,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/IOUtils.java",
                   "uriBaseId": "$srcroot"
@@ -2052,7 +2076,7 @@
         {
           "level": "note",
           "message": {
-            "text": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter], since dispatch depends on static types."
+            "text": "Method FileFilterUtils.asFileFilter(..) could be confused with overloaded method [asFileFilter](1), since dispatch depends on static types."
           },
           "locations": [
             {
@@ -2072,6 +2096,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "/src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java",
                   "uriBaseId": "$srcroot"

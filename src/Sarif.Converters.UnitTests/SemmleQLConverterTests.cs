@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""results"": [
         {
           ""message"": {
-            ""text"": ""Call to Equals() comparing incomparable types[IComparable] and [ClientAttributeValue]""
+            ""text"": ""Call to Equals() comparing incomparable types[IComparable](1) and [ClientAttributeValue](1)""
           },
           ""locations"": [
             {
@@ -107,6 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""relatedLocations"": [
             {
               ""physicalLocation"": {
+                ""id"": 1,
                 ""fileLocation"": {
                   ""uri"": ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll""
                 },
@@ -115,6 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             {
               ""physicalLocation"": {
+                ""id"": 2,
                 ""fileLocation"": {
                   ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"",
                   ""uriBaseId"": ""$srcroot""
@@ -128,6 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             {
               ""physicalLocation"": {
+                ""id"": 3,
                 ""fileLocation"": {
                   ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"",
                   ""uriBaseId"": ""$srcroot""

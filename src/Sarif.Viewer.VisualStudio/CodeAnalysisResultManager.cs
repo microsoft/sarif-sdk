@@ -754,10 +754,5 @@ namespace Microsoft.Sarif.Viewer
         {
             return _remappedPathPrefixes.ToArray();
         }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="ErrorList\ErrorListCommand.cs" />
     <Compile Include="IToolWindow.cs" />
     <Compile Include="KeyValuePairPropertyDescriptor.cs" />
+    <Compile Include="Controls\BindableTextBlock.cs" />
     <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
