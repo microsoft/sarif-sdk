@@ -95,6 +95,26 @@
       }
     }
   ],
+  "FileData.Roles": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "FileRole",
+        "description": "Values specifying the roles played by the file in the analysis.",
+        "flags": true,
+        "zeroValueName": "Default",
+        "memberNames": [
+          "AnalysisTarget",
+          "Attachment",
+          "ResponseFile",
+          "ResultFile",
+          "Screenshot",
+          "StandardStream",
+          "TraceFile"
+        ]
+      }
+    }
+  ],
   "graph": [
     {
       "kind": "BaseTypeHint",

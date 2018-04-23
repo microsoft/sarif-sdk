@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> Roles { get; set; }
+        public FileRole Roles { get; set; }
 
         /// <summary>
         /// The MIME type (RFC 2045) of the file.
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, IEnumerable<string> roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRole roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, properties);
         }
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, IEnumerable<string> roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRole roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -184,17 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ParentKey = parentKey;
             Offset = offset;
             Length = length;
-            if (roles != null)
-            {
-                var destination_0 = new List<string>();
-                foreach (var value_0 in roles)
-                {
-                    destination_0.Add(value_0);
-                }
-
-                Roles = destination_0;
-            }
-
+            Roles = roles;
             MimeType = mimeType;
             if (contents != null)
             {
@@ -204,20 +194,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             Encoding = encoding;
             if (hashes != null)
             {
-                var destination_1 = new List<Hash>();
-                foreach (var value_1 in hashes)
+                var destination_0 = new List<Hash>();
+                foreach (var value_0 in hashes)
                 {
-                    if (value_1 == null)
+                    if (value_0 == null)
                     {
-                        destination_1.Add(null);
+                        destination_0.Add(null);
                     }
                     else
                     {
-                        destination_1.Add(new Hash(value_1));
+                        destination_0.Add(new Hash(value_0));
                     }
                 }
 
-                Hashes = destination_1;
+                Hashes = destination_0;
             }
 
             if (properties != null)

@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
-            encoding = encoding ?? System.Text.Encoding.UTF8;
 
             var fileData = new FileData()
             {
