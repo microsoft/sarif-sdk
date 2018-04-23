@@ -1094,7 +1094,7 @@ namespace Microsoft.Sarif.Viewer
         /// <returns>A collection of Inline elements that represent the specified message.</returns>
         internal static List<Inline> GetInlinesForErrorMessage(string message)
         {
-            return GetInlinesForErrorMessage(message, false, null, null);
+            return GetInlinesForErrorMessage(message, null, null);
         }
 
         /// <summary>
@@ -1105,7 +1105,7 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="data">A data object to include in each hyperlink's Tag property.</param>
         /// <param name="clickHandler">A delegate for the Hyperlink.Click event.</param>
         /// <returns>A collection of Inline elements that represent the specified message.</returns>
-        internal static List<Inline> GetInlinesForErrorMessage(string message, bool createHyperlinks, object data, RoutedEventHandler clickHandler)
+        internal static List<Inline> GetInlinesForErrorMessage(string message, object data, RoutedEventHandler clickHandler)
         {
             var inlines = new List<Inline>();
 
@@ -1123,15 +1123,12 @@ namespace Microsoft.Sarif.Viewer
                     // Add the plain text segment between the end of the last group and the current link
                     inlines.Add(new Run(UnescapeBrackets(message.Substring(start, group.Index - 1 - start))));
 
-                    if (createHyperlinks)
+                    if (clickHandler != null)
                     {
                         var link = new Hyperlink();
-                        link.Tag = new Tuple<object, int>(data, Convert.ToInt32(match.Groups["index"].Value));
 
-                        if (clickHandler != null)
-                        {
-                            link.Click += clickHandler;
-                        }
+                        // Stash the data object and relative link id
+                        link.Tag = new Tuple<object, int>(data, Convert.ToInt32(match.Groups["index"].Value));
 
                         // Set the hyperlink text
                         link.Inlines.Add(new Run($"{group.Value}"));

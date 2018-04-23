@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Documents;
 using FluentAssertions;
 using Xunit;
@@ -11,6 +12,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
     public class SdkUiUtilitiesTests
     {
+        private void Hyperlink_Click(object sender, RoutedEventArgs e) { }
+
         [Fact]
         public void SarifSnapshot_UnescapeBrackets()
         {
@@ -49,7 +52,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run("The quick brown fox jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, createHyperlinks: true, data: 1, clickHandler: null);
+            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
@@ -67,7 +70,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run("The quick [brown fox] jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, createHyperlinks: true, data: 1, clickHandler: null);
+            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
 
             actual[0].Should().BeOfType(expected[0].GetType());
             (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
@@ -89,7 +92,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run(" jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, createHyperlinks: true, data: 1, clickHandler: null);
+            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
@@ -129,7 +132,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 link2
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, createHyperlinks: true, data: 1, clickHandler: null);
+            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
@@ -172,7 +175,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run(" jumps over the [lazy dog].")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, createHyperlinks: true, data: 1, clickHandler: null);
+            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 

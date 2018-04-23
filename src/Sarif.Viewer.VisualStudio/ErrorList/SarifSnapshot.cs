@@ -54,7 +54,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 {
                     string message = _errors[index].Message;
                     List<Inline> inlines = SdkUiUtilities.GetInlinesForErrorMessage(message,
-                                                                                    createHyperlinks: true,
                                                                                     data: index,
                                                                                     clickHandler: ErrorListInlineLink_Click);
 
