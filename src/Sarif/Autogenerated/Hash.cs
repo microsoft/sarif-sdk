@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A hash value of some file or collection of files, together with the algorithm used to compute the hash.
+    /// A hash value of some file or collection of files, together with the hash function used to compute the hash.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
@@ -32,13 +32,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The hash value of some file or collection of files, computed by the algorithm named in the 'algorithm' property.
+        /// The hash value of some file or collection of files, computed by the hash function named in the 'algorithm' property.
         /// </summary>
         [DataMember(Name = "value", IsRequired = true)]
         public string Value { get; set; }
 
         /// <summary>
-        /// The name of the algorithm used to compute the hash value specified in the 'value' property.
+        /// The name of the hash function used to compute the hash value specified in the 'value' property.
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
         public AlgorithmKind Algorithm { get; set; }

@@ -57,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Length { get; set; }
 
         /// <summary>
+        /// The role or roles played by the file in the analysis.
+        /// </summary>
+        [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> Roles { get; set; }
+
+        /// <summary>
         /// The MIME type (RFC 2045) of the file.
         /// </summary>
         [DataMember(Name = "mimeType", IsRequired = false, EmitDefaultValue = false)]
@@ -69,7 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileContent Contents { get; set; }
 
         /// <summary>
-        /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.
+        /// Specifies the encoding for a file object that refers to a text file.
+        /// </summary>
+        [DataMember(Name = "encoding", IsRequired = false, EmitDefaultValue = false)]
+        public string Encoding { get; set; }
+
+        /// <summary>
+        /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the hash function used to compute the hash.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
         public IList<Hash> Hashes { get; set; }
@@ -102,11 +114,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="length">
         /// An initialization value for the <see cref="P: Length" /> property.
         /// </param>
+        /// <param name="roles">
+        /// An initialization value for the <see cref="P: Roles" /> property.
+        /// </param>
         /// <param name="mimeType">
         /// An initialization value for the <see cref="P: MimeType" /> property.
         /// </param>
         /// <param name="contents">
         /// An initialization value for the <see cref="P: Contents" /> property.
+        /// </param>
+        /// <param name="encoding">
+        /// An initialization value for the <see cref="P: Encoding" /> property.
         /// </param>
         /// <param name="hashes">
         /// An initialization value for the <see cref="P: Hashes" /> property.
@@ -114,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, string mimeType, FileContent contents, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, IEnumerable<string> roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentKey, offset, length, mimeType, contents, hashes, properties);
+            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, properties);
         }
 
         /// <summary>
@@ -135,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.MimeType, other.Contents, other.Hashes, other.Properties);
+            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, string mimeType, FileContent contents, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, IEnumerable<string> roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -166,28 +184,40 @@ namespace Microsoft.CodeAnalysis.Sarif
             ParentKey = parentKey;
             Offset = offset;
             Length = length;
+            if (roles != null)
+            {
+                var destination_0 = new List<string>();
+                foreach (var value_0 in roles)
+                {
+                    destination_0.Add(value_0);
+                }
+
+                Roles = destination_0;
+            }
+
             MimeType = mimeType;
             if (contents != null)
             {
                 Contents = new FileContent(contents);
             }
 
+            Encoding = encoding;
             if (hashes != null)
             {
-                var destination_0 = new List<Hash>();
-                foreach (var value_0 in hashes)
+                var destination_1 = new List<Hash>();
+                foreach (var value_1 in hashes)
                 {
-                    if (value_0 == null)
+                    if (value_1 == null)
                     {
-                        destination_0.Add(null);
+                        destination_1.Add(null);
                     }
                     else
                     {
-                        destination_0.Add(new Hash(value_0));
+                        destination_1.Add(new Hash(value_1));
                     }
                 }
 
-                Hashes = destination_0;
+                Hashes = destination_1;
             }
 
             if (properties != null)

@@ -48,12 +48,38 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.Roles, right.Roles))
+            {
+                if (left.Roles == null || right.Roles == null)
+                {
+                    return false;
+                }
+
+                if (left.Roles.Count != right.Roles.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.Roles.Count; ++index_0)
+                {
+                    if (left.Roles[index_0] != right.Roles[index_0])
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (left.MimeType != right.MimeType)
             {
                 return false;
             }
 
             if (!FileContent.ValueComparer.Equals(left.Contents, right.Contents))
+            {
+                return false;
+            }
+
+            if (left.Encoding != right.Encoding)
             {
                 return false;
             }
@@ -70,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Hashes.Count; ++index_0)
+                for (int index_1 = 0; index_1 < left.Hashes.Count; ++index_1)
                 {
-                    if (!Hash.ValueComparer.Equals(left.Hashes[index_0], right.Hashes[index_0]))
+                    if (!Hash.ValueComparer.Equals(left.Hashes[index_1], right.Hashes[index_1]))
                     {
                         return false;
                     }
@@ -126,6 +152,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.Offset.GetHashCode();
                 result = (result * 31) + obj.Length.GetHashCode();
+                if (obj.Roles != null)
+                {
+                    foreach (var value_2 in obj.Roles)
+                    {
+                        result = result * 31;
+                        if (value_2 != null)
+                        {
+                            result = (result * 31) + value_2.GetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.MimeType != null)
                 {
                     result = (result * 31) + obj.MimeType.GetHashCode();
@@ -136,14 +174,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Contents.ValueGetHashCode();
                 }
 
+                if (obj.Encoding != null)
+                {
+                    result = (result * 31) + obj.Encoding.GetHashCode();
+                }
+
                 if (obj.Hashes != null)
                 {
-                    foreach (var value_2 in obj.Hashes)
+                    foreach (var value_3 in obj.Hashes)
                     {
                         result = result * 31;
-                        if (value_2 != null)
+                        if (value_3 != null)
                         {
-                            result = (result * 31) + value_2.ValueGetHashCode();
+                            result = (result * 31) + value_3.ValueGetHashCode();
                         }
                     }
                 }
@@ -152,12 +195,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_3 in obj.Properties)
+                    foreach (var value_4 in obj.Properties)
                     {
-                        xor_0 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.GetHashCode();
                         }
                     }
 

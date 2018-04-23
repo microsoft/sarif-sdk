@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
-            encoding = encoding ?? Encoding.UTF8;
+            encoding = encoding ?? System.Text.Encoding.UTF8;
 
             var fileData = new FileData()
             {
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (mimeType != SarifWriters.MimeType.Binary)
             {
-                fileContents = Encoding.UTF8.GetBytes(fileSystem.ReadAllText(filePath, inputFileEncoding));
+                fileContents = System.Text.Encoding.UTF8.GetBytes(fileSystem.ReadAllText(filePath, inputFileEncoding));
             }
             else
             {

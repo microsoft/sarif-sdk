@@ -99,6 +99,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<CodeFlow> CodeFlows { get; set; }
 
         /// <summary>
+        /// An array of one or more unique 'graph' objects.
+        /// </summary>
+        [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Graph> Graphs { get; set; }
+
+        /// <summary>
+        /// An array of one or more unique 'graphTraversal' objects.
+        /// </summary>
+        [DataMember(Name = "graphTraversals", IsRequired = false, EmitDefaultValue = false)]
+        public IList<GraphTraversal> GraphTraversals { get; set; }
+
+        /// <summary>
         /// A set of locations relevant to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
@@ -179,6 +191,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="codeFlows">
         /// An initialization value for the <see cref="P: CodeFlows" /> property.
         /// </param>
+        /// <param name="graphs">
+        /// An initialization value for the <see cref="P: Graphs" /> property.
+        /// </param>
+        /// <param name="graphTraversals">
+        /// An initialization value for the <see cref="P: GraphTraversals" /> property.
+        /// </param>
         /// <param name="relatedLocations">
         /// An initialization value for the <see cref="P: RelatedLocations" /> property.
         /// </param>
@@ -200,9 +218,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleKey, level, message, ruleMessageId, analysisTarget, locations, id, toolFingerprintContributions, stacks, codeFlows, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
+            Init(ruleId, ruleKey, level, message, ruleMessageId, analysisTarget, locations, id, toolFingerprintContributions, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, attachments, baselineState, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -221,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.RuleKey, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.Id, other.ToolFingerprintContributions, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.Attachments, other.BaselineState, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -242,7 +260,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, string ruleKey, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string id, IDictionary<string, string> toolFingerprintContributions, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, IEnumerable<Attachment> attachments, BaselineState baselineState, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleKey = ruleKey;
@@ -318,10 +336,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CodeFlows = destination_2;
             }
 
-            if (relatedLocations != null)
+            if (graphs != null)
             {
-                var destination_3 = new List<Location>();
-                foreach (var value_3 in relatedLocations)
+                var destination_3 = new List<Graph>();
+                foreach (var value_3 in graphs)
                 {
                     if (value_3 == null)
                     {
@@ -329,18 +347,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new Location(value_3));
+                        destination_3.Add(new Graph(value_3));
                     }
                 }
 
-                RelatedLocations = destination_3;
+                Graphs = destination_3;
             }
 
-            SuppressionStates = suppressionStates;
-            if (attachments != null)
+            if (graphTraversals != null)
             {
-                var destination_4 = new List<Attachment>();
-                foreach (var value_4 in attachments)
+                var destination_4 = new List<GraphTraversal>();
+                foreach (var value_4 in graphTraversals)
                 {
                     if (value_4 == null)
                     {
@@ -348,18 +365,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_4.Add(new Attachment(value_4));
+                        destination_4.Add(new GraphTraversal(value_4));
                     }
                 }
 
-                Attachments = destination_4;
+                GraphTraversals = destination_4;
             }
 
-            BaselineState = baselineState;
-            if (conversionProvenance != null)
+            if (relatedLocations != null)
             {
-                var destination_5 = new List<PhysicalLocation>();
-                foreach (var value_5 in conversionProvenance)
+                var destination_5 = new List<Location>();
+                foreach (var value_5 in relatedLocations)
                 {
                     if (value_5 == null)
                     {
@@ -367,17 +383,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_5.Add(new PhysicalLocation(value_5));
+                        destination_5.Add(new Location(value_5));
                     }
                 }
 
-                ConversionProvenance = destination_5;
+                RelatedLocations = destination_5;
             }
 
-            if (fixes != null)
+            SuppressionStates = suppressionStates;
+            if (attachments != null)
             {
-                var destination_6 = new List<Fix>();
-                foreach (var value_6 in fixes)
+                var destination_6 = new List<Attachment>();
+                foreach (var value_6 in attachments)
                 {
                     if (value_6 == null)
                     {
@@ -385,11 +402,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_6.Add(new Fix(value_6));
+                        destination_6.Add(new Attachment(value_6));
                     }
                 }
 
-                Fixes = destination_6;
+                Attachments = destination_6;
+            }
+
+            BaselineState = baselineState;
+            if (conversionProvenance != null)
+            {
+                var destination_7 = new List<PhysicalLocation>();
+                foreach (var value_7 in conversionProvenance)
+                {
+                    if (value_7 == null)
+                    {
+                        destination_7.Add(null);
+                    }
+                    else
+                    {
+                        destination_7.Add(new PhysicalLocation(value_7));
+                    }
+                }
+
+                ConversionProvenance = destination_7;
+            }
+
+            if (fixes != null)
+            {
+                var destination_8 = new List<Fix>();
+                foreach (var value_8 in fixes)
+                {
+                    if (value_8 == null)
+                    {
+                        destination_8.Add(null);
+                    }
+                    else
+                    {
+                        destination_8.Add(new Fix(value_8));
+                    }
+                }
+
+                Fixes = destination_8;
             }
 
             if (properties != null)

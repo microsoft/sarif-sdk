@@ -56,6 +56,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitCodeFlowLocation((CodeFlowLocation)node);
                 case SarifNodeKind.Conversion:
                     return VisitConversion((Conversion)node);
+                case SarifNodeKind.Edge:
+                    return VisitEdge((Edge)node);
+                case SarifNodeKind.EdgeTraversal:
+                    return VisitEdgeTraversal((EdgeTraversal)node);
                 case SarifNodeKind.ExceptionData:
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.FileChange:
@@ -68,6 +72,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitFileLocation((FileLocation)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
+                case SarifNodeKind.Graph:
+                    return VisitGraph((Graph)node);
+                case SarifNodeKind.GraphTraversal:
+                    return VisitGraphTraversal((GraphTraversal)node);
                 case SarifNodeKind.Hash:
                     return VisitHash((Hash)node);
                 case SarifNodeKind.Invocation:
@@ -78,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Message:
                     return VisitMessage((Message)node);
+                case SarifNodeKind.Node:
+                    return VisitNode((Node)node);
                 case SarifNodeKind.Notification:
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
@@ -106,6 +116,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitThreadFlow((ThreadFlow)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
+                case SarifNodeKind.VersionControlDetails:
+                    return VisitVersionControlDetails((VersionControlDetails)node);
                 default:
                     return node;
             }
@@ -183,6 +195,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
                 node.AnalysisToolLogFileLocation = VisitNullChecked(node.AnalysisToolLogFileLocation);
+            }
+
+            return node;
+        }
+
+        public virtual Edge VisitEdge(Edge node)
+        {
+            if (node != null)
+            {
+                node.Label = VisitNullChecked(node.Label);
+            }
+
+            return node;
+        }
+
+        public virtual EdgeTraversal VisitEdgeTraversal(EdgeTraversal node)
+        {
+            if (node != null)
+            {
+                node.Message = VisitNullChecked(node.Message);
             }
 
             return node;
@@ -268,6 +300,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.FileChanges.Count; ++index_0)
                     {
                         node.FileChanges[index_0] = VisitNullChecked(node.FileChanges[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual Graph VisitGraph(Graph node)
+        {
+            if (node != null)
+            {
+                node.Description = VisitNullChecked(node.Description);
+                if (node.Nodes != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Nodes.Count; ++index_0)
+                    {
+                        node.Nodes[index_0] = VisitNullChecked(node.Nodes[index_0]);
+                    }
+                }
+
+                if (node.Edges != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Edges.Count; ++index_0)
+                    {
+                        node.Edges[index_0] = VisitNullChecked(node.Edges[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual GraphTraversal VisitGraphTraversal(GraphTraversal node)
+        {
+            if (node != null)
+            {
+                node.Description = VisitNullChecked(node.Description);
+                if (node.EdgeTraversals != null)
+                {
+                    for (int index_0 = 0; index_0 < node.EdgeTraversals.Count; ++index_0)
+                    {
+                        node.EdgeTraversals[index_0] = VisitNullChecked(node.EdgeTraversals[index_0]);
                     }
                 }
             }
@@ -366,6 +440,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Node VisitNode(Node node)
+        {
+            if (node != null)
+            {
+                node.Label = VisitNullChecked(node.Label);
+                node.Location = VisitNullChecked(node.Location);
+            }
+
+            return node;
+        }
+
         public virtual Notification VisitNotification(Notification node)
         {
             if (node != null)
@@ -448,6 +533,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
+                if (node.GraphTraversals != null)
+                {
+                    for (int index_0 = 0; index_0 < node.GraphTraversals.Count; ++index_0)
+                    {
+                        node.GraphTraversals[index_0] = VisitNullChecked(node.GraphTraversals[index_0]);
+                    }
+                }
+
                 if (node.RelatedLocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.RelatedLocations.Count; ++index_0)
@@ -522,6 +623,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 node.Conversion = VisitNullChecked(node.Conversion);
+                if (node.VersionControlProvenance != null)
+                {
+                    for (int index_0 = 0; index_0 < node.VersionControlProvenance.Count; ++index_0)
+                    {
+                        node.VersionControlProvenance[index_0] = VisitNullChecked(node.VersionControlProvenance[index_0]);
+                    }
+                }
+
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();
@@ -545,6 +654,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             node.LogicalLocations[key] = VisitNullChecked(value);
                         }
+                    }
+                }
+
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 
@@ -623,6 +740,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public virtual Tool VisitTool(Tool node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
+        public virtual VersionControlDetails VisitVersionControlDetails(VersionControlDetails node)
         {
             if (node != null)
             {
