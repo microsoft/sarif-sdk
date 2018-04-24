@@ -5,9 +5,10 @@ using System;
 using System.IO;
 using System.Text;
 using FluentAssertions;
-
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -72,7 +73,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 fileData.Hashes.Should().BeNull();
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
-                fileData.Contents.Text.Should().Be(encodedFileContents);
+                fileData.Contents.Binary.Should().Be(encodedFileContents);
+                fileData.Contents.Text.Should().BeNull();
             }
             finally
             {
@@ -83,21 +85,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_PersistFileContentsUtf8()
         {
+            Encoding encoding = Encoding.UTF8;
             string filePath = Path.GetTempFileName() + ".cs";
             string textValue = "अचम्भा";
-            byte[] fileContents = Encoding.BigEndianUnicode.GetBytes(textValue);
+            byte[] fileContents = encoding.GetBytes(textValue);
 
             Uri uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: Encoding.BigEndianUnicode);
+                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: encoding);
                 fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
 
-                string encodedFileContents = Convert.ToBase64String(Encoding.UTF8.GetBytes(textValue));
+                string encodedFileContents = encoding.GetString(fileContents);
                 fileData.Contents.Text.Should().Be(encodedFileContents);
             }
             finally
@@ -117,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
-            fileData.Contents.Text.Should().Be(String.Empty);
+            fileData.Contents.Binary.Should().Be(String.Empty);
         }
 
         [Fact]
@@ -155,6 +158,58 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void FileData_BinaryFileIsNotAccessibleDueToSecurity()
         {
             RunUnauthorizedAccessTextForFile(isTextFile: false);
+        }
+
+        [Fact]
+        public void FileData_SerializeSingleFileRole()
+        {
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            fileData.Roles = FileRoles.AnalysisTarget;
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+            string result = JsonConvert.SerializeObject(fileData);
+
+            result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
+        }
+
+        [Fact(Skip = "Broken codegen for Flags enums")]
+        public void FileData_SerializeMultipleFileRoles()
+        {
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+            string actual = JsonConvert.SerializeObject(fileData);
+
+            actual.Should().Be("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}");
+        }
+
+        [Fact]
+        public void FileData_DeserializeSingleFileRole()
+        {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+            FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
+            actual.Roles.Should().Be(FileRoles.AnalysisTarget);
+        }
+
+        [Fact(Skip = "Broken codegen for Flags enums")]
+        public void FileData_DeserializeMultipleFileRoles()
+        {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
+            FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
+            actual.Roles.Should().Be(FileRoles.ResponseFile | FileRoles.ResultFile);
         }
 
         private static void RunUnauthorizedAccessTextForFile(bool isTextFile)

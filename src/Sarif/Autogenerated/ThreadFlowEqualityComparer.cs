@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FileData for equality.
+    /// Defines methods to support the comparison of objects of type ThreadFlow for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    internal sealed class FileDataEqualityComparer : IEqualityComparer<FileData>
+    internal sealed class ThreadFlowEqualityComparer : IEqualityComparer<ThreadFlow>
     {
-        internal static readonly FileDataEqualityComparer Instance = new FileDataEqualityComparer();
+        internal static readonly ThreadFlowEqualityComparer Instance = new ThreadFlowEqualityComparer();
 
-        public bool Equals(FileData left, FileData right)
+        public bool Equals(ThreadFlow left, ThreadFlow right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,61 +28,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.FileLocation, right.FileLocation))
+            if (left.Id != right.Id)
             {
                 return false;
             }
 
-            if (left.ParentKey != right.ParentKey)
+            if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
             }
 
-            if (left.Offset != right.Offset)
+            if (!object.ReferenceEquals(left.Locations, right.Locations))
             {
-                return false;
-            }
-
-            if (left.Length != right.Length)
-            {
-                return false;
-            }
-
-            if (left.Roles != right.Roles)
-            {
-                return false;
-            }
-
-            if (left.MimeType != right.MimeType)
-            {
-                return false;
-            }
-
-            if (!FileContent.ValueComparer.Equals(left.Contents, right.Contents))
-            {
-                return false;
-            }
-
-            if (left.Encoding != right.Encoding)
-            {
-                return false;
-            }
-
-            if (!object.ReferenceEquals(left.Hashes, right.Hashes))
-            {
-                if (left.Hashes == null || right.Hashes == null)
+                if (left.Locations == null || right.Locations == null)
                 {
                     return false;
                 }
 
-                if (left.Hashes.Count != right.Hashes.Count)
+                if (left.Locations.Count != right.Locations.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Hashes.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Locations.Count; ++index_0)
                 {
-                    if (!Hash.ValueComparer.Equals(left.Hashes[index_0], right.Hashes[index_0]))
+                    if (!CodeFlowLocation.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
                     {
                         return false;
                     }
@@ -114,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FileData obj)
+        public int GetHashCode(ThreadFlow obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -124,37 +94,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.FileLocation != null)
+                if (obj.Id != null)
                 {
-                    result = (result * 31) + obj.FileLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.ParentKey != null)
+                if (obj.Message != null)
                 {
-                    result = (result * 31) + obj.ParentKey.GetHashCode();
+                    result = (result * 31) + obj.Message.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.Offset.GetHashCode();
-                result = (result * 31) + obj.Length.GetHashCode();
-                result = (result * 31) + obj.Roles.GetHashCode();
-                if (obj.MimeType != null)
+                if (obj.Locations != null)
                 {
-                    result = (result * 31) + obj.MimeType.GetHashCode();
-                }
-
-                if (obj.Contents != null)
-                {
-                    result = (result * 31) + obj.Contents.ValueGetHashCode();
-                }
-
-                if (obj.Encoding != null)
-                {
-                    result = (result * 31) + obj.Encoding.GetHashCode();
-                }
-
-                if (obj.Hashes != null)
-                {
-                    foreach (var value_2 in obj.Hashes)
+                    foreach (var value_2 in obj.Locations)
                     {
                         result = result * 31;
                         if (value_2 != null)

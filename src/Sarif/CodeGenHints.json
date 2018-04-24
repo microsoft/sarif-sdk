@@ -49,6 +49,26 @@
       }
     }
   ],
+  "edge": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "edgeTraversal": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "exception": [
     {
       "kind": "ClassNameHint",
@@ -66,6 +86,46 @@
     }
   ],
   "fileData": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "FileData.Roles": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "FileRoles",
+        "description": "Values specifying the roles played by the file in the analysis.",
+        "flags": true,
+        "zeroValueName": "None",
+        "memberNames": [
+          "AnalysisTarget",
+          "Attachment",
+          "ResponseFile",
+          "ResultFile",
+          "Screenshot",
+          "StandardStream",
+          "TraceFile"
+        ]
+      }
+    }
+  ],
+  "graph": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "graphTraversal": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -142,6 +202,16 @@
     }
   ],
   "location": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "node": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -381,6 +451,16 @@
     }
   ],
   "tool": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "versionControlDetails": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
