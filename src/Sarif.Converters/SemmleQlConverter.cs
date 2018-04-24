@@ -104,7 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         results.Add(ParseResult(row));
                     }
                 }
-
             }
 
             return results.ToArray();
@@ -151,14 +150,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage embedded links wrapped in [brackets].
             // Example rawMessage
-            //     po (coming from [["hbm"|"relative://code/.../brushapi.cxx:176:4882:3"],["hbm"|"relative://code/.../ntgdi.c:1873:50899:3"],["hbm"|"relative://code/.../ntgdi.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
+            //     po (coming from [["hbm"|"relative://code/.../file1.cxx:176:4882:3"],["hbm"|"relative://code/.../file2.c:1873:50899:3"],["hbm"|"relative://code/.../file2.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
             // Example normalizedMessage, where 'id' is the related location id to link to
             //   Note: the first link in the message links to the first related location in the list, the second link to the second, etc.
             //     po (coming from [hbm](id)) may not have been checked for validity before call to vSync.
             // Example relatedLocations
-            //     relative://code/.../brushapi.cxx:176:4882:3
-            //     relative://code/.../ntgdi.c:1873:50899:3
-            //     relative://code/.../ntgdi.c:5783:154466:3
+            //     relative://code/.../file1.cxx:176:4882:3
+            //     relative://code/.../file2.c:1873:50899:3
+            //     relative://code/.../file2.c:5783:154466:3
             List<Location> relatedLocations = null;
 
             var sb = new StringBuilder();
@@ -175,13 +174,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 index = rawMessage.IndexOf("]]");
 
                 // embeddedLinksText contains the text for one set of embedded links except for the leading '[[' and trailing ']]'
-                // "hbm"|"relative:/code/.../brushapi.cxx:176:4882:3"],["hbm"|"relative://code/.../ntgdi.c:1873:50899:3"],["hbm"|"relative://code/.../ntgdi.c:5783:154466:3"
+                // "hbm"|"relative:/code/.../file1.cxx:176:4882:3"],["hbm"|"relative://code/.../file2.c:1873:50899:3"],["hbm"|"relative://code/.../file2.c:5783:154466:3"
                 string embeddedLinksText = rawMessage.Substring(0, index - 1);
 
                 // embeddedLinks splits the set of embedded links into invividual links
-                // 1.  "hbm"|"relative://code/.../brushapi.cxx:176:4882:3"
-                // 2.  "hbm"|"relative://code/.../ntgdi.c:1873:50899:3"
-                // 3.  "hbm"|"relative://code/.../ntgdi.c:5783:154466:3"
+                // 1.  "hbm"|"relative://code/.../file1.cxx:176:4882:3"
+                // 2.  "hbm"|"relative://code/.../file2.c:1873:50899:3"
+                // 3.  "hbm"|"relative://code/.../file2.c:5783:154466:3"
 
                 string[] embeddedLinks = embeddedLinksText.Split(new string[] { "],[" }, StringSplitOptions.None);
 

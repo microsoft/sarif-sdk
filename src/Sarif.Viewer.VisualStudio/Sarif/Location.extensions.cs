@@ -28,6 +28,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 }
             }
 
+            model.Message = location.Message?.Text;
             model.LogicalLocation = location.FullyQualifiedLogicalName;
 
             return model;

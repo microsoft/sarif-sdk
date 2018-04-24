@@ -63,7 +63,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
 
                 // Set the current sarif error in the manager so we track code locations.
-                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+                CodeAnalysisResultManager.Instance.CurrentSarifResult = sarifResult;
 
                 if (sarifResult.HasDetails)
                 {

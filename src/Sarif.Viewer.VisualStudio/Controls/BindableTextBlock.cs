@@ -10,14 +10,14 @@ namespace Microsoft.Sarif.Viewer.Controls
 {
     public class BindableTextBlock : TextBlock
     {
+        public static readonly DependencyProperty InlineListProperty =
+            DependencyProperty.Register("InlineList", typeof(ObservableCollection<Inline>), typeof(BindableTextBlock), new UIPropertyMetadata(null, OnPropertyChanged));
+
         public ObservableCollection<Inline> InlineList
         {
             get { return (ObservableCollection<Inline>)GetValue(InlineListProperty); }
             set { SetValue(InlineListProperty, value); }
         }
-
-        public static readonly DependencyProperty InlineListProperty =
-            DependencyProperty.Register("InlineList", typeof(ObservableCollection<Inline>), typeof(BindableTextBlock), new UIPropertyMetadata(null, OnPropertyChanged));
 
         private static void OnPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {

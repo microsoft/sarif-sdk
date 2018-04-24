@@ -177,11 +177,11 @@ namespace Microsoft.Sarif.Viewer
         public string Message { get; set; }
 
         [Browsable(false)]
-        public ObservableCollection<XamlDoc.Inline> SanitizedMessageInlines
+        public ObservableCollection<XamlDoc.Inline> MessageInlines
         {
             get
             {
-                return new ObservableCollection<XamlDoc.Inline>(SdkUiUtilities.GetInlinesForErrorMessage(Message));
+                return new ObservableCollection<XamlDoc.Inline>(SdkUIUtilities.GetInlinesForErrorMessage(Message));
             }
         }
 

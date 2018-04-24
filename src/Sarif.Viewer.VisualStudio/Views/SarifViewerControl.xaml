@@ -95,7 +95,7 @@
                 </DockPanel>
             </Border>
             <controls:BindableTextBlock Grid.Row="2"
-                                        InlineList="{Binding SanitizedMessageInlines}"
+                                        InlineList="{Binding MessageInlines}"
                                         Style="{StaticResource HeaderMessageTextStyle}"/>
         </Grid>
         

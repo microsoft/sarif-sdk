@@ -10,17 +10,9 @@ using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
-    public class SdkUiUtilitiesTests
+    public class SdkUIUtilitiesTests
     {
         private void Hyperlink_Click(object sender, RoutedEventArgs e) { }
-
-        [Fact]
-        public void SarifSnapshot_UnescapeBrackets()
-        {
-            string message = @"The quick \[brown fox\] jumps over the lazy dog.";
-            string actual = SdkUiUtilities.UnescapeBrackets(message);
-            actual.Should().Be("The quick [brown fox] jumps over the lazy dog.");
-        }
 
         [Fact]
         public void SarifSnapshot_GetMessageEmbeddedLinkInlines_DontCreateLinks()
@@ -34,30 +26,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run(" jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message);
+            var actual = SdkUIUtilities.GetInlinesForErrorMessage(message);
 
             actual.Count.Should().Be(expected.Count);
 
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
-        }
-
-        [Fact]
-        public void SarifSnapshot_GetMessageEmbeddedLinkInlines_ZeroLinks()
-        {
-            string message = @"The quick brown fox jumps over the lazy dog.";
-
-            var expected = new List<Inline>
+            for (int i = 0; i < actual.Count; i++)
             {
-                new Run("The quick brown fox jumps over the lazy dog.")
-            };
-
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
-
-            actual.Count.Should().Be(expected.Count);
-
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
+                VerifyTextRun(expected[i], actual[i]);
+            }
         }
 
         [Fact]
@@ -70,10 +46,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run("The quick [brown fox] jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
+            var actual = SdkUIUtilities.GetMessageInlines(message, index: 1, clickHandler: Hyperlink_Click);
 
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
+            VerifyTextRun(expected[0], actual[0]);
         }
 
         [Fact]
@@ -82,7 +57,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             string message = @"The quick [brown fox](1) jumps over the lazy dog.";
 
             var link = new Hyperlink();
-            link.Tag = new Tuple<object, int>(1, 1);
+            link.Tag = new Tuple<int, int>(1, 1);
             link.Inlines.Add(new Run("brown fox"));
 
             var expected = new List<Inline>
@@ -92,23 +67,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run(" jumps over the lazy dog.")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
+            var actual = SdkUIUtilities.GetMessageInlines(message, index: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
-
-            actual[1].Should().BeOfType(expected[1].GetType());
-            (actual[1] as Hyperlink).Inlines.Count.Should().Be((expected[1] as Hyperlink).Inlines.Count);
-            ((actual[1] as Hyperlink).Inlines.FirstInline as Run).Text.Should().Be(((expected[1] as Hyperlink).Inlines.FirstInline as Run).Text);
-            Tuple<object, int> tagActual = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
-            Tuple<object, int> tagExpected = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
-            tagActual.Item1.Should().Be(tagExpected.Item1);
-            tagActual.Item2.Should().Be(tagExpected.Item2);
-
-            actual[2].Should().BeOfType(expected[2].GetType());
-            (actual[2] as Run).Text.Should().Be((expected[2] as Run).Text);
+            VerifyTextRun(expected[0], actual[0]);
+            VerifyHyperlink(expected[1], actual[1]);
+            VerifyTextRun(expected[2], actual[2]);
         }
 
         [Fact]
@@ -117,11 +82,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             string message = @"The quick [brown fox](1) jumps over the [lazy dog](2)";
 
             var link1 = new Hyperlink();
-            link1.Tag = new Tuple<object, int>(1, 1);
+            link1.Tag = new Tuple<int, int>(1, 1);
             link1.Inlines.Add(new Run("brown fox"));
 
             var link2 = new Hyperlink();
-            link2.Tag = new Tuple<object, int>(1, 2);
+            link2.Tag = new Tuple<int, int>(1, 2);
             link2.Inlines.Add(new Run("lazy dog"));
 
             var expected = new List<Inline>
@@ -132,31 +97,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 link2
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
+            var actual = SdkUIUtilities.GetMessageInlines(message, index: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
-
-            actual[1].Should().BeOfType(expected[1].GetType());
-            (actual[1] as Hyperlink).Inlines.Count.Should().Be((expected[1] as Hyperlink).Inlines.Count);
-            ((actual[1] as Hyperlink).Inlines.FirstInline as Run).Text.Should().Be(((expected[1] as Hyperlink).Inlines.FirstInline as Run).Text);
-            Tuple<object, int> tag1Actual = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
-            Tuple<object, int> tag1Expected = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
-            tag1Actual.Item1.Should().Be(tag1Expected.Item1);
-            tag1Actual.Item2.Should().Be(tag1Expected.Item2);
-
-            actual[2].Should().BeOfType(expected[2].GetType());
-            (actual[2] as Run).Text.Should().Be((expected[2] as Run).Text);
-
-            actual[3].Should().BeOfType(expected[3].GetType());
-            (actual[3] as Hyperlink).Inlines.Count.Should().Be((expected[3] as Hyperlink).Inlines.Count);
-            ((actual[3] as Hyperlink).Inlines.FirstInline as Run).Text.Should().Be(((expected[3] as Hyperlink).Inlines.FirstInline as Run).Text);
-            Tuple<object, int> tag2Actual = (actual[3] as Hyperlink).Tag as Tuple<object, int>;
-            Tuple<object, int> tag2Expected = (actual[3] as Hyperlink).Tag as Tuple<object, int>;
-            tag2Actual.Item1.Should().Be(tag2Expected.Item1);
-            tag2Actual.Item2.Should().Be(tag2Expected.Item2);
+            VerifyTextRun(expected[0], actual[0]);
+            VerifyHyperlink(expected[1], actual[1]);
+            VerifyTextRun(expected[2], actual[2]);
+            VerifyHyperlink(expected[3], actual[3]);
         }
 
         [Fact]
@@ -165,7 +113,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             string message = @"The quick [brown fox](1) jumps over the \[lazy dog\].";
 
             var link = new Hyperlink();
-            link.Tag = new Tuple<object, int>(1, 1);
+            link.Tag = new Tuple<int, int>(1, 1);
             link.Inlines.Add(new Run("brown fox"));
 
             var expected = new List<Inline>
@@ -175,23 +123,34 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 new Run(" jumps over the [lazy dog].")
             };
 
-            var actual = SdkUiUtilities.GetInlinesForErrorMessage(message, data: 1, clickHandler: Hyperlink_Click);
+            var actual = SdkUIUtilities.GetMessageInlines(message, index: 1, clickHandler: Hyperlink_Click);
 
             actual.Count.Should().Be(expected.Count);
 
-            actual[0].Should().BeOfType(expected[0].GetType());
-            (actual[0] as Run).Text.Should().Be((expected[0] as Run).Text);
+            VerifyTextRun(expected[0], actual[0]);
+            VerifyHyperlink(expected[1], actual[1]);
+            VerifyTextRun(expected[2], actual[2]);
+        }
 
-            actual[1].Should().BeOfType(expected[1].GetType());
-            (actual[1] as Hyperlink).Inlines.Count.Should().Be((expected[1] as Hyperlink).Inlines.Count);
-            ((actual[1] as Hyperlink).Inlines.FirstInline as Run).Text.Should().Be(((expected[1] as Hyperlink).Inlines.FirstInline as Run).Text);
-            Tuple<object, int> tagActual = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
-            Tuple<object, int> tagExpected = (actual[1] as Hyperlink).Tag as Tuple<object, int>;
+        private static void VerifyTextRun(Inline expected, Inline actual)
+        {
+            actual.Should().BeOfType(expected.GetType());
+            (actual as Run).Text.Should().Be((expected as Run).Text);
+        }
+
+        private static void VerifyHyperlink(Inline expected, Inline actual)
+        {
+            actual.Should().BeOfType(expected.GetType());
+
+            Hyperlink expectedLink = expected as Hyperlink;
+            Hyperlink actualLink = actual as Hyperlink;
+
+            actualLink.Inlines.Count.Should().Be(expectedLink.Inlines.Count);
+            (actualLink.Inlines.FirstInline as Run).Text.Should().Be((expectedLink.Inlines.FirstInline as Run).Text);
+            Tuple<int, int> tagActual = actualLink.Tag as Tuple<int, int>;
+            Tuple<int, int> tagExpected = actualLink.Tag as Tuple<int, int>;
             tagActual.Item1.Should().Be(tagExpected.Item1);
             tagActual.Item2.Should().Be(tagExpected.Item2);
-
-            actual[2].Should().BeOfType(expected[2].GetType());
-            (actual[2] as Run).Text.Should().Be((expected[2] as Run).Text);
         }
     }
 }

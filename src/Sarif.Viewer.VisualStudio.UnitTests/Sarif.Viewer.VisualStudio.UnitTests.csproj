@@ -208,7 +208,7 @@
     <Compile Include="Models\CallTreeTests.cs" />
     <Compile Include="Models\FixModelTests.cs" />
     <Compile Include="ProjectNameCacheTests.cs" />
-    <Compile Include="SdkUiUtilitiesTests.cs" />
+    <Compile Include="SdkUIUtilitiesTests.cs" />
     <Compile Include="TelemetryProviderTests.cs" />
     <Compile Include="TestUtilities.cs" />
     <Compile Include="UriExtensionsTests.cs" />

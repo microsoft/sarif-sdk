@@ -33,8 +33,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         public override int Count { get; }
 
-        public IList<SarifErrorListItem> Errors { get; }
-
         public string FilePath { get; }
 
         public override int VersionNumber { get; } = 1;
@@ -53,9 +51,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 if (columnName == StandardTableKeyNames2.TextInlines)
                 {
                     string message = _errors[index].Message;
-                    List<Inline> inlines = SdkUiUtilities.GetInlinesForErrorMessage(message,
-                                                                                    data: index,
-                                                                                    clickHandler: ErrorListInlineLink_Click);
+                    List<Inline> inlines = SdkUIUtilities.GetMessageInlines(message, index, ErrorListInlineLink_Click);
 
                     if (inlines.Count > 0)
                     {
@@ -85,13 +81,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = SdkUiUtilities.UnescapeBrackets(_errors[index].ShortMessage);
+                    content = SdkUIUtilities.UnescapeBrackets(_errors[index].ShortMessage);
                 }
                 else if (columnName == StandardTableKeyNames.FullText)
                 {
                     if (!string.IsNullOrEmpty(_errors[index].Message) && _errors[index].Message.Trim() != _errors[index].ShortMessage.Trim())
                     {
-                        content = SdkUiUtilities.UnescapeBrackets(_errors[index].Message);
+                        content = SdkUIUtilities.UnescapeBrackets(_errors[index].Message);
                     }
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
@@ -163,7 +159,9 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             if (hyperLink != null)
             {
-                Tuple<object, int> data = hyperLink.Tag as Tuple<object, int>;
+                Tuple<int, int> data = hyperLink.Tag as Tuple<int, int>;
+                // data.Item1 = index of SarifErrorListItem
+                // data.Item2 = id of related location to link
 
                 SarifErrorListItem sarifResult = _errors[Convert.ToInt32(data.Item1)];
 
@@ -172,17 +170,14 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 if (location != null)
                 {
                     // Set the current sarif error in the manager so we track code locations.
-                    CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+                    CodeAnalysisResultManager.Instance.CurrentSarifResult = sarifResult;
+
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
 
                     if (sarifResult.HasDetails)
                     {
-                        // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
-                        SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+                        // Setting the DataContext to null (above) forces the TabControl to select the appropriate tab.
                         SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
-                    }
-                    else
-                    {
-                        SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
                     }
 
                     location.NavigateTo(false);

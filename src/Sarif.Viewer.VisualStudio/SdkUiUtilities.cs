@@ -24,7 +24,7 @@ using Newtonsoft.Json;
 namespace Microsoft.Sarif.Viewer
 {
 
-    public static class SdkUiUtilities
+    public static class SdkUIUtilities
     {
         private static string s_staticAnalysisToolsDirectory;
         private static string[] s_ruleSetDirectories;
@@ -33,8 +33,8 @@ namespace Microsoft.Sarif.Viewer
         private static readonly Guid s_appIdUsesIsolatedCLR = new System.Guid("{074a44d3-1d9d-406c-9f91-c2a4982b1974}");
         internal static readonly Guid s_enviornmentThemeCategory = new System.Guid("624ed9c3-bdfd-41fa-96c3-7c824ea32e3d");
 
-        // Embedded link format: [link text](n) where n is a positive integer
-        private static string s_embeddedLinkRegexPattern = @"\[(?<link>[^\\\]]+)\]\((?<index>\d+)\)";
+        // Embedded link format: [link text](n) where n is a non-negative integer
+        private const string EmbeddedLinkPattern = @"\[(?<link>[^\\\]]+)\]\((?<index>\d+)\)";
 
         internal const string RuleSetFileExtension = ".ruleset";
         /// <summary>
@@ -656,8 +656,8 @@ namespace Microsoft.Sarif.Viewer
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsUIShellOpenDocument openDoc = SdkUiUtilities.GetService<SVsUIShellOpenDocument, IVsUIShellOpenDocument>(provider);
-            IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(provider);
+            IVsUIShellOpenDocument openDoc = SdkUIUtilities.GetService<SVsUIShellOpenDocument, IVsUIShellOpenDocument>(provider);
+            IVsRunningDocumentTable runningDocTable = SdkUIUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(provider);
             if (openDoc == null || runningDocTable == null)
             {
                 throw Marshal.GetExceptionForHR(VSConstants.E_FAIL);
@@ -1006,7 +1006,7 @@ namespace Microsoft.Sarif.Viewer
                 {
                     if (Directory.Exists(path))
                     {
-                        string[] files = Directory.GetFiles(path, "*" + SdkUiUtilities.RuleSetFileExtension);
+                        string[] files = Directory.GetFiles(path, "*" + SdkUIUtilities.RuleSetFileExtension);
                         foreach (string file in files)
                         {
                             string fileName = Path.GetFileName(file).ToLowerInvariant();
@@ -1094,22 +1094,21 @@ namespace Microsoft.Sarif.Viewer
         /// <returns>A collection of Inline elements that represent the specified message.</returns>
         internal static List<Inline> GetInlinesForErrorMessage(string message)
         {
-            return GetInlinesForErrorMessage(message, null, null);
+            return GetMessageInlines(message, -1, null);
         }
 
         /// <summary>
         /// Builds a set of Inline elements from the specified message, optionally with embedded hyperlinks.
         /// </summary>
         /// <param name="message">The message to process.</param>
-        /// <param name="createHyperlinks">True to generate embedded hyperlinks; otherwise, false.</param>
-        /// <param name="data">A data object to include in each hyperlink's Tag property.</param>
+        /// <param name="index">The index of the error item</param>
         /// <param name="clickHandler">A delegate for the Hyperlink.Click event.</param>
         /// <returns>A collection of Inline elements that represent the specified message.</returns>
-        internal static List<Inline> GetInlinesForErrorMessage(string message, object data, RoutedEventHandler clickHandler)
+        internal static List<Inline> GetMessageInlines(string message, int index, RoutedEventHandler clickHandler)
         {
             var inlines = new List<Inline>();
 
-            MatchCollection matches = Regex.Matches(message, s_embeddedLinkRegexPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            MatchCollection matches = Regex.Matches(message, EmbeddedLinkPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
             int start = 0;
 
             if (matches.Count > 0)
@@ -1127,8 +1126,8 @@ namespace Microsoft.Sarif.Viewer
                     {
                         var link = new Hyperlink();
 
-                        // Stash the data object and relative link id
-                        link.Tag = new Tuple<object, int>(data, Convert.ToInt32(match.Groups["index"].Value));
+                        // Stash the error index and relative link id
+                        link.Tag = new Tuple<int, int>(index, Convert.ToInt32(match.Groups["index"].Value));
 
                         // Set the hyperlink text
                         link.Inlines.Add(new Run($"{group.Value}"));
