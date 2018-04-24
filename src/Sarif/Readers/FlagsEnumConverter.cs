@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            if (!(value is SuppressionStates))
+            if (!(value is SuppressionStates || value is FileRoles))
             {
                 writer.WriteValue(value);
                 return;

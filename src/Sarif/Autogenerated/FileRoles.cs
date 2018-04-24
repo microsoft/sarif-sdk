@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [Flags]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
-    public enum FileRole
+    public enum FileRoles
     {
-        Default,
+        None,
         AnalysisTarget,
         Attachment,
         ResponseFile,

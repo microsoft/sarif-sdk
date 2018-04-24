@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
-        public FileRole Roles { get; set; }
+        public FileRoles Roles { get; set; }
 
         /// <summary>
         /// The MIME type (RFC 2045) of the file.
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRole roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, properties);
         }
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRole roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {

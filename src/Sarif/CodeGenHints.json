@@ -99,10 +99,10 @@
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "FileRole",
+        "typeName": "FileRoles",
         "description": "Values specifying the roles played by the file in the analysis.",
         "flags": true,
-        "zeroValueName": "Default",
+        "zeroValueName": "None",
         "memberNames": [
           "AnalysisTarget",
           "Attachment",
