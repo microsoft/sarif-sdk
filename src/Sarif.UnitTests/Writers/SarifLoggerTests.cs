@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string file;
 
             using (var tempFile = new TempFile(".cpp"))
-            using (var textWriter = new StringWriter(sb))            
+            using (var textWriter = new StringWriter(sb))
             {
                 file = tempFile.Name;
                 File.WriteAllText(file, "#include \"windows.h\";");
@@ -184,6 +184,51 @@ namespace Microsoft.CodeAnalysis.Sarif
             sarifLog.Runs[0].Files[fileDataKey].Hashes[1].Value.Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Algorithm.Should().Be(AlgorithmKind.Sha256);
             sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+        }
+
+        [Fact]
+        public void SarifLogger_WritesFileDataWithUnrecognizedEncoding()
+        {
+            var sb = new StringBuilder();
+            string file;
+            string fileText = "using System;";
+
+            using (var tempFile = new TempFile(".cs"))
+            using (var textWriter = new StringWriter(sb))
+            {
+                file = tempFile.Name;
+                File.WriteAllText(file, fileText);
+
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    analysisTargets: new string[] { file },
+                    loggingOptions: LoggingOptions.PersistFileContents,
+                    prereleaseInfo: null,
+                    invocationTokensToRedact: null,
+                    invocationPropertiesToLog: null,
+                    defaultFileEncoding: "ImaginaryEncoding"))
+                {
+                    string ruleId = "RuleId";
+                    var rule = new Rule() { Id = ruleId };
+
+                    var result = new Result()
+                    {
+                        RuleId = ruleId
+                    };
+
+                    sarifLogger.Log(rule, result);
+                }
+            }
+
+            string logText = sb.ToString();
+
+            string fileDataKey = new Uri(file).AbsoluteUri;
+            byte[] fileBytes = Encoding.Default.GetBytes(fileText);
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
+            sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.CSharp);
+            sarifLog.Runs[0].Files[fileDataKey].Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
+            sarifLog.Runs[0].Files[fileDataKey].Contents.Text.Should().BeNull();
         }
 
         [Fact]

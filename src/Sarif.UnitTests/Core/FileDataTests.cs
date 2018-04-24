@@ -74,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
                 fileData.Contents.Binary.Should().Be(encodedFileContents);
+                fileData.Contents.Text.Should().BeNull();
             }
             finally
             {

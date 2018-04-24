@@ -132,7 +132,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _run.DefaultFileEncoding = defaultFileEncoding;
             }
 
-
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
             _issueLogJsonWriter.WriteTool(tool);
@@ -367,14 +366,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-
             Encoding encoding = null;
 
             try
             {
                 encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
             }
-            catch (ArgumentException) { }
+            catch (ArgumentException) { } // Unrecognized or null encoding name
 
             _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions, null, encoding);
         }
