@@ -226,9 +226,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             byte[] fileBytes = Encoding.Default.GetBytes(fileText);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.CSharp);
-            sarifLog.Runs[0].Files[fileDataKey].Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
-            sarifLog.Runs[0].Files[fileDataKey].Contents.Text.Should().BeNull();
+            FileData fileData = sarifLog.Runs[0].Files[fileDataKey];
+            fileData.MimeType.Should().Be(MimeType.CSharp);
+            fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
+            fileData.Contents.Text.Should().BeNull();
         }
 
         [Fact]
