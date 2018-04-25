@@ -16,6 +16,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (physicalLocation?.FileLocation != null)
             {
+                model.Id = physicalLocation.Id;
                 model.Region = physicalLocation.Region;
 
                 Uri uri = physicalLocation.FileLocation.Uri;
@@ -27,6 +28,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 }
             }
 
+            model.Message = location.Message?.Text;
             model.LogicalLocation = location.FullyQualifiedLogicalName;
 
             return model;

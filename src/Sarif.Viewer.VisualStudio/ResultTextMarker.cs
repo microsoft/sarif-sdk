@@ -74,7 +74,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            IVsWindowFrame windowFrame = SdkUiUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, this.FullFilePath, usePreviewPane);
+            IVsWindowFrame windowFrame = SdkUIUtilities.OpenDocument(SarifViewerPackage.ServiceProvider, this.FullFilePath, usePreviewPane);
             if (windowFrame != null)
             {
                 IVsTextView textView = GetTextViewFromFrame(windowFrame);

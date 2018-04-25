@@ -171,6 +171,7 @@
           "ruleId": "C2001",
           "ruleMessageId": "default",
           "message": {
+            "text": "This is the result message with an [embedded link](1), but \\[this one\\] isn't. Here is a [second link](1).",
             "arguments": [
               "ptr"
             ]
@@ -206,6 +207,7 @@
                 "text": "\"count\" was declared here."
               },
               "physicalLocation": {
+                "id": 1,
                 "fileLocation": {
                   "uri": "file:///home/buildAgent/src/collections/list.h"
                 },

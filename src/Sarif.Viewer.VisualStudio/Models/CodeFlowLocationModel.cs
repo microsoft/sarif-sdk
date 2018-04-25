@@ -13,6 +13,8 @@ namespace Microsoft.Sarif.Viewer.Models
         private string _module;
         private bool _isEssential;
 
+        public int Id { get; set; }
+
         public string Message
         {
             get

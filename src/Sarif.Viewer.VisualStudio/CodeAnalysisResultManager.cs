@@ -63,7 +63,7 @@ namespace Microsoft.Sarif.Viewer
             _remappedUriBasePaths = new Dictionary<string, Uri>();
             _remappedPathPrefixes = new List<Tuple<string, string>>();
             _fileToNewLineIndexMap = new Dictionary<string, NewLineIndex>();
-            _allowedDownloadHosts = SdkUiUtilities.GetStoredObject<List<string>>(AllowedDownloadHostsFileName) ?? new List<string>();
+            _allowedDownloadHosts = SdkUIUtilities.GetStoredObject<List<string>>(AllowedDownloadHostsFileName) ?? new List<string>();
 
             // Get temporary path for embedded files.
             TemporaryFilePath = Path.GetTempPath();
@@ -109,7 +109,7 @@ namespace Microsoft.Sarif.Viewer
         public IDictionary<string, FileDetailsModel> FileDetails { get; } = new Dictionary<string, FileDetailsModel>();
 
         SarifErrorListItem m_currentSarifError;
-        public SarifErrorListItem CurrentSarifError
+        public SarifErrorListItem CurrentSarifResult
         {
             get
             {
@@ -124,9 +124,9 @@ namespace Microsoft.Sarif.Viewer
 
         private void ClearCurrentMarkers()
         {
-            if (CurrentSarifError != null)
+            if (CurrentSarifResult != null)
             {
-                CurrentSarifError.RemoveMarkers();
+                CurrentSarifResult.RemoveMarkers();
             }
         }
 
@@ -267,7 +267,7 @@ namespace Microsoft.Sarif.Viewer
 
         public bool TryRebaselineAllSarifErrors(string uriBaseId, string originalFilename)
         {
-            if (CurrentSarifError == null)
+            if (CurrentSarifResult == null)
             {
                 return false;
             }
@@ -389,7 +389,7 @@ namespace Microsoft.Sarif.Viewer
         internal void AddAllowedDownloadHost(string host)
         {
             _allowedDownloadHosts.Add(host);
-            SdkUiUtilities.StoreObject<List<string>>(_allowedDownloadHosts, AllowedDownloadHostsFileName);
+            SdkUIUtilities.StoreObject<List<string>>(_allowedDownloadHosts, AllowedDownloadHostsFileName);
         }
 
         internal string DownloadFile(string fileUrl)
@@ -401,7 +401,7 @@ namespace Microsoft.Sarif.Viewer
 
             Uri sourceUri = new Uri(fileUrl);
 
-            string destinationFile = Path.Combine(CurrentSarifError.WorkingDirectory, sourceUri.LocalPath.Replace('/', '\\').TrimStart('\\'));
+            string destinationFile = Path.Combine(CurrentSarifResult.WorkingDirectory, sourceUri.LocalPath.Replace('/', '\\').TrimStart('\\'));
             string destinationDirectory = Path.GetDirectoryName(destinationFile);
             Directory.CreateDirectory(destinationDirectory);
 
@@ -566,7 +566,7 @@ namespace Microsoft.Sarif.Viewer
             var openFileDialog = new OpenFileDialog
             {
                 Title = $"Locate missing file: {pathFromLogFile}",
-                InitialDirectory = Path.GetDirectoryName(CurrentSarifError.LogFilePath),
+                InitialDirectory = Path.GetDirectoryName(CurrentSarifResult.LogFilePath),
                 Filter = $"{fileName}|{fileName}",
                 RestoreDirectory = true
             };
@@ -693,7 +693,7 @@ namespace Microsoft.Sarif.Viewer
             ThreadHelper.ThrowIfNotOnUIThread();
 
             string documentName = null;
-            IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(ServiceProvider);
+            IVsRunningDocumentTable runningDocTable = SdkUIUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(ServiceProvider);
             if (runningDocTable != null)
             {
                 uint grfRDTFlags;
@@ -753,11 +753,6 @@ namespace Microsoft.Sarif.Viewer
         internal Tuple<string, string>[] GetRemappedPathPrefixes()
         {
             return _remappedPathPrefixes.ToArray();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

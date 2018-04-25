@@ -11,6 +11,7 @@ using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
+using XamlDoc = System.Windows.Documents;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -174,6 +175,15 @@ namespace Microsoft.Sarif.Viewer
 
         [Browsable(false)]
         public string Message { get; set; }
+
+        [Browsable(false)]
+        public ObservableCollection<XamlDoc.Inline> MessageInlines
+        {
+            get
+            {
+                return new ObservableCollection<XamlDoc.Inline>(SdkUIUtilities.GetInlinesForErrorMessage(Message));
+            }
+        }
 
         [Browsable(false)]
         public SnapshotSpan Span { get; set; }
