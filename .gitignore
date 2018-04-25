@@ -27,7 +27,7 @@ bld/
 .vs/
 
 # Visual Studio 2017 browsing database files
-.BROWSE.VC.DB-*
+.BROWSE.VC.DB*
 
 # Visual Studio 2017 Application/Debug properties
 launchSettings.json
