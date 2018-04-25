@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -34,11 +35,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Architecture = node.Architecture,
                     BaselineId = node.BaselineId,
                     AutomationId = node.AutomationId,
-                    DefaultFileEncoding = "???",
                     Id = node.Id,
-                    Results = new List<Result>(),
-                    RichMessageMimeType = "???"
+                    Properties = node.Properties,
+                    Results = new List<Result>()
                 };
+
+                if (run.Properties == null)
+                {
+                    run.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                run.Properties.Add("sarifV1/StableId", new SerializedPropertyInfo(node.StableId, true));
 
                 SarifLog.Runs.Add(run);
 
@@ -80,7 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return null;
-        }
-        
+        }        
     }
 }
