@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx": {
+          "mimeType": "text/x-cpp",
+          "contents": "LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCiAqIENvcHlyaWdodCAoYykgTWljcm9zb2Z0IENvcnBvcmF0aW9uLiAgQWxsIHJpZ2h0cyByZXNlcnZlZC4gDQogKgkNCiAqIERlc2NyaXB0aW9uIDogRG9jIFNhbXBsZToNCiAgIHdhcm5pbmcgQzYyODI6IEluY29ycmVjdCBvcGVyYXRvcjogYXNzaWdubWVudCBvZiBjb25zdGFudCBpbiBCb29sZWFuIGNvbnRleHQuIENvbnNpZGVyIHVzaW5nICc9PScgaW5zdGVhZCAgIA0KICAgDQogKiBDb21tYW5kIGxpbmUgOiBjbCAvVzQgL2FuYWx5emUgL2MgPGZpbGU+DQogKg0KICogQXV0aG9yIDogcmF2a2F1cg0KICoNCiAqIERhdGUgY3JlYXRlZCA6IDA0LTA0LTIwMDUNCiAqDQogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8NCnZvaWQgZl9kKGludCBpKQ0Kew0KICAgd2hpbGUgKGkgPSA1KQkvL0BAQEV4cGVjdHM6NjI4Mg0KICAgew0KICAgLy8gY29kZSAgDQogICB9DQp9DQoNCnZvaWQgZihpbnQgaSkNCnsNCiAgIHdoaWxlIChpID09IDUpDQogICB7DQogICAvLyBjb2RlICANCiAgIH0NCn0NCg0K",
+          "hashes": [
+            {
+              "value": "ABF7B591C26026A65873688DC67F6354",
+              "algorithm": "md5"
+            },
+            {
+              "value": "026189B81AAC35D2A94198862207CE09ADB8F4DE",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "1DB8ECC5252B723E424B1C13370EA67C2D9902FD314224C9D1CDD43447E38AD6",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6282",
+          "message": "Incorrect operator:  assignment of constant in Boolean context. Consider using '==' instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6282.cxx",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "f_d",
+              "decoratedName": "?f_d@@YAXH@Z",
+              "properties": {
+                "funcline": "14"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

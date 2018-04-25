@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBBcnJheSBzaXplIHNob3duIGluIEtleSBFdmVudHMgZm9yIDYzODYNCg0KI2luY2x1ZGU8c3RyaW5nPg0KDQp2b2lkIGNvdW50KGNvbnN0IHdjaGFyX3QqIHBTb3VyY2UpDQp7DQogIHdjaGFyX3QgYnVmZmVyWzEwXTsgLy8gc2hvdWxkIGluZGljYXRlIGJ1ZmZlciBpcyBhbiBhcnJheSBvZiAxMCBlbGVtZW50cw0KICB3Y3NjcHlfcyhidWZmZXIsc2l6ZW9mKGJ1ZmZlcikscFNvdXJjZSk7DQp9DQo=",
+          "hashes": [
+            {
+              "value": "1A35DDFBC3542EB4EDB8D90D1DBDE237",
+              "algorithm": "md5"
+            },
+            {
+              "value": "999E52279C65D996FBE5C020B8FFCBA6EF16CD73",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "7277AB9FA6C131EEBC60BBD88CA236A4F53525F3F5AE0F5DC8992647DD109246",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'buffer':  the writable size is '20' bytes, but '40' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "count",
+              "decoratedName": "?count@@YAXPEB_W@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "'buffer' is an array of 10 elements (20 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "'buffer' is an Output from 'wcscpy_s' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:285)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs348783.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "Invalid write to 'buffer[19]', (writable range is 0 to 9)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

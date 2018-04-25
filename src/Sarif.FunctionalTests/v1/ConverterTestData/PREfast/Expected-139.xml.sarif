@@ -1,0 +1,307 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test139.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function TestFailOnImpl requires that result.TestFailOnImpl is == 0\n[Annotation SAL_relop(\"==\", 0) at c:\\somepath\\test139.cpp(14)]\n\nValues of variables:\nresult.TestFailOnImpl = 3\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test139.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "TestFailOnImpl",
+              "decoratedName": "?TestFailOnImpl@@YAHPBD@Z",
+              "properties": {
+                "funcline": "14"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'buf[result.TestFailOnImpl - 1]'\nBuffer accessed is buf\nBuffer is of length 2 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -1\n\n when function TestFailOnImpl called at line 28 fails.\n\nValues of variables:\nresult.TestFailOnImpl = 0\n\nwhere\nresult.TestFailOnImpl`28a == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test139.cpp",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 35
+                }
+              },
+              "fullyQualifiedLogicalName": "TestFailOnCaller",
+              "decoratedName": "?TestFailOnCaller@@YAXXZ",
+              "properties": {
+                "funcline": "23"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 35
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'buffer[10]'\nBuffer result.WeirdAlloc created during call to WeirdAlloc on line 51\nBuffer is of length 10 bytes [from annotation SAL_writableTo(byteCount({parameter 1})) at c:\\somepath\\test139.cpp(36) on function WeirdAlloc called at line 51]\nAccessing the byte at byte offset 10\n\n when function WeirdAlloc called at line 51 fails.\n\nValues of variables:\nPointer buffer is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test139.cpp",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "TestWeirdAlloc",
+              "decoratedName": "?TestWeirdAlloc@@YAXXZ",
+              "properties": {
+                "funcline": "48"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 38
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test139.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 24
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

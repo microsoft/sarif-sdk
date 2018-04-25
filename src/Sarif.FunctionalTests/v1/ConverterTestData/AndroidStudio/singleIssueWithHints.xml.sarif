@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "yammer-droid-2": {
+          "name": "yammer-droid-2",
+          "kind": "module"
+        },
+        "yammer-droid-2\\com.yammer.droid": {
+          "name": "com.yammer.droid",
+          "parentKey": "yammer-droid-2",
+          "kind": "package"
+        },
+        "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()": {
+          "name": "com.yammer.droid.AdditionOperationTest void testStuff()",
+          "parentKey": "yammer-droid-2\\com.yammer.droid",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "unused declaration",
+          "message": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid\\com.yammer.droid.AdditionOperationTest void testStuff()"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gSXQgd29ya3Mgd2l0aCBzd2l0Y2ggc3RhdGVtZW50czogT25seSBpcnJlbGV2YW50IGlmDQovLyBubyBuZXN0ZWQga2V5IGV2ZW50cyBvbiBzb21lIHBhdGggdG8gdGhlIGRlZmVjdCBpbiBhbnkgY2FzZS4NCg0KLy8gSW4gdGhpcyBleGFtcGxlLCBldmVuIHRob3VnaCB0aGUgZGVmZWN0IG9jY3VycyBpbiBhbGwgY2FzZXMsDQovLyB3ZSBkb24ndCBpZ25vcmUgdGhlIHN3aXRjaCBiZWNhdXNlIG9uZSBvZiB0aGUgY2FzZXMgKGNhc2UgMikNCi8vIGNvbnRhaW5zIGEgbmVzdGVkIGtleSBldmVudCB0aGF0IGlzIHJlbGV2YW50IG9uIHNvbWUgcGF0aCB0byB0aGUNCi8vIGRlZmVjdC4NCg0Kdm9pZCBDNjM4NV9NYXliZVJlbGV2YW50U3dpdGNoKGludCBmbGFnLCBib29sIGIpDQp7DQoJaW50IGRhdGFbMl07DQoJZGF0YVswXSA9IDE7IGRhdGFbMV0gPSAyOw0KDQoJaW50IGluZGV4ID0gMjsNCg0KCXN3aXRjaChmbGFnKQ0KCXsNCgljYXNlIDE6DQoJCWJyZWFrOw0KCWNhc2UgMjoNCgkJaWYgKGIpDQoJCQlpbmRleCA9IDE7IC8vIGlmIHdlIGNoYW5nZSB0aGlzIHRvIDIsIHN3aXRjaCBpcyBpZ25vcmVkDQoJCWJyZWFrOw0KCWNhc2UgMzoNCgkJYnJlYWs7DQoJZGVmYXVsdDoNCgkJYnJlYWs7DQoJfQ0KDQoJaW50IGsgPSBkYXRhW2luZGV4XTsNCn0NCg0KDQo=",
+          "hashes": [
+            {
+              "value": "BBE7D456B31899784244C1C53DCADB95",
+              "algorithm": "md5"
+            },
+            {
+              "value": "6397152F2272CCD4258CAB07A6C2244FE346A8C8",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "CBD365253DB91CF069958BF4A1077CDAF4BA8C9875A2CC0C26B26D8524E4AEB0",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'data':  the readable size is '8' bytes, but '12' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_MaybeRelevantSwitch",
+              "decoratedName": "?C6385_MaybeRelevantSwitch@@YAXH_N@Z",
+              "properties": {
+                "funcline": "9"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'data' is an array of 2 elements (8 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 10
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 23
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'index' is equal to 2",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Assume switch ( 'flag' ) resolves to case 1: ",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 2
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantswitch.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "Invalid read from 'data[2]', (readable range is 0 to 1)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

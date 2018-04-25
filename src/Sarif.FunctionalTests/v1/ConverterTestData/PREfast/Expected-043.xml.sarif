@@ -1,0 +1,1857 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test043.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26003",
+          "message": "Accessing buffer 'a' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential Underflow using expression 'a[succ]'\nAccessing unannotated buffer a\nBuffer is of length 4 bytes [assumed because the buffer is unannotated]\nAccessing 4 bytes starting at byte offset 4*result.f`19a\n\n when function f called at line 19 fails.\n\nValues of variables:\nPointer a is at offset 0 bytes from the start of the buffer\nsucc = result.f`19a\n\nwhere\noffset(a)`19a == 0\nresult.f`19a <= 10\n\nUnderflow access occurs when\n4*result.f`19a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXXZ",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[succ]'\nBuffer a created during call to f on line 19\nBuffer is of length 40 bytes [from annotation SAL_writableTo(elementCount(10)) at c:\\somepath\\test043.cpp(7) on function f called at line 19]\nAccessing 4 bytes starting at byte offset 4*result.f`19a\n\nValues of variables:\nPointer a is at offset 0 bytes from the start of the buffer\nsucc = result.f`19a\n\nwhere\noffset(a)`19a == 0\nresult.f`19a >= 11\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXXZ",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26030",
+          "message": "Postcondition violation that could result in overflow\nThe function has a __success annotation that is satisfied\nBuffer result.new[] created during call to operator new[] on line 27\nBuffer is of length 36 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 27]\nAccessing 40 bytes starting at byte offset 0\nAnnotation on function f1 requires that * p is of length >= 10 elements (4 bytes/element)\n[Annotation SAL_writableTo(elementCount(10)) at c:\\somepath\\test043.cpp(24)]\n\n\nValues of variables:\nPointer (*p) is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "f1",
+              "decoratedName": "?f1@@YAHPAPAH@Z",
+              "properties": {
+                "funcline": "24"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression 's[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer s is a parameter to this function declared on line 40\nBuffer is of length nullpos(s)`40 + 1 bytes [length of zero terminated string]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(s)`40 == 0\n{loop iterations}'44 == 0\nnullpos(s)`40 >= 0\n\nOverrun access occurs when\nnullpos(s)`40 == 0\n\nThere are other instances of this error:\nPotential read overflow of null terminated buffer using expression 's[i]' at line 46\nPotential read overflow of null terminated buffer using expression 's[i]' at line 57\nPotential read overflow of null terminated buffer using expression 's[i]' at line 59\nPotential read overflow of null terminated buffer using expression 's[i]' at line 60\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26030",
+          "message": "Postcondition violation that could result in overflow\nThe function has a __success annotation that is satisfied\nBuffer buf is a parameter to this function declared on line 40\nBuffer is of length offset(buf)`40 + 4*(*size)`40 bytes [from annotation SAL_writableTo(elementCount(* size)) at c:\\somepath\\test043.cpp(40)]\nAccessing 4*reqd`44 bytes starting at byte offset 0\nAnnotation on function foo requires that buf is of length >= * size elements (4 bytes/element)\n[Annotation SAL_readableTo(elementCount(* size)) at c:\\somepath\\test043.cpp(40)]\n\n\nValues of variables:\n(*size) = reqd`44\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`40 == 0\n(*size)`40 >= 1\nreqd`44 <= {loop iterations}'44 + 1\nreqd`44 >= (*size)`40 + 1\n{loop iterations}'44 >= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 18,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 19,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 20,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 21,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 22,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 23,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 24,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 25,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 26,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'buf[j ++]'\nBuffer buf is a parameter to this function declared on line 40\nBuffer is of length offset(buf)`40 + 4*(*size)`40 bytes [from annotation SAL_writableTo(elementCount(* size)) at c:\\somepath\\test043.cpp(40)]\nAccessing 4 bytes starting at byte offset 4*j`57\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nj = j`57 + 1\n\nwhere\noffset(buf)`40 == 0\n(*size)`40 >= 1\nj`57 <= {loop iterations}'57 + 1\nreqd`44 <= (*size)`40\nreqd`44 <= {loop iterations}'44 + 1\nreqd`44 >= {loop iterations}'57 + 2\n{loop iterations}'44 >= 0\n{loop iterations}'57 >= 0\n\nUnderflow access occurs when\n4*j`57 + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 22
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 18,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 19,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 20,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 21,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 22,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 23,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 24,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 25,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 26,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 27,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 28,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 29,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 30,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 31,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 32,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 33,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 34,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 35,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 36,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 37,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 38,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 39,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 40,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 41,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 42,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 43,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 44,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 45,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 46,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 22
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26006",
+          "message": "Possibly incorrect single element annotation on string buffer\nPossible precondition violation due to failure to null terminate string 's'\nBuffer s is a parameter to this function declared on line 67\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(s)`67 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test043.cpp(67)]\nAnnotation on function foo requires that {parameter 3} is null terminated\n  where {parameter 3} is s [Annotation SAL_nullTerminated at c:\\somepath\\test043.cpp(40)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YADPAD@Z",
+              "properties": {
+                "funcline": "67"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow using expression 'a[n]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset n`74a\n\nValues of variables:\nn = n`74a\n\nwhere\nn`74a <= 10\nn`74a >= 0\n\nOverrun access occurs when\nn`74a == 10\n\nThere are other instances of this error:\nPotential read overflow using expression 'a[n - 1]' at line 77\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 76,
+                  "startColumn": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YADPAD@Z",
+              "properties": {
+                "funcline": "67"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 24
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential read underflow using expression 'a[n]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset n`74a\n\n when function foo called at line 74 fails.\n\nValues of variables:\nn = n`74a\n\nUnderflow access occurs when\nn`74a + 1 <= 0\n\nThere are other instances of this error:\nPotential read underflow using expression 'a[n - 1]' at line 77\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 76,
+                  "startColumn": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YADPAD@Z",
+              "properties": {
+                "funcline": "67"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 24
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26045",
+          "message": "Potential postcondition violation that could result in overflow\nThe function has a __success annotation that is satisfied\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: n`88 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 90\nBuffer is of length 10 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 90]\nAccessing n`88 bytes starting at byte offset 0\nAnnotation on function SuccessSatisfied requires that * p is of length >= n elements (1 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test043.cpp(88)]\n\n\nValues of variables:\nPointer (*p) is at offset 0 bytes from the start of the buffer\nn = n`88\n\nwhere\noffset(result.new[])`90a == 0\nn`88 >= 0\n\nOverrun access occurs when\nn`88 >= 11\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "SuccessSatisfied",
+              "decoratedName": "?SuccessSatisfied@@YAJPAPADI@Z",
+              "properties": {
+                "funcline": "88"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 91,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26045",
+          "message": "Potential postcondition violation that could result in overflow\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: n`94 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 96\nBuffer is of length 10 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 96]\nAccessing n`94 bytes starting at byte offset 0\nAnnotation on function NoSuccess requires that * p is of length >= n elements (1 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test043.cpp(94)]\n\n\nValues of variables:\nPointer (*p) is at offset 0 bytes from the start of the buffer\nn = n`94\n\nwhere\noffset(result.new[])`96a == 0\nn`94 >= 0\n\nOverrun access occurs when\nn`94 >= 11\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "NoSuccess",
+              "decoratedName": "?NoSuccess@@YAHPAPADI@Z",
+              "properties": {
+                "funcline": "94"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26045",
+          "message": "Potential postcondition violation that could result in overflow\nThe function has a __success annotation that may be satisfied\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: n`105 is not constrained by any constant\n\nBuffer result.new[] created during call to operator new[] on line 108\nBuffer is of length 10 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 108]\nAccessing n`105 bytes starting at byte offset 0\nAnnotation on function SuccessMaybeSatisified requires that * p is of length >= n elements (1 bytes/element)\n[Annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test043.cpp(105)]\n\n\nValues of variables:\nPointer (*p) is at offset 0 bytes from the start of the buffer\nn = n`105\n\nwhere\noffset(result.new[])`108a == 0\nn`105 >= 0\n\nOverrun access occurs when\nn`105 >= 11\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 111,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "SuccessMaybeSatisified",
+              "decoratedName": "?SuccessMaybeSatisified@@YAJPAPADI@Z",
+              "properties": {
+                "funcline": "105"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 105,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 108,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 108,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 109,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 110,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression '& buf'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: size`142a is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 256 bytes [size of variable]\nAccessing size`142a bytes starting at byte offset 0\nAnnotation on function Stream::GetData requires that {parameter 2} is of length >= * {parameter 3} elements (1 bytes/element)\n  where {parameter 2} is & buf; {parameter 3} is & size\n[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test043.cpp(122)]\n\n\n when function Stream::GetData called at line 142 fails.\n\nValues of variables:\nsize = size`142a\n\nwhere\nsize`142a >= 0\n\nOverrun access occurs when\nsize`142a >= 257\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test043.cpp",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 28
+                }
+              },
+              "fullyQualifiedLogicalName": "GetStreamData",
+              "decoratedName": "?GetStreamData@@YAJPAVStream@@@Z",
+              "properties": {
+                "funcline": "138"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 138,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 140,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 141,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 141,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 34
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 34
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 143,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test043.cpp",
+                    "region": {
+                      "startLine": 145,
+                      "startColumn": 28
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

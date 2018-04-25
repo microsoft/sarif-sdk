@@ -1,0 +1,308 @@
+{
+  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "runs": [
+    {
+      "id": "BC650830-A9FE-44CB-8818-AD6C387279A0",
+      "stableId": "Nightly code scan",
+      "baselineId": "0A106451-C9B1-4309-A7EE-06988B95F723",
+      "automationId": "Build-14.0.1.2-Release-20160716-13:22:18",
+      "architecture": "x86",
+      "tool": {
+        "name": "CodeScanner",
+        "fullName": "CodeScanner 1.1 for Unix (en-US)",
+        "version": "2.1",
+        "semanticVersion": "2.1.0",
+        "fileVersion": "2.1.0.0",
+        "language": "en-US",
+        "sarifLoggerVersion": "1.25.0",
+        "properties": {
+          "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
+        }
+      },
+      "invocation": {
+        "commandLine": "CodeScanner @collections.rsp",
+        "responseFiles": {
+          "collections.rsp": "-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999"
+        },
+        "startTime": "2016-07-16T14:18:25Z",
+        "endTime": "2016-07-16T14:19:01Z",
+        "machine": "BLD01",
+        "account": "buildAgent",
+        "processId": 1218,
+        "fileName": "/bin/tools/CodeScanner",
+        "workingDirectory": "/home/buildAgent/src",
+        "environmentVariables": {
+          "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
+          "HOME": "/home/buildAgent",
+          "TZ": "EST"
+        }
+      },
+      "files": {
+        "file:///home/buildAgent/src/collections/list.cpp": {
+          "mimeType": "text/x-c",
+          "length": 980,
+          "hashes": [
+            {
+              "algorithm": "sha256",
+              "value": "b13ce2678a8807ba0765ab94a0ecd394f869bc81"
+            }
+          ]
+        },
+        "file:///home/buildAgent/bin/app.zip": {
+           "mimeType": "application/zip"
+         },
+         "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
+           "uri": "/docs/intro.docx",
+           "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+           "parentKey": "file:///home/buildAgent/bin/app.zip",
+           "offset": 17522,
+           "length": 4050
+        }
+      },
+      "logicalLocations": {
+        "collections::list::add": {
+          "name": "add",
+          "kind": "function",
+          "parentKey": "collections::list"
+        },
+        "collections::list": {
+          "name": "list",
+          "kind": "type",
+          "parentKey": "collections"
+        },
+        "collections": {
+          "name": "collections",
+          "kind": "namespace"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "formatId": "default",
+            "arguments": [
+              "ptr"
+            ]
+          },
+          "suppressionStates": [ "suppressedExternally" ],
+          "baselineState": "existing",
+          "level": "error",
+          "snippet": "add_core(ptr, offset, val);\n    return;",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///home/buildAgent/src/collections/list.cpp"
+              },
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "length": 1,
+                  "offset": 254
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add",
+              "decoratedName": "?add@list@collections@@QAEXH@Z"
+            }
+          ],
+          "relatedLocations": [
+            {
+              "message": "\"count\" was declared here.",
+              "physicalLocation": {
+                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": "Path from declaration to usage",
+              "locations": [
+                {
+                  "step": 0,
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "message": "Variable \"ptr\" declared.",
+                  "snippet": "int *ptr;",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 15
+                    }
+                  },
+                  "fullyQualifiedLogicalName": "collections::list:add",
+                  "module": "platform",
+                  "threadId": 52
+                },
+                {
+                  "step": 1,
+                  "kind": "assignment",
+                  "importance": "unimportant",
+                  "snippet": "offset = 0;",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 15
+                    }
+                  },
+                  "fullyQualifiedLogicalName": "collections::list:add",
+                  "module": "platform",
+                  "threadId": 52
+                },
+                {
+                  "step": 2,
+                  "kind": "call",
+                  "importance": "essential",
+                  "message": "Uninitialized variable \"ptr\" passed to method \"add_core\".",
+                  "snippet": "add_core(ptr, offset, val)",
+                  "target": "collections::list:add_core",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 25
+                    }
+                  },
+                  "fullyQualifiedLogicalName": "collections::list:add",
+                  "module": "platform",
+                  "threadId": 52
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "message": "Call stack resulting from usage of uninitialized variable.",
+              "frames": [
+                {
+                  "message": "Exception thrown.",
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
+                  "line": 110,
+                  "column": 15,
+                  "module": "platform",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "collections::list:add_core",
+                  "address": 10092852,
+                  "offset": 16,
+                  "parameters": [ "null", "0", "14" ]
+                },
+                {
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
+                  "line": 43,
+                  "column": 15,
+                  "module": "platform",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "collections::list:add",
+                  "address": 10092176,
+                  "offset": 84,
+                  "parameters": [ "14" ]
+                },
+                {
+                  "uri": "file:///home/buildAgent/src/application/main.cpp",
+                  "line": 28,
+                  "column": 9,
+                  "module": "application",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "main",
+                  "address": 10091200,
+                  "offset": 156
+                }
+              ]
+            } 
+          ],
+          "fixes": [
+            {
+              "description": "Initialize the variable to null",
+              "fileChanges": [
+                {
+                  "uri": "file:///home/buildAgent/src/collections/list.h",
+                  "replacements": [
+                    {
+                      "offset": 109,
+                      "insertedBytes": "PSBudWxs"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "configurationNotifications": [
+        {
+          "id": "UnknownRule",
+          "ruleId": "ABC0001",
+          "level": "warning",
+          "message": "Could not disable rule \"ABC0001\" because there is no rule with that id." 
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "CTN0001",
+          "level": "note",
+          "message": "Run started."
+        },
+        {
+          "id": "CTN9999",
+          "ruleId": "C2152",
+          "level": "error",
+          "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
+          "physicalLocation": {
+            "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+          },
+          "threadId": 52,
+          "time": "2016-07-16T14:18:43.119Z",
+          "exception": {
+            "kind": "ExecutionEngine.RuleFailureException",
+            "message": "Unhandled exception during rule evaluation.",
+            "stack": {
+              "frames": [
+                {
+                  "message": "Exception thrown",
+                  "module": "RuleLibrary",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                  "address": 10092852
+                },
+                {
+                  "module": "ExecutionEngine",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
+                  "address": 10073356
+                }
+              ]
+            },
+            "innerExceptions": [
+              {
+                "kind": "System.ArgumentException",
+                "message": "length is < 0"
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTN0002",
+          "level": "note",
+          "message": "Run ended."
+        }
+      ],
+      "rules": {
+        "C2001": {
+          "id": "C2001",
+          "shortDescription": "A variable was used without being initialized.",
+          "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.",
+          "messageFormats": {
+            "default": "Variable \"{0}\" was used without being initialized."
+          }
+        }
+      }
+    }
+  ]
+}

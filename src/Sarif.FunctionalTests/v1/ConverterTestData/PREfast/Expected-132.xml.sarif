@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test132.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'buf[n + 2]'\nBuffer accessed is buf\nBuffer is of length 4 bytes [size of variable]\nAccessing the byte at byte offset 5\n\nValues of variables:\nn = 3\n\nwhere\nnullpos(\"abc\")`17 == 3\nresult.MyStrLen`17a == 3\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test132.cpp",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "TestStrLenPrimOp1",
+              "decoratedName": "?TestStrLenPrimOp1@@YAXXZ",
+              "properties": {
+                "funcline": "14"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'buf[n + 2]'\nBuffer accessed is buf\nBuffer is of length 4 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset 5\n\nValues of variables:\nn = 3\n\nwhere\nnullpos(L\"abc\")`48 == 3\nresult.MyWcsLen`48a == 3\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test132.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "TestWcsLenPrimOp1",
+              "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ",
+              "properties": {
+                "funcline": "45"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'wBuf[200]'\nBuffer accessed is wBuf\nBuffer is of length 100 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset 200\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test132.cpp",
+                "region": {
+                  "startLine": 112,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "TestCountedString",
+              "decoratedName": "?TestCountedString@@YAXPAG@Z",
+              "properties": {
+                "funcline": "103"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 103,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 105,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 109,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 110,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 24
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test132.cpp",
+                    "region": {
+                      "startLine": 112,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

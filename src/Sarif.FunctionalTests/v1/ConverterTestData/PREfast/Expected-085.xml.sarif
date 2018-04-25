@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test085.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26051",
+          "message": "Function with irreducible control flow graph.\nESPX can only perform limited analysis of functions with irreducible control flow graph.\nThe function contains a loop with multiple entry points which usually indicates a poorly structured function.\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test085.cpp",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "Irreducible",
+              "decoratedName": "?Irreducible@@YAXH@Z",
+              "properties": {
+                "funcline": "5"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

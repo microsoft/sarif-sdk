@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBDNjM4Nl9FeGFtcGxlKCkNCnsNCiAgIGNoYXIgYVs0XTsNCiAgIGludCBqID0gNDsNCiAgIGlmKCBqIDwgNCkNCiAgIHsNCiAgICAgIGFbal0gPSAnYSc7DQogICB9DQogICAgICBhW2pdID0gJ1wwJzsNCn0NCg0K",
+          "hashes": [
+            {
+              "value": "65E8B825D9DD1B4C4A86CAA4CD8710A1",
+              "algorithm": "md5"
+            },
+            {
+              "value": "206C6C8B6B3C451FF5C59B96780FEC7431CDA126",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "067E489F44F7DB9A03AF1C130BC5F501113C4B4BD1811E34FAF59B93D9AF519B",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'a':  the writable size is '4' bytes, but '5' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "C6386_Example",
+              "decoratedName": "?C6386_Example@@YAXXZ",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'a' is an array of 4 elements (4 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'j' is equal to 4",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Skip this branch, (assume 'j<4' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6386example.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 12
+                    }
+                  },
+                  "message": "Invalid write to 'a[4]', (writable range is 0 to 3)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

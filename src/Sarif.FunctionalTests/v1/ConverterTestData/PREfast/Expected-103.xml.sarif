@@ -1,0 +1,673 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test103.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(us.buf)[us.MaxLength]'\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nus.US::MaxLength = 100\nus.US::buf = &a\n\nThere are other instances of this error:\nOverflow using expression '(us.buf)[100]' at line 27\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXXZ",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(us.buf)[us.MaxLength]'\nBuffer us.US::buf created during call to Fill1 on line 34\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length us.US::MaxLength`34 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}->MaxLength)) at c:\\somepath\\test103.cpp(5) on function Fill1 called at line 34] OR\n  us.US::Length`34 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}->Length)) at c:\\somepath\\test103.cpp(5) on function Fill1 called at line 34]\nAccessing the byte at byte offset us.US::MaxLength`34\n\nValues of variables:\nPointer us.US::buf is at offset 0 bytes from the start of the buffer\nus.US::MaxLength = us.US::MaxLength`34\n\nwhere\noffset(us.US::buf)`34a == 0\nus.US::Length`34 <= us.US::MaxLength`34\nus.US::Length`34 >= 1\nus.US::MaxLength`34 >= 1\n\nThere are other instances of this error:\nPotential read overflow using expression '(us.buf)[us.Length]' at line 35\nPotential overflow using expression '(us.buf)[100]' at line 37\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "f1",
+              "decoratedName": "?f1@@YAXXZ",
+              "properties": {
+                "funcline": "30"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(p->buf)[p->Length]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (p->US::buf) is a parameter to this function declared on line 40\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (p->US::MaxLength)`40 bytes [from field annotation SAL_writableTo(elementCount(p->MaxLength)) at c:\\somepath\\test103.cpp(5)] OR\n  (p->US::Length)`40 bytes [from field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\nAccessing the byte at byte offset (p->US::Length)`40\n\nValues of variables:\n(p->US::Length) = (p->US::Length)`40\nPointer (p->US::buf) is at offset 0 bytes from the start of the buffer\nPointer p is at offset 0 bytes from the start of p\n\nwhere\n(p->US::Length)`40 <= (p->US::MaxLength)`40\n(p->US::Length)`40 >= 1\n(p->US::MaxLength)`40 >= 1\n\nOverrun access occurs when\n(p->US::MaxLength)`40 == (p->US::Length)`40\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPAUUS@@@Z",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression '(s.buf)[s.MaxLength]'\nBuffer s.US::buf created during call to Make on line 59\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length s.US::MaxLength`59 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}->MaxLength)) at c:\\somepath\\test103.cpp(5) on function Make called at line 59] OR\n  s.US::Length`59 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}->Length)) at c:\\somepath\\test103.cpp(5) on function Make called at line 59]\nAccessing the byte at byte offset s.US::MaxLength`59\n\nValues of variables:\nPointer s.US::buf is at offset 0 bytes from the start of the buffer\ns.US::MaxLength = s.US::MaxLength`59\n\nwhere\ns.US::Length`59 <= s.US::MaxLength`59\ns.US::Length`59 >= 1\ns.US::MaxLength`59 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 22
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXXZ",
+              "properties": {
+                "funcline": "56"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 22
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(p->buf)[p->Length]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (p->US::buf) is a parameter to this function declared on line 69\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (p->US::MaxLength)`69 bytes [from field annotation SAL_writableTo(elementCount(p->MaxLength)) at c:\\somepath\\test103.cpp(5)] OR\n  (p->US::Length)`69 bytes [from field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\nAccessing the byte at byte offset (p->US::Length)`69\n\nValues of variables:\n(p->US::Length) = (p->US::Length)`69\nPointer (p->US::buf) is at offset 0 bytes from the start of the buffer\nPointer p is at offset 0 bytes from the start of p\n\nwhere\n(p->US::Length)`69 <= (p->US::MaxLength)`69\n(p->US::Length)`69 >= 1\n(p->US::MaxLength)`69 >= 1\n\nOverrun access occurs when\n(p->US::MaxLength)`69 == (p->US::Length)`69\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YAXPAUUS@@@Z",
+              "properties": {
+                "funcline": "69"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& u'\nBuffer u.US::buf created during call to Init on line 95\nBuffer is of length u.US::MaxLength`95 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}->MaxLength)) at c:\\somepath\\test103.cpp(5) on function Init called at line 95] OR\n  u.US::Length`95 bytes [from field annotation SAL_readableTo(elementCount({parameter 1}->Length)) at c:\\somepath\\test103.cpp(5) on function Init called at line 95]\nAccessing u.US::MaxLength`95 bytes starting at byte offset 1\nAssumed __inout annotation on function bar requires that {parameter 1}->buf is of length >= {parameter 1}->MaxLength elements (1 bytes/element)\n  where {parameter 1}->buf is & u; {parameter 1} is & u\n[Field annotation SAL_writableTo(elementCount({parameter 1}->MaxLength)) at c:\\somepath\\test103.cpp(5)]\n\n\nValues of variables:\nPointer u.US::buf is at offset 1 bytes from the start of the buffer\nu.US::MaxLength = u.US::MaxLength`95\n\nwhere\nu.US::Length`95 <= u.US::MaxLength`95\nu.US::Length`95 >= 1\nu.US::MaxLength`95 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "bad",
+              "decoratedName": "?bad@@YAXXZ",
+              "properties": {
+                "funcline": "92"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 92,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 95,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 8
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow using expression '(p->buf)[p->Length]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (p->US::buf) is a parameter to this function declared on line 101\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length (p->US::MaxLength)`101 bytes [from field annotation SAL_writableTo(elementCount(p->MaxLength)) at c:\\somepath\\test103.cpp(5)] OR\n  (p->US::Length)`101 bytes [from field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\nAccessing the byte at byte offset (p->US::Length)`101\n\nValues of variables:\n(p->US::Length) = (p->US::Length)`101\nPointer (p->US::buf) is at offset 0 bytes from the start of the buffer\nPointer p is at offset 0 bytes from the start of p\n\nwhere\n(p->US::Length)`101 <= (p->US::MaxLength)`101\n(p->US::Length)`101 >= 1\n(p->US::MaxLength)`101 >= 1\n\nOverrun access occurs when\n(p->US::MaxLength)`101 == (p->US::Length)`101\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "InferredIn",
+              "decoratedName": "?InferredIn@@YAXPBUUS@@@Z",
+              "properties": {
+                "funcline": "101"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 101,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 103,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26044",
+          "message": "Potential postcondition violation that could result in overflow\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (p->US::buf) is a parameter to this function declared on line 106\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (p->US::MaxLength)`106 bytes [from field annotation SAL_writableTo(elementCount(p->MaxLength)) at c:\\somepath\\test103.cpp(5)] OR\n  (p->US::Length)`106 bytes [from field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\nAccessing (p->US::Length)`106 + 1 bytes starting at byte offset 0\nAssumed __inout annotation on function TestInferredIn requires that p->buf is of length >= p->Length elements (1 bytes/element)\n[Field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\n\n\nValues of variables:\n(p->US::Length) = (p->US::Length)`106 + 1\n\nwhere\n(p->US::Length)`106 <= (p->US::MaxLength)`106\n(p->US::Length)`106 >= 1\n(p->US::MaxLength)`106 >= 1\n\nOverrun access occurs when\n(p->US::MaxLength)`106 == (p->US::Length)`106\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 109,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "TestInferredIn",
+              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
+              "properties": {
+                "funcline": "106"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 108,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 109,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(const struct US *)p'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (p->US::buf) is a parameter to this function declared on line 106\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (p->US::MaxLength)`106 bytes [from field annotation SAL_writableTo(elementCount(p->MaxLength)) at c:\\somepath\\test103.cpp(5)] OR\n  (p->US::Length)`106 bytes [from field annotation SAL_readableTo(elementCount(p->Length)) at c:\\somepath\\test103.cpp(5)]\nAccessing (p->US::Length)`106 + 1 bytes starting at byte offset 0\nAssumed __in annotation on function InferredIn requires that {parameter 1}->buf is of length >= {parameter 1}->Length elements (1 bytes/element)\n  where {parameter 1}->buf is (const struct US *)p; {parameter 1} is (const struct US *)p\n[Field annotation SAL_readableTo(elementCount({parameter 1}->Length)) at c:\\somepath\\test103.cpp(5)]\n\n\nValues of variables:\n(p->US::Length) = (p->US::Length)`106 + 1\n\nwhere\n(p->US::Length)`106 <= (p->US::MaxLength)`106\n(p->US::Length)`106 >= 1\n(p->US::MaxLength)`106 >= 1\n\nOverrun access occurs when\n(p->US::MaxLength)`106 == (p->US::Length)`106\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test103.cpp",
+                "region": {
+                  "startLine": 109,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "TestInferredIn",
+              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
+              "properties": {
+                "funcline": "106"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 108,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test103.cpp",
+                    "region": {
+                      "startLine": 109,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

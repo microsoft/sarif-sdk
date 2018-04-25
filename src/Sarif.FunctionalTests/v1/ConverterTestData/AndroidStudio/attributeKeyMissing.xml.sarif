@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "northwindtraders-droid-2": {
+          "name": "northwindtraders-droid-2",
+          "kind": "module"
+        },
+        "northwindtraders-droid-2\\com.northwindtraders.droid.model": {
+          "name": "com.northwindtraders.droid.model",
+          "parentKey": "northwindtraders-droid-2",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Assertions",
+          "message": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 242
+                }
+              },
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING"
+          }
+        }
+      ]
+    }
+  ]
+}

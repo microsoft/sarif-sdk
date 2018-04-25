@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test003.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& a + 2'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 9 elements (4 bytes/element) starting at element offset 2\nAnnotation on function useBuffer requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is & a + 2; {parameter 2} is 9\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test003.cpp(4)]\n\n\nThere are other instances of this error:\nOverflow using expression 'b' at line 17\nRead overflow using expression 'a[12]' at line 19\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test003.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "10"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test003.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

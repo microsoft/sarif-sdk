@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgRGVyZWZlcmVuY2VQYXJhbWV0ZXIoX0luX29wdF8gaW50ICogc291cmNlLCBib29sIGZsYWcpDQp7DQogICAgaWYgKGZsYWcpDQogICAgICAgIGludCByZXN1bHQgPSAqc291cmNlOw0KfQ0KDQo=",
+          "hashes": [
+            {
+              "value": "A8ED0980C0DB55DE647A9CCCC96D0781",
+              "algorithm": "md5"
+            },
+            {
+              "value": "C1E75E1A1820C49A1942B53F76B6811CD879A422",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "0B234444A2C38E3924F54080EBC787626184CEBFAFBA17CADB68AF70F4429584",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'source'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "DereferenceParameter",
+              "decoratedName": "?DereferenceParameter@@YAXPEAH_N@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 26
+                    }
+                  },
+                  "message": "'source' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'flag')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "'source' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test182.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'p[n]'\nBuffer result.Alloc created during call to Alloc on line 9\nBuffer is of length n`7 bytes [from annotation SAL_readableTo(elementCount({parameter 1})) at c:\\somepath\\test182.cpp(3) on function Alloc called at line 9]\nAccessing the byte at byte offset n`7\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nn = n`7\n\nwhere\noffset(result.Alloc)`9a == 0\nn`7 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test182.cpp",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "certain_overflow",
+              "decoratedName": "?certain_overflow@@YAXI@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test182.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

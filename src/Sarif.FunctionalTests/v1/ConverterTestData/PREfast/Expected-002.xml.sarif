@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test002.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '++ a'\nBuffer result.mallocInt created during call to mallocInt on line 42\nBuffer is of length 40 bytes [from annotation SAL_writableTo(elementCount({parameter 1})) at c:\\somepath\\test002.cpp(4) on function mallocInt called at line 42]\nAccessing 36 bytes starting at byte offset 8\nAnnotation on function funny requires that {parameter 1} is of length >= {parameter 2} elements (4 bytes/element)\n  where {parameter 1} is ++ a; {parameter 2} is ++ b\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test002.cpp(27)]\n\n\nValues of variables:\nPointer a is at offset 8 bytes from the start of the buffer\nb = 9\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test002.cpp",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "39"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test002.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

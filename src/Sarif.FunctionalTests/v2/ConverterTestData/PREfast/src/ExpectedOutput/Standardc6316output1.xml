@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\wincsa\src\ddsuites\src\vs\edtqa\static\xmlvalidation\standardux\</FILEPATH><FILENAME>standardc6316.cxx</FILENAME><LINE>19</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>6316</DEFECTCODE><DESCRIPTION>Incorrect operator:  tested expression is constant and non-zero.  Use bitwise-and to determine whether bits are set.</DESCRIPTION><FUNCTION>fd</FUNCTION><DECORATED>?fd@@YAXH@Z</DECORATED><FUNCLINE>17</FUNCLINE><PATH/></DEFECT></DEFECTS>

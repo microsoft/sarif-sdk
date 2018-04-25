@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test169.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function MyAPI3 requires that * p == _Old_((* p)) + 1\n[Annotation SAL_satisfies(* p == _Old_((* p)) + 1) at c:\\somepath\\test169.cpp(19)]\n\nValues of variables:\n(*p) = (*p)`19\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test169.cpp",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "MyAPI3",
+              "decoratedName": "?MyAPI3@@YAJPAH@Z",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test169.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test169.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nThe function has a __success annotation that is satisfied\nAnnotation on function MyAPI4 requires that * p is == _Old_((* p)) + 1\n[Annotation SAL_relop(\"==\", _Old_((* p)) + 1) at c:\\somepath\\test169.cpp(25)]\n\nValues of variables:\n(*p) = (*p)`25\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test169.cpp",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "MyAPI4",
+              "decoratedName": "?MyAPI4@@YAJPAH@Z",
+              "properties": {
+                "funcline": "25"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test169.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test169.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

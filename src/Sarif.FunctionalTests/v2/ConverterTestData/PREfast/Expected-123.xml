@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>34</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26018</DEFECTCODE><DESCRIPTION>Potential overflow of null terminated buffer using expression '(s.p)[9]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: offset(s.S::p)`32a is not constrained by s.S::c`32
+PREFAST_NEWLINE
+offset(s.S::p)`32a is not constrained by nullpos(s.S::p'32)`32
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer s.S::p created during call to bar on line 32
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length nullpos(s.S::p'32)`32 + 1 bytes [length of zero terminated string] OR
+PREFAST_NEWLINE
+  s.S::c`32 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}-&gt;c)) at c:\somepath\test123.cpp(7) on function bar called at line 32]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 9
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s.S::p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s.S::p)`32a == 0
+PREFAST_NEWLINE
+nullpos(s.S::p'32)`32 &gt;= 0
+PREFAST_NEWLINE
+s.S::c`32 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(s.S::p'32)`32 &lt;= 8
+PREFAST_NEWLINE
+s.S::c`32 &lt;= 9
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow of null terminated buffer using expression '(s.p)[10]' at line 35
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>19</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>19</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>21</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>22</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>23</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>23</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>24</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>26</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>27</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>28</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>29</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>30</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>32</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test123.cpp</FILENAME><LINE>34</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT></DEFECTS>

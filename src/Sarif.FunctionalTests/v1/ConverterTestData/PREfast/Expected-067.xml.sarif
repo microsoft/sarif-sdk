@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test067.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* src'\nBuffer src is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(src)`4 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test067.cpp(4)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer src is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(src)`4 == 0\n{loop iterations}'9 == 0\nsize`4 >= 3\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test067.cpp",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 40
+                }
+              },
+              "fullyQualifiedLogicalName": "StrCchCopy",
+              "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 46
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test067.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 40
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test014.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression 'a[anIndex & 127]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is a\nBuffer is of length 100 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset {anIndex & 127}`12\n\nValues of variables:\nanIndex = anIndex`7\n\nwhere\nanIndex`7 >= 0\n{anIndex & 127}`12 <= 127\n{anIndex & 127}`12 <= anIndex`7\n{anIndex & 127}`12 >= 0\n{anIndex & 63}`11 <= 63\n{anIndex & 63}`11 <= anIndex`7\n{anIndex & 63}`11 >= 0\n\nOverrun access occurs when\n{anIndex & 127}`12 >= 100\n\nThere are other instances of this error:\nPotential overflow using expression 'a[anIndex & 255]' at line 13\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test014.cpp",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "indexing",
+              "decoratedName": "?indexing@@YAXI@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow using expression 'b[anIndex & 255]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is b\nBuffer is of length 128 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset {anIndex & 255}`13\n\nValues of variables:\nanIndex = anIndex`7\n\nwhere\nanIndex`7 >= 0\n{anIndex & 127}`12 <= 127\n{anIndex & 127}`12 <= anIndex`7\n{anIndex & 127}`12 >= 0\n{anIndex & 255}`13 <= 255\n{anIndex & 255}`13 <= anIndex`7\n{anIndex & 255}`13 >= 0\n{anIndex & 63}`11 <= 63\n{anIndex & 63}`11 <= anIndex`7\n{anIndex & 63}`11 >= 0\n\nOverrun access occurs when\n{anIndex & 255}`13 >= 128\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test014.cpp",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "indexing",
+              "decoratedName": "?indexing@@YAXI@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test014.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test129.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26002",
+          "message": "Accessing buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '* (* ((WORD **)pBuf))'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n\nwhere\noffset((*pBuf))`32a == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test129.cpp",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "BadGetWord1",
+              "decoratedName": "?BadGetWord1@@YAGPAPAD@Z",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression '* (* ((WORD **)pBuf))'\nBuffer (*pBuf) is a parameter to this function declared on line 36\nBuffer is of length 1 elements (2 bytes/element) [from annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(36)]\nAccessing the element (2 bytes/element) at element offset 1\n\nValues of variables:\nPointer (*pBuf) is at offset 2 bytes from the start of the buffer\nPointer pBuf is at offset 0 bytes from the start of pBuf\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test129.cpp",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "BadGetWord2",
+              "decoratedName": "?BadGetWord2@@YAGPAPAD@Z",
+              "properties": {
+                "funcline": "36"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26003",
+          "message": "Writing to buffer '(*pBuf)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'pBuf'\nAccessing unannotated buffer (*pBuf)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing 2 bytes starting at byte offset 0\nAnnotation on function GetWord requires that * {parameter 1} is of length >= 2 elements (1 bytes/element)\n  where * {parameter 1} is pBuf\n[Annotation SAL_readableTo(elementCount(2)) at c:\\somepath\\test129.cpp(13)]\n\n\nValues of variables:\nPointer (*pBuf) is at offset 0 bytes from the start of the buffer\n\nwhere\noffset((*pBuf))`51a == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test129.cpp",
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 30
+                }
+              },
+              "fullyQualifiedLogicalName": "GetDWord",
+              "decoratedName": "?GetDWord@@YAIPAPAD@Z",
+              "properties": {
+                "funcline": "45"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test129.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 30
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

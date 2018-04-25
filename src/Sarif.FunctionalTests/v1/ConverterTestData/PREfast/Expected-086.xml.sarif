@@ -1,0 +1,1251 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test086.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 's->a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "SimpleOverflow",
+              "decoratedName": "?SimpleOverflow@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression 's->a[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'23 + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\ni = {loop iterations}'23 + 2\n\nwhere\n{loop iterations}'23 <= 98\n{loop iterations}'23 >= 0\n\nOverrun access occurs when\n{loop iterations}'23 == 98\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "OffByOne",
+              "decoratedName": "?OffByOne@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "21"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 17
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Possibly incorrect single element annotation on struct buffer\nOverflow using expression 's->arr[i]'\nBuffer s is a parameter to this function declared on line 28\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(s)`28 + 8 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test086.cpp(28)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(s)`28 == 0\n{loop iterations}'30 == 0\n(s->Flex::count)`30 >= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 18
+                }
+              },
+              "fullyQualifiedLogicalName": "TestFlexArray",
+              "decoratedName": "?TestFlexArray@@YAXPAUFlex@@@Z",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 18
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 's->a[i]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'36 + 2\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\ni = {loop iterations}'36 + 2\n\nwhere\n(s->S::count)`36 >= {loop iterations}'36 + 3\n{loop iterations}'36 >= 0\n\nOverrun access occurs when\n{loop iterations}'36 >= 98\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 's.a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "TestLocal",
+              "decoratedName": "?TestLocal@@YAXXZ",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'p->s.a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "TestPointedTo",
+              "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z",
+              "properties": {
+                "funcline": "52"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 17
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'p->p->a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer (p->S1::p) is at offset 0 bytes from the start of (p->S1::p)\nPointer p is at offset 0 bytes from the start of p\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 18
+                }
+              },
+              "fullyQualifiedLogicalName": "TestPointedTo",
+              "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z",
+              "properties": {
+                "funcline": "52"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 18
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(p->s[i]).a[j]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset {loop iterations}'67 + 2\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\ni = 0\nj = {loop iterations}'67 + 2\n\nwhere\n{loop iterations}'67 <= 98\n{loop iterations}'67 >= 0\n\nOverrun access occurs when\n{loop iterations}'67 == 98\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "TestNestedStructArrays",
+              "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z",
+              "properties": {
+                "funcline": "64"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 64,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Possibly incorrect single element annotation on struct buffer\nRead overflow using expression '(p[i]).a'\nBuffer p is a parameter to this function declared on line 72\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(p)`72 + 408 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test086.cpp(72)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`72 == 0\n{loop iterations}'74 == 0\nn`72 >= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "TestArrayOfStructs1",
+              "decoratedName": "?TestArrayOfStructs1@@YAXPAUS@@H@Z",
+              "properties": {
+                "funcline": "72"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow using expression '(p[i]).a'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 79\nBuffer is of length offset(p)`79 + 408*n`79 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\\somepath\\test086.cpp(79)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`79 == 0\n{loop iterations}'81 == 0\nn`79 >= 1\n\nOverrun access occurs when\nn`79 == 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 82,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "TestArrayOfStructs2",
+              "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z",
+              "properties": {
+                "funcline": "79"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow using expression '(p[i]).a'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 86\nBuffer is of length offset(p)`86 + 408*n`86 bytes [from annotation SAL_readableTo(elementCount(n)) at c:\\somepath\\test086.cpp(86)]\nAccessing 400 bytes starting at byte offset 412\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`86 == 0\n{loop iterations}'88 == 0\nn`86 >= 1\n\nOverrun access occurs when\nn`86 == 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "TestArrayOfStructs3",
+              "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(p[i]).a[100]'\nBuffer accessed is S::a\nBuffer is of length 100 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 100\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of p\ni = 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test086.cpp",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "TestArrayOfStructs3",
+              "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test086.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

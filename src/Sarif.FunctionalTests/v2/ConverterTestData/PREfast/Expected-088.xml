@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>27</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Possible precondition violation due to failure to null terminate string 'q'
+PREFAST_NEWLINE
+Buffer q is a parameter to this function declared on line 25
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(q)`25 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test088.cpp(25)]
+PREFAST_NEWLINE
+Annotation on function f requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is q [Annotation SAL_nullTerminated at c:\somepath\test088.cpp(5)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXPAD@Z</DECORATED><FUNCLINE>25</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>25</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>27</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>38</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string 's'
+PREFAST_NEWLINE
+Buffer s is a parameter to this function declared on line 36
+PREFAST_NEWLINE
+Annotation on function Fill requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is s [Annotation SAL_nullTerminated at c:\somepath\mywin.h(61)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad</FUNCTION><DECORATED>?Bad@@YAXPADI@Z</DECORATED><FUNCLINE>36</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>36</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>38</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>62</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '&amp; buf'
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Annotation on function f requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf [Annotation SAL_nullTerminated at c:\somepath\test088.cpp(5)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ExplicitChar</FUNCTION><DECORATED>?ExplicitChar@@YAXXZ</DECORATED><FUNCLINE>56</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>56</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>58</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>60</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>60</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>60</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>61</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>62</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>79</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Accessing unannotated buffer (item-&gt;Item::text)
+PREFAST_NEWLINE
+Annotation on function GetItem requires that item-&gt;text is null terminated
+PREFAST_NEWLINE
+[Field annotation SAL_nullTerminated at c:\somepath\mywin.h(51)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>GetItem</FUNCTION><DECORATED>?GetItem@@YA_NHPAUItem@@@Z</DECORATED><FUNCLINE>72</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>72</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>76</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>76</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>78</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>79</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>117</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '&amp; s'
+PREFAST_NEWLINE
+Buffer accessed is s
+PREFAST_NEWLINE
+Annotation on function f requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; s [Annotation SAL_nullTerminated at c:\somepath\test088.cpp(5)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ArrInit4</FUNCTION><DECORATED>?ArrInit4@@YAXXZ</DECORATED><FUNCLINE>114</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>114</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>116</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>116</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>117</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>132</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '(WCHAR *)(&amp; str)'
+PREFAST_NEWLINE
+Buffer accessed is str
+PREFAST_NEWLINE
+Annotation on function f requires that {parameter 1} is null terminated
+PREFAST_NEWLINE
+  where {parameter 1} is (WCHAR *)(&amp; str) [Annotation SAL_nullTerminated at c:\somepath\test088.cpp(15)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>NotZeroMemroy</FUNCTION><DECORATED>?NotZeroMemroy@@YAXXZ</DECORATED><FUNCLINE>128</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>128</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>130</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>131</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>132</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>149</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 147
+PREFAST_NEWLINE
+Annotation on function BadMemset requires that p is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\mywin.h(51)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>BadMemset</FUNCTION><DECORATED>?BadMemset@@YAXPAGI@Z</DECORATED><FUNCLINE>147</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>147</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test088.cpp</FILENAME><LINE>149</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT></DEFECTS>

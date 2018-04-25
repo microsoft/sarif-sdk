@@ -1,0 +1,497 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test100.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'b->fp'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: cb`24 is not constrained by (b->_BUFFER::fcb)`24\n\nBuffer (b->_BUFFER::fp) is a parameter to this function declared on line 24\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (b->_BUFFER::fcb)`24 bytes [from field annotation SAL_writableTo(byteCount(b->fcb)) at c:\\somepath\\test100.cpp(7)]\nAccessing cb`24 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is b->fp; {parameter 3} is cb\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer (b->_BUFFER::fp) is at offset 0 bytes from the start of the buffer\nPointer b is at offset 0 bytes from the start of b\ncb = cb`24\n\nwhere\n(b->_BUFFER::fcb)`24 >= 1\ncb`24 >= 1\n\nOverrun access occurs when\ncb`24 >= (b->_BUFFER::fcb)`24 + 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "bad1",
+              "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z",
+              "properties": {
+                "funcline": "24"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26045",
+          "message": "Potential postcondition violation that could result in overflow\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (b->_BUFFER::fcb)`29 is not constrained by cb`29\n\nBuffer p is a parameter to this function declared on line 29\nBuffer is of length offset(p)`29 + cb`29 bytes [from annotation SAL_readableTo(byteCount(cb)) at c:\\somepath\\test100.cpp(29)]\nAccessing (b->_BUFFER::fcb)`29 bytes starting at byte offset 0\nAssumed __inout annotation on function bad2 requires that b->fp is of length >= b->fcb bytes\n[Field annotation SAL_writableTo(byteCount(b->fcb)) at c:\\somepath\\test100.cpp(7)]\n\n\nValues of variables:\n(b->_BUFFER::fcb) = (b->_BUFFER::fcb)`29\nPointer (b->_BUFFER::fp) is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(p)`29 == 0\n(b->_BUFFER::fcb)`29 >= 1\ncb`29 >= 1\n\nOverrun access occurs when\n(b->_BUFFER::fcb)`29 >= cb`29 + 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "bad2",
+              "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z",
+              "properties": {
+                "funcline": "29"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nAssumed __out annotation on function Buffer::Buffer requires that this->m_index is >= 0\n[Field annotation SAL_range(0, this->m_len - 1) at c:\\somepath\\test100.cpp(38)]\n\nValues of variables:\n(this->Buffer::m_index) = -2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "Buffer::{ctor}",
+              "decoratedName": "??0Buffer@@QAE@PAH@Z",
+              "properties": {
+                "funcline": "51"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26030",
+          "message": "Postcondition violation that could result in overflow\nBuffer buf is a parameter to this function declared on line 51\nBuffer is of length offset(buf)`51 + 400 bytes [from annotation SAL_readableTo(elementCount(100)) at c:\\somepath\\test100.cpp(51)]\nAccessing 800 bytes starting at byte offset 0\nAssumed __out annotation on function Buffer::Buffer requires that this->m_buf is of length >= this->m_len elements (4 bytes/element)\n[Field annotation SAL_writableTo(elementCount(this->m_len)) at c:\\somepath\\test100.cpp(36)]\n\n\nValues of variables:\n(this->Buffer::m_len) = 200\nPointer buf is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "Buffer::{ctor}",
+              "decoratedName": "??0Buffer@@QAE@PAH@Z",
+              "properties": {
+                "funcline": "51"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26019",
+          "message": "Potential read overflow using expression '(this->m_buf)[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`66 is not constrained by (this->Buffer::m_len)`66\n\nBuffer (this->Buffer::m_buf) is a parameter to this function declared on line 66\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (this->Buffer::m_len)`66 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this->m_len)) at c:\\somepath\\test100.cpp(36)]\nAccessing the element (4 bytes/element) at element offset index`66\n\nValues of variables:\nPointer (this->Buffer::m_buf) is at offset 0 bytes from the start of the buffer\nPointer this is at offset 0 bytes from the start of this\nindex = index`66\n\nwhere\n(this->Buffer::m_index)`66 >= 0\n(this->Buffer::m_len)`66 >= (this->Buffer::m_index)`66 + 1\n(this->Buffer::m_len)`66 >= 1\n\nOverrun access occurs when\n(this->Buffer::m_len)`66 <= index`66\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "Buffer::badfetch",
+              "decoratedName": "?badfetch@Buffer@@QAEHH@Z",
+              "properties": {
+                "funcline": "66"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential read underflow using expression '(this->m_buf)[index]'\nBuffer (this->Buffer::m_buf) is a parameter to this function declared on line 66\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (this->Buffer::m_len)`66 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(this->m_len)) at c:\\somepath\\test100.cpp(36)]\nAccessing the element (4 bytes/element) at element offset index`66\n\nValues of variables:\nPointer (this->Buffer::m_buf) is at offset 0 bytes from the start of the buffer\nPointer this is at offset 0 bytes from the start of this\nindex = index`66\n\nUnderflow access occurs when\nindex`66 + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "Buffer::badfetch",
+              "decoratedName": "?badfetch@Buffer@@QAEHH@Z",
+              "properties": {
+                "funcline": "66"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression '(b->m_buf)[b->m_len]'\nBuffer (b->Buffer::m_buf) is a parameter to this function declared on line 72\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (b->Buffer::m_len)`72 elements (4 bytes/element) [from field annotation SAL_writableTo(elementCount(b->m_len)) at c:\\somepath\\test100.cpp(36)]\nAccessing the element (4 bytes/element) at element offset (b->Buffer::m_len)`72\n\nValues of variables:\n(b->Buffer::m_len) = (b->Buffer::m_len)`72\nPointer (b->Buffer::m_buf) is at offset 0 bytes from the start of the buffer\nPointer b is at offset 0 bytes from the start of b\n\nwhere\n(b->Buffer::m_index)`72 >= 0\n(b->Buffer::m_len)`72 >= (b->Buffer::m_index)`72 + 1\n(b->Buffer::m_len)`72 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad1",
+              "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z",
+              "properties": {
+                "funcline": "72"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(const struct Buffer *)(& b)'\nBuffer result.new[] created during call to operator new[] on line 85\nBuffer is of length 400 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 85]\nAccessing 1600 bytes starting at byte offset 0\nAssumed __in annotation on function Good1 requires that {parameter 1}->m_buf is of length >= {parameter 1}->m_len elements (4 bytes/element)\n  where {parameter 1}->m_buf is (const struct Buffer *)(& b); {parameter 1} is (const struct Buffer *)(& b)\n[Field annotation SAL_writableTo(elementCount({parameter 1}->m_len)) at c:\\somepath\\test100.cpp(36)]\n\n\nValues of variables:\nPointer b.Buffer::m_buf is at offset 0 bytes from the start of the buffer\nb.Buffer::m_len = 400\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test100.cpp",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad2",
+              "decoratedName": "?Bad2@@YAXXZ",
+              "properties": {
+                "funcline": "82"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 84,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 84,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 85,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 85,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test100.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

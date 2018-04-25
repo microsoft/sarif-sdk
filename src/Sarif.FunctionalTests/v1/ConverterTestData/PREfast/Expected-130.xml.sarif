@@ -1,0 +1,381 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test130.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26070",
+          "message": "Potential range precondition violation using expression '& b1'\nAssumed __inout annotation on function B::safe1 requires that {parameter 1}->n is <= 3\n  where {parameter 1}->n is & b1\n[Field annotation SAL_range(0, 3) at c:\\somepath\\test130.cpp(67)]\n\nValues of variables:\nb1.B::n = b1.B::n`103\n\nwhere\nb1.B::n`103 >= 0\n\nRange violation occurs when\nb1.B::n`103 <= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test130.cpp",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 91,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 92,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 93,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 99,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 100,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 103,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26070",
+          "message": "Potential range precondition violation using expression '& b2'\nAssumed __inout annotation on function B::safe requires that {parameter 1}->n is <= 3\n  where {parameter 1}->n is & b2\n[Field annotation SAL_range(0, 3) at c:\\somepath\\test130.cpp(67)]\n\nValues of variables:\nb2.B::n = b2.B::n`106\n\nwhere\nb2.B::n`106 >= 0\n\nRange violation occurs when\nb2.B::n`106 <= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test130.cpp",
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 91,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 92,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 93,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 99,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 100,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 103,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 105,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test130.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBNZXJnZUFsaWFzQW5kVGVuKGludCAqIHJlc3VsdCwgaW50IGIpDQp7DQogICAgaW50IFR3b0VsZW1lbnRBcnJheVtdID0gezEsMn07DQogICAgICANCglpZiAoYiA9PSAxMCk7DQoNCiAgICBpbnQgaW5kZXggPSBiOw0KDQoJKnJlc3VsdCA9IFR3b0VsZW1lbnRBcnJheVtpbmRleF07DQp9DQo=",
+          "hashes": [
+            {
+              "value": "6846DADB68AF727A07B271C5A481C10D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "387C5A61C7E96FAA3EEE82B15CFB2B181E22A28D",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "1EE5C3D8A432B9E1A82BD938DAF5435DA5952FFEC0A15574DE8B7D286E0874CB",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'TwoElementArray':  the readable size is '8' bytes, but 'index' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "MergeAliasAndTen",
+              "decoratedName": "?MergeAliasAndTen@@YAXPEAHH@Z",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'TwoElementArray' is an array of 2 elements (8 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'b' may equal 10 (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "(alias) 'index' receives the value of 'b' (which may be 10)",
+                  "kind": "alias",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Invalid read from 'TwoElementArray[10]', (readable range is 0 to 1)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

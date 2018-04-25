@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test166.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '(PCWSTR)pszText'\nAccessing unannotated buffer pszText\nAnnotation on function SetText requires that {parameter 1} is null terminated\n  where {parameter 1} is (PCWSTR)pszText [Annotation SAL_nullTerminated at c:\\somepath\\test166.cpp(9)]\n\n when function GetText called at line 21 fails.\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test166.cpp",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "Test1",
+              "decoratedName": "?Test1@@YAXXZ",
+              "properties": {
+                "funcline": "17"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test166.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test166.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test166.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test166.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

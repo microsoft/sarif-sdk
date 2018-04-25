@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgT3V0NjEwMShfT3V0XyBpbnQgKiB0YXJnZXQsIGJvb2wgZmxhZykNCnsNCiAgICBpZiAoZmxhZykNCiAgICAgICAgKnRhcmdldCA9IDEwOw0KfQ0K",
+          "hashes": [
+            {
+              "value": "0EEB79182D000FD60680709B950E9F5C",
+              "algorithm": "md5"
+            },
+            {
+              "value": "57E30A1593482F6546076CDFDBB798797302D790",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "8BA2F7E61F57C01650D47BC7F1FF39748DD5C2AF2DAEF71A8B25C839BBDA7F3D",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6101",
+          "message": "Returning uninitialized memory '*target'.  A successful path through the function does not set the named _Out_ parameter. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "Out6101",
+              "decoratedName": "?Out6101@@YAXPEAH_N@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "'*target' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Skip this branch, (assume 'flag' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 1
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "'*target' is an _Out_ parameter that may not have been assigned to",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

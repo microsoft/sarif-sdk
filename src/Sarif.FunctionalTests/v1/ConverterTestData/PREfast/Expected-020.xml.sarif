@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test020.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression '* s'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer s is a parameter to this function declared on line 9\nBuffer is of length 2*nullpos(s)`9 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer s is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(s)`9 == 0\nnullpos(s)`9 >= 0\n\nOverrun access occurs when\n2*nullpos(s)`9 <= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test020.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPBG@Z",
+              "properties": {
+                "funcline": "9"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 3
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test020.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

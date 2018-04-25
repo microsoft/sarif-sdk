@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test197.cpp</FILENAME>
+      <LINE>22</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26007</DEFECTCODE>
+    <DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer buffer is a parameter to this function declared on line 16
+PREFAST_NEWLINE
+Buffer is of length offset(buffer)`16 + 8 bytes [from annotation SAL_writableTo(elementCount(1)) at c:\somepath\test197.cpp(16)]
+PREFAST_NEWLINE
+Annotation on function BadGetData2 requires that * ((PSTR *)buffer) is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\mywin.h(61)]
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>BadGetData2</FUNCTION>
+    <DECORATED>?BadGetData2@@YAXPEAPEAXPEAK@Z</DECORATED>
+    <FUNCLINE>16</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>21</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test197.cpp</FILENAME>
+      <LINE>42</LINE>
+      <COLUMN>20</COLUMN>
+    </SFA>
+    <DEFECTCODE>26024</DEFECTCODE>
+    <DESCRIPTION>Cast cannot be proven safe: "(struct SomeStruct *)bufferHeader" Accessing 8 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer bufferHeader is at offset offset(bufferHeader)`40a bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 43
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>foo</FUNCTION>
+    <DECORATED>?foo@@YAXXZ</DECORATED>
+    <FUNCLINE>35</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>35</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>20</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test197.cpp</FILENAME>
+      <LINE>49</LINE>
+      <COLUMN>30</COLUMN>
+    </SFA>
+    <DEFECTCODE>26018</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow of null terminated buffer using expression 'buffer[0]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer buffer created during call to BadGetData2 on line 47
+PREFAST_NEWLINE
+Buffer is of length length`47a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\somepath\test197.cpp(16) on function BadGetData2 called at line 47] OR
+PREFAST_NEWLINE
+  nullpos(buffer'47)`47 + 1 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buffer is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buffer)`47a == 0
+PREFAST_NEWLINE
+length`47a &gt;= 1
+PREFAST_NEWLINE
+nullpos(buffer'47)`47 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+length`47a &lt;= 1
+PREFAST_NEWLINE
+nullpos(buffer'47)`47 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>foo</FUNCTION>
+    <DECORATED>?foo@@YAXXZ</DECORATED>
+    <FUNCLINE>35</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>35</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>20</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>43</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>43</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test197.cpp</FILENAME>
+      <LINE>53</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26018</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow of null terminated buffer using expression 'buffer[0]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer buffer created during call to GoodGetData on line 51
+PREFAST_NEWLINE
+Buffer is of length length`51a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\somepath\test197.cpp(25) on function GoodGetData called at line 51] OR
+PREFAST_NEWLINE
+  nullpos(buffer'51)`51 + 1 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buffer is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buffer)`51a == 0
+PREFAST_NEWLINE
+length`51a &gt;= 1
+PREFAST_NEWLINE
+nullpos(buffer'51)`51 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+length`51a &lt;= 1
+PREFAST_NEWLINE
+nullpos(buffer'51)`51 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>foo</FUNCTION>
+    <DECORATED>?foo@@YAXXZ</DECORATED>
+    <FUNCLINE>35</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>35</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>40</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>42</LINE>
+        <COLUMN>20</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>43</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>43</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>51</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test197.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

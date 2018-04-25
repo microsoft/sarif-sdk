@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>2</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>3</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>4</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>5</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties</file>
+    <line>6</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/local.properties</file>
+    <line>10</line>
+    <module>AndroidStudioFormatExample</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/local.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+</problems>
+

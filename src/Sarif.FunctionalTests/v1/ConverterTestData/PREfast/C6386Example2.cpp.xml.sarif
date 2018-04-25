@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBDNjM4Nl9FeGFtcGxlMihpbnQgaSkNCnsNCiAgIGludCBhWzIwXTsJCQkJDQogICBpbnQgaiA9IDE7DQogICBpZiAoaSA8PSAyMSkJCQkJDQogICB7DQogICAgICBhW2ktMV0gPSBqOwkJCQ0KICAgfQ0KfQ==",
+          "hashes": [
+            {
+              "value": "1EF3465D00ADAD3A2AC0C85E41101DAE",
+              "algorithm": "md5"
+            },
+            {
+              "value": "9932D9ED2BEE41A3E2A6CBD480B02CD83BB32991",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "94E245CBDB9B4F7B82FBC087058869B58CA3A887CEF6B03439E8A651EC42B812",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'a':  the writable size is '80' bytes, but '84' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "C6386_Example2",
+              "decoratedName": "?C6386_Example2@@YAXH@Z",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'a' is an array of 20 elements (80 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'i<=21')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 14
+                    }
+                  },
+                  "message": "Invalid write to 'a[20]', (writable range is 0 to 19)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

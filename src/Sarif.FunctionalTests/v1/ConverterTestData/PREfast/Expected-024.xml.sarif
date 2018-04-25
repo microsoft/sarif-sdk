@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test024.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nOverflow using expression '(arr)[2]'\nBuffer arr is a parameter to this function declared on line 4\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(arr)`4 + 8 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test024.cpp(4)]\nAccessing 4 bytes starting at byte offset 8\n\nValues of variables:\nPointer arr is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test024.cpp",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YAXAAY01H@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test024.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test024.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

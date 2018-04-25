@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test093.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression '* (p - 2)'\nBuffer accessed is ss::a\nBuffer is of length 1024 bytes [size of field]\nAccessing the byte at byte offset {d % 1024}`50 - 2\n\nValues of variables:\nPointer p is at offset {d % 1024}`50 bytes from the start of the buffer\n\nwhere\nd`48 >= 0\n{d % 1024}`50 <= 1023\n{d % 1024}`50 <= d`48\n{d % 1024}`50 >= 1\n\nUnderflow access occurs when\n{d % 1024}`50 == 1\nd`48 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test093.cpp",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "foo3",
+              "decoratedName": "?foo3@@YAXPAUss@@I@Z",
+              "properties": {
+                "funcline": "48"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test093.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

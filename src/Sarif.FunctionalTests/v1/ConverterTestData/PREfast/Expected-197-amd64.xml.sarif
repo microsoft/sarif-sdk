@@ -1,0 +1,523 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test197.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nPossible postcondition violation due to failure to null terminate string\nBuffer buffer is a parameter to this function declared on line 16\nBuffer is of length offset(buffer)`16 + 8 bytes [from annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test197.cpp(16)]\nAnnotation on function BadGetData2 requires that * ((PSTR *)buffer) is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test197.cpp",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "BadGetData2",
+              "decoratedName": "?BadGetData2@@YAXPEAPEAXPEAK@Z",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26024",
+          "message": "Cast cannot be proven safe: \"(struct SomeStruct *)bufferHeader\" Accessing 8 bytes starting at byte offset 0\n\nValues of variables:\nPointer bufferHeader is at offset offset(bufferHeader)`40a bytes from the start of the buffer\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 43\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test197.cpp",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXXZ",
+              "properties": {
+                "funcline": "35"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression 'buffer[0]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer buffer created during call to BadGetData2 on line 47\nBuffer is of length length`47a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\\somepath\\test197.cpp(16) on function BadGetData2 called at line 47] OR\n  nullpos(buffer'47)`47 + 1 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 0\n\nValues of variables:\nPointer buffer is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buffer)`47a == 0\nlength`47a >= 1\nnullpos(buffer'47)`47 >= 0\n\nOverrun access occurs when\nlength`47a <= 1\nnullpos(buffer'47)`47 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test197.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 31
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXXZ",
+              "properties": {
+                "funcline": "35"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 31
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression 'buffer[0]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer buffer created during call to GoodGetData on line 51\nBuffer is of length length`51a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\\somepath\\test197.cpp(25) on function GoodGetData called at line 51] OR\n  nullpos(buffer'51)`51 + 1 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 0\n\nValues of variables:\nPointer buffer is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buffer)`51a == 0\nlength`51a >= 1\nnullpos(buffer'51)`51 >= 0\n\nOverrun access occurs when\nlength`51a <= 1\nnullpos(buffer'51)`51 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test197.cpp",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXXZ",
+              "properties": {
+                "funcline": "35"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test197.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

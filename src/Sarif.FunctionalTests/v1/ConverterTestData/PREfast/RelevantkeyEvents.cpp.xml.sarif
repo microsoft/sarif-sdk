@@ -1,0 +1,211 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBDNjM4NV9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzVdOw0KICAgZm9yIChpbnQgaj0wOyBqPDU7IGorKykgYVtqXSA9IDU7DQogICBjaGFyIGs7DQogICBpZiAoaSA8PSA1KQ0KICAgew0KICAgICAgayA9IGFbaV07DQogICB9DQp9DQo=",
+          "hashes": [
+            {
+              "value": "A413B8736582A8046C24651B0E884385",
+              "algorithm": "md5"
+            },
+            {
+              "value": "E57D977B6F5416C1F29C082B8CF9F8E12879C79A",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "43242EA8E242DC0EEE7D5855ECF04CEC49A14E9BD04E2E152610610D0302F79A",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'a':  the readable size is '5' bytes, but 'i' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_Example",
+              "decoratedName": "?C6385_Example@@YAXH@Z",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'a' is an array of 5 elements (5 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 13
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 19
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 33
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 24
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 19
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 33
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 24
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 19
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'i<=5')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Invalid read from 'a[5]', (readable range is 0 to 4)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

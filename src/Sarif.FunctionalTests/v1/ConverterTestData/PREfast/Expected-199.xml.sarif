@@ -1,0 +1,561 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test199.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26026",
+          "message": "Cast cannot be proven safe: \"(PFIXED_SENSE_DATA)SenseInfoBuffer\" Accessing 8 bytes starting at byte offset 0\n\nValues of variables:\nPointer SenseInfoBuffer is at offset offset(SenseInfoBuffer)`62 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 41
+                }
+              },
+              "fullyQualifiedLogicalName": "ScsiGetTotalSenseByteCountIndicated",
+              "decoratedName": "?ScsiGetTotalSenseByteCountIndicated@@YAXPAXE@Z",
+              "properties": {
+                "funcline": "62"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 42
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 41
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression '(const void *)pchRead'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(result.GetText715)`146a is not constrained by nullpos(result.GetText715'146)`146\n\nBuffer result.GetText715 created during call to GetText715 on line 146\nBuffer is of length 2*nullpos(result.GetText715'146)`146 + 2 bytes [length of zero terminated string]\nAccessing 2*cchValid`146a bytes starting at byte offset 0\nAnnotation on function CopyMemory requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)pchRead; {parameter 3} is cchValid * 2\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test199.cpp(14)]\n\n\nValues of variables:\nPointer pchRead is at offset 0 bytes from the start of the buffer\ncchValid = cchValid`146a\n\nwhere\noffset(result.GetText715)`146a == 0\ncch`144 == cch`140\ncchValid`146a <= cch`144\ncchValid`146a >= 1\ncch`140 >= 1\ncch`144 >= 1\nnullpos(result.GetText715'146)`146 >= 0\n\nOverrun access occurs when\n2*cchValid`146a >= 2*nullpos(result.GetText715'146)`146 + 3\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "f715",
+              "decoratedName": "?f715@@YAXJPAG@Z",
+              "properties": {
+                "funcline": "140"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 140,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 143,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 144,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 146,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 146,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 147,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 150,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 150,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 151,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26036",
+          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer pch is a parameter to this function declared on line 140\nAnnotation on function f715 requires that pch is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 148,
+                  "startColumn": 4
+                }
+              },
+              "fullyQualifiedLogicalName": "f715",
+              "decoratedName": "?f715@@YAXJPAG@Z",
+              "properties": {
+                "funcline": "140"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 140,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 143,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 144,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 146,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 146,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 147,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 148,
+                      "startColumn": 4
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential read overflow using expression 'Indices[i]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: i`158 is not constrained by any constant\n\nBuffer accessed is Indices\nBuffer is of length 7 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset i`158\n\nValues of variables:\ni = i`158\n\nwhere\ni`158 >= 0\n\nOverrun access occurs when\ni`158 >= 7\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 163,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "f819",
+              "decoratedName": "?f819@@YAII@Z",
+              "properties": {
+                "funcline": "158"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 158,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 162,
+                      "startColumn": 24
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 162,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 163,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26030",
+          "message": "Postcondition violation that could result in overflow\nBuffer (st1->Struct869::m_data) is a parameter to this function declared on line 185\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length (st1->Struct869::m_size)`185 bytes [from field annotation SAL_writableTo(byteCount(st1->m_size)) at c:\\somepath\\test199.cpp(169)]\nAccessing (st1->Struct869::m_size)`185 + 1 bytes starting at byte offset 0\nAssumed __inout annotation on function f869c requires that st1->m_data is of length >= st1->m_size bytes\n[Field annotation SAL_writableTo(byteCount(st1->m_size)) at c:\\somepath\\test199.cpp(169)]\n\n\nValues of variables:\n(st1->Struct869::m_size) = (st1->Struct869::m_size)`185 + 1\n\nwhere\n(st1->Struct869::m_size)`185 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 188,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "f869c",
+              "decoratedName": "?f869c@@YAXAAUStruct869@@@Z",
+              "properties": {
+                "funcline": "185"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 185,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 188,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26045",
+          "message": "Potential postcondition violation that could result in overflow\nThe function has a __success annotation that is satisfied\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (*requiredSize)`273 is not constrained by dataSize`265\n\nBuffer data is a parameter to this function declared on line 265\nBuffer is of length offset(data)`265 + dataSize`265 bytes [from annotation SAL_readableTo(byteCount(dataSize)) at c:\\somepath\\test199.cpp(265)]\nAccessing (*requiredSize)`273 bytes starting at byte offset 0\nAnnotation on function f926 requires that data is of length >= * requiredSize bytes\n[Annotation SAL_readableTo(byteCount(* requiredSize)) at c:\\somepath\\test199.cpp(265)]\n\n\nValues of variables:\n(*requiredSize) = (*requiredSize)`273\nPointer data is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(data)`265 == 0\ndataSize`265 >= 1\n\nOverrun access occurs when\n(*requiredSize)`273 >= dataSize`265 + 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 272,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "f926",
+              "decoratedName": "?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
+              "properties": {
+                "funcline": "265"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 265,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 271,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 272,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26006",
+          "message": "Possibly incorrect single element annotation on string buffer\nPossible postcondition violation due to failure to null terminate string\nThe function has a __success annotation that is satisfied\nBuffer (data->_MyStruct926::DevicePath) is a parameter to this function declared on line 265\nBuffer is of length 1 bytes [from field annotation SAL_readableTo(elementCount(1)) at c:\\somepath\\test199.cpp(265)]\nAnnotation on function f926 requires that data->DevicePath is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\test199.cpp(265)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test199.cpp",
+                "region": {
+                  "startLine": 272,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "f926",
+              "decoratedName": "?f926@@YA_NPAU_MyStruct926@@JPAJ@Z",
+              "properties": {
+                "funcline": "265"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 265,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 271,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test199.cpp",
+                    "region": {
+                      "startLine": 272,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

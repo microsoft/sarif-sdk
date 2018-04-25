@@ -1,0 +1,256 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBLZXkgZXZlbnQgdGFyZ2V0IGluIHRoZSBwcmVzZW5jZSBvZiBjbGFzcyBtZW1iZXIgYWxpYXMNCi8vIExvb2sgZm9yICd0aGlzLT5zb3VyY2UnLCBub3QganVzdCAnc291cmNlJw0KDQpjbGFzcyBNaXNzZWRBbGlhc2VzDQp7DQoJaW50ICogc291cmNlOw0KDQoJaW50IE1pc3NlZEFsaWFzKCkNCgl7DQoJCWJvb2wgYXNzZXJ0ID0gc291cmNlICE9IDAgPyBmYWxzZSA6IHRydWU7IC8vIEV4cGVjdHM6ICdzb3VyY2UnIG1heSBiZSBOVUxMDQoJCWludCAqIHRhcmdldCA9IHNvdXJjZTsNCgkJaW50IHggPSAqc291cmNlOw0KDQoJCS8vIHN1cHByZXNzIDQxODkNCgkJaWYgKGFzc2VydCAmJiB0YXJnZXQpIHJldHVybiB4Ow0KCX0NCg0KCWludCBNaXNzZWRBbGlhczIoKQ0KCXsNCgkJYm9vbCBhc3NlcnQgPSBzb3VyY2UgIT0gMCA/IGZhbHNlIDogdHJ1ZTsgLy8gRXhwZWN0czogJ3RoaXMtPnNvdXJjZScgbWF5IGJlIE5VTEwNCgkJaW50ICogdGFyZ2V0ID0gc291cmNlOw0KCQlpbnQgeCA9ICp0YXJnZXQ7DQoNCgkJLy8gc3VwcHJlc3MgNDE4OQ0KCQlpZiAoYXNzZXJ0ICYmIHRhcmdldCkgcmV0dXJuIHg7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzMyhpbnQgKiB0YXJnZXQpDQoJew0KCQlib29sIGFzc2VydCA9IHRhcmdldCAhPSAwID8gZmFsc2UgOiB0cnVlOyAvLyBFeHBlY3RzOiAndGFyZ2V0JyBtYXkgYmUgTlVMTA0KCQlzb3VyY2UgPSB0YXJnZXQ7DQoJCWludCB4ID0gKnNvdXJjZTsNCg0KCQkvLyBzdXBwcmVzcyA0MTg5DQoJCWlmIChhc3NlcnQgJiYgdGFyZ2V0KSByZXR1cm4geDsNCgl9DQoNCn07DQoNCg==",
+          "hashes": [
+            {
+              "value": "9EB90F40ADA3B637A68517DDBCE913FA",
+              "algorithm": "md5"
+            },
+            {
+              "value": "FE4D86F0014CA0226372B5C9C1FB803CDC4E0AD7",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "4ED320350F0016E513FB10B5A3EFD3A63E5D2A2CACCC20A77EB244A1304A850D",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'source'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 7
+                }
+              },
+              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
+              "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ",
+              "properties": {
+                "funcline": "9"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'target' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'target' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "28182",
+          "message": "Dereferencing NULL pointer. 'target' contains the same NULL value as 'source' did. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 7
+                }
+              },
+              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
+              "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'target' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'target' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "28182",
+          "message": "Dereferencing NULL pointer. 'source' contains the same NULL value as 'target' did. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 7
+                }
+              },
+              "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
+              "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
+              "properties": {
+                "funcline": "29"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'target' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 10
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs370524.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'target' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

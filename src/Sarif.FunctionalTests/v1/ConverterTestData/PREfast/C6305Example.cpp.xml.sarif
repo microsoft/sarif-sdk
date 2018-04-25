@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "aW50IEM2MzA1X0V4YW1wbGUxIChpbnQgKnApDQp7DQogICBpbnQgaSA9IDA7DQogICBpbnQgY2IgPSBzaXplb2YoaW50KTsNCg0KICAgcCs9Y2I7IC8vRXhwZWN0IDYzMDUNCiAgIHJldHVybiBpOyANCn0NCg==",
+          "hashes": [
+            {
+              "value": "5EADDAB5A750D12CD3019D1FB397028C",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D5C12208D2C75580CBF3465C2CBFEB92CF591C47",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "94D67C79E26F68BFAE2ED927106FC0D555466817BF34F185D9F5B17E0DF355B2",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6305",
+          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "C6305_Example1",
+              "decoratedName": "?C6305_Example1@@YAHPEAH@Z",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'cb' is a byte quantity",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 5
+                    }
+                  },
+                  "message": "Expression mixes element counts and byte quantities",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "2",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

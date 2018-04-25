@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test123.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26018",
+          "message": "Potential overflow of null terminated buffer using expression '(s.p)[9]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(s.S::p)`32a is not constrained by s.S::c`32\noffset(s.S::p)`32a is not constrained by nullpos(s.S::p'32)`32\n\nBuffer s.S::p created during call to bar on line 32\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length nullpos(s.S::p'32)`32 + 1 bytes [length of zero terminated string] OR\n  s.S::c`32 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}->c)) at c:\\somepath\\test123.cpp(7) on function bar called at line 32]\nAccessing the byte at byte offset 9\n\nValues of variables:\nPointer s.S::p is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(s.S::p)`32a == 0\nnullpos(s.S::p'32)`32 >= 0\ns.S::c`32 >= 1\n\nOverrun access occurs when\nnullpos(s.S::p'32)`32 <= 8\ns.S::c`32 <= 9\n\nThere are other instances of this error:\nPotential overflow of null terminated buffer using expression '(s.p)[10]' at line 35\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test123.cpp",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test123.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

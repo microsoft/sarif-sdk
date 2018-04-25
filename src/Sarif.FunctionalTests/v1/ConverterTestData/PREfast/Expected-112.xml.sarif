@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test112.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'pchBuffer[bytesReceived]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(pchBuffer)`44a is not constrained by bufferLength`44a\noffset(pchBuffer)`44a is not constrained by any constant\n\nBuffer pchBuffer created during call to Receive on line 44\nBuffer is of length bufferLength`44a bytes [from annotation SAL_writableTo(byteCount(* {parameter 2})) at c:\\somepath\\test112.cpp(8) on function Receive called at line 44] OR\n  bytesReceived`44a bytes [from annotation SAL_readableTo(byteCount(* {parameter 4})) at c:\\somepath\\test112.cpp(8) on function Receive called at line 44]\nAccessing the byte at byte offset bytesReceived`44a\n\nValues of variables:\nPointer pchBuffer is at offset 0 bytes from the start of the buffer\nbytesReceived = bytesReceived`44a\n\nwhere\noffset(pchBuffer)`44a == 0\nbufferLength`44a >= 1\nbytesReceived`44a >= 1\n\nOverrun access occurs when\nbufferLength`44a <= bytesReceived`44a\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test112.cpp",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 34
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "29"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test112.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 34
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

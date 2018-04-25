@@ -1,0 +1,313 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test050.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26011",
+          "message": "Potential read underflow using expression 'a[i]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset i`4\n\nValues of variables:\ni = i`4\n\nUnderflow access occurs when\ni`4 + 1 <= 0\n\nThere are other instances of this error:\nPotential Underflow using expression 'a[a[1]]' at line 11\nPotential Underflow using expression 'a[a[2]]' at line 18\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test050.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXH@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[a[0]]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\nValues of variables:\na[0] = 10\n\nThere are other instances of this error:\nPotential read overflow using expression 'a[i]' at line 7\nPotential overflow using expression 'a[a[1]]' at line 11\nOverflow using expression 'a[a[0]]' at line 15\nPotential overflow using expression 'a[a[2]]' at line 18\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test050.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXH@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'arr[(s->a[1]).x]'\nBuffer accessed is arr\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n\nValues of variables:\n(s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\nPointer s is at offset 0 bytes from the start of s\n\nOverrun access occurs when\n(s->S::a)[0].S1::x`33 >= 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test050.cpp",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "30"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 20
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'arr[(s->a[1]).x]'\nBuffer accessed is arr\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n\nValues of variables:\n(s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\nPointer s is at offset 0 bytes from the start of s\n\nUnderflow access occurs when\n(s->S::a)[0].S1::x`33 + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test050.cpp",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "30"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test050.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 20
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

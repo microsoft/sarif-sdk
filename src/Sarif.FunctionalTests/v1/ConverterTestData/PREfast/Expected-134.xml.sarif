@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test134.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'x[index]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: index`39a is not constrained by any constant\n\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nOverrun access occurs when\nindex`39a >= 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test134.cpp",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "UnsafeTestStatus",
+              "decoratedName": "?UnsafeTestStatus@@YAXJ@Z",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'x[index]'\nBuffer accessed is x\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset index`39a\n\n when function GetNumber2 called at line 39 fails.\n\nValues of variables:\nindex = index`39a\n\nUnderflow access occurs when\nindex`39a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test134.cpp",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "UnsafeTestStatus",
+              "decoratedName": "?UnsafeTestStatus@@YAXJ@Z",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test134.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

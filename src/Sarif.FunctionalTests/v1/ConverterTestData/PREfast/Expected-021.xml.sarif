@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test021.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26006",
+          "message": "Possibly incorrect single element annotation on string buffer\nRead overflow using expression '(const void *)b'\nBuffer b is a parameter to this function declared on line 3\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(b)`3 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test021.cpp(3)]\nAccessing 11 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)b; {parameter 3} is 11\n[Annotation _In_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer b is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test021.cpp",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAD@Z",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 8
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(void *)(& a)'\nBuffer accessed is a\nBuffer is of length 10 bytes [size of variable]\nAccessing 11 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& a); {parameter 3} is 11\n[Annotation _Out_(byteCount({parameter 3}))]\n\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test021.cpp",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAD@Z",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test021.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 8
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

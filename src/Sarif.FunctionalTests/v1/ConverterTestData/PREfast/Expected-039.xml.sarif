@@ -1,0 +1,363 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test039.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test039.cpp",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "f1",
+              "decoratedName": "?f1@@YAXXZ",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'buf[size]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: size`54a is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`54a\n\nValues of variables:\nsize = size`54a\n\nwhere\nsize`54a >= 0\n\nOverrun access occurs when\nsize`54a >= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test039.cpp",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f2",
+              "decoratedName": "?f2@@YAXXZ",
+              "properties": {
+                "funcline": "50"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'buf[size]'\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset 100\n\nValues of variables:\nsize = 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test039.cpp",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f3",
+              "decoratedName": "?f3@@YAXXZ",
+              "properties": {
+                "funcline": "58"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 63,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression 'buf[size]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing the byte at byte offset size`70a\n\nValues of variables:\nsize = size`70a\n\nwhere\nsize`70a <= 100\nsize`70a >= 0\n\nOverrun access occurs when\nsize`70a == 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test039.cpp",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f4",
+              "decoratedName": "?f4@@YAXXZ",
+              "properties": {
+                "funcline": "66"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 68,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 70,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test039.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

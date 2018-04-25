@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
+          "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "type"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Default File Template Usage",
+          "message": "Default File template",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 3
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

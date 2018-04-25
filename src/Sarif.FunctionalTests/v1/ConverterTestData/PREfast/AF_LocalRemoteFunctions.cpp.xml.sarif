@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I2luY2x1ZGUgIkFGX0xvY2FsUmVtb3RlRnVuY3Rpb25zLmgiDQoNCnZvaWQgTG9jYWxGdW5jdGlvbihpbnQqIHgpOw0KDQp2b2lkIExvY2FsRnVuY3Rpb24oaW50KiB4LCBpbnQqIHkpOw0KDQppbnQgVXNlTG9jYWxGdW5jdGlvbihpbnQgKiBwKQ0Kew0KCWlmIChwID09IDApDQoJCWludCB4ID0gNTsNCglMb2NhbEZ1bmN0aW9uKHApOw0KICAgIFJlbW90ZUZ1bmN0aW9uKHAsIHApOw0KCXJldHVybiAqcDsNCn0NCg==",
+          "hashes": [
+            {
+              "value": "D980197597DBE41EC87A4C8F3B0BABAC",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B839BCCF6D22587861AD26D0D9983FF60FACE00B",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "1A670FDC7E510E624E95EFDF7402E9FC7864C8F5BED735036A008388A8FF9146",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'p'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "UseLocalFunction",
+              "decoratedName": "?UseLocalFunction@@YAHPEAH@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'p' may be NULL (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 7
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 15
+                    }
+                  },
+                  "message": "'p' is an In/Out argument to 'LocalFunction' (declared on line 3)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 19
+                    }
+                  },
+                  "message": "'p' is an In/Out argument to 'RemoteFunction' (declared at d:\\src\\sarif-sdk\\src\\sarif.functionaltests\\convertertestdata\\prefast\\src\\advancedfunctions\\af_localremotefunctions.h:4)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "'p' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

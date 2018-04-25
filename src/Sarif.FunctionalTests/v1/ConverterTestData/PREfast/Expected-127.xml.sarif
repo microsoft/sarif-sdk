@@ -1,0 +1,733 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test127.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(void *)ptr'\nBuffer ptr is a parameter to this function declared on line 6\nBuffer is of length offset(ptr)`6 + 10 bytes [from annotation SAL_writableTo(elementCount(10)) at c:\\somepath\\test127.cpp(6)]\nAccessing 15 bytes starting at byte offset 0\nAnnotation on function memset requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)ptr; {parameter 3} is 15\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer ptr is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "VariableWorker",
+              "decoratedName": "?VariableWorker@@YAXHPAD@Z",
+              "properties": {
+                "funcline": "6"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& myArray'\nBuffer accessed is myArray\nBuffer is of length 15 bytes [size of variable]\nAccessing 20 bytes starting at byte offset 0\nAnnotation on function VariableWorker requires that {parameter 2} is of length >= 20 elements (1 bytes/element)\n  where {parameter 2} is & myArray\n[Annotation SAL_writableTo(elementCount(20)) at c:\\somepath\\test127.cpp(6)]\n\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad1",
+              "decoratedName": "?Bad1@@YAXXZ",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& myArray'\nBuffer accessed is myArray\nBuffer is of length 15 bytes [size of variable]\nAccessing 20 bytes starting at byte offset 0\nAnnotation on function VariableWorker requires that {parameter 2} is of length >= 20 elements (1 bytes/element)\n  where {parameter 2} is & myArray\n[Annotation SAL_writableTo(elementCount(20)) at c:\\somepath\\test127.cpp(6)]\n\n\nValues of variables:\ncmd = 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad2",
+              "decoratedName": "?Bad2@@YAXH@Z",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26019",
+          "message": "Potential overflow using expression 'buff50[size]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buff50\nBuffer is of length 50 bytes [size of variable]\nAccessing the byte at byte offset size`47\n\nValues of variables:\nsize = size`47\n\nwhere\nsize`47 <= 99\nsize`47 >= 0\n\nOverrun access occurs when\nsize`47 >= 50\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 22
+                }
+              },
+              "fullyQualifiedLogicalName": "RangeWhen1",
+              "decoratedName": "?RangeWhen1@@YAXHI@Z",
+              "properties": {
+                "funcline": "47"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 54,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 22
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'buff[result.RangeWhen2]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.RangeWhen2`80a is not constrained by any constant\n\nBuffer accessed is buff\nBuffer is of length 1 bytes [size of variable]\nAccessing the byte at byte offset result.RangeWhen2`80a\n\nValues of variables:\nresult.RangeWhen2 = result.RangeWhen2`80a\n\nwhere\nresult.RangeWhen2`79a == 0\nresult.RangeWhen2`80a >= 0\n\nOverrun access occurs when\nresult.RangeWhen2`80a >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad3",
+              "decoratedName": "?Bad3@@YAXXZ",
+              "properties": {
+                "funcline": "76"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 78,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 80,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 80,
+                      "startColumn": 25
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression '* (lpszHdrs ++)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer lpszHdrs is a parameter to this function declared on line 104\nBuffer is of length 2*nullpos(lpszHdrs)`104 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer lpszHdrs is at offset 4 bytes from the start of the buffer\n\nwhere\ncchLength`104 == 4294967295\noffset(lpszHdrs)`104 == 0\n{loop iterations}'120 == 0\nnullpos(lpszHdrs)`104 >= 0\n\nOverrun access occurs when\nnullpos(lpszHdrs)`104 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 121,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "WinHttpTestINT",
+              "decoratedName": "?WinHttpTestINT@@YAXPBGH@Z",
+              "properties": {
+                "funcline": "104"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 104,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 111,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 112,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 112,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 113,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 120,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 120,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 120,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 121,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 120,
+                      "startColumn": 34
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 120,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 121,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26003",
+          "message": "Writing to buffer 'dest' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'dest'\nBuffer dest is a parameter to this function declared on line 128\nBuffer is of length 2 bytes [assumed because the buffer is unannotated]\nAccessing 2*nullpos(src)`128 + 2 bytes starting at byte offset 0\nAnnotation on function wcscpy requires that {parameter 1} is of length >= _String_length_({parameter 2}) + 1 elements (2 bytes/element)\n  where {parameter 1} is dest; {parameter 2} is src\n[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]\n\n\nValues of variables:\nPointer dest is at offset 0 bytes from the start of the buffer\nPointer src is at offset 0 bytes from the start of src\n\nwhere\noffset(dest)`128 == 0\nnullpos(src)`128 >= 0\n\nOverrun access occurs when\n2*nullpos(src)`128 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 130,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "myWcsCpy",
+              "decoratedName": "?myWcsCpy@@YAXPAGPBG@Z",
+              "properties": {
+                "funcline": "128"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 130,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow of null terminated buffer using expression '(LPCWSTR)(& localString)'\nBuffer accessed is localString\nBuffer is of length 100 elements (2 bytes/element) [size of variable] OR\n  nullpos(localString)`138 + 1 elements (2 bytes/element) [length of zero terminated string]\nAccessing 4294967196 elements (2 bytes/element) starting at element offset 0\nAnnotation on function WinHttpTestDWORD requires that {parameter 1} is of length >= {parameter 2} elements (2 bytes/element)\n  where {parameter 1} is (LPCWSTR)(& localString); {parameter 2} is 4294967196\n[Annotation SAL_readableTo(elementCount({parameter 2})) at c:\\somepath\\test127.cpp(83)]\n\n\nwhere\nnullpos(localString)`138 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 144,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "CallWinHttpDWORD",
+              "decoratedName": "?CallWinHttpDWORD@@YAXPBG@Z",
+              "properties": {
+                "funcline": "133"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 133,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 137,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 138,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 140,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 142,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 144,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential read overflow of null terminated buffer using expression '(WCHAR *)(& localString)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is localString\nBuffer is of length 100 elements (2 bytes/element) [size of variable] OR\n  nullpos(localString)`152 + 1 elements (2 bytes/element) [length of zero terminated string]\nAccessing 101 elements (2 bytes/element) starting at element offset 0\nAnnotation on function WinHttpTestINT requires that {parameter 1} is of length >= {parameter 2} elements (2 bytes/element)\n  where {parameter 1} is (WCHAR *)(& localString); {parameter 2} is 101\n[Annotation SAL_readableTo(elementCount({parameter 2})) at c:\\somepath\\test127.cpp(104)]\n\n\nwhere\nnullpos(localString)`152 <= 100\n\nOverrun access occurs when\nnullpos(localString)`152 <= 99\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test127.cpp",
+                "region": {
+                  "startLine": 158,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "CallWinHttpINT",
+              "decoratedName": "?CallWinHttpINT@@YAXPBG@Z",
+              "properties": {
+                "funcline": "147"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 147,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 151,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 152,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 154,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 156,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test127.cpp",
+                    "region": {
+                      "startLine": 158,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

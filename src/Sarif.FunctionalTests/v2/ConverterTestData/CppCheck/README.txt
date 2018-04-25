@@ -1,0 +1,1 @@
+﻿This test uses the zlib compression library v1.2.8 which can be found at https://zlib.net/

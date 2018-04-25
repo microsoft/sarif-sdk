@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test076.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression 'p[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 4\nBuffer is of length offset(p)`4 + 4*{(size`4) / 2}`4 bytes [from annotation SAL_writableTo(elementCount(_Old_((size / 2)))) at c:\\somepath\\test076.cpp(4)]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\ni = 1\n\nwhere\noffset(p)`4 == 0\n{loop iterations}'6 == 0\nsize`4 == 2*{(size`4) / 2}`4 + {(size`4) % 2}`4\nsize`4 >= 2\n{(size`4) % 2}`4 <= 1\n{(size`4) % 2}`4 >= 0\n{(size`4) / 2}`4 >= 1\n\nOverrun access occurs when\n{(size`4) / 2}`4 == 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test076.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "bad1",
+              "decoratedName": "?bad1@@YAXPAHH@Z",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test076.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

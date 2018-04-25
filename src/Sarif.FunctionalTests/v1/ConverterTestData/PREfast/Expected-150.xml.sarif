@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test150.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nAnnotation on function foo3 requires that * pa[_I_] == * pb[_I_]\n[Annotation SAL_satisfies(* pa[_I_] == * pb[_I_]) at c:\\somepath\\test150.cpp(18)]\n\nValues of variables:\n(*pa) = offset((*pa))`18\n(*pb) = offset((*pb))`18\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test150.cpp",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "foo3",
+              "decoratedName": "?foo3@@YAXPAPAPAH0H@Z",
+              "properties": {
+                "funcline": "18"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nAnnotation on function SatFunc requires that result.SatFunc == n + m\n[Annotation SAL_satisfies(result.SatFunc == n + m) at c:\\somepath\\test150.cpp(23)]\n\nValues of variables:\nm = m`23\nn = n`23\nresult.SatFunc = n`23 + 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test150.cpp",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "SatFunc",
+              "decoratedName": "?SatFunc@@YAHHHPAD@Z",
+              "properties": {
+                "funcline": "23"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26060",
+          "message": "Range precondition violation using expression '{parameter 1} == {parameter 2}'\nAnnotation on function SatFunc requires that {parameter 1} == {parameter 2}\n  where return is result.SatFunc; {parameter 1} is 1; {parameter 2} is 2\n[Annotation SAL_satisfies({parameter 1} == {parameter 2}) at c:\\somepath\\test150.cpp(23)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test150.cpp",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "TestSat1",
+              "decoratedName": "?TestSat1@@YAXXZ",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression 'cp[y]'\nBuffer cp is a parameter to this function declared on line 37\nBuffer is of length x`37 + offset(cp)`37 bytes [from annotation SAL_readableTo(elementCount(x)) at c:\\somepath\\test150.cpp(37)]\nAccessing the byte at byte offset y`37\n\nValues of variables:\nPointer cp is at offset 0 bytes from the start of the buffer\ny = y`37\n\nwhere\noffset(cp)`37 == 0\ny`37 == x`37\nx`37 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test150.cpp",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "TestPresatBad",
+              "decoratedName": "?TestPresatBad@@YADHHPAD@Z",
+              "properties": {
+                "funcline": "37"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test150.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test179.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26002",
+          "message": "Accessing buffer '(pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Buffer' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '(const void *)((pDigest->refstrParam[2]).Buffer)'\nAccessing unannotated buffer (pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Buffer\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing (pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length`46 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)((pDigest->refstrParam[2]).Buffer); {parameter 3} is (size_t)((pDigest->refstrParam[2]).Length)\n[Annotation _In_(byteCount({parameter 3}))]\n\n\nValues of variables:\n(pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length = (pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length`46\nPointer (pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Buffer is at offset 0 bytes from the start of the buffer\nPointer pDigest is at offset 0 bytes from the start of pDigest\n\nwhere\n(pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length`46 <= 8\n(pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length`46 >= 1\n\nOverrun access occurs when\n(pDigest->_DIGEST_PARAMETER::refstrParam)[0]._STRING::Length`46 >= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test179.cpp",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YAXPAU_DIGEST_PARAMETER@@@Z",
+              "properties": {
+                "funcline": "44"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 42
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 95
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test179.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

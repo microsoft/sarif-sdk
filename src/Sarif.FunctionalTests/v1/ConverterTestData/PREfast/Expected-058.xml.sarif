@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test058.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26019",
+          "message": "Potential read overflow using expression 'acBits[iMax >> 8 & 255]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is acBits\nBuffer is of length 16 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset {iMax >> 8 & 255}`11\n\nValues of variables:\niMax = iMax`2\n\nwhere\n{iMax & 61440}`8 == 0\niMax`2 == 256*{iMax >> 8}`11 + {(iMax`2) % 256}`11\niMax`2 <= 65535\niMax`2 >= 0\n{(iMax`2) % 256}`11 <= 255\n{(iMax`2) % 256}`11 >= 0\n{iMax & 3840}`10 <= 3840\n{iMax & 3840}`10 <= iMax`2\n{iMax & 3840}`10 >= 1\n{iMax >> 8 & 255}`11 <= 255\n{iMax >> 8 & 255}`11 <= {iMax >> 8}`11\n{iMax >> 8 & 255}`11 >= 0\n\nOverrun access occurs when\n{iMax >> 8 & 255}`11 >= 16\n\nThere are other instances of this error:\nPotential read overflow using expression 'acBits[iMax >> 4 & 255]' at line 13\nPotential read overflow using expression 'acBits[iMax]' at line 15\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test058.cpp",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXH@Z",
+              "properties": {
+                "funcline": "2"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 2,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test058.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I2luY2x1ZGUgPHN0cmluZy5oPg0KI2RlZmluZSBNQVggMjUNCg0Kdm9pZCBmb28odm9pZCkNCnsNCiAgY2hhciBhWzM1XTsNCiAgY2hhciBiWzEwXSA9IHsnYScsJ2InLCdjJywnZCcsJ1wwJ307DQogIA0KICBzdHJjcHkoYSwgYik7CQkJCQkJCQkJCQ0KICBzdHJuY2F0KGEsICJ0aGlzIHN0cmluZyBpcyBsb25nIiwgc2l6ZW9mIChhKSk7CS8vQEBARXhwZWN0czogNjA1OQ0KfQ0KDQo=",
+          "hashes": [
+            {
+              "value": "1E6ED854377BCC0EF2766079FD8DE75A",
+              "algorithm": "md5"
+            },
+            {
+              "value": "22832D659AFE1555790208648A36E4C65D5FF031",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "1F127EEDB66F259C8121DA860F0328327B20B6076595699595FEF1792EA7BE1F",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6059",
+          "message": "Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXXZ",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'a' is an array of 35 elements (35 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'a' is an Output from 'strcpy' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:110)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "'a' is an Output from 'strncat' (declared at c:\\program files (x86)\\microsoft visual studio 11.0\\vc\\wpsdk\\wp80\\include\\string.h:182)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6059/c6059example.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Length argument to 'strncat' should be less than the length of 'a'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "1",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

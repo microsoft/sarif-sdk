@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6200example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I2luY2x1ZGUgPHN0ZGxpYi5oPg0KI3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlOiA2MDE0KQ0Kdm9pZCBDNjIwMF9FeGFtcGxlKCkNCnsNCglpbnQgKmJ1ZmYgPSAoaW50ICopbWFsbG9jKDE0KTsNCg0KCWlmKGJ1ZmYgIT0gMCkNCgl7DQoJCWZvciAoaW50IGk9MDsgaTw9MTQ7aSsrKQ0KCQl7DQoJCQlidWZmW2ldPSAwOyAgLy82MjAwDQoJCX0NCgl9DQoNCn0NCg0KDQo=",
+          "hashes": [
+            {
+              "value": "48BD43F20BB208FDF71B511462332DD7",
+              "algorithm": "md5"
+            },
+            {
+              "value": "74C3B43F830AE2BF347B7DF0BE42D7CF4D2FF1B6",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "20C1D3D1A11923ADA528811791F4AD191F1BAFDAE0DE086585773826F76248BF",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6200",
+          "message": "Index '14' is out of valid index range '0' to '2' for non-stack buffer 'buff'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6200example.cpp",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "C6200_Example",
+              "decoratedName": "?C6200_Example@@YAXXZ",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
