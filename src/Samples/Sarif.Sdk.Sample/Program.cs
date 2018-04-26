@@ -29,8 +29,8 @@ namespace Sarif.Sdk.Sample
         /// <summary>
         /// Loads a SARIF log file from disk and deserializes it into a code object.
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
+        /// <param name="options">Load verb options.</param>
+        /// <returns>Exit code</returns>
         static int LoadSarifLogFile(LoadOptions options)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings()
@@ -47,12 +47,14 @@ namespace Sarif.Sdk.Sample
         /// <summary>
         /// Constructs a sample SARIF log and writes it to the specified location.
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
+        /// <param name="options">Create verb options.</param>
+        /// <returns>Exit code</returns>
         static int CreateSarifLogFile(CreateOptions options)
         {
-            // We'll use this source file for several defect results -- the SampleSourceFiles folder should be at the same level as the project folder
-            // Because this file can actually be accessed by this app, its content will be embedded in the log file
+            // We'll use this source file for several defect results -- the
+			// SampleSourceFiles folder should be at the same level as the project folder
+            // Because this file can actually be accessed by this app, its
+			// content will be embedded in the log file
             var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
