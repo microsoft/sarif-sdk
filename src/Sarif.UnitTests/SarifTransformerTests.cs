@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -150,20 +151,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
 
-            v2Log.Runs[0].LogicalLocations.Should().NotBeNull();
-            v2Log.Runs[0].LogicalLocations.Count.Should().Be(3);
+            IDictionary<string, LogicalLocation> logicalLocations = v2Log.Runs[0].LogicalLocations;
 
-            v2Log.Runs[0].LogicalLocations["collections::list::add"].Name.Should().Be("add");
-            v2Log.Runs[0].LogicalLocations["collections::list::add"].Kind.Should().Be("function");
-            v2Log.Runs[0].LogicalLocations["collections::list::add"].ParentKey.Should().Be("collections::list");
+            logicalLocations.Should().NotBeNull();
+            logicalLocations.Count.Should().Be(3);
 
-            v2Log.Runs[0].LogicalLocations["collections::list"].Name.Should().Be("list");
-            v2Log.Runs[0].LogicalLocations["collections::list"].Kind.Should().Be("type");
-            v2Log.Runs[0].LogicalLocations["collections::list"].ParentKey.Should().Be("collections");
+            logicalLocations["collections::list::add"].Name.Should().Be("add");
+            logicalLocations["collections::list::add"].Kind.Should().Be("function");
+            logicalLocations["collections::list::add"].ParentKey.Should().Be("collections::list");
 
-            v2Log.Runs[0].LogicalLocations["collections"].Name.Should().Be("collections");
-            v2Log.Runs[0].LogicalLocations["collections"].Kind.Should().Be("namespace");
-            v2Log.Runs[0].LogicalLocations["collections"].ParentKey.Should().BeNull();
+            logicalLocations["collections::list"].Name.Should().Be("list");
+            logicalLocations["collections::list"].Kind.Should().Be("type");
+            logicalLocations["collections::list"].ParentKey.Should().Be("collections");
+
+            logicalLocations["collections"].Name.Should().Be("collections");
+            logicalLocations["collections"].Kind.Should().Be("namespace");
+            logicalLocations["collections"].ParentKey.Should().BeNull();
         }
     }
 }
