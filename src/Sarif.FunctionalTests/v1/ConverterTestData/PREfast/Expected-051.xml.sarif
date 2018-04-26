@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test051.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& a'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 11 elements (4 bytes/element) starting at element offset 0\nAnnotation on function I::Fill requires that {parameter 2} is of length >= * {parameter 3} elements (4 bytes/element)\n  where {parameter 2} is & a; {parameter 3} is & size\n[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test051.cpp(6)]\n\n\nValues of variables:\nsize = 11\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test051.cpp",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPAVI@@@Z",
+              "properties": {
+                "funcline": "24"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test051.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test051.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test051.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test051.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test051.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

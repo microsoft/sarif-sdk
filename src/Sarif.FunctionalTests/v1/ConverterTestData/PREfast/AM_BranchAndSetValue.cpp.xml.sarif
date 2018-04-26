@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQp2b2lkIENvbXBhcmVUb1RlbihpbnQgKiByZXN1bHQsIGludCBiKQ0Kew0KCWludCBkYXRhWzEwXTsNCiAgICAgIA0KCWlmIChiID09IDEwKTsNCg0KCSpyZXN1bHQgPSBkYXRhW2JdOw0KfQ0K",
+          "hashes": [
+            {
+              "value": "947E0D9DE15DB57B99D405188F2B0186",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D34D3321C4D0E013AF2F14F14A1ABD9B023C51C7",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "51E4090F115599A2EF9742197F9401AE1C60834B767729CEB50C230AC73DA7E4",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6001",
+          "message": "Using uninitialized memory 'data'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "CompareToTen",
+              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
+              "properties": {
+                "funcline": "2"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'data' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "'data' is used, but may not have been initialized",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but 'b' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "CompareToTen",
+              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
+              "properties": {
+                "funcline": "2"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'data' is an array of 10 elements (40 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'b' may equal 10 (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Invalid read from 'data[10]', (readable range is 0 to 9)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>13</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[x]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function add1 called at line 12 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+x = 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXH@Z</DECORATED><FUNCLINE>9</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>9</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>11</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>12</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>12</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>13</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>33</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[result.add9]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function add9 called at line 33 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.add9 = 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>calladd9</FUNCTION><DECORATED>?calladd9@@YAXXZ</DECORATED><FUNCLINE>30</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>30</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>32</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>33</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>33</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>46</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[x]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function add1deref called at line 45 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+x = 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>calladd1deref</FUNCTION><DECORATED>?calladd1deref@@YAXXZ</DECORATED><FUNCLINE>41</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>41</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>43</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>44</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>44</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>45</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>46</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)(&amp; a)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing (this-&gt;C::size)`53 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; a); {parameter 3} is result.GetSize + 1
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function C::GetSize called at line 73 is inline analyzed.
+PREFAST_NEWLINE
+ when function C::GetBuffer called at line 75 is inline analyzed.
+PREFAST_NEWLINE
+ when function C::GetSize called at line 75 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.GetSize = (this-&gt;C::size)`53
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 &lt;= 10
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 == 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>CallAccessor</FUNCTION><DECORATED>?CallAccessor@@YAXPAUC@@@Z</DECORATED><FUNCLINE>70</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>70</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>72</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>73</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>73</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>44</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26002</DEFECTCODE><DESCRIPTION>Accessing buffer 'result.GetBuffer'75' of unspecified length.  Please annotate.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+If we assume that the buffer has single element in length, then the checker would report:
+PREFAST_NEWLINE
+Potential read overflow using expression '(const void *)result.GetBuffer'
+PREFAST_NEWLINE
+Buffer result.GetBuffer created during call to C::GetBuffer on line 75
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [assumed because the buffer is unannotated]
+PREFAST_NEWLINE
+Accessing (this-&gt;C::size)`53 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 2} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 2} is (const void *)result.GetBuffer; {parameter 3} is result.GetSize + 1
+PREFAST_NEWLINE
+[Annotation _In_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function C::GetSize called at line 73 is inline analyzed.
+PREFAST_NEWLINE
+ when function C::GetBuffer called at line 75 is inline analyzed.
+PREFAST_NEWLINE
+ when function C::GetSize called at line 75 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer result.GetBuffer is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+result.GetSize = (this-&gt;C::size)`53
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(result.GetBuffer)`75 == 0
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 &lt;= 10
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(this-&gt;C::size)`53 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>CallAccessor</FUNCTION><DECORATED>?CallAccessor@@YAXPAUC@@@Z</DECORATED><FUNCLINE>70</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>70</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>72</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>73</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>73</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>44</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>30</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>75</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>90</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[result.returnGlob]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset glob`83 + 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function returnGlob called at line 89 is inline analyzed.
+PREFAST_NEWLINE
+ when function returnGlob called at line 90 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.returnGlob = glob`83 + 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+glob`83 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXXZ</DECORATED><FUNCLINE>86</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>86</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>88</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>89</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>89</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>90</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>90</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>105</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26003</DEFECTCODE><DESCRIPTION>Writing to buffer 'result.alloc'102' of unspecified length.  Please annotate.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+If we assume that the buffer has single element in length, then the checker would report:
+PREFAST_NEWLINE
+Potential overflow using expression 'p[10]'
+PREFAST_NEWLINE
+Buffer result.alloc created during call to alloc on line 102
+PREFAST_NEWLINE
+Buffer is of length 0 bytes [assumed because the buffer is unannotated]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function alloc called at line 102 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+offset(result.alloc)`102 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callAlloc</FUNCTION><DECORATED>?callAlloc@@YAXXZ</DECORATED><FUNCLINE>98</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>98</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>100</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>101</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>102</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>102</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>102</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>103</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>105</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'a[result.Recursive]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: result.Recursive`111a is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset result.Recursive`111a + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function Recursive called at line 117 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.Recursive = result.Recursive`111a + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+result.Recursive`111a &gt;= 6
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callRecursive</FUNCTION><DECORATED>?callRecursive@@YAXH@Z</DECORATED><FUNCLINE>114</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>114</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>116</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential Underflow using expression 'a[result.Recursive]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset result.Recursive`111a + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function Recursive called at line 117 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.Recursive = result.Recursive`111a + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+result.Recursive`111a + 5 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callRecursive</FUNCTION><DECORATED>?callRecursive@@YAXH@Z</DECORATED><FUNCLINE>114</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>114</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>116</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>117</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>129</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[x]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 16
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function add called at line 128 is inline analyzed.
+PREFAST_NEWLINE
+ when function add called at line 128 is inline analyzed.
+PREFAST_NEWLINE
+ when function add called at line 128 is inline analyzed.
+PREFAST_NEWLINE
+ when function add called at line 128 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+x = 16
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>repeated</FUNCTION><DECORATED>?repeated@@YAXXZ</DECORATED><FUNCLINE>125</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>125</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>127</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>38</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>128</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>129</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>140</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 138
+PREFAST_NEWLINE
+Buffer is of length offset(p)`138 + n`138 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\somepath\test090.cpp(138)]
+PREFAST_NEWLINE
+Accessing n`138 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function Access requires that {parameter 1} is of length &gt;= {parameter 2} elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is p; {parameter 2} is n + 1
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\somepath\test090.cpp(132)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+n = n`138
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`138 == 0
+PREFAST_NEWLINE
+n`138 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>CallAccess</FUNCTION><DECORATED>?CallAccess@@YAXPADI@Z</DECORATED><FUNCLINE>138</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>138</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>140</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>165</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'a[n]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: result.loop`164a is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset result.loop`164a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+n = result.loop`164a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+result.loop`164a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+result.loop`164a &gt;= 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callLoop</FUNCTION><DECORATED>?callLoop@@YAXI@Z</DECORATED><FUNCLINE>161</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>161</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>163</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>164</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>164</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>165</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>191</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[p-&gt;c]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 11
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function add called at line 190 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;S::c) = 11
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callAdd</FUNCTION><DECORATED>?callAdd@@YAXPAUS@@@Z</DECORATED><FUNCLINE>185</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>185</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>187</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>188</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>189</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>190</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>191</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>203</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[s-&gt;next-&gt;x]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function set called at line 202 is inline analyzed.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+((s-&gt;S::next)-&gt;S1::x) = 10
+PREFAST_NEWLINE
+Pointer (s-&gt;S::next) is at offset 0 bytes from the start of (s-&gt;S::next)
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callSet</FUNCTION><DECORATED>?callSet@@YAXPAUS@@@Z</DECORATED><FUNCLINE>199</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>199</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>201</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>202</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test090.cpp</FILENAME><LINE>203</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT></DEFECTS>

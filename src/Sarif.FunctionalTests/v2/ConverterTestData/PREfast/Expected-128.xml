@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>74</LINE><COLUMN>32</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'pName-&gt;StringName[nameSize]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer pName is a parameter to this function declared on line 58
+PREFAST_NEWLINE
+Buffer is of length bufSize`58 + offset(pName)`58 bytes [from annotation SAL_writableTo(byteCount(bufSize)) at c:\somepath\test128.cpp(58)] OR
+PREFAST_NEWLINE
+  offset(pName)`58 + 2*nameSize`58 + 28 bytes [from annotation _Out_(byteCount({parameter 3})) on function memcpy called at line 73]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*nameSize`58 + 28
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pName is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+nameSize = nameSize`58
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pName)`58 == 0
+PREFAST_NEWLINE
+bufSize`58 &gt;= 1
+PREFAST_NEWLINE
+bufSize`58 &gt;= 2*nameSize`58 + 28
+PREFAST_NEWLINE
+nameSize`58 &lt;= 10485760
+PREFAST_NEWLINE
+nameSize`58 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+bufSize`58 &lt;= 2*nameSize`58 + 29
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>GetDSNAMEBad</FUNCTION><DECORATED>?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z</DECORATED><FUNCLINE>58</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>58</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>65</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>67</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>70</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>71</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>72</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>73</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>74</LINE><COLUMN>32</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>76</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26044</DEFECTCODE><DESCRIPTION>Potential postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer pName is a parameter to this function declared on line 58
+PREFAST_NEWLINE
+Buffer is of length bufSize`58 + offset(pName)`58 bytes [from annotation SAL_writableTo(byteCount(bufSize)) at c:\somepath\test128.cpp(58)]
+PREFAST_NEWLINE
+Accessing 2*nameSize`58 + 30 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function GetDSNAMEBad requires that pName is of length &gt;= (pName-&gt;NameLen + 1) * 2 + 28 bytes
+PREFAST_NEWLINE
+[Type annotation SAL_writableTo(byteCount((pName-&gt;NameLen + 1) * 2 + 28)) at c:\somepath\test128.cpp(30)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(pName-&gt;_DSNAME::NameLen) = nameSize`58
+PREFAST_NEWLINE
+Pointer pName is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pName)`58 == 0
+PREFAST_NEWLINE
+bufSize`58 &gt;= 1
+PREFAST_NEWLINE
+bufSize`58 &gt;= 2*nameSize`58 + 28
+PREFAST_NEWLINE
+nameSize`58 &lt;= 10485760
+PREFAST_NEWLINE
+nameSize`58 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+bufSize`58 &lt;= 2*nameSize`58 + 29
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>GetDSNAMEBad</FUNCTION><DECORATED>?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z</DECORATED><FUNCLINE>58</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>58</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>65</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>67</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>70</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>71</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>72</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>73</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>74</LINE><COLUMN>32</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test128.cpp</FILENAME><LINE>76</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

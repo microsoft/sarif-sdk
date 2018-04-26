@@ -1,0 +1,3506 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CppCheck",
+        "version": "1.66.0"
+      },
+      "files": {
+        "adler32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "crc32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "deflate.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzlib.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzread.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "gzwrite.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "inflate.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "inftrees.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "trees.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "zutil.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/infback9/inftree9.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/inflate86/inffas86.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/iostream2/zstream_test.cpp": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/masmx64/inffas8664.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/iowin32.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/miniunz.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/minizip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/mztools.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/unzip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/zip.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/minizip/crypt.h": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/puff/puff.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/puff/pufftest.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/testzlib/testzlib.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "contrib/untgz/untgz.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/enough.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/gun.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/gzappend.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/gzjoin.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/gzlog.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "examples/zran.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test/example.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test/infcover.c": {
+          "mimeType": "text/x-cpp"
+        },
+        "test/minigzip.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "adler32.c",
+                "region": {
+                  "startLine": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;c&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 92
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;k&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;poly&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;p&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "clarifyCalculation",
+          "message": "Suspicious calculation. Please use parentheses to clarify the code. The code &#039;&#039;a%b?c:d&#039;&#039; should be written as either &#039;&#039;(a%b)?c:d&#039;&#039; or &#039;&#039;a%(b?c:d)&#039;&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "crc32.c",
+                "region": {
+                  "startLine": 174
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;str&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 329
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 329
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;put&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 470
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;str&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 572
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;match&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1154
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;more&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1395
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;max_start&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1572
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;static_tree_desc_s::dummy&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 155
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;bflush&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1842
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;bflush&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "deflate.c",
+                "region": {
+                  "startLine": 1938
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 367
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;ret&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 368
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "ConfigurationNotChecked",
+          "message": "Skipping configuration &#039;O_BINARY&#039; since the value of &#039;O_BINARY&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "information"
+          }
+        },
+        {
+          "ruleId": "ConfigurationNotChecked",
+          "message": "Skipping configuration &#039;O_CLOEXEC&#039; since the value of &#039;O_CLOEXEC&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "information"
+          }
+        },
+        {
+          "ruleId": "ConfigurationNotChecked",
+          "message": "Skipping configuration &#039;O_EXCL&#039; since the value of &#039;O_EXCL&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "information"
+          }
+        },
+        {
+          "ruleId": "ConfigurationNotChecked",
+          "message": "Skipping configuration &#039;O_LARGEFILE&#039; since the value of &#039;O_LARGEFILE&#039; is unknown. Use -D if you want to check it. You can use -U to skip it explicitly.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "information"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Null pointer dereference",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzlib.c",
+                "region": {
+                  "startLine": 193
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 488
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;eol&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 490
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "uninitvar",
+          "message": "Uninitialized variable: n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzread.c",
+                "region": {
+                  "startLine": 271
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;ret&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 138
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;have&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "gzwrite.c",
+                "region": {
+                  "startLine": 249
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dist&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 385
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dictid&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1297
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;buf&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1382
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;wsize&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "inflate.c",
+                "region": {
+                  "startLine": 1445
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fill&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "inftrees.c",
+                "region": {
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;curlen&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 712
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;curlen&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 757
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dist&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1065
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;lc&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1066
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;lx&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1067
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;code&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1068
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;extra&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1069
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 826
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 826
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 853
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 856
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 859
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 926
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 926
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 1) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 930
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%ld in format string (no. 2) requires &#039;long&#039; but the argument type is &#039;unsigned long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 930
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%d in format string (no. 1) requires &#039;int&#039; but the argument type is &#039;unsigned int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 1090
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 364
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 370
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "unsignedPositive",
+          "message": "Unsigned variable &#039;static_lenb&#039; can&#039;t be negative so it is unnecessary to test it.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "trees.c",
+                "region": {
+                  "startLine": 970
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "duplicateExpression",
+          "message": "Finding the same expression on both sides of an operator is suspicious and might indicate a cut and paste or logic error. Please examine this code carefully to determine if it is correct.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 309
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "zutil.c",
+                    "region": {
+                      "startLine": 309
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "zutil.c",
+                    "region": {
+                      "startLine": 309
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;internal_state::dummy&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;z_internal_state::dummy&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "zutil.c",
+                "region": {
+                  "startLine": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fill&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/infback9/inftree9.c",
+                "region": {
+                  "startLine": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::esp&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/inflate86/inffas86.c",
+                "region": {
+                  "startLine": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::ebp&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/inflate86/inffas86.c",
+                "region": {
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::dist&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/inflate86/inffas86.c",
+                "region": {
+                  "startLine": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "compareBoolExpressionWithInt",
+          "message": "Comparison of a boolean expression with an integer.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/iostream2/zstream_test.cpp",
+                "region": {
+                  "startLine": 10
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "compareBoolExpressionWithInt",
+          "message": "Comparison of a boolean expression with an integer.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/iostream2/zstream_test.cpp",
+                "region": {
+                  "startLine": 15
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "unassignedVariable",
+          "message": "Variable &#039;z&#039; is not assigned a value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/iostream2/zstream_test.cpp",
+                "region": {
+                  "startLine": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::esp&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::ebp&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::in&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 86
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::last&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 87
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::out&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::beg&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 89
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::end&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 90
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::window&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 91
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::hold&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 94
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::bits&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 95
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::wsize&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 96
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::write&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::lmask&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::dmask&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 99
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::len&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 100
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::dist&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;inffast_ar::status&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/masmx64/inffas8664.c",
+                "region": {
+                  "startLine": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/iowin32.c",
+                "region": {
+                  "startLine": 97
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/iowin32.c",
+                "region": {
+                  "startLine": 126
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/iowin32.c",
+                "region": {
+                  "startLine": 150
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;mode_fopen&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/iowin32.c",
+                "region": {
+                  "startLine": 170
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;dwMoveMethod&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/iowin32.c",
+                "region": {
+                  "startLine": 364
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: zipfilename - otherwise it is redundant to check it against null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 602
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/miniunz.c",
+                    "region": {
+                      "startLine": 632
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/miniunz.c",
+                    "region": {
+                      "startLine": 602
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fout&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 322
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;i&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 542
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;ratio&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 327
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;fout&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 484
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;err&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/miniunz.c",
+                "region": {
+                  "startLine": 518
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%lld in format string (no. 2) requires &#039;long long&#039; but the argument type is &#039;unsigned long long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 235
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: fin - otherwise it is redundant to check it against null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 193
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/minizip.c",
+                    "region": {
+                      "startLine": 204
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/minizip.c",
+                    "region": {
+                      "startLine": 193
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;size_read&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 191
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;total_read&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 192
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;pos&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 227
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;err&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 257
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;size_read&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 399
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;total_read&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 212
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;n&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 232
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%lld in format string (no. 2) requires &#039;long long&#039; but the argument type is &#039;unsigned __int64 {aka unsigned long long}&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/minizip.c",
+                "region": {
+                  "startLine": 235
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "resourceLeak",
+          "message": "Resource leak: fpZip",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/mztools.c",
+                "region": {
+                  "startLine": 290
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "resourceLeak",
+          "message": "Resource leak: fpOut",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/mztools.c",
+                "region": {
+                  "startLine": 290
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "resourceLeak",
+          "message": "Resource leak: fpOutCD",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/mztools.c",
+                "region": {
+                  "startLine": 290
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: s - otherwise it is redundant to check it against null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/unzip.c",
+                "region": {
+                  "startLine": 1663
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/unzip.c",
+                    "region": {
+                      "startLine": 1665
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/unzip.c",
+                    "region": {
+                      "startLine": 1663
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;lSeek&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/unzip.c",
+                "region": {
+                  "startLine": 1105
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "redundantAssignment",
+          "message": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1038
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1037
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1038
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "performance"
+          }
+        },
+        {
+          "ruleId": "redundantAssignment",
+          "message": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1040
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1038
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1040
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "performance"
+          }
+        },
+        {
+          "ruleId": "redundantAssignment",
+          "message": "Variable &#039;err&#039; is reassigned a value before the old one has been used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1041
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1040
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "contrib/minizip/zip.c",
+                    "region": {
+                      "startLine": 1041
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "performance"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;header&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1957
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dataSize&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1958
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;p&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/zip.c",
+                "region": {
+                  "startLine": 1683
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;c&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/minizip/crypt.h",
+                "region": {
+                  "startLine": 99
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;len&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/puff.c",
+                "region": {
+                  "startLine": 705
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;last&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/puff.c",
+                "region": {
+                  "startLine": 799
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;type&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/puff.c",
+                "region": {
+                  "startLine": 799
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;count&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/puff.c",
+                "region": {
+                  "startLine": 240
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_sint",
+          "message": "%d in format string (no. 1) requires &#039;int&#039; but the argument type is &#039;unsigned int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/pufftest.c",
+                "region": {
+                  "startLine": 129
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dest&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/puff/pufftest.c",
+                "region": {
+                  "startLine": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 172
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 220
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 220
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 1) requires &#039;unsigned int&#039; but the argument type is &#039;long&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 261
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%u in format string (no. 2) requires &#039;unsigned int&#039; but the argument type is &#039;int&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 261
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;lCompressedSize&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 154
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;lOrigDone&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 210
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;lOrigDone&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/testzlib/testzlib.c",
+                "region": {
+                  "startLine": 251
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;c&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 171
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;prev&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 272
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;len&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 389
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::uid&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::gid&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::chksum&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 76
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::linkname&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::magic&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::version&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::uname&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::gname&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 82
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::devmajor&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::devminor&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 84
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_header::prefix&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 85
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unusedStructMember",
+          "message": "struct or union member &#039;tar_buffer::buffer&#039; is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "contrib/untgz/untgz.c",
+                "region": {
+                  "startLine": 91
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/enough.c",
+                "region": {
+                  "startLine": 184
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;left&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/enough.c",
+                "region": {
+                  "startLine": 406
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;index&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/enough.c",
+                "region": {
+                  "startLine": 407
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;got&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/enough.c",
+                "region": {
+                  "startLine": 462
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;ret&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 133
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;code&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 208
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;last&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 385
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;flags&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 386
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;len&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 633
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;outname&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 634
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unreadVariable",
+          "message": "Variable &#039;final&#039; is assigned a value that is never used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gun.c",
+                "region": {
+                  "startLine": 337
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: name - otherwise it is redundant to check it against null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzappend.c",
+                "region": {
+                  "startLine": 396
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "uri": "examples/gzappend.c",
+                    "region": {
+                      "startLine": 415
+                    }
+                  },
+                  "importance": "essential"
+                },
+                {
+                  "physicalLocation": {
+                    "uri": "examples/gzappend.c",
+                    "region": {
+                      "startLine": 396
+                    }
+                  },
+                  "importance": "essential"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;start&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzappend.c",
+                "region": {
+                  "startLine": 127
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;to&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzappend.c",
+                "region": {
+                  "startLine": 127
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;bypass&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzappend.c",
+                "region": {
+                  "startLine": 204
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;n&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzappend.c",
+                "region": {
+                  "startLine": 238
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Null pointer dereference",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzjoin.c",
+                "region": {
+                  "startLine": 391
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Null pointer dereference",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzjoin.c",
+                "region": {
+                  "startLine": 405
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;put&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 503
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fd&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 610
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;got&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 611
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;max&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 611
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;dict&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 612
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fd&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 740
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;fd&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 910
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;ret&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 910
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;next&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 912
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "unsignedLessThanZero",
+          "message": "The unsigned variable &#039;len&#039; will never be negative so it is either pointless or an error to check if it is.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/gzlog.c",
+                "region": {
+                  "startLine": 1003
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: index",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/zran.c",
+                "region": {
+                  "startLine": 229
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: index",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/zran.c",
+                "region": {
+                  "startLine": 230
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "nullPointer",
+          "message": "Possible null pointer dereference: index",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "examples/zran.c",
+                "region": {
+                  "startLine": 232
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "error"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/example.c",
+                "region": {
+                  "startLine": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/example.c",
+                "region": {
+                  "startLine": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/example.c",
+                "region": {
+                  "startLine": 576
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/infcover.c",
+                "region": {
+                  "startLine": 465
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/infcover.c",
+                "region": {
+                  "startLine": 188
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/infcover.c",
+                "region": {
+                  "startLine": 196
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "invalidPrintfArgType_uint",
+          "message": "%lu in format string (no. 2) requires &#039;unsigned long&#039; but the argument type is &#039;size_t {aka unsigned long}&#039;.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/infcover.c",
+                "region": {
+                  "startLine": 221
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;len&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 367
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;len&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 435
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 159
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "uselessAssignmentPtrArg",
+          "message": "Assignment of function parameter has no effect outside the function.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 166
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "warning"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;ret&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 265
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        },
+        {
+          "ruleId": "variableScope",
+          "message": "The scope of the variable &#039;got&#039; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &#039;i&#039; can be reduced:\nvoid f(int x)\n{\n    int i = 0;\n    if (x) {\n        // it&#039;s safe to move &#039;int i = 0;&#039; here\n        for (int n = 0; n &lt; 10; ++n) {\n            // it is possible but not safe to move &#039;int i = 0;&#039; here\n            do_something(&amp;i);\n        }\n    }\n}\nWhen you see this message it is always safe to reduce the variable scope 1 level.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "test/minigzip.c",
+                "region": {
+                  "startLine": 266
+                }
+              }
+            }
+          ],
+          "properties": {
+            "Severity": "style"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test102.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26026",
+          "message": "Cast cannot be proven safe: \"(VARSTR *)result.malloc\" Accessing 20 bytes starting at byte offset 0\n\nValues of variables:\nPointer result.malloc is at offset offset(result.malloc)`20a bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test102.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "good1",
+              "decoratedName": "?good1@@YAPAU_VARSTR@@XZ",
+              "properties": {
+                "funcline": "18"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 17
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26026",
+          "message": "Cast cannot be proven safe: \"(VARSTR *)result.malloc\" Accessing 20 bytes starting at byte offset 0\n\nValues of variables:\nPointer result.malloc is at offset offset(result.malloc)`43a bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test102.cpp",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "bad1",
+              "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ",
+              "properties": {
+                "funcline": "41"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 17
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26030",
+          "message": "Postcondition violation that could result in overflow\nBuffer result.malloc created during call to malloc on line 43\nBuffer is of length 8 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 43]\nAccessing 20 bytes starting at byte offset 0\nAnnotation on function bad1 requires that result.bad1 is of length >= 1 elements (20 bytes/element)\n[Annotation SAL_writableTo(elementCount(1)) at c:\\somepath\\test102.cpp(41)]\n\n\nValues of variables:\nPointer v is at offset 0 bytes from the start of the buffer\nresult.bad1 = v\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test102.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "bad1",
+              "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ",
+              "properties": {
+                "funcline": "41"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 36
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test102.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>15</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; a + 2'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 9 elements (4 bytes/element) starting at element offset 2
+PREFAST_NEWLINE
+Annotation on function useBuffer requires that {parameter 1} is of length &gt;= {parameter 2} elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; a + 2; {parameter 2} is 9
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\somepath\test003.cpp(4)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Overflow using expression 'b' at line 17
+PREFAST_NEWLINE
+Read overflow using expression 'a[12]' at line 19
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>10</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>10</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>12</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>13</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>13</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>14</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test003.cpp</FILENAME><LINE>15</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "BinaryAnalyzer",
+        "semanticVersion": "2.1.0"
+      },
+      "rules": {
+        "BA2006": {
+          "id": "BA2006",
+          "name": "BuildWithSecureTools",
+          "shortDescription": "Application code should be compiled with the most up-to-date tool sets.",
+          "fullDescription": "Application code should be compiled with the most up-to-date tool sets. The latest version is 2.2.",
+          "messageFormats": {
+            "Error_BadModule": "built with {0} compiler version {1} (Front end version {2})",
+            "Pass": "{0} was built with tools that satisfy configured policy.",
+            "Error": "{0} was compiled with one or tools that do not satisfy configured policy.",
+            "NotApplicable_InvalidMetadata": "{0} was not evaluated for check '{1}'."
+          },
+          "defaultLevel": "warning",
+          "helpUri": "http://www.example.com/tools/BinaryAnalyzer/rules/BA2006"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,881 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test097.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -2147024774\n\n when function HRESULT_FROM_WIN32 called at line 50 fails.\n\nValues of variables:\nhr = -2147024774\n\nwhere\nresult.HRESULT_FROM_WIN32`50a == -2147024774\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction1",
+              "decoratedName": "?MyFunction1@@YAJK@Z",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'bb[hr]'\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -559038737\n\n when function HRESULT_FROM_WIN32 called at line 57 fails.\n\nValues of variables:\nhr = -559038737\n\nwhere\nresult.HRESULT_FROM_WIN32`57a == -559038737\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction1",
+              "decoratedName": "?MyFunction1@@YAJK@Z",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'cc[hr - 1]'\nBuffer accessed is cc\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset -1\n\nValues of variables:\nhr = 0\n\nwhere\nresult.HRESULT_FROM_WIN32`64a == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 18
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction1",
+              "decoratedName": "?MyFunction1@@YAJK@Z",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 64,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 64,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 65,
+                      "startColumn": 18
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`77a + 1000\n\n when function HRESULT_FROM_WIN32 called at line 77 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`77a\n\nwhere\n{(rc`72) & 65535} == result.HRESULT_FROM_WIN32`77a + 2147024896\nrc`72 <= 998\nrc`72 >= 1\nresult.HRESULT_FROM_WIN32`77a + 1 <= 0\n{(rc`72) & 65535} <= 65535\n{(rc`72) & 65535} <= rc`72\n{(rc`72) & 65535} >= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 78,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction2",
+              "decoratedName": "?MyFunction2@@YAXK@Z",
+              "properties": {
+                "funcline": "72"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 77,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 77,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 77,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 78,
+                      "startColumn": 20
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'aa[hr + 1000]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 1000\n\nValues of variables:\nhr = 0\n\nwhere\nrc`82 == 0\nresult.HRESULT_FROM_WIN32`87a == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction3",
+              "decoratedName": "?MyFunction3@@YAXK@Z",
+              "properties": {
+                "funcline": "82"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 84,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 87,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 87,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 87,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 20
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`97a\n\n when function HRESULT_FROM_WIN32 called at line 97 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`97a\n\nwhere\nresult.HRESULT_FROM_WIN32`97a + 4294967296 == rc`92\nrc`92 <= 4294967295\nrc`92 >= 2147483648\nresult.HRESULT_FROM_WIN32`97a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction4",
+              "decoratedName": "?MyFunction4@@YAXK@Z",
+              "properties": {
+                "funcline": "92"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 92,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Underflow using expression 'aa[hr]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.HRESULT_FROM_WIN32`107a\n\n when function HRESULT_FROM_WIN32 called at line 107 fails.\n\nValues of variables:\nhr = result.HRESULT_FROM_WIN32`107a\n\nwhere\nresult.HRESULT_FROM_WIN32`107a + 4294967296 == rc`102\nrc`102 <= 4294967295\nrc`102 >= 2147483648\nresult.HRESULT_FROM_WIN32`107a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test097.cpp",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "MyFunction5",
+              "decoratedName": "?MyFunction5@@YAXK@Z",
+              "properties": {
+                "funcline": "102"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 104,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 40
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test097.cpp",
+                    "region": {
+                      "startLine": 108,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

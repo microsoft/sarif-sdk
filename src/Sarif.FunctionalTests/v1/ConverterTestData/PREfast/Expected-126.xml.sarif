@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test126.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression '\".xml\"[5]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset 5\n\nwhere\nnullpos(\".xml\")`16 == 4\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test126.cpp",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Unsafe1",
+              "decoratedName": "?Unsafe1@@YA_NPBD@Z",
+              "properties": {
+                "funcline": "12"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26001",
+          "message": "Read underflow using expression '\".xml\"[-1]'\nBuffer accessed is constant string \".xml\"\nBuffer is of length 5 bytes [size of constant string]\nAccessing the byte at byte offset -1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test126.cpp",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Unsafe2",
+              "decoratedName": "?Unsafe2@@YA_NPBD@Z",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test126.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

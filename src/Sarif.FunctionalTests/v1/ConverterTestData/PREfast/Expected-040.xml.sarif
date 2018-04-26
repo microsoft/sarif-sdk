@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test040.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'p[10]'\nBuffer p is a parameter to this function declared on line 55\nBuffer is of length offset(p)`55 + 40 bytes [from annotation SAL_writableTo(elementCount(_Old_(10))) at c:\\somepath\\test040.cpp(55)] OR\n  offset(p)`55 + 4*length`55 bytes [from annotation SAL_readableTo(elementCount(_Old_({parameter 2}))) at c:\\somepath\\test040.cpp(23) on function Assume called at line 57]\nAccessing 4 bytes starting at byte offset 40\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(p)`55 == 0\nlength`55 >= 0\n\nThere are other instances of this error:\nPotential overflow using expression 'p' at line 57\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test040.cpp",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPAHI@Z",
+              "properties": {
+                "funcline": "55"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 8
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow of null terminated buffer using expression 's[size]'\nBuffer s is a parameter to this function declared on line 61\nBuffer is of length nullpos(s)`66 + 1 bytes [length of zero terminated string] OR\n  offset(s)`61 + size`61 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test040.cpp(61)]\nAccessing the byte at byte offset size`61\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of the buffer\nsize = size`61\n\nwhere\noffset(s)`61 == 0\nsize`61 >= 1\nsize`61 >= nullpos(s)`66 + 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test040.cpp",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "h",
+              "decoratedName": "?h@@YAXPADI@Z",
+              "properties": {
+                "funcline": "61"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 63,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test040.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

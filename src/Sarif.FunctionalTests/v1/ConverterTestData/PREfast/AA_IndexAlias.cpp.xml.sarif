@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gVHJhY2sgImludGVyZXN0aW5nIiB2YXJpYWJsZXMgYW5kIGRldGVjdCB3aGVuIHRoZXkgYXJlIGFsaWFzZWQuDQoNCnZvaWQgQzYzODVfSW5kZXhBbGlhcyhpbnQgaW5wdXRJbmRleCkNCnsNCglpbnQgKiBjb250ZW50U3RvcmVzID0gbmV3IGludCBbMl07DQoNCgljb250ZW50U3RvcmVzWzBdID0gMDsNCg0KCWNvbnRlbnRTdG9yZXNbMV0gPSAxOw0KDQoJd2hpbGUgKGlucHV0SW5kZXggPiAxKQ0KCXsNCgkJaW50IGluZGV4ID0gaW5wdXRJbmRleDsNCg0KCQljb250ZW50U3RvcmVzWzBdID0gY29udGVudFN0b3Jlc1tpbmRleF07DQoJfQ0KDQoJZGVsZXRlIFtdIGNvbnRlbnRTdG9yZXM7DQp9DQo=",
+          "hashes": [
+            {
+              "value": "4B20EA20C0F04EF7473C090B9D234C1C",
+              "algorithm": "md5"
+            },
+            {
+              "value": "6727693E48A1C8ED14251D17BC8A16D162DF879C",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "B4B0A1F7894E935F34F0DE81407DF9676C4A894FBCB0AD2BF635BB09F430B5C4",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'contentStores':  the readable size is '2*4' bytes, but 'index' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_IndexAlias",
+              "decoratedName": "?C6385_IndexAlias@@YAXH@Z",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'contentStores' is an array of 2 elements (8 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 19
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 19
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "Enter this loop, (assume 'inputIndex>1')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "(alias) 'index' receives the value of 'inputIndex'",
+                  "kind": "alias",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "Invalid read from 'contentStores[2]', (readable range is 0 to 1)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

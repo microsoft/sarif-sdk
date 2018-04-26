@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>utility</FILENAME><LINE>156</LINE><COLUMN>31</COLUMN></SFA><DEFECTCODE>26035</DEFECTCODE><DESCRIPTION>Possible precondition violation due to failure to null terminate string '&amp; _Right-&gt;second'
+PREFAST_NEWLINE
+Accessing unannotated buffer (_Right-&gt;std::pair&lt;int,uls_perf_counter_info&gt;::second).uls_perf_counter_info::wzCounterSetName
+PREFAST_NEWLINE
+Assumed __inout annotation on function std::forward&lt;uls_perf_counter_info&gt; requires that {parameter 1}-&gt;wzCounterSetName is null terminated
+PREFAST_NEWLINE
+  where {parameter 1}-&gt;wzCounterSetName is &amp; _Right-&gt;second [Field annotation SAL_nullTerminated at d:\espsrcp\esp\tests\nosal\test181.cpp(11)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>std::pair&lt;int const ,uls_perf_counter_info&gt;::{ctor}</FUNCTION><DECORATED>??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z</DECORATED><FUNCLINE>152</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>utility</FILENAME><LINE>152</LINE><COLUMN>2</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>utility</FILENAME><LINE>155</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>utility</FILENAME><LINE>155</LINE><COLUMN>31</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>utility</FILENAME><LINE>156</LINE><COLUMN>31</COLUMN></SFA></PATH></DEFECT></DEFECTS>

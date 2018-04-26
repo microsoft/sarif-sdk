@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBNZXJnZUFsaWFzQW5kWmVybyAoKQ0Kew0KICAgIGludCAqIHNvdXJjZSA9IDA7DQoNCiAgICBpbnQgKiB5ID0gc291cmNlOw0KDQogICAgaW50IHJlc3VsdCA9ICp5Ow0KfQ0K",
+          "hashes": [
+            {
+              "value": "DE1501CE9EA9ED1CAAC5B3DFF2BE450F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "5F5C9BB0823412014E41A42169C360AA8D022B12",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "001CE18E8D320270A377511F5DFD0E177A9A08E0DC8E5AB7FF25C021CA981256",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'y'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "MergeAliasAndZero",
+              "decoratedName": "?MergeAliasAndZero@@YAXXZ",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'source' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "(alias) 'y' receives the value of 'source' (which may be NULL)",
+                  "kind": "alias",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'y' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

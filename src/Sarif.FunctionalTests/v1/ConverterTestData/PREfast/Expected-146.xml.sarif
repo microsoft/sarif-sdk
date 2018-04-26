@@ -1,0 +1,449 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test146.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(void *)(& XXX)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is XXX\nBuffer is of length 200 bytes [size of variable]\nAccessing (result.Get5_1->_tagMyStruct5::size)`161 bytes starting at byte offset 0\nAnnotation on function Function5 requires that {parameter 1} is of length >= {parameter 2} bytes\n  where {parameter 1} is (void *)(& XXX); {parameter 2} is p->size\n[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\\somepath\\test146.cpp(152)]\n\n\nValues of variables:\n(p->_tagMyStruct5::size) = (result.Get5_1->_tagMyStruct5::size)`161\nPointer p is at offset 0 bytes from the start of result.Get5_1'161\n\nwhere\n(result.Get5_1->_tagMyStruct5::size)`161 <= 204\n(result.Get5_1->_tagMyStruct5::size)`161 >= 0\n\nOverrun access occurs when\n(result.Get5_1->_tagMyStruct5::size)`161 >= 201\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test146.cpp",
+                "region": {
+                  "startLine": 162,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "Test5_1",
+              "decoratedName": "?Test5_1@@YAXXZ",
+              "properties": {
+                "funcline": "157"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 157,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 159,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 160,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 161,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 161,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 162,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(void *)(& XXX)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is XXX\nBuffer is of length 200 bytes [size of variable]\nAccessing (p->_tagMyStruct5::size)`169 bytes starting at byte offset 0\nAnnotation on function Function5 requires that {parameter 1} is of length >= {parameter 2} bytes\n  where {parameter 1} is (void *)(& XXX); {parameter 2} is p->size\n[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\\somepath\\test146.cpp(152)]\n\n\nValues of variables:\n(p->_tagMyStruct5::size) = (p->_tagMyStruct5::size)`169\nPointer p is at offset 0 bytes from the start of p'169\n\nwhere\n(p->_tagMyStruct5::size)`169 <= 204\n(p->_tagMyStruct5::size)`169 >= 0\n\nOverrun access occurs when\n(p->_tagMyStruct5::size)`169 >= 201\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test146.cpp",
+                "region": {
+                  "startLine": 170,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "Test5_2",
+              "decoratedName": "?Test5_2@@YAXXZ",
+              "properties": {
+                "funcline": "165"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 165,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 167,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 168,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 169,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 170,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(void *)(& XXX)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is XXX\nBuffer is of length 200 bytes [size of variable]\nAccessing (p->_tagMyStruct5::size)`177 bytes starting at byte offset 0\nAnnotation on function Function5 requires that {parameter 1} is of length >= {parameter 2} bytes\n  where {parameter 1} is (void *)(& XXX); {parameter 2} is q->size\n[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\\somepath\\test146.cpp(152)]\n\n\nValues of variables:\n(p->_tagMyStruct5::size) = (p->_tagMyStruct5::size)`177\nPointer p is at offset 0 bytes from the start of p'177\nq = p\n\nwhere\n(p->_tagMyStruct5::size)`177 <= 204\n(p->_tagMyStruct5::size)`177 >= 0\n\nOverrun access occurs when\n(p->_tagMyStruct5::size)`177 >= 201\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test146.cpp",
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "Test5_3",
+              "decoratedName": "?Test5_3@@YAXXZ",
+              "properties": {
+                "funcline": "173"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 173,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 175,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 176,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 176,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 177,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 178,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 179,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26036",
+          "message": "Possible postcondition violation due to failure to null terminate string\nAccessing unannotated buffer (p->S6::s)\nAssumed __inout annotation on function Get2S_6 requires that (* o)->s is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\test146.cpp(218)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test146.cpp",
+                "region": {
+                  "startLine": 229,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Get2S_6",
+              "decoratedName": "?Get2S_6@@YAXPAPAUS6@@@Z",
+              "properties": {
+                "funcline": "225"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 225,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 228,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 229,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26003",
+          "message": "Writing to buffer '(p->S6::buffer)' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential postcondition violation that could result in overflow\nAccessing unannotated buffer (p->S6::buffer)\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing (result.Get1S_6->S6::len)`227 bytes starting at byte offset 0\nAssumed __inout annotation on function Get2S_6 requires that (* o)->buffer is of length >= (* o)->len elements (1 bytes/element)\n[Field annotation SAL_writableTo(elementCount((* o)->len)) at c:\\somepath\\test146.cpp(219)]\n\n\nValues of variables:\n(p->S6::len) = (result.Get1S_6->S6::len)`227\n\nwhere\n(result.Get1S_6->S6::len)`227 >= 1\n\nOverrun access occurs when\n(result.Get1S_6->S6::len)`227 >= 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test146.cpp",
+                "region": {
+                  "startLine": 229,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Get2S_6",
+              "decoratedName": "?Get2S_6@@YAXPAPAUS6@@@Z",
+              "properties": {
+                "funcline": "225"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 225,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 227,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 228,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test146.cpp",
+                    "region": {
+                      "startLine": 229,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

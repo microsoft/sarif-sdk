@@ -1,0 +1,970 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBSZXBsYWNlIHBvcHVsYXIgZXhwYW5kZWQgbWFjcm9zIHdpdGggaHVtYW4gcmVhZGFibGUgZm9ybSB0aGF0IHdhcyBvcmlnaW5hbGx5IGluIHRoZSBjb2RlDQoNCiNpbmNsdWRlIDx3aW5lcnJvci5oPg0KDQp2b2lkIEhSZXN1bHRTdWNjZWVkZWQoSFJFU1VMVCBocikNCnsNCglsb25nICogZGF0YSA9IDA7DQoJaWYgKFNVQ0NFRURFRChocikpDQoJew0KCQkqZGF0YSA9IDQyOw0KCX0NCn0NCg0Kdm9pZCBIUmVzdWx0U3VjY2VlZGVkMihIUkVTVUxUIGhyLCBib29sIGIpDQp7DQoJbG9uZyAqIGRhdGEgPSAwOw0KCWlmIChTVUNDRUVERUQoaHIpICYmIGIpDQoJew0KCQliID0gZmFsc2U7DQoJfQ0KCWVsc2UNCgl7DQoJCSpkYXRhID0gNDI7DQoJfQ0KfQ0KDQp2b2lkIEhSZXN1bHRTdWNjZWVkZWQzKEhSRVNVTFQgaHIsIGJvb2wgYiwgYm9vbCBjKQ0Kew0KCWxvbmcgKiBkYXRhID0gMDsNCglpZiAoKFNVQ0NFRURFRChocikgfHwgYikgJiYgYykNCgl7DQoJCSpkYXRhID0gNDI7DQoJfQ0KfQ0KDQp2b2lkIEhSZXN1bHRTdWNjZWVkZWQ0KEhSRVNVTFQgX2hSZXN1bHQpDQp7DQoJbG9uZyAqIGRhdGEgPSAwOw0KCWlmICgoIVNVQ0NFRURFRChfaFJlc3VsdCkpKQ0KCXsNCgkJKmRhdGEgPSA0MjsNCgl9DQp9DQoNCnZvaWQgSFJlc3VsdEZhaWxlZChIUkVTVUxUIGhyKQ0Kew0KCWxvbmcgKiBkYXRhID0gMDsNCglpZiAoRkFJTEVEKGhyKSkNCgl7DQoJCSpkYXRhID0gNDI7DQoJfQ0KfQ0KDQp2b2lkIEhSZXN1bHRGYWlsZWQyKEhSRVNVTFQgaHIsIGJvb2wgYikNCnsNCglsb25nICogZGF0YSA9IDA7DQoJaWYgKEZBSUxFRChocikgJiYgYiB8fCBTVUNDRUVERUQoaHIpKQ0KCXsNCgkJYiA9IGZhbHNlOw0KCX0NCgllbHNlDQoJew0KCQkqZGF0YSA9IDQyOw0KCX0NCn0NCg0Kdm9pZCBIUmVzdWx0RmFpbGVkMyhIUkVTVUxUIEhyXzIsIGJvb2wgYiwgYm9vbCBjKQ0Kew0KCWxvbmcgKiBkYXRhID0gMDsNCglpZiAoKEZBSUxFRChIcl8yKSB8fCBiKSAmJiBjKQ0KCXsNCgkJKmRhdGEgPSA0MjsNCgl9DQp9DQoNCnZvaWQgSFJlc3VsdEZhaWxlZDQoSFJFU1VMVCBocikNCnsNCglsb25nICogZGF0YSA9IDA7DQoJaWYgKCghRkFJTEVEKGhyKSkpDQoJew0KCQkqZGF0YSA9IDQyOw0KCX0NCn0NCg0Kdm9pZCBIUmVzdWx0U0ZhbHNlKEhSRVNVTFQgaHIpDQp7DQoJbG9uZyAqIGRhdGEgPSAwOw0KCWlmIChociA9PSBTX0ZBTFNFKQ0KCXsNCgkJKmRhdGEgPSA0MjsNCgl9DQp9DQoNCnZvaWQgSFJlc3VsdFNGYWxzZTIoSFJFU1VMVCBociwgYm9vbCBiLCBib29sIGMpDQp7DQoJbG9uZyAqIGRhdGEgPSAwOw0KCWlmIChiICYmIChjIHx8IFNfRkFMU0UgPT0gaHIpKQ0KCXsNCgkJKmRhdGEgPSA0MjsNCgl9DQp9DQoNCnZvaWQgSFJlc3VsdFNPayhIUkVTVUxUIGhyKQ0Kew0KCWxvbmcgKiBkYXRhID0gMDsNCglpZiAoU19PSyA9PSBocikNCgl7DQoJCSpkYXRhID0gNDI7DQoJfQ0KfQ0KDQp2b2lkIEhSZXN1bHRTT2syKEhSRVNVTFQgaHIpDQp7DQoJbG9uZyAqIGRhdGEgPSAwOw0KCWlmICgoU19GQUxTRStTX09LKSA9PSBocikNCgl7DQoJCSpkYXRhID0gNDI7DQoJfQ0KfQ0KDQo=",
+          "hashes": [
+            {
+              "value": "E5E540AA040798CDBC902BC7CDE16944",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3DE185CEFB2724078A13CF7ECA9816342209D2E8",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "ABB4A3C2DD0000F4AE7CB5AC60B6B7BEB3766A4FB1DCD6C00FF42E48F52CBF91",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSucceeded",
+              "decoratedName": "?HResultSucceeded@@YAXJ@Z",
+              "properties": {
+                "funcline": "6"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'SUCCEEDED(hr)')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSucceeded2",
+              "decoratedName": "?HResultSucceeded2@@YAXJ_N@Z",
+              "properties": {
+                "funcline": "15"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "Skip this branch, (assume 'SUCCEEDED(hr)&&b' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSucceeded3",
+              "decoratedName": "?HResultSucceeded3@@YAXJ_N0@Z",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 27
+                    }
+                  },
+                  "message": "Enter this branch, (assume '((SUCCEEDED(hr)||b))&&c')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSucceeded4",
+              "decoratedName": "?HResultSucceeded4@@YAXJ@Z",
+              "properties": {
+                "funcline": "37"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Enter this branch, (assume '!SUCCEEDED(_hResult)')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultFailed",
+              "decoratedName": "?HResultFailed@@YAXJ@Z",
+              "properties": {
+                "funcline": "46"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'FAILED(hr)')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 51,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultFailed2",
+              "decoratedName": "?HResultFailed2@@YAXJ_N@Z",
+              "properties": {
+                "funcline": "55"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 22
+                    }
+                  },
+                  "message": "Skip this branch, (assume 'FAILED(hr)&&b||SUCCEEDED(hr)' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 64,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultFailed3",
+              "decoratedName": "?HResultFailed3@@YAXJ_N0@Z",
+              "properties": {
+                "funcline": "68"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 70,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 26
+                    }
+                  },
+                  "message": "Enter this branch, (assume '((FAILED(Hr_2)||b))&&c')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 82,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultFailed4",
+              "decoratedName": "?HResultFailed4@@YAXJ@Z",
+              "properties": {
+                "funcline": "77"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 80,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Enter this branch, (assume '!FAILED(hr)')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSFalse",
+              "decoratedName": "?HResultSFalse@@YAXJ@Z",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'hr==S_FALSE')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 91,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSFalse2",
+              "decoratedName": "?HResultSFalse2@@YAXJ_N0@Z",
+              "properties": {
+                "funcline": "95"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 97,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'b&&((c||S_FALSE==hr))')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 100,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 109,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSOk",
+              "decoratedName": "?HResultSOk@@YAXJ@Z",
+              "properties": {
+                "funcline": "104"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 107,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "Enter this branch, (assume 'S_OK==hr')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 109,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'data'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "HResultSOk2",
+              "decoratedName": "?HResultSOk2@@YAXJ@Z",
+              "properties": {
+                "funcline": "113"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 115,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 21
+                    }
+                  },
+                  "message": "Enter this branch, (assume '((S_FALSE+S_OK))==hr')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs375867.cpp",
+                    "region": {
+                      "startLine": 118,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

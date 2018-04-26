@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test109.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'hpclrt->rgcv[icv]'\nBuffer accessed is _clrt::rgcv\nBuffer is of length 64 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset icv`21\n\nValues of variables:\nPointer hpclrt is at offset 0 bytes from the start of hpclrt\nicv = icv`21\n\nwhere\nicv`21 >= 0\n\nOverrun access occurs when\nicv`21 >= 64\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test109.cpp",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "SetIcvOrgbClrt",
+              "decoratedName": "?SetIcvOrgbClrt@@YAXIPAJPAU_clrt@@@Z",
+              "properties": {
+                "funcline": "21"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test109.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test109.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test109.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test109.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

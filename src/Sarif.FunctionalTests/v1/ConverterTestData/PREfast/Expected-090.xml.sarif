@@ -1,0 +1,1153 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test090.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[x]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\n when function add1 called at line 12 is inline analyzed.\n\nValues of variables:\nx = 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXH@Z",
+              "properties": {
+                "funcline": "9"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[result.add9]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\n when function add9 called at line 33 is inline analyzed.\n\nValues of variables:\nresult.add9 = 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "calladd9",
+              "decoratedName": "?calladd9@@YAXXZ",
+              "properties": {
+                "funcline": "30"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[x]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\n when function add1deref called at line 45 is inline analyzed.\n\nValues of variables:\nx = 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "calladd1deref",
+              "decoratedName": "?calladd1deref@@YAXXZ",
+              "properties": {
+                "funcline": "41"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 41,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(void *)(& a)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is a\nBuffer is of length 10 bytes [size of variable]\nAccessing (this->C::size)`53 + 1 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)(& a); {parameter 3} is result.GetSize + 1\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\n when function C::GetSize called at line 73 is inline analyzed.\n when function C::GetBuffer called at line 75 is inline analyzed.\n when function C::GetSize called at line 75 is inline analyzed.\n\nValues of variables:\nresult.GetSize = (this->C::size)`53\n\nwhere\n(this->C::size)`53 <= 10\n(this->C::size)`53 >= 0\n\nOverrun access occurs when\n(this->C::size)`53 == 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "CallAccessor",
+              "decoratedName": "?CallAccessor@@YAXPAUC@@@Z",
+              "properties": {
+                "funcline": "70"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 70,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 45
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26002",
+          "message": "Accessing buffer 'result.GetBuffer'75' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential read overflow using expression '(const void *)result.GetBuffer'\nBuffer result.GetBuffer created during call to C::GetBuffer on line 75\nBuffer is of length 1 bytes [assumed because the buffer is unannotated]\nAccessing (this->C::size)`53 + 1 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)result.GetBuffer; {parameter 3} is result.GetSize + 1\n[Annotation _In_(byteCount({parameter 3}))]\n\n\n when function C::GetSize called at line 73 is inline analyzed.\n when function C::GetBuffer called at line 75 is inline analyzed.\n when function C::GetSize called at line 75 is inline analyzed.\n\nValues of variables:\nPointer result.GetBuffer is at offset 0 bytes from the start of the buffer\nresult.GetSize = (this->C::size)`53\n\nwhere\noffset(result.GetBuffer)`75 == 0\n(this->C::size)`53 <= 10\n(this->C::size)`53 >= 0\n\nOverrun access occurs when\n(this->C::size)`53 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "CallAccessor",
+              "decoratedName": "?CallAccessor@@YAXPAUC@@@Z",
+              "properties": {
+                "funcline": "70"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 70,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 45
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 31
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 75,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[result.returnGlob]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset glob`83 + 10\n\n when function returnGlob called at line 89 is inline analyzed.\n when function returnGlob called at line 90 is inline analyzed.\n\nValues of variables:\nresult.returnGlob = glob`83 + 10\n\nwhere\nglob`83 >= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 90,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXXZ",
+              "properties": {
+                "funcline": "86"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 88,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 89,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 90,
+                      "startColumn": 23
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26003",
+          "message": "Writing to buffer 'result.alloc'102' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression 'p[10]'\nBuffer result.alloc created during call to alloc on line 102\nBuffer is of length 0 bytes [assumed because the buffer is unannotated]\nAccessing the byte at byte offset 10\n\n when function alloc called at line 102 is inline analyzed.\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\n\nOverrun access occurs when\noffset(result.alloc)`102 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "callAlloc",
+              "decoratedName": "?callAlloc@@YAXXZ",
+              "properties": {
+                "funcline": "98"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 98,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 100,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 101,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 103,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 105,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'a[result.Recursive]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.Recursive`111a is not constrained by any constant\n\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.Recursive`111a + 4\n\n when function Recursive called at line 117 is inline analyzed.\n\nValues of variables:\nresult.Recursive = result.Recursive`111a + 4\n\nOverrun access occurs when\nresult.Recursive`111a >= 6\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "callRecursive",
+              "decoratedName": "?callRecursive@@YAXH@Z",
+              "properties": {
+                "funcline": "114"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 114,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'a[result.Recursive]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.Recursive`111a + 4\n\n when function Recursive called at line 117 is inline analyzed.\n\nValues of variables:\nresult.Recursive = result.Recursive`111a + 4\n\nUnderflow access occurs when\nresult.Recursive`111a + 5 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 21
+                }
+              },
+              "fullyQualifiedLogicalName": "callRecursive",
+              "decoratedName": "?callRecursive@@YAXH@Z",
+              "properties": {
+                "funcline": "114"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 114,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 21
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[x]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 16\n\n when function add called at line 128 is inline analyzed.\n when function add called at line 128 is inline analyzed.\n when function add called at line 128 is inline analyzed.\n when function add called at line 128 is inline analyzed.\n\nValues of variables:\nx = 16\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 129,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "repeated",
+              "decoratedName": "?repeated@@YAXXZ",
+              "properties": {
+                "funcline": "125"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 125,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 127,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 39
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 27
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 129,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'p'\nBuffer p is a parameter to this function declared on line 138\nBuffer is of length offset(p)`138 + n`138 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test090.cpp(138)]\nAccessing n`138 + 1 bytes starting at byte offset 0\nAnnotation on function Access requires that {parameter 1} is of length >= {parameter 2} elements (1 bytes/element)\n  where {parameter 1} is p; {parameter 2} is n + 1\n[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\\somepath\\test090.cpp(132)]\n\n\nValues of variables:\nPointer p is at offset 0 bytes from the start of the buffer\nn = n`138\n\nwhere\noffset(p)`138 == 0\nn`138 >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "CallAccess",
+              "decoratedName": "?CallAccess@@YAXPADI@Z",
+              "properties": {
+                "funcline": "138"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 138,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 140,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'a[n]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: result.loop`164a is not constrained by any constant\n\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset result.loop`164a\n\nValues of variables:\nn = result.loop`164a\n\nwhere\nresult.loop`164a >= 0\n\nOverrun access occurs when\nresult.loop`164a >= 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "callLoop",
+              "decoratedName": "?callLoop@@YAXI@Z",
+              "properties": {
+                "funcline": "161"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 161,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 163,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 164,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 164,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 165,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[p->c]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 11\n\n when function add called at line 190 is inline analyzed.\n\nValues of variables:\n(p->S::c) = 11\nPointer p is at offset 0 bytes from the start of p\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 191,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "callAdd",
+              "decoratedName": "?callAdd@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "185"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 185,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 187,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 188,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 189,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 190,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 191,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[s->next->x]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n\n when function set called at line 202 is inline analyzed.\n\nValues of variables:\n((s->S::next)->S1::x) = 10\nPointer (s->S::next) is at offset 0 bytes from the start of (s->S::next)\nPointer s is at offset 0 bytes from the start of s\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test090.cpp",
+                "region": {
+                  "startLine": 203,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "callSet",
+              "decoratedName": "?callSet@@YAXPAUS@@@Z",
+              "properties": {
+                "funcline": "199"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 199,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 201,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 202,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test090.cpp",
+                    "region": {
+                      "startLine": 203,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test049.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "28204",
+          "message": "'Compare' has an override at `c:\\somepath\\test049.cpp(18)` and only the override is annotated for _Param_(1): when an override is annotated, the base (this function) should be similarly annotated.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test049.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "",
+              "decoratedName": "",
+              "properties": {
+                "funcline": "0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`29\n\nBuffer buf is a parameter to this function declared on line 29\nBuffer is of length offset(buf)`29 + (c->Base::a)`29 bytes [from annotation SAL_readableTo(elementCount(c->a)) at c:\\somepath\\test049.cpp(29)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`29 == 0\n(c->Base::a)`29 >= 1\n\nOverrun access occurs when\n(c->Base::a)`29 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test049.cpp",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "test_b_a",
+              "decoratedName": "?test_b_a@@YAXPADPBVBase@@@Z",
+              "properties": {
+                "funcline": "29"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Derived::b)`34\n\nBuffer buf is a parameter to this function declared on line 34\nBuffer is of length offset(buf)`34 + (c->Derived::b)`34 bytes [from annotation SAL_readableTo(elementCount(c->b)) at c:\\somepath\\test049.cpp(34)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`34 == 0\n(c->Derived::b)`34 >= 1\n\nOverrun access occurs when\n(c->Derived::b)`34 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test049.cpp",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "test_d_b",
+              "decoratedName": "?test_d_b@@YAXPADPBVDerived@@@Z",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`40\n\nBuffer buf is a parameter to this function declared on line 40\nBuffer is of length offset(buf)`40 + (c->Base::a)`40 bytes [from annotation SAL_readableTo(elementCount(c->Base.a)) at c:\\somepath\\test049.cpp(40)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`40 == 0\n(c->Base::a)`40 >= 1\n\nOverrun access occurs when\n(c->Base::a)`40 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test049.cpp",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "test_d_a",
+              "decoratedName": "?test_d_a@@YAXPADPBVDerived@@@Z",
+              "properties": {
+                "funcline": "40"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test049.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

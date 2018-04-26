@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)": {
+          "name": "microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "'if' statement may be replaced with && or || expression",
+          "message": "<code>if</code> statement can be replaced with 'return id == R.id.action_settings || super.onOptionsItemSelected(item);' #loc",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 31
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity boolean onOptionsItemSelected(android.view.MenuItem item)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

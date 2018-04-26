@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>10</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression '&amp; buf'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: nullpos(s)`7 is not constrained by offset(s)`7
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing nullpos(s)`7 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function strcpy requires that {parameter 1} is of length &gt;= _String_length_({parameter 2}) + 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf; {parameter 2} is (const signed char *)s
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`7 == 0
+PREFAST_NEWLINE
+nullpos(s)`7 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(s)`7 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAD@Z</DECORATED><FUNCLINE>7</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>7</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>9</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>10</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>17</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '&amp; buf'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing nullpos(s)`13 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function lstrcpyA requires that {parameter 1} is of length &gt;= _String_length_({parameter 2}) + 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf; {parameter 2} is (LPCSTR)s
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`13 == 0
+PREFAST_NEWLINE
+offset(s)`13 + result.lstrlenA`16a == nullpos(s)`13
+PREFAST_NEWLINE
+nullpos(s)`13 &gt;= 0
+PREFAST_NEWLINE
+result.lstrlenA`16a &lt;= 100
+PREFAST_NEWLINE
+result.lstrlenA`16a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(s)`13 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXPAD@Z</DECORATED><FUNCLINE>13</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>13</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>15</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>16</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>16</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>17</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>24</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '&amp; buf'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing nullpos(s)`20 + 1 elements (2 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function lstrcpyW requires that {parameter 1} is of length &gt;= _String_length_({parameter 2}) + 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf; {parameter 2} is (LPCWSTR)s
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+result.lstrlenW`23a == nullpos(s)`20
+PREFAST_NEWLINE
+nullpos(s)`20 &gt;= 0
+PREFAST_NEWLINE
+result.lstrlenW`23a &lt;= 100
+PREFAST_NEWLINE
+result.lstrlenW`23a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(s)`20 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>h</FUNCTION><DECORATED>?h@@YAXPAG@Z</DECORATED><FUNCLINE>20</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>20</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>22</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>23</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>23</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>24</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>33</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow of null terminated buffer using expression '&amp; buf'
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable] OR
+PREFAST_NEWLINE
+  nullpos(buf)`32 + 1 elements (2 bytes/element) [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 200 elements (2 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function lstrcpynW requires that {parameter 1} is of length &gt;= {parameter 3} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf; {parameter 3} is 200
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+nullpos(buf)`32 &lt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXPAG@Z</DECORATED><FUNCLINE>27</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>27</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>29</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>30</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>30</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>32</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>33</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>43</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow of null terminated buffer using expression '&amp; buf'
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable] OR
+PREFAST_NEWLINE
+  nullpos(buf)`42 + 1 elements (2 bytes/element) [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 200 elements (2 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function lstrcpynW requires that {parameter 1} is of length &gt;= {parameter 3} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; buf; {parameter 3} is 200
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+nullpos(buf)`42 &lt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo1</FUNCTION><DECORATED>?foo1@@YAXPAG@Z</DECORATED><FUNCLINE>37</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>37</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>39</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>40</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>40</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>42</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>43</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>49</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26018</DEFECTCODE><DESCRIPTION>Potential overflow of null terminated buffer using expression 'buf'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: nullpos(buf)`47 is not constrained by any constant
+PREFAST_NEWLINE
+offset(buf)`47 is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 47
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(buf)`47 + 2 bytes [length of zero terminated string] OR
+PREFAST_NEWLINE
+  offset(buf)`47 + 200 bytes [from annotation SAL_writableTo(elementCount(100)) at c:\somepath\test075.cpp(47)]
+PREFAST_NEWLINE
+Accessing 2*nullpos(buf)`47 + 2*nullpos(s)`47 + 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function lstrcatW requires that {parameter 1} is of length &gt;= (_String_length_({parameter 1}) + _String_length_({parameter 2})) + 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is buf; {parameter 1} is buf; {parameter 2} is (LPCWSTR)s
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount((_String_length_({parameter 1}) + _String_length_({parameter 2})) + 1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`47 == 0
+PREFAST_NEWLINE
+nullpos(buf)`47 &gt;= 0
+PREFAST_NEWLINE
+nullpos(s)`47 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*nullpos(s)`47 &gt;= 1
+PREFAST_NEWLINE
+nullpos(buf)`47 + nullpos(s)`47 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXPAG0@Z</DECORATED><FUNCLINE>47</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>47</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test075.cpp</FILENAME><LINE>49</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT></DEFECTS>

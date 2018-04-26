@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()": {
+          "name": "microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "member"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": {
+          "name": "microsoft.androidstudioformatexample.MainActivity",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "type"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "unused declaration",
+          "message": "Constructor is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "unused declaration",
+          "message": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 1
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test122.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26003",
+          "message": "Writing to buffer 'EmptyBuffer.BufferDesc::pBuffers' of unspecified length.  Please annotate.\n\nIf we assume that the buffer has single element in length, then the checker would report:\nPotential overflow using expression '(pBD->pBuffers)[i]'\nAccessing unannotated buffer EmptyBuffer.BufferDesc::pBuffers\nBuffer is of length 1 elements (4 bytes/element) [assumed because the buffer is unannotated]\nAccessing the element (4 bytes/element) at element offset 1\n\nValues of variables:\nPointer EmptyBuffer.BufferDesc::pBuffers is at offset 0 bytes from the start of the buffer\ni = 1\npBD = &EmptyBuffer\n\nwhere\n{loop iterations}'61 == 0\nEmptyBuffer.BufferDesc::cBuffers`61 >= 2\n\nThere are other instances of this error:\nWriting to buffer 'EmptyBuffer.BufferDesc::pBuffers' of unspecified length.  Please annotate. at line 63\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test122.cpp",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "safe1",
+              "decoratedName": "?safe1@@YAXPAUBufferDesc@@@Z",
+              "properties": {
+                "funcline": "50"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 57,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 37
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '(pBD->pBuffers)[i]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer (pBD->BufferDesc::pBuffers) created during call to Foo on line 71\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length 4*(pBD->BufferDesc::cBuffers)`71 bytes [from field annotation SAL_writableTo(elementCount({parameter 1}->cBuffers)) at c:\\somepath\\test122.cpp(46) on function Foo called at line 71]\nAccessing 4 bytes starting at byte offset 4\n\nValues of variables:\nPointer (pBD->BufferDesc::pBuffers) is at offset 0 bytes from the start of the buffer\nPointer pBD is at offset 0 bytes from the start of pBD\ni = 1\n\nwhere\noffset((pBD->BufferDesc::pBuffers))`71a == 0\n{loop iterations}'73 == 0\n(pBD->BufferDesc::cBuffers)`71 >= 1\n\nOverrun access occurs when\n(pBD->BufferDesc::cBuffers)`71 == 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test122.cpp",
+                "region": {
+                  "startLine": 74,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "unsafe",
+              "decoratedName": "?unsafe@@YAXPAUBufferDesc@@@Z",
+              "properties": {
+                "funcline": "67"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 69,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 71,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 38
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 73,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test122.cpp",
+                    "region": {
+                      "startLine": 74,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

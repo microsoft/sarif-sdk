@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSA0MTAwIDQ3MDApDQppbnQgQzYwMDFfRXhhbXBsZTMoIGJvb2wgYiwgYm9vbCBjICkNCnsNCglpbnQgaTsJCQkJDQoJZ290byBsYWJlbGI7CQkNCmxhYmVsYToJCQkJCQ0KCWdvdG8gbGFiZWxjOw0KbGFiZWxiOgkJCQkJDQoJZ290byBsYWJlbGE7DQpsYWJlbGM6CQkJCQkNCglpbnQgaiA9IGkrMTsJCQ0KCXJldHVybiBqOwkJCQ0KfQ==",
+          "hashes": [
+            {
+              "value": "9FD4F9AC2711411C10C18FC31F77441D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "90E846D17A05E7172086B4CAD27202C8F21AE30F",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "A8EF8FAEA437E0D4A7FBD1DC081A73B04A35FFC7DC207DFDC0B1A98800F58E1A",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6001",
+          "message": "Using uninitialized memory 'i'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6001_Example3",
+              "decoratedName": "?C6001_Example3@@YAH_N0@Z",
+              "properties": {
+                "funcline": "2"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'i' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "Go to labelb",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 1
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "Go to labela",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 1
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "Go to labelc",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 1
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'i' is used, but may not have been initialized",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "5"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

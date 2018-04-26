@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBkZWNsYXJhdGlvbiBrZXlldmVudCBmb3IgNjM4NS82DQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0Kdm9pZCBXcml0ZXNBcnJheSgNCglfT3V0X3dyaXRlc18oNSkgbG9uZyAqIHNlcQ0KCSkNCnsNCglzZXFbNV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheVJhbmdlKA0KCV9PdXRfd3JpdGVzXyhzaXplKSBsb25nICogc2VxLA0KCV9Jbl9yYW5nZV8oNCw0KSBpbnQgc2l6ZSkNCnsNCglzZXFbc2l6ZV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUxvb3AoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaW50IGk7DQoJZm9yIChpPTA7IGk8IHNpemU7IGkrKykNCgl7DQoJCXNlcVtpXSA9IDQ0Ow0KCX0NCglzZXFbaV0gPSA0NDsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUNvbXBhcmUoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaWYgKHNpemUgPT0gNCkNCgl7DQoJCXNlcVswXSA9IDQ0Ow0KCX0NCglzZXFbc2l6ZV0gPSA0NDsNCn0NCg0KDQo=",
+          "hashes": [
+            {
+              "value": "54BD421DB50956469A9AF8A92F3EF864",
+              "algorithm": "md5"
+            },
+            {
+              "value": "21D82C6D39C90C8A13EC0130EF50433F02D83E0A",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "2A83E3B138696BC725541A38417AB0B80D02C21FB272174806A7420CFEB34EAA",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'seq':  the writable size is '5*4' bytes, but '24' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "WritesArray",
+              "decoratedName": "?WritesArray@@YAXPEAJ@Z",
+              "properties": {
+                "funcline": "6"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 17
+                    }
+                  },
+                  "message": "'seq' is an array of 5 elements (20 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Invalid write to 'seq[5]', (writable range is 0 to 4)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "WritesArrayRange",
+              "decoratedName": "?WritesArrayRange@@YAXPEAJH@Z",
+              "properties": {
+                "funcline": "13"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 22
+                    }
+                  },
+                  "message": "'seq' is an array of 4 elements (16 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  },
+                  "message": "Invalid write to 'seq[4]', (writable range is 0 to 3)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but '8' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "WritesArrayLoop",
+              "decoratedName": "?WritesArrayLoop@@YAXPEAJH@Z",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 21
+                    }
+                  },
+                  "message": "'seq' is an array of 1 elements (4 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 6
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "Enter this loop, (assume 'i<size')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 10
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 22
+                    }
+                  },
+                  "message": "'i' may equal 1",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "Exit this loop, ('i<size' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "4"
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "Invalid write to 'seq[1]', (writable range is 0 to 0)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "5"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'seq':  the writable size is 'size*4' bytes, but 'size' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "WritesArrayCompare",
+              "decoratedName": "?WritesArrayCompare@@YAXPEAJH@Z",
+              "properties": {
+                "funcline": "32"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 24
+                    }
+                  },
+                  "message": "'seq' is an array of 4 elements (16 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "'size' may equal 4 (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 10
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 12
+                    }
+                  },
+                  "message": "Invalid write to 'seq[4]', (writable range is 0 to 3)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

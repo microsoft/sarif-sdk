@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>12</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'a[anIndex &amp; 127]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {anIndex &amp; 127}`12
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+anIndex = anIndex`7
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+anIndex`7 &gt;= 0
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &lt;= 127
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &lt;= anIndex`7
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &gt;= 0
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &lt;= 63
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &lt;= anIndex`7
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &gt;= 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow using expression 'a[anIndex &amp; 255]' at line 13
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>indexing</FUNCTION><DECORATED>?indexing@@YAXI@Z</DECORATED><FUNCLINE>7</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>7</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>9</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>9</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>11</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>12</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>13</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential read overflow using expression 'b[anIndex &amp; 255]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is b
+PREFAST_NEWLINE
+Buffer is of length 128 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset {anIndex &amp; 255}`13
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+anIndex = anIndex`7
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+anIndex`7 &gt;= 0
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &lt;= 127
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &lt;= anIndex`7
+PREFAST_NEWLINE
+{anIndex &amp; 127}`12 &gt;= 0
+PREFAST_NEWLINE
+{anIndex &amp; 255}`13 &lt;= 255
+PREFAST_NEWLINE
+{anIndex &amp; 255}`13 &lt;= anIndex`7
+PREFAST_NEWLINE
+{anIndex &amp; 255}`13 &gt;= 0
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &lt;= 63
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &lt;= anIndex`7
+PREFAST_NEWLINE
+{anIndex &amp; 63}`11 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{anIndex &amp; 255}`13 &gt;= 128
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>indexing</FUNCTION><DECORATED>?indexing@@YAXI@Z</DECORATED><FUNCLINE>7</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>7</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>9</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>9</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>11</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>12</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test014.cpp</FILENAME><LINE>13</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT></DEFECTS>

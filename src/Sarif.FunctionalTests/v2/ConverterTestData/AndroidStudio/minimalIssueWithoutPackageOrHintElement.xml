@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml</file>
+    <line>6</line>
+    <module>android20140909</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml" />
+    <problem_class severity="ERROR" attribute_key="WRONG_REFERENCES_ATTRIBUTES">Android Resources Validation</problem_class>
+    <description>Cannot resolve symbol'android:textColor'</description>
+  </problem>
+</problems>

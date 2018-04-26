@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test185.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee1 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(5)]\n\n\nValues of variables:\nc = 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test185.cpp",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "OutCaller1",
+              "decoratedName": "?OutCaller1@@YAXXZ",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& c'\nBuffer accessed is c\nBuffer is of length 1 bytes [size of variable]\nAccessing 6 bytes starting at byte offset 0\nAnnotation on function OutCallee2 requires that {parameter 1} is of length >= 6 bytes\n  where {parameter 1} is & c\n[Annotation SAL_writableTo(byteCount(6)) at c:\\somepath\\test185.cpp(4)]\n\n\nValues of variables:\nc = 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test185.cpp",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "OutCaller2",
+              "decoratedName": "?OutCaller2@@YAXXZ",
+              "properties": {
+                "funcline": "53"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test185.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

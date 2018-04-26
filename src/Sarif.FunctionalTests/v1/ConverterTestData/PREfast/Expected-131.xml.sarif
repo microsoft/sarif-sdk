@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test131.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26017",
+          "message": "Read overflow using expression 'data[dw]'\nBuffer accessed is data\nBuffer is of length 2 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 2\n\nValues of variables:\ndw = 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test131.cpp",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "NegDWord_Unsafe",
+              "decoratedName": "?NegDWord_Unsafe@@YAHXZ",
+              "properties": {
+                "funcline": "15"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 5
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test131.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

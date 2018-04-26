@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test152.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26019",
+          "message": "Potential read overflow using expression '* pData'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (pMS->MyStruct::nSize)`25\n\nBuffer pMS is a parameter to this function declared on line 25\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(pMS)`25 + (pMS->MyStruct::nSize)`25 bytes [from type annotation SAL_writableTo(byteCount(pMS->nSize)) at c:\\somepath\\test152.cpp(5)]\nAccessing the byte at byte offset 8\n\nValues of variables:\nPointer pData is at offset 8 bytes from the start of the buffer\n\nwhere\noffset(pMS)`25 == 0\n(pMS->MyStruct::nSize)`25 >= 8\n\nOverrun access occurs when\n(pMS->MyStruct::nSize)`25 == 8\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test152.cpp",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad1",
+              "decoratedName": "?Bad1@@YAHPAUMyStruct@@@Z",
+              "properties": {
+                "funcline": "25"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test152.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test152.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test152.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test152.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

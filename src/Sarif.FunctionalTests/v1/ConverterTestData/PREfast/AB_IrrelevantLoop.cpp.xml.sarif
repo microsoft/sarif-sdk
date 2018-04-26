@@ -1,0 +1,201 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "Ly8gTG9vcHMgYXJlIG1vcmUgY29tcGxpY2F0ZWQuDQovLyBVbmNvbmRpdGlvbmFsIGxvb3BzIGFyZSBhbHdheXMgZXhlY3V0ZWQgdGhlIHNhbWUgd2F5IChvbmx5IG9uZSBwYXRoKS4NCi8vIEFzc3VtZSBsb29wcyBhcmUgaXJyZWxldmFudCB1bmxlc3MgYSB1c2VmdWwga2V5IGV2ZW50IGlzIGZvdW5kIGluIHRoZW0uDQoNCg0Kdm9pZCBDNjM4NV9JcnJlbGV2YW50TG9vcCgpDQp7DQoJaW50IGRhdGFbMTBdOw0KCWludCBtYXhTaXplID0gMTA7DQoNCglmb3IgKGludCBpPTA7IGk8bWF4U2l6ZTsgaSsrKSAvLyB1bmNvbmRpdGlvbmFsIGxvb3ANCgkJZGF0YVtpXSA9IGk7DQoNCglpbnQgayA9IGRhdGFbbWF4U2l6ZV07DQp9DQoNCg==",
+          "hashes": [
+            {
+              "value": "827981999541CBB0B4FB4455E031DB78",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B0B08E57ECD6B872B3BAB8289BCB7BB11B6F993B",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "7B845905FD9BDAE5BA481FCA220550F0302C7500106A8C04B38A78067E8055E7",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_IrrelevantLoop",
+              "decoratedName": "?C6385_IrrelevantLoop@@YAXXZ",
+              "properties": {
+                "funcline": "6"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'data' is an array of 10 elements (40 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'maxSize' is equal to 10",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 28
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 11
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 28
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 17
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantloop.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "Invalid read from 'data[10]', (readable range is 0 to 9)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

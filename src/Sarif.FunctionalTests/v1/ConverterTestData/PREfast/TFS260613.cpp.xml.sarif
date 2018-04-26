@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQovLyBLZXkgRXZlbnRzIGZvciAic2l6ZW9mKGludCkiIA0KDQppbnQgQ29tcGxleE1pc21hdGNoMSgpDQp7DQogICAgaW50IHNvdXJjZSBbXSA9IHsxLCAyLCAzLCA0LCA1LCA2LCA3fTsNCiAgICBpbnQgKiBwID0gc291cmNlOw0KDQogICAgaW50IG9mZnNldCA9IHNpemVvZihpbnQpOw0KICAgIHAgKz0gb2Zmc2V0Ow0KDQogICAgcmV0dXJuICpwOw0KfQ0KDQppbnQgQ29tcGxleE1pc21hdGNoMigpDQp7DQogICAgaW50IHNvdXJjZSBbXSA9IHsxLCAyLCAzLCA0LCA1LCA2LCA3fTsNCiAgICBpbnQgKiBwID0gc291cmNlOw0KDQogICAgcCArPSBzaXplb2YoaW50KTsNCg0KICAgIHJldHVybiAqcDsNCn0NCg==",
+          "hashes": [
+            {
+              "value": "8E74F71F7EFEFB024218588416E52E4D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "BA57BDA422BE1B3AE6819A370E6FBDC68AAB76CE",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "5F9F3DC7E5BBCAA200AFE733234D5E88FED1ABFCC6AAF4AAF6DF28961AABE7D5",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6305",
+          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 7
+                }
+              },
+              "fullyQualifiedLogicalName": "ComplexMismatch1",
+              "decoratedName": "?ComplexMismatch1@@YAHXZ",
+              "properties": {
+                "funcline": "4"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'offset' is a byte quantity",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Expression mixes element counts and byte quantities",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "2",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6305",
+          "message": "Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 7
+                }
+              },
+              "fullyQualifiedLogicalName": "ComplexMismatch2",
+              "decoratedName": "?ComplexMismatch2@@YAHXZ",
+              "properties": {
+                "funcline": "15"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Expression mixes element counts and byte quantities",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "2",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

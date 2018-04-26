@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I2luY2x1ZGUgPG1hbGxvYy5oPg0KDQp2b2lkIEM2MDExX0V4YW1wbGUoICkNCnsNCgljaGFyICpwID0gKCBjaGFyICogKSBtYWxsb2MoIDEwICk7CQkNCgkqcCA9ICdcMCc7CQkJCQkJCQkNCglmcmVlKCBwICk7CQkJCQkJCQkNCn0=",
+          "hashes": [
+            {
+              "value": "5BD51F00EA19F03BFDDD1880C2FA1B52",
+              "algorithm": "md5"
+            },
+            {
+              "value": "288262FCBD7252E168C7791CE7A9E0EE1CB0B4C2",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "1105EDC15832EEE29C0FA86527CD01D80DCD6400376C78E241F7AFFB12DBFB13",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": "Dereferencing NULL pointer 'p'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_Example",
+              "decoratedName": "?C6011_Example@@YAXXZ",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "'p' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6011example.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 5
+                    }
+                  },
+                  "message": "'p' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

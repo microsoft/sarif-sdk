@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java": {
+          "mimeType": "text/x-java-source"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()": {
+          "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "member"
+        },
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
+          "name": "microsoft.androidstudioformatexample.NamespaceTypo",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "kind": "type"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "unused declaration",
+          "message": "Method is never used.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 37
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "unused declaration",
+          "message": "Class is not instantiated.\r\nPossible resolution: comment\r\nPossible resolution: delete",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

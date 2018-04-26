@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java</file>
+    <line>10</line>
+    <module>app</module>
+    <package>microsoft.androidstudioformatexample</package>
+    <entry_point TYPE="method" FQNAME="microsoft.androidstudioformatexample.ApplicationTest ApplicationTest()" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+    <hints>
+      <hint value="comment" />
+      <hint value="delete" />
+    </hints>
+    <description>Constructor is never used.</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java</file>
+    <line>-1</line>
+    <module>app</module>
+    <package>microsoft.androidstudioformatexample</package>
+    <entry_point TYPE="class" FQNAME="microsoft.androidstudioformatexample.MainActivity" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+    <hints>
+      <hint value="comment" />
+      <hint value="delete" />
+    </hints>
+    <description>Class is not instantiated.</description>
+  </problem>
+</problems>
+

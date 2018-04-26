@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>23</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; c'
+PREFAST_NEWLINE
+Buffer accessed is c
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 6 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function OutCallee1 requires that {parameter 1} is of length &gt;= 6 bytes
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; c
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount(6)) at c:\somepath\test185.cpp(5)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+c = 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>OutCaller1</FUNCTION><DECORATED>?OutCaller1@@YAXXZ</DECORATED><FUNCLINE>20</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>20</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>22</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>22</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>23</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>56</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; c'
+PREFAST_NEWLINE
+Buffer accessed is c
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 6 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function OutCallee2 requires that {parameter 1} is of length &gt;= 6 bytes
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; c
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount(6)) at c:\somepath\test185.cpp(4)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+c = 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>OutCaller2</FUNCTION><DECORATED>?OutCaller2@@YAXXZ</DECORATED><FUNCLINE>53</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>53</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>55</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test185.cpp</FILENAME><LINE>56</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT></DEFECTS>

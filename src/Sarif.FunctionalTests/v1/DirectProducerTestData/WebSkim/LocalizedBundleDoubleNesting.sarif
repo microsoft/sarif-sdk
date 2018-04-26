@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "1856aba2-3fa1-485f-9494-63c7e4c8e2a5",
+      "tool": {
+        "name": "ModernCop",
+        "fullName": "mod50 7.0.7000.0",
+        "version": "7.0.7000.0",
+        "semanticVersion": "7.0.7000",
+        "fileVersion": "7.0.20811.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft Corporation"
+        }
+      },
+      "results": [
+        {
+          "ruleKey": "M1001.AvoidDangerousCapabilities",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "privateNetworkClientServer"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle#/FoodAndDrink_4.0.35.0_x86.appx/AppxManifest.xml",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle": {
+          "mimeType": "application/octet-stream"
+        },
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle#/FoodAndDrink_4.0.35.0_x86.appx": {
+          "uri": "/FoodAndDrink_4.0.35.0_x86.appx",
+          "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle",
+          "mimeType": "application/vns.ms-appx"
+        },
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle#/FoodAndDrink_4.0.35.0_x86.appx/AppxManifest.xml": {
+          "uri": "/AppxManifest.xml",
+          "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/Mod50.Test.Unit/ModernCopTestData/Mod50/CompiledPackages/FoodAndDrink_4.0.35.0_x86.appxbundle#/FoodAndDrink_4.0.35.0_x86.appx",
+          "mimeType": "text/xml"
+        }
+      },
+      "rules": {
+        "M1001.AvoidDangerousCapabilities": {
+          "id": "M1001",
+          "name": "AvoidDangerousCapabilities",
+          "shortDescription": "Avoid use of dangerous application capabilities.",
+          "messageFormats": {
+            "Default": "Avoid use of dangerous application capabilities. Capability: {0}"
+          },
+          "properties": {
+            "tags": ["appx","sdl"]
+          }
+        }
+      },
+      "invocation": {
+        "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\Mod50.Test.Unit\\ModernCopTestData\\Mod50\\CompiledPackages\\FoodAndDrink_4.0.35.0_x86.appxbundle /out .\\LocalizedBundleDoubleNesting.sarif",
+        "startTime": "2016-05-25T07:24:44.868Z",
+        "endTime": "2016-05-25T07:24:51.215Z",
+        "processId": 21616,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
+      }
+    }
+  ]
+}
