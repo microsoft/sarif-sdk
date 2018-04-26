@@ -15,7 +15,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_Minimum()
         {
-            string v1LogText = "{\"version\":\"1.0.0\",\"runs\":[{\"tool\":{\"name\":\"CodeScanner\",\"semanticVersion\":\"2.1.0\"},\"results\":[]}]}";
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
@@ -42,7 +55,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns()
         {
-            string v1LogText = "{\"version\":\"1.0.0\",\"runs\":[{\"tool\":{\"name\":\"CodeScanner\",\"semanticVersion\":\"2.1.0\"},\"results\":[]},{\"tool\":{\"name\":\"AssetScanner\",\"semanticVersion\":\"1.7.2\"},\"results\":[]}]}";
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    },
+                    {
+                      ""tool"": {
+                        ""name"": ""AssetScanner"",
+                        ""semanticVersion"": ""1.7.2""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
