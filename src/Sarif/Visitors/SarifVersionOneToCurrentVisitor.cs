@@ -26,6 +26,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
+        public LogicalLocation TransformLogicalLocationVersionOne(LogicalLocationVersionOne node)
+        {
+            LogicalLocation logicalLocation = null;
+
+            if (node != null)
+            {
+                logicalLocation = new LogicalLocation
+                {
+                    Kind = node.Kind,
+                    Name = node.Name,
+                    ParentKey = node.ParentKey
+                };
+            }
+
+            return logicalLocation;
+        }
+
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
         {
             if (node != null)
@@ -37,7 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     AutomationId = node.AutomationId,
                     Id = node.Id,
                     Properties = node.Properties,
-                    Results = new List<Result>()
+                    Results = new List<Result>(),
+                    StableId = node.StableId
                 };
 
                 if (run.Properties == null)
@@ -45,8 +63,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = new Dictionary<string, SerializedPropertyInfo>();
                 }
 
-                run.Properties.Add("sarifV1/StableId", new SerializedPropertyInfo(node.StableId, true));
+                if (node.LogicalLocations != null)
+                {
+                    run.LogicalLocations = new Dictionary<string, LogicalLocation>();
 
+                    foreach (var pair in node.LogicalLocations)
+                    {
+                        run.LogicalLocations.Add(pair.Key, TransformLogicalLocationVersionOne(pair.Value));
+                    }
+                }
+                
                 SarifLog.Runs.Add(run);
 
                 VisitToolVersionOne(node.Tool);
@@ -87,6 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return null;
-        }        
+        }
     }
 }
