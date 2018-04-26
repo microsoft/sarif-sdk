@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -26,6 +27,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
+        public FileData TransformFileDataVersionOne(FileDataVersionOne node)
+        {
+            FileData fileData = null;
+
+            if (node != null)
+            {
+                fileData = new FileData
+                {
+                    Length = node.Length,
+                    MimeType = node.MimeType,
+                    Offset = node.Offset,
+                    ParentKey = node.ParentKey,
+                    Properties = node.Properties                    
+                };
+
+                if (fileData.Properties == null)
+                {
+                    fileData.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                if (node.Uri != null)
+                {
+                    fileData.FileLocation = new FileLocation
+                    {
+                        Uri = node.Uri,
+                        UriBaseId = node.UriBaseId
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(node.Contents))
+                {
+                    fileData.Contents = new FileContent
+                    {
+                        Binary = node.Contents
+                    };
+                }
+
+                if (node.Hashes != null)
+                {
+                    fileData.Hashes = new List<Hash>();
+
+                    foreach (HashVersionOne hash in node.Hashes)
+                    {
+                        fileData.Hashes.Add(TransformHashVersionOne(hash));
+                    }
+                }
+
+                fileData.Tags.UnionWith(node.Tags);
+            }
+
+            return fileData;
+        }
+
         public LogicalLocation TransformLogicalLocationVersionOne(LogicalLocationVersionOne node)
         {
             LogicalLocation logicalLocation = null;
@@ -41,6 +95,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocation;
+        }
+
+        public Hash TransformHashVersionOne(HashVersionOne node)
+        {
+            Hash hash = null;
+
+            if (node != null)
+            {
+                hash = new Hash
+                {
+                    Algorithm = (AlgorithmKind)Enum.Parse(typeof(AlgorithmKind), node.Algorithm.ToString()),
+                    Value = node.Value
+                };
+            }
+
+            return hash;
         }
 
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
@@ -61,6 +131,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (run.Properties == null)
                 {
                     run.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                if (node.Files != null)
+                {
+                    run.Files = new Dictionary<string, FileData>();
+
+                    foreach (var pair in node.Files)
+                    {
+                        run.Files.Add(pair.Key, TransformFileDataVersionOne(pair.Value));
+                    }
                 }
 
                 if (node.LogicalLocations != null)
@@ -102,9 +182,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Version = node.Version
                 };
 
-                foreach (string propertyName in node.PropertyNames)
+                if (tool.Properties == null)
                 {
-                    tool.PropertyNames.Add(propertyName);
+                    tool.Properties = new Dictionary<string, SerializedPropertyInfo>();
                 }
 
                 tool.Tags.UnionWith(node.Tags);
