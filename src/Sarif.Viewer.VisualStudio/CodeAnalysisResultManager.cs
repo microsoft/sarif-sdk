@@ -686,8 +686,6 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        /// <summary>
-        /// 
         private string GetDocumentName(uint docCookie, IVsWindowFrame pFrame)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -753,11 +751,6 @@ namespace Microsoft.Sarif.Viewer
         internal Tuple<string, string>[] GetRemappedPathPrefixes()
         {
             return _remappedPathPrefixes.ToArray();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

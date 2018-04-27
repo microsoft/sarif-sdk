@@ -161,4 +161,7 @@
     <value>&lt;unknown callee&gt;</value>
     <comment>Displayed on a call tree "Call" node with no callee</comment>
   </data>
+  <data name="UnknownToolName" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>
