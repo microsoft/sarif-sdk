@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.Resources.Rules.Should().NotBeNull();
             run.Resources.Rules.Count.Should().Be(3);
 
-            Rule rule = v2Log.Runs[0].Resources.Rules["C2001"];
+            Rule rule = run.Resources.Rules["C2001"];
 
             rule.Id.Should().Be("C2001");
             rule.Name.Should().BeNull();
@@ -334,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             rule.Properties.Should().NotBeNull();
             rule.Properties["some_key"].SerializedValue.Should().Be("\"FoxForceFive\"");
 
-            rule = v2Log.Runs[0].Resources.Rules["C2002"];
+            rule = run.Resources.Rules["C2002"];
 
             rule.Id.Should().Be("C2002");
             rule.Name.Should().BeNull();
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             rule.MessageStrings.Should().BeNull();
             rule.Properties.Should().BeNull();
 
-            rule = v2Log.Runs[0].Resources.Rules["C2003"];
+            rule = run.Resources.Rules["C2003"];
 
             rule.Id.Should().Be("C2003");
             rule.Name.Should().NotBeNull();
