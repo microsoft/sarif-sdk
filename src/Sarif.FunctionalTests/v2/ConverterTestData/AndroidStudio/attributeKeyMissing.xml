@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java</file>
+    <line>242</line>
+    <module>northwindtraders-droid-2</module>
+    <package>com.northwindtraders.droid.model</package>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java" />
+    <problem_class severity="WARNING">Assertions</problem_class>
+    <hints />
+    <description>Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead.</description>
+  </problem>
+</problems>

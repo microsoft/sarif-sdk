@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6316.cxx": {
+          "mimeType": "text/x-cpp",
+          "contents": "LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCiAqIENvcHlyaWdodCAoYykgTWljcm9zb2Z0IENvcnBvcmF0aW9uLiAgQWxsIHJpZ2h0cyByZXNlcnZlZC4gDQogKgkNCiAqIERlc2NyaXB0aW9uIDogRG9jIFNhbXBsZToNCiAqIHdhcm5pbmcgQzYzMTY6IEluY29ycmVjdCBvcGVyYXRvcjogdGVzdGVkIGV4cHJlc3Npb24gaXMgY29uc3RhbnQgYW5kIG5vbi16ZXJvLiBVc2UgYml0d2lzZS1hbmQgdG8gZGV0ZXJtaW5lIHdoZXRoZXIgYml0cyBhcmUgc2V0DQogKiANCiAqIENvbW1hbmQgbGluZSA6IGNsIC9XNCAvYW5hbHl6ZSAvYyA8ZmlsZT4NCiAqDQogKiBBdXRob3IgOiByYXZrYXVyDQogKg0KICogRGF0ZSBjcmVhdGVkIDogMDQtMDQtMjAwNQ0KICoNCiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLw0KI2RlZmluZSBJTlBVVF9WQUxVRSAyDQojZGVmaW5lIEFMTE9XRUQgMQ0KDQp2b2lkIGZkKCBpbnQgRmxhZ3MpDQp7DQogIGlmIChGbGFncyB8IElOUFVUX1ZBTFVFKSAvL0BAQEV4cGVjdHM6NjMxNg0KICB7DQogICAgLy8gY29kZQ0KICB9DQp9DQoNCg0KDQp2b2lkIGYoIGludCBGbGFncykNCnsNCiAgaWYgKChGbGFncyAmIElOUFVUX1ZBTFVFKSA9PSBBTExPV0VEKQ0KICB7DQogICAgLy8gY29kZQ0KICB9DQp9DQoNCg==",
+          "hashes": [
+            {
+              "value": "F4F887E8523208C40EC1150EE7C85FDD",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B3E0A190F1312ED64C3859273DDFB66A86E115A0",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "A415E8610D9956688EE14D298BF230F1139945055DECF062D348E310880AEC05",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6316",
+          "message": "Incorrect operator:  tested expression is constant and non-zero.  Use bitwise-and to determine whether bits are set.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6316.cxx",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "fd",
+              "decoratedName": "?fd@@YAXH@Z",
+              "properties": {
+                "funcline": "17"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

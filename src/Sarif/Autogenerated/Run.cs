@@ -51,13 +51,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Conversion Conversion { get; set; }
 
         /// <summary>
+        /// Specifies the revision in version control of the files that were scanned.
+        /// </summary>
+        [DataMember(Name = "versionControlProvenance", IsRequired = false, EmitDefaultValue = false)]
+        public IList<VersionControlDetails> VersionControlProvenance { get; set; }
+
+        /// <summary>
         /// The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
         public object OriginalUriBaseIds { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.
+        /// A dictionary each of whose keys is a URI and each of whose values is a file object.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, FileData> Files { get; set; }
@@ -67,6 +73,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
+
+        /// <summary>
+        /// An array of one or more unique 'graph' objects.
+        /// </summary>
+        [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Graph> Graphs { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
@@ -123,6 +135,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RedactionToken { get; set; }
 
         /// <summary>
+        /// Specifies the default encoding for any file object that refers to a text file.
+        /// </summary>
+        [DataMember(Name = "defaultFileEncoding", IsRequired = false, EmitDefaultValue = false)]
+        public string DefaultFileEncoding { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -147,6 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="conversion">
         /// An initialization value for the <see cref="P: Conversion" /> property.
         /// </param>
+        /// <param name="versionControlProvenance">
+        /// An initialization value for the <see cref="P: VersionControlProvenance" /> property.
+        /// </param>
         /// <param name="originalUriBaseIds">
         /// An initialization value for the <see cref="P: OriginalUriBaseIds" /> property.
         /// </param>
@@ -155,6 +176,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="logicalLocations">
         /// An initialization value for the <see cref="P: LogicalLocations" /> property.
+        /// </param>
+        /// <param name="graphs">
+        /// An initialization value for the <see cref="P: Graphs" /> property.
         /// </param>
         /// <param name="results">
         /// An initialization value for the <see cref="P: Results" /> property.
@@ -183,12 +207,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="redactionToken">
         /// An initialization value for the <see cref="P: RedactionToken" /> property.
         /// </param>
+        /// <param name="defaultFileEncoding">
+        /// An initialization value for the <see cref="P: DefaultFileEncoding" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, originalUriBaseIds, files, logicalLocations, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, redactionToken, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, properties);
         }
 
         /// <summary>
@@ -207,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.StableId, other.AutomationId, other.BaselineId, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -228,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -258,41 +285,77 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Conversion = new Conversion(conversion);
             }
 
+            if (versionControlProvenance != null)
+            {
+                var destination_1 = new List<VersionControlDetails>();
+                foreach (var value_1 in versionControlProvenance)
+                {
+                    if (value_1 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new VersionControlDetails(value_1));
+                    }
+                }
+
+                VersionControlProvenance = destination_1;
+            }
+
             OriginalUriBaseIds = originalUriBaseIds;
             if (files != null)
             {
                 Files = new Dictionary<string, FileData>();
-                foreach (var value_1 in files)
+                foreach (var value_2 in files)
                 {
-                    Files.Add(value_1.Key, new FileData(value_1.Value));
+                    Files.Add(value_2.Key, new FileData(value_2.Value));
                 }
             }
 
             if (logicalLocations != null)
             {
                 LogicalLocations = new Dictionary<string, LogicalLocation>();
-                foreach (var value_2 in logicalLocations)
+                foreach (var value_3 in logicalLocations)
                 {
-                    LogicalLocations.Add(value_2.Key, new LogicalLocation(value_2.Value));
+                    LogicalLocations.Add(value_3.Key, new LogicalLocation(value_3.Value));
                 }
+            }
+
+            if (graphs != null)
+            {
+                var destination_2 = new List<Graph>();
+                foreach (var value_4 in graphs)
+                {
+                    if (value_4 == null)
+                    {
+                        destination_2.Add(null);
+                    }
+                    else
+                    {
+                        destination_2.Add(new Graph(value_4));
+                    }
+                }
+
+                Graphs = destination_2;
             }
 
             if (results != null)
             {
-                var destination_1 = new List<Result>();
-                foreach (var value_3 in results)
+                var destination_3 = new List<Result>();
+                foreach (var value_5 in results)
                 {
-                    if (value_3 == null)
+                    if (value_5 == null)
                     {
-                        destination_1.Add(null);
+                        destination_3.Add(null);
                     }
                     else
                     {
-                        destination_1.Add(new Result(value_3));
+                        destination_3.Add(new Result(value_5));
                     }
                 }
 
-                Results = destination_1;
+                Results = destination_3;
             }
 
             if (resources != null)
@@ -307,6 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Architecture = architecture;
             RichMessageMimeType = richMessageMimeType;
             RedactionToken = redactionToken;
+            DefaultFileEncoding = defaultFileEncoding;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test157.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'pMS->m_data[pMS->m_cData]'\nBuffer accessed is buffer\nBuffer is of length 102 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 102\n\nValues of variables:\nbuffer.MyStruct::m_cData = 101\npMS = &buffer\n\nwhere\nbuffer.MyStruct::m_cData`39 == 101\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test157.cpp",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 31
+                }
+              },
+              "fullyQualifiedLogicalName": "TestMyStructBufferOverrun",
+              "decoratedName": "?TestMyStructBufferOverrun@@YAXXZ",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 31
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'ms.m_data[ms.m_cData]'\nBuffer ms.MyStruct::m_data created during call to InitMyStruct on line 46\nBuffer is of length ms.MyStruct::m_cData`46 elements (4 bytes/element) [from type annotation SAL_writableTo(elementCount({parameter 1}->m_cData)) at c:\\somepath\\test157.cpp(8) on function InitMyStruct called at line 46]\nAccessing the element (4 bytes/element) at element offset 1\n\nValues of variables:\nms.MyStruct::m_cData = 1\n\nwhere\nms.MyStruct::m_cData`46 == 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test157.cpp",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "TestMyStructBufferOverrun2",
+              "decoratedName": "?TestMyStructBufferOverrun2@@YAXXZ",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test157.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 27
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

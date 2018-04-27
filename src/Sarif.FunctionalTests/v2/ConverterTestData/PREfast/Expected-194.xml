@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>11</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Overflow using expression '* n'
+PREFAST_NEWLINE
+Buffer n is a parameter to this function declared on line 4
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(n)`4 + 4 bytes [from annotation valid(elementCount(1)) at c:\somepath\test194.cpp(4)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 8
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer n is at offset 8 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXPAH@Z</DECORATED><FUNCLINE>4</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>4</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>6</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>7</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>9</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>10</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test194.cpp</FILENAME><LINE>11</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT></DEFECTS>

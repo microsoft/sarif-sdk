@@ -1,0 +1,403 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test095.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression 'aa[b]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nwhere\n(*q)`36a <= 10\n(*q)`36a >= 0\n\nOverrun access occurs when\n(*q)`36a == 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test095.cpp",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "KK",
+              "decoratedName": "?KK@@YAXH@Z",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'aa[b]'\nBuffer accessed is aa\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test095.cpp",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "KK",
+              "decoratedName": "?KK@@YAXH@Z",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression 'bb[b]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: (*q)`36a is not constrained by any constant\n\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nOverrun access occurs when\n(*q)`36a >= 10\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test095.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "KK",
+              "decoratedName": "?KK@@YAXH@Z",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential Underflow using expression 'bb[b]'\nBuffer accessed is bb\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset (*q)`36a\n\n when function Goop called at line 46 fails.\n when function Goop called at line 46 is inline analyzed.\n\nValues of variables:\nb = (*q)`36a\n\nUnderflow access occurs when\n(*q)`36a + 1 <= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test095.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "KK",
+              "decoratedName": "?KK@@YAXH@Z",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 46,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test095.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

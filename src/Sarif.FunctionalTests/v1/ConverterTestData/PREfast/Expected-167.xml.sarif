@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test167.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression 'rgpTest[idx]'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer rgpTest is a global variable\nBuffer is of length nullpos(rgpTest)`7 + 1 elements (4 bytes/element) [length of zero terminated string]\nAccessing the element (4 bytes/element) at element offset 1\n\nValues of variables:\nidx = 1\n\nwhere\n{loop iterations}'10 == 0\nnullpos(rgpTest)`7 <= 2\nnullpos(rgpTest)`7 >= 0\n\nOverrun access occurs when\nnullpos(rgpTest)`7 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test167.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "TestMeOriginal",
+              "decoratedName": "?TestMeOriginal@@YAXH@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test167.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 24
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

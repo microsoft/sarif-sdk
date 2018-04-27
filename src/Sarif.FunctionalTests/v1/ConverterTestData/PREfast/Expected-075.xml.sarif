@@ -1,0 +1,445 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test075.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression '& buf'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: nullpos(s)`7 is not constrained by offset(s)`7\n\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing nullpos(s)`7 + 1 bytes starting at byte offset 0\nAnnotation on function strcpy requires that {parameter 1} is of length >= _String_length_({parameter 2}) + 1 elements (1 bytes/element)\n  where {parameter 1} is & buf; {parameter 2} is (const signed char *)s\n[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]\n\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\n\nwhere\noffset(s)`7 == 0\nnullpos(s)`7 >= 0\n\nOverrun access occurs when\nnullpos(s)`7 >= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAD@Z",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 9,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '& buf'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buf\nBuffer is of length 100 bytes [size of variable]\nAccessing nullpos(s)`13 + 1 bytes starting at byte offset 0\nAnnotation on function lstrcpyA requires that {parameter 1} is of length >= _String_length_({parameter 2}) + 1 elements (1 bytes/element)\n  where {parameter 1} is & buf; {parameter 2} is (LPCSTR)s\n[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]\n\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\n\nwhere\noffset(s)`13 == 0\noffset(s)`13 + result.lstrlenA`16a == nullpos(s)`13\nnullpos(s)`13 >= 0\nresult.lstrlenA`16a <= 100\nresult.lstrlenA`16a >= 0\n\nOverrun access occurs when\nnullpos(s)`13 >= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPAD@Z",
+              "properties": {
+                "funcline": "13"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26014",
+          "message": "Potential overflow using expression '& buf'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer accessed is buf\nBuffer is of length 100 elements (2 bytes/element) [size of variable]\nAccessing nullpos(s)`20 + 1 elements (2 bytes/element) starting at element offset 0\nAnnotation on function lstrcpyW requires that {parameter 1} is of length >= _String_length_({parameter 2}) + 1 elements (2 bytes/element)\n  where {parameter 1} is & buf; {parameter 2} is (LPCWSTR)s\n[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]\n\n\nValues of variables:\nPointer s is at offset 0 bytes from the start of s\n\nwhere\nresult.lstrlenW`23a == nullpos(s)`20\nnullpos(s)`20 >= 0\nresult.lstrlenW`23a <= 100\nresult.lstrlenW`23a >= 0\n\nOverrun access occurs when\nnullpos(s)`20 >= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "h",
+              "decoratedName": "?h@@YAXPAG@Z",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow of null terminated buffer using expression '& buf'\nBuffer accessed is buf\nBuffer is of length 100 elements (2 bytes/element) [size of variable] OR\n  nullpos(buf)`32 + 1 elements (2 bytes/element) [length of zero terminated string]\nAccessing 200 elements (2 bytes/element) starting at element offset 0\nAnnotation on function lstrcpynW requires that {parameter 1} is of length >= {parameter 3} elements (2 bytes/element)\n  where {parameter 1} is & buf; {parameter 3} is 200\n[Annotation _Out_(elementCount({parameter 3}))]\n\n\nwhere\nnullpos(buf)`32 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXPAG@Z",
+              "properties": {
+                "funcline": "27"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 32,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 11
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow of null terminated buffer using expression '& buf'\nBuffer accessed is buf\nBuffer is of length 100 elements (2 bytes/element) [size of variable] OR\n  nullpos(buf)`42 + 1 elements (2 bytes/element) [length of zero terminated string]\nAccessing 200 elements (2 bytes/element) starting at element offset 0\nAnnotation on function lstrcpynW requires that {parameter 1} is of length >= {parameter 3} elements (2 bytes/element)\n  where {parameter 1} is & buf; {parameter 3} is 200\n[Annotation _Out_(elementCount({parameter 3}))]\n\n\nwhere\nnullpos(buf)`42 <= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 18
+                }
+              },
+              "fullyQualifiedLogicalName": "foo1",
+              "decoratedName": "?foo1@@YAXPAG@Z",
+              "properties": {
+                "funcline": "37"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 37,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 17
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 18
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26018",
+          "message": "Potential overflow of null terminated buffer using expression 'buf'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: nullpos(buf)`47 is not constrained by any constant\noffset(buf)`47 is not constrained by any constant\n\nBuffer buf is a parameter to this function declared on line 47\nBuffer is of length 2*nullpos(buf)`47 + 2 bytes [length of zero terminated string] OR\n  offset(buf)`47 + 200 bytes [from annotation SAL_writableTo(elementCount(100)) at c:\\somepath\\test075.cpp(47)]\nAccessing 2*nullpos(buf)`47 + 2*nullpos(s)`47 + 2 bytes starting at byte offset 0\nAnnotation on function lstrcatW requires that {parameter 1} is of length >= (_String_length_({parameter 1}) + _String_length_({parameter 2})) + 1 elements (2 bytes/element)\n  where {parameter 1} is buf; {parameter 1} is buf; {parameter 2} is (LPCWSTR)s\n[Annotation _Out_(elementCount((_String_length_({parameter 1}) + _String_length_({parameter 2})) + 1))]\n\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nPointer s is at offset 0 bytes from the start of s\n\nwhere\noffset(buf)`47 == 0\nnullpos(buf)`47 >= 0\nnullpos(s)`47 >= 0\n\nOverrun access occurs when\n2*nullpos(s)`47 >= 1\nnullpos(buf)`47 + nullpos(s)`47 >= 100\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test075.cpp",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "bar",
+              "decoratedName": "?bar@@YAXPAG0@Z",
+              "properties": {
+                "funcline": "47"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test075.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

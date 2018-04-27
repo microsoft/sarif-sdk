@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test011.cpp</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression 'funny[2 * (size_t)length]'
+PREFAST_NEWLINE
+Buffer myBuffer is a parameter to this function declared on line 10
+PREFAST_NEWLINE
+Buffer is of length 2*length`10 + offset(myBuffer)`10 bytes [from annotation SAL_writableTo(elementCount(length)) at c:\somepath\test011.cpp(10)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 2*length`10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer myBuffer is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+length = length`10
+PREFAST_NEWLINE
+funny = myBuffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(myBuffer)`10 == 0
+PREFAST_NEWLINE
+{loop iterations}'14 + 2 == 2*length`10
+PREFAST_NEWLINE
+length`10 &gt;= 1
+PREFAST_NEWLINE
+{loop iterations}'14 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>dualchartest</FUNCTION>
+    <DECORATED>?dualchartest@@YAXHPEAY01D@Z</DECORATED>
+    <FUNCLINE>10</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>13</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>13</LINE>
+        <COLUMN>28</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>22</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>53</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>22</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>53</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>22</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>16</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>53</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>22</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>18</LINE>
+        <COLUMN>37</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test011.cpp</FILENAME>
+      <LINE>39</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression '* (y ++)'
+PREFAST_NEWLINE
+Buffer result.new[] created during call to operator new[] on line 23
+PREFAST_NEWLINE
+Buffer is of length 40 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 23]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 40
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer y is at offset 41 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Overflow using expression '* (y ++)' at line 40
+PREFAST_NEWLINE
+Overflow using expression '* (-- y)' at line 41
+PREFAST_NEWLINE
+Overflow using expression '* (-- y)' at line 42
+PREFAST_NEWLINE
+Overflow using expression 'x[20][0]' at line 49
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>21</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>21</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>23</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>23</LINE>
+        <COLUMN>18</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>23</LINE>
+        <COLUMN>18</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>24</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>27</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>27</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>28</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>29</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>30</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>31</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>32</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>33</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>34</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>35</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>36</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>37</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>38</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test011.cpp</FILENAME>
+        <LINE>39</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

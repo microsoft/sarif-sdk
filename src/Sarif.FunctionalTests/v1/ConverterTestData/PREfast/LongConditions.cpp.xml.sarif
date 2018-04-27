@@ -1,0 +1,268 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "Ym9vbCBpc0luaXRpYWxpenplZGQgPSB0cnVlOw0KYm9vbCBpc0FjdGl2YXRlZCA9IHRydWU7DQpib29sIGlzRGVmaW5lZCA9IHRydWU7DQoNCmludCBDNjAwMUxvbmdDb25kaXRpb25fRXhhbXBsZSgpDQp7DQoJaW50IHNpbXBsZVZhcjsNCg0KCWlmICggICggaXNJbml0aWFsaXp6ZWRkICYmIGlzQWN0aXZhdGVkICYmICFpc0RlZmluZWQgKSB8fA0KCQkgICggaXNJbml0aWFsaXp6ZWRkICYmICFpc0FjdGl2YXRlZCAmJiBpc0RlZmluZWQgKSB8fA0KCQkgICggaXNJbml0aWFsaXp6ZWRkICYmIGlzQWN0aXZhdGVkICYmICFpc0RlZmluZWQgKSAgKQ0KCXsNCgkJc2ltcGxlVmFyID0gNTsNCgl9DQoNCglyZXR1cm4gc2ltcGxlVmFyOw0KfQ0KDQppbnQgQzYwMDFMb25nQ29uZGl0aW9uMTVfRXhhbXBsZSgpDQp7DQoJaW50IHNpbXBsZVZhcjsNCg0KCWlmICggIWlzSW5pdGlhbGl6emVkZCApDQoJew0KCQlzaW1wbGVWYXIgPSA1Ow0KCX0NCg0KCXJldHVybiBzaW1wbGVWYXI7DQp9DQoNCmludCBDNjAwMUxvbmdDb25kaXRpb24xNF9FeGFtcGxlKCkNCnsNCglpbnQgc2ltcGxlVmFyOw0KDQoJaWYgKCAhaXNEZWZpbmVkICkNCgl7DQoJCXNpbXBsZVZhciA9IDU7DQoJfQ0KDQoJcmV0dXJuIHNpbXBsZVZhcjsNCn0=",
+          "hashes": [
+            {
+              "value": "CA54D6E8B77897057264C3A1B554699A",
+              "algorithm": "md5"
+            },
+            {
+              "value": "8400669C7634CD4C8193F209D65F1CAF13C39362",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "FFBEC494854B77150D4044F94D6E11C8880F9D8B56BDF917DB4AA0D17F69596C",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6001",
+          "message": "Using uninitialized memory 'simpleVar'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "C6001LongCondition_Example",
+              "decoratedName": "?C6001LongCondition_Example@@YAHXZ",
+              "properties": {
+                "funcline": "5"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'simpleVar' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 54
+                    }
+                  },
+                  "message": "Skip this branch, (assume '<branch condition>' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "'simpleVar' is used, but may not have been initialized",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6001",
+          "message": "Using uninitialized memory 'simpleVar'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "C6001LongCondition15_Example",
+              "decoratedName": "?C6001LongCondition15_Example@@YAHXZ",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'simpleVar' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Skip this branch, (assume '!isInitializzedd' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "'simpleVar' is used, but may not have been initialized",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6001",
+          "message": "Using uninitialized memory 'simpleVar'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "C6001LongCondition14_Example",
+              "decoratedName": "?C6001LongCondition14_Example@@YAHXZ",
+              "properties": {
+                "funcline": "31"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 6
+                    }
+                  },
+                  "message": "'simpleVar' is not initialized",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 35,
+                      "startColumn": 7
+                    }
+                  },
+                  "message": "Skip this branch, (assume '!isDefined' is false)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longconditions.cpp",
+                    "region": {
+                      "startLine": 40,
+                      "startColumn": 2
+                    }
+                  },
+                  "message": "'simpleVar' is used, but may not have been initialized",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

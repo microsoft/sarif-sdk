@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test162.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26026",
+          "message": "Cast cannot be proven safe: \"static_cast<const struct WNF_IMMERSIVE_MODE_DATA[WNF_IMMERSIVE_MODE_DATA::rgMonitorData] *>(pvBuffer)\" Accessing 16 bytes starting at byte offset 0\n\nValues of variables:\nPointer pvBuffer is at offset offset(pvBuffer)`22 bytes from the start of the buffer\n\nThere are other instances of this error:\nPotential read overflow using expression '(pModeData->rgMonitorData[pModeData->cMonitorData]).fIsImmersive' at line 29\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test162.cpp",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 26
+                }
+              },
+              "fullyQualifiedLogicalName": "ImmersiveModeWNFCallback",
+              "decoratedName": "?ImmersiveModeWNFCallback@@YAJPBXK@Z",
+              "properties": {
+                "funcline": "22"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test162.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test162.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test162.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test162.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test162.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 26
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

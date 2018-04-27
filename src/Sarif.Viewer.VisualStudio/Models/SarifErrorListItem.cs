@@ -11,6 +11,7 @@ using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
+using XamlDoc = System.Windows.Documents;
 
 namespace Microsoft.Sarif.Viewer
 {
@@ -21,21 +22,16 @@ namespace Microsoft.Sarif.Viewer
         private RuleModel _rule;
         private InvocationModel _invocation;
         private string _selectedTab;
-        private CodeFlowLocationCollection _locations;
-        private CodeFlowLocationCollection _relatedLocations;
-        private CallTreeCollection _callTrees;
-        private ObservableCollection<StackCollection> _stacks;
-        private ObservableCollection<FixModel> _fixes;
         private DelegateCommand _openLogFileCommand;
         ResultTextMarker _lineMarker;
 
         internal SarifErrorListItem()
         {
-            _locations = new CodeFlowLocationCollection(string.Empty);
-            _relatedLocations = new CodeFlowLocationCollection(string.Empty);
-            _callTrees = new CallTreeCollection();
-            _stacks = new ObservableCollection<StackCollection>();
-            _fixes = new ObservableCollection<FixModel>();
+            Locations = new CodeFlowLocationCollection(string.Empty);
+            RelatedLocations = new CodeFlowLocationCollection(string.Empty);
+            CallTrees = new CallTreeCollection();
+            Stacks = new ObservableCollection<StackCollection>();
+            Fixes = new ObservableCollection<FixModel>();
         }
 
         public SarifErrorListItem(Run run, Result result, string logFilePath, ProjectNameCache projectNameCache) : this()
@@ -75,7 +71,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Location location in result.Locations)
                 {
-                    Locations.Add(location.ToAnnotatedCodeLocationModel());
+                    Locations.Add(location.ToCodeFlowLocationModel());
                 }
             }
 
@@ -83,7 +79,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Location location in result.RelatedLocations)
                 {
-                    RelatedLocations.Add(location.ToAnnotatedCodeLocationModel());
+                    RelatedLocations.Add(location.ToCodeFlowLocationModel());
                 }
             }
 
@@ -181,6 +177,15 @@ namespace Microsoft.Sarif.Viewer
         public string Message { get; set; }
 
         [Browsable(false)]
+        public ObservableCollection<XamlDoc.Inline> MessageInlines
+        {
+            get
+            {
+                return new ObservableCollection<XamlDoc.Inline>(SdkUIUtilities.GetInlinesForErrorMessage(Message));
+            }
+        }
+
+        [Browsable(false)]
         public SnapshotSpan Span { get; set; }
 
         [Browsable(false)]
@@ -269,49 +274,19 @@ namespace Microsoft.Sarif.Viewer
         }
 
         [Browsable(false)]
-        public CodeFlowLocationCollection Locations
-        {
-            get
-            {
-                return _locations;
-            }
-        }
+        public CodeFlowLocationCollection Locations { get; }
 
         [Browsable(false)]
-        public CodeFlowLocationCollection RelatedLocations
-        {
-            get
-            {
-                return _relatedLocations;
-            }
-        }
+        public CodeFlowLocationCollection RelatedLocations { get; }
 
         [Browsable(false)]
-        public CallTreeCollection CallTrees
-        {
-            get
-            {
-                return _callTrees;
-            }
-        }
+        public CallTreeCollection CallTrees { get; }
 
         [Browsable(false)]
-        public ObservableCollection<StackCollection> Stacks
-        {
-            get
-            {
-                return _stacks;
-            }
-        }
+        public ObservableCollection<StackCollection> Stacks { get; }
 
         [Browsable(false)]
-        public ObservableCollection<FixModel> Fixes
-        {
-            get
-            {
-                return _fixes;
-            }
-        }
+        public ObservableCollection<FixModel> Fixes { get; }
 
         [Browsable(false)]
         public bool HasDetails

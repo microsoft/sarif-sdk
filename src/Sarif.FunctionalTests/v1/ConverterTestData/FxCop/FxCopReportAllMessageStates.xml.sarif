@@ -1,0 +1,309 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "FxCop"
+      },
+      "files": {
+        "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe": {
+          "mimeType": "application/octet-stream"
+        },
+        "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs": {
+          "mimeType": "text/x-csharp"
+        }
+      },
+      "logicalLocations": {
+        "WpfApplication5": {
+          "name": "WpfApplication5",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe": {
+          "name": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe!WpfApplication5.Frz": {
+          "name": "Frz",
+          "parentKey": "wpfapplication5.exe!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe!WpfApplication5.Frz.Baz()": {
+          "name": "Baz()",
+          "parentKey": "wpfapplication5.exe!WpfApplication5.Frz",
+          "kind": "member"
+        },
+        "wpfapplication5.exe!WpfApplication5.MainWindow": {
+          "name": "MainWindow",
+          "parentKey": "wpfapplication5.exe!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
+          "parentKey": "wpfapplication5.exe!WpfApplication5.MainWindow",
+          "kind": "member"
+        },
+        "wpfapplication5.exe!WpfApplication5.Properties": {
+          "name": "WpfApplication5.Properties",
+          "parentKey": "wpfapplication5.exe",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe!WpfApplication5.Properties.Resources": {
+          "name": "Resources",
+          "parentKey": "wpfapplication5.exe!WpfApplication5.Properties",
+          "kind": "type"
+        },
+        "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()": {
+          "name": ".ctor()",
+          "parentKey": "wpfapplication5.exe!WpfApplication5.Properties.Resources",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CA904",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "WpfApplication5"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA904",
+          "level": "error",
+          "message": "Redefine the types in namespace 'WpfApplication5' in the Microsoft or System namespace. Public types that will never ship externally can be defined in the MS namespace. Consider disabling this rule when analyzing code that does not ship externally.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "WpfApplication5"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.MSInternal",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA2210",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Design",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1014",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Design",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1824",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1053",
+          "level": "error",
+          "message": "Because type 'Frz' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
+            }
+          ],
+          "toolFingerprintContribution": "CSharp2_0",
+          "properties": {
+            "Category": "Microsoft.Design",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1704",
+          "level": "warning",
+          "message": "Correct the spelling of 'Baz' in member name 'Frz.Baz()' or remove it entirely if it represents any sort of Hungarian notation.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "resultFile": {
+                "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
+                "region": {
+                  "startLine": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
+            }
+          ],
+          "toolFingerprintContribution": "Baz#Member",
+          "properties": {
+            "Level": "CriticalWarning",
+            "Category": "Microsoft.Naming",
+            "FixCategory": "Breaking"
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "warning",
+          "message": "The 'this' parameter (or 'Me' in Visual Basic) of 'Frz.Baz()' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "resultFile": {
+                "uri": "file:///c:/users/user/documents/visual%20studio%202015/Projects/WpfApplication5/WpfApplication5/Frz.cs",
+                "region": {
+                  "startLine": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
+            }
+          ],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "DependsOnFix"
+          }
+        },
+        {
+          "ruleId": "CA1502",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Maintainability",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1800",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1033",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Design",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1812",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
+            }
+          ],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1812",
+          "level": "warning",
+          "message": "'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
+            }
+          ],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        },
+        {
+          "ruleId": "CA1811",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
+              },
+              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()"
+            }
+          ],
+          "suppressionStates": ["suppressedInSource"],
+          "properties": {
+            "Category": "Microsoft.Performance",
+            "FixCategory": "NonBreaking"
+          }
+        }
+      ]
+    }
+  ]
+}

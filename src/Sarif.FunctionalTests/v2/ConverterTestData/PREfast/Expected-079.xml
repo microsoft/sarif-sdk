@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>12</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 's-&gt;arr[s-&gt;elts]'
+PREFAST_NEWLINE
+Buffer s is a parameter to this function declared on line 10
+PREFAST_NEWLINE
+Buffer is of length offset(s)`10 + 4*(s-&gt;S::elts)`10 + 4 bytes [from annotation SAL_readableTo(byteCount(4 + s-&gt;elts * 4)) at c:\somepath\test079.cpp(10)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*(s-&gt;S::elts)`10 + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(s-&gt;S::elts) = (s-&gt;S::elts)`10
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`10 == 0
+PREFAST_NEWLINE
+(s-&gt;S::elts)`10 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAUS@@@Z</DECORATED><FUNCLINE>10</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>10</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>12</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>39</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)pData3'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: (s1.S1::ctx1-&gt;Context::len1)`34 is not constrained by (s1.S1::ctx2-&gt;Context::len1)`34
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer pData3 is a parameter to this function declared on line 34
+PREFAST_NEWLINE
+Buffer is of length offset(pData3)`34 + (s1.S1::ctx2-&gt;Context::len1)`34 bytes [from annotation SAL_writableTo(elementCount((&amp; s1)-&gt;ctx2-&gt;len1)) at c:\somepath\test079.cpp(34)]
+PREFAST_NEWLINE
+Accessing (s1.S1::ctx1-&gt;Context::len1)`34 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)pData3; {parameter 3} is s1.ctx1-&gt;len1
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(s1.S1::ctx1-&gt;Context::len1) = (s1.S1::ctx1-&gt;Context::len1)`34
+PREFAST_NEWLINE
+Pointer pData3 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer s1.S1::ctx1 is at offset 0 bytes from the start of s1.S1::ctx1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pData3)`34 == 0
+PREFAST_NEWLINE
+(s1.S1::ctx1-&gt;Context::len1)`34 &gt;= 1
+PREFAST_NEWLINE
+(s1.S1::ctx2-&gt;Context::len1)`34 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(s1.S1::ctx1-&gt;Context::len1)`34 &gt;= (s1.S1::ctx2-&gt;Context::len1)`34 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXPAD000US1@@@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>39</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>48</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)pData3'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: ((s1-&gt;S1::ctx1)-&gt;Context::len1)`43 is not constrained by ((s1-&gt;S1::ctx2)-&gt;Context::len1)`43
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer pData3 is a parameter to this function declared on line 43
+PREFAST_NEWLINE
+Buffer is of length offset(pData3)`43 + ((s1-&gt;S1::ctx2)-&gt;Context::len1)`43 bytes [from annotation SAL_writableTo(elementCount(s1-&gt;ctx2-&gt;len1)) at c:\somepath\test079.cpp(43)]
+PREFAST_NEWLINE
+Accessing ((s1-&gt;S1::ctx1)-&gt;Context::len1)`43 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)pData3; {parameter 3} is s1-&gt;ctx1-&gt;len1
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+((s1-&gt;S1::ctx1)-&gt;Context::len1) = ((s1-&gt;S1::ctx1)-&gt;Context::len1)`43
+PREFAST_NEWLINE
+Pointer (s1-&gt;S1::ctx1) is at offset 0 bytes from the start of (s1-&gt;S1::ctx1)
+PREFAST_NEWLINE
+Pointer pData3 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer s1 is at offset 0 bytes from the start of s1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(pData3)`43 == 0
+PREFAST_NEWLINE
+((s1-&gt;S1::ctx1)-&gt;Context::len1)`43 &gt;= 1
+PREFAST_NEWLINE
+((s1-&gt;S1::ctx2)-&gt;Context::len1)`43 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+((s1-&gt;S1::ctx1)-&gt;Context::len1)`43 &gt;= ((s1-&gt;S1::ctx2)-&gt;Context::len1)`43 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXPAD000ABUS1@@@Z</DECORATED><FUNCLINE>43</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>43</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>48</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>67</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential read overflow using expression '(const void *)(&amp; this-&gt;x)'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: (this-&gt;C::n)`65 is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is C::x
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of field]
+PREFAST_NEWLINE
+Accessing (this-&gt;C::n)`65 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 2} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 2} is (const void *)(&amp; this-&gt;x); {parameter 3} is (size_t)(this-&gt;n + 1)
+PREFAST_NEWLINE
+[Annotation _In_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(this-&gt;C::n) = (this-&gt;C::n)`65
+PREFAST_NEWLINE
+Pointer this is at offset 0 bytes from the start of this
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(this-&gt;C::n)`65 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(this-&gt;C::n)`65 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>C::f</FUNCTION><DECORATED>?f@C@@QAGXPAD@Z</DECORATED><FUNCLINE>65</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>65</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>67</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>67</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(void *)a'
+PREFAST_NEWLINE
+Buffer a is a parameter to this function declared on line 65
+PREFAST_NEWLINE
+Buffer is of length offset(a)`65 + (this-&gt;C::n)`65 bytes [from annotation SAL_writableTo(elementCount(this-&gt;n)) at c:\somepath\test079.cpp(62)]
+PREFAST_NEWLINE
+Accessing (this-&gt;C::n)`65 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)a; {parameter 3} is (size_t)(this-&gt;n + 1)
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(this-&gt;C::n) = (this-&gt;C::n)`65
+PREFAST_NEWLINE
+Pointer a is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer this is at offset 0 bytes from the start of this
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(a)`65 == 0
+PREFAST_NEWLINE
+(this-&gt;C::n)`65 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>C::f</FUNCTION><DECORATED>?f@C@@QAGXPAD@Z</DECORATED><FUNCLINE>65</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>65</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>67</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>72</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'buf[p-&gt;elts]'
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 70
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`70 + (p-&gt;S::elts)`70 bytes [from annotation SAL_writableTo(elementCount(p-&gt;elts)) at c:\somepath\test079.cpp(70)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (p-&gt;S::elts)`70
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;S::elts) = (p-&gt;S::elts)`70
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`70 == 0
+PREFAST_NEWLINE
+(p-&gt;S::elts)`70 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>fieldSameAsParam1</FUNCTION><DECORATED>?fieldSameAsParam1@@YAXPADAAUS@@H@Z</DECORATED><FUNCLINE>70</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>70</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>72</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>117</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression '&amp; cC1'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: c1.C::n`117 is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is cC1
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing c1.C::n`117 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function C::f requires that {parameter 2} is of length &gt;= {parameter 1}-&gt;n elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 2} is &amp; cC1; {parameter 1} is &amp; c1
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 1}-&gt;n)) at c:\somepath\test079.cpp(62)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+c1.C::n = c1.C::n`117
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+c1.C::n`117 &gt;= 101
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>84</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>84</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>88</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>89</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>90</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>92</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>92</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>93</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>93</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>94</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>95</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>97</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>98</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>99</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>100</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>101</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>103</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>104</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>105</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>106</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>107</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>109</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>110</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>111</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>112</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>113</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>115</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>115</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>116</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test079.cpp</FILENAME><LINE>117</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT></DEFECTS>

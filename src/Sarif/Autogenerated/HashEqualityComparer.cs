@@ -55,7 +55,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Value.GetHashCode();
                 }
 
-                result = (result * 31) + obj.Algorithm.GetHashCode();
+                if (obj.Algorithm != null)
+                {
+                    result = (result * 31) + obj.Algorithm.GetHashCode();
+                }
             }
 
             return result;

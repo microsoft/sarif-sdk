@@ -1,0 +1,271 @@
+0 "?" 0 false ^ Call "OS" "main"
+1 "?" 0 true ^====Auto===== Atomic Continuation
+2 "?" 0 true ^====Auto=====^====Pre=====^____true Call "main" "_sdv_init4"
+3 "?" 0 true ^====Auto===== Atomic Continuation
+4 "..\..\..\rules\WDM\CancelSpinLock.slic" 32 true ^====Auto===== Atomic Assignment
+5 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+6 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+7 "?" 0 true ^====Auto=====^s=0 Return
+8 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+9 "?" 0 true ^====Auto=====^s=0^====Pre=====^____true Call "main" "_sdv_init1"
+10 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+11 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+12 "?" 0 true ^====Auto=====^s=0 Return
+13 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+14 "?" 0 true ^====Auto=====^s=0^====Pre=====^____true Call "main" "_sdv_init2"
+15 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+16 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+17 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 77 true ^====Auto=====^s=0 Atomic Assignment
+18 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 81 true ^====Auto=====^s=0 Atomic Assignment
+19 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 83 true ^====Auto=====^s=0 Atomic Assignment
+20 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 88 true ^&sdv_ControllerIrp=8520^====Auto=====^s=0 Atomic Assignment
+21 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 91 true ^&sdv_StartIoIrp=14976^====Auto=====^s=0 Atomic Assignment
+22 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 95 true ^&sdv_PowerIrp=15228^====Auto=====^s=0 Atomic Assignment
+23 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 99 true ^&sdv_harnessIrp=13708^====Auto=====^s=0 Atomic Assignment
+24 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 106 true ^&sdv_other_harnessIrp=15708^====Auto=====^s=0 Atomic Assignment
+25 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 111 true ^&sdv_IoMakeAssociatedIrp_harnessIrp=13028^====Auto=====^s=0 Atomic Assignment
+26 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 116 true ^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=15468^====Auto=====^s=0 Atomic Assignment
+27 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 120 true ^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=14484^====Auto=====^s=0 Atomic Assignment
+28 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 127 true ^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=12260^====Auto=====^s=0 Atomic Assignment
+29 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 131 true ^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=8508^====Auto=====^s=0 Atomic Assignment
+30 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 135 true ^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=7292^====Auto=====^s=0 Atomic Assignment
+31 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 139 true ^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15216^====Auto=====^s=0 Atomic Assignment
+32 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 144 true ^&sdv_IoInitializeIrp_harnessIrp=9212^====Auto=====^s=0 Atomic Assignment
+33 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 159 true ^====Auto=====^s=0 Atomic Assignment
+34 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 202 true ^====Auto=====^s=0 Atomic Assignment
+35 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 203 true ^====Auto=====^s=0 Atomic Assignment
+36 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 204 true ^====Auto=====^s=0 Atomic Assignment
+37 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 205 true ^====Auto=====^s=0 Atomic Assignment
+38 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 206 true ^====Auto=====^s=0 Atomic Assignment
+39 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 207 true ^====Auto=====^s=0 Atomic Assignment
+40 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 209 true ^====Auto=====^s=0 Atomic Assignment
+41 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 217 true ^&sdv_kdpc_val3=12216^====Auto=====^s=0 Atomic Assignment
+42 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 237 true ^&sdv_devobj_fdo=14536^====Auto=====^s=0 Atomic Assignment
+43 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 240 true ^====Auto=====^s=0 Atomic Assignment
+44 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 245 true ^&sdv_devobj_pdo=8760^====Auto=====^s=0 Atomic Assignment
+45 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 249 true ^&sdv_devobj_child_pdo=13268^====Auto=====^s=0 Atomic Assignment
+46 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 253 true ^&sdv_kinterrupt_val=14496^====Auto=====^s=0 Atomic Assignment
+47 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 256 true ^&sdv_MapRegisterBase_val=13008^====Auto=====^s=0 Atomic Assignment
+48 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 260 true ^====Auto=====^s=0 Atomic Assignment
+49 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 263 true ^====Auto=====^s=0 Atomic Assignment
+50 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 266 true ^====Auto=====^s=0 Atomic Assignment
+51 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 272 true ^&sdv_fx_dev_object=14496^====Auto=====^s=0 Atomic Assignment
+52 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1219 true ^====Auto=====^s=0 Atomic Assignment
+53 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1220 true ^====Auto=====^s=0 Atomic Assignment
+54 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1221 true ^====Auto=====^s=0 Atomic Assignment
+55 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1224 true ^====Auto=====^s=0 Atomic Assignment
+56 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1235 true ^====Auto=====^s=0 Atomic Assignment
+57 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1250 true ^====Auto=====^s=0 Atomic Assignment
+58 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1252 true ^====Auto=====^s=0 Atomic Assignment
+59 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1266 true ^====Auto=====^s=0 Atomic Assignment
+60 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9532 true ^&sdv_devobj_top=11776^====Auto=====^s=0 Atomic Assignment
+61 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 13920 true ^====Auto=====^s=0 Atomic Assignment
+62 "?" 0 true ^====Auto=====^s=0 Return
+63 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+64 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^sdv_harnessDeviceExtension=16768^====Auto=====^s=0 Atomic Conditional
+65 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+66 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+67 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^Tmp=1^====Auto=====^s=0 Atomic Continuation
+68 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+69 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^sdv_harnessDeviceExtension_two=16700^====Auto=====^s=0 Atomic Conditional
+70 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+71 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+72 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^Tmp=1^====Auto=====^s=0 Atomic Continuation
+73 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+74 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^sdv_harnessDeviceExtension=16768^====Auto=====^s=0 Atomic Assignment
+75 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^sdv_harnessDeviceExtension_two=16700^====Auto=====^s=0 Atomic Assignment
+76 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^&sdv_harnessStackLocation=11180^====Auto=====^s=0 Atomic Assignment
+77 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6710 true ^&sdv_other_harnessStackLocation=16164^====Auto=====^s=0 Atomic Assignment
+78 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6711 true ^====Auto=====^s=0^====Pre=====^____true Call "main" "sdv_main"
+79 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+80 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+81 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5350 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckDispatchRoutines"
+82 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+83 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+84 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4810 true ^====Auto=====^s=0 Atomic Assignment
+85 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4810 true ^====Auto=====^s=0 Return
+86 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+87 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5351 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckStartIoRoutines"
+88 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+89 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+90 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4822 true ^====Auto=====^s=0 Atomic Assignment
+91 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4822 true ^====Auto=====^s=0 Return
+92 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+93 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5352 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckDpcRoutines"
+94 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+95 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+96 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4842 true ^====Auto=====^s=0 Atomic Assignment
+97 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4842 true ^====Auto=====^s=0 Return
+98 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+99 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5353 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckIsrRoutines"
+100 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+101 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+102 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4857 true ^====Auto=====^s=0 Atomic Assignment
+103 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4857 true ^====Auto=====^s=0 Return
+104 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+105 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5354 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckCancelRoutines"
+106 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+107 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+108 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4877 true ^====Auto=====^s=0 Atomic Assignment
+109 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4877 true ^====Auto=====^s=0 Return
+110 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+111 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5356 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckIoDpcRoutines"
+112 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+113 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+114 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4912 true ^====Auto=====^s=0 Atomic Assignment
+115 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4912 true ^====Auto=====^s=0 Return
+116 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+117 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5357 true ^====Auto=====^s=0 Call "sdv_main" "sdv_IoCompletionRoutines"
+118 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+119 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+120 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4928 true ^====Auto=====^s=0 Atomic Assignment
+121 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4928 true ^====Auto=====^s=0 Return
+122 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+123 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5358 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckWorkerRoutines"
+124 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+125 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+126 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4946 true ^====Auto=====^s=0 Atomic Assignment
+127 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4946 true ^====Auto=====^s=0 Return
+128 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+129 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5359 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckAddDevice"
+130 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+131 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+132 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4955 true ^====Auto=====^s=0 Atomic Assignment
+133 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4955 true ^====Auto=====^s=0 Return
+134 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+135 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5360 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckIrpMjPnp"
+136 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+137 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+138 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4966 true ^====Auto=====^s=0 Atomic Assignment
+139 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4966 true ^====Auto=====^s=0 Return
+140 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+141 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5361 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckIrpMjPower"
+142 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+143 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+144 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4978 true ^====Auto=====^s=0 Atomic Assignment
+145 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4978 true ^====Auto=====^s=0 Return
+146 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+147 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5362 true ^====Auto=====^s=0 Call "sdv_main" "sdv_CheckDriverUnload"
+148 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+149 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+150 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4989 true ^====Auto=====^s=0 Atomic Assignment
+151 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 4989 true ^====Auto=====^s=0 Return
+152 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+153 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5367 true ^====Auto=====^s=0 Atomic Continuation
+154 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5380 true ^sdv=1^====Auto=====^s=0 Atomic Conditional
+155 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5382 true ^====Auto=====^s=0 Call "sdv_main" "sdv_stub_driver_init"
+156 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+157 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+158 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6725 true ^====Auto=====^s=0 Return
+159 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+160 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 5383 true ^arg1=14536^arg2=13708^====Auto=====^s=0 Call "sdv_main" "sdv_RunDispatchFunction"
+161 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+162 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+163 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1632 true ^====Auto=====^s=0 Atomic Assignment
+164 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+165 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1635 true ^sdv=80^====Auto=====^s=0 Atomic Assignment
+166 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1637 true ^pirp->Tail.Overlay.CurrentStackLocation=11180^====Auto=====^s=0 Atomic Assignment
+167 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1638 true ^====Auto=====^s=0 Atomic Assignment
+168 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1639 true ^pirp->IoStatus.Information=72^====Auto=====^s=0 Atomic Assignment
+169 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1639 true ^sdv_start_info=72^====Auto=====^s=0 Atomic Assignment
+170 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1641 true ^arg1=13708^====Auto=====^s=0 Call "sdv_RunDispatchFunction" "sdv_SetStatus"
+171 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+172 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+173 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1512 true ^====Auto=====^s=0 Atomic Continuation
+174 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1514 true ^====Auto=====^s=0 Atomic Assignment
+175 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+176 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1521 true ^====Auto=====^s=0 Return
+177 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+178 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1643 true ^====Auto=====^s=0 Atomic Assignment
+179 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1644 true ^====Auto=====^s=0 Atomic Assignment
+180 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1648 true ^minor=80^====Auto=====^s=0 Atomic Assignment
+181 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1649 true ^====Auto=====^s=0 Atomic Assignment
+182 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1650 true ^====Auto=====^s=0 Atomic Assignment
+183 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1650 true ^====Auto=====^s=0 Atomic Assignment
+184 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1650 true ^====Auto=====^s=0 Atomic Assignment
+185 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1652 true ^====Auto=====^s=0 Atomic Assignment
+186 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1654 true ^====Auto=====^s=0 Call "sdv_RunDispatchFunction" "sdv_stub_dispatch_begin"
+187 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+188 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+189 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^sdv_irql_previous_4=0^====Auto=====^s=0 Atomic Assignment
+190 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^sdv_irql_previous_3=0^====Auto=====^s=0 Atomic Assignment
+191 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^sdv_irql_previous_2=0^====Auto=====^s=0 Atomic Assignment
+192 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^sdv_irql_previous=0^====Auto=====^s=0 Atomic Assignment
+193 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^sdv_irql_current=0^====Auto=====^s=0 Atomic Assignment
+194 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6761 true ^====Auto=====^s=0 Atomic Assignment
+195 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 6762 true ^====Auto=====^s=0 Return
+196 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+197 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1656 true ^====Auto=====^s=0 Atomic Continuation
+198 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+199 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+200 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+201 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+202 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+203 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+204 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+205 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+206 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+207 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+208 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+209 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+210 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+211 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+212 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1870 true ^====Auto=====^s=0 Atomic Assignment
+213 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 1872 true ^arg1=14536^arg2=13708^====Auto=====^s=0 Call "sdv_RunDispatchFunction" "DispatchSystemControl"
+214 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+215 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+216 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 169 true ^====Auto=====^s=0 Atomic Assignment
+217 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 169 true ^====Auto=====^s=0 Atomic Continuation
+218 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 170 true ^====Auto=====^s=0 Atomic Assignment
+219 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 170 true ^====Auto=====^s=0 Atomic Continuation
+220 "?" 0 true ^====Auto=====^s=0 Atomic Assignment
+221 "?" 0 true ^oldIrql=90^====Auto=====^s=0 Atomic Assignment
+222 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 172 true ^arg1=17116^====Auto=====^s=0 Call "DispatchSystemControl" "IoAcquireCancelSpinLock"
+223 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+224 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+225 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^sdv_irql_previous_4=0^====Auto=====^s=0 Atomic Assignment
+226 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^sdv_irql_previous_3=0^====Auto=====^s=0 Atomic Assignment
+227 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^sdv_irql_previous_2=0^====Auto=====^s=0 Atomic Assignment
+228 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^sdv_irql_previous=0^====Auto=====^s=0 Atomic Assignment
+229 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^sdv_irql_current=0^====Auto=====^s=0 Atomic Assignment
+230 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9556 true ^====Auto=====^s=0 Atomic Assignment
+231 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9557 true ^sdv_irql_previous=0^====Auto=====^s=0 Atomic Assignment
+232 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9558 true ^arg1=8^====Auto=====^s=0 Call "IoAcquireCancelSpinLock" "SLIC_IoAcquireCancelSpinLock_exit"
+233 "?" 0 true ^====Auto=====^s=0 Atomic Continuation
+234 "..\..\..\rules\WDM\CancelSpinLock.slic" 38 true ^s=0^====Auto=====^s=0 Atomic Conditional
+235 "..\..\..\rules\WDM\CancelSpinLock.slic" 41 true ^====Auto=====^s=0 Atomic Assignment
+236 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+237 "?" 0 true ^====Auto=====^s=1 Return
+238 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+239 "?" 0 true ^yogi_error=0^====Auto=====^s=1 Atomic Conditional
+240 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\sdv\sdv-harness.c" 9558 true ^====Auto=====^s=1 Return
+241 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+242 "?" 0 true ^yogi_error=0^====Auto=====^s=1 Atomic Conditional
+243 "?" 0 true ^*Tmp=0^====Auto=====^s=1 Atomic Assignment
+244 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+245 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 174 true ^====Auto=====^s=1 Atomic Assignment
+246 "d:\slam1\wdk\src_5043\fail_drivers\wdm\fail_driver1\fail_driver1.c" 174 true ^arg1=8^====Auto=====^s=1 Call "DispatchSystemControl" "SLIC_DispatchSystemControl_exit"
+247 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+248 "..\..\..\rules\WDM\CancelSpinLock.slic" 58 true ^s=1^====Auto=====^s=1 Atomic Conditional
+249 "..\..\..\rules\WDM\CancelSpinLock.slic" 60 true ^arg1=8^====Auto=====^s=1 Call "SLIC_DispatchSystemControl_exit" "SLIC_ABORT_7_0"
+250 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+251 "?" 0 true ^caller=8^====Auto=====^s=1 Atomic Assignment
+252 "?" 0 true ^arg1=5^====Auto=====^s=1 Call "SLIC_ABORT_7_0" "SLIC_ERROR_ROUTINE"
+253 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+254 "?" 0 true ^====Auto=====^s=1 Atomic Assignment
+255 "?" 0 true ^====Auto=====^s=1 Return
+256 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+257 "?" 0 true ^====Auto=====^s=1 Return
+258 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+259 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+260 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+261 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+262 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+263 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+264 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+265 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+266 "?" 0 true ^====Auto=====^s=1 Atomic Continuation
+267 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+268 "?" 0 true ^yogi_error=1^====Auto=====^s=1 Atomic Conditional
+269 "?" 0 true ^====Auto=====^s=1 Return
+Error The dispatch routine has returned without releasing the cancel spinlock.

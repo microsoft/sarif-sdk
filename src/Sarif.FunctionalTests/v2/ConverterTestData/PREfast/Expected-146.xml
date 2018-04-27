@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>162</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)(&amp; XXX)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is XXX
+PREFAST_NEWLINE
+Buffer is of length 200 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing (result.Get5_1-&gt;_tagMyStruct5::size)`161 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function Function5 requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; XXX); {parameter 2} is p-&gt;size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\test146.cpp(152)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size) = (result.Get5_1-&gt;_tagMyStruct5::size)`161
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of result.Get5_1'161
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(result.Get5_1-&gt;_tagMyStruct5::size)`161 &lt;= 204
+PREFAST_NEWLINE
+(result.Get5_1-&gt;_tagMyStruct5::size)`161 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(result.Get5_1-&gt;_tagMyStruct5::size)`161 &gt;= 201
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Test5_1</FUNCTION><DECORATED>?Test5_1@@YAXXZ</DECORATED><FUNCLINE>157</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>157</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>159</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>160</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>161</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>161</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>162</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>170</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)(&amp; XXX)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is XXX
+PREFAST_NEWLINE
+Buffer is of length 200 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing (p-&gt;_tagMyStruct5::size)`169 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function Function5 requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; XXX); {parameter 2} is p-&gt;size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\test146.cpp(152)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size) = (p-&gt;_tagMyStruct5::size)`169
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p'169
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`169 &lt;= 204
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`169 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`169 &gt;= 201
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Test5_2</FUNCTION><DECORATED>?Test5_2@@YAXXZ</DECORATED><FUNCLINE>165</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>165</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>167</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>168</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>169</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>170</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>179</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)(&amp; XXX)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is XXX
+PREFAST_NEWLINE
+Buffer is of length 200 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing (p-&gt;_tagMyStruct5::size)`177 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function Function5 requires that {parameter 1} is of length &gt;= {parameter 2} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; XXX); {parameter 2} is q-&gt;size
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount({parameter 2})) at c:\somepath\test146.cpp(152)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size) = (p-&gt;_tagMyStruct5::size)`177
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of p'177
+PREFAST_NEWLINE
+q = p
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`177 &lt;= 204
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`177 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(p-&gt;_tagMyStruct5::size)`177 &gt;= 201
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Test5_3</FUNCTION><DECORATED>?Test5_3@@YAXXZ</DECORATED><FUNCLINE>173</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>173</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>175</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>176</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>176</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>177</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>178</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>179</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>229</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26036</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Accessing unannotated buffer (p-&gt;S6::s)
+PREFAST_NEWLINE
+Assumed __inout annotation on function Get2S_6 requires that (* o)-&gt;s is null terminated
+PREFAST_NEWLINE
+[Field annotation SAL_nullTerminated at c:\somepath\test146.cpp(218)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Get2S_6</FUNCTION><DECORATED>?Get2S_6@@YAXPAPAUS6@@@Z</DECORATED><FUNCLINE>225</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>225</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>228</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>229</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>229</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26003</DEFECTCODE><DESCRIPTION>Writing to buffer '(p-&gt;S6::buffer)' of unspecified length.  Please annotate.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+If we assume that the buffer has single element in length, then the checker would report:
+PREFAST_NEWLINE
+Potential postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Accessing unannotated buffer (p-&gt;S6::buffer)
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [assumed because the buffer is unannotated]
+PREFAST_NEWLINE
+Accessing (result.Get1S_6-&gt;S6::len)`227 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function Get2S_6 requires that (* o)-&gt;buffer is of length &gt;= (* o)-&gt;len elements (1 bytes/element)
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(elementCount((* o)-&gt;len)) at c:\somepath\test146.cpp(219)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(p-&gt;S6::len) = (result.Get1S_6-&gt;S6::len)`227
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(result.Get1S_6-&gt;S6::len)`227 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(result.Get1S_6-&gt;S6::len)`227 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Get2S_6</FUNCTION><DECORATED>?Get2S_6@@YAXPAPAUS6@@@Z</DECORATED><FUNCLINE>225</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>225</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>227</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>228</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test146.cpp</FILENAME><LINE>229</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

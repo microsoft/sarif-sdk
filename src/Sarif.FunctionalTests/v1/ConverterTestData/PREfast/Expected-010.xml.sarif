@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test010.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'ww.buffer[12]'\nBuffer accessed is windowoid::buffer\nBuffer is of length 10 elements (4 bytes/element) [size of field]\nAccessing the element (4 bytes/element) at element offset 12\n\nThere are other instances of this error:\nPotential overflow using expression '(void *)(& ww.buffer)' at line 15\nOverflow using expression '(void *)(& ww.buffer + 2)' at line 16\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test010.cpp",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "foo",
+              "decoratedName": "?foo@@YAXH@Z",
+              "properties": {
+                "funcline": "10"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test010.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test010.cpp",
+                    "region": {
+                      "startLine": 12,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test010.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test010.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

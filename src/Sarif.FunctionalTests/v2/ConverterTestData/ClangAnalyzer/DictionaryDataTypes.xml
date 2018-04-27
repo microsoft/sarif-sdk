@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>clang_version</key>
+<string>Ubuntu clang version 3.4-1ubuntu3 (tags/RELEASE_34/final) (based on LLVM 3.4)</string>
+<key>files</key>
+<array>
+<string>jcparam.c</string>
+</array>
+<key>diagnostics</key>
+<array>
+<dict>
+<key>description</key>
+<string>Value stored to &apos;scanptr&apos; is never read</string>
+<key>category</key>
+<string>Dead store</string>
+<key>type</key>
+<string>Dead assignment</string>
+<key>issue_context_kind</key>
+<string>function</string>
+<key>issue_context</key>
+<string>jpeg_simple_progression</string>
+<key>issue_hash</key>
+<string>57</string>
+<key>location</key>
+<dict>
+<key>linestring</key>
+<string>1/2/2104</string>
+<key>linedate</key>
+<date>1/2/2104</date>
+<key>linedata</key>
+<data>595.5</data>
+<key>linereal</key>
+<real>595.5</real>
+<key>line</key>
+<integer>595</integer>
+<key>col</key>
+<integer>5</integer>
+<key>file</key>
+<integer>0</integer>
+</dict>
+<key>HTMLDiagnostics_files</key>
+<array>
+<string>report-ab0d45.html</string>
+</array>
+</dict>
+</array>
+</dict>
+</plist>

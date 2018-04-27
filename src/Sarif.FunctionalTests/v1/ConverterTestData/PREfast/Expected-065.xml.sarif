@@ -1,0 +1,407 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test065.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26018",
+          "message": "Potential read overflow of null terminated buffer using expression '* pwszTemp'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: offset(pwszPath)`5 is not constrained by nullpos(pwszPath)`5\n\nBuffer pwszPath is a parameter to this function declared on line 5\nBuffer is of length 2*nullpos(pwszPath)`5 + 2 bytes [length of zero terminated string]\nAccessing 2 bytes starting at byte offset 4\n\nValues of variables:\nPointer pwszTemp is at offset 4 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\n{loop iterations}'17 == 0\nnullpos(pwszPath)`5 >= 0\n\nOverrun access occurs when\nnullpos(pwszPath)`5 <= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test065.cpp",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "GetMachineName",
+              "decoratedName": "?GetMachineName@@YAJPAGQAG@Z",
+              "properties": {
+                "funcline": "5"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26015",
+          "message": "Potential overflow using expression '* (pwszServerName ++)'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {loop iterations}'17 is not constrained by any constant\n\nBuffer wszMachineName is a parameter to this function declared on line 5\nBuffer is of length offset(wszMachineName)`5 + 32 bytes [from annotation SAL_writableTo(elementCount(16)) at c:\\somepath\\test065.cpp(5)]\nAccessing 2 bytes starting at byte offset 2*{loop iterations}'17 + 4\n\nValues of variables:\nPointer pwszServerName is at offset 2*{loop iterations}'17 + 6 bytes from the start of the buffer\n\nwhere\noffset(pwszPath)`5 == 0\noffset(wszMachineName)`5 == 0\n2*nullpos(pwszPath)`5 >= 2*{loop iterations}'17 + 12\nnullpos(pwszPath)`5 >= 0\n{loop iterations}'17 >= 0\n\nOverrun access occurs when\n{loop iterations}'17 >= 14\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test065.cpp",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 29
+                }
+              },
+              "fullyQualifiedLogicalName": "GetMachineName",
+              "decoratedName": "?GetMachineName@@YAJPAGQAG@Z",
+              "properties": {
+                "funcline": "5"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 32
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 17,
+                      "startColumn": 35
+                    }
+                  }
+                },
+                {
+                  "step": 17,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 29
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '& wstr1'\nBuffer accessed is wstr1\nAnnotation on function GetMachineName requires that {parameter 1} is null terminated\n  where {parameter 1} is & wstr1 [Annotation SAL_nullTerminated at c:\\somepath\\test065.cpp(5)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test065.cpp",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 19
+                }
+              },
+              "fullyQualifiedLogicalName": "main",
+              "decoratedName": "main",
+              "properties": {
+                "funcline": "26"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 31,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 33,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test065.cpp",
+                    "region": {
+                      "startLine": 34,
+                      "startColumn": 19
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

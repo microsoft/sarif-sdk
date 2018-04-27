@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test038.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26017",
+          "message": "Potential read overflow using expression 'buf->a[(int )(buf->b) - 97]'\nBuffer accessed is S1::a\nBuffer is of length 10 bytes [size of field]\nAccessing the byte at byte offset (buf->S1::b)`21 - 97\n\nValues of variables:\n(buf->S1::b) = (buf->S1::b)`21\nPointer buf is at offset 0 bytes from the start of buf\n\nOverrun access occurs when\n(buf->S1::b)`21 >= 107\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test038.cpp",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAIPAUS1@@@Z",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26011",
+          "message": "Potential read underflow using expression 'buf->a[(int )(buf->b) - 97]'\nBuffer accessed is S1::a\nBuffer is of length 10 bytes [size of field]\nAccessing the byte at byte offset (buf->S1::b)`21 - 97\n\nValues of variables:\n(buf->S1::b) = (buf->S1::b)`21\nPointer buf is at offset 0 bytes from the start of buf\n\nUnderflow access occurs when\n(buf->S1::b)`21 <= 96\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test038.cpp",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAIPAUS1@@@Z",
+              "properties": {
+                "funcline": "16"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 21,
+                      "startColumn": 5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26024",
+          "message": "Cast cannot be proven safe: \"(struct S *)((PUCHAR)buf + offset)\" Accessing 44 bytes starting at byte offset 0\n\nValues of variables:\nPointer buf is at offset offset(buf)`24 bytes from the start of the buffer\noffset = result.g`26a\n\nThere are other instances of this error:\nPotential overflow using expression 's->b' at line 30\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test038.cpp",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXPAUS1@@I@Z",
+              "properties": {
+                "funcline": "24"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 26,
+                      "startColumn": 21
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 8
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test038.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

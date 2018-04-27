@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "ICNwcmFnbWEgd2FybmluZyAoZGlzYWJsZSA6IDQxODkpDQp0eXBlZGVmIHN0cnVjdCB4bGlzdCB7DQogICAgc3RydWN0IHhsaXN0ICpwTmV4dDsNCiAgICBzdHJ1Y3QgeGxpc3QgKnBQcmV2Ow0KIH0gbGlzdDsNCg0KIGxpc3QgKnBOb2RlRnJlZTsNCiBsaXN0ICptYXN0ZXJMaXN0Ow0KIGludCBuQmxvY2tTaXplOw0KDQogdm9pZCBDMjgxODJFeGFtcGxlKCkNCiB7DQogICAgaWYgKHBOb2RlRnJlZSA9PSAwKQ0KICAgIHsNCgkJIGxpc3QqIHBOb2RlID0gcE5vZGVGcmVlOw0KICAgICAgICAgcE5vZGUtPnBQcmV2ID0gMDsgIA0KICAgIH0NCgllbHNlDQoJew0KCQlsaXN0KiBuTm9kZSA9IG1hc3Rlckxpc3Q7DQoJfQ0KIH0NCg0KDQoNCg==",
+          "hashes": [
+            {
+              "value": "DDB59AD4C8ECAF9F76972F65BF524B4A",
+              "algorithm": "md5"
+            },
+            {
+              "value": "FEE39C76519E435ACA5E01A650EB1159355A0F6B",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "412AF668891316149C792C949780D480D459160330B439476FBCC9D56F220FD2",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "28182",
+          "message": "Dereferencing NULL pointer. 'pNode' contains the same NULL value as 'pNodeFree' did. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "C28182Example",
+              "decoratedName": "?C28182Example@@YAXXZ",
+              "properties": {
+                "funcline": "11"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 19
+                    }
+                  },
+                  "message": "'pNodeFree' may be NULL (Enter this branch)",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "(alias) 'pNode' receives the value of 'pNodeFree' (which may be NULL)",
+                  "kind": "alias",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c28182example.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 23
+                    }
+                  },
+                  "message": "'pNode' is dereferenced, but may still be NULL",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

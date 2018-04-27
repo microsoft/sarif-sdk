@@ -1,0 +1,431 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCg0KZXh0ZXJuIHZvaWQgUmVxdWlyZXNOb3ROdWxsKF9Jbl8gaW50ICogaW5wdXQpOw0KDQpleHRlcm4gdm9pZCBSZXF1aXJlc05vdE51bGxPdXQoX091dF8gaW50ICogaW5wdXQpOw0KDQpleHRlcm4gX1Bvc3RfbWF5YmVudWxsXyBpbnQgKiBNYXlSZXR1cm5OdWxsKCk7DQoNCg0Kdm9pZCBCYXNpY0M2Mzg3KCkNCnsNCiAgICBpbnQgKiBkYXRhID0gMDsNCg0KICAgIFJlcXVpcmVzTm90TnVsbChkYXRhKTsNCn0NCg0KDQp2b2lkIEJhc2ljQzYzODdfT3B0KF9Jbl9vcHRfIGludCAqIGRhdGEpDQp7DQogICAgUmVxdWlyZXNOb3ROdWxsKGRhdGEpOw0KfQ0KDQoNCnZvaWQgQmFzaWNDNjM4N19Qb3N0TnVsbCgpDQp7DQogICAgaW50ICogZGF0YSA9IE1heVJldHVybk51bGwoKTsNCg0KICAgIFJlcXVpcmVzTm90TnVsbChkYXRhKTsNCn0NCg0KDQp2b2lkIEJhc2ljQzYzODdfT3V0KCkNCnsNCiAgICBpbnQgKiBkYXRhID0gMDsNCg0KICAgIFJlcXVpcmVzTm90TnVsbE91dChkYXRhKTsNCn0NCg0KDQojcHJhZ21hIHdhcm5pbmcoc3VwcHJlc3M6IDI4MTk2KQ0Kdm9pZCBCYXNpY0M2Mzg3X091dE5vdE51bGwoX091dHB0cl8gaW50ICoqIHBPdXQpDQp7DQogICAgaW50ICogZGF0YSA9IDA7DQoNCiAgICAqcE91dCA9IGRhdGE7DQp9DQoNCg0Kdm9pZCBCYXNpY0M2Mzg3X091dE1heWJlTnVsbChfT3V0cHRyX3Jlc3VsdF9tYXliZW51bGxfIGludCAqKiBwT3V0KQ0Kew0KICAgIGludCAqIGRhdGEgPSAwOw0KDQogICAgKnBPdXQgPSBkYXRhOyAvLyBObyA2Mzg3DQp9DQoNCg==",
+          "hashes": [
+            {
+              "value": "88AB58B30FD9EA8F173E4731F8D45532",
+              "algorithm": "md5"
+            },
+            {
+              "value": "14F6D46E6DC333F8A0890B3B966485ED4F000D11",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "7AA43E8D0B59935A894BC4D0498B75D527A27DB40FCEAAACCABD33E8CAA865D9",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6387",
+          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387",
+              "decoratedName": "?BasicC6387@@YAXXZ",
+              "properties": {
+                "funcline": "12"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' is an Input to 'RequiresNotNull' (declared on line 5)",
+                  "kind": "usage",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 16,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_Opt",
+              "decoratedName": "?BasicC6387_Opt@@YAXPEAH@Z",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 20,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' is an Input to 'RequiresNotNull' (declared on line 5)",
+                  "kind": "usage",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 22,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_PostNull",
+              "decoratedName": "?BasicC6387_PostNull@@YAXXZ",
+              "properties": {
+                "funcline": "26"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' is an Input to 'RequiresNotNull' (declared on line 5)",
+                  "kind": "usage",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 30,
+                      "startColumn": 20
+                    }
+                  },
+                  "message": "'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNull'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNullOut'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_Out",
+              "decoratedName": "?BasicC6387_Out@@YAXXZ",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'data' is NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 23
+                    }
+                  },
+                  "message": "'data' is an In/Out argument to 'RequiresNotNullOut' (declared on line 7)",
+                  "kind": "declaration",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 23
+                    }
+                  },
+                  "message": "'data' should not be NULL, because this is not consistent with the SAL annotation on 'RequiresNotNullOut'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": "'*pOut' could be '0':  this does not adhere to the specification for the function 'BasicC6387_OutNotNull'. ",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_OutNotNull",
+              "decoratedName": "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 45,
+                      "startColumn": 9
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 11
+                    }
+                  },
+                  "message": "'*pOut' may be NULL",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 48,
+                      "startColumn": 1
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp",
+                    "region": {
+                      "startLine": 43,
+                      "startColumn": 27
+                    }
+                  },
+                  "message": "'*pOut' should not be NULL, because this is not consistent with the SAL annotation on 'BasicC6387_OutNotNull'",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

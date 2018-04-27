@@ -1,0 +1,435 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test156.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '(void *)(& a)'\nBuffer accessed is a\nBuffer is of length 100 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 1} is of length >= _Old_({parameter 3}) bytes\n  where {parameter 1} is (void *)(& a); {parameter 3} is 500\n[Annotation SAL_writableTo(byteCount(_Old_({parameter 3}))) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nOverflow using expression '(void *)(& a[0])' at line 16\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "SimpleBadCalls",
+              "decoratedName": "?SimpleBadCalls@@YAXPAX@Z",
+              "properties": {
+                "funcline": "8"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Read overflow using expression '(const void *)(& b)'\nBuffer accessed is b\nBuffer is of length 6 bytes [size of variable]\nAccessing 500 bytes starting at byte offset 0\nAnnotation on function mycpy requires that {parameter 2} is of length >= {parameter 3} bytes\n  where {parameter 2} is (const void *)(& b); {parameter 3} is 500\n[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\\somepath\\test156.cpp(6)]\n\n\nThere are other instances of this error:\nRead overflow using expression '(const void *)(& b)' at line 16\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "SimpleBadCalls",
+              "decoratedName": "?SimpleBadCalls@@YAXPAX@Z",
+              "properties": {
+                "funcline": "8"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 10,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 11,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 14,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 10
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26037",
+          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function MadePAGAndBad requires that & data->DevicePath is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(27)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "MadePAGAndBad",
+              "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z",
+              "properties": {
+                "funcline": "27"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 25
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26037",
+          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer accessed is _MyStruct::DevicePath\nAnnotation on function NeverMadePAGAndBad requires that data->DevicePath is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\test156.cpp(42)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "NeverMadePAGAndBad",
+              "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z",
+              "properties": {
+                "funcline": "42"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 42,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 44,
+                      "startColumn": 25
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26061",
+          "message": "Range postcondition violation\nAnnotation on function EnsureIndexingWorksBad requires that (data->DevicePath)[0] is == 1\n[Annotation SAL_relop(\"==\", 1) at c:\\somepath\\test156.cpp(64)]\n\nValues of variables:\n(data->_MyStruct::DevicePath)[0] = 2\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "EnsureIndexingWorksBad",
+              "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z",
+              "properties": {
+                "funcline": "64"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 64,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 25
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'valueName'\nBuffer result.malloc created during call to malloc on line 94\nBuffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 94]\nAccessing 20 bytes starting at byte offset 0\nAssumed __inout annotation on function AcceptsUnicodeString requires that (& {parameter 1})->Buffer is of length >= {parameter 1}.Length bytes\n  where (& {parameter 1})->Buffer is valueName; {parameter 1} is valueName\n[Field annotation SAL_readableTo(byteCount({parameter 1}.Length)) at c:\\somepath\\test156.cpp(75)]\n\n\nValues of variables:\nPointer valueName._UNICODE_STRING::Buffer is at offset 0 bytes from the start of the buffer\nvalueName._UNICODE_STRING::Length = 20\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test156.cpp",
+                "region": {
+                  "startLine": 99,
+                  "startColumn": 25
+                }
+              },
+              "fullyQualifiedLogicalName": "BadUnicodeStringCall",
+              "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z",
+              "properties": {
+                "funcline": "92"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 92,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 47
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 94,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 95,
+                      "startColumn": 22
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 96,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test156.cpp",
+                    "region": {
+                      "startLine": 99,
+                      "startColumn": 25
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNjIwMSA2MDAxKQ0Kdm9pZCBDNjM4NV9FeGFtcGxlMihpbnQgaSkNCnsNCiAgIGludCBhWzIwXTsJCQkJDQogICBpbnQgYlsyMV07DQogICBmb3IgKDsgaSA8PSAyMDsgaSsrKSB7CQ0KCSAgIGJbaV0gPSBhW2ldOwkJCQ0KICAgfQ0KfQ==",
+          "hashes": [
+            {
+              "value": "B1A136C5477B58718A140351D9F8E6FA",
+              "algorithm": "md5"
+            },
+            {
+              "value": "4AC31E60C3825D1A226F345A5C3315EA6030E066",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "8D437755A219B571996E442FA72ABB50863551E9830FDD17B5862E48064097D7",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": "Reading invalid data from 'a':  the readable size is '80' bytes, but 'i' bytes may be read.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_Example2",
+              "decoratedName": "?C6385_Example2@@YAXH@Z",
+              "properties": {
+                "funcline": "2"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 8
+                    }
+                  },
+                  "message": "'a' is an array of 20 elements (80 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
+                    "region": {
+                      "startLine": 5,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
+                    "region": {
+                      "startLine": 6,
+                      "startColumn": 13
+                    }
+                  },
+                  "message": "Enter this loop, (assume 'i<=20')",
+                  "kind": "branch",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp",
+                    "region": {
+                      "startLine": 7,
+                      "startColumn": 10
+                    }
+                  },
+                  "message": "Invalid read from 'a[20]', (readable range is 0 to 19)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "3"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

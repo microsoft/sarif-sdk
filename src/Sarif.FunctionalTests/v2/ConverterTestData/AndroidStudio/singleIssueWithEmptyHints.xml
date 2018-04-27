@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java</file>
+    <line>10</line>
+    <module>yammer-droid-2</module>
+    <package>com.yammer.droid</package>
+    <entry_point TYPE="method" FQNAME="com.yammer.droid.AdditionOperationTest void testStuff()" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+    <hints>
+      <hint value="  " />
+      <hint value="" />
+    </hints>
+    <description>Method is never used.</description>
+  </problem>
+</problems>

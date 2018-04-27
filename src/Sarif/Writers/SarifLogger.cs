@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
@@ -27,11 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets,
             LoggingOptions loggingOptions,
             IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog)
+            IEnumerable<string> invocationPropertiesToLog,
+            string defaultFileEncoding = null)
         {
             var run = new Run
             {
-                Invocations = new List<Invocation>()
+                Invocations = new List<Invocation>(),
+                DefaultFileEncoding = defaultFileEncoding
             };
 
             if (analysisTargets != null)
@@ -96,7 +99,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null)
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions,
                   tool,
@@ -113,14 +117,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool targetsAreTextFiles = true,
             string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, loggingOptions)
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null) : this(textWriter, loggingOptions)
         {
             _run = run ?? CreateRun(
                             analysisTargets,
                             loggingOptions,
                             invocationTokensToRedact,
-                            invocationPropertiesToLog);
+                            invocationPropertiesToLog,
+                            defaultFileEncoding);
 
+            if (!string.IsNullOrWhiteSpace(defaultFileEncoding))
+            {
+                _run.DefaultFileEncoding = defaultFileEncoding;
+            }
 
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
@@ -356,7 +366,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions);
+            Encoding encoding = null;
+
+            try
+            {
+                encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+            }
+            catch (ArgumentException) { } // Unrecognized or null encoding name
+
+            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions, null, encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

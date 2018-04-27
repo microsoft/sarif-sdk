@@ -37,13 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(NotificationLevel))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(AlgorithmKind))
-                contract.Converter = EnumConverter.Instance;
-
             else if (objectType == typeof(BaselineState))
                 contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(SuppressionStates))
+                contract.Converter = FlagsEnumConverter.Instance;
+
+            else if (objectType == typeof(FileRoles))
                 contract.Converter = FlagsEnumConverter.Instance;
 
             else if (objectType == typeof(Dictionary<string, IRule>))

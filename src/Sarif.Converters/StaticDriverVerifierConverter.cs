@@ -147,42 +147,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var codeFlowLocation = new CodeFlowLocation
                 {
                     Step = step + 1,
-                    Importance = CodeFlowLocationImportance.Unimportant
+                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Location = new Location
+                    {
+                        Message = new Message()
+                    }
                 };
 
                 if (uri != null)
                 {
-                    codeFlowLocation.Location = new Location
+                    codeFlowLocation.Location.PhysicalLocation = new PhysicalLocation
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        FileLocation = new FileLocation
                         {
-                            FileLocation = new FileLocation
-                            {
-                                Uri = uri
-                            },
-                            Region = new Region
-                            {
-                                StartLine = line
-                            }
+                            Uri = uri
+                        },
+                        Region = new Region
+                        {
+                            StartLine = line
                         }
                     };
                 }
 
                 if (sdvKind == "Call")
                 {
-                    string extraMsg = tokens[KIND1] + " " + tokens[CALLER] + " " + tokens[CALLEE];
+                    string extraMsg = $"{tokens[KIND1]} {tokens[CALLER]} {tokens[CALLEE]}";
 
                     string caller, callee;
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
-                        if (codeFlowLocation.Location == null)
-                        {
-                            codeFlowLocation.Location = new Location();
-                        }
-
                         codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
-                        codeFlowLocation.SetProperty<string>("target", callee);
+                        codeFlowLocation.Location.Message.Text = callee;
+                        codeFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
                     }
                     else
@@ -209,17 +206,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Debug.Assert(_callers.Count > 0);
 
-                    if (codeFlowLocation.Location == null)
-                    {
-                        codeFlowLocation.Location = new Location();
-                    }
-
                     codeFlowLocation.NestingLevel = nestingLevel--;
                     codeFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
                 }
                 else
                 {
                     codeFlowLocation.NestingLevel = nestingLevel;
+                    codeFlowLocation.Location.Message.Text = sdvKind;
                 }
 
                 string separatorText = "^====Auto=====";

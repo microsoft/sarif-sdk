@@ -13,14 +13,9 @@ namespace Microsoft.Sarif.Viewer.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var node = value as CallTreeNode;
-            if (node != null)
-            {
-                return MakeDisplayString(node);
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return node != null ?
+                MakeDisplayString(node) :
+                string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -31,44 +26,25 @@ namespace Microsoft.Sarif.Viewer.Converters
         private static string MakeDisplayString(CallTreeNode node)
         {
             // Use the following preferences for the CallTreeNode text.
-            // 1. AnnotatedCodeLocation.Message
-            // 2. AnnotatedCodeLocation.Snippet
-            // 3. Callee for calls
-            // 4. "Return" for returns
-            // 5. AnnotatedCodeLocation.Kind
+            // 1. CodeFlowLocation.Location.Message.Text
+            // 2. CodeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text
+            // 3. "Continuing"
             string text = string.Empty;
 
             CodeFlowLocation codeFlowLocation = node.Location;
             if (codeFlowLocation != null)
             {
-                if (!String.IsNullOrEmpty(codeFlowLocation.Location?.Message?.Text))
+                if (!String.IsNullOrWhiteSpace(codeFlowLocation.Location?.Message?.Text))
                 {
                     text = codeFlowLocation.Location.Message.Text;
                 }
-                else if (!String.IsNullOrEmpty(codeFlowLocation.Location?.PhysicalLocation?.Region?.Snippet?.Text))
+                else if (!String.IsNullOrWhiteSpace(codeFlowLocation.Location?.PhysicalLocation?.Region?.Snippet?.Text))
                 {
                     text = codeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text.Trim();
                 }
                 else
                 {
-                    switch (codeFlowLocation.Kind)
-                    {
-                        case CodeFlowLocationKind.Call:
-                            string callee = codeFlowLocation.Target;
-                            text = !string.IsNullOrEmpty(callee) ? callee : Resources.UnknownCalleeMessage;
-                            break;
-
-                        case CodeFlowLocationKind.CallReturn:
-                            text = Resources.ReturnMessage;
-                            break;
-
-                        default:
-                            if (codeFlowLocation.Kind != default(CodeFlowLocationKind))
-                            {
-                                text = codeFlowLocation.Kind.ToString();
-                            }
-                            break;
-                    }
+                    text = Resources.ContinuingCallTreeNodeMessage;
                 }
             }
 

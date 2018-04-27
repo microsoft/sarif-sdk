@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx": {
+          "mimeType": "text/x-cpp",
+          "contents": "LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCiAqIENvcHlyaWdodCAoYykgTWljcm9zb2Z0IENvcnBvcmF0aW9uLiAgQWxsIHJpZ2h0cyByZXNlcnZlZC4gDQogKgkNCiAqIERlc2NyaXB0aW9uIDogRG9jIFNhbXBsZToNCiAqIHdhcm5pbmcgQzYzMDY6IGluY29ycmVjdCBjYWxsIHRvIDxmdW5jdGlvbj46IGNvbnNpZGVyIHVzaW5nIDxmdW5jdGlvbj4gd2hpY2ggYWNjZXB0cyBhIHZhX2xpc3QgYXMgYW4gYXJndW1lbnQNCiAqIA0KICogQ29tbWFuZCBsaW5lIDogY2wgL1c0IC9hbmFseXplIC9jIDxmaWxlPg0KICoNCiAqIEF1dGhvciA6IHJhdmthdXINCiAqDQogKiBEYXRlIGNyZWF0ZWQgOiAwNC0wNC0yMDA1DQogKg0KICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovDQojcHJhZ21hIHdhcm5pbmcgKGRpc2FibGU6IDM2NTMwIDI4MjQ3IDI4MjUxKQ0KI2luY2x1ZGUgPHN0ZGlvLmg+DQojaW5jbHVkZSA8c3RkYXJnLmg+DQojcHJhZ21hIHdhcm5pbmcoZGVmYXVsdDogMzY1MzAgMjgyNDcgMjgyNTEpIA0KDQoNCnZvaWQgZmQoaW50IGksIC4uLikNCnsNCiAgICB2YV9saXN0IHY7DQogICAgICANCgl2YV9zdGFydCh2LCBpKTsNCgkvL2NvZGUuLi4NCiAgICBwcmludGYoIiVkIiwgdik7IC8vQEBARXhwZWN0czo2MzA2OyA2MjczDQogICAgdmFfZW5kKHYpOw0KfQ0KDQoNCnZvaWQgZihpbnQgaSwgLi4uKQ0Kew0KICAgIHZhX2xpc3QgdjsNCiAgDQoJdmFfc3RhcnQodiwgaSk7DQogICAgLy9jb2RlLi4uDQoJdnByaW50Zl9zKCIlZCIsdik7DQogICAgdmFfZW5kKHYpOw0KDQp9DQoNCg0KDQoNCg0K",
+          "hashes": [
+            {
+              "value": "BDD08EE9F7AD52D72D87A8194A794DC9",
+              "algorithm": "md5"
+            },
+            {
+              "value": "6CA86687BE2559D56D0C42A2FEC4CFC4BBBF4E7A",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "9DE8CFF1A88D506FC918A34741B7C8AF3BEAB9C06617BE5A9F2599002444B017",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6273",
+          "message": "Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "fd",
+              "decoratedName": "?fd@@YAXHZZ",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "6306",
+          "message": "Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "fd",
+              "decoratedName": "?fd@@YAXHZZ",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

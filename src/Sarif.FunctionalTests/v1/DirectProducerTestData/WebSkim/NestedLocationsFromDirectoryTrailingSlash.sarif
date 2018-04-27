@@ -1,0 +1,3792 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "9bf05f6d-e135-4363-a23e-04dacaea4efc",
+      "tool": {
+        "name": "ModernCop",
+        "fullName": "mod50 7.0.7000.0",
+        "version": "7.0.7000.0",
+        "semanticVersion": "7.0.7000",
+        "fileVersion": "7.0.20811.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft Corporation"
+        }
+      },
+      "results": [
+        {
+          "ruleKey": "M1003.DoNotShipObfuscatedCode",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 10,
+                  "endColumn": 12,
+                  "offset": 9,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 18,
+                  "offset": 17
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 6,
+                  "offset": 5
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 22,
+                  "endColumn": 24,
+                  "offset": 21,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 30,
+                  "offset": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 18,
+                  "offset": 17
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 34,
+                  "endColumn": 36,
+                  "offset": 33,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 42,
+                  "offset": 41
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 30,
+                  "offset": 29
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 46,
+                  "endColumn": 48,
+                  "offset": 45,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 54,
+                  "offset": 53
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 42,
+                  "offset": 41
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 58,
+                  "endColumn": 60,
+                  "offset": 57,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 66,
+                  "offset": 65
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 54,
+                  "offset": 53
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 70,
+                  "endColumn": 72,
+                  "offset": 69,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 78,
+                  "offset": 77
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 66,
+                  "offset": 65
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 82,
+                  "endColumn": 84,
+                  "offset": 81,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 90,
+                  "offset": 89
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 78,
+                  "offset": 77
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 94,
+                  "endColumn": 96,
+                  "offset": 93,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 102,
+                  "offset": 101
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 90,
+                  "offset": 89
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 106,
+                  "endColumn": 108,
+                  "offset": 105,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 114,
+                  "offset": 113
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 102,
+                  "offset": 101
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 118,
+                  "endColumn": 120,
+                  "offset": 117,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 126,
+                  "offset": 125
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 114,
+                  "offset": 113
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 130,
+                  "endColumn": 132,
+                  "offset": 129,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 138,
+                  "offset": 137
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 126,
+                  "offset": 125
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 142,
+                  "endColumn": 144,
+                  "offset": 141,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 150,
+                  "offset": 149
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 138,
+                  "offset": 137
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 154,
+                  "endColumn": 156,
+                  "offset": 153,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 162,
+                  "offset": 161
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 150,
+                  "offset": 149
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 166,
+                  "endColumn": 168,
+                  "offset": 165,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 174,
+                  "offset": 173
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 162,
+                  "offset": 161
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 178,
+                  "endColumn": 180,
+                  "offset": 177,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 186,
+                  "offset": 185
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 174,
+                  "offset": 173
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 190,
+                  "endColumn": 192,
+                  "offset": 189,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 198,
+                  "offset": 197
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 186,
+                  "offset": 185
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 202,
+                  "endColumn": 204,
+                  "offset": 201,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 210,
+                  "offset": 209
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 198,
+                  "offset": 197
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 214,
+                  "endColumn": 216,
+                  "offset": 213,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 222,
+                  "offset": 221
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 210,
+                  "offset": 209
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 226,
+                  "endColumn": 228,
+                  "offset": 225,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 234,
+                  "offset": 233
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 222,
+                  "offset": 221
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 238,
+                  "endColumn": 240,
+                  "offset": 237,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 246,
+                  "offset": 245
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 234,
+                  "offset": 233
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 250,
+                  "endColumn": 252,
+                  "offset": 249,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 258,
+                  "offset": 257
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 246,
+                  "offset": 245
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 262,
+                  "endColumn": 264,
+                  "offset": 261,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 270,
+                  "offset": 269
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 258,
+                  "offset": 257
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 274,
+                  "endColumn": 276,
+                  "offset": 273,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 282,
+                  "offset": 281
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 270,
+                  "offset": 269
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 286,
+                  "endColumn": 288,
+                  "offset": 285,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 294,
+                  "offset": 293
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 282,
+                  "offset": 281
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 298,
+                  "endColumn": 300,
+                  "offset": 297,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 306,
+                  "offset": 305
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 294,
+                  "offset": 293
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 310,
+                  "endColumn": 312,
+                  "offset": 309,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 318,
+                  "offset": 317
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 306,
+                  "offset": 305
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 322,
+                  "endColumn": 324,
+                  "offset": 321,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 330,
+                  "offset": 329
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 318,
+                  "offset": 317
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 334,
+                  "endColumn": 336,
+                  "offset": 333,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 342,
+                  "offset": 341
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 330,
+                  "offset": 329
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 346,
+                  "endColumn": 348,
+                  "offset": 345,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 354,
+                  "offset": 353
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 342,
+                  "offset": 341
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 358,
+                  "endColumn": 360,
+                  "offset": 357,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 366,
+                  "offset": 365
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 354,
+                  "offset": 353
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 370,
+                  "endColumn": 372,
+                  "offset": 369,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 378,
+                  "offset": 377
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 366,
+                  "offset": 365
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 382,
+                  "endColumn": 384,
+                  "offset": 381,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 390,
+                  "offset": 389
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 378,
+                  "offset": 377
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 394,
+                  "endColumn": 396,
+                  "offset": 393,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 402,
+                  "offset": 401
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 390,
+                  "offset": 389
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 406,
+                  "endColumn": 408,
+                  "offset": 405,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 414,
+                  "offset": 413
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 402,
+                  "offset": 401
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 418,
+                  "endColumn": 420,
+                  "offset": 417,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 426,
+                  "offset": 425
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 414,
+                  "offset": 413
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 430,
+                  "endColumn": 432,
+                  "offset": 429,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 438,
+                  "offset": 437
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 426,
+                  "offset": 425
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 442,
+                  "endColumn": 444,
+                  "offset": 441,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 450,
+                  "offset": 449
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 438,
+                  "offset": 437
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 454,
+                  "endColumn": 456,
+                  "offset": 453,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 462,
+                  "offset": 461
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 450,
+                  "offset": 449
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 466,
+                  "endColumn": 468,
+                  "offset": 465,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 474,
+                  "offset": 473
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 462,
+                  "offset": 461
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 478,
+                  "endColumn": 480,
+                  "offset": 477,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 486,
+                  "offset": 485
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 474,
+                  "offset": 473
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 490,
+                  "endColumn": 492,
+                  "offset": 489,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 498,
+                  "offset": 497
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 486,
+                  "offset": 485
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 502,
+                  "endColumn": 504,
+                  "offset": 501,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 510,
+                  "offset": 509
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 498,
+                  "offset": 497
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 514,
+                  "endColumn": 516,
+                  "offset": 513,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 522,
+                  "offset": 521
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 510,
+                  "offset": 509
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 526,
+                  "endColumn": 528,
+                  "offset": 525,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 534,
+                  "offset": 533
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 522,
+                  "offset": 521
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 538,
+                  "endColumn": 540,
+                  "offset": 537,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 546,
+                  "offset": 545
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 534,
+                  "offset": 533
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 550,
+                  "endColumn": 552,
+                  "offset": 549,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 558,
+                  "offset": 557
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 546,
+                  "offset": 545
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 562,
+                  "endColumn": 564,
+                  "offset": 561,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 570,
+                  "offset": 569
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 558,
+                  "offset": 557
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 574,
+                  "endColumn": 576,
+                  "offset": 573,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 582,
+                  "offset": 581
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 570,
+                  "offset": 569
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 586,
+                  "endColumn": 588,
+                  "offset": 585,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 594,
+                  "offset": 593
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 582,
+                  "offset": 581
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 598,
+                  "endColumn": 600,
+                  "offset": 597,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 606,
+                  "offset": 605
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 594,
+                  "offset": 593
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 610,
+                  "endColumn": 612,
+                  "offset": 609,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 618,
+                  "offset": 617
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 606,
+                  "offset": 605
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 622,
+                  "endColumn": 624,
+                  "offset": 621,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 630,
+                  "offset": 629
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 618,
+                  "offset": 617
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 634,
+                  "endColumn": 636,
+                  "offset": 633,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 642,
+                  "offset": 641
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 630,
+                  "offset": 629
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 646,
+                  "endColumn": 648,
+                  "offset": 645,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 654,
+                  "offset": 653
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 642,
+                  "offset": 641
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 658,
+                  "endColumn": 660,
+                  "offset": 657,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 666,
+                  "offset": 665
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 654,
+                  "offset": 653
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 670,
+                  "endColumn": 672,
+                  "offset": 669,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 678,
+                  "offset": 677
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 666,
+                  "offset": 665
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 682,
+                  "endColumn": 684,
+                  "offset": 681,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 690,
+                  "offset": 689
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 678,
+                  "offset": 677
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 694,
+                  "endColumn": 696,
+                  "offset": 693,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 702,
+                  "offset": 701
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 690,
+                  "offset": 689
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 706,
+                  "endColumn": 708,
+                  "offset": 705,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "apple",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 714,
+                  "offset": 713
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 702,
+                  "offset": 701
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2021.SeparateBinaryOperatorArgumentsWithSpaces",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 718,
+                  "endColumn": 720,
+                  "offset": 717,
+                  "length": 2
+                }
+              }
+            }
+          ],
+          "snippet": "var apple=2"
+        },
+        {
+          "ruleKey": "JS1003.SemanticAnalysisHalted",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS2027.PunctuateCommentsCorrectly",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 49,
+                  "length": 128
+                }
+              }
+            }
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+        },
+        {
+          "ruleKey": "JS2073.CommentIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "microsoft",
+              "http://go.microsoft.com/fwlink/?LinkId=232509"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 7,
+                  "endColumn": 16,
+                  "offset": 173,
+                  "length": 9
+                }
+              }
+            }
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+        },
+        {
+          "ruleKey": "JS2073.CommentIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "fwlink",
+              "http://go.microsoft.com/fwlink/?LinkId=232509"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 21,
+                  "endColumn": 27,
+                  "offset": 187,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "// For an introduction to the Blank template, see the following documentation:\r\n// http://go.microsoft.com/fwlink/?LinkId=232509"
+        },
+        {
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 22,
+                  "endColumn": 6,
+                  "offset": 339,
+                  "length": 557
+                }
+              }
+            }
+          ],
+          "snippet": "function (args) {\r\n        if (args.detail.kind === activation.ActivationKind.launch) {\r\n            if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }\r\n            args.setPromise(WinJS.UI.processAll());\r\n        }\r\n    }"
+        },
+        {
+          "ruleKey": "JS2045.ReviewEmptyBlocks",
+          "level": "warning",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 13,
+                  "endLine": 19,
+                  "endColumn": 14,
+                  "offset": 440,
+                  "length": 385
+                }
+              }
+            }
+          ],
+          "snippet": "if (args.detail.previousExecutionState !== activation.ApplicationExecutionState.terminated) {\r\n                // TODO: This application has been newly launched. Initialize\r\n                // your application here.\r\n            } else {\r\n                // TODO: This application has been reactivated from suspension.\r\n                // Restore application state here.\r\n            }"
+        },
+        {
+          "ruleKey": "JS2074.IdentifierNameIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "args",
+              "parameter",
+              "args"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 24,
+                  "endLine": 31,
+                  "endColumn": 6,
+                  "offset": 924,
+                  "length": 437
+                }
+              }
+            }
+          ],
+          "snippet": "function (args) {\r\n        // TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise().\r\n    }"
+        },
+        {
+          "ruleKey": "JS2073.CommentIsMisspelled",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "args",
+              "args.setPromise()."
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 328,
+                  "endColumn": 332,
+                  "offset": 1718,
+                  "length": 4
+                }
+              }
+            }
+          ],
+          "snippet": "// TODO: This application is about to be suspended. Save any state\r\n        // that needs to persist across suspensions here. You might use the\r\n        // WinJS.Application.sessionState object, which is automatically\r\n        // saved and restored across suspension. If you need to complete an\r\n        // asynchronous operation before your application is suspended, call\r\n        // args.setPromise()."
+        }
+      ],
+      "files": {
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/": {
+          "mimeType": "application/x-directory"
+        },
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/minified.js": {
+          "uri": "js/minified.js",
+          "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/",
+          "mimeType": "text/javascript"
+        },
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/#js/default.js": {
+          "uri": "js/default.js",
+          "parentKey": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_PackageRules/MinificationRuleApp/",
+          "mimeType": "text/javascript"
+        }
+      },
+      "rules": {
+        "M1003.DoNotShipObfuscatedCode": {
+          "id": "M1003",
+          "name": "DoNotShipObfuscatedCode",
+          "shortDescription": "Do not ship obfuscated or minified code.",
+          "messageFormats": {
+            "Default": "Do not ship obfuscated or minified code."
+          },
+          "properties": {
+            "tags": ["appx","sdl"]
+          }
+        },
+        "JS2021.SeparateBinaryOperatorArgumentsWithSpaces": {
+          "id": "JS2021",
+          "name": "SeparateBinaryOperatorArgumentsWithSpaces",
+          "shortDescription": "Binary and ternary operators should be separated from operands with spaces.",
+          "messageFormats": {
+            "Default": "All binary and ternary operators (with the exception of the '.' operator) should be separated from operands with spaces."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
+        },
+        "JS3085.VariableDeclaredMultipleTimes": {
+          "id": "JS3085",
+          "name": "VariableDeclaredMultipleTimes",
+          "shortDescription": "Do not declare multiple variables with an identical name in the same scope.",
+          "messageFormats": {
+            "Default": "Variable '{0}' was previously defined in this scope. {1}"
+          },
+          "properties": {
+            "tags": ["js","semantic"]
+          }
+        },
+        "JS1003.SemanticAnalysisHalted": {
+          "id": "JS1003",
+          "name": "SemanticAnalysisHalted",
+          "shortDescription": "Semantic analysis halted unexpectedly due to errors processing target or reference files.",
+          "messageFormats": {
+            "Default": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
+          },
+          "properties": {
+            "tags": ["js","semantic"]
+          }
+        },
+        "JS2027.PunctuateCommentsCorrectly": {
+          "id": "JS2027",
+          "name": "PunctuateCommentsCorrectly",
+          "shortDescription": "Provide punctuation at the ends of sentences for multiline comments.",
+          "messageFormats": {
+            "Default": "Provide punctuation at the ends of sentences for multiline comments.  If this block is commented code, use '////' to open the comment line."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
+        },
+        "JS2073.CommentIsMisspelled": {
+          "id": "JS2073",
+          "name": "CommentIsMisspelled",
+          "shortDescription": "Review text for possible misspelling.",
+          "messageFormats": {
+            "Default": "The term '{0}' found in comment text '{1}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment. If this is a reference to a DOM or other api which can’t be recased, wrap the term in apostrophes to resolve the warning, e.g., 'onmouseover'."
+          },
+          "properties": {
+            "tags": ["spelling","js"]
+          }
+        },
+        "JS2074.IdentifierNameIsMisspelled": {
+          "id": "JS2074",
+          "name": "IdentifierNameIsMisspelled",
+          "shortDescription": "Review identifier name for possible misspelling.",
+          "messageFormats": {
+            "Default": "The term '{0}' in {1} name '{2}' is not recognized. Correct the misspelling, if it is one, provide an alternate term, or add the term to the custom dictionary or as an in-source comment."
+          },
+          "properties": {
+            "tags": ["spelling","js"]
+          }
+        },
+        "JS2045.ReviewEmptyBlocks": {
+          "id": "JS2045",
+          "name": "ReviewEmptyBlocks",
+          "shortDescription": "Review empty blocks for correctness issues.",
+          "messageFormats": {
+            "Default": "Review empty blocks for correctness issues."
+          },
+          "properties": {
+            "tags": ["js"]
+          }
+        }
+      },
+      "invocation": {
+        "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /appx d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\MinificationRuleApp /out .\\NestedLocationsFromDirectoryTrailingSlash.sarif",
+        "startTime": "2016-05-25T07:24:40.729Z",
+        "endTime": "2016-05-25T07:24:42.353Z",
+        "processId": 12208,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml": {
+          "mimeType": "text/xml"
+        }
+      },
+      "logicalLocations": {
+        "android20140909": {
+          "name": "android20140909",
+          "kind": "module"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Android Resources Validation",
+          "message": "Cannot resolve symbol'android:textColor'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "build/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/res/values/wallet_styles.xml",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "android20140909"
+            }
+          ],
+          "properties": {
+            "severity": "ERROR",
+            "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

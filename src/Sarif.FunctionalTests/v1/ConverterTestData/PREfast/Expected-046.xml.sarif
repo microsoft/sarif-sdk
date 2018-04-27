@@ -1,0 +1,289 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test046.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26024",
+          "message": "Cast cannot be proven safe: \"(struct S1 *)p\" Accessing 12 bytes starting at byte offset 0\n\nValues of variables:\nPointer p is at offset offset(p)`13 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test046.cpp",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXQBUS@@@Z",
+              "properties": {
+                "funcline": "13"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 13,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 15,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* (p ++)'\nBuffer p is a parameter to this function declared on line 18\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(p)`18 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test046.cpp(18)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(p)`18 == 0\n{loop iterations}'19 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test046.cpp",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f1",
+              "decoratedName": "?f1@@YAXPBD@Z",
+              "properties": {
+                "funcline": "18"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 18,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 19,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* (p ++)'\nBuffer p is a parameter to this function declared on line 23\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(p)`23 + 2 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test046.cpp(23)]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer p is at offset 4 bytes from the start of the buffer\n\nwhere\noffset(p)`23 == 0\n{loop iterations}'24 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test046.cpp",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f2",
+              "decoratedName": "?f2@@YAXPBG@Z",
+              "properties": {
+                "funcline": "23"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 23,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 24,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* (p ++)'\nBuffer p is a parameter to this function declared on line 28\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(p)`28 + 2 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test046.cpp(28)]\nAccessing 2 bytes starting at byte offset 2\n\nValues of variables:\nPointer p is at offset 4 bytes from the start of the buffer\n\nwhere\noffset(p)`28 == 0\n{loop iterations}'29 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test046.cpp",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f3",
+              "decoratedName": "?f3@@YAXPBG@Z",
+              "properties": {
+                "funcline": "28"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 28,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 29,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26007",
+          "message": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* (p ++)'\nBuffer p is a parameter to this function declared on line 38\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(p)`38 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test046.cpp(38)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(p)`38 == 0\n{loop iterations}'39 == 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test046.cpp",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "f4",
+              "decoratedName": "?f4@@YAXPBE@Z",
+              "properties": {
+                "funcline": "38"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test046.cpp",
+                    "region": {
+                      "startLine": 39,
+                      "startColumn": 12
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

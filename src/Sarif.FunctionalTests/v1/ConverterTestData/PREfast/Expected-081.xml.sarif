@@ -1,0 +1,333 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test081.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'a[19 - x]'\nBuffer accessed is a\nBuffer is of length 10 bytes [size of variable]\nAccessing the byte at byte offset  - x`63 + 19\n\nValues of variables:\nx = x`63\n\nwhere\n10*x`63 <= y`63\nx`63 <= 19\nx`63 >= 0\ny`63 <= 99\ny`63 >= 0\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test081.cpp",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "f",
+              "decoratedName": "?f@@YAXII@Z",
+              "properties": {
+                "funcline": "63"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 63,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 65,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 66,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 67,
+                      "startColumn": 15
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '(const signed char *)(glob.p)'\nAccessing unannotated buffer glob.S::p\nAnnotation on function strlen requires that {parameter 1} is null terminated\n  where {parameter 1} is (const signed char *)(glob.p) [Annotation _Null_terminated(0)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test081.cpp",
+                "region": {
+                  "startLine": 121,
+                  "startColumn": 65
+                }
+              },
+              "fullyQualifiedLogicalName": "TestSafeInt",
+              "decoratedName": "?TestSafeInt@@YAXII@Z",
+              "properties": {
+                "funcline": "112"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 112,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 114,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 115,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 37
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 47
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 119,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 121,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 121,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 121,
+                      "startColumn": 65
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'a66[(int )i / 992]'\nBuffer accessed is a66\nBuffer is of length 66 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset {(int )i / 992}`157\n\nValues of variables:\ni = i`155\n\nwhere\ni`155 == 992*{(int )i / 992}`157 + {(i`155) % 992}`157\ni`155 >= 0\n{(i`155) % 992}`157 <= 991\n{(i`155) % 992}`157 >= 0\n\nOverrun access occurs when\n{(int )i / 992}`157 >= 66\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test081.cpp",
+                "region": {
+                  "startLine": 157,
+                  "startColumn": 16
+                }
+              },
+              "fullyQualifiedLogicalName": "R16_c",
+              "decoratedName": "?R16_c@@YAXG@Z",
+              "properties": {
+                "funcline": "155"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 155,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 157,
+                      "startColumn": 16
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26017",
+          "message": "Potential overflow using expression 'a66[(32768 + (int )i) / 992]'\nBuffer accessed is a66\nBuffer is of length 66 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset {(32768 + (int )i) / 992}`172\n\nValues of variables:\ni = i`170\n\nwhere\ni`170 + 32768 == 992*{(32768 + (int )i) / 992}`172 + {(i`170 + 32768) % 992}`172\n{(i`170 + 32768) % 992}`172 <= 991\n{(i`170 + 32768) % 992}`172 >= 0\n\nOverrun access occurs when\n{(32768 + (int )i) / 992}`172 >= 66\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test081.cpp",
+                "region": {
+                  "startLine": 172,
+                  "startColumn": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "R16_f",
+              "decoratedName": "?R16_f@@YAXF@Z",
+              "properties": {
+                "funcline": "170"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 170,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test081.cpp",
+                    "region": {
+                      "startLine": 172,
+                      "startColumn": 24
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

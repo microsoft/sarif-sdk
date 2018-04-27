@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>6</LINE><COLUMN>23</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'start[end - start]'
+PREFAST_NEWLINE
+Buffer start is a parameter to this function declared on line 4
+PREFAST_NEWLINE
+Buffer is of length offset(start)`4 + 4*{(offset(end)`4) / 4}`4 bytes [from annotation SAL_writableTo(elementCount(end - start)) at c:\somepath\test057.cpp(4)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*{(offset(end)`4) / 4}`4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer end is at offset offset(end)`4 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer start is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(start)`4 == 0
+PREFAST_NEWLINE
+{(offset(end)`4 - offset(start)`4) % 4}`4 == 0
+PREFAST_NEWLINE
+offset(start)`4 + 4*{(offset(end)`4) / 4}`4 + {(offset(end)`4 - offset(start)`4) % 4}`4 == offset(end)`4
+PREFAST_NEWLINE
+{(offset(end)`4) / 4}`4 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestPtrDiff1</FUNCTION><DECORATED>?TestPtrDiff1@@YAXPAH0@Z</DECORATED><FUNCLINE>4</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>4</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>6</LINE><COLUMN>23</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>18</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; a'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 11 elements (4 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function TestPtrDiff1 requires that {parameter 1} is of length &gt;= {parameter 2} - {parameter 1} elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; a; {parameter 2} is &amp; a + 11; {parameter 1} is &amp; a
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2} - {parameter 1})) at c:\somepath\test057.cpp(4)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad</FUNCTION><DECORATED>?Bad@@YAXXZ</DECORATED><FUNCLINE>15</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>15</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>17</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>18</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>34</LINE><COLUMN>13</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '* (start ++)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer start is a parameter to this function declared on line 31
+PREFAST_NEWLINE
+Buffer is of length offset(end)`31 bytes [from annotation SAL_writableTo(elementCount(end - start)) at c:\somepath\test057.cpp(31)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer start is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(start)`31 == 0
+PREFAST_NEWLINE
+offset(end)`31 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+offset(end)`31 == 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow using expression '* (start ++)' at line 35
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestPtrDiffChar2</FUNCTION><DECORATED>?TestPtrDiffChar2@@YAXPAD0@Z</DECORATED><FUNCLINE>31</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>31</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>33</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>34</LINE><COLUMN>13</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>72</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '* (ptr ++)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer start is a parameter to this function declared on line 64
+PREFAST_NEWLINE
+Buffer is of length offset(end)`64 bytes [from annotation SAL_writableTo(elementCount(end - start)) at c:\somepath\test057.cpp(64)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer ptr is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(start)`64 == 0
+PREFAST_NEWLINE
+{loop iterations}'67 == 0
+PREFAST_NEWLINE
+offset(end)`64 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+offset(end)`64 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Read</FUNCTION><DECORATED>?Read@@YAXPAD0PAPAD@Z</DECORATED><FUNCLINE>64</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>64</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>66</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>66</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>67</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>70</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>72</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>67</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>69</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>70</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>72</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>95</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '* p'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer start is a parameter to this function declared on line 92
+PREFAST_NEWLINE
+Buffer is of length offset(start)`92 + 4*{(offset(end)`92) / 4}`92 bytes [from annotation SAL_writableTo(elementCount(end - start)) at c:\somepath\test057.cpp(92)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 4 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(start)`92 == 0
+PREFAST_NEWLINE
+{(offset(end)`92 - offset(start)`92) % 4}`92 == 0
+PREFAST_NEWLINE
+{loop iterations}'94 == 0
+PREFAST_NEWLINE
+offset(start)`92 + 4*{(offset(end)`92) / 4}`92 + {(offset(end)`92 - offset(start)`92) % 4}`92 + 4*{loop iterations}'94 == offset(end)`92
+PREFAST_NEWLINE
+offset(start)`92 + 4*{(offset(end)`92) / 4}`92 + {(offset(end)`92 - offset(start)`92) % 4}`92 == offset(end)`92
+PREFAST_NEWLINE
+offset(end)`92 &gt;= 4
+PREFAST_NEWLINE
+{(offset(end)`92) / 4}`92 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+offset(end)`92 == 4
+PREFAST_NEWLINE
+{(offset(end)`92) / 4}`92 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>PtrDiffIntBad</FUNCTION><DECORATED>?PtrDiffIntBad@@YAXPAH0@Z</DECORATED><FUNCLINE>92</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>92</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>94</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>94</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>94</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>95</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>94</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>94</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test057.cpp</FILENAME><LINE>95</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "id": "4611757c-5a6d-4323-a41f-b9d2cd2a41f6",
+      "tool": {
+        "name": "ModernCop",
+        "fullName": "mod50 7.0.7000.0",
+        "version": "7.0.7000.0",
+        "semanticVersion": "7.0.7000",
+        "fileVersion": "7.0.20811.0",
+        "language": "en-US",
+        "properties": {
+          "CompanyName": "Microsoft Corporation"
+        }
+      },
+      "results": [
+        {
+          "ruleKey": "JS2085.EnableStrictMode",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "Strict mode was not set for at least one function in this file. Consider resolving using this violation by using the JavaScript module pattern to wrap all code contained in the file within a function expression. Enable strict mode as the first statement of the containing function. To disable enforcement of the module pattern and permit setting strict mode at global file level, pass /setting:JS2085.EnableStrictMode.EnforceModulePattern=false on the command-line."
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 46,
+                  "endLine": 6,
+                  "endColumn": 2,
+                  "offset": 45,
+                  "length": 108
+                }
+              }
+            }
+          ],
+          "snippet": "function () {\r\n    var $$JS3085 = 1;\r\n    var $$JS3116 = 1;\r\n    var repeated = 5;\r\n    var repeated = 6;\r\n}"
+        },
+        {
+          "ruleKey": "JS3085.VariableDeclaredMultipleTimes",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default",
+            "arguments": [
+              "repeated",
+              ""
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 10,
+                  "offset": 138
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 10,
+                  "offset": 115
+                }
+              },
+              "message": "The previous declaration was here."
+            }
+          ]
+        },
+        {
+          "ruleKey": "JS1003.SemanticAnalysisHalted",
+          "level": "error",
+          "formattedRuleMessage": {
+            "formatId": "Default"
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js",
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///d:/src/SecDevTools/Main/src/ModernCop/Source/WebRules.Test.Unit/ModernCopTestData/WebRules_JavaScriptRules/Semantic/VariableDeclaredMultipleTimes.js": {
+          "mimeType": "text/javascript"
+        }
+      },
+      "rules": {
+        "JS2085.EnableStrictMode": {
+          "id": "JS2085",
+          "name": "EnableStrictMode",
+          "shortDescription": "Always enable strict mode when possible.",
+          "messageFormats": {
+            "Default": "Code should run in strict mode wherever possible. {0}"
+          },
+          "properties": {
+            "tags": ["js","sdl"]
+          }
+        },
+        "JS3085.VariableDeclaredMultipleTimes": {
+          "id": "JS3085",
+          "name": "VariableDeclaredMultipleTimes",
+          "shortDescription": "Do not declare multiple variables with an identical name in the same scope.",
+          "messageFormats": {
+            "Default": "Variable '{0}' was previously defined in this scope. {1}"
+          },
+          "properties": {
+            "tags": ["js","semantic"]
+          }
+        },
+        "JS1003.SemanticAnalysisHalted": {
+          "id": "JS1003",
+          "name": "SemanticAnalysisHalted",
+          "shortDescription": "Semantic analysis halted unexpectedly due to errors processing target or reference files.",
+          "messageFormats": {
+            "Default": "Semantic analysis halted unexpectedly due to errors processing target or reference files."
+          },
+          "properties": {
+            "tags": ["js","semantic"]
+          }
+        }
+      },
+      "invocation": {
+        "commandLine": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe  analyze /file d:\\src\\SecDevTools\\Main\\src\\ModernCop\\Source\\WebRules.Test.Unit\\ModernCopTestData\\WebRules_PackageRules\\..\\WebRules_JavaScriptRules\\Semantic\\VariableDeclaredMultipleTimes.js /out .\\RelatedLocations.sarif",
+        "startTime": "2016-05-25T07:24:34.908Z",
+        "endTime": "2016-05-25T07:24:36.459Z",
+        "processId": 20888,
+        "fileName": "D:\\src\\SecDevTools\\Main\\bin\\x64\\Debug\\ModernCop\\mod50.exe",
+        "workingDirectory": "d:\\src\\sarif-sdk\\src\\Sarif.FunctionalTests\\DirectProducerTestData\\WebSkim"
+      }
+    }
+  ]
+}

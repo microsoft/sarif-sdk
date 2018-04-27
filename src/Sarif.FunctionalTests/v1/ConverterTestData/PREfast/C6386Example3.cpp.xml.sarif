@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": "dm9pZCBDNjM4Nl9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzRdOw0KICAgZm9yKGk7IGkgPCA0OyBpKyspDQogICB7DQogICAgICBhW2ldID0gJ2EnOw0KICAgfQ0KICAgICAgYVtpXSA9ICdcMCc7DQp9DQo=",
+          "hashes": [
+            {
+              "value": "A5DBB1B172BD8FC74C817CB4CA60FCF6",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3A9EFC1D1C06DB184060F9D0FAFB7B329EA3649A",
+              "algorithm": "sha1"
+            },
+            {
+              "value": "C204551191A2CF82CC9EA2482ED36A395A438A828411D6CEF3385BAD46F12C8B",
+              "algorithm": "sha256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": "Buffer overrun while writing to 'a':  the writable size is '4' bytes, but 'i' bytes might be written.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "C6386_Example",
+              "decoratedName": "?C6386_Example@@YAXH@Z",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp",
+                    "region": {
+                      "startLine": 3,
+                      "startColumn": 9
+                    }
+                  },
+                  "message": "'a' is an array of 4 elements (4 bytes)",
+                  "kind": "declaration",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "1"
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 8
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp",
+                    "region": {
+                      "startLine": 4,
+                      "startColumn": 13
+                    }
+                  },
+                  "importance": "unimportant"
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp",
+                    "region": {
+                      "startLine": 8,
+                      "startColumn": 12
+                    }
+                  },
+                  "message": "Invalid write to 'a[4]', (writable range is 0 to 3)",
+                  "kind": "usage",
+                  "importance": "essential",
+                  "properties": {
+                    "keyEventId": "2"
+                  }
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

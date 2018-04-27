@@ -1,0 +1,1998 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "gradle.properties": {
+          "mimeType": "text/x-java-properties"
+        },
+        "gradle/wrapper/gradle-wrapper.properties": {
+          "mimeType": "text/x-java-properties"
+        },
+        "gradlew": {
+          "mimeType": "application/octet-stream"
+        },
+        "gradlew.bat": {
+          "mimeType": "text/x-bat"
+        },
+        "app/build.gradle": {
+          "mimeType": "application/octet-stream"
+        },
+        "app/src/main/AndroidManifest.xml": {
+          "mimeType": "text/xml"
+        },
+        "app/src/main/res/values-w820dp/dimens.xml": {
+          "mimeType": "text/xml"
+        },
+        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
+          "mimeType": "text/x-java-source"
+        }
+      },
+      "logicalLocations": {
+        "AndroidStudioFormatExample": {
+          "name": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "app": {
+          "name": "app",
+          "kind": "module"
+        },
+        "app\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'userguide'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'jvmargs'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Dfile'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'userguide'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'dists'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 3
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'dists'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 30
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'msys'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 31
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'uname'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 33
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'CYGWIN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 34
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 35
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'MINGW'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 40
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'msys'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 41
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'esac'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 43
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 45
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 46
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 47
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'dirname'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 60
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'dirname'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 64
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'executables'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 73
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'JAVACMD'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 74
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'JAVACMD'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 76
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'JAVACMD'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 78
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'JAVACMD'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 85
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 93
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ulimit'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 94
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ulimit'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 99
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Xdock'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 110
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'icns'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 110
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 113
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygwin'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 114
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 115
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 116
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 118
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ROOTDIRSRAW'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 119
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'maxdepth'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 119
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'mindepth'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 119
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ROOTDIRSRAW'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 121
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ROOTDIRS'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 122
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'OURCYGPATTERN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 125
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ROOTDIRS'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 125
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 126
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'CYGPATTERN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 127
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'OURCYGPATTERN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 128
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'CYGPATTERN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 128
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'egrep'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 133
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'OURCYGPATTERN'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 133
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'egrep'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 134
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'eval'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 137
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'cygpath'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 137
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'eval'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 139
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'esac'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 154
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'eval'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 161
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Dorg'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 162
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'appname'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 162
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'JAVACMD'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 164
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'setlocal'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'DIRNAME'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'DIRNAME'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'DIRNAME'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 17
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ERRORLEVEL'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 24
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 32
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 38
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 46
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Windowz'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 49
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 51
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'eval'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 52
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 52
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 60
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 63
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'Dorg'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 75
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'appname'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 75
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'ERRORLEVEL'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 79
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'goto'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 79
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'endlocal'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradlew.bat",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 88
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'androidstudioformatexample'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "app/build.gradle",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "app"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'androidstudioformatexample'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "app/src/main/AndroidManifest.xml",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 3
+                }
+              },
+              "fullyQualifiedLogicalName": "app"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'dimens'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "app"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": "Typo: In word 'daknis'",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 4
+                }
+              },
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        }
+      ]
+    }
+  ]
+}

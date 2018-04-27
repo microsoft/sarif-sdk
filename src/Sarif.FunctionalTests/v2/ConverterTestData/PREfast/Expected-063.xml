@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>18</LINE><COLUMN>27</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'rgdwIpAddresses[i]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer rgdwIpAddresses is a parameter to this function declared on line 8
+PREFAST_NEWLINE
+Buffer is of length offset(rgdwIpAddresses)`8 + 4*(*pcIpAddresses)`8 bytes [from annotation SAL_writableTo(elementCount(* pcIpAddresses)) at c:\somepath\test063.cpp(8)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer rgdwIpAddresses is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+i = 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(rgdwIpAddresses)`8 == 0
+PREFAST_NEWLINE
+{loop iterations}'14 == 0
+PREFAST_NEWLINE
+(*pcIpAddresses)`8 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(*pcIpAddresses)`8 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>FindARecord</FUNCTION><DECORATED>?FindARecord@@YAXPAGPAK1@Z</DECORATED><FUNCLINE>8</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>8</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>13</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>13</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>14</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>15</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>18</LINE><COLUMN>27</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>19</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>20</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>14</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>15</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test063.cpp</FILENAME><LINE>18</LINE><COLUMN>27</COLUMN></SFA></PATH></DEFECT></DEFECTS>

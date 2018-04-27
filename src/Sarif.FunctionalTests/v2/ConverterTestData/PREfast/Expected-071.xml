@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>9</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* q'
+PREFAST_NEWLINE
+Buffer q is a parameter to this function declared on line 7
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(q)`7 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test071.cpp(7)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer q is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(q)`7 == 0
+PREFAST_NEWLINE
+{loop iterations}'9 == 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 11
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 13
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPADIPBD@Z</DECORATED><FUNCLINE>7</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>7</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>9</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>9</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>11</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>16</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>9</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>9</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>21</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* q'
+PREFAST_NEWLINE
+Buffer q is a parameter to this function declared on line 21
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(q)`21 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test071.cpp(21)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer q is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(q)`21 == 0
+PREFAST_NEWLINE
+{loop iterations}'23 == 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 25
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 27
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f1</FUNCTION><DECORATED>?f1@@YAXPADIPBD@Z</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>21</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>25</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>30</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>21</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>27</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow using expression '* (p ++)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 21
+PREFAST_NEWLINE
+Buffer is of length offset(p)`21 + n`21 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\somepath\test071.cpp(21)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 2 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`21 == 0
+PREFAST_NEWLINE
+n`21 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+n`21 == 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f1</FUNCTION><DECORATED>?f1@@YAXPADIPBD@Z</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>21</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>25</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>27</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>28</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>30</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>23</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>25</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>27</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>38</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Read overflow using expression '* q'
+PREFAST_NEWLINE
+Buffer q is a parameter to this function declared on line 34
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __in annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(q)`34 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test071.cpp(34)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer q is at offset 1 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(q)`34 == 0
+PREFAST_NEWLINE
+{loop iterations}'38 == 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 40
+PREFAST_NEWLINE
+Possibly incorrect single element annotation on buffer at line 42
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f2</FUNCTION><DECORATED>?f2@@YAXPADIPBD@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>36</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>38</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>40</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>44</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>38</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>51</LINE><COLUMN>23</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential Underflow using expression 'buf[sizeInChars - 1]'
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 48
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`48 + size`48 bytes [from annotation SAL_writableTo(byteCount(size)) at c:\somepath\test071.cpp(48)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*{size / 2}`50 - 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+sizeInChars = {size / 2}`50
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`48 == 0
+PREFAST_NEWLINE
+size`48 == 2*{size / 2}`50 + {(size`48) % 2}`50
+PREFAST_NEWLINE
+size`48 &gt;= 1
+PREFAST_NEWLINE
+{(size`48) % 2}`50 &lt;= 1
+PREFAST_NEWLINE
+{(size`48) % 2}`50 &gt;= 0
+PREFAST_NEWLINE
+{size / 2}`50 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+2*{size / 2}`50 &lt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXPAGI@Z</DECORATED><FUNCLINE>48</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>48</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>50</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>50</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>51</LINE><COLUMN>23</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>70</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 70
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`70 + (*size)`70 bytes [from annotation SAL_writableTo(elementCount(* size)) at c:\somepath\test071.cpp(70)]
+PREFAST_NEWLINE
+Accessing (*size)`70 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function GetComputerName requires that buf is of length &gt;= * size + 1 elements (1 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(* size + 1)) at c:\somepath\test071.cpp(70)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*size) = (*size)`70
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`70 == 0
+PREFAST_NEWLINE
+(*size)`70 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>GetComputerName</FUNCTION><DECORATED>?GetComputerName@@YAXPADPAI@Z</DECORATED><FUNCLINE>70</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>70</LINE><COLUMN>5</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>110</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'buf[rtlStr.len - 1]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: rtlStr.RtlString::len`110 is not constrained by size`103
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 103
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\somepath\test071.cpp(103)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset rtlStr.RtlString::len`110 - 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+rtlStr.RtlString::len = rtlStr.RtlString::len`110
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`103 == 0
+PREFAST_NEWLINE
+size`103 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+rtlStr.RtlString::len`110 &gt;= size`103 + 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestFields</FUNCTION><DECORATED>?TestFields@@YAXPADHH@Z</DECORATED><FUNCLINE>103</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>103</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>105</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>106</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>107</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>108</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>110</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>110</LINE><COLUMN>22</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential Underflow using expression 'buf[rtlStr.len - 1]'
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 103
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\somepath\test071.cpp(103)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset rtlStr.RtlString::len`110 - 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+rtlStr.RtlString::len = rtlStr.RtlString::len`110
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+offset(buf)`103 == 0
+PREFAST_NEWLINE
+rtlStr.RtlString::len`110 &lt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential Underflow using expression 'buf[i]' at line 113
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>TestFields</FUNCTION><DECORATED>?TestFields@@YAXPADHH@Z</DECORATED><FUNCLINE>103</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>103</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>105</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>106</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>107</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>108</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>110</LINE><COLUMN>22</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>119</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(void *)buf'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: any constant is not constrained by (*pch)`116
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 116
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`116 + (*pch)`116 bytes [from annotation SAL_writableTo(elementCount(* pch)) at c:\somepath\test071.cpp(116)]
+PREFAST_NEWLINE
+Accessing 10 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)buf; {parameter 3} is 10
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`116 == 0
+PREFAST_NEWLINE
+(*pch)`116 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(*pch)`116 &lt;= 9
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPADPAI@Z</DECORATED><FUNCLINE>116</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>116</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>119</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>136</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'buf[cb / 2]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: {cb / 2}`136 is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (2 bytes/element) at element offset {cb / 2}`136
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+cb = cb`134a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+cb`134a == 2*{cb / 2}`136 + {(cb`134a) % 2}`136
+PREFAST_NEWLINE
+cb`134a &gt;= 0
+PREFAST_NEWLINE
+{(cb`134a) % 2}`136 &lt;= 1
+PREFAST_NEWLINE
+{(cb`134a) % 2}`136 &gt;= 0
+PREFAST_NEWLINE
+{cb / 2}`136 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{cb / 2}`136 &gt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Division</FUNCTION><DECORATED>?Division@@YAXXZ</DECORATED><FUNCLINE>128</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>128</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>130</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>132</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>132</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>134</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test071.cpp</FILENAME><LINE>136</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT></DEFECTS>

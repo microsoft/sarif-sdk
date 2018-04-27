@@ -6,13 +6,10 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.Sarif.Viewer.ErrorList;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Microsoft.Sarif.Viewer
 {

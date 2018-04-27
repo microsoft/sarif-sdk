@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "files": {
+        "gradle/wrapper/gradle-wrapper.properties": {
+          "mimeType": "text/x-java-properties"
+        },
+        "local.properties": {
+          "mimeType": "text/x-java-properties"
+        }
+      },
+      "logicalLocations": {
+        "AndroidStudioFormatExample": {
+          "name": "AndroidStudioFormatExample",
+          "kind": "module"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 3
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 4
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "gradle/wrapper/gradle-wrapper.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Unused Property",
+          "message": "Unused property",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "local.properties",
+                "uriBaseId": "$PROJECT_DIR$"
+              },
+              "resultFile": {
+                "uri": "local.properties",
+                "uriBaseId": "$PROJECT_DIR$",
+                "region": {
+                  "startLine": 10
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

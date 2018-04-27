@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio
 {
@@ -11,54 +12,44 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
     {
         internal static List<CallTreeNode> Convert(CodeFlow codeFlow)
         {
-            int currentCodeFlowIndex = -1;
+            var root = new CallTreeNode { Children = new List<CallTreeNode>() };
+            ThreadFlow threadFlow = codeFlow.ThreadFlows?[0];
 
-            return GetChildren(codeFlow, ref currentCodeFlowIndex, null);
-        }
-
-        private static List<CallTreeNode> GetChildren(CodeFlow codeFlow, ref int currentCodeFlowIndex, CallTreeNode parent)
-        {
-            currentCodeFlowIndex++;
-            List<CallTreeNode> children = new List<CallTreeNode>();
-            bool foundCallReturn = false;
-
-            while (currentCodeFlowIndex < codeFlow.Locations.Count && !foundCallReturn)
+            if (threadFlow != null)
             {
-                switch (codeFlow.Locations[currentCodeFlowIndex].Kind)
+                int lastNestingLevel = 0;
+                CallTreeNode lastParent = root;
+                CallTreeNode lastNewNode = null;
+
+                foreach (CodeFlowLocation location in threadFlow.Locations)
                 {
-                    case CodeFlowLocationKind.Call:
-                        var newNode = new CallTreeNode
-                        {
-                            Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Parent = parent
-                        };
-                        newNode.Children = GetChildren(codeFlow, ref currentCodeFlowIndex, newNode);
-                        children.Add(newNode);
-                        break;
+                    var newNode = new CallTreeNode
+                    {
+                        Location = location,
+                        Children = new List<CallTreeNode>()
+                    };
 
-                    case CodeFlowLocationKind.CallReturn:
-                        children.Add(new CallTreeNode
-                        {
-                            Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = new List<CallTreeNode>(),
-                            Parent = parent
-                        });
-                        foundCallReturn = true;
-                        break;
+                    if (location.NestingLevel > lastNestingLevel)
+                    {
+                        // The previous node was a call, so this new node's parent is that node
+                        lastParent = lastNewNode;
+                    }
+                    else if (location.NestingLevel < lastNestingLevel)
+                    {
+                        // The previous node was a return, so this new node's parent is the previous node's grandparent
+                        lastParent = lastNewNode.Parent.Parent;
+                    }
 
-                    default:
-                        children.Add(new CallTreeNode
-                        {
-                            Location = codeFlow.Locations[currentCodeFlowIndex],
-                            Children = new List<CallTreeNode>(),
-                            Parent = parent
-                        });
-                        currentCodeFlowIndex++;
-                        break;
+                    newNode.Parent = lastParent;
+                    lastParent.Children.Add(newNode);
+                    lastNewNode = newNode;
+                    lastNestingLevel = location.NestingLevel;
                 }
+
+                root.Children.ForEach(n => n.Parent = null);
             }
-            currentCodeFlowIndex++;
-            return children;
+
+            return root.Children;
         }
     }
 }

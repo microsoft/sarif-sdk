@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test203.cpp</FILENAME>
+      <LINE>22</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression 'a[6]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 5 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 6
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Overflow using expression 'a[6]' at line 28
+PREFAST_NEWLINE
+Overflow using expression 'a[6]' at line 41
+PREFAST_NEWLINE
+Overflow using expression 'a[6]' at line 48
+PREFAST_NEWLINE
+Overflow using expression 'a[6]' at line 54
+PREFAST_NEWLINE
+Overflow using expression 'a[6]' at line 67
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>ReproFunction</FUNCTION>
+    <DECORATED>?ReproFunction@@YAXXZ</DECORATED>
+    <FUNCLINE>1</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>1</LINE>
+        <COLUMN>18</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>3</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>5</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>5</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>7</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>8</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>13</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>14</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>19</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>20</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test203.cpp</FILENAME>
+        <LINE>22</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

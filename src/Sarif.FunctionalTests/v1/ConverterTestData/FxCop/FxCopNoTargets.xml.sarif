@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "FxCop"
+      },
+      "results": [
+        {
+          "ruleId": "CA0055",
+          "message": "AssemblyLoad exception: Microsoft.FxCop.Common.AssemblyLoadException: Could not load D:\\fxcop_wfrtotemp\\microsoft.systemcenter.online.moderndevicemanagement.services.cacheservice.devicestoreservice.dll. The following error was encountered while reading module 'mscorlib': Assembly reference cannot be resolved: System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a. . Inner Exception: Microsoft.FxCop.Sdk.InvalidMetadataException: The following error was encountered while reading module 'mscorlib': Assembly reference cannot be resolved: System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a.    at Microsoft.FxCop.Sdk.Reader.HandleError(ModuleNode mod, String errorMessage)\n   at Microsoft.FxCop.Sdk.Reader.GetAssemblyFromReference(AssemblyReference assemblyReference)\n   at Microsoft.FxCop.Sdk.AssemblyReference.get_Assembly()\n   at Microsoft.FxCop.Sdk.Reader.GetForwardedTypeFromName(Identifier Namespace, Identifier name)\n   at Microsoft.FxCop.Sdk.Reader.GetTypeFromName(Identifier Namespace, Identifier name)\n   at Microsoft.FxCop.Sdk.ModuleNode.GetType(Identifier namespace, Identifier name)\n   at Microsoft.FxCop.Sdk.CoreSystemTypes.GetTypeNodeFor(String nspace, String name, ElementType typeCode)\n   at Microsoft.FxCop.Sdk.CoreSystemTypes.Initialize(Boolean doNotLockFile, Boolean getDebugInfo)\n   at Microsoft.FxCop.Sdk.SystemTypes.Initialize(Boolean doNotLockFile, Boolean getDebugInfo, AssemblyReferenceResolver resolver)\n   at Microsoft.FxCop.Sdk.TargetPlatform.ResetCci(String platformAssembliesLocation, Boolean doNotLockFile, Boolean getDebugInfo, AssemblyReferenceResolver resolver)\n   at Microsoft.FxCop.Engines.Introspection.IntrospectionAnalysisEngine.ResetCci(String platformAssembliesLocation)\n   at Microsoft.FxCop.Engines.Introspection.IntrospectionAnalysisEngine.CanLoadTargetFile(TargetFile target)\n   at Microsoft.FxCop.Common.EngineManager.LoadTargets(TargetFile target, Boolean resetCounts, String loadEngine)",
+          "locations": [
+            {}
+          ],
+          "toolFingerprintContribution": "Microsoft.FxCop.Common.AssemblyLoadException"
+        },
+        {
+          "ruleId": "CA0052",
+          "message": "Engine exception: Microsoft.FxCop.Sdk.FxCopException: No targets were selected. .",
+          "locations": [
+            {}
+          ],
+          "toolFingerprintContribution": "Microsoft.FxCop.Sdk.FxCopException"
+        }
+      ]
+    }
+  ]
+}

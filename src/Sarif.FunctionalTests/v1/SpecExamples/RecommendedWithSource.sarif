@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": {
+        "file:///user/builder/work/src/collections/list.cpp": {
+          "mimeType": "text/x-c"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "message": "Variable \"count\" was used without being initialized.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///user/builder/work/src/collections/list.cpp",
+                "region": {
+                  "startLine": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "C2001": {
+          "id": "C2001",
+          "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions"
+        }
+      }
+    }
+  ]
+}

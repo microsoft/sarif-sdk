@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test141.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression '& pObj1'\nBuffer result.malloc created during call to malloc on line 52\nBuffer is of length 20 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 52]\nAccessing 28 bytes starting at byte offset 0\nAssumed __inout annotation on function MyClass<_MYSTRUCT *>::MyFunc requires that * {parameter 2} is of length >= (* {parameter 2})->Length + 8 bytes\n  where * {parameter 2} is & pObj1; {parameter 2} is & pObj1\n[Type annotation SAL_writableTo(byteCount((* {parameter 2})->Length + 8)) at c:\\somepath\\test141.cpp(18)]\n\n\nValues of variables:\n(pObj1->_MYSTRUCT::Length) = 20\nPointer pObj1 is at offset 0 bytes from the start of the buffer\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test141.cpp",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 22
+                }
+              },
+              "fullyQualifiedLogicalName": "ErrorTestFunc",
+              "decoratedName": "?ErrorTestFunc@@YAXXZ",
+              "properties": {
+                "funcline": "47"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 47,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 49,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 50,
+                      "startColumn": 25
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 30
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 52,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 53,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 55,
+                      "startColumn": 22
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'cp[size]'\nBuffer cp created during call to MyClass2<char>::RefParams on line 85\nBuffer is of length size`85a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\\somepath\\test141.cpp(63) on function MyClass2<char>::RefParams called at line 85]\nAccessing the byte at byte offset size`85a\n\nValues of variables:\nPointer cp is at offset 0 bytes from the start of the buffer\nsize = size`85a\n\nwhere\noffset(cp)`85a == 0\nsize`85a >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test141.cpp",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "UseRefParamsFromMyClass2",
+              "decoratedName": "?UseRefParamsFromMyClass2@@YAXXZ",
+              "properties": {
+                "funcline": "79"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 81,
+                      "startColumn": 20
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 82,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 83,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 85,
+                      "startColumn": 26
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 86,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 87,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": "Overflow using expression 'cp[size]'\nBuffer cp created during call to RefParamsNoTemplate on line 104\nBuffer is of length size`104a bytes [from annotation SAL_writableTo(elementCount(* {parameter 1})) at c:\\somepath\\test141.cpp(90) on function RefParamsNoTemplate called at line 104]\nAccessing the byte at byte offset size`104a\n\nValues of variables:\nPointer cp is at offset 0 bytes from the start of the buffer\nsize = size`104a\n\nwhere\noffset(cp)`104a == 0\nsize`104a >= 1\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test141.cpp",
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "UseRefParamsNoTemplate",
+              "decoratedName": "?UseRefParamsNoTemplate@@YAXXZ",
+              "properties": {
+                "funcline": "99"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 99,
+                      "startColumn": 6
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 101,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 102,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 104,
+                      "startColumn": 24
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 105,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test141.cpp",
+                    "region": {
+                      "startLine": 106,
+                      "startColumn": 14
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

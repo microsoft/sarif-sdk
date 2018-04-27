@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>7</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential read underflow using expression 'a[i]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset i`4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+i = i`4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+i`4 + 1 &lt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential Underflow using expression 'a[a[1]]' at line 11
+PREFAST_NEWLINE
+Potential Underflow using expression 'a[a[2]]' at line 18
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXH@Z</DECORATED><FUNCLINE>4</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>4</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>6</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>7</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>8</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'a[a[0]]'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+a[0] = 10
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression 'a[i]' at line 7
+PREFAST_NEWLINE
+Potential overflow using expression 'a[a[1]]' at line 11
+PREFAST_NEWLINE
+Overflow using expression 'a[a[0]]' at line 15
+PREFAST_NEWLINE
+Potential overflow using expression 'a[a[2]]' at line 18
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXH@Z</DECORATED><FUNCLINE>4</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>4</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>6</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>7</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>8</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>37</LINE><COLUMN>19</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'arr[(s-&gt;a[1]).x]'
+PREFAST_NEWLINE
+Buffer accessed is arr
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset (s-&gt;S::a)[0].S1::x`33
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(s-&gt;S::a)[0].S1::x = (s-&gt;S::a)[0].S1::x`33
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(s-&gt;S::a)[0].S1::x`33 &gt;= 10
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAUS@@@Z</DECORATED><FUNCLINE>30</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>30</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>32</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>33</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>34</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>36</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>37</LINE><COLUMN>19</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>37</LINE><COLUMN>19</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential Underflow using expression 'arr[(s-&gt;a[1]).x]'
+PREFAST_NEWLINE
+Buffer accessed is arr
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset (s-&gt;S::a)[0].S1::x`33
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(s-&gt;S::a)[0].S1::x = (s-&gt;S::a)[0].S1::x`33
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of s
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+(s-&gt;S::a)[0].S1::x`33 + 1 &lt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAUS@@@Z</DECORATED><FUNCLINE>30</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>30</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>32</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>33</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>34</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>36</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test050.cpp</FILENAME><LINE>37</LINE><COLUMN>19</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -1,0 +1,551 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test088.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26006",
+          "message": "Possibly incorrect single element annotation on string buffer\nPossible precondition violation due to failure to null terminate string 'q'\nBuffer q is a parameter to this function declared on line 25\nBuffer lengths are from an assumed __inout annotation on the parameter\nBuffer is of length offset(q)`25 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test088.cpp(25)]\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is q [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "g",
+              "decoratedName": "?g@@YAXPAD@Z",
+              "properties": {
+                "funcline": "25"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 25,
+                      "startColumn": 7
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 27,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string 's'\nBuffer s is a parameter to this function declared on line 36\nAnnotation on function Fill requires that {parameter 1} is null terminated\n  where {parameter 1} is s [Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(61)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "Bad",
+              "decoratedName": "?Bad@@YAXPADI@Z",
+              "properties": {
+                "funcline": "36"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 36,
+                      "startColumn": 9
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 38,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '& buf'\nBuffer accessed is buf\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & buf [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "ExplicitChar",
+              "decoratedName": "?ExplicitChar@@YAXXZ",
+              "properties": {
+                "funcline": "56"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 56,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 58,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 6,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 7,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 8,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 9,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 10,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 11,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 12,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 60,
+                      "startColumn": 16
+                    }
+                  }
+                },
+                {
+                  "step": 13,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 28
+                    }
+                  }
+                },
+                {
+                  "step": 14,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 59,
+                      "startColumn": 23
+                    }
+                  }
+                },
+                {
+                  "step": 15,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 61,
+                      "startColumn": 12
+                    }
+                  }
+                },
+                {
+                  "step": 16,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 62,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26036",
+          "message": "Possible postcondition violation due to failure to null terminate string\nThe function has a __success annotation that is satisfied\nAccessing unannotated buffer (item->Item::text)\nAnnotation on function GetItem requires that item->text is null terminated\n[Field annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "GetItem",
+              "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z",
+              "properties": {
+                "funcline": "72"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 72,
+                      "startColumn": 13
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 76,
+                      "startColumn": 29
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 78,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 5,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 79,
+                      "startColumn": 9
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '& s'\nBuffer accessed is s\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is & s [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(5)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "ArrInit4",
+              "decoratedName": "?ArrInit4@@YAXXZ",
+              "properties": {
+                "funcline": "114"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 114,
+                      "startColumn": 14
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 10
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 116,
+                      "startColumn": 18
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 117,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26035",
+          "message": "Possible precondition violation due to failure to null terminate string '(WCHAR *)(& str)'\nBuffer accessed is str\nAnnotation on function f requires that {parameter 1} is null terminated\n  where {parameter 1} is (WCHAR *)(& str) [Annotation SAL_nullTerminated at c:\\somepath\\test088.cpp(15)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 132,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "NotZeroMemroy",
+              "decoratedName": "?NotZeroMemroy@@YAXXZ",
+              "properties": {
+                "funcline": "128"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 128,
+                      "startColumn": 19
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 130,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 3,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 131,
+                      "startColumn": 11
+                    }
+                  }
+                },
+                {
+                  "step": 4,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 132,
+                      "startColumn": 6
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26036",
+          "message": "Possible postcondition violation due to failure to null terminate string\nBuffer p is a parameter to this function declared on line 147\nAnnotation on function BadMemset requires that p is null terminated\n[Annotation SAL_nullTerminated at c:\\somepath\\mywin.h(51)]\n",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///c:/somepath/test088.cpp",
+                "region": {
+                  "startLine": 149,
+                  "startColumn": 13
+                }
+              },
+              "fullyQualifiedLogicalName": "BadMemset",
+              "decoratedName": "?BadMemset@@YAXPAGI@Z",
+              "properties": {
+                "funcline": "147"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "locations": [
+                {
+                  "step": 1,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 147,
+                      "startColumn": 15
+                    }
+                  }
+                },
+                {
+                  "step": 2,
+                  "physicalLocation": {
+                    "uri": "file:///c:/somepath/test088.cpp",
+                    "region": {
+                      "startLine": 149,
+                      "startColumn": 13
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
