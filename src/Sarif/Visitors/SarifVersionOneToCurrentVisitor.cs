@@ -11,23 +11,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
-        #region Text MIM# types
+        #region Text MIME types
         private static HashSet<string> s_TextMimeTypes = new HashSet<string>()
         {
             "application/ecmascript",
-            "application/java-archive",
             "application/javascript",
-            "application/java-serialized-object",
-            "application/java-vm",
-            "application/json",
-            "application/onenote",
-            "application/pdf",
             "application/rss+xml",
             "application/rtf",
             "application/typescript",
             "application/x-csh",
             "application/xhtml+xml",
-            "application/x-java-jnlp-file",
             "application/xml",
             "application/x-sh",
             "text/css",
