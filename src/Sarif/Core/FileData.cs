@@ -60,17 +60,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         new Hash()
                         {
                             Value = hashes.MD5,
-                            Algorithm = AlgorithmKind.MD5,
+                            Algorithm = "md5",
                         },
                         new Hash()
                         {
                             Value = hashes.Sha1,
-                            Algorithm = AlgorithmKind.Sha1,
+                            Algorithm = "sha-1",
                         },
                         new Hash()
                         {
                             Value = hashes.Sha256,
-                            Algorithm = AlgorithmKind.Sha256,
+                            Algorithm = "sha-256",
                         },
                     };
                 }

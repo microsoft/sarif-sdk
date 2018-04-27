@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -10,6 +11,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
+        #region Text MIME types
+        private static HashSet<string> s_TextMimeTypes = new HashSet<string>()
+        {
+            "application/ecmascript",
+            "application/javascript",
+            "application/json",
+            "application/rss+xml",
+            "application/rtf",
+            "application/typescript",
+            "application/x-csh",
+            "application/xhtml+xml",
+            "application/xml",
+            "application/x-sh",
+            "text/css",
+            "text/csv",
+            "text/ecmascript",
+            "text/html",
+            "text/javascript",
+            "text/plain",
+            "text/richtext",
+            "text/sgml",
+            "text/tab-separated-values",
+            "text/tsv",
+            "text/uri-list",
+            "text/x-asm",
+            "text/x-c",
+            "text/x-csharp",
+            "text/x-h",
+            "text/x-java-source",
+            "text/x-java-source,java",
+            "text/xml",
+            "text/x-pascal"
+        };
+        #endregion
+
+        private static Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
+        {
+            { AlgorithmKindVersionOne.Sha1, "sha-1" },
+            { AlgorithmKindVersionOne.Sha3, "sha-3" },
+            { AlgorithmKindVersionOne.Sha224, "sha-224" },
+            { AlgorithmKindVersionOne.Sha256, "sha-256" },
+            { AlgorithmKindVersionOne.Sha384, "sha-384" },
+            { AlgorithmKindVersionOne.Sha512, "sha-512" }
+        };
+
         public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
@@ -24,6 +70,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return null;
+        }
+
+        public FileData TransformFileDataVersionOne(FileDataVersionOne node)
+        {
+            FileData fileData = null;
+
+            if (node != null)
+            {
+                fileData = new FileData
+                {
+                    Length = node.Length,
+                    MimeType = node.MimeType,
+                    Offset = node.Offset,
+                    ParentKey = node.ParentKey,
+                    Properties = node.Properties                    
+                };
+
+                if (fileData.Properties == null)
+                {
+                    fileData.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                if (node.Uri != null)
+                {
+                    fileData.FileLocation = new FileLocation
+                    {
+                        Uri = node.Uri,
+                        UriBaseId = node.UriBaseId
+                    };
+                }
+
+                fileData.Contents = new FileContent
+                {
+                    Binary = node.Contents
+                };
+
+                if (s_TextMimeTypes.Contains(node.MimeType))
+                {
+                    fileData.Contents.Text = node.Contents;
+                }
+
+                if (node.Hashes != null)
+                {
+                    fileData.Hashes = new List<Hash>();
+
+                    foreach (HashVersionOne hash in node.Hashes)
+                    {
+                        fileData.Hashes.Add(TransformHashVersionOne(hash));
+                    }
+                }
+
+                fileData.Tags.UnionWith(node.Tags);
+            }
+
+            return fileData;
         }
 
         public LogicalLocation TransformLogicalLocationVersionOne(LogicalLocationVersionOne node)
@@ -41,6 +142,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocation;
+        }
+
+        public Hash TransformHashVersionOne(HashVersionOne node)
+        {
+            Hash hash = null;
+
+            if (node != null)
+            {
+                string algorithm;
+                if (!s_AlgorithmKindNameMap.TryGetValue(node.Algorithm, out algorithm))
+                {
+                    algorithm = node.Algorithm.ToString().ToLowerInvariant();
+                }
+
+                hash = new Hash
+                {
+                    Algorithm = algorithm,
+                    Value = node.Value
+                };
+            }
+
+            return hash;
         }
 
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
@@ -61,6 +184,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (run.Properties == null)
                 {
                     run.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                }
+
+                if (node.Files != null)
+                {
+                    run.Files = new Dictionary<string, FileData>();
+
+                    foreach (var pair in node.Files)
+                    {
+                        run.Files.Add(pair.Key, TransformFileDataVersionOne(pair.Value));
+                    }
                 }
 
                 if (node.LogicalLocations != null)
@@ -102,9 +235,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Version = node.Version
                 };
 
-                foreach (string propertyName in node.PropertyNames)
+                if (tool.Properties == null)
                 {
-                    tool.PropertyNames.Add(propertyName);
+                    tool.Properties = new Dictionary<string, SerializedPropertyInfo>();
                 }
 
                 tool.Tags.UnionWith(node.Tags);

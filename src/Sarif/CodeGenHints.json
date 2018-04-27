@@ -135,52 +135,6 @@
       }
     }
   ],
-  "Hash.Algorithm": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "AlgorithmKind",
-        "description": "Values specifying different hashing algorithms.",
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "Authentihash",
-          "Blake256",
-          "Blake512",
-          "Ecoh",
-          "Fsb",
-          "Gost",
-          "Groestl",
-          "Has160",
-          "Haval",
-          "JH",
-          "MD2",
-          "MD4",
-          "MD5",
-          "MD6",
-          "RadioGatun",
-          "RipeMD",
-          "RipeMD128",
-          "RipeMD160",
-          "RipeMD320",
-          "Sdhash",
-          "Sha1",
-          "Sha224",
-          "Sha256",
-          "Sha384",
-          "Sha512",
-          "Sha3",
-          "Skein",
-          "Snefru",
-          "SpectralHash",
-          "Ssdeep",
-          "Swifft",
-          "Tiger",
-          "Tlsh",
-          "Whirlpool"
-        ]
-      }
-    }
-  ],
   "invocation": [
     {
       "kind": "BaseTypeHint",

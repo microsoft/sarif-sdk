@@ -57,7 +57,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         new Hash
                                         {
-                                            Algorithm = AlgorithmKind.Sha256,
+                                            Algorithm = "sha-256",
                                             Value = ExpectedHashValue1
                                         }
                                     }
@@ -76,7 +76,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         new Hash
                                         {
-                                            Algorithm = AlgorithmKind.Sha256,
+                                            Algorithm = "sha-256",
                                             Value = ExpectedHashValue2
                                         }
                                     }
@@ -107,7 +107,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         new Hash
                                         {
-                                            Algorithm = AlgorithmKind.Sha256,
+                                            Algorithm = "sha-256",
                                             Value = ExpectedHashValue2
                                         }
                                     }
@@ -148,7 +148,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         new Hash
                                         {
-                                            Algorithm = AlgorithmKind.Sha256,
+                                            Algorithm = "sha-256",
                                             Value = ExpectedHashValue1
                                         }
                                     }

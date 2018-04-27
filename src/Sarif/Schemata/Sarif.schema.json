@@ -611,7 +611,6 @@
       "required": [ "graphId", "edgeTraversals" ]
     },
 
-
     "hash": {
       "description": "A hash value of some file or collection of files, together with the hash function used to compute the hash.",
       "additionalProperties": false,
