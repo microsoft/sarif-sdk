@@ -104,6 +104,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+
+
+        [Theory]
+        [InlineData(ResultLevel.Error, true, false)]
+
+        public void SarifLogger_ShouldLog(ResultLevel resultLevel, bool verboseLogging, bool expectedReturn)
+        {
+            LoggingOptions loggingOptions = verboseLogging ? LoggingOptions.Verbose : LoggingOptions.None;
+
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+            bool result = logger.ShouldLog(resultLevel);
+            result.Should().Be(expectedReturn);
+        }
+
+        [Fact]
+        public void SarifLogger_ShouldLogRecognizesAllResultLevels()
+        {
+            LoggingOptions loggingOptions = LoggingOptions.Verbose;
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+
+            foreach (object resultLevelObject in Enum.GetValues(typeof(ResultLevel)))
+            {
+                // The point of this test is that every defined enum value
+                // should pass a call to ShouldLog and will not raise an 
+                // exception because the enum value isn't recognized
+                logger.ShouldLog((ResultLevel)resultLevelObject);
+            }
+        }
+
+
         [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {
