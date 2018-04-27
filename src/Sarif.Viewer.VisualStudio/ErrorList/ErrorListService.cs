@@ -78,6 +78,15 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             foreach (Run run in sarifLog.Runs)
             {
+                // run.tool is required, add one if it's missing
+                if (run.Tool == null)
+                {
+                    run.Tool = new Tool
+                    {
+                        Name = Resources.UnknownToolName
+                    };
+                }
+
                 TelemetryProvider.WriteEvent(TelemetryEvent.LogFileRunCreatedByToolName,
                                              TelemetryProvider.CreateKeyValuePair("ToolName", run.Tool.Name));
                 if (Instance.WriteRunToErrorList(run, logFilePath, solution) > 0)

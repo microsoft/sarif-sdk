@@ -170,5 +170,14 @@ namespace Microsoft.Sarif.Viewer {
                 return ResourceManager.GetString("UnknownCalleeMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string UnknownToolName {
+            get {
+                return ResourceManager.GetString("UnknownToolName", resourceCulture);
+            }
+        }
     }
 }
