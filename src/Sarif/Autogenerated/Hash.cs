@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The name of the hash function used to compute the hash value specified in the 'value' property.
         /// </summary>
         [DataMember(Name = "algorithm", IsRequired = true)]
-        public AlgorithmKind Algorithm { get; set; }
+        public string Algorithm { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Hash" /> class.
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="algorithm">
         /// An initialization value for the <see cref="P: Algorithm" /> property.
         /// </param>
-        public Hash(string value, AlgorithmKind algorithm)
+        public Hash(string value, string algorithm)
         {
             Init(value, algorithm);
         }
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Hash(this);
         }
 
-        private void Init(string value, AlgorithmKind algorithm)
+        private void Init(string value, string algorithm)
         {
             Value = value;
             Algorithm = algorithm;

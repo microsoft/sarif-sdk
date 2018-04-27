@@ -25,6 +25,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, settings);
         }
 
+        private static SarifLog TransformVersionOneToCurrent(string v1LogText)
+        {
+            SarifLogVersionOne v1Log = GetSarifLogVersionOne(v1LogText);
+            var transformer = new SarifVersionOneToCurrentVisitor();
+            transformer.VisitSarifLogVersionOne(v1Log);
+
+            return transformer.SarifLog;
+        }
+
         [Fact]
         public void SarifTransformerTests_ToCurrent_Minimum()
         {
@@ -42,12 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                   ]
                 }";
-
-            SarifLogVersionOne v1Log = GetSarifLogVersionOne(v1LogText);
-            var transformer = new SarifVersionOneToCurrentVisitor();
-            transformer.VisitSarifLogVersionOne(v1Log);
-
-            SarifLog v2Log = transformer.SarifLog;
+            
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
@@ -86,11 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = GetSarifLogVersionOne(v1LogText);
-            var transformer = new SarifVersionOneToCurrentVisitor();
-            transformer.VisitSarifLogVersionOne(v1Log);
-
-            SarifLog v2Log = transformer.SarifLog;
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(2);
@@ -144,11 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = GetSarifLogVersionOne(v1LogText);
-            var transformer = new SarifVersionOneToCurrentVisitor();
-            transformer.VisitSarifLogVersionOne(v1Log);
-
-            SarifLog v2Log = transformer.SarifLog;
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
@@ -174,8 +171,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
         {
-            string content = "The quick brown fox jumps over the lazy dog";
-            byte[] bytes = Encoding.ASCII.GetBytes(content);
             string v1LogText =
               @"{
                   ""version"": ""1.0.0"",
@@ -194,7 +189,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ]
                         },
                         ""file:///home/buildAgent/bin/app.zip"": {
-                          ""mimeType"": ""application/zip""
+                          ""mimeType"": ""application/zip"",
+                          ""properties"": {
+                            ""my_key"": ""some value""
+                          }
                         },
                         ""file:///home/buildAgent/bin/app.zip#/docs/intro.docx"": {
                           ""uri"": ""file:///docs/intro.docx"",
@@ -214,16 +212,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = GetSarifLogVersionOne(v1LogText);
-            var transformer = new SarifVersionOneToCurrentVisitor();
-            transformer.VisitSarifLogVersionOne(v1Log);
-
-            SarifLog v2Log = transformer.SarifLog;
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
 
-            Dictionary<string, FileData> files = v2Log.Runs[0].Files as Dictionary<string, FileData>;
+            IDictionary<string, FileData> files = v2Log.Runs[0].Files;
 
             files.Should().NotBeNull();
             files.Count.Should().Be(3);
@@ -236,9 +230,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.FileLocation.Should().BeNull();
             fileData.Contents.Should().NotBeNull();
             fileData.Contents.Binary.Should().Be("VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==");
-            Encoding.ASCII.GetString(Convert.FromBase64String(fileData.Contents.Binary)).Should().Be(content);
             fileData.Hashes.Should().NotBeNull();
-            fileData.Hashes[0].Algorithm.Should().Be(AlgorithmKind.Sha256);
+            fileData.Hashes[0].Algorithm.Should().Be("sha256");
             fileData.Hashes[0].Value.Should().Be("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592");
 
             fileData = files["file:///home/buildAgent/bin/app.zip"];
@@ -247,6 +240,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.FileLocation.Should().BeNull();
             fileData.Contents.Should().BeNull();
             fileData.Hashes.Should().BeNull();
+            fileData.Properties.Should().NotBeNull();
+            fileData.Properties["my_key"].SerializedValue.Should().Be("\"some value\"");
 
             fileData = files["file:///home/buildAgent/bin/app.zip#/docs/intro.docx"];
             fileData.MimeType.Should().Be("application/vnd.openxmlformats-officedocument.wordprocessingml.document");

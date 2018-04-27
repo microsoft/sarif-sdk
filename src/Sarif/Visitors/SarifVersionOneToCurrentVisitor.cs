@@ -11,6 +11,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
+        private static string[] TextMimeTypes = { "text/plain",
+                                                  "text/x-c",
+                                                  "text/x-h",
+                                                  "text/x-csharp",
+                                                  "text/x-java-source",
+                                                  "text/javascript",
+                                                  "text/ecmascript",
+                                                  "text/html",
+                                                  "text/xml" };
+            
         public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
@@ -64,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
 
+                if (TextMimeTypes.Contains(node.MimeType))
+                {
+                    fileData.Contents.Text = node.Contents;
+                }
+
                 if (node.Hashes != null)
                 {
                     fileData.Hashes = new List<Hash>();
@@ -105,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 hash = new Hash
                 {
-                    Algorithm = (AlgorithmKind)Enum.Parse(typeof(AlgorithmKind), node.Algorithm.ToString()),
+                    Algorithm = node.Algorithm.ToString().ToLowerInvariant(),
                     Value = node.Value
                 };
             }
