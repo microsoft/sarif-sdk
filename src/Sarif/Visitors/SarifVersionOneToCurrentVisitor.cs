@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             "application/ecmascript",
             "application/javascript",
+            "application/json",
             "application/rss+xml",
             "application/rtf",
             "application/typescript",
