@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                         new Hash()
                         {
                             Value = hashes.Sha1,
-                            Algorithm = "sha1",
+                            Algorithm = "sha-1",
                         },
                         new Hash()
                         {
                             Value = hashes.Sha256,
-                            Algorithm = "sha256",
+                            Algorithm = "sha-256",
                         },
                     };
                 }

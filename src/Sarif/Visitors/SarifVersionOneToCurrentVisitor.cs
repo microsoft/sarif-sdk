@@ -11,16 +11,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
-        private static string[] TextMimeTypes = { "text/plain",
-                                                  "text/x-c",
-                                                  "text/x-h",
-                                                  "text/x-csharp",
-                                                  "text/x-java-source",
-                                                  "text/javascript",
-                                                  "text/ecmascript",
-                                                  "text/html",
-                                                  "text/xml" };
-            
+        #region Text MIM# types
+        private static HashSet<string> s_TextMimeTypes = new HashSet<string>()
+        {
+            "application/ecmascript",
+            "application/java-archive",
+            "application/javascript",
+            "application/java-serialized-object",
+            "application/java-vm",
+            "application/json",
+            "application/onenote",
+            "application/pdf",
+            "application/rss+xml",
+            "application/rtf",
+            "application/typescript",
+            "application/x-csh",
+            "application/xhtml+xml",
+            "application/x-java-jnlp-file",
+            "application/xml",
+            "application/x-sh",
+            "text/css",
+            "text/csv",
+            "text/ecmascript",
+            "text/html",
+            "text/javascript",
+            "text/plain",
+            "text/richtext",
+            "text/sgml",
+            "text/tab-separated-values",
+            "text/tsv",
+            "text/uri-list",
+            "text/x-asm",
+            "text/x-c",
+            "text/x-csharp",
+            "text/x-h",
+            "text/x-java-source",
+            "text/x-java-source,java",
+            "text/xml",
+            "text/x-pascal"
+        };
+        #endregion
+
+        private static Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
+        {
+            { AlgorithmKindVersionOne.Sha1, "sha-1" },
+            { AlgorithmKindVersionOne.Sha3, "sha-3" },
+            { AlgorithmKindVersionOne.Sha224, "sha-224" },
+            { AlgorithmKindVersionOne.Sha256, "sha-256" },
+            { AlgorithmKindVersionOne.Sha384, "sha-384" },
+            { AlgorithmKindVersionOne.Sha512, "sha-512" }
+        };
+
         public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
@@ -66,15 +107,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
 
-                if (!string.IsNullOrWhiteSpace(node.Contents))
+                fileData.Contents = new FileContent
                 {
-                    fileData.Contents = new FileContent
-                    {
-                        Binary = node.Contents
-                    };
-                }
+                    Binary = node.Contents
+                };
 
-                if (TextMimeTypes.Contains(node.MimeType))
+                if (s_TextMimeTypes.Contains(node.MimeType))
                 {
                     fileData.Contents.Text = node.Contents;
                 }
@@ -118,9 +156,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (node != null)
             {
+                string algorithm;
+                if (!s_AlgorithmKindNameMap.TryGetValue(node.Algorithm, out algorithm))
+                {
+                    algorithm = node.Algorithm.ToString().ToLowerInvariant();
+                }
+
                 hash = new Hash
                 {
-                    Algorithm = node.Algorithm.ToString().ToLowerInvariant(),
+                    Algorithm = algorithm,
                     Value = node.Value
                 };
             }

@@ -160,7 +160,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 file.Hashes = new List<Hash>();
             }
             
-            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == "sha256");
+            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == "sha-256");
             if (!hasSha256Hash)
             {
                 byte[] data = null;
@@ -176,7 +176,7 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 if (data != null)
                 {
                     string hashString = GenerateHash(data);
-                    file.Hashes.Add(new Hash(hashString, "sha256"));
+                    file.Hashes.Add(new Hash(hashString, "sha-256"));
                 }
             }
         }

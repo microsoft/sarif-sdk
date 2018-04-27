@@ -45,8 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     switch (hash.Algorithm)
                     {
                         case "md5": { hash.Value.Should().Be(hashes.MD5); break; }
-                        case "sha1": { hash.Value.Should().Be(hashes.Sha1); break; }
-                        case "sha256": { hash.Value.Should().Be(hashes.Sha256); break; }
+                        case "sha-1": { hash.Value.Should().Be(hashes.Sha1); break; }
+                        case "sha-256": { hash.Value.Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }

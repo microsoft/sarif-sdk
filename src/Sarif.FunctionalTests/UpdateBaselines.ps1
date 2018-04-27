@@ -60,7 +60,7 @@ function Build-Baselines($toolName)
     }
 }
 
-$allTools = (Get-ChildItem "$PSScriptRoot\ConverterTestData" -Directory | ForEach-Object { $_.Name })
+$allTools = (Get-ChildItem "$PSScriptRoot\v2\ConverterTestData" -Directory | ForEach-Object { $_.Name })
 if ($ToolName -and ($allTools -inotcontains $ToolName)) {
     Throw "Unrecognized tool name $ToolName"
 }

@@ -231,14 +231,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.Contents.Should().NotBeNull();
             fileData.Contents.Binary.Should().Be("VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==");
             fileData.Hashes.Should().NotBeNull();
-            fileData.Hashes[0].Algorithm.Should().Be("sha256");
+            fileData.Hashes[0].Algorithm.Should().Be("sha-256");
             fileData.Hashes[0].Value.Should().Be("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592");
 
             fileData = files["file:///home/buildAgent/bin/app.zip"];
             fileData.MimeType.Should().Be("application/zip");
             fileData.Length.Should().Be(0);
             fileData.FileLocation.Should().BeNull();
-            fileData.Contents.Should().BeNull();
+            fileData.Contents.Should().NotBeNull();
+            fileData.Contents.Binary.Should().BeNull();
             fileData.Hashes.Should().BeNull();
             fileData.Properties.Should().NotBeNull();
             fileData.Properties["my_key"].SerializedValue.Should().Be("\"some value\"");
@@ -251,7 +252,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.FileLocation.Should().NotBeNull();
             fileData.FileLocation.Uri.Should().NotBeNull();
             fileData.FileLocation.Uri.OriginalString.Should().Be("file:///docs/intro.docx");
-            fileData.Contents.Should().BeNull();
+            fileData.Contents.Should().NotBeNull();
+            fileData.Contents.Binary.Should().BeNull();
         }
     }
 }

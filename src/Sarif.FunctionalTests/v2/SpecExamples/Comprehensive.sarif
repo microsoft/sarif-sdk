@@ -124,7 +124,7 @@
           "length": 980,
           "hashes": [
             {
-              "algorithm": "sha256",
+              "algorithm": "sha-256",
               "value": "b13ce2678a8807ba0765ab94a0ecd394f869bc81"
             }
           ]
