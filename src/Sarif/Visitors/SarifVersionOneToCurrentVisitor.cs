@@ -190,6 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         case ResultLevelVersionOne.Error:
                             rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Error;
                             break;
+                        case ResultLevelVersionOne.Pass:
+                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Note;
+                            break;
                         case ResultLevelVersionOne.Warning:
                             rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Warning;
                             break;

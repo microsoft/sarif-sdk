@@ -312,9 +312,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
-            v2Log.Runs[0].Resources.Should().NotBeNull();
-            v2Log.Runs[0].Resources.Rules.Should().NotBeNull();
-            v2Log.Runs[0].Resources.Rules.Count.Should().Be(3);
+
+            Run run = v2Log.Runs[0];
+
+            run.Resources.Should().NotBeNull();
+            run.Resources.Rules.Should().NotBeNull();
+            run.Resources.Rules.Count.Should().Be(3);
 
             Rule rule = v2Log.Runs[0].Resources.Rules["C2001"];
 
@@ -357,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             rule.FullDescription.Text.Should().Be("Rent internal rebellion competence biography photograph.");
             rule.Configuration.Should().NotBeNull();
             rule.Configuration.Enabled.Should().Be(false);
-            rule.Configuration.DefaultLevel.Should().Be(RuleConfigurationDefaultLevel.Warning);
+            rule.Configuration.DefaultLevel.Should().Be(RuleConfigurationDefaultLevel.Note);
             rule.HelpLocation.Should().BeNull();
             rule.MessageStrings.Should().BeNull();
             rule.Properties.Should().BeNull();
