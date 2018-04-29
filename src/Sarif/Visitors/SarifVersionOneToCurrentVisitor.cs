@@ -3,9 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -243,6 +245,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
+        private List<FileLocation> CreateFileLocationsFromDictionary(IDictionary<string, string> dictionary)
+        {
+            var result = new List<FileLocation>();
+
+            foreach (string key in dictionary.Keys)
+            {
+                var fileLocation = new FileLocation
+                {
+                    Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                };
+                result.Add(fileLocation);
+            }
+
+            return result;
+        }
+
+        public Invocation TransformInvocationVersionOne(InvocationVersionOne node)
+        {
+            Invocation invocation = null;
+
+            if (node != null)
+            {
+                invocation = new Invocation
+                {
+                    Account = node.Account,
+                    CommandLine = node.CommandLine,
+                    EndTime = node.EndTime,
+                    EnvironmentVariables = node.EnvironmentVariables,
+                    Machine = node.Machine,
+                    ProcessId = node.ProcessId,
+                    Properties = node.Properties,
+                    ResponseFiles = CreateFileLocationsFromDictionary(node.ResponseFiles),
+                    StartTime = node.StartTime,
+                    WorkingDirectory = node.WorkingDirectory
+                };
+
+                if (!string.IsNullOrWhiteSpace(node.FileName))
+                {
+                    if (!string.IsNullOrWhiteSpace(node.CommandLine))
+                    {
+                        string exeName = Path.GetFileName(node.FileName);
+                        int startIndex = node.CommandLine.IndexOf(exeName) + exeName.Length;
+                        string[] args = node.CommandLine.Substring(startIndex).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        invocation.Arguments = new List<string>(args);
+                    }
+
+                    invocation.ExecutableLocation = new FileLocation
+                    {
+                        Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
+                    };
+                }
+            }
+
+            return invocation;
+        }
+
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
         {
             if (node != null)
@@ -250,12 +308,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Run run = new Run()
                 {
                     Architecture = node.Architecture,
-                    BaselineId = node.BaselineId,
                     AutomationId = node.AutomationId,
+                    BaselineId = node.BaselineId,
                     Id = node.Id,
                     Properties = node.Properties,
                     Results = new List<Result>(),
-                    StableId = node.StableId
+                    StableId = node.StableId,
+                    Tool = TransformToolVersionOne(node.Tool)
                 };
 
                 if (node.Files != null)
@@ -266,6 +325,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Files.Add(pair.Key, TransformFileDataVersionOne(pair.Value));
                     }
+                }
+
+                if (node.Invocation != null)
+                {
+                    run.Invocations = new List<Invocation>
+                    {
+                        TransformInvocationVersionOne(node.Invocation)
+                    };
                 }
 
                 if (node.LogicalLocations != null)
@@ -297,23 +364,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 SarifLog.Runs.Add(run);
-
-                VisitToolVersionOne(node.Tool);
             }
 
             return null;
         }
 
-        public override ResultVersionOne VisitResultVersionOne(ResultVersionOne node)
+        public Tool TransformToolVersionOne(ToolVersionOne node)
         {
-            return base.VisitResultVersionOne(node);
-        }
+            Tool tool = null;
 
-        public override ToolVersionOne VisitToolVersionOne(ToolVersionOne node)
-        {
             if (node != null)
             {
-                Tool tool = new Tool()
+                tool = new Tool()
                 {
                     FileVersion = node.FileVersion,
                     FullName = node.FullName,
@@ -329,11 +391,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     tool.Tags.UnionWith(node.Tags);
                 }
-
-                SarifLog.Runs.Last().Tool = tool;
             }
 
-            return null;
+            return tool;
         }
     }
 }

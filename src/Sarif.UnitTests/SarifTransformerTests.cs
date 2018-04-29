@@ -13,14 +13,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifTransformerTests
     {
+        private static JsonSerializerSettings s_jsonSettings = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolverVersionOne.Instance,
+            Formatting = Formatting.Indented
+        };
+
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolverVersionOne.Instance,
-            };
-
-            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, settings);
+            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, s_jsonSettings);
         }
 
         private static SarifLog TransformVersionOneToCurrent(string v1LogText)
@@ -364,6 +365,85 @@ namespace Microsoft.CodeAnalysis.Sarif
             rule.HelpLocation.Should().BeNull();
             rule.MessageStrings.Should().BeNull();
             rule.Properties.Should().BeNull();
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""invocation"": {
+                        ""commandLine"": ""CodeScanner @collections.rsp"",
+                        ""responseFiles"": {
+                          ""collections.rsp"": ""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""
+                        },
+                        ""startTime"": ""2016-07-16T14:18:25Z"",
+                        ""endTime"": ""2016-07-16T14:19:01Z"",
+                        ""machine"": ""BLD01"",
+                        ""account"": ""buildAgent"",
+                        ""processId"": 1218,
+                        ""fileName"": ""/bin/tools/CodeScanner"",
+                        ""workingDirectory"": ""/home/buildAgent/src"",
+                        ""environmentVariables"": {
+                          ""PATH"": ""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",
+                          ""HOME"": ""/home/buildAgent"",
+                          ""TZ"": ""EST""
+                        }
+                      },
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            v2Log.Runs.Should().NotBeNull();
+            v2Log.Runs.Count.Should().Be(1);
+
+            Run run = v2Log.Runs[0];
+
+            run.Invocations.Should().NotBeNull();
+            run.Invocations.Count.Should().Be(1);
+
+            Invocation invocation = run.Invocations[0];
+
+            invocation.CommandLine.Should().Be("CodeScanner @collections.rsp");
+            invocation.Arguments.Should().NotBeNull();
+            invocation.Arguments.Count.Should().Be(1);
+            invocation.Arguments[0].Should().Be("@collections.rsp");
+            invocation.Attachments.Should().BeNull();
+            invocation.StartTime.ToString(s_jsonSettings.DateFormatString).Should().Be("2016-07-16T14:18:25Z");
+            invocation.EndTime.ToString(s_jsonSettings.DateFormatString).Should().Be("2016-07-16T14:19:01Z");
+            invocation.Machine.Should().Be("BLD01");
+            invocation.Account.Should().Be("buildAgent");
+            invocation.ProcessId.Should().Be(1218);
+            invocation.ProcessStartFailureMessage.Should().BeNull();
+            invocation.WorkingDirectory.Should().Be("/home/buildAgent/src");
+
+            invocation.ResponseFiles.Should().NotBeNull();
+
+            FileLocation responseFile = invocation.ResponseFiles[0];
+
+            responseFile.Uri.OriginalString.Should().Be("collections.rsp");
+            responseFile.UriBaseId.Should().BeNull();
+
+            invocation.ExecutableLocation.Should().NotBeNull();
+            invocation.ExecutableLocation.Uri.Should().NotBeNull();
+            invocation.ExecutableLocation.Uri.OriginalString.Should().Be("/bin/tools/CodeScanner");
+
+            invocation.EnvironmentVariables.Should().NotBeNull();
+            invocation.EnvironmentVariables.Count.Should().Be(3);
+            invocation.EnvironmentVariables["PATH"].Should().Be("/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin");
+            invocation.EnvironmentVariables["HOME"].Should().Be("/home/buildAgent");
+            invocation.EnvironmentVariables["TZ"].Should().Be("EST");
         }
     }
 }
