@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -245,7 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        private List<FileLocation> CreateFileLocationsFromDictionary(IDictionary<string, string> dictionary)
+        private List<FileLocation> CreateFileLocationsFromDictionary(IDictionary<string, string> dictionary, Run run)
         {
             List<FileLocation> result = null;
 
@@ -257,10 +255,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     var fileLocation = new FileLocation
                     {
-                        Uri = new Uri(key, UriKind.RelativeOrAbsolute),
-                        UriBaseId = dictionary[key]
+                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                     };
                     result.Add(fileLocation);
+
+                    if (run != null && !string.IsNullOrWhiteSpace(dictionary[key]))
+                    {
+                        // We have contents, so mention this file in run.files
+                        if (run.Files == null)
+                        {
+                            run.Files = new Dictionary<string, FileData>();
+                        }
+
+                        if (!run.Files.ContainsKey(key))
+                        {
+                            run.Files.Add(key, new FileData
+                            {
+                                Contents = new FileContent
+                                {
+                                    Text = dictionary[key]
+                                },
+                                FileLocation = fileLocation
+                            });
+                        }
+                    }
                 }
             }
 
@@ -282,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = node.Machine,
                     ProcessId = node.ProcessId,
                     Properties = node.Properties,
-                    ResponseFiles = CreateFileLocationsFromDictionary(node.ResponseFiles),
+                    ResponseFiles = CreateFileLocationsFromDictionary(node.ResponseFiles, SarifLog.Runs.Last()),
                     StartTime = node.StartTime,
                     WorkingDirectory = node.WorkingDirectory
                 };
@@ -322,6 +340,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     StableId = node.StableId,
                     Tool = TransformToolVersionOne(node.Tool)
                 };
+
+                SarifLog.Runs.Add(run);
 
                 if (node.Files != null)
                 {
@@ -368,8 +388,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     run.Tags.UnionWith(node.Tags);
                 }
-
-                SarifLog.Runs.Add(run);
             }
 
             return null;

@@ -433,7 +433,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileLocation responseFile = invocation.ResponseFiles[0];
 
             responseFile.Uri.OriginalString.Should().Be("collections.rsp");
-            responseFile.UriBaseId.Should().Be("-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999");
+            responseFile.UriBaseId.Should().BeNull();
+
+            run.Files.Should().NotBeNull();
+            run.Files.Count.Should().Be(1);
+
+            FileData file = run.Files["collections.rsp"];
+
+            file.Should().NotBeNull();
+            file.Contents.Should().NotBeNull();
+            file.Contents.Text.Should().Be("-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999");
+            file.FileLocation.Should().BeSameAs(responseFile);
 
             invocation.ExecutableLocation.Should().NotBeNull();
             invocation.ExecutableLocation.Uri.Should().NotBeNull();
