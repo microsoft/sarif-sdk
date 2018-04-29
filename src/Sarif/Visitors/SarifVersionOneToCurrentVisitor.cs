@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         };
         #endregion
 
-        private static Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
+        private static readonly Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
         {
             { AlgorithmKindVersionOne.Sha1, "sha-1" },
             { AlgorithmKindVersionOne.Sha3, "sha-3" },
@@ -243,23 +242,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        private List<FileLocation> CreateFileLocationsFromDictionary(IDictionary<string, string> dictionary, Run run)
+        private List<FileLocation> TransformResponseFiles(IDictionary<string, string> responseFileToContentsDictionary, Run run)
         {
-            List<FileLocation> result = null;
+            List<FileLocation> fileLocations = null;
 
-            if (dictionary != null)
+            if (responseFileToContentsDictionary != null)
             {
-                result = new List<FileLocation>();
+                fileLocations = new List<FileLocation>();
 
-                foreach (string key in dictionary.Keys)
+                foreach (string key in responseFileToContentsDictionary.Keys)
                 {
                     var fileLocation = new FileLocation
                     {
                         Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                     };
-                    result.Add(fileLocation);
+                    fileLocations.Add(fileLocation);
 
-                    if (run != null && !string.IsNullOrWhiteSpace(dictionary[key]))
+                    if (run != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
                     {
                         // We have contents, so mention this file in run.files
                         if (run.Files == null)
@@ -269,20 +268,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                         if (!run.Files.ContainsKey(key))
                         {
-                            run.Files.Add(key, new FileData
-                            {
-                                Contents = new FileContent
-                                {
-                                    Text = dictionary[key]
-                                },
-                                FileLocation = fileLocation
-                            });
+                            run.Files.Add(key, new FileData());
                         }
+
+                        FileData responseFile = run.Files[key];
+
+                        responseFile.Contents = new FileContent
+                        {
+                            Text = responseFileToContentsDictionary[key]
+                        };
+                        responseFile.FileLocation = fileLocation;
                     }
                 }
             }
 
-            return result;
+            return fileLocations;
         }
 
         public Invocation TransformInvocationVersionOne(InvocationVersionOne node)
@@ -300,26 +300,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = node.Machine,
                     ProcessId = node.ProcessId,
                     Properties = node.Properties,
-                    ResponseFiles = CreateFileLocationsFromDictionary(node.ResponseFiles, SarifLog.Runs.Last()),
+                    ResponseFiles = TransformResponseFiles(node.ResponseFiles, SarifLog.Runs.Last()),
                     StartTime = node.StartTime,
                     WorkingDirectory = node.WorkingDirectory
                 };
 
-                if (!string.IsNullOrWhiteSpace(node.FileName))
+                invocation.ExecutableLocation = new FileLocation
                 {
-                    if (!string.IsNullOrWhiteSpace(node.CommandLine))
-                    {
-                        string exeName = Path.GetFileName(node.FileName);
-                        int startIndex = node.CommandLine.IndexOf(exeName) + exeName.Length;
-                        string[] args = node.CommandLine.Substring(startIndex).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        invocation.Arguments = new List<string>(args);
-                    }
-
-                    invocation.ExecutableLocation = new FileLocation
-                    {
-                        Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
-                    };
-                }
+                    Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
+                };
             }
 
             return invocation;

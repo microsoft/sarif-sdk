@@ -416,9 +416,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Invocation invocation = run.Invocations[0];
 
             invocation.CommandLine.Should().Be("CodeScanner @collections.rsp");
-            invocation.Arguments.Should().NotBeNull();
-            invocation.Arguments.Count.Should().Be(1);
-            invocation.Arguments[0].Should().Be("@collections.rsp");
+            invocation.Arguments.Should().BeNull();
             invocation.Attachments.Should().BeNull();
             invocation.StartTime.ToString(s_jsonSettings.DateFormatString).Should().Be("2016-07-16T14:18:25Z");
             invocation.EndTime.ToString(s_jsonSettings.DateFormatString).Should().Be("2016-07-16T14:19:01Z");
