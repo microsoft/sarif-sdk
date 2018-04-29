@@ -305,10 +305,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     WorkingDirectory = node.WorkingDirectory
                 };
 
-                invocation.ExecutableLocation = new FileLocation
+                if (!string.IsNullOrWhiteSpace(node.FileName))
                 {
-                    Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
-                };
+                    invocation.ExecutableLocation = new FileLocation
+                    {
+                        Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
+                    };
+                }
             }
 
             return invocation;
