@@ -433,7 +433,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileLocation responseFile = invocation.ResponseFiles[0];
 
             responseFile.Uri.OriginalString.Should().Be("collections.rsp");
-            responseFile.UriBaseId.Should().BeNull();
+            responseFile.UriBaseId.Should().Be("-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999");
 
             invocation.ExecutableLocation.Should().NotBeNull();
             invocation.ExecutableLocation.Uri.Should().NotBeNull();

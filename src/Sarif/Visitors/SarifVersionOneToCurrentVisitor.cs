@@ -247,15 +247,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private List<FileLocation> CreateFileLocationsFromDictionary(IDictionary<string, string> dictionary)
         {
-            var result = new List<FileLocation>();
+            List<FileLocation> result = null;
 
-            foreach (string key in dictionary.Keys)
+            if (dictionary != null)
             {
-                var fileLocation = new FileLocation
+                result = new List<FileLocation>();
+
+                foreach (string key in dictionary.Keys)
                 {
-                    Uri = new Uri(key, UriKind.RelativeOrAbsolute)
-                };
-                result.Add(fileLocation);
+                    var fileLocation = new FileLocation
+                    {
+                        Uri = new Uri(key, UriKind.RelativeOrAbsolute),
+                        UriBaseId = dictionary[key]
+                    };
+                    result.Add(fileLocation);
+                }
             }
 
             return result;
