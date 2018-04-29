@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifTransformerTests
     {
-        private static JsonSerializerSettings s_jsonSettings = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings s_jsonSettings = new JsonSerializerSettings
         {
             ContractResolver = SarifContractResolverVersionOne.Instance,
             Formatting = Formatting.Indented
