@@ -107,7 +107,23 @@ namespace Microsoft.CodeAnalysis.Sarif
 
 
         [Theory]
-        [InlineData(ResultLevel.Error, true, false)]
+        // These values are emitted both verbose and non-verbose
+        [InlineData(ResultLevel.Error, true, true)]
+        [InlineData(ResultLevel.Error, false, true)]
+        [InlineData(ResultLevel.Warning, true, true)]
+        [InlineData(ResultLevel.Warning, false, true)]
+        [InlineData(ResultLevel.Default, true, true)]
+        [InlineData(ResultLevel.Default, false, true)]
+
+        // These result levels only emitted in verbose logging mode
+        [InlineData(ResultLevel.NotApplicable, true, true)]
+        [InlineData(ResultLevel.NotApplicable, false, false)]
+        [InlineData(ResultLevel.Note, true, true)]
+        [InlineData(ResultLevel.Note, false, false)]
+        [InlineData(ResultLevel.Open, true, true)]
+        [InlineData(ResultLevel.Open, false, false)]
+        [InlineData(ResultLevel.Pass, true, true)]
+        [InlineData(ResultLevel.Pass, false, false)]
 
         public void SarifLogger_ShouldLog(ResultLevel resultLevel, bool verboseLogging, bool expectedReturn)
         {

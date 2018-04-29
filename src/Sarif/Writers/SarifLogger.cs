@@ -472,7 +472,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case ResultLevel.Note:
                 case ResultLevel.Pass:
-                //case ResultLevel.Open:
+                case ResultLevel.Open:
                 case ResultLevel.NotApplicable:
                 {
                     if (!Verbose)
