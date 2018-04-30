@@ -59,9 +59,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
         {
-            SarifLog = new SarifLog();
-            SarifLog.Runs = new List<Run>();
-            SarifLog.Version = SarifVersion.TwoZeroZero;
+            SarifLog = new SarifLog(SarifVersion.TwoZeroZero.ConvertToSchemaUri(),
+                                    SarifVersion.TwoZeroZero,
+                                    new List<Run>());
 
             foreach (RunVersionOne run in node.Runs)
             {
