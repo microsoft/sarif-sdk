@@ -104,6 +104,54 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+
+
+        [Theory]
+        // These values are emitted both verbose and non-verbose
+        [InlineData(ResultLevel.Error, true, true)]
+        [InlineData(ResultLevel.Error, false, true)]
+        [InlineData(ResultLevel.Warning, true, true)]
+        [InlineData(ResultLevel.Warning, false, true)]
+        [InlineData(ResultLevel.Default, true, true)]
+        [InlineData(ResultLevel.Default, false, true)]
+
+        // These result levels only emitted in verbose logging mode
+        [InlineData(ResultLevel.NotApplicable, true, true)]
+        [InlineData(ResultLevel.NotApplicable, false, false)]
+        [InlineData(ResultLevel.Note, true, true)]
+        [InlineData(ResultLevel.Note, false, false)]
+        [InlineData(ResultLevel.Open, true, true)]
+        [InlineData(ResultLevel.Open, false, false)]
+        [InlineData(ResultLevel.Pass, true, true)]
+        [InlineData(ResultLevel.Pass, false, false)]
+
+        public void SarifLogger_ShouldLog(ResultLevel resultLevel, bool verboseLogging, bool expectedReturn)
+        {
+            LoggingOptions loggingOptions = verboseLogging ? LoggingOptions.Verbose : LoggingOptions.None;
+
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+            bool result = logger.ShouldLog(resultLevel);
+            result.Should().Be(expectedReturn);
+        }
+
+        [Fact]
+        public void SarifLogger_ShouldLogRecognizesAllResultLevels()
+        {
+            LoggingOptions loggingOptions = LoggingOptions.Verbose;
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+
+            foreach (object resultLevelObject in Enum.GetValues(typeof(ResultLevel)))
+            {
+                // The point of this test is that every defined enum value
+                // should pass a call to ShouldLog and will not raise an 
+                // exception because the enum value isn't recognized
+                logger.ShouldLog((ResultLevel)resultLevelObject);
+            }
+        }
+
+
         [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {

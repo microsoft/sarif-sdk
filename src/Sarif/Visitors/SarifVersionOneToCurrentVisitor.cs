@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         };
         #endregion
 
-        private static Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
+        private static readonly Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
         {
             { AlgorithmKindVersionOne.Sha1, "sha-1" },
             { AlgorithmKindVersionOne.Sha3, "sha-3" },
@@ -87,11 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = node.Properties                    
                 };
 
-                if (fileData.Properties == null)
-                {
-                    fileData.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                }
-
                 if (node.Uri != null)
                 {
                     fileData.FileLocation = new FileLocation
@@ -121,7 +115,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                fileData.Tags.UnionWith(node.Tags);
+                if (node.Tags.Count > 0)
+                {
+                    fileData.Tags.UnionWith(node.Tags);
+                }
             }
 
             return fileData;
@@ -166,6 +163,160 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
+        public Rule TransformRuleVersionOne(RuleVersionOne node)
+        {
+            Rule rule = null;
+
+            if (node != null)
+            {
+                rule = new Rule
+                {
+                    Id = node.Id,
+                    MessageStrings = node.MessageFormats,
+                    Properties = node.Properties
+                };
+
+                if (node.Configuration != RuleConfigurationVersionOne.Unknown &&
+                    node.DefaultLevel != ResultLevelVersionOne.Default)
+                {
+                    rule.Configuration = new RuleConfiguration
+                    {
+                        Enabled = node.Configuration == RuleConfigurationVersionOne.Enabled
+                    };
+
+                    switch (node.DefaultLevel)
+                    {
+                        case ResultLevelVersionOne.Error:
+                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Error;
+                            break;
+                        case ResultLevelVersionOne.Pass:
+                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Note;
+                            break;
+                        case ResultLevelVersionOne.Warning:
+                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Warning;
+                            break;
+                        default:
+                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Warning;
+                            break;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(node.Name))
+                {
+                    rule.Name = new Message
+                    {
+                        Text = node.Name
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(node.FullDescription))
+                {
+                    rule.FullDescription = new Message
+                    {
+                        Text = node.FullDescription
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(node.ShortDescription))
+                {
+                    rule.ShortDescription = new Message
+                    {
+                        Text = node.ShortDescription
+                    };
+                }
+
+                if (node.HelpUri != null)
+                {
+                    rule.HelpLocation = new FileLocation
+                    {
+                        Uri = node.HelpUri
+                    };
+                }
+
+                if (node.Tags.Count > 0)
+                {
+                    rule.Tags.UnionWith(node.Tags);
+                }
+            }
+
+            return rule;
+        }
+
+        private List<FileLocation> TransformResponseFiles(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        {
+            List<FileLocation> fileLocations = null;
+
+            if (responseFileToContentsDictionary != null)
+            {
+                fileLocations = new List<FileLocation>();
+
+                foreach (string key in responseFileToContentsDictionary.Keys)
+                {
+                    var fileLocation = new FileLocation
+                    {
+                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                    };
+                    fileLocations.Add(fileLocation);
+
+                    if (run != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                    {
+                        // We have contents, so mention this file in run.files
+                        if (run.Files == null)
+                        {
+                            run.Files = new Dictionary<string, FileData>();
+                        }
+
+                        if (!run.Files.ContainsKey(key))
+                        {
+                            run.Files.Add(key, new FileData());
+                        }
+
+                        FileData responseFile = run.Files[key];
+
+                        responseFile.Contents = new FileContent
+                        {
+                            Text = responseFileToContentsDictionary[key]
+                        };
+                        responseFile.FileLocation = fileLocation;
+                    }
+                }
+            }
+
+            return fileLocations;
+        }
+
+        public Invocation TransformInvocationVersionOne(InvocationVersionOne node)
+        {
+            Invocation invocation = null;
+
+            if (node != null)
+            {
+                invocation = new Invocation
+                {
+                    Account = node.Account,
+                    CommandLine = node.CommandLine,
+                    EndTime = node.EndTime,
+                    EnvironmentVariables = node.EnvironmentVariables,
+                    Machine = node.Machine,
+                    ProcessId = node.ProcessId,
+                    Properties = node.Properties,
+                    ResponseFiles = TransformResponseFiles(node.ResponseFiles, SarifLog.Runs.Last()),
+                    StartTime = node.StartTime,
+                    WorkingDirectory = node.WorkingDirectory
+                };
+
+                if (!string.IsNullOrWhiteSpace(node.FileName))
+                {
+                    invocation.ExecutableLocation = new FileLocation
+                    {
+                        Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
+                    };
+                }
+            }
+
+            return invocation;
+        }
+
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
         {
             if (node != null)
@@ -173,18 +324,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Run run = new Run()
                 {
                     Architecture = node.Architecture,
-                    BaselineId = node.BaselineId,
                     AutomationId = node.AutomationId,
+                    BaselineId = node.BaselineId,
                     Id = node.Id,
                     Properties = node.Properties,
                     Results = new List<Result>(),
-                    StableId = node.StableId
+                    StableId = node.StableId,
+                    Tool = TransformToolVersionOne(node.Tool)
                 };
 
-                if (run.Properties == null)
-                {
-                    run.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                }
+                SarifLog.Runs.Add(run);
 
                 if (node.Files != null)
                 {
@@ -196,6 +345,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
+                if (node.Invocation != null)
+                {
+                    run.Invocations = new List<Invocation>
+                    {
+                        TransformInvocationVersionOne(node.Invocation)
+                    };
+                }
+
                 if (node.LogicalLocations != null)
                 {
                     run.LogicalLocations = new Dictionary<string, LogicalLocation>();
@@ -205,25 +362,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.LogicalLocations.Add(pair.Key, TransformLogicalLocationVersionOne(pair.Value));
                     }
                 }
-                
-                SarifLog.Runs.Add(run);
 
-                VisitToolVersionOne(node.Tool);
+                if (node.Rules != null)
+                {
+                    run.Resources = new Resources
+                    {
+                        Rules = new Dictionary<string, Rule>()
+                    };
+
+                    foreach (var pair in node.Rules)
+                    {
+                        run.Resources.Rules.Add(pair.Key, TransformRuleVersionOne(pair.Value));
+                    }
+                }
+
+                if (node.Tags.Count > 0)
+                {
+                    run.Tags.UnionWith(node.Tags);
+                }
             }
 
             return null;
         }
 
-        public override ResultVersionOne VisitResultVersionOne(ResultVersionOne node)
+        public Tool TransformToolVersionOne(ToolVersionOne node)
         {
-            return base.VisitResultVersionOne(node);
-        }
+            Tool tool = null;
 
-        public override ToolVersionOne VisitToolVersionOne(ToolVersionOne node)
-        {
             if (node != null)
             {
-                Tool tool = new Tool()
+                tool = new Tool()
                 {
                     FileVersion = node.FileVersion,
                     FullName = node.FullName,
@@ -235,17 +403,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Version = node.Version
                 };
 
-                if (tool.Properties == null)
+                if (node.Tags.Count > 0)
                 {
-                    tool.Properties = new Dictionary<string, SerializedPropertyInfo>();
+                    tool.Tags.UnionWith(node.Tags);
                 }
-
-                tool.Tags.UnionWith(node.Tags);
-
-                SarifLog.Runs.Last().Tool = tool;
             }
 
-            return null;
+            return tool;
         }
     }
 }
