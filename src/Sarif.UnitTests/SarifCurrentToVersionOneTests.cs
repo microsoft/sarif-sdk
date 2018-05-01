@@ -29,18 +29,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<SarifLog>(logText, s_v2JsonSettings);
         }
 
-        private static SarifLogVersionOne TransformCurrentToVersionOne(string V2LogText)
+        private static SarifLogVersionOne TransformCurrentToVersionOne(string v2LogText)
         {
-            SarifLog v2Log = GetSarifLog(V2LogText);
+            SarifLog v2Log = GetSarifLog(v2LogText);
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);
 
             return transformer.SarifLogVersionOne;
         }
 
-        private static void VerifyCurrentToVersionOneTransformation(string V2LogText, string v1LogExpectedText)
+        private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
         {
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(V2LogText);
+            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
             string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
             v1LogText.Should().Be(v1LogExpectedText);
         }
