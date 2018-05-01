@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -55,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { AlgorithmKindVersionOne.Sha512, "sha-512" }
         };
 
-        public static SarifLog SarifLog { get; private set; }
+        public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
         {
@@ -273,9 +272,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public static Invocation CreateInvocation(InvocationVersionOne v1Invocation,
                                            IEnumerable<NotificationVersionOne> v1ToolNotifications,
-                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications)
+                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications,
+                                           Run run)
         {
-            Invocation invocation = CreateInvocation(v1Invocation);
+            Invocation invocation = CreateInvocation(v1Invocation, run);
             IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
             IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
 
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public static Invocation CreateInvocation(InvocationVersionOne node)
+        public static Invocation CreateInvocation(InvocationVersionOne node, Run run)
         {
             Invocation invocation = null;
 
@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = node.Machine,
                     ProcessId = node.ProcessId,
                     Properties = node.Properties,
-                    ResponseFiles = CreateResponseFilesList(node.ResponseFiles, SarifLog.Runs.Last()),
+                    ResponseFiles = CreateResponseFilesList(node.ResponseFiles, run),
                     StartTime = node.StartTime,
                     WorkingDirectory = node.WorkingDirectory
                 };
@@ -429,7 +429,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 run.Invocations = new List<Invocation>();
                 run.Invocations.Add(CreateInvocation(v1Run.Invocation,
                                                      v1Run.ToolNotifications,
-                                                     v1Run.ConfigurationNotifications));
+                                                     v1Run.ConfigurationNotifications,
+                                                     run));
 
                 if (v1Run.LogicalLocations != null)
                 {
