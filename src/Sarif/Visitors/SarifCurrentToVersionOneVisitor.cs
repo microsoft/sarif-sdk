@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override SarifLog VisitSarifLog(SarifLog node)
         {
-            SarifLogVersionOne = new SarifLogVersionOne(SarifVersion.TwoZeroZero.ConvertToSchemaUri(),
+            SarifLogVersionOne = new SarifLogVersionOne(SarifVersionVersionOne.OneZeroZero.ConvertToSchemaUri(),
                                     SarifVersionVersionOne.OneZeroZero,
                                     new List<RunVersionOne>());
 
