@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public FileData TransformFileDataVersionOne(FileDataVersionOne node)
+        public FileData CreateFileData(FileDataVersionOne node)
         {
             FileData fileData = null;
 
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (HashVersionOne hash in node.Hashes)
                     {
-                        fileData.Hashes.Add(TransformHashVersionOne(hash));
+                        fileData.Hashes.Add(CreateHash(hash));
                     }
                 }
 
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileData;
         }
 
-        public LogicalLocation TransformLogicalLocationVersionOne(LogicalLocationVersionOne node)
+        public LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne node)
         {
             LogicalLocation logicalLocation = null;
 
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        public Hash TransformHashVersionOne(HashVersionOne node)
+        public Hash CreateHash(HashVersionOne node)
         {
             Hash hash = null;
 
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
-        public Rule TransformRuleVersionOne(RuleVersionOne node)
+        public Rule CreateRule(RuleVersionOne node)
         {
             Rule rule = null;
 
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        private List<FileLocation> TransformResponseFiles(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        private IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary, Run run)
         {
             List<FileLocation> fileLocations = null;
 
@@ -285,7 +285,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileLocations;
         }
 
-        public Invocation TransformInvocationVersionOne(InvocationVersionOne node)
+        public Invocation CreateInvocation(InvocationVersionOne v1Invocation,
+                                           IEnumerable<NotificationVersionOne> v1ToolNotifications,
+                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications)
+        {
+            Invocation invocation = CreateInvocation(v1Invocation);
+            IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
+            IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
+
+            if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
+            {
+                if (invocation == null)
+                {
+                    invocation = new Invocation();
+                }
+
+                invocation.ToolNotifications = toolNotifications;
+                invocation.ConfigurationNotifications = configurationNotifications;
+            }
+
+            return invocation;
+        }
+
+        public Invocation CreateInvocation(InvocationVersionOne node)
         {
             Invocation invocation = null;
 
@@ -300,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = node.Machine,
                     ProcessId = node.ProcessId,
                     Properties = node.Properties,
-                    ResponseFiles = TransformResponseFiles(node.ResponseFiles, SarifLog.Runs.Last()),
+                    ResponseFiles = CreateResponseFilesList(node.ResponseFiles, SarifLog.Runs.Last()),
                     StartTime = node.StartTime,
                     WorkingDirectory = node.WorkingDirectory
                 };
@@ -317,7 +339,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public Notification TransformNotificationVersionOne(NotificationVersionOne node)
+        public IList<Notification> CreateNotificationsList(IEnumerable<NotificationVersionOne> v1Notifications)
+        {
+            List<Notification> notifications = null;
+
+            if (v1Notifications != null)
+            {
+                notifications = new List<Notification>();
+
+                foreach (NotificationVersionOne notification in v1Notifications)
+                {
+                    notifications.Add(CreateNotification(notification));
+                }
+            }
+
+            return notifications;
+        }
+
+        public Notification CreateNotification(NotificationVersionOne node)
         {
             Notification notification = null;
 
@@ -325,9 +364,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 notification = new Notification
                 {
-                    Exception = TransformExceptionDataVersionOne(node.Exception),
+                    Exception = CreateExceptionData(node.Exception),
                     Id = node.Id,
-                    Level = node.Level.ToNotificationLevelV2(),
+                    Level = CreateNotificationLevel(node.Level),
                     Properties = node.Properties,
                     RuleId = node.RuleId,
                     RuleKey = node.RuleKey,
@@ -347,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return notification;
         }
 
-        public ExceptionData TransformExceptionDataVersionOne(ExceptionDataVersionOne node)
+        public ExceptionData CreateExceptionData(ExceptionDataVersionOne node)
         {
             ExceptionData exceptionData = null;
 
@@ -365,7 +404,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (ExceptionDataVersionOne edvo in node.InnerExceptions)
                     {
-                        exceptionData.InnerExceptions.Add(TransformExceptionDataVersionOne(edvo));
+                        exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
                     }
                 }
             }
@@ -386,7 +425,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = node.Properties,
                     Results = new List<Result>(),
                     StableId = node.StableId,
-                    Tool = TransformToolVersionOne(node.Tool)
+                    Tool = CreateTool(node.Tool)
                 };
 
                 SarifLog.Runs.Add(run);
@@ -397,52 +436,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (var pair in node.Files)
                     {
-                        run.Files.Add(pair.Key, TransformFileDataVersionOne(pair.Value));
+                        run.Files.Add(pair.Key, CreateFileData(pair.Value));
                     }
                 }
 
-                if (node.Invocation != null)
-                {
-                    run.Invocations = new List<Invocation>
-                    {
-                        TransformInvocationVersionOne(node.Invocation)
-                    };
-                }
-                else if (node.ConfigurationNotifications != null ||
-                         node.ToolNotifications != null)
-                {
-                    // If we have notifications but no invocation, create an empty invocation to hold them
-                    run.Invocations = new List<Invocation>
-                    {
-                        new Invocation()
-                    };
-                }
-
-                // Now that we have our invocations, we can transform the notifications
-                // which moved from run in v1 to invocation in v2
-                if (node.ConfigurationNotifications != null)
-                {
-                    var configurationNotifications = new List<Notification>();
-
-                    foreach (NotificationVersionOne configNotification in node.ConfigurationNotifications)
-                    {
-                        configurationNotifications.Add(TransformNotificationVersionOne(configNotification));
-                    }
-
-                    run.Invocations[0].ConfigurationNotifications = configurationNotifications;
-                }
-
-                if (node.ToolNotifications != null)
-                {
-                    var toolNotifications = new List<Notification>();
-
-                    foreach (NotificationVersionOne toolNotification in node.ToolNotifications)
-                    {
-                        toolNotifications.Add(TransformNotificationVersionOne(toolNotification));
-                    }
-
-                    run.Invocations[0].ToolNotifications = toolNotifications;
-                }
+                run.Invocations = new List<Invocation>();
+                run.Invocations.Add(CreateInvocation(node.Invocation,
+                                                     node.ToolNotifications,
+                                                     node.ConfigurationNotifications));
 
                 if (node.LogicalLocations != null)
                 {
@@ -450,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (var pair in node.LogicalLocations)
                     {
-                        run.LogicalLocations.Add(pair.Key, TransformLogicalLocationVersionOne(pair.Value));
+                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
                     }
                 }
 
@@ -463,7 +464,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (var pair in node.Rules)
                     {
-                        run.Resources.Rules.Add(pair.Key, TransformRuleVersionOne(pair.Value));
+                        run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
                 }
 
@@ -476,7 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public Tool TransformToolVersionOne(ToolVersionOne node)
+        public Tool CreateTool(ToolVersionOne node)
         {
             Tool tool = null;
 
@@ -501,6 +502,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return tool;
+        }
+
+        public NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
+        {
+            switch (v1NotificationLevel)
+            {
+                case NotificationLevelVersionOne.Error:
+                    return NotificationLevel.Error;
+                case NotificationLevelVersionOne.Note:
+                    return NotificationLevel.Note;
+                default:
+                    return NotificationLevel.Warning;
+            }
         }
     }
 }
