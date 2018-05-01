@@ -463,5 +463,345 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             v2LogText.Should().Be(v2LogExpectedText);
         }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_OneRunWithInvocationAndNotifications()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""invocation"": {
+                        ""commandLine"": ""CodeScanner @collections.rsp"",
+                        ""responseFiles"": {
+                          ""collections.rsp"": ""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""
+                        },
+                        ""startTime"": ""2016-07-16T14:18:25Z"",
+                        ""endTime"": ""2016-07-16T14:19:01Z"",
+                        ""machine"": ""BLD01"",
+                        ""account"": ""buildAgent"",
+                        ""processId"": 1218,
+                        ""fileName"": ""/bin/tools/CodeScanner"",
+                        ""workingDirectory"": ""/home/buildAgent/src"",
+                        ""environmentVariables"": {
+                          ""PATH"": ""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",
+                          ""HOME"": ""/home/buildAgent"",
+                          ""TZ"": ""EST""
+                        }
+                      },
+                      ""configurationNotifications"": [
+                        {
+                          ""id"": ""UnknownRule"",
+                          ""ruleId"": ""ABC0001"",
+                          ""level"": ""warning"",
+                          ""message"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+                        }
+                      ],
+                      ""toolNotifications"": [
+                        {
+                          ""id"": ""CTN0001"",
+                          ""level"": ""note"",
+                          ""message"": ""Run started.""
+                        },
+                        {
+                          ""id"": ""CTN9999"",
+                          ""ruleId"": ""C2152"",
+                          ""level"": ""error"",
+                          ""message"": ""Exception evaluating rule \""C2152\"". Rule disabled; run continues."",
+                          ""physicalLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/crypto/hash.cpp""
+                          },
+                          ""threadId"": 52,
+                          ""time"": ""2016-07-16T14:18:43.119Z"",
+                          ""exception"": {
+                            ""kind"": ""ExecutionEngine.RuleFailureException"",
+                            ""message"": ""Unhandled exception during rule evaluation."",
+                            ""stack"": {
+                              ""frames"": [
+                                {
+                                  ""message"": ""Exception thrown"",
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                                  ""address"": 10092852
+                                },
+                                {
+                                  ""module"": ""ExecutionEngine"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""address"": 10073356
+                                }
+                              ]
+                            },
+                            ""innerExceptions"": [
+                              {
+                                ""kind"": ""System.ArgumentException"",
+                                ""message"": ""length is < 0""
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          ""id"": ""CTN0002"",
+                          ""level"": ""note"",
+                          ""message"": ""Run ended.""
+                        }
+                      ],
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, s_v2JsonSettings);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""commandLine"": ""CodeScanner @collections.rsp"",
+          ""responseFiles"": [
+            {
+              ""uri"": ""collections.rsp""
+            }
+          ],
+          ""startTime"": ""2016-07-16T14:18:25.000Z"",
+          ""endTime"": ""2016-07-16T14:19:01.000Z"",
+          ""toolNotifications"": [
+            {
+              ""id"": ""CTN0001"",
+              ""message"": {
+                ""text"": ""Run started.""
+              },
+              ""level"": ""note""
+            },
+            {
+              ""id"": ""CTN9999"",
+              ""ruleId"": ""C2152"",
+              ""message"": {
+                ""text"": ""Exception evaluating rule \""C2152\"". Rule disabled; run continues.""
+              },
+              ""level"": ""error"",
+              ""threadId"": 52,
+              ""time"": ""2016-07-16T14:18:43.119Z"",
+              ""exception"": {
+                ""kind"": ""ExecutionEngine.RuleFailureException"",
+                ""message"": ""Unhandled exception during rule evaluation."",
+                ""innerExceptions"": [
+                  {
+                    ""kind"": ""System.ArgumentException"",
+                    ""message"": ""length is < 0""
+                  }
+                ]
+              }
+            },
+            {
+              ""id"": ""CTN0002"",
+              ""message"": {
+                ""text"": ""Run ended.""
+              },
+              ""level"": ""note""
+            }
+          ],
+          ""configurationNotifications"": [
+            {
+              ""id"": ""UnknownRule"",
+              ""ruleId"": ""ABC0001"",
+              ""message"": {
+                ""text"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+              }
+            }
+          ],
+          ""machine"": ""BLD01"",
+          ""account"": ""buildAgent"",
+          ""processId"": 1218,
+          ""executableLocation"": {
+            ""uri"": ""/bin/tools/CodeScanner""
+          },
+          ""workingDirectory"": ""/home/buildAgent/src"",
+          ""environmentVariables"": {
+            ""PATH"": ""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",
+            ""HOME"": ""/home/buildAgent"",
+            ""TZ"": ""EST""
+          }
+        }
+      ],
+      ""files"": {
+        ""collections.rsp"": {
+          ""fileLocation"": {
+            ""uri"": ""collections.rsp""
+          },
+          ""contents"": {
+            ""text"": ""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""
+          }
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_OneRunWithNotificationsButNoInvocations()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""configurationNotifications"": [
+                        {
+                          ""id"": ""UnknownRule"",
+                          ""ruleId"": ""ABC0001"",
+                          ""level"": ""warning"",
+                          ""message"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+                        }
+                      ],
+                      ""toolNotifications"": [
+                        {
+                          ""id"": ""CTN0001"",
+                          ""level"": ""note"",
+                          ""message"": ""Run started.""
+                        },
+                        {
+                          ""id"": ""CTN9999"",
+                          ""ruleId"": ""C2152"",
+                          ""level"": ""error"",
+                          ""message"": ""Exception evaluating rule \""C2152\"". Rule disabled; run continues."",
+                          ""physicalLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/crypto/hash.cpp""
+                          },
+                          ""threadId"": 52,
+                          ""time"": ""2016-07-16T14:18:43.119Z"",
+                          ""exception"": {
+                            ""kind"": ""ExecutionEngine.RuleFailureException"",
+                            ""message"": ""Unhandled exception during rule evaluation."",
+                            ""stack"": {
+                              ""frames"": [
+                                {
+                                  ""message"": ""Exception thrown"",
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                                  ""address"": 10092852
+                                },
+                                {
+                                  ""module"": ""ExecutionEngine"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""address"": 10073356
+                                }
+                              ]
+                            },
+                            ""innerExceptions"": [
+                              {
+                                ""kind"": ""System.ArgumentException"",
+                                ""message"": ""length is < 0""
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          ""id"": ""CTN0002"",
+                          ""level"": ""note"",
+                          ""message"": ""Run ended.""
+                        }
+                      ],
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, s_v2JsonSettings);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""toolNotifications"": [
+            {
+              ""id"": ""CTN0001"",
+              ""message"": {
+                ""text"": ""Run started.""
+              },
+              ""level"": ""note""
+            },
+            {
+              ""id"": ""CTN9999"",
+              ""ruleId"": ""C2152"",
+              ""message"": {
+                ""text"": ""Exception evaluating rule \""C2152\"". Rule disabled; run continues.""
+              },
+              ""level"": ""error"",
+              ""threadId"": 52,
+              ""time"": ""2016-07-16T14:18:43.119Z"",
+              ""exception"": {
+                ""kind"": ""ExecutionEngine.RuleFailureException"",
+                ""message"": ""Unhandled exception during rule evaluation."",
+                ""innerExceptions"": [
+                  {
+                    ""kind"": ""System.ArgumentException"",
+                    ""message"": ""length is < 0""
+                  }
+                ]
+              }
+            },
+            {
+              ""id"": ""CTN0002"",
+              ""message"": {
+                ""text"": ""Run ended.""
+              },
+              ""level"": ""note""
+            }
+          ],
+          ""configurationNotifications"": [
+            {
+              ""id"": ""UnknownRule"",
+              ""ruleId"": ""ABC0001"",
+              ""message"": {
+                ""text"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+              }
+            }
+          ]
+        }
+      ],
+      ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
     }
 }

@@ -317,6 +317,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
+        public Notification TransformNotificationVersionOne(NotificationVersionOne node)
+        {
+            Notification notification = null;
+
+            if (node != null)
+            {
+                notification = new Notification
+                {
+                    Exception = TransformExceptionDataVersionOne(node.Exception),
+                    Id = node.Id,
+                    Level = node.Level.ToNotificationLevelV2(),
+                    Properties = node.Properties,
+                    RuleId = node.RuleId,
+                    RuleKey = node.RuleKey,
+                    ThreadId = node.ThreadId,
+                    Time = node.Time
+                };
+
+                if (!string.IsNullOrWhiteSpace(node.Message))
+                {
+                    notification.Message = new Message
+                    {
+                        Text = node.Message
+                    };
+                }
+            }
+
+            return notification;
+        }
+
+        public ExceptionData TransformExceptionDataVersionOne(ExceptionDataVersionOne node)
+        {
+            ExceptionData exceptionData = null;
+
+            if (node != null)
+            {
+                exceptionData = new ExceptionData
+                {
+                    Kind = node.Kind,
+                    Message = node.Message
+                };
+
+                if (node.InnerExceptions != null)
+                {
+                    exceptionData.InnerExceptions = new List<ExceptionData>();
+
+                    foreach (ExceptionDataVersionOne edvo in node.InnerExceptions)
+                    {
+                        exceptionData.InnerExceptions.Add(TransformExceptionDataVersionOne(edvo));
+                    }
+                }
+            }
+
+            return exceptionData;
+        }
+
         public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
         {
             if (node != null)
@@ -351,6 +407,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         TransformInvocationVersionOne(node.Invocation)
                     };
+                }
+                else if (node.ConfigurationNotifications != null ||
+                         node.ToolNotifications != null)
+                {
+                    // If we have notifications but no invocation, create an empty invocation to hold them
+                    run.Invocations = new List<Invocation>
+                    {
+                        new Invocation()
+                    };
+                }
+
+                // Now that we have our invocations, we can transform the notifications
+                // which moved from run in v1 to invocation in v2
+                if (node.ConfigurationNotifications != null)
+                {
+                    var configurationNotifications = new List<Notification>();
+
+                    foreach (NotificationVersionOne configNotification in node.ConfigurationNotifications)
+                    {
+                        configurationNotifications.Add(TransformNotificationVersionOne(configNotification));
+                    }
+
+                    run.Invocations[0].ConfigurationNotifications = configurationNotifications;
+                }
+
+                if (node.ToolNotifications != null)
+                {
+                    var toolNotifications = new List<Notification>();
+
+                    foreach (NotificationVersionOne toolNotification in node.ToolNotifications)
+                    {
+                        toolNotifications.Add(TransformNotificationVersionOne(toolNotification));
+                    }
+
+                    run.Invocations[0].ToolNotifications = toolNotifications;
                 }
 
                 if (node.LogicalLocations != null)
