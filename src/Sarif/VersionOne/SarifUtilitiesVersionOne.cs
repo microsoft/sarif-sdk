@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case SarifVersionVersionOne.OneZeroZero:
                     return V1_0_0;
                 default:
-                    throw new ArgumentException("Unsupported version", nameof(sarifVersion));
+                    throw new ArgumentException("Unsupported SARIF version", nameof(sarifVersion));
             }
         }
 
