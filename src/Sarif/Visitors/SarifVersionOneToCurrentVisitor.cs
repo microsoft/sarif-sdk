@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -71,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public FileData TransformFileDataVersionOne(FileDataVersionOne node)
+        public static FileData CreateFileData(FileDataVersionOne node)
         {
             FileData fileData = null;
 
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (HashVersionOne hash in node.Hashes)
                     {
-                        fileData.Hashes.Add(TransformHashVersionOne(hash));
+                        fileData.Hashes.Add(CreateHash(hash));
                     }
                 }
 
@@ -124,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileData;
         }
 
-        public LogicalLocation TransformLogicalLocationVersionOne(LogicalLocationVersionOne node)
+        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne node)
         {
             LogicalLocation logicalLocation = null;
 
@@ -141,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        public Hash TransformHashVersionOne(HashVersionOne node)
+        public static Hash CreateHash(HashVersionOne node)
         {
             Hash hash = null;
 
@@ -163,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
-        public Rule TransformRuleVersionOne(RuleVersionOne node)
+        public static Rule CreateRule(RuleVersionOne node)
         {
             Rule rule = null;
 
@@ -184,21 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Enabled = node.Configuration == RuleConfigurationVersionOne.Enabled
                     };
 
-                    switch (node.DefaultLevel)
-                    {
-                        case ResultLevelVersionOne.Error:
-                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Error;
-                            break;
-                        case ResultLevelVersionOne.Pass:
-                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Note;
-                            break;
-                        case ResultLevelVersionOne.Warning:
-                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Warning;
-                            break;
-                        default:
-                            rule.Configuration.DefaultLevel = RuleConfigurationDefaultLevel.Warning;
-                            break;
-                    }
+                    rule.Configuration.DefaultLevel = CreateRuleConfigurationDefaultLevel(node.DefaultLevel);
                 }
 
                 if (!string.IsNullOrWhiteSpace(node.Name))
@@ -242,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        private List<FileLocation> TransformResponseFiles(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        private static IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary, Run run)
         {
             List<FileLocation> fileLocations = null;
 
@@ -285,7 +270,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileLocations;
         }
 
-        public Invocation TransformInvocationVersionOne(InvocationVersionOne node)
+        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation,
+                                           IEnumerable<NotificationVersionOne> v1ToolNotifications,
+                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications,
+                                           Run run)
+        {
+            Invocation invocation = CreateInvocation(v1Invocation, run);
+            IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
+            IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
+
+            if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
+            {
+                if (invocation == null)
+                {
+                    invocation = new Invocation();
+                }
+
+                invocation.ToolNotifications = toolNotifications;
+                invocation.ConfigurationNotifications = configurationNotifications;
+            }
+
+            return invocation;
+        }
+
+        public static Invocation CreateInvocation(InvocationVersionOne node, Run run)
         {
             Invocation invocation = null;
 
@@ -300,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = node.Machine,
                     ProcessId = node.ProcessId,
                     Properties = node.Properties,
-                    ResponseFiles = TransformResponseFiles(node.ResponseFiles, SarifLog.Runs.Last()),
+                    ResponseFiles = CreateResponseFilesList(node.ResponseFiles, run),
                     StartTime = node.StartTime,
                     WorkingDirectory = node.WorkingDirectory
                 };
@@ -317,75 +325,146 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public override RunVersionOne VisitRunVersionOne(RunVersionOne node)
+        public static IList<Notification> CreateNotificationsList(IEnumerable<NotificationVersionOne> v1Notifications)
         {
+            List<Notification> notifications = null;
+
+            if (v1Notifications != null)
+            {
+                notifications = new List<Notification>();
+
+                foreach (NotificationVersionOne notification in v1Notifications)
+                {
+                    notifications.Add(CreateNotification(notification));
+                }
+            }
+
+            return notifications;
+        }
+
+        public static Notification CreateNotification(NotificationVersionOne node)
+        {
+            Notification notification = null;
+
             if (node != null)
+            {
+                notification = new Notification
+                {
+                    Exception = CreateExceptionData(node.Exception),
+                    Id = node.Id,
+                    Level = CreateNotificationLevel(node.Level),
+                    Properties = node.Properties,
+                    RuleId = node.RuleId,
+                    RuleKey = node.RuleKey,
+                    ThreadId = node.ThreadId,
+                    Time = node.Time
+                };
+
+                if (!string.IsNullOrWhiteSpace(node.Message))
+                {
+                    notification.Message = new Message
+                    {
+                        Text = node.Message
+                    };
+                }
+            }
+
+            return notification;
+        }
+
+        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne node)
+        {
+            ExceptionData exceptionData = null;
+
+            if (node != null)
+            {
+                exceptionData = new ExceptionData
+                {
+                    Kind = node.Kind,
+                    Message = node.Message
+                };
+
+                if (node.InnerExceptions != null)
+                {
+                    exceptionData.InnerExceptions = new List<ExceptionData>();
+
+                    foreach (ExceptionDataVersionOne edvo in node.InnerExceptions)
+                    {
+                        exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
+                    }
+                }
+            }
+
+            return exceptionData;
+        }
+
+        public override RunVersionOne VisitRunVersionOne(RunVersionOne v1Run)
+        {
+            if (v1Run != null)
             {
                 Run run = new Run()
                 {
-                    Architecture = node.Architecture,
-                    AutomationId = node.AutomationId,
-                    BaselineId = node.BaselineId,
-                    Id = node.Id,
-                    Properties = node.Properties,
+                    Architecture = v1Run.Architecture,
+                    AutomationId = v1Run.AutomationId,
+                    BaselineId = v1Run.BaselineId,
+                    Id = v1Run.Id,
+                    Properties = v1Run.Properties,
                     Results = new List<Result>(),
-                    StableId = node.StableId,
-                    Tool = TransformToolVersionOne(node.Tool)
+                    StableId = v1Run.StableId,
+                    Tool = CreateTool(v1Run.Tool)
                 };
 
                 SarifLog.Runs.Add(run);
 
-                if (node.Files != null)
+                if (v1Run.Files != null)
                 {
                     run.Files = new Dictionary<string, FileData>();
 
-                    foreach (var pair in node.Files)
+                    foreach (var pair in v1Run.Files)
                     {
-                        run.Files.Add(pair.Key, TransformFileDataVersionOne(pair.Value));
+                        run.Files.Add(pair.Key, CreateFileData(pair.Value));
                     }
                 }
 
-                if (node.Invocation != null)
-                {
-                    run.Invocations = new List<Invocation>
-                    {
-                        TransformInvocationVersionOne(node.Invocation)
-                    };
-                }
+                run.Invocations = new List<Invocation>();
+                run.Invocations.Add(CreateInvocation(v1Run.Invocation,
+                                                     v1Run.ToolNotifications,
+                                                     v1Run.ConfigurationNotifications,
+                                                     run));
 
-                if (node.LogicalLocations != null)
+                if (v1Run.LogicalLocations != null)
                 {
                     run.LogicalLocations = new Dictionary<string, LogicalLocation>();
 
-                    foreach (var pair in node.LogicalLocations)
+                    foreach (var pair in v1Run.LogicalLocations)
                     {
-                        run.LogicalLocations.Add(pair.Key, TransformLogicalLocationVersionOne(pair.Value));
+                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
                     }
                 }
 
-                if (node.Rules != null)
+                if (v1Run.Rules != null)
                 {
                     run.Resources = new Resources
                     {
                         Rules = new Dictionary<string, Rule>()
                     };
 
-                    foreach (var pair in node.Rules)
+                    foreach (var pair in v1Run.Rules)
                     {
-                        run.Resources.Rules.Add(pair.Key, TransformRuleVersionOne(pair.Value));
+                        run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
                 }
 
-                if (node.Tags.Count > 0)
+                if (v1Run.Tags.Count > 0)
                 {
-                    run.Tags.UnionWith(node.Tags);
+                    run.Tags.UnionWith(v1Run.Tags);
                 }
             }
 
             return null;
         }
 
-        public Tool TransformToolVersionOne(ToolVersionOne node)
+        public static Tool CreateTool(ToolVersionOne node)
         {
             Tool tool = null;
 
@@ -410,6 +489,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return tool;
+        }
+
+        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
+        {
+            switch (v1NotificationLevel)
+            {
+                case NotificationLevelVersionOne.Error:
+                    return NotificationLevel.Error;
+                case NotificationLevelVersionOne.Note:
+                    return NotificationLevel.Note;
+                default:
+                    return NotificationLevel.Warning;
+            }
+        }
+
+        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
+        {
+            switch (v1ResultLevel)
+            {
+                case ResultLevelVersionOne.Error:
+                    return RuleConfigurationDefaultLevel.Error;
+                case ResultLevelVersionOne.Pass:
+                    return RuleConfigurationDefaultLevel.Note;
+                case ResultLevelVersionOne.Warning:
+                    return RuleConfigurationDefaultLevel.Warning;
+                default:
+                    return RuleConfigurationDefaultLevel.Warning;
+            }
         }
     }
 }
