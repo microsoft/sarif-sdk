@@ -43,21 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 SarifLogVersionOne.Runs.Add(run);
 
-                //if (v2Run.Files != null)
-                //{
-                //    run.Files = new Dictionary<string, FileData>();
-
-                //    foreach (var pair in v2Run.Files)
-                //    {
-                //        run.Files.Add(pair.Key, CreateFileData(pair.Value));
-                //    }
-                //}
-
-                //run.Invocations = new List<Invocation>();
-                //run.Invocations.Add(CreateInvocation(v2Run.Invocation,
-                //                                     v2Run.ToolNotifications,
-                //                                     v2Run.ConfigurationNotifications));
-
                 if (v2Run.LogicalLocations != null)
                 {
                     run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
@@ -67,19 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.LogicalLocations.Add(pair.Key, CreateLogicalLocationVersionOne(pair.Value));
                     }
                 }
-
-                //if (v2Run.Rules != null)
-                //{
-                //    run.Resources = new Resources
-                //    {
-                //        Rules = new Dictionary<string, Rule>()
-                //    };
-
-                //    foreach (var pair in v2Run.Rules)
-                //    {
-                //        run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
-                //    }
-                //}
 
                 if (v2Run.Tags.Count > 0)
                 {
