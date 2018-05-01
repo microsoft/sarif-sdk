@@ -14,9 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersionVersionOne.OneZeroZero: { return V1_0_0; }
+                case SarifVersionVersionOne.OneZeroZero:
+                    return V1_0_0;
+                default:
+                    throw new ArgumentException("Unsupported version", nameof(sarifVersion));
             }
-            throw new ArgumentException("Unsupported version", nameof(sarifVersion));
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersionVersionOne sarifVersion)
