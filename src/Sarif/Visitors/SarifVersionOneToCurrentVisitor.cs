@@ -9,51 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
-        #region Text MIME types
-        private static HashSet<string> s_TextMimeTypes = new HashSet<string>()
-        {
-            "application/ecmascript",
-            "application/javascript",
-            "application/json",
-            "application/rss+xml",
-            "application/rtf",
-            "application/typescript",
-            "application/x-csh",
-            "application/xhtml+xml",
-            "application/xml",
-            "application/x-sh",
-            "text/css",
-            "text/csv",
-            "text/ecmascript",
-            "text/html",
-            "text/javascript",
-            "text/plain",
-            "text/richtext",
-            "text/sgml",
-            "text/tab-separated-values",
-            "text/tsv",
-            "text/uri-list",
-            "text/x-asm",
-            "text/x-c",
-            "text/x-csharp",
-            "text/x-h",
-            "text/x-java-source",
-            "text/x-java-source,java",
-            "text/xml",
-            "text/x-pascal"
-        };
-        #endregion
-
-        private static readonly Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
-        {
-            { AlgorithmKindVersionOne.Sha1, "sha-1" },
-            { AlgorithmKindVersionOne.Sha3, "sha-3" },
-            { AlgorithmKindVersionOne.Sha224, "sha-224" },
-            { AlgorithmKindVersionOne.Sha256, "sha-256" },
-            { AlgorithmKindVersionOne.Sha384, "sha-384" },
-            { AlgorithmKindVersionOne.Sha512, "sha-512" }
-        };
-
         public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
@@ -82,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     MimeType = node.MimeType,
                     Offset = node.Offset,
                     ParentKey = node.ParentKey,
-                    Properties = node.Properties                    
+                    Properties = node.Properties
                 };
 
                 if (node.Uri != null)
@@ -99,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Binary = node.Contents
                 };
 
-                if (s_TextMimeTypes.Contains(node.MimeType))
+                if (SarifTransformerUtilities.TextMimeTypes.Contains(node.MimeType))
                 {
                     fileData.Contents.Text = node.Contents;
                 }
@@ -147,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (node != null)
             {
                 string algorithm;
-                if (!s_AlgorithmKindNameMap.TryGetValue(node.Algorithm, out algorithm))
+                if (!SarifTransformerUtilities.AlgorithmKindNameMap.TryGetValue(node.Algorithm, out algorithm))
                 {
                     algorithm = node.Algorithm.ToString().ToLowerInvariant();
                 }
@@ -183,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Enabled = node.Configuration == RuleConfigurationVersionOne.Enabled
                     };
 
-                    rule.Configuration.DefaultLevel = CreateRuleConfigurationDefaultLevel(node.DefaultLevel);
+                    rule.Configuration.DefaultLevel = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(node.DefaultLevel);
                 }
 
                 if (!string.IsNullOrWhiteSpace(node.Name))
@@ -352,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Exception = CreateExceptionData(node.Exception),
                     Id = node.Id,
-                    Level = CreateNotificationLevel(node.Level),
+                    Level = SarifTransformerUtilities.CreateNotificationLevel(node.Level),
                     Properties = node.Properties,
                     RuleId = node.RuleId,
                     RuleKey = node.RuleKey,
@@ -489,34 +444,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return tool;
-        }
-
-        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
-        {
-            switch (v1NotificationLevel)
-            {
-                case NotificationLevelVersionOne.Error:
-                    return NotificationLevel.Error;
-                case NotificationLevelVersionOne.Note:
-                    return NotificationLevel.Note;
-                default:
-                    return NotificationLevel.Warning;
-            }
-        }
-
-        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
-        {
-            switch (v1ResultLevel)
-            {
-                case ResultLevelVersionOne.Error:
-                    return RuleConfigurationDefaultLevel.Error;
-                case ResultLevelVersionOne.Pass:
-                    return RuleConfigurationDefaultLevel.Note;
-                case ResultLevelVersionOne.Warning:
-                    return RuleConfigurationDefaultLevel.Warning;
-                default:
-                    return RuleConfigurationDefaultLevel.Warning;
-            }
         }
     }
 }

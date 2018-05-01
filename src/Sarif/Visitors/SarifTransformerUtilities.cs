@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+
+namespace Microsoft.CodeAnalysis.Sarif.Visitors
+{
+    public static class SarifTransformerUtilities
+    {
+        #region Text MIME types
+        public static HashSet<string> TextMimeTypes = new HashSet<string>()
+        {
+            "application/ecmascript",
+            "application/javascript",
+            "application/json",
+            "application/rss+xml",
+            "application/rtf",
+            "application/typescript",
+            "application/x-csh",
+            "application/xhtml+xml",
+            "application/xml",
+            "application/x-sh",
+            "text/css",
+            "text/csv",
+            "text/ecmascript",
+            "text/html",
+            "text/javascript",
+            "text/plain",
+            "text/richtext",
+            "text/sgml",
+            "text/tab-separated-values",
+            "text/tsv",
+            "text/uri-list",
+            "text/x-asm",
+            "text/x-c",
+            "text/x-csharp",
+            "text/x-h",
+            "text/x-java-source",
+            "text/x-java-source,java",
+            "text/xml",
+            "text/x-pascal"
+        };
+        #endregion
+
+        public static readonly Dictionary<AlgorithmKindVersionOne, string> AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
+        {
+            { AlgorithmKindVersionOne.Sha1, "sha-1" },
+            { AlgorithmKindVersionOne.Sha3, "sha-3" },
+            { AlgorithmKindVersionOne.Sha224, "sha-224" },
+            { AlgorithmKindVersionOne.Sha256, "sha-256" },
+            { AlgorithmKindVersionOne.Sha384, "sha-384" },
+            { AlgorithmKindVersionOne.Sha512, "sha-512" }
+        };
+
+        public static readonly Dictionary<string, AlgorithmKindVersionOne> AlgorithmNameKindMap = new Dictionary<string, AlgorithmKindVersionOne>
+        {
+            { "sha-1", AlgorithmKindVersionOne.Sha1 },
+            { "sha-3", AlgorithmKindVersionOne.Sha3 },
+            { "sha-224", AlgorithmKindVersionOne.Sha224 },
+            { "sha-256", AlgorithmKindVersionOne.Sha256 },
+            { "sha-384", AlgorithmKindVersionOne.Sha384 },
+            { "sha-512", AlgorithmKindVersionOne.Sha512 }
+        };
+
+        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
+        {
+            switch (v1NotificationLevel)
+            {
+                case NotificationLevelVersionOne.Error:
+                    return NotificationLevel.Error;
+                case NotificationLevelVersionOne.Note:
+                    return NotificationLevel.Note;
+                default:
+                    return NotificationLevel.Warning;
+            }
+        }
+
+        public static NotificationLevelVersionOne CreateNotificationLevelVersionOne(NotificationLevel v2NotificationLevel)
+        {
+            switch (v2NotificationLevel)
+            {
+                case NotificationLevel.Error:
+                    return NotificationLevelVersionOne.Error;
+                case NotificationLevel.Note:
+                    return NotificationLevelVersionOne.Note;
+                default:
+                    return NotificationLevelVersionOne.Warning;
+            }
+        }
+
+        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
+        {
+            switch (v1ResultLevel)
+            {
+                case ResultLevelVersionOne.Error:
+                    return RuleConfigurationDefaultLevel.Error;
+                case ResultLevelVersionOne.Pass:
+                    return RuleConfigurationDefaultLevel.Note;
+                case ResultLevelVersionOne.Warning:
+                    return RuleConfigurationDefaultLevel.Warning;
+                default:
+                    return RuleConfigurationDefaultLevel.Warning;
+            }
+        }
+
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
+        {
+            switch (v2DefaultLevel)
+            {
+                case RuleConfigurationDefaultLevel.Error:
+                    return ResultLevelVersionOne.Error;
+                case RuleConfigurationDefaultLevel.Note:
+                    return ResultLevelVersionOne.Pass;
+                case RuleConfigurationDefaultLevel.Warning:
+                    return ResultLevelVersionOne.Warning;
+                default:
+                    return ResultLevelVersionOne.Warning;
+            }
+        }
+    }
+}

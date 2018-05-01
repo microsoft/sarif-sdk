@@ -42,6 +42,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 SarifLogVersionOne.Runs.Add(run);
 
+                if (v2Run.Files != null)
+                {
+                    run.Files = new Dictionary<string, FileDataVersionOne>();
+
+                    foreach (var pair in v2Run.Files)
+                    {
+                        run.Files.Add(pair.Key, CreateFileDataVersionOne(pair.Value));
+                    }
+                }
+
                 if (v2Run.LogicalLocations != null)
                 {
                     run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
@@ -52,6 +62,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
+                if (v2Run.Resources?.Rules != null)
+                {
+                    run.Rules = new Dictionary<string, RuleVersionOne>();
+
+                    foreach (var pair in v2Run.Resources.Rules)
+                    {
+                        run.Rules.Add(pair.Key, CreateRule(pair.Value));
+                    }
+                }
+
                 if (v2Run.Tags.Count > 0)
                 {
                     run.Tags.UnionWith(v2Run.Tags);
@@ -59,6 +79,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return null;
+        }
+
+        public static FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
+        {
+            FileDataVersionOne fileData = null;
+
+            if (v2FileData != null)
+            {
+                fileData = new FileDataVersionOne
+                {
+                    Length = v2FileData.Length,
+                    MimeType = v2FileData.MimeType,
+                    Offset = v2FileData.Offset,
+                    ParentKey = v2FileData.ParentKey,
+                    Properties = v2FileData.Properties
+                };
+
+                if (v2FileData.FileLocation != null)
+                {
+                    fileData.Uri = v2FileData.FileLocation.Uri;
+                    fileData.UriBaseId = v2FileData.FileLocation.UriBaseId;
+                }
+
+                fileData.Contents = SarifTransformerUtilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                    v2FileData.Contents.Text :
+                    v2FileData.Contents.Binary;
+
+                if (v2FileData.Hashes != null)
+                {
+                    fileData.Hashes = new List<HashVersionOne>();
+
+                    foreach (Hash hash in v2FileData.Hashes)
+                    {
+                        fileData.Hashes.Add(CreateHash(hash));
+                    }
+                }
+
+                if (v2FileData.Tags.Count > 0)
+                {
+                    fileData.Tags.UnionWith(v2FileData.Tags);
+                }
+            }
+
+            return fileData;
+        }
+
+        public static HashVersionOne CreateHash(Hash v2Hash)
+        {
+            HashVersionOne hash = null;
+
+            if (v2Hash != null)
+            {
+                AlgorithmKindVersionOne algorithm;
+                if (!SarifTransformerUtilities.AlgorithmNameKindMap.TryGetValue(v2Hash.Algorithm, out algorithm))
+                {
+                    algorithm = AlgorithmKindVersionOne.Unknown;
+                }
+
+                hash = new HashVersionOne
+                {
+                    Algorithm = algorithm,
+                    Value = v2Hash.Value
+                };
+            }
+
+            return hash;
         }
 
         public static LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
@@ -76,6 +162,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocation;
+        }
+
+        public static RuleVersionOne CreateRule(Rule v2Rule)
+        {
+            RuleVersionOne rule = null;
+
+            if (v2Rule != null)
+            {
+                rule = new RuleVersionOne
+                {
+                    Id = v2Rule.Id,
+                    MessageFormats = v2Rule.MessageStrings,
+                    Properties = v2Rule.Properties
+                };
+
+                if (v2Rule.Configuration != null)
+                {
+                    rule.Configuration = v2Rule.Configuration.Enabled ?
+                            RuleConfigurationVersionOne.Enabled :
+                            RuleConfigurationVersionOne.Disabled;
+                    rule.DefaultLevel = SarifTransformerUtilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
+                }
+
+                if (v2Rule.Name != null)
+                {
+                    rule.Name = v2Rule.Name.Text;
+                }
+
+                if (v2Rule.FullDescription != null)
+                {
+                    rule.FullDescription = v2Rule.FullDescription.Text;
+                }
+
+                if (v2Rule.ShortDescription != null)
+                {
+                    rule.ShortDescription = v2Rule.ShortDescription.Text;
+                }
+
+                if (v2Rule.HelpLocation != null)
+                {
+                    rule.HelpUri = v2Rule.HelpLocation.Uri;
+                }
+
+                if (v2Rule.Tags.Count > 0)
+                {
+                    rule.Tags.UnionWith(v2Rule.Tags);
+                }
+            }
+
+            return rule;
         }
 
         public static ToolVersionOne CreateTool(Tool v2Tool)
