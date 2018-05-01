@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class SarifTransformerTests
+    public class SarifVersionOneToCurrentTests
     {
         private static readonly JsonSerializerSettings s_v1JsonSettings = new JsonSerializerSettings
         {
