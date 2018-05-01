@@ -9,16 +9,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     public static class SarifUtilitiesVersionOne
     {
         private const string V1_0_0 = "1.0.0";
-        private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
 
         public static string ConvertToText(this SarifVersionVersionOne sarifVersion)
         {
             switch (sarifVersion)
             {
-                case SarifVersionVersionOne.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersionVersionOne.OneZeroZero: { return V1_0_0; }
             }
-            return "unknown";
+            throw new ArgumentException("Unsupported version", nameof(sarifVersion));
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersionVersionOne sarifVersion)

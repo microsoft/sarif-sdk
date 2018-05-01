@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var transformer = new SarifVersionOneToCurrentVisitor();
             transformer.VisitSarifLogVersionOne(v1Log);
 
-            return SarifVersionOneToCurrentVisitor.SarifLog;
+            return transformer.SarifLog;
         }
 
         [Fact]

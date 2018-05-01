@@ -35,7 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);
 
-            return SarifCurrentToVersionOneVisitor.SarifLogVersionOne;
+            return transformer.SarifLogVersionOne;
+        }
+
+        private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
+        {
+            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
+            string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
+            v1LogText.Should().Be(v1LogExpectedText);
         }
 
         [Fact]
@@ -56,9 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-
-            string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
             string v1LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
@@ -74,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v1LogText.Should().Be(v1LogExpectedText);
+            VerifyCurrentToVersionOneTransformation(v2LogText, v1LogExpectedText);
         }
 
         [Fact]
@@ -102,9 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-
-            string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
             string v1LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
@@ -127,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v1LogText.Should().Be(v1LogExpectedText);
+            VerifyCurrentToVersionOneTransformation(v2LogText, v1LogExpectedText);
         }
 
         [Fact]
@@ -164,9 +165,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ]
                 }";
 
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-
-            string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
             string v1LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
@@ -198,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v1LogText.Should().Be(v1LogExpectedText);
+            VerifyCurrentToVersionOneTransformation(v2LogText, v1LogExpectedText);
         }
     }
 }
