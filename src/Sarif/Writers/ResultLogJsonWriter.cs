@@ -195,6 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions = Conditions.ResultsInitialized;
         }
 
+
         /// <summary>
         /// Writes a result to the log. 
         /// </summary>
@@ -330,6 +331,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
 
             _writeConditions |= Conditions.ConfigurationNotificationsWritten;
+        }
+
+        internal void WriteRunProperties(IDictionary<string, SerializedPropertyInfo> properties)
+        {
+            _jsonWriter.WritePropertyName("properties");
+            // why doesn't this work? the serializer is initialized with our contract resolver, 
+            // that understands this properties dictionary type. The PropertyBagConverter is not 
+            // getting invoked, however.
+            //_serializer.Serialize(_jsonWriter, properties, typeof(IDictionary<string, SerializedPropertyInfo>);
+
+            PropertyBagConverter.Instance.WriteJson(_jsonWriter, properties, _serializer);
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
