@@ -195,6 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions = Conditions.ResultsInitialized;
         }
 
+
         /// <summary>
         /// Writes a result to the log. 
         /// </summary>
@@ -330,6 +331,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
 
             _writeConditions |= Conditions.ConfigurationNotificationsWritten;
+        }
+
+        internal void WriteRunProperties(IDictionary<string, SerializedPropertyInfo> properties)
+        {
+            _jsonWriter.WritePropertyName("properties");
+            _serializer.Serialize(_jsonWriter, properties);
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>

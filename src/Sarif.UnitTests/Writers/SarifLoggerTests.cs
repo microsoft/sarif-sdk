@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -186,6 +187,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
 
             sarifLog.Runs[0].Tool.SarifLoggerVersion.Should().Be(expectedVersion);
+        }
+
+
+
+        [Fact]
+        public void SarifLogger_WritesRunProperties()
+        {
+            string propertyName = "numberValue";
+            double propertyValue = 3.14;
+
+            var sb = new StringBuilder();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                var run = new Run();
+                run.SetProperty(propertyName, propertyValue);
+
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    run: run,
+                    invocationPropertiesToLog: null))
+                {
+                }
+            }
+
+            string output = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+
+            sarifLog.Runs[0].GetProperty<double>(propertyName).Should().Be(propertyValue);
         }
 
         [Fact]

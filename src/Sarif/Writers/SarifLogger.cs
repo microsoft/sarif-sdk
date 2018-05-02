@@ -213,6 +213,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteInvocations(invocations: _run.Invocations);
                 }
 
+                if (_run?.Properties != null)
+                {
+                    _issueLogJsonWriter.WriteRunProperties(_run.Properties);
+                }
+
                 _issueLogJsonWriter.Dispose();
             }
 
