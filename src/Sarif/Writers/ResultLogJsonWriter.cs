@@ -336,12 +336,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         internal void WriteRunProperties(IDictionary<string, SerializedPropertyInfo> properties)
         {
             _jsonWriter.WritePropertyName("properties");
-            // why doesn't this work? the serializer is initialized with our contract resolver, 
-            // that understands this properties dictionary type. The PropertyBagConverter is not 
-            // getting invoked, however.
-            //_serializer.Serialize(_jsonWriter, properties, typeof(IDictionary<string, SerializedPropertyInfo>);
-
-            PropertyBagConverter.Instance.WriteJson(_jsonWriter, properties, _serializer);
+            _serializer.Serialize(_jsonWriter, properties);
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
