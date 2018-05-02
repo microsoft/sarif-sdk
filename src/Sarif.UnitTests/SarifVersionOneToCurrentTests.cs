@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -13,21 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifVersionOneToCurrentTests
     {
-        private static readonly JsonSerializerSettings s_v1JsonSettings = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolverVersionOne.Instance,
-            Formatting = Formatting.Indented
-        };
-
-        private static readonly JsonSerializerSettings s_v2JsonSettings = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolver.Instance,
-            Formatting = Formatting.Indented
-        };
-
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
-            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, s_v1JsonSettings);
+            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, SarifTransformerUtilities.JsonSettingsV1);
         }
 
         private static SarifLog TransformVersionOneToCurrent(string v1LogText)
@@ -191,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""file:///home/list.txt"": {
                           ""mimeType"": ""text/plain"",
                           ""length"": 43,
-                          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+                          ""contents"": ""The quick brown fox jumps over the lazy dog"",
                           ""hashes"": [
                             {
                               ""algorithm"": ""sha256"",
@@ -239,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             fileData.Length.Should().Be(43);
             fileData.FileLocation.Should().BeNull();
             fileData.Contents.Should().NotBeNull();
-            fileData.Contents.Binary.Should().Be("VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==");
+            fileData.Contents.Text.Should().Be("The quick brown fox jumps over the lazy dog");
             fileData.Hashes.Should().NotBeNull();
             fileData.Hashes[0].Algorithm.Should().Be("sha-256");
             fileData.Hashes[0].Value.Should().Be("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592");
@@ -316,6 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }";
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
 
             v2Log.Runs.Should().NotBeNull();
             v2Log.Runs.Count.Should().Be(1);
@@ -411,7 +399,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
-            string v2LogText = JsonConvert.SerializeObject(v2Log, s_v2JsonSettings);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
             string v2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
@@ -545,7 +533,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
-            string v2LogText = JsonConvert.SerializeObject(v2Log, s_v2JsonSettings);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
             string v2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
@@ -649,7 +637,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
 
-            string v2LogText = JsonConvert.SerializeObject(v2Log, s_v2JsonSettings);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
             string v2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",

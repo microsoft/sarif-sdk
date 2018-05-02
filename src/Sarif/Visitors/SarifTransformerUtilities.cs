@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
+        public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolverVersionOne.Instance,
+            Formatting = Formatting.Indented
+        };
+
+        public static readonly JsonSerializerSettings JsonSettingsV2 = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolver.Instance,
+            Formatting = Formatting.Indented
+        };
+
         #region Text MIME types
         public static HashSet<string> TextMimeTypes = new HashSet<string>()
         {

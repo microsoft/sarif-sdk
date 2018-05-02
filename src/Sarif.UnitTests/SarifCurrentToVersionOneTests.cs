@@ -2,7 +2,6 @@
 // license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -12,21 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifCurrentToVersionOneTests
     {
-        private static readonly JsonSerializerSettings s_v1JsonSettings = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolverVersionOne.Instance,
-            Formatting = Formatting.Indented
-        };
-
-        private static readonly JsonSerializerSettings s_v2JsonSettings = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolver.Instance,
-            Formatting = Formatting.Indented
-        };
-
         private static SarifLog GetSarifLog(string logText)
         {
-            return JsonConvert.DeserializeObject<SarifLog>(logText, s_v2JsonSettings);
+            return JsonConvert.DeserializeObject<SarifLog>(logText, SarifTransformerUtilities.JsonSettingsV2);
         }
 
         private static SarifLogVersionOne TransformCurrentToVersionOne(string v2LogText)
@@ -41,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
         {
             SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-            string v1LogText = JsonConvert.SerializeObject(v1Log, s_v1JsonSettings);
+            string v1LogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1);
             v1LogText.Should().Be(v1LogExpectedText);
         }
 
@@ -220,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""length"": 43,
           ""mimeType"": ""text/plain"",
           ""contents"": {
-            ""text"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+            ""text"": ""The quick brown fox jumps over the lazy dog"",
             ""binary"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""
           },
           ""hashes"": [
@@ -266,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""file:///home/list.txt"": {
           ""length"": 43,
           ""mimeType"": ""text/plain"",
-          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+          ""contents"": ""The quick brown fox jumps over the lazy dog"",
           ""hashes"": [
             {
               ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
@@ -297,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWitRules()
+        public void SarifTransformerTests_ToVersionOne_OneRunWithRules()
         {
             const string V2LogText =
 @"{
