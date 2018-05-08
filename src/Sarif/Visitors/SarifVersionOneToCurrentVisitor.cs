@@ -9,60 +9,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
-        #region Text MIME types
-        private static HashSet<string> s_TextMimeTypes = new HashSet<string>()
-        {
-            "application/ecmascript",
-            "application/javascript",
-            "application/json",
-            "application/rss+xml",
-            "application/rtf",
-            "application/typescript",
-            "application/x-csh",
-            "application/xhtml+xml",
-            "application/xml",
-            "application/x-sh",
-            "text/css",
-            "text/csv",
-            "text/ecmascript",
-            "text/html",
-            "text/javascript",
-            "text/plain",
-            "text/richtext",
-            "text/sgml",
-            "text/tab-separated-values",
-            "text/tsv",
-            "text/uri-list",
-            "text/x-asm",
-            "text/x-c",
-            "text/x-csharp",
-            "text/x-h",
-            "text/x-java-source",
-            "text/x-java-source,java",
-            "text/xml",
-            "text/x-pascal"
-        };
-        #endregion
-
-        private static readonly Dictionary<AlgorithmKindVersionOne, string> s_AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
-        {
-            { AlgorithmKindVersionOne.Sha1, "sha-1" },
-            { AlgorithmKindVersionOne.Sha3, "sha-3" },
-            { AlgorithmKindVersionOne.Sha224, "sha-224" },
-            { AlgorithmKindVersionOne.Sha256, "sha-256" },
-            { AlgorithmKindVersionOne.Sha384, "sha-384" },
-            { AlgorithmKindVersionOne.Sha512, "sha-512" }
-        };
-
         public SarifLog SarifLog { get; private set; }
 
-        public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne node)
+        public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne v1SarifLog)
         {
             SarifLog = new SarifLog(SarifVersion.TwoZeroZero.ConvertToSchemaUri(),
                                     SarifVersion.TwoZeroZero,
                                     new List<Run>());
 
-            foreach (RunVersionOne run in node.Runs)
+            foreach (RunVersionOne run in v1SarifLog.Runs)
             {
                 VisitRunVersionOne(run);
             }
@@ -70,157 +25,157 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public static FileData CreateFileData(FileDataVersionOne node)
+        public static FileData CreateFileData(FileDataVersionOne v1FileData)
         {
             FileData fileData = null;
 
-            if (node != null)
+            if (v1FileData != null)
             {
                 fileData = new FileData
                 {
-                    Length = node.Length,
-                    MimeType = node.MimeType,
-                    Offset = node.Offset,
-                    ParentKey = node.ParentKey,
-                    Properties = node.Properties                    
+                    Length = v1FileData.Length,
+                    MimeType = v1FileData.MimeType,
+                    Offset = v1FileData.Offset,
+                    ParentKey = v1FileData.ParentKey,
+                    Properties = v1FileData.Properties
                 };
 
-                if (node.Uri != null)
+                if (v1FileData.Uri != null)
                 {
                     fileData.FileLocation = new FileLocation
                     {
-                        Uri = node.Uri,
-                        UriBaseId = node.UriBaseId
+                        Uri = v1FileData.Uri,
+                        UriBaseId = v1FileData.UriBaseId
                     };
                 }
 
                 fileData.Contents = new FileContent
                 {
-                    Binary = node.Contents
+                    Binary = v1FileData.Contents
                 };
 
-                if (s_TextMimeTypes.Contains(node.MimeType))
+                if (SarifTransformerUtilities.TextMimeTypes.Contains(v1FileData.MimeType))
                 {
-                    fileData.Contents.Text = node.Contents;
+                    fileData.Contents.Text = v1FileData.Contents;
                 }
 
-                if (node.Hashes != null)
+                if (v1FileData.Hashes != null)
                 {
                     fileData.Hashes = new List<Hash>();
 
-                    foreach (HashVersionOne hash in node.Hashes)
+                    foreach (HashVersionOne hash in v1FileData.Hashes)
                     {
                         fileData.Hashes.Add(CreateHash(hash));
                     }
                 }
 
-                if (node.Tags.Count > 0)
+                if (v1FileData.Tags.Count > 0)
                 {
-                    fileData.Tags.UnionWith(node.Tags);
+                    fileData.Tags.UnionWith(v1FileData.Tags);
                 }
             }
 
             return fileData;
         }
 
-        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne node)
+        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
         {
             LogicalLocation logicalLocation = null;
 
-            if (node != null)
+            if (v1LogicalLocation != null)
             {
                 logicalLocation = new LogicalLocation
                 {
-                    Kind = node.Kind,
-                    Name = node.Name,
-                    ParentKey = node.ParentKey
+                    Kind = v1LogicalLocation.Kind,
+                    Name = v1LogicalLocation.Name,
+                    ParentKey = v1LogicalLocation.ParentKey
                 };
             }
 
             return logicalLocation;
         }
 
-        public static Hash CreateHash(HashVersionOne node)
+        public static Hash CreateHash(HashVersionOne v1Hash)
         {
             Hash hash = null;
 
-            if (node != null)
+            if (v1Hash != null)
             {
                 string algorithm;
-                if (!s_AlgorithmKindNameMap.TryGetValue(node.Algorithm, out algorithm))
+                if (!SarifTransformerUtilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
                 {
-                    algorithm = node.Algorithm.ToString().ToLowerInvariant();
+                    algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
                 }
 
                 hash = new Hash
                 {
                     Algorithm = algorithm,
-                    Value = node.Value
+                    Value = v1Hash.Value
                 };
             }
 
             return hash;
         }
 
-        public static Rule CreateRule(RuleVersionOne node)
+        public static Rule CreateRule(RuleVersionOne v1Rule)
         {
             Rule rule = null;
 
-            if (node != null)
+            if (v1Rule != null)
             {
                 rule = new Rule
                 {
-                    Id = node.Id,
-                    MessageStrings = node.MessageFormats,
-                    Properties = node.Properties
+                    Id = v1Rule.Id,
+                    MessageStrings = v1Rule.MessageFormats,
+                    Properties = v1Rule.Properties
                 };
 
-                if (node.Configuration != RuleConfigurationVersionOne.Unknown &&
-                    node.DefaultLevel != ResultLevelVersionOne.Default)
+                if (v1Rule.Configuration != RuleConfigurationVersionOne.Unknown &&
+                    v1Rule.DefaultLevel != ResultLevelVersionOne.Default)
                 {
                     rule.Configuration = new RuleConfiguration
                     {
-                        Enabled = node.Configuration == RuleConfigurationVersionOne.Enabled
+                        Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
                     };
 
-                    rule.Configuration.DefaultLevel = CreateRuleConfigurationDefaultLevel(node.DefaultLevel);
+                    rule.Configuration.DefaultLevel = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
                 }
 
-                if (!string.IsNullOrWhiteSpace(node.Name))
+                if (!string.IsNullOrWhiteSpace(v1Rule.Name))
                 {
                     rule.Name = new Message
                     {
-                        Text = node.Name
+                        Text = v1Rule.Name
                     };
                 }
 
-                if (!string.IsNullOrWhiteSpace(node.FullDescription))
+                if (!string.IsNullOrWhiteSpace(v1Rule.FullDescription))
                 {
                     rule.FullDescription = new Message
                     {
-                        Text = node.FullDescription
+                        Text = v1Rule.FullDescription
                     };
                 }
 
-                if (!string.IsNullOrWhiteSpace(node.ShortDescription))
+                if (!string.IsNullOrWhiteSpace(v1Rule.ShortDescription))
                 {
                     rule.ShortDescription = new Message
                     {
-                        Text = node.ShortDescription
+                        Text = v1Rule.ShortDescription
                     };
                 }
 
-                if (node.HelpUri != null)
+                if (v1Rule.HelpUri != null)
                 {
                     rule.HelpLocation = new FileLocation
                     {
-                        Uri = node.HelpUri
+                        Uri = v1Rule.HelpUri
                     };
                 }
 
-                if (node.Tags.Count > 0)
+                if (v1Rule.Tags.Count > 0)
                 {
-                    rule.Tags.UnionWith(node.Tags);
+                    rule.Tags.UnionWith(v1Rule.Tags);
                 }
             }
 
@@ -293,31 +248,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public static Invocation CreateInvocation(InvocationVersionOne node, Run run)
+        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation, Run run)
         {
             Invocation invocation = null;
 
-            if (node != null)
+            if (v1Invocation != null)
             {
                 invocation = new Invocation
                 {
-                    Account = node.Account,
-                    CommandLine = node.CommandLine,
-                    EndTime = node.EndTime,
-                    EnvironmentVariables = node.EnvironmentVariables,
-                    Machine = node.Machine,
-                    ProcessId = node.ProcessId,
-                    Properties = node.Properties,
-                    ResponseFiles = CreateResponseFilesList(node.ResponseFiles, run),
-                    StartTime = node.StartTime,
-                    WorkingDirectory = node.WorkingDirectory
+                    Account = v1Invocation.Account,
+                    CommandLine = v1Invocation.CommandLine,
+                    EndTime = v1Invocation.EndTime,
+                    EnvironmentVariables = v1Invocation.EnvironmentVariables,
+                    Machine = v1Invocation.Machine,
+                    ProcessId = v1Invocation.ProcessId,
+                    Properties = v1Invocation.Properties,
+                    ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles, run),
+                    StartTime = v1Invocation.StartTime,
+                    WorkingDirectory = v1Invocation.WorkingDirectory
                 };
 
-                if (!string.IsNullOrWhiteSpace(node.FileName))
+                if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
                 {
                     invocation.ExecutableLocation = new FileLocation
                     {
-                        Uri = new Uri(node.FileName, UriKind.RelativeOrAbsolute)
+                        Uri = new Uri(v1Invocation.FileName, UriKind.RelativeOrAbsolute)
                     };
                 }
             }
@@ -342,29 +297,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return notifications;
         }
 
-        public static Notification CreateNotification(NotificationVersionOne node)
+        public static Notification CreateNotification(NotificationVersionOne v1Notification)
         {
             Notification notification = null;
 
-            if (node != null)
+            if (v1Notification != null)
             {
                 notification = new Notification
                 {
-                    Exception = CreateExceptionData(node.Exception),
-                    Id = node.Id,
-                    Level = CreateNotificationLevel(node.Level),
-                    Properties = node.Properties,
-                    RuleId = node.RuleId,
-                    RuleKey = node.RuleKey,
-                    ThreadId = node.ThreadId,
-                    Time = node.Time
+                    Exception = CreateExceptionData(v1Notification.Exception),
+                    Id = v1Notification.Id,
+                    Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
+                    Properties = v1Notification.Properties,
+                    RuleId = v1Notification.RuleId,
+                    RuleKey = v1Notification.RuleKey,
+                    ThreadId = v1Notification.ThreadId,
+                    Time = v1Notification.Time
                 };
 
-                if (!string.IsNullOrWhiteSpace(node.Message))
+                if (!string.IsNullOrWhiteSpace(v1Notification.Message))
                 {
                     notification.Message = new Message
                     {
-                        Text = node.Message
+                        Text = v1Notification.Message
                     };
                 }
             }
@@ -372,23 +327,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return notification;
         }
 
-        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne node)
+        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
         {
             ExceptionData exceptionData = null;
 
-            if (node != null)
+            if (v1ExceptionData != null)
             {
                 exceptionData = new ExceptionData
                 {
-                    Kind = node.Kind,
-                    Message = node.Message
+                    Kind = v1ExceptionData.Kind,
+                    Message = v1ExceptionData.Message
                 };
 
-                if (node.InnerExceptions != null)
+                if (v1ExceptionData.InnerExceptions != null)
                 {
                     exceptionData.InnerExceptions = new List<ExceptionData>();
 
-                    foreach (ExceptionDataVersionOne edvo in node.InnerExceptions)
+                    foreach (ExceptionDataVersionOne edvo in v1ExceptionData.InnerExceptions)
                     {
                         exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
                     }
@@ -426,11 +381,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                run.Invocations = new List<Invocation>();
-                run.Invocations.Add(CreateInvocation(v1Run.Invocation,
-                                                     v1Run.ToolNotifications,
-                                                     v1Run.ConfigurationNotifications,
-                                                     run));
+                // Even if there is no v1 invocation, there may be notifications
+                // in which case we will need a v2 invocation to contain them
+                Invocation invocation = CreateInvocation(v1Run.Invocation,
+                                                         v1Run.ToolNotifications,
+                                                         v1Run.ConfigurationNotifications,
+                                                         run);
+
+                if (invocation != null)
+                {
+                    run.Invocations = new List<Invocation>()
+                    {
+                        invocation
+                    };
+                }
 
                 if (v1Run.LogicalLocations != null)
                 {
@@ -464,59 +428,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public static Tool CreateTool(ToolVersionOne node)
+        public static Tool CreateTool(ToolVersionOne v1Tool)
         {
             Tool tool = null;
 
-            if (node != null)
+            if (v1Tool != null)
             {
                 tool = new Tool()
                 {
-                    FileVersion = node.FileVersion,
-                    FullName = node.FullName,
-                    Language = node.Language,
-                    Name = node.Name,
-                    Properties = node.Properties,
-                    SarifLoggerVersion = node.SarifLoggerVersion,
-                    SemanticVersion = node.SemanticVersion,
-                    Version = node.Version
+                    FileVersion = v1Tool.FileVersion,
+                    FullName = v1Tool.FullName,
+                    Language = v1Tool.Language,
+                    Name = v1Tool.Name,
+                    Properties = v1Tool.Properties,
+                    SarifLoggerVersion = v1Tool.SarifLoggerVersion,
+                    SemanticVersion = v1Tool.SemanticVersion,
+                    Version = v1Tool.Version
                 };
 
-                if (node.Tags.Count > 0)
+                if (v1Tool.Tags.Count > 0)
                 {
-                    tool.Tags.UnionWith(node.Tags);
+                    tool.Tags.UnionWith(v1Tool.Tags);
                 }
             }
 
             return tool;
-        }
-
-        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
-        {
-            switch (v1NotificationLevel)
-            {
-                case NotificationLevelVersionOne.Error:
-                    return NotificationLevel.Error;
-                case NotificationLevelVersionOne.Note:
-                    return NotificationLevel.Note;
-                default:
-                    return NotificationLevel.Warning;
-            }
-        }
-
-        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
-        {
-            switch (v1ResultLevel)
-            {
-                case ResultLevelVersionOne.Error:
-                    return RuleConfigurationDefaultLevel.Error;
-                case ResultLevelVersionOne.Pass:
-                    return RuleConfigurationDefaultLevel.Note;
-                case ResultLevelVersionOne.Warning:
-                    return RuleConfigurationDefaultLevel.Warning;
-                default:
-                    return RuleConfigurationDefaultLevel.Warning;
-            }
         }
     }
 }
