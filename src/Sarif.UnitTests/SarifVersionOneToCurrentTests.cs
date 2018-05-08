@@ -714,5 +714,141 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             v2LogText.Should().Be(v2LogExpectedText);
         }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""configurationNotifications"": [
+                        {
+                          ""id"": ""UnknownRule"",
+                          ""ruleId"": ""ABC0001"",
+                          ""level"": ""warning"",
+                          ""message"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+                        }
+                      ],
+                      ""toolNotifications"": [
+                        {
+                          ""id"": ""CTN0001"",
+                          ""level"": ""note"",
+                          ""message"": ""Run started."",
+                          ""exception"": {
+                            ""kind"": ""ExecutionEngine.RuleFailureException"",
+                            ""message"": ""Unhandled exception during rule evaluation."",
+                            ""stack"": {
+                              ""message"": ""This is the stack messasge."",
+                              ""frames"": [
+                                {
+                                  ""message"": ""Exception thrown"",
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                                  ""address"": 10092852
+                                },
+                                {
+                                  ""module"": ""ExecutionEngine"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""address"": 10073356,
+                                  ""offset"": 10475
+                                }
+                              ]
+                            },
+                            ""innerExceptions"": [
+                              {
+                                ""kind"": ""System.ArgumentException"",
+                                ""message"": ""length is < 0""
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""results"": [
+                      ]
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""toolNotifications"": [
+            {
+              ""id"": ""CTN0001"",
+              ""message"": {
+                ""text"": ""Run started.""
+              },
+              ""level"": ""note"",
+              ""exception"": {
+                ""kind"": ""ExecutionEngine.RuleFailureException"",
+                ""message"": ""Unhandled exception during rule evaluation."",
+                ""stack"": {
+                  ""message"": {
+                    ""text"": ""This is the stack messasge.""
+                  },
+                  ""frames"": [
+                    {
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 10092852,
+                      ""properties"": {
+                        ""sarifv1/message"": ""Exception thrown""
+                      }
+                    },
+                    {
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    }
+                  ]
+                },
+                ""innerExceptions"": [
+                  {
+                    ""kind"": ""System.ArgumentException"",
+                    ""message"": ""length is < 0""
+                  }
+                ]
+              }
+            }
+          ],
+          ""configurationNotifications"": [
+            {
+              ""id"": ""UnknownRule"",
+              ""ruleId"": ""ABC0001"",
+              ""message"": {
+                ""text"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
+              }
+            }
+          ]
+        }
+      ],
+      ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
     }
 }
