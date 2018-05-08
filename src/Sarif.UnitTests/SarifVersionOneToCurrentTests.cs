@@ -345,9 +345,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""invocations"": [
-        null
-      ],
       ""results"": [],
       ""resources"": {
         ""rules"": {
