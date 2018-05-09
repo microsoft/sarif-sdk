@@ -251,8 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""length"": 43,
           ""mimeType"": ""text/plain"",
           ""contents"": {
-            ""text"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
-            ""binary"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""
+            ""text"": ""The quick brown fox jumps over the lazy dog""
           },
           ""hashes"": [
             {
@@ -263,7 +262,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         },
         ""file:///home/buildAgent/bin/app.zip"": {
           ""mimeType"": ""application/zip"",
-          ""contents"": {},
           ""properties"": {
             ""my_key"": ""some value""
           }
@@ -275,8 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""parentKey"": ""file:///home/buildAgent/bin/app.zip"",
           ""offset"": 17522,
           ""length"": 4050,
-          ""mimeType"": ""application/vnd.openxmlformats-officedocument.wordprocessingml.document"",
-          ""contents"": {}
+          ""mimeType"": ""application/vnd.openxmlformats-officedocument.wordprocessingml.document""
         }
       },
       ""results"": []
@@ -367,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             ""configuration"": {
               ""enabled"": true,
-              ""defaultLevel"": 2
+              ""defaultLevel"": ""error""
             },
             ""helpLocation"": {
               ""uri"": ""http://www.domain.com/rules/c2002.html""
