@@ -498,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v1StackFrame.Message))
                 {
-                    // Stash the Message in the property bag
+                    // No Message property in v2, stash it in the property bag
                     stackFrame.SetProperty($"{FromPropertyBagPrefix}/message", v1StackFrame.Message);
                 }
 

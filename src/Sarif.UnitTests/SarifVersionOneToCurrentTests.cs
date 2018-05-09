@@ -523,23 +523,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""exception"": {
                             ""kind"": ""ExecutionEngine.RuleFailureException"",
                             ""message"": ""Unhandled exception during rule evaluation."",
-                            ""stack"": {
-                              ""frames"": [
-                                {
-                                  ""message"": ""Exception thrown"",
-                                  ""module"": ""RuleLibrary"",
-                                  ""threadId"": 52,
-                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
-                                  ""address"": 10092852
-                                },
-                                {
-                                  ""module"": ""ExecutionEngine"",
-                                  ""threadId"": 52,
-                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
-                                  ""address"": 10073356
-                                }
-                              ]
-                            },
                             ""innerExceptions"": [
                               {
                                 ""kind"": ""System.ArgumentException"",
