@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
     public enum RuleConfigurationDefaultLevel
     {
+        None,
         Note,
         Warning,
         Error,

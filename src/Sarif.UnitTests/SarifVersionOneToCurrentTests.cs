@@ -380,6 +380,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             ""fullDescription"": {
               ""text"": ""Rent internal rebellion competence biography photograph.""
+            },
+            ""configuration"": {
+              ""defaultLevel"": ""note""
             }
           }
         }

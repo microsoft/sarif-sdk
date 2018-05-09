@@ -290,6 +290,7 @@
       "arguments": {
         "typeName": "RuleConfigurationDefaultLevel",
         "description": "A value that specifies the default severity level of the result",
+        "zeroValueName": "None",
         "memberNames": [
           "Note",
           "Warning",

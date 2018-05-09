@@ -134,15 +134,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Rule.Properties
                 };
 
-                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled &&
-                    v1Rule.DefaultLevel != ResultLevelVersionOne.Warning)
+                RuleConfigurationDefaultLevel level = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+
+                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
+                    level != RuleConfigurationDefaultLevel.Warning)
                 {
                     rule.Configuration = new RuleConfiguration
                     {
+                        DefaultLevel = level,
                         Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
                     };
-
-                    rule.Configuration.DefaultLevel = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
                 }
 
                 if (!string.IsNullOrWhiteSpace(v1Rule.Name))
