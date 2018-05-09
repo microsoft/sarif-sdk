@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
 
-                if (!string.IsNullOrWhiteSpace(v1FileData.Contents))
+                if (v1FileData.Contents == null)
                 {
                     fileData.Contents = new FileContent();
 
@@ -134,8 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Rule.Properties
                 };
 
-                if (v1Rule.Configuration != RuleConfigurationVersionOne.Unknown &&
-                    v1Rule.DefaultLevel != ResultLevelVersionOne.Default)
+                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled &&
+                    v1Rule.DefaultLevel != ResultLevelVersionOne.Warning)
                 {
                     rule.Configuration = new RuleConfiguration
                     {
