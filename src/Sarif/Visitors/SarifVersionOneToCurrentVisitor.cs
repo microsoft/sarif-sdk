@@ -84,14 +84,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
 
-                fileData.Contents = new FileContent
+                if (v1FileData.Contents != null)
                 {
-                    Binary = v1FileData.Contents
-                };
+                    fileData.Contents = new FileContent();
 
-                if (SarifTransformerUtilities.TextMimeTypes.Contains(v1FileData.MimeType))
-                {
-                    fileData.Contents.Text = v1FileData.Contents;
+                    if (SarifTransformerUtilities.TextMimeTypes.Contains(v1FileData.MimeType))
+                    {
+                        fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
+                    }
+                    else
+                    {
+                        fileData.Contents.Binary = v1FileData.Contents;
+                    }
                 }
 
                 if (v1FileData.Hashes != null)
@@ -310,15 +314,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Rule.Properties
                 };
 
-                if (v1Rule.Configuration != RuleConfigurationVersionOne.Unknown &&
-                    v1Rule.DefaultLevel != ResultLevelVersionOne.Default)
+                RuleConfigurationDefaultLevel level = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+
+                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
+                    level != RuleConfigurationDefaultLevel.Warning)
                 {
                     rule.Configuration = new RuleConfiguration
                     {
+                        DefaultLevel = level,
                         Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
                     };
-
-                    rule.Configuration.DefaultLevel = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
                 }
 
                 if (!string.IsNullOrWhiteSpace(v1Rule.Name))
