@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -149,6 +150,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             };
+        }
+
+        public static string GetUtf8Base64String(string s)
+        {
+            return GetBase64String(s, Encoding.UTF8);
+        }
+
+        public static string GetBase64String(string s, Encoding encoding)
+        {
+            byte[] bytes = encoding.GetBytes(s);
+            return Convert.ToBase64String(bytes);
+        }
+
+        public static string DecodeBase64Utf8String(string s)
+        {
+            byte[] bytes = Convert.FromBase64String(s);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }
