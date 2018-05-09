@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
 
-                if (v1FileData.Contents == null)
+                if (v1FileData.Contents != null)
                 {
                     fileData.Contents = new FileContent();
 
