@@ -168,53 +168,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_MinimumWithTagsOnly()
-        {
-            string v1LogText =
-              @"{
-                  ""version"": ""1.0.0"",
-                  ""runs"": [
-                    {
-                      ""tool"": {
-                        ""name"": ""CodeScanner"",
-                        ""semanticVersion"": ""2.1.0"",
-                        ""properties"": {
-                          ""tags"": [ ""1"", ""2"" ]
-                        }
-                      },
-                      ""results"": []
-                    }
-                  ]
-                }";
-
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0"",
-        ""properties"": {
-          ""tags"": [
-  ""1"",
-  ""2""
-]
-        }
-      },
-      ""results"": []
-    }
-  ]
-}";
-
-            v2LogText.Should().Be(v2LogExpectedText);
-        }
-
-        [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
         {
             string v1LogText =
