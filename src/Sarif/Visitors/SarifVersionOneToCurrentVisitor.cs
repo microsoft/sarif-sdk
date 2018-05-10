@@ -9,6 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifVersionOneToCurrentVisitor : SarifRewritingVisitorVersionOne
     {
+        private static readonly SarifVersion FromSarifVersion = SarifVersion.OneZeroZero;
+        private static readonly string FromPropertyBagPrefix =
+            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+
         public SarifLog SarifLog { get; private set; }
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne v1SarifLog)
@@ -17,12 +21,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                     SarifVersion.TwoZeroZero,
                                     new List<Run>());
 
-            foreach (RunVersionOne run in v1SarifLog.Runs)
+            foreach (RunVersionOne v1Run in v1SarifLog.Runs)
             {
-                VisitRunVersionOne(run);
+                SarifLog.Runs.Add(CreateRun(v1Run));
             }
 
             return null;
+        }
+
+        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
+        {
+            ExceptionData exceptionData = null;
+
+            if (v1ExceptionData != null)
+            {
+                exceptionData = new ExceptionData
+                {
+                    Kind = v1ExceptionData.Kind,
+                    Message = v1ExceptionData.Message
+                };
+
+                if (v1ExceptionData.InnerExceptions != null)
+                {
+                    exceptionData.InnerExceptions = new List<ExceptionData>();
+
+                    foreach (ExceptionDataVersionOne edvo in v1ExceptionData.InnerExceptions)
+                    {
+                        exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
+                    }
+                }
+
+                if (v1ExceptionData.Stack != null)
+                {
+                    exceptionData.Stack = CreateStack(v1ExceptionData.Stack);
+                }
+            }
+
+            return exceptionData;
         }
 
         public static FileData CreateFileData(FileDataVersionOne v1FileData)
@@ -72,31 +107,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         fileData.Hashes.Add(CreateHash(hash));
                     }
                 }
-
-                if (v1FileData.Tags.Count > 0)
-                {
-                    fileData.Tags.UnionWith(v1FileData.Tags);
-                }
             }
 
             return fileData;
-        }
-
-        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
-        {
-            LogicalLocation logicalLocation = null;
-
-            if (v1LogicalLocation != null)
-            {
-                logicalLocation = new LogicalLocation
-                {
-                    Kind = v1LogicalLocation.Kind,
-                    Name = v1LogicalLocation.Name,
-                    ParentKey = v1LogicalLocation.ParentKey
-                };
-            }
-
-            return logicalLocation;
         }
 
         public static Hash CreateHash(HashVersionOne v1Hash)
@@ -119,6 +132,168 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return hash;
+        }
+
+        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation,
+                                           IEnumerable<NotificationVersionOne> v1ToolNotifications,
+                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications,
+                                           Run run)
+        {
+            Invocation invocation = CreateInvocation(v1Invocation, run);
+            IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
+            IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
+
+            if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
+            {
+                if (invocation == null)
+                {
+                    invocation = new Invocation();
+                }
+
+                invocation.ToolNotifications = toolNotifications;
+                invocation.ConfigurationNotifications = configurationNotifications;
+            }
+
+            return invocation;
+        }
+
+        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation, Run run)
+        {
+            Invocation invocation = null;
+
+            if (v1Invocation != null)
+            {
+                invocation = new Invocation
+                {
+                    Account = v1Invocation.Account,
+                    CommandLine = v1Invocation.CommandLine,
+                    EndTime = v1Invocation.EndTime,
+                    EnvironmentVariables = v1Invocation.EnvironmentVariables,
+                    Machine = v1Invocation.Machine,
+                    ProcessId = v1Invocation.ProcessId,
+                    Properties = v1Invocation.Properties,
+                    ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles, run),
+                    StartTime = v1Invocation.StartTime,
+                    WorkingDirectory = v1Invocation.WorkingDirectory
+                };
+
+                if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
+                {
+                    invocation.ExecutableLocation = new FileLocation
+                    {
+                        Uri = new Uri(v1Invocation.FileName, UriKind.RelativeOrAbsolute)
+                    };
+                }
+            }
+
+            return invocation;
+        }
+
+        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
+        {
+            LogicalLocation logicalLocation = null;
+
+            if (v1LogicalLocation != null)
+            {
+                logicalLocation = new LogicalLocation
+                {
+                    Kind = v1LogicalLocation.Kind,
+                    Name = v1LogicalLocation.Name,
+                    ParentKey = v1LogicalLocation.ParentKey
+                };
+            }
+
+            return logicalLocation;
+        }
+
+        public static IList<Notification> CreateNotificationsList(IEnumerable<NotificationVersionOne> v1Notifications)
+        {
+            List<Notification> notifications = null;
+
+            if (v1Notifications != null)
+            {
+                notifications = new List<Notification>();
+
+                foreach (NotificationVersionOne notification in v1Notifications)
+                {
+                    notifications.Add(CreateNotification(notification));
+                }
+            }
+
+            return notifications;
+        }
+
+        public static Notification CreateNotification(NotificationVersionOne v1Notification)
+        {
+            Notification notification = null;
+
+            if (v1Notification != null)
+            {
+                notification = new Notification
+                {
+                    Exception = CreateExceptionData(v1Notification.Exception),
+                    Id = v1Notification.Id,
+                    Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
+                    Properties = v1Notification.Properties,
+                    RuleId = v1Notification.RuleId,
+                    RuleKey = v1Notification.RuleKey,
+                    ThreadId = v1Notification.ThreadId,
+                    Time = v1Notification.Time
+                };
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.Message))
+                {
+                    notification.Message = new Message
+                    {
+                        Text = v1Notification.Message
+                    };
+                }
+            }
+
+            return notification;
+        }
+
+        private static IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        {
+            List<FileLocation> fileLocations = null;
+
+            if (responseFileToContentsDictionary != null)
+            {
+                fileLocations = new List<FileLocation>();
+
+                foreach (string key in responseFileToContentsDictionary.Keys)
+                {
+                    var fileLocation = new FileLocation
+                    {
+                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                    };
+                    fileLocations.Add(fileLocation);
+
+                    if (run != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                    {
+                        // We have contents, so mention this file in run.files
+                        if (run.Files == null)
+                        {
+                            run.Files = new Dictionary<string, FileData>();
+                        }
+
+                        if (!run.Files.ContainsKey(key))
+                        {
+                            run.Files.Add(key, new FileData());
+                        }
+
+                        FileData responseFile = run.Files[key];
+
+                        responseFile.Contents = new FileContent
+                        {
+                            Text = responseFileToContentsDictionary[key]
+                        };
+                        responseFile.FileLocation = fileLocation;
+                    }
+                }
+            }
+
+            return fileLocations;
         }
 
         public static Rule CreateRule(RuleVersionOne v1Rule)
@@ -177,192 +352,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Uri = v1Rule.HelpUri
                     };
                 }
-
-                if (v1Rule.Tags.Count > 0)
-                {
-                    rule.Tags.UnionWith(v1Rule.Tags);
-                }
             }
 
             return rule;
         }
 
-        private static IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        public static Run CreateRun(RunVersionOne v1Run)
         {
-            List<FileLocation> fileLocations = null;
+            Run run = null;
 
-            if (responseFileToContentsDictionary != null)
-            {
-                fileLocations = new List<FileLocation>();
-
-                foreach (string key in responseFileToContentsDictionary.Keys)
-                {
-                    var fileLocation = new FileLocation
-                    {
-                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
-                    };
-                    fileLocations.Add(fileLocation);
-
-                    if (run != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
-                    {
-                        // We have contents, so mention this file in run.files
-                        if (run.Files == null)
-                        {
-                            run.Files = new Dictionary<string, FileData>();
-                        }
-
-                        if (!run.Files.ContainsKey(key))
-                        {
-                            run.Files.Add(key, new FileData());
-                        }
-
-                        FileData responseFile = run.Files[key];
-
-                        responseFile.Contents = new FileContent
-                        {
-                            Text = responseFileToContentsDictionary[key]
-                        };
-                        responseFile.FileLocation = fileLocation;
-                    }
-                }
-            }
-
-            return fileLocations;
-        }
-
-        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation,
-                                           IEnumerable<NotificationVersionOne> v1ToolNotifications,
-                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications,
-                                           Run run)
-        {
-            Invocation invocation = CreateInvocation(v1Invocation, run);
-            IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
-            IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
-
-            if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
-            {
-                if (invocation == null)
-                {
-                    invocation = new Invocation();
-                }
-
-                invocation.ToolNotifications = toolNotifications;
-                invocation.ConfigurationNotifications = configurationNotifications;
-            }
-
-            return invocation;
-        }
-
-        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation, Run run)
-        {
-            Invocation invocation = null;
-
-            if (v1Invocation != null)
-            {
-                invocation = new Invocation
-                {
-                    Account = v1Invocation.Account,
-                    CommandLine = v1Invocation.CommandLine,
-                    EndTime = v1Invocation.EndTime,
-                    EnvironmentVariables = v1Invocation.EnvironmentVariables,
-                    Machine = v1Invocation.Machine,
-                    ProcessId = v1Invocation.ProcessId,
-                    Properties = v1Invocation.Properties,
-                    ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles, run),
-                    StartTime = v1Invocation.StartTime,
-                    WorkingDirectory = v1Invocation.WorkingDirectory
-                };
-
-                if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
-                {
-                    invocation.ExecutableLocation = new FileLocation
-                    {
-                        Uri = new Uri(v1Invocation.FileName, UriKind.RelativeOrAbsolute)
-                    };
-                }
-            }
-
-            return invocation;
-        }
-
-        public static IList<Notification> CreateNotificationsList(IEnumerable<NotificationVersionOne> v1Notifications)
-        {
-            List<Notification> notifications = null;
-
-            if (v1Notifications != null)
-            {
-                notifications = new List<Notification>();
-
-                foreach (NotificationVersionOne notification in v1Notifications)
-                {
-                    notifications.Add(CreateNotification(notification));
-                }
-            }
-
-            return notifications;
-        }
-
-        public static Notification CreateNotification(NotificationVersionOne v1Notification)
-        {
-            Notification notification = null;
-
-            if (v1Notification != null)
-            {
-                notification = new Notification
-                {
-                    Exception = CreateExceptionData(v1Notification.Exception),
-                    Id = v1Notification.Id,
-                    Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
-                    Properties = v1Notification.Properties,
-                    RuleId = v1Notification.RuleId,
-                    RuleKey = v1Notification.RuleKey,
-                    ThreadId = v1Notification.ThreadId,
-                    Time = v1Notification.Time
-                };
-
-                if (!string.IsNullOrWhiteSpace(v1Notification.Message))
-                {
-                    notification.Message = new Message
-                    {
-                        Text = v1Notification.Message
-                    };
-                }
-            }
-
-            return notification;
-        }
-
-        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
-        {
-            ExceptionData exceptionData = null;
-
-            if (v1ExceptionData != null)
-            {
-                exceptionData = new ExceptionData
-                {
-                    Kind = v1ExceptionData.Kind,
-                    Message = v1ExceptionData.Message
-                };
-
-                if (v1ExceptionData.InnerExceptions != null)
-                {
-                    exceptionData.InnerExceptions = new List<ExceptionData>();
-
-                    foreach (ExceptionDataVersionOne edvo in v1ExceptionData.InnerExceptions)
-                    {
-                        exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
-                    }
-                }
-            }
-
-            return exceptionData;
-        }
-
-        public override RunVersionOne VisitRunVersionOne(RunVersionOne v1Run)
-        {
             if (v1Run != null)
             {
-                Run run = new Run()
+                run = new Run()
                 {
                     Architecture = v1Run.Architecture,
                     AutomationId = v1Run.AutomationId,
@@ -373,8 +374,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     StableId = v1Run.StableId,
                     Tool = CreateTool(v1Run.Tool)
                 };
-
-                SarifLog.Runs.Add(run);
 
                 if (v1Run.Files != null)
                 {
@@ -423,14 +422,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
                 }
+            }
 
-                if (v1Run.Tags.Count > 0)
+            return run;
+        }
+
+        public static Stack CreateStack(StackVersionOne v1Stack)
+        {
+            Stack stack = null;
+
+            if (v1Stack != null)
+            {
+                stack = new Stack
                 {
-                    run.Tags.UnionWith(v1Run.Tags);
+                    Properties = v1Stack.Properties
+                };
+
+                if (!string.IsNullOrWhiteSpace(v1Stack.Message))
+                {
+                    stack.Message = new Message
+                    {
+                        Text = v1Stack.Message
+                    };
+                }
+
+                if (v1Stack.Frames != null)
+                {
+                    stack.Frames = new List<StackFrame>();
+
+                    foreach (StackFrameVersionOne v1StackFrame in v1Stack.Frames)
+                    {
+                        stack.Frames.Add(CreateStackFrame(v1StackFrame));
+                    }
                 }
             }
 
-            return null;
+            return stack;
+        }
+
+        public static StackFrame CreateStackFrame(StackFrameVersionOne v1StackFrame)
+        {
+            StackFrame stackFrame = null;
+
+            if (v1StackFrame != null)
+            {
+                stackFrame = new StackFrame
+                {
+                    Address = v1StackFrame.Address,
+                    Module = v1StackFrame.Module,
+                    Offset = v1StackFrame.Offset,
+                    Parameters = v1StackFrame.Parameters,
+                    Properties = v1StackFrame.Properties,
+                    ThreadId = v1StackFrame.ThreadId
+                };
+            }
+
+            return stackFrame;
         }
 
         public static Tool CreateTool(ToolVersionOne v1Tool)
@@ -450,11 +497,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SemanticVersion = v1Tool.SemanticVersion,
                     Version = v1Tool.Version
                 };
-
-                if (v1Tool.Tags.Count > 0)
-                {
-                    tool.Tags.UnionWith(v1Tool.Tags);
-                }
             }
 
             return tool;
