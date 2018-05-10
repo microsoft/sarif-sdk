@@ -119,6 +119,102 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0"",
+                        ""properties"": {
+                          ""foo"": ""bar"",
+                          ""tags"": [ ""1"", ""2"" ]
+                        }
+                      },
+                      ""results"": []
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0"",
+        ""properties"": {
+          ""foo"": ""bar"",
+          ""tags"": [
+  ""1"",
+  ""2""
+]
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_MinimumWithTagsOnly()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0"",
+                        ""properties"": {
+                          ""tags"": [ ""1"", ""2"" ]
+                        }
+                      },
+                      ""results"": []
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0"",
+        ""properties"": {
+          ""tags"": [
+  ""1"",
+  ""2""
+]
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
         {
             string v1LogText =
@@ -702,19 +798,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""version"": ""1.0.0"",
                   ""runs"": [
                     {
-                      ""configurationNotifications"": [
-                        {
-                          ""id"": ""UnknownRule"",
-                          ""ruleId"": ""ABC0001"",
-                          ""level"": ""warning"",
-                          ""message"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
-                        }
-                      ],
                       ""toolNotifications"": [
                         {
                           ""id"": ""CTN0001"",
-                          ""level"": ""note"",
-                          ""message"": ""Run started."",
+                          ""level"": ""error"",
+                          ""message"": ""Unhandled exception."",
                           ""exception"": {
                             ""kind"": ""ExecutionEngine.RuleFailureException"",
                             ""message"": ""Unhandled exception during rule evaluation."",
@@ -775,9 +863,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""id"": ""CTN0001"",
               ""message"": {
-                ""text"": ""Run started.""
+                ""text"": ""Unhandled exception.""
               },
-              ""level"": ""note"",
+              ""level"": ""error"",
               ""exception"": {
                 ""kind"": ""ExecutionEngine.RuleFailureException"",
                 ""message"": ""Unhandled exception during rule evaluation."",
@@ -789,10 +877,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
-                      ""address"": 10092852,
-                      ""properties"": {
-                        ""sarifv1/message"": ""Exception thrown""
-                      }
+                      ""address"": 10092852
                     },
                     {
                       ""module"": ""ExecutionEngine"",
@@ -808,15 +893,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     ""message"": ""length is < 0""
                   }
                 ]
-              }
-            }
-          ],
-          ""configurationNotifications"": [
-            {
-              ""id"": ""UnknownRule"",
-              ""ruleId"": ""ABC0001"",
-              ""message"": {
-                ""text"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
               }
             }
           ]

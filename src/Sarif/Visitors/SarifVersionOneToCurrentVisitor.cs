@@ -107,11 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         fileData.Hashes.Add(CreateHash(hash));
                     }
                 }
-
-                if (v1FileData.Tags.Count > 0)
-                {
-                    fileData.Tags.UnionWith(v1FileData.Tags);
-                }
             }
 
             return fileData;
@@ -357,11 +352,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Uri = v1Rule.HelpUri
                     };
                 }
-
-                if (v1Rule.Tags.Count > 0)
-                {
-                    rule.Tags.UnionWith(v1Rule.Tags);
-                }
             }
 
             return rule;
@@ -432,11 +422,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
                 }
-
-                if (v1Run.Tags.Count > 0)
-                {
-                    run.Tags.UnionWith(v1Run.Tags);
-                }
             }
 
             return run;
@@ -470,11 +455,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         stack.Frames.Add(CreateStackFrame(v1StackFrame));
                     }
                 }
-
-                if (v1Stack.Tags.Count > 0)
-                {
-                    stack.Tags.UnionWith(v1Stack.Tags);
-                }
             }
 
             return stack;
@@ -495,17 +475,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1StackFrame.Properties,
                     ThreadId = v1StackFrame.ThreadId
                 };
-
-                if (!string.IsNullOrWhiteSpace(v1StackFrame.Message))
-                {
-                    // No Message property in v2, stash it in the property bag
-                    stackFrame.SetProperty($"{FromPropertyBagPrefix}/message", v1StackFrame.Message);
-                }
-
-                if (v1StackFrame.Tags.Count > 0)
-                {
-                    stackFrame.Tags.UnionWith(v1StackFrame.Tags);
-                }
             }
 
             return stackFrame;
@@ -528,11 +497,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SemanticVersion = v1Tool.SemanticVersion,
                     Version = v1Tool.Version
                 };
-
-                if (v1Tool.Tags.Count > 0)
-                {
-                    tool.Tags.UnionWith(v1Tool.Tags);
-                }
             }
 
             return tool;
