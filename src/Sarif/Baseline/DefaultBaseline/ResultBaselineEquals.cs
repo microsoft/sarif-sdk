@@ -39,8 +39,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                // Fingerprint contributions (values only, ignore keys) should be the same.
-                if (!ListComparisonHelpers.CompareListsAsSets(x.ToolFingerprintContributions?.Values?.ToList(), y.ToolFingerprintContributions?.Values?.ToList(), StringComparer.Ordinal))
+                // Fingerprints (values only, ignore keys) should be the same.
+                if (!ListComparisonHelpers.CompareListsAsSets(x.Fingerprints?.Values?.ToList(), y.Fingerprints?.Values?.ToList(), StringComparer.Ordinal))
+                {
+                    return false;
+                }
+
+                // Partial fingerprints (values only, ignore keys) should be the same.
+                if (!ListComparisonHelpers.CompareListsAsSets(x.PartialFingerprints?.Values?.ToList(), y.PartialFingerprints?.Values?.ToList(), StringComparer.Ordinal))
                 {
                     return false;
                 }
@@ -70,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContributions.GetNullCheckedHashCode();
+                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.PartialFingerprints.GetNullCheckedHashCode();
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 

@@ -944,7 +944,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DES#Type"
           },
           "properties": {
@@ -968,7 +968,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -1052,7 +1052,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "ExceptionEdge"
           },
           "properties": {
@@ -1082,7 +1082,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "ExceptionEdge"
           },
           "properties": {
@@ -1112,7 +1112,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -1169,7 +1169,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1199,7 +1199,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -1223,7 +1223,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DSA#Type"
           },
           "properties": {
@@ -1247,7 +1247,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -1333,7 +1333,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DSA#Member"
           },
           "properties": {
@@ -1363,7 +1363,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DSA#MemberParameter"
           },
           "properties": {
@@ -1393,7 +1393,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Hash#MemberParameter"
           },
           "properties": {
@@ -1423,7 +1423,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Hash#MemberParameter"
           },
           "properties": {
@@ -1453,7 +1453,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Alg#MemberParameter"
           },
           "properties": {
@@ -1484,7 +1484,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DSA#Member"
           },
           "properties": {
@@ -1514,7 +1514,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DSA#MemberParameter"
           },
           "properties": {
@@ -1544,7 +1544,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Hash#MemberParameter"
           },
           "properties": {
@@ -1574,7 +1574,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Hash#MemberParameter"
           },
           "properties": {
@@ -1604,7 +1604,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Signed#MemberParameter"
           },
           "properties": {
@@ -1634,7 +1634,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Alg#MemberParameter"
           },
           "properties": {
@@ -1665,7 +1665,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1695,7 +1695,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1719,7 +1719,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -1803,7 +1803,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1833,7 +1833,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1863,7 +1863,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1893,7 +1893,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -1950,7 +1950,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "args"
           },
           "properties": {
@@ -2001,7 +2001,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -2031,7 +2031,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Alg#MemberParameter"
           },
           "properties": {
@@ -2062,7 +2062,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "sym#MemberParameter"
           },
           "properties": {
@@ -2093,7 +2093,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "bytes#LanguageIndependentMemberParameter"
           },
           "properties": {
@@ -2123,7 +2123,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "0"
           },
           "properties": {
@@ -2153,7 +2153,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "1"
           },
           "properties": {
@@ -2183,7 +2183,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Alg#MemberParameter"
           },
           "properties": {
@@ -2214,7 +2214,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "sym#MemberParameter"
           },
           "properties": {
@@ -2245,7 +2245,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "string#LanguageIndependentMemberParameter"
           },
           "properties": {
@@ -2275,7 +2275,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "0"
           },
           "properties": {
@@ -2305,7 +2305,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -2335,7 +2335,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -2365,7 +2365,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -2464,7 +2464,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -2658,7 +2658,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -2688,7 +2688,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -2718,7 +2718,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -2798,7 +2798,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RIPEMD#Type"
           },
           "properties": {
@@ -2822,7 +2822,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -2852,7 +2852,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -2882,7 +2882,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.Write(System.String)#KnownValue"
           },
           "properties": {
@@ -2912,7 +2912,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -2942,7 +2942,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -3000,7 +3000,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "0"
           },
           "properties": {
@@ -3030,7 +3030,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.Write(System.String)#KnownValue"
           },
           "properties": {
@@ -3054,7 +3054,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "0"
           },
           "properties": {
@@ -3078,7 +3078,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RSA#Type"
           },
           "properties": {
@@ -3102,7 +3102,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "bit#Type"
           },
           "properties": {
@@ -3126,7 +3126,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -3183,7 +3183,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String)#KnownValue"
           },
           "properties": {
@@ -3213,7 +3213,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -3243,7 +3243,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Data#MemberParameter"
           },
           "properties": {
@@ -3273,7 +3273,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Do#MemberParameter"
           },
           "properties": {
@@ -3303,7 +3303,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "OAEP#MemberParameter"
           },
           "properties": {
@@ -3333,7 +3333,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RSA#Member"
           },
           "properties": {
@@ -3363,7 +3363,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RSA#MemberParameter"
           },
           "properties": {
@@ -3393,7 +3393,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Data#MemberParameter"
           },
           "properties": {
@@ -3423,7 +3423,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Do#MemberParameter"
           },
           "properties": {
@@ -3453,7 +3453,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "OAEP#MemberParameter"
           },
           "properties": {
@@ -3483,7 +3483,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RSA#Member"
           },
           "properties": {
@@ -3513,7 +3513,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "RSA#MemberParameter"
           },
           "properties": {
@@ -3537,7 +3537,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "SHA#Type"
           },
           "properties": {
@@ -3567,7 +3567,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -3624,7 +3624,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "result"
           },
           "properties": {
@@ -3675,7 +3675,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DES#Type"
           },
           "properties": {
@@ -3699,7 +3699,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -3893,7 +3893,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -3923,7 +3923,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -3953,7 +3953,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "System.Console.WriteLine(System.String,System.Object)#KnownValue"
           },
           "properties": {
@@ -4060,7 +4060,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4117,7 +4117,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -4147,7 +4147,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -4177,7 +4177,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4288,7 +4288,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -4318,7 +4318,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4375,7 +4375,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -4405,7 +4405,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4462,7 +4462,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -4492,7 +4492,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4576,7 +4576,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -4606,7 +4606,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4663,7 +4663,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4747,7 +4747,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -4777,7 +4777,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4834,7 +4834,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4891,7 +4891,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -4948,7 +4948,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -5032,7 +5032,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -5089,7 +5089,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "ExceptionEdge"
           },
           "properties": {
@@ -5119,7 +5119,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "s#MemberParameterMoreMeaningfulName"
           },
           "properties": {
@@ -5177,7 +5177,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5261,7 +5261,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5345,7 +5345,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5429,7 +5429,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5513,7 +5513,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "doc"
           },
           "properties": {
@@ -5543,7 +5543,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5627,7 +5627,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5711,7 +5711,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "doc"
           },
           "properties": {
@@ -5741,7 +5741,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -5820,7 +5820,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -5931,7 +5931,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -5961,7 +5961,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -5991,7 +5991,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "src#MemberParameter"
           },
           "properties": {
@@ -6130,7 +6130,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -6187,7 +6187,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -6217,7 +6217,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -6301,7 +6301,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "0"
           },
           "properties": {
@@ -6358,7 +6358,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "xsltSettings"
           },
           "properties": {
@@ -6410,7 +6410,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Type"
           },
           "properties": {
@@ -6440,7 +6440,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data.TestMethod34(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -6518,7 +6518,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Type"
           },
           "properties": {
@@ -6548,7 +6548,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -6626,7 +6626,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Impl#Type"
           },
           "properties": {
@@ -6684,7 +6684,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "content"
           },
           "properties": {
@@ -6714,7 +6714,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -6825,7 +6825,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -6909,7 +6909,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7020,7 +7020,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7104,7 +7104,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7215,7 +7215,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7299,7 +7299,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7410,7 +7410,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7656,7 +7656,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -7740,7 +7740,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -7770,7 +7770,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7854,7 +7854,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -7884,7 +7884,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -7968,7 +7968,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -7998,7 +7998,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -8055,7 +8055,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "schema"
           },
           "properties": {
@@ -8166,7 +8166,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "schema"
           },
           "properties": {
@@ -8223,7 +8223,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "vr"
           },
           "properties": {
@@ -8280,7 +8280,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -8337,7 +8337,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "vr"
           },
           "properties": {
@@ -8394,7 +8394,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "doc"
           },
           "properties": {
@@ -8478,7 +8478,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "doc"
           },
           "properties": {
@@ -8556,7 +8556,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XslCompiledTransformLoadWrongOverload"
           },
           "properties": {
@@ -8722,7 +8722,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XslCompiledTransformLoadInsecureXmlResolve"
           },
           "properties": {
@@ -8861,7 +8861,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -8891,7 +8891,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -8975,7 +8975,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9005,7 +9005,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9089,7 +9089,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9119,7 +9119,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9203,7 +9203,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XslCompiledTransformTransformInsecureXmlResolver"
           },
           "properties": {
@@ -9233,7 +9233,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9263,7 +9263,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9374,7 +9374,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XslCompiledTransformTransformWrongOverload"
           },
           "properties": {
@@ -9404,7 +9404,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9461,7 +9461,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XslCompiledTransformTransformWrongOverload"
           },
           "properties": {
@@ -9518,7 +9518,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "doc"
           },
           "properties": {
@@ -9548,7 +9548,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -9632,7 +9632,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -9743,7 +9743,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -9827,7 +9827,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlDocument"
           },
           "properties": {
@@ -9857,7 +9857,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -9914,7 +9914,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -9944,7 +9944,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateWrongOverload"
           },
           "properties": {
@@ -9974,7 +9974,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10031,7 +10031,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10061,7 +10061,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10118,7 +10118,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10148,7 +10148,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10205,7 +10205,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10235,7 +10235,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10292,7 +10292,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10322,7 +10322,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "resolver"
           },
           "properties": {
@@ -10352,7 +10352,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateInsecureXmlResolver"
           },
           "properties": {
@@ -10382,7 +10382,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10439,7 +10439,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10469,7 +10469,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10526,7 +10526,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10556,7 +10556,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10613,7 +10613,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10643,7 +10643,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateInsecureXmlResolver"
           },
           "properties": {
@@ -10673,7 +10673,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10730,7 +10730,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10760,7 +10760,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateInsecureXmlResolver"
           },
           "properties": {
@@ -10790,7 +10790,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "NonExceptionEdge"
           },
           "properties": {
@@ -10847,7 +10847,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "reader"
           },
           "properties": {
@@ -10877,7 +10877,7 @@
               "fullyQualifiedLogicalName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "XmlReaderCreateInsecureXmlResolver"
           },
           "properties": {

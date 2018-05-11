@@ -93,7 +93,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "DES#Type"
           },
           "properties": {
@@ -117,7 +117,7 @@
               "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {

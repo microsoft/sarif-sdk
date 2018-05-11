@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = "CA0000",
                 Message = new Message { Text = "hello!" },
                 SuppressionStates = SuppressionStates.SuppressedInSource,
-                ToolFingerprintContributions = new Dictionary<string, string>(),
+                PartialFingerprints = new Dictionary<string, string>(),
                 AnalysisTarget = new FileLocation
                 {
                     Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
@@ -391,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            expectedResult.ToolFingerprintContributions.Add("UniqueId", "1#test");
+            expectedResult.PartialFingerprints.Add("UniqueId", "1#test");
             expectedResult.SetProperty("Level", "error");
             expectedResult.SetProperty("Category", "FakeCategory");
             expectedResult.SetProperty("FixCategory", "Breaking");
