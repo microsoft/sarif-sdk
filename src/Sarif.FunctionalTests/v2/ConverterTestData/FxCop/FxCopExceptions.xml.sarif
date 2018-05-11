@@ -15,7 +15,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Microsoft.FxCop.Sdk.InvalidMetadataException"
           }
         },
@@ -27,7 +27,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "ManagedPlayToReceiver.PlayToReceiverPage.#ImgPlayer_SizeChanged(System.Object,Windows.UI.Xaml.SizeChangedEventArgs)#Microsoft.FxCop.Sdk.InvalidMetadataException"
           }
         }

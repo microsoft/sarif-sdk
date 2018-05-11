@@ -1213,8 +1213,16 @@
           "type": "string"
         },
 
-        "toolFingerprintContributions": {
-          "description": "A set of strings that contribute to the unique identity of the result.",
+        "partialFingerprints": {
+          "description": "A set of strings that contribute to the stable, unique identity of the result.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "fingerprints": {
+          "description": "A set of strings each of which individually defines a stable, unique identity for the result.",
           "type": "object",
           "additionalProperties": {
             "type": "string"

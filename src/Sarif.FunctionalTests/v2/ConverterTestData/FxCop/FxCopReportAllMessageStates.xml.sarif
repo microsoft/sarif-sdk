@@ -165,7 +165,7 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -195,7 +195,7 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Baz#Member"
           },
           "properties": {

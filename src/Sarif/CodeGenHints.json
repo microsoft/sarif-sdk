@@ -264,7 +264,12 @@
       }
     }
   ],
-  "Result.ToolFingerprintContributions": [
+  "Result.PartialFingerprints": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Result.Fingerprints": [
     {
       "kind": "DictionaryHint"
     }
