@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinary",
-              "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -274,7 +273,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -854,7 +852,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -1098,7 +1095,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }

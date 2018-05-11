@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXH@Z",
               "properties": {
                 "funcline": "9"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "calladd9",
-              "decoratedName": "?calladd9@@YAXXZ",
               "properties": {
                 "funcline": "30"
               }
@@ -224,7 +222,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "calladd1deref",
-              "decoratedName": "?calladd1deref@@YAXXZ",
               "properties": {
                 "funcline": "41"
               }
@@ -342,7 +339,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallAccessor",
-              "decoratedName": "?CallAccessor@@YAXPAUC@@@Z",
               "properties": {
                 "funcline": "70"
               }
@@ -474,7 +470,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallAccessor",
-              "decoratedName": "?CallAccessor@@YAXPAUC@@@Z",
               "properties": {
                 "funcline": "70"
               }
@@ -606,7 +601,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "86"
               }
@@ -724,7 +718,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callAlloc",
-              "decoratedName": "?callAlloc@@YAXXZ",
               "properties": {
                 "funcline": "98"
               }
@@ -870,7 +863,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callRecursive",
-              "decoratedName": "?callRecursive@@YAXH@Z",
               "properties": {
                 "funcline": "114"
               }
@@ -960,7 +952,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callRecursive",
-              "decoratedName": "?callRecursive@@YAXH@Z",
               "properties": {
                 "funcline": "114"
               }
@@ -1050,7 +1041,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "repeated",
-              "decoratedName": "?repeated@@YAXXZ",
               "properties": {
                 "funcline": "125"
               }
@@ -1210,7 +1200,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallAccess",
-              "decoratedName": "?CallAccess@@YAXPADI@Z",
               "properties": {
                 "funcline": "138"
               }
@@ -1272,7 +1261,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callLoop",
-              "decoratedName": "?callLoop@@YAXI@Z",
               "properties": {
                 "funcline": "161"
               }
@@ -1376,7 +1364,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callAdd",
-              "decoratedName": "?callAdd@@YAXPAUS@@@Z",
               "properties": {
                 "funcline": "185"
               }
@@ -1494,7 +1481,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callSet",
-              "decoratedName": "?callSet@@YAXPAUS@@@Z",
               "properties": {
                 "funcline": "199"
               }

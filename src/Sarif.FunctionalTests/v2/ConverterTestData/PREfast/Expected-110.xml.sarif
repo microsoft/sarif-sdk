@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -526,7 +525,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -1134,7 +1132,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -1560,7 +1557,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }

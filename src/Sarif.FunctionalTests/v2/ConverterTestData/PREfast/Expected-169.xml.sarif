@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyAPI3",
-              "decoratedName": "?MyAPI3@@YAJPAH@Z",
               "properties": {
                 "funcline": "19"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyAPI4",
-              "decoratedName": "?MyAPI4@@YAJPAH@Z",
               "properties": {
                 "funcline": "25"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad1",
-              "decoratedName": "?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z",
               "properties": {
                 "funcline": "10"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad2",
-              "decoratedName": "?bad2@@YAPAU_FLEXARRAY@@I@Z",
               "properties": {
                 "funcline": "26"
               }
@@ -224,7 +222,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Foo::what",
-              "decoratedName": "?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z",
               "properties": {
                 "funcline": "36"
               }
@@ -286,7 +283,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "42"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXXZ",
               "properties": {
                 "funcline": "16"
               }
@@ -106,7 +105,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "h",
-              "decoratedName": "?h@@YAXPAHH@Z",
               "properties": {
                 "funcline": "28"
               }
@@ -168,7 +166,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXPAHI@Z",
               "properties": {
                 "funcline": "33"
               }
@@ -230,7 +227,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StrLen",
-              "decoratedName": "?StrLen@@YAIPBD@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -292,7 +288,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BugLast",
-              "decoratedName": "?BugLast@@YADPBD@Z",
               "properties": {
                 "funcline": "64"
               }
@@ -410,7 +405,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g1",
-              "decoratedName": "?g1@@YAXPAH@Z",
               "properties": {
                 "funcline": "78"
               }
@@ -472,7 +466,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YADXZ",
               "properties": {
                 "funcline": "89"
               }
@@ -576,7 +569,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXPAHII@Z",
               "properties": {
                 "funcline": "97"
               }
@@ -792,7 +784,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShiftTest::f",
-              "decoratedName": "?f@ShiftTest@@YAXPAHH@Z",
               "properties": {
                 "funcline": "109"
               }
@@ -1022,7 +1013,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShiftTest::foo",
-              "decoratedName": "?foo@ShiftTest@@YAXXZ",
               "properties": {
                 "funcline": "122"
               }
@@ -1098,7 +1088,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShiftTest::bar",
-              "decoratedName": "?bar@ShiftTest@@YAXXZ",
               "properties": {
                 "funcline": "128"
               }

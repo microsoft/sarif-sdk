@@ -140,14 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateSignature(context);
-
-            string logicalLocationKey = CreateLogicalLocation(context);
-
-            if (logicalLocationKey != location.FullyQualifiedLogicalName)
-            {
-                location.LogicalLocationKey = logicalLocationKey;
-            }
+            location.FullyQualifiedLogicalName = CreateLogicalLocation(context);
 
             result.Locations = new List<Location> { location };
 
@@ -220,30 +213,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return ResultLevel.Default;
         }
 
-        private static string CreateSignature(FxCopLogReader.Context context)
-        {
-            string[] parts = new string[] { context.Resource, context.Namespace, context.Type, context.Member };
-            var updated = parts
-                    .Where(part => !String.IsNullOrEmpty(part))
-                    .Select(part => part.TrimStart('#'));
-
-            string joinedParts = String.Join(".", updated);
-
-            if (String.IsNullOrEmpty(joinedParts))
-            {
-                return context.Module;
-            }
-
-            if (!String.IsNullOrEmpty(context.Module))
-            {
-                return context.Module + "!" + joinedParts;
-            }
-            else
-            {
-                return joinedParts;
-            }
-        }
-
         private static string GetFilePath(FxCopLogReader.Context context)
         {
             if (context.Path == null)
@@ -277,7 +246,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Resource, LogicalLocationKind.Resource, delimiter);
                 delimiter = ".";
             }
-
 
             if (!string.IsNullOrEmpty(context.Namespace))
             {

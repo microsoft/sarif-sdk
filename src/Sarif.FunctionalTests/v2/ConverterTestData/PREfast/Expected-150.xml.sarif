@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo3",
-              "decoratedName": "?foo3@@YAXPAPAPAH0H@Z",
               "properties": {
                 "funcline": "18"
               }
@@ -78,7 +77,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SatFunc",
-              "decoratedName": "?SatFunc@@YAHHHPAD@Z",
               "properties": {
                 "funcline": "23"
               }
@@ -140,7 +138,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSat1",
-              "decoratedName": "?TestSat1@@YAXXZ",
               "properties": {
                 "funcline": "28"
               }
@@ -216,7 +213,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestPresatBad",
-              "decoratedName": "?TestPresatBad@@YADHHPAD@Z",
               "properties": {
                 "funcline": "37"
               }

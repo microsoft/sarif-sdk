@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "InvalidAliasing",
-              "decoratedName": "?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z",
               "properties": {
                 "funcline": "26"
               }

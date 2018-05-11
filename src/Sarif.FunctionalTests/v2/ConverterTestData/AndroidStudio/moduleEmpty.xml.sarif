@@ -14,6 +14,7 @@
       "logicalLocations": {
         "com.northwindtraders.droid.model": {
           "name": "com.northwindtraders.droid.model",
+          "fullyQualifiedName": "com.northwindtraders.droid.model",
           "kind": "package"
         }
       },

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UlpFixupIISLogRecord",
-              "decoratedName": "?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z",
               "properties": {
                 "funcline": "13"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
-              "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -150,7 +149,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
-              "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -273,7 +271,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RememberOldAlias",
-              "decoratedName": "?RememberOldAlias@@YAXHHPEAH@Z",
               "properties": {
                 "funcline": "16"
               }

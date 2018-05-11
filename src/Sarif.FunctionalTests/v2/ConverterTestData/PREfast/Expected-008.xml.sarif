@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "myConcat",
-              "decoratedName": "?myConcat@@YA?AUbuffer@@PADH0H@Z",
               "properties": {
                 "funcline": "15"
               }

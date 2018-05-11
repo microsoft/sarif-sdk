@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadGetWord1",
-              "decoratedName": "?BadGetWord1@@YAGPAPAD@Z",
               "properties": {
                 "funcline": "28"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadGetWord2",
-              "decoratedName": "?BadGetWord2@@YAGPAPAD@Z",
               "properties": {
                 "funcline": "36"
               }
@@ -238,7 +236,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetDWord",
-              "decoratedName": "?GetDWord@@YAIPAPAD@Z",
               "properties": {
                 "funcline": "45"
               }

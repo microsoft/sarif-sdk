@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "OutCaller1",
-              "decoratedName": "?OutCaller1@@YAXXZ",
               "properties": {
                 "funcline": "20"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "OutCaller2",
-              "decoratedName": "?OutCaller2@@YAXXZ",
               "properties": {
                 "funcline": "53"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar1",
-              "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "properties": {
                 "funcline": "81"
               }
@@ -162,7 +161,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar1",
-              "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "properties": {
                 "funcline": "81"
               }
@@ -322,7 +320,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar1",
-              "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z",
               "properties": {
                 "funcline": "81"
               }
@@ -510,7 +507,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseData",
-              "decoratedName": "?UseData@@YAXXZ",
               "properties": {
                 "funcline": "145"
               }

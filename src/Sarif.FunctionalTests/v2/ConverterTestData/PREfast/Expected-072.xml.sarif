@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPAG0@Z",
               "properties": {
                 "funcline": "36"
               }
@@ -162,7 +161,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAHPBG@Z",
               "properties": {
                 "funcline": "44"
               }
@@ -238,7 +236,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAHPBG@Z",
               "properties": {
                 "funcline": "49"
               }

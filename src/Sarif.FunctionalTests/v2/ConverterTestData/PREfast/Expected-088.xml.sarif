@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAD@Z",
               "properties": {
                 "funcline": "25"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad",
-              "decoratedName": "?Bad@@YAXPADI@Z",
               "properties": {
                 "funcline": "36"
               }
@@ -154,7 +152,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ExplicitChar",
-              "decoratedName": "?ExplicitChar@@YAXXZ",
               "properties": {
                 "funcline": "56"
               }
@@ -412,7 +409,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetItem",
-              "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z",
               "properties": {
                 "funcline": "72"
               }
@@ -516,7 +512,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ArrInit4",
-              "decoratedName": "?ArrInit4@@YAXXZ",
               "properties": {
                 "funcline": "114"
               }
@@ -606,7 +601,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NotZeroMemroy",
-              "decoratedName": "?NotZeroMemroy@@YAXXZ",
               "properties": {
                 "funcline": "128"
               }
@@ -696,7 +690,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadMemset",
-              "decoratedName": "?BadMemset@@YAXPAGI@Z",
               "properties": {
                 "funcline": "147"
               }

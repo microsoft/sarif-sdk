@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseDataSimple",
-              "decoratedName": "?UseDataSimple@@YAXXZ",
               "properties": {
                 "funcline": "8"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseDataSized",
-              "decoratedName": "?UseDataSized@@YAXXZ",
               "properties": {
                 "funcline": "21"
               }
@@ -252,7 +250,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseData",
-              "decoratedName": "?UseData@@YAXXZ",
               "properties": {
                 "funcline": "37"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFailOnImpl",
-              "decoratedName": "?TestFailOnImpl@@YAHPBD@Z",
               "properties": {
                 "funcline": "14"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFailOnCaller",
-              "decoratedName": "?TestFailOnCaller@@YAXXZ",
               "properties": {
                 "funcline": "23"
               }
@@ -266,7 +264,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestWeirdAlloc",
-              "decoratedName": "?TestWeirdAlloc@@YAXXZ",
               "properties": {
                 "funcline": "48"
               }

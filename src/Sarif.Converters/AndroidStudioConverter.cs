@@ -136,14 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            location.FullyQualifiedLogicalName = CreateSignature(problem);
-
-            string logicalLocationKey = CreateLogicalLocation(problem);
-
-            if (logicalLocationKey != location.FullyQualifiedLogicalName)
-            {
-                location.LogicalLocationKey = logicalLocationKey;
-            }
+            location.FullyQualifiedLogicalName = CreateLogicalLocation(problem);
 
             Uri uri;
             string file = problem.File;
@@ -165,30 +158,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations = new List<Location> { location };
 
             return result;
-        }
-
-        private static string CreateSignature(AndroidStudioProblem problem)
-        {
-            string entryPointName = problem.EntryPointName;
-            if ("file".Equals(problem.EntryPointType))
-            {
-                entryPointName = null;
-            }
-
-            string[] parts = new string[] { problem.Module, problem.Package, entryPointName };
-            var updated = parts
-                    .Where(part => !String.IsNullOrEmpty(part));
-
-            string joinedParts = String.Join(@"\", updated);
-
-            if (String.IsNullOrEmpty(joinedParts))
-            {
-                return problem.Module;
-            }
-            else
-            {
-                return joinedParts;
-            }
         }
 
         private string CreateLogicalLocation(AndroidStudioProblem problem)

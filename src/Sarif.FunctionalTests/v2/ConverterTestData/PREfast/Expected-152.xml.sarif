@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad1",
-              "decoratedName": "?Bad1@@YAHPAUMyStruct@@@Z",
               "properties": {
                 "funcline": "25"
               }

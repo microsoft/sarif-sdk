@@ -813,16 +813,6 @@
           "type": "string"
         },
 
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the location logicalLocation from the logicalLocations dictionary, when the string specified by 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
-        },
-
-        "decoratedName": {
-          "description": "The machine-readable fully qualified name for the logical location where the analysis tool produced the result, such as the mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.",
-          "type": "string"
-        },
-
         "message": {
           "description": "A message relevant to the location.",
           "$ref": "#/definitions/message"
@@ -866,6 +856,16 @@
 
         "name": {
           "description": "Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.",
+          "type": "string"
+        },
+
+        "fullyQualifiedName": {
+          "description": "The human-readable fully qualified name of the logical location.",
+          "type": "string"
+        },
+
+        "decoratedName": {
+          "description": "The machine-readable name for the logical location, such as a mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.",
           "type": "string"
         },
 
@@ -975,11 +975,6 @@
 
         "ruleId": {
           "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
-          "type": "string"
-        },
-
-        "ruleKey": {
-          "description": "A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.",
           "type": "string"
         },
 
@@ -1170,11 +1165,6 @@
 
         "ruleId": {
           "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
-          "type": "string"
-        },
-
-        "ruleKey": {
-          "description": "A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.",
           "type": "string"
         },
 

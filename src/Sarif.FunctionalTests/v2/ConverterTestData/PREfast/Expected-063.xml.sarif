@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "FindARecord",
-              "decoratedName": "?FindARecord@@YAXPAGPAK1@Z",
               "properties": {
                 "funcline": "8"
               }

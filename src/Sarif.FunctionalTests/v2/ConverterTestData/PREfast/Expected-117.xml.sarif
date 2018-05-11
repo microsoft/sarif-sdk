@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAPAHH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -218,7 +217,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo2b",
-              "decoratedName": "?foo2b@@YAPADW4TT@@@Z",
               "properties": {
                 "funcline": "90"
               }
@@ -448,7 +446,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo3",
-              "decoratedName": "?foo3@@YAXI@Z",
               "properties": {
                 "funcline": "143"
               }
@@ -580,7 +577,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo3",
-              "decoratedName": "?foo3@@YAXI@Z",
               "properties": {
                 "funcline": "143"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "qcolon",
-              "decoratedName": "?qcolon@@YAXPADIHH@Z",
               "properties": {
                 "funcline": "3"
               }
@@ -274,7 +273,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callqcolon",
-              "decoratedName": "?callqcolon@@YAXXZ",
               "properties": {
                 "funcline": "24"
               }
@@ -350,7 +348,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callqcolon",
-              "decoratedName": "?callqcolon@@YAXXZ",
               "properties": {
                 "funcline": "24"
               }
@@ -482,7 +479,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestAnd",
-              "decoratedName": "?TestAnd@@YAXPADI_N1@Z",
               "properties": {
                 "funcline": "39"
               }
@@ -726,7 +722,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestOr",
-              "decoratedName": "?TestOr@@YAXPADI_N1@Z",
               "properties": {
                 "funcline": "57"
               }
@@ -984,7 +979,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallAnd",
-              "decoratedName": "?CallAnd@@YAXXZ",
               "properties": {
                 "funcline": "78"
               }
@@ -1074,7 +1068,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallOr",
-              "decoratedName": "?CallOr@@YAXXZ",
               "properties": {
                 "funcline": "104"
               }
@@ -1192,7 +1185,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallDual",
-              "decoratedName": "?CallDual@@YAXXZ",
               "properties": {
                 "funcline": "133"
               }
@@ -1282,7 +1274,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadDualBit",
-              "decoratedName": "?BadDualBit@@YAXPADII@Z",
               "properties": {
                 "funcline": "155"
               }
@@ -1456,7 +1447,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallDualBit",
-              "decoratedName": "?CallDualBit@@YAXXZ",
               "properties": {
                 "funcline": "163"
               }
@@ -1546,7 +1536,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callcleveraw",
-              "decoratedName": "?callcleveraw@@YAXXZ",
               "properties": {
                 "funcline": "258"
               }
@@ -1650,7 +1639,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "callfoo",
-              "decoratedName": "?callfoo@@YAXXZ",
               "properties": {
                 "funcline": "276"
               }

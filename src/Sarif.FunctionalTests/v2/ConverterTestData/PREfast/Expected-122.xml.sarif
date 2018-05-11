@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "safe1",
-              "decoratedName": "?safe1@@YAXPAUBufferDesc@@@Z",
               "properties": {
                 "funcline": "50"
               }
@@ -232,7 +231,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "unsafe",
-              "decoratedName": "?unsafe@@YAXPAUBufferDesc@@@Z",
               "properties": {
                 "funcline": "67"
               }

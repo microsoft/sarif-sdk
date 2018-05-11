@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TxfConvertTxfFileIdToMungedName",
-              "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z",
               "properties": {
                 "funcline": "6"
               }
@@ -1184,7 +1183,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "46"
               }
@@ -1848,7 +1846,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXPAHH@Z",
               "properties": {
                 "funcline": "86"
               }

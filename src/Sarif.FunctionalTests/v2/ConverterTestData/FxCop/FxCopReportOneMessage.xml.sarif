@@ -9,6 +9,7 @@
       "logicalLocations": {
         "SecurityCryptographyRuleTests": {
           "name": "SecurityCryptographyRuleTests",
+          "fullyQualifiedName": "SecurityCryptographyRuleTests",
           "kind": "namespace"
         }
       },

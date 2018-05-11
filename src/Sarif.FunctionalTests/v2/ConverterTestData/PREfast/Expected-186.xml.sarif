@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "obvious",
-              "decoratedName": "?obvious@@YAXXZ",
               "properties": {
                 "funcline": "5"
               }
@@ -232,7 +231,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "with_condition",
-              "decoratedName": "?with_condition@@YAXXZ",
               "properties": {
                 "funcline": "15"
               }

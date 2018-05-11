@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test3",
-              "decoratedName": "?test3@@YAHH@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -162,7 +161,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test4",
-              "decoratedName": "?test4@@YAHH@Z",
               "properties": {
                 "funcline": "17"
               }
@@ -294,7 +292,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test5",
-              "decoratedName": "?test5@@YAHH@Z",
               "properties": {
                 "funcline": "31"
               }
@@ -412,7 +409,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test5",
-              "decoratedName": "?test5@@YAHH@Z",
               "properties": {
                 "funcline": "31"
               }
@@ -530,7 +526,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test6",
-              "decoratedName": "?test6@@YAHH@Z",
               "properties": {
                 "funcline": "37"
               }
@@ -648,7 +643,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test6",
-              "decoratedName": "?test6@@YAHH@Z",
               "properties": {
                 "funcline": "37"
               }

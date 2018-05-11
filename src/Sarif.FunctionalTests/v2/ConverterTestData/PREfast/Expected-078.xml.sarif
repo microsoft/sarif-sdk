@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPAH0@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "9"
               }
@@ -252,7 +250,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "DoSomethingBad",
-              "decoratedName": "?DoSomethingBad@@YAHPADPAI@Z",
               "properties": {
                 "funcline": "119"
               }
@@ -328,7 +325,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAPAXPAH@Z",
               "properties": {
                 "funcline": "129"
               }
@@ -460,7 +456,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXXZ",
               "properties": {
                 "funcline": "148"
               }
@@ -620,7 +615,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXXZ",
               "properties": {
                 "funcline": "148"
               }
@@ -780,7 +774,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "baz",
-              "decoratedName": "?baz@@YAXPAHH@Z",
               "properties": {
                 "funcline": "177"
               }
@@ -856,7 +849,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "baz",
-              "decoratedName": "?baz@@YAXPAHH@Z",
               "properties": {
                 "funcline": "177"
               }
@@ -932,7 +924,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "183"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestMyStructBufferOverrun",
-              "decoratedName": "?TestMyStructBufferOverrun@@YAXXZ",
               "properties": {
                 "funcline": "34"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestMyStructBufferOverrun2",
-              "decoratedName": "?TestMyStructBufferOverrun2@@YAXXZ",
               "properties": {
                 "funcline": "43"
               }

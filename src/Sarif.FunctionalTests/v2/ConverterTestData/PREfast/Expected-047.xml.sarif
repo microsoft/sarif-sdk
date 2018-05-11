@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SortList",
-              "decoratedName": "?SortList@@YAXXZ",
               "properties": {
                 "funcline": "174"
               }
@@ -344,7 +343,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SortListUnroll",
-              "decoratedName": "?SortListUnroll@@YAXXZ",
               "properties": {
                 "funcline": "186"
               }

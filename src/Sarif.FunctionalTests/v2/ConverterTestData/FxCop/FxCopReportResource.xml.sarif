@@ -14,10 +14,12 @@
       "logicalLocations": {
         "microsoft.teamfoundation.build.client.dll": {
           "name": "microsoft.teamfoundation.build.client.dll",
+          "fullyQualifiedName": "microsoft.teamfoundation.build.client.dll",
           "kind": "module"
         },
         "microsoft.teamfoundation.build.client.dll!OMStrings.resources": {
           "name": "OMStrings.resources",
+          "fullyQualifiedName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources",
           "parentKey": "microsoft.teamfoundation.build.client.dll",
           "kind": "resource"
         }

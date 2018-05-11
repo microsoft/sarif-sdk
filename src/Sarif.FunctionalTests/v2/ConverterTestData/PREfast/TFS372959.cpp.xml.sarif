@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias",
-              "decoratedName": "?MissedAlias@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -135,7 +134,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias2",
-              "decoratedName": "?MissedAlias2@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "20"
               }
@@ -240,7 +238,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign",
-              "decoratedName": "?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "32"
               }
@@ -345,7 +342,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign2",
-              "decoratedName": "?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "44"
               }
@@ -450,7 +446,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias_LocalIsCorrect",
-              "decoratedName": "?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "56"
               }
@@ -558,7 +553,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
-              "decoratedName": "?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z",
               "properties": {
                 "funcline": "68"
               }
@@ -666,7 +660,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember",
-              "decoratedName": "?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z",
               "properties": {
                 "funcline": "83"
               }
@@ -756,7 +749,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember_LocalIsCorrect",
-              "decoratedName": "?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z",
               "properties": {
                 "funcline": "92"
               }

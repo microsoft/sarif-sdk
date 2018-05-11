@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
-              "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ",
               "properties": {
                 "funcline": "9"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
-              "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ",
               "properties": {
                 "funcline": "19"
               }
@@ -210,7 +208,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
-              "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
               "properties": {
                 "funcline": "29"
               }

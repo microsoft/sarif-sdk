@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyClass::GetValue",
-              "decoratedName": "?GetValue@MyClass@@QAEHI@Z",
               "properties": {
                 "funcline": "12"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFixedSizeClass::GetValue",
-              "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z",
               "properties": {
                 "funcline": "38"
               }

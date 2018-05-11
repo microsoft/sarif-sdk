@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -330,7 +329,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -630,7 +628,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -902,7 +899,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }

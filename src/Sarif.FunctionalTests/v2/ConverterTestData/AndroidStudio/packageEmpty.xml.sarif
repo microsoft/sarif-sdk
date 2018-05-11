@@ -14,6 +14,7 @@
       "logicalLocations": {
         "northwindtraders-droid-2": {
           "name": "northwindtraders-droid-2",
+          "fullyQualifiedName": "northwindtraders-droid-2",
           "kind": "module"
         }
       },

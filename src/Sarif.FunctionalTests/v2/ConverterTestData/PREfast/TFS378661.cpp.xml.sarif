@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WritesArray",
-              "decoratedName": "?WritesArray@@YAXPEAJ@Z",
               "properties": {
                 "funcline": "6"
               }
@@ -105,7 +104,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayRange",
-              "decoratedName": "?WritesArrayRange@@YAXPEAJH@Z",
               "properties": {
                 "funcline": "13"
               }
@@ -180,7 +178,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayLoop",
-              "decoratedName": "?WritesArrayLoop@@YAXPEAJH@Z",
               "properties": {
                 "funcline": "20"
               }
@@ -352,7 +349,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayCompare",
-              "decoratedName": "?WritesArrayCompare@@YAXPEAJH@Z",
               "properties": {
                 "funcline": "32"
               }

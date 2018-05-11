@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAHI@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -190,7 +189,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "unannotated",
-              "decoratedName": "?unannotated@@YAHPAH@Z",
               "properties": {
                 "funcline": "24"
               }
@@ -350,7 +348,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "unannotated",
-              "decoratedName": "?unannotated@@YAHPAH@Z",
               "properties": {
                 "funcline": "24"
               }

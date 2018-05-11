@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAXI@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAXI@Z",
               "properties": {
                 "funcline": "7"
               }

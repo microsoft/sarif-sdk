@@ -149,16 +149,19 @@
       },
       "logicalLocations": {
         "collections::list::add": {
+          "fullyQualifiedName": "collections::list::add",
           "name": "add",
           "kind": "function",
           "parentKey": "collections::list"
         },
         "collections::list": {
+          "fullyQualifiedName": "collections::list",
           "name": "list",
           "kind": "type",
           "parentKey": "collections"
         },
         "collections": {
+          "fullyQualifiedName": "collections",
           "name": "collections",
           "kind": "namespace"
         }
@@ -197,8 +200,7 @@
                   "offset": 254
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list:add",
-              "decoratedName": "?add@list@collections@@QAEXH@Z"
+              "fullyQualifiedLogicalName": "collections::list:add"
             }
           ],
           "relatedLocations": [

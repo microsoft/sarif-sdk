@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSetToNull",
-              "decoratedName": "?TestSetToNull@@YAXXZ",
               "properties": {
                 "funcline": "9"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSetToZero",
-              "decoratedName": "?TestSetToZero@@YAXXZ",
               "properties": {
                 "funcline": "20"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "4"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadNullTerm",
-              "decoratedName": "?BadNullTerm@@YAIPAD@Z",
               "properties": {
                 "funcline": "132"
               }

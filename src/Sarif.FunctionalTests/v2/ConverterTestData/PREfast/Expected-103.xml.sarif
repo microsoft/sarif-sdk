@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXXZ",
               "properties": {
                 "funcline": "20"
               }
@@ -204,7 +203,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
-              "decoratedName": "?f1@@YAXXZ",
               "properties": {
                 "funcline": "30"
               }
@@ -378,7 +376,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "40"
               }
@@ -440,7 +437,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "56"
               }
@@ -530,7 +526,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "69"
               }
@@ -592,7 +587,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad",
-              "decoratedName": "?bad@@YAXXZ",
               "properties": {
                 "funcline": "92"
               }
@@ -710,7 +704,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "InferredIn",
-              "decoratedName": "?InferredIn@@YAXPBUUS@@@Z",
               "properties": {
                 "funcline": "101"
               }
@@ -772,7 +765,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
-              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "106"
               }
@@ -848,7 +840,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
-              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "106"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
-              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
               "properties": {
                 "funcline": "2"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
-              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
               "properties": {
                 "funcline": "2"
               }

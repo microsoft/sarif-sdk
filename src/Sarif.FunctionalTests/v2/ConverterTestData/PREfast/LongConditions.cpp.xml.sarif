@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition_Example",
-              "decoratedName": "?C6001LongCondition_Example@@YAHXZ",
               "properties": {
                 "funcline": "5"
               }
@@ -122,7 +121,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition15_Example",
-              "decoratedName": "?C6001LongCondition15_Example@@YAHXZ",
               "properties": {
                 "funcline": "19"
               }
@@ -214,7 +212,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition14_Example",
-              "decoratedName": "?C6001LongCondition14_Example@@YAHXZ",
               "properties": {
                 "funcline": "31"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "good1",
-              "decoratedName": "?good1@@YAPAU_VARSTR@@XZ",
               "properties": {
                 "funcline": "18"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad1",
-              "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ",
               "properties": {
                 "funcline": "41"
               }
@@ -210,7 +208,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad1",
-              "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ",
               "properties": {
                 "funcline": "41"
               }

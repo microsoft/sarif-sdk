@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "dualchartest",
-              "decoratedName": "?dualchartest@@YAXHPEAY01D@Z",
               "properties": {
                 "funcline": "10"
               }
@@ -288,7 +287,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "21"
               }

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction",
-              "decoratedName": "?MyFunction@@YAJPADH@Z",
               "properties": {
                 "funcline": "27"
               }
@@ -190,7 +189,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -378,7 +376,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -566,7 +563,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -782,7 +778,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -998,7 +993,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -1242,7 +1236,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ConstantFoldingTest",
-              "decoratedName": "?ConstantFoldingTest@@YAJK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -1486,7 +1479,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction2",
-              "decoratedName": "?MyFunction2@@YAXK@Z",
               "properties": {
                 "funcline": "71"
               }
@@ -1632,7 +1624,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction2",
-              "decoratedName": "?MyFunction2@@YAXK@Z",
               "properties": {
                 "funcline": "71"
               }
@@ -1778,7 +1769,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction3",
-              "decoratedName": "?MyFunction3@@YAXK@Z",
               "properties": {
                 "funcline": "81"
               }
@@ -1910,7 +1900,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction3",
-              "decoratedName": "?MyFunction3@@YAXK@Z",
               "properties": {
                 "funcline": "81"
               }
@@ -2042,7 +2031,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction4",
-              "decoratedName": "?MyFunction4@@YAXK@Z",
               "properties": {
                 "funcline": "91"
               }
@@ -2174,7 +2162,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction4",
-              "decoratedName": "?MyFunction4@@YAXK@Z",
               "properties": {
                 "funcline": "91"
               }
@@ -2306,7 +2293,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction5",
-              "decoratedName": "?MyFunction5@@YAXK@Z",
               "properties": {
                 "funcline": "101"
               }
@@ -2438,7 +2424,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFunction5",
-              "decoratedName": "?MyFunction5@@YAXK@Z",
               "properties": {
                 "funcline": "101"
               }

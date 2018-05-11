@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "VariableWorker",
-              "decoratedName": "?VariableWorker@@YAXHPAD@Z",
               "properties": {
                 "funcline": "6"
               }
@@ -106,7 +105,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad1",
-              "decoratedName": "?Bad1@@YAXXZ",
               "properties": {
                 "funcline": "28"
               }
@@ -182,7 +180,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad2",
-              "decoratedName": "?Bad2@@YAXH@Z",
               "properties": {
                 "funcline": "34"
               }
@@ -258,7 +255,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RangeWhen1",
-              "decoratedName": "?RangeWhen1@@YAXHI@Z",
               "properties": {
                 "funcline": "47"
               }
@@ -376,7 +372,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad3",
-              "decoratedName": "?Bad3@@YAXXZ",
               "properties": {
                 "funcline": "76"
               }
@@ -494,7 +489,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WinHttpTestINT",
-              "decoratedName": "?WinHttpTestINT@@YAXPBGH@Z",
               "properties": {
                 "funcline": "104"
               }
@@ -710,7 +704,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "myWcsCpy",
-              "decoratedName": "?myWcsCpy@@YAXPAGPBG@Z",
               "properties": {
                 "funcline": "128"
               }
@@ -772,7 +765,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallWinHttpDWORD",
-              "decoratedName": "?CallWinHttpDWORD@@YAXPBG@Z",
               "properties": {
                 "funcline": "133"
               }
@@ -890,7 +882,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallWinHttpINT",
-              "decoratedName": "?CallWinHttpINT@@YAXPBG@Z",
               "properties": {
                 "funcline": "147"
               }

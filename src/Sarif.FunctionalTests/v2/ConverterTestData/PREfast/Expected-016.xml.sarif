@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C::Bad1",
-              "decoratedName": "?Bad1@C@@QAEHXZ",
               "properties": {
                 "funcline": "60"
               }
@@ -316,7 +315,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C::Bad2",
-              "decoratedName": "?Bad2@C@@QAEHXZ",
               "properties": {
                 "funcline": "84"
               }
@@ -602,7 +600,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad3",
-              "decoratedName": "?Bad3@@YAHPAUC@@@Z",
               "properties": {
                 "funcline": "108"
               }

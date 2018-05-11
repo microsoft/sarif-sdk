@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Unsafe1",
-              "decoratedName": "?Unsafe1@@YA_NPBD@Z",
               "properties": {
                 "funcline": "12"
               }
@@ -106,7 +105,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Unsafe2",
-              "decoratedName": "?Unsafe2@@YA_NPBD@Z",
               "properties": {
                 "funcline": "19"
               }

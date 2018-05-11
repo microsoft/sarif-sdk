@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetDSNAMEBad",
-              "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "properties": {
                 "funcline": "58"
               }
@@ -176,7 +175,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetDSNAMEBad",
-              "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "properties": {
                 "funcline": "58"
               }

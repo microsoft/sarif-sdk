@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInNewArray",
-              "decoratedName": "?BadFunctionKvtInNewArray@@YAHXZ",
               "properties": {
                 "funcline": "8"
               }
@@ -155,7 +154,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInConstructor",
-              "decoratedName": "?BadFunctionKvtInConstructor@@YAHXZ",
               "properties": {
                 "funcline": "34"
               }

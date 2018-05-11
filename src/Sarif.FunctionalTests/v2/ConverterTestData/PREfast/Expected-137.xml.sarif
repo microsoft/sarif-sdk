@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyCopyA",
-              "decoratedName": "?MyCopyA@@YAXPAUMyStructA@@0@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyCopyW",
-              "decoratedName": "?MyCopyW@@YAXPAUMyStructW@@0@Z",
               "properties": {
                 "funcline": "52"
               }

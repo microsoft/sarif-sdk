@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2t",
-              "decoratedName": "?test2t@@YAXXZ",
               "properties": {
                 "funcline": "51"
               }
@@ -316,7 +315,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2t",
-              "decoratedName": "?test2t@@YAXXZ",
               "properties": {
                 "funcline": "51"
               }
@@ -644,7 +642,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2k",
-              "decoratedName": "?test2k@@YAXXZ",
               "properties": {
                 "funcline": "65"
               }
@@ -930,7 +927,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2k",
-              "decoratedName": "?test2k@@YAXXZ",
               "properties": {
                 "funcline": "65"
               }
@@ -1258,7 +1254,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2x",
-              "decoratedName": "?test2x@@YAXXZ",
               "properties": {
                 "funcline": "78"
               }
@@ -1460,7 +1455,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2x",
-              "decoratedName": "?test2x@@YAXXZ",
               "properties": {
                 "funcline": "78"
               }
@@ -1704,7 +1698,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2tu",
-              "decoratedName": "?test2tu@@YAXXZ",
               "properties": {
                 "funcline": "89"
               }
@@ -1990,7 +1983,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2tu",
-              "decoratedName": "?test2tu@@YAXXZ",
               "properties": {
                 "funcline": "89"
               }
@@ -2318,7 +2310,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2ku",
-              "decoratedName": "?test2ku@@YAXXZ",
               "properties": {
                 "funcline": "103"
               }
@@ -2604,7 +2595,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2ku",
-              "decoratedName": "?test2ku@@YAXXZ",
               "properties": {
                 "funcline": "103"
               }
@@ -2932,7 +2922,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2xu",
-              "decoratedName": "?test2xu@@YAXXZ",
               "properties": {
                 "funcline": "116"
               }
@@ -3134,7 +3123,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "test2xu",
-              "decoratedName": "?test2xu@@YAXXZ",
               "properties": {
                 "funcline": "116"
               }

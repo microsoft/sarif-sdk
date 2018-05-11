@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetMachineName",
-              "decoratedName": "?GetMachineName@@YAJPAGQAG@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetMachineName",
-              "decoratedName": "?GetMachineName@@YAJPAGQAG@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -420,7 +418,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "26"
               }

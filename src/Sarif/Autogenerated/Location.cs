@@ -45,18 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
-        /// A key used to retrieve the location logicalLocation from the logicalLocations dictionary, when the string specified by 'fullyQualifiedLogicalName' is not unique.
-        /// </summary>
-        [DataMember(Name = "logicalLocationKey", IsRequired = false, EmitDefaultValue = false)]
-        public string LogicalLocationKey { get; set; }
-
-        /// <summary>
-        /// The machine-readable fully qualified name for the logical location where the analysis tool produced the result, such as the mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.
-        /// </summary>
-        [DataMember(Name = "decoratedName", IsRequired = false, EmitDefaultValue = false)]
-        public string DecoratedName { get; set; }
-
-        /// <summary>
         /// A message relevant to the location.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
@@ -90,12 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fullyQualifiedLogicalName">
         /// An initialization value for the <see cref="P: FullyQualifiedLogicalName" /> property.
         /// </param>
-        /// <param name="logicalLocationKey">
-        /// An initialization value for the <see cref="P: LogicalLocationKey" /> property.
-        /// </param>
-        /// <param name="decoratedName">
-        /// An initialization value for the <see cref="P: DecoratedName" /> property.
-        /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
@@ -105,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Location(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string decoratedName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, decoratedName, message, annotations, properties);
+            Init(physicalLocation, fullyQualifiedLogicalName, message, annotations, properties);
         }
 
         /// <summary>
@@ -126,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationKey, other.DecoratedName, other.Message, other.Annotations, other.Properties);
+            Init(other.PhysicalLocation, other.FullyQualifiedLogicalName, other.Message, other.Annotations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -147,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string decoratedName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (physicalLocation != null)
             {
@@ -155,8 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             FullyQualifiedLogicalName = fullyQualifiedLogicalName;
-            LogicalLocationKey = logicalLocationKey;
-            DecoratedName = decoratedName;
             if (message != null)
             {
                 Message = new Message(message);

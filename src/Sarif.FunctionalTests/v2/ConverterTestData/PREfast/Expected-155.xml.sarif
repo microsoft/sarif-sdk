@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad",
-              "decoratedName": "?Bad@@YAXXZ",
               "properties": {
                 "funcline": "44"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad2",
-              "decoratedName": "?Bad2@@YAXXZ",
               "properties": {
                 "funcline": "51"
               }
@@ -280,7 +278,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad3",
-              "decoratedName": "?Bad3@@YAXXZ",
               "properties": {
                 "funcline": "61"
               }

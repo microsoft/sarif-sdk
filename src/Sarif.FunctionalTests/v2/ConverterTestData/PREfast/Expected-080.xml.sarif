@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXHH@Z",
               "properties": {
                 "funcline": "31"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "nested",
-              "decoratedName": "?nested@@YAXXZ",
               "properties": {
                 "funcline": "39"
               }
@@ -308,7 +306,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "nested",
-              "decoratedName": "?nested@@YAXXZ",
               "properties": {
                 "funcline": "39"
               }
@@ -496,7 +493,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "call",
-              "decoratedName": "?call@@YADPADID@Z",
               "properties": {
                 "funcline": "53"
               }
@@ -558,7 +554,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "call1",
-              "decoratedName": "?call1@@YADPADID@Z",
               "properties": {
                 "funcline": "58"
               }
@@ -648,7 +643,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestRelopBad",
-              "decoratedName": "?TestRelopBad@@YAXII@Z",
               "properties": {
                 "funcline": "65"
               }
@@ -766,7 +760,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestRelopGood",
-              "decoratedName": "?TestRelopGood@@YAXII@Z",
               "properties": {
                 "funcline": "73"
               }

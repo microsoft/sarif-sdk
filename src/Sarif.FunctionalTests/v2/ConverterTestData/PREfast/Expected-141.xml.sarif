@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ErrorTestFunc",
-              "decoratedName": "?ErrorTestFunc@@YAXXZ",
               "properties": {
                 "funcline": "47"
               }
@@ -162,7 +161,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseRefParamsFromMyClass2",
-              "decoratedName": "?UseRefParamsFromMyClass2@@YAXXZ",
               "properties": {
                 "funcline": "79"
               }
@@ -294,7 +292,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UseRefParamsNoTemplate",
-              "decoratedName": "?UseRefParamsNoTemplate@@YAXXZ",
               "properties": {
                 "funcline": "99"
               }

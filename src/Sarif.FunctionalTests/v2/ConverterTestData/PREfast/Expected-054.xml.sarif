@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXH@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -92,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXH@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -154,7 +152,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "find",
-              "decoratedName": "?find@@YAHPAHHH@Z",
               "properties": {
                 "funcline": "17"
               }
@@ -258,7 +255,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "h",
-              "decoratedName": "?h@@YAXPAHH@Z",
               "properties": {
                 "funcline": "50"
               }
@@ -362,7 +358,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "h",
-              "decoratedName": "?h@@YAXPAHH@Z",
               "properties": {
                 "funcline": "50"
               }
@@ -466,7 +461,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "h1",
-              "decoratedName": "?h1@@YAXPAHH@Z",
               "properties": {
                 "funcline": "56"
               }
@@ -584,7 +578,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "search",
-              "decoratedName": "?search@@YAXPAHABH0@Z",
               "properties": {
                 "funcline": "63"
               }
@@ -646,7 +639,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "baz",
-              "decoratedName": "?baz@@YAXXZ",
               "properties": {
                 "funcline": "99"
               }
@@ -736,7 +728,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "204"
               }
@@ -1022,7 +1013,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "204"
               }

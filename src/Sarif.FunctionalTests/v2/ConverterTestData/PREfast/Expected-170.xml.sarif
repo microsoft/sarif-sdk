@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CopyNullTerminatedBufferToOffset",
-              "decoratedName": "?CopyNullTerminatedBufferToOffset@@YAXXZ",
               "properties": {
                 "funcline": "47"
               }

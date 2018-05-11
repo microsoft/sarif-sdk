@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "16"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "16"
               }
@@ -266,7 +264,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
-              "decoratedName": "?f1@@YAHPAPAH@Z",
               "properties": {
                 "funcline": "24"
               }
@@ -370,7 +367,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
               "properties": {
                 "funcline": "40"
               }
@@ -558,7 +554,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
               "properties": {
                 "funcline": "40"
               }
@@ -956,7 +951,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YA_NPAH0PAD@Z",
               "properties": {
                 "funcline": "40"
               }
@@ -1634,7 +1628,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YADPAD@Z",
               "properties": {
                 "funcline": "67"
               }
@@ -1766,7 +1759,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YADPAD@Z",
               "properties": {
                 "funcline": "67"
               }
@@ -1940,7 +1932,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YADPAD@Z",
               "properties": {
                 "funcline": "67"
               }
@@ -2114,7 +2105,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SuccessSatisfied",
-              "decoratedName": "?SuccessSatisfied@@YAJPAPADI@Z",
               "properties": {
                 "funcline": "88"
               }
@@ -2204,7 +2194,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NoSuccess",
-              "decoratedName": "?NoSuccess@@YAHPAPADI@Z",
               "properties": {
                 "funcline": "94"
               }
@@ -2294,7 +2283,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SuccessMaybeSatisified",
-              "decoratedName": "?SuccessMaybeSatisified@@YAJPAPADI@Z",
               "properties": {
                 "funcline": "105"
               }
@@ -2412,7 +2400,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetStreamData",
-              "decoratedName": "?GetStreamData@@YAJPAVStream@@@Z",
               "properties": {
                 "funcline": "138"
               }

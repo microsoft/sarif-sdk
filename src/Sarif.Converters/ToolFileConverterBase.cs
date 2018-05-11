@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int disambiguator = 0;
 
             string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
+            logicalLocation.FullyQualifiedName = logicalLocationKey;
             string generatedKey = logicalLocationKey;
 
             while (LogicalLocationsDictionary.ContainsKey(generatedKey) && !logicalLocation.ValueEquals(LogicalLocationsDictionary[generatedKey]))

@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UnsafeTestStatus",
-              "decoratedName": "?UnsafeTestStatus@@YAXJ@Z",
               "properties": {
                 "funcline": "34"
               }
@@ -134,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UnsafeTestStatus",
-              "decoratedName": "?UnsafeTestStatus@@YAXJ@Z",
               "properties": {
                 "funcline": "34"
               }

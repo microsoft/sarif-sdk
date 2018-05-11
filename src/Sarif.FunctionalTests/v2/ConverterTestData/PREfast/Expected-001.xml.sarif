@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "index",
-              "decoratedName": "?index@@YAHPAHHH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -120,7 +119,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "index",
-              "decoratedName": "?index@@YAHPAHHH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -266,7 +264,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "31"
               }
@@ -468,7 +465,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "31"
               }

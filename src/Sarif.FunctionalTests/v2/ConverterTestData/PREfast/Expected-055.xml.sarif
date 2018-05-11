@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -148,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -266,7 +264,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXH@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -440,7 +437,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXH@Z",
               "properties": {
                 "funcline": "18"
               }
@@ -628,7 +624,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXXZ",
               "properties": {
                 "funcline": "62"
               }
@@ -690,7 +685,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "testAlloca",
-              "decoratedName": "?testAlloca@@YAXXZ",
               "properties": {
                 "funcline": "71"
               }
@@ -794,7 +788,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "testAlloca",
-              "decoratedName": "?testAlloca@@YAXXZ",
               "properties": {
                 "funcline": "71"
               }
@@ -954,7 +947,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "testChar",
-              "decoratedName": "?testChar@@YAXH@Z",
               "properties": {
                 "funcline": "83"
               }
@@ -1030,7 +1022,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestNull",
-              "decoratedName": "?TestNull@@YAXPBD@Z",
               "properties": {
                 "funcline": "106"
               }
@@ -1218,7 +1209,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "`dynamic initializer for 's5''",
-              "decoratedName": "??__Es5@@YAXXZ",
               "properties": {
                 "funcline": "125"
               }
@@ -1280,7 +1270,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "127"
               }

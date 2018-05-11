@@ -30,7 +30,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "WriteOutput",
-              "decoratedName": "?WriteOutput@@YAHPADPAPAGPAF@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -246,7 +245,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "29"
               }

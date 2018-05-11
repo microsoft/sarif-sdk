@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            Rules[result.RuleKey ?? result.RuleId] = rule;
+            Rules[result.RuleId] = rule;
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);

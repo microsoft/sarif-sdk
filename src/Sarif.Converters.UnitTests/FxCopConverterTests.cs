@@ -399,19 +399,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "mybinary.dll", new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    "mybinary.dll", new LogicalLocation { FullyQualifiedName = "mybinary.dll", ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!mynamespace",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
+                    new LogicalLocation { FullyQualifiedName = "mybinary.dll!mynamespace", ParentKey = "mybinary.dll", Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
                 },
                 {
                     "mybinary.dll!mynamespace.mytype",
-                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
+                    new LogicalLocation { FullyQualifiedName = "mybinary.dll!mynamespace.mytype", ParentKey = "mybinary.dll!mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
                 },
                 {
                     "mybinary.dll!mynamespace.mytype.mymember(string)",
-                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
+                    new LogicalLocation { FullyQualifiedName = "mybinary.dll!mynamespace.mytype.mymember(string)", ParentKey = "mybinary.dll!mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
                 }            };
 
             var converter = new FxCopConverter();
@@ -440,15 +440,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 {
                     "mynamespace",
-                    new LogicalLocation { ParentKey = null, Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
+                    new LogicalLocation { FullyQualifiedName = "mynamespace", ParentKey = null, Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
                 },
                 {
                     "mynamespace.mytype",
-                    new LogicalLocation { ParentKey = "mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
+                    new LogicalLocation { FullyQualifiedName = "mynamespace.mytype", ParentKey = "mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
                 },
                 {
                     "mynamespace.mytype.mymember(string)",
-                    new LogicalLocation { ParentKey = "mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
+                    new LogicalLocation { FullyQualifiedName = "mynamespace.mytype.mymember(string)", ParentKey = "mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
                 }
             };
 
@@ -477,11 +477,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 {
                     "mybinary.dll",
-                    new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    new LogicalLocation { FullyQualifiedName = "mybinary.dll", ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!myresource.resx",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx",Kind = LogicalLocationKind.Resource }
+                    new LogicalLocation { FullyQualifiedName = @"mybinary.dll!myresource.resx", ParentKey = "mybinary.dll", Name = "myresource.resx", Kind = LogicalLocationKind.Resource }
                 },
             };
 

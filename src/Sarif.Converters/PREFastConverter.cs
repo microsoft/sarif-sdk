@@ -76,8 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var location = new Location()
             {
                 PhysicalLocation = physicalLocation,
-                FullyQualifiedLogicalName = defect.Function,
-                DecoratedName = defect.Decorated
+                FullyQualifiedLogicalName = defect.Function
             };
 
             location.SetProperty("funcline", defect.Funcline);
