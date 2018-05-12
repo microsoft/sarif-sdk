@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "UseLocalFunction": {
+          "name": "UseLocalFunction",
+          "decoratedName": "?UseLocalFunction@@YAHPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

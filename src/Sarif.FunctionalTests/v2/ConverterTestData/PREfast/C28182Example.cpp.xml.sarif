@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C28182Example": {
+          "name": "C28182Example",
+          "decoratedName": "?C28182Example@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "28182",

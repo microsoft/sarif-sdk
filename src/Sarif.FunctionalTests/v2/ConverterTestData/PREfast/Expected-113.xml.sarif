@@ -12,6 +12,28 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "test2p": {
+          "name": "test2p",
+          "decoratedName": "?test2p@@YAJPAH0@Z"
+        },
+        "test3p": {
+          "name": "test3p",
+          "decoratedName": "?test3p@@YAJPAH0@Z"
+        },
+        "test4p": {
+          "name": "test4p",
+          "decoratedName": "?test4p@@YAJPAH0@Z"
+        },
+        "test5p": {
+          "name": "test5p",
+          "decoratedName": "?test5p@@YAJPAH0@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26030",

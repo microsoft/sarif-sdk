@@ -12,6 +12,36 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "name": "f",
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        "find": {
+          "name": "find",
+          "decoratedName": "?find@@YAHPAHHH@Z"
+        },
+        "h": {
+          "name": "h",
+          "decoratedName": "?h@@YAXPAHH@Z"
+        },
+        "h1": {
+          "name": "h1",
+          "decoratedName": "?h1@@YAXPAHH@Z"
+        },
+        "search": {
+          "name": "search",
+          "decoratedName": "?search@@YAXPAHABH0@Z"
+        },
+        "baz": {
+          "name": "baz",
+          "decoratedName": "?baz@@YAXXZ"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",

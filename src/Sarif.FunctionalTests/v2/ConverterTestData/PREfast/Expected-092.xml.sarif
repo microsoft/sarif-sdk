@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "test2t": {
+          "name": "test2t",
+          "decoratedName": "?test2t@@YAXXZ"
+        },
+        "test2k": {
+          "name": "test2k",
+          "decoratedName": "?test2k@@YAXXZ"
+        },
+        "test2x": {
+          "name": "test2x",
+          "decoratedName": "?test2x@@YAXXZ"
+        },
+        "test2tu": {
+          "name": "test2tu",
+          "decoratedName": "?test2tu@@YAXXZ"
+        },
+        "test2ku": {
+          "name": "test2ku",
+          "decoratedName": "?test2ku@@YAXXZ"
+        },
+        "test2xu": {
+          "name": "test2xu",
+          "decoratedName": "?test2xu@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

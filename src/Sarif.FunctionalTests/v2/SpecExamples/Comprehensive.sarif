@@ -149,19 +149,17 @@
       },
       "logicalLocations": {
         "collections::list::add": {
-          "fullyQualifiedName": "collections::list::add",
           "name": "add",
           "kind": "function",
-          "parentKey": "collections::list"
+          "parentKey": "collections::list",
+          "decoratedName": "?add@list@collections@@QAEXH@Z"
         },
         "collections::list": {
-          "fullyQualifiedName": "collections::list",
           "name": "list",
           "kind": "type",
           "parentKey": "collections"
         },
         "collections": {
-          "fullyQualifiedName": "collections",
           "name": "collections",
           "kind": "namespace"
         }

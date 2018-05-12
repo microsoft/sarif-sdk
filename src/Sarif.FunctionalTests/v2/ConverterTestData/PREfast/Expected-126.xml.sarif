@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Unsafe1": {
+          "name": "Unsafe1",
+          "decoratedName": "?Unsafe1@@YA_NPBD@Z"
+        },
+        "Unsafe2": {
+          "name": "Unsafe2",
+          "decoratedName": "?Unsafe2@@YA_NPBD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "PbLoadExtRstSst": {
+          "name": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26024",

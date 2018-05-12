@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CreateLogString": {
+          "name": "CreateLogString",
+          "decoratedName": "?CreateLogString@@YAIPBDPAPAD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

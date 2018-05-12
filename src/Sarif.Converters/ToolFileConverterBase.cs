@@ -41,13 +41,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             int disambiguator = 0;
 
             string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
-            logicalLocation.FullyQualifiedName = logicalLocationKey;
             string generatedKey = logicalLocationKey;
 
             while (LogicalLocationsDictionary.ContainsKey(generatedKey) && !logicalLocation.ValueEquals(LogicalLocationsDictionary[generatedKey]))
             {
                 generatedKey = logicalLocationKey + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
                 ++disambiguator;
+            }
+
+            if (disambiguator > 0)
+            {
+                logicalLocation.FullyQualifiedName = logicalLocationKey;
             }
 
             if (!LogicalLocationsDictionary.ContainsKey(generatedKey))

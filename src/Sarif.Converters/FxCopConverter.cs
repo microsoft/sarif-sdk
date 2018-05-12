@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateLogicalLocation(context);
+            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context);
 
             result.Locations = new List<Location> { location };
 
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string CreateLogicalLocation(FxCopLogReader.Context context)
+        private string CreateFullyQualifiedLogicalName(FxCopLogReader.Context context)
         {
             string parentLogicalLocationKey = null;
             string delimiter = null;

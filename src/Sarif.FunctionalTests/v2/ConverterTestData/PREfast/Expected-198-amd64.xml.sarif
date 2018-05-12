@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f578": {
+          "name": "f578",
+          "decoratedName": "?f578@@YAXXZ"
+        },
+        "f609a": {
+          "name": "f609a",
+          "decoratedName": "?f609a@@YAKQEAPEAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26001",

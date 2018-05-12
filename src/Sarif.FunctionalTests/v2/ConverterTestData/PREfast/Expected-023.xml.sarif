@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "bar": {
+          "name": "bar",
+          "decoratedName": "?bar@@YAXPBD@Z"
+        },
+        "g": {
+          "name": "g",
+          "decoratedName": "?g@@YADPAX@Z"
+        },
+        "g1": {
+          "name": "g1",
+          "decoratedName": "?g1@@YAXXZ"
+        },
+        "blah": {
+          "name": "blah",
+          "decoratedName": "?blah@@YAXPAUS@@I@Z"
+        },
+        "foo": {
+          "name": "foo",
+          "decoratedName": "?foo@@YAXPADI@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",

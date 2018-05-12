@@ -12,6 +12,24 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "bad1": {
+          "name": "bad1",
+          "decoratedName": "?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z"
+        },
+        "bad2": {
+          "name": "bad2",
+          "decoratedName": "?bad2@@YAPAU_FLEXARRAY@@I@Z"
+        },
+        "Foo::what": {
+          "name": "Foo::what",
+          "decoratedName": "?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

@@ -12,6 +12,24 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "foo3": {
+          "name": "foo3",
+          "decoratedName": "?foo3@@YAXPAPAPAH0H@Z"
+        },
+        "SatFunc": {
+          "name": "SatFunc",
+          "decoratedName": "?SatFunc@@YAHHHPAD@Z"
+        },
+        "TestSat1": {
+          "name": "TestSat1",
+          "decoratedName": "?TestSat1@@YAXXZ"
+        },
+        "TestPresatBad": {
+          "name": "TestPresatBad",
+          "decoratedName": "?TestPresatBad@@YADHHPAD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26061",

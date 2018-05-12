@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "GetDSNAMEBad": {
+          "name": "GetDSNAMEBad",
+          "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26019",

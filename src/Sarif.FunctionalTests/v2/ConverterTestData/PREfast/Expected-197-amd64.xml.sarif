@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BadGetData2": {
+          "name": "BadGetData2",
+          "decoratedName": "?BadGetData2@@YAXPEAPEAXPEAK@Z"
+        },
+        "foo": {
+          "name": "foo",
+          "decoratedName": "?foo@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",

@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "IrrelevantBranch_6011": {
+          "name": "IrrelevantBranch_6011",
+          "decoratedName": "?IrrelevantBranch_6011@@YAH_NH@Z"
+        },
+        "C6385_MaybeRelevantBranch": {
+          "name": "C6385_MaybeRelevantBranch",
+          "decoratedName": "?C6385_MaybeRelevantBranch@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

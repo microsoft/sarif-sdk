@@ -12,6 +12,41 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "name": "f",
+          "decoratedName": "?f@@YAXXZ"
+        },
+        "f1": {
+          "name": "f1",
+          "decoratedName": "?f1@@YAXXZ"
+        },
+        "g": {
+          "name": "g",
+          "decoratedName": "?g@@YAXPAUUS@@@Z"
+        },
+        "g-0": {
+          "name": "g",
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "bar": {
+          "name": "bar",
+          "decoratedName": "?bar@@YAXPAUUS@@@Z"
+        },
+        "bad": {
+          "name": "bad",
+          "decoratedName": "?bad@@YAXXZ"
+        },
+        "InferredIn": {
+          "name": "InferredIn",
+          "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
+        },
+        "TestInferredIn": {
+          "name": "TestInferredIn",
+          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

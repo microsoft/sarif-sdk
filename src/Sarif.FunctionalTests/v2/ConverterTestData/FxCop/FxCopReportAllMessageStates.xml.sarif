@@ -17,59 +17,49 @@
       "logicalLocations": {
         "WpfApplication5": {
           "name": "WpfApplication5",
-          "fullyQualifiedName": "WpfApplication5",
           "kind": "namespace"
         },
         "wpfapplication5.exe": {
           "name": "wpfapplication5.exe",
-          "fullyQualifiedName": "wpfapplication5.exe",
           "kind": "module"
         },
         "wpfapplication5.exe!WpfApplication5": {
           "name": "WpfApplication5",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5",
           "parentKey": "wpfapplication5.exe",
           "kind": "namespace"
         },
         "wpfapplication5.exe!WpfApplication5.Frz": {
           "name": "Frz",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.Frz",
           "parentKey": "wpfapplication5.exe!WpfApplication5",
           "kind": "type"
         },
         "wpfapplication5.exe!WpfApplication5.Frz.Baz()": {
           "name": "Baz()",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()",
           "parentKey": "wpfapplication5.exe!WpfApplication5.Frz",
           "kind": "member"
         },
         "wpfapplication5.exe!WpfApplication5.MainWindow": {
           "name": "MainWindow",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.MainWindow",
           "parentKey": "wpfapplication5.exe!WpfApplication5",
           "kind": "type"
         },
         "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
           "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
           "parentKey": "wpfapplication5.exe!WpfApplication5.MainWindow",
           "kind": "member"
         },
         "wpfapplication5.exe!WpfApplication5.Properties": {
           "name": "WpfApplication5.Properties",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.Properties",
           "parentKey": "wpfapplication5.exe",
           "kind": "namespace"
         },
         "wpfapplication5.exe!WpfApplication5.Properties.Resources": {
           "name": "Resources",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.Properties.Resources",
           "parentKey": "wpfapplication5.exe!WpfApplication5.Properties",
           "kind": "type"
         },
         "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()": {
           "name": ".ctor()",
-          "fullyQualifiedName": "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()",
           "parentKey": "wpfapplication5.exe!WpfApplication5.Properties.Resources",
           "kind": "member"
         }

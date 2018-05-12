@@ -113,878 +113,731 @@
       "logicalLocations": {
         "FxCopUnsafeXml": {
           "name": "FxCopUnsafeXml",
-          "fullyQualifiedName": "FxCopUnsafeXml",
           "kind": "namespace"
         },
         "SecurityCryptographyRuleTests": {
           "name": "SecurityCryptographyRuleTests",
-          "fullyQualifiedName": "SecurityCryptographyRuleTests",
           "kind": "namespace"
         },
         "SecurityXmlRuleTests": {
           "name": "SecurityXmlRuleTests",
-          "fullyQualifiedName": "SecurityXmlRuleTests",
           "kind": "namespace"
         },
         "securitycryptographyruletests.dll": {
           "name": "securitycryptographyruletests.dll",
-          "fullyQualifiedName": "securitycryptographyruletests.dll",
           "kind": "module"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests": {
           "name": "SecurityCryptographyRuleTests",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "parentKey": "securitycryptographyruletests.dll",
           "kind": "namespace"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed": {
           "name": "DESCannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": {
           "name": "EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed": {
           "name": "DSACannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)": {
           "name": "DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSASignHash(System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)": {
           "name": "DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.DSAVerifyHash(System.Byte[],System.Byte[],System.Security.Cryptography.DSAParameters,System.String)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DSACannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed": {
           "name": "MD5CannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.GetMd5Hash(System.Security.Cryptography.MD5,System.String)": {
           "name": "GetMd5Hash(System.Security.Cryptography.MD5,System.String)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.GetMd5Hash(System.Security.Cryptography.MD5,System.String)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])": {
           "name": "Main(System.String[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.Main(System.String[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)": {
           "name": "VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed.VerifyMd5Hash(System.Security.Cryptography.MD5,System.String,System.String)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.MD5CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed": {
           "name": "RC2CannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])": {
           "name": "DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.DecryptBytes(System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)": {
           "name": "EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.EncryptString(System.Security.Cryptography.SymmetricAlgorithm,System.String)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2Impl": {
           "name": "RC2Impl",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2Impl",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2Impl..ctor()": {
           "name": ".ctor()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2Impl..ctor()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RC2Impl",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed": {
           "name": "RijndaelCannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])": {
           "name": "DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])": {
           "name": "EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RijndaelCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended": {
           "name": "RIPEMD160IsNotRecommended",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])": {
           "name": "Main(System.String[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.Main(System.String[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])": {
           "name": "PrintByteArray(System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended.PrintByteArray(System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RIPEMD160IsNotRecommended",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey": {
           "name": "RSAProviderNeeds2048bitKey",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)": {
           "name": "RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSADecrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)": {
           "name": "RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey.RSAEncrypt(System.Byte[],System.Security.Cryptography.RSAParameters,System.Boolean)",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.RSAProviderNeeds2048bitKey",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed": {
           "name": "SHA1CannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.SHA1CannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed": {
           "name": "TripleDESCannotBeUsed",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])": {
           "name": "DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.DecryptStringFromBytes(System.Byte[],System.Byte[],System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])": {
           "name": "EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.EncryptStringToBytes(System.String,System.Byte[],System.Byte[])",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed",
           "kind": "member"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()": {
           "name": "Main()",
-          "fullyQualifiedName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed.Main()",
           "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.TripleDESCannotBeUsed",
           "kind": "member"
         },
         "securityxmlruletests.dll": {
           "name": "securityxmlruletests.dll",
-          "fullyQualifiedName": "securityxmlruletests.dll",
           "kind": "module"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml": {
           "name": "FxCopUnsafeXml",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml",
           "parentKey": "securityxmlruletests.dll",
           "kind": "namespace"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader": {
           "name": "DoNotAllowDtdOnXmlReader",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)": {
           "name": "Test1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)": {
           "name": "Test1206P(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test1206P(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)": {
           "name": "Test2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)": {
           "name": "Test3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)": {
           "name": "Test6(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader.Test6(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader": {
           "name": "DoNotAllowDtdOnXmlTextReader",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)": {
           "name": "Test1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)": {
           "name": "Test1205P(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test1205P(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)": {
           "name": "Test2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)": {
           "name": "Test3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)": {
           "name": "Test4(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test4(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)": {
           "name": "Test5(System.String,System.Boolean)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test5(System.String,System.Boolean)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)": {
           "name": "Test6(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test6(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)": {
           "name": "Test7(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader.Test7(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotAllowDtdOnXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml": {
           "name": "DoNotUseLoadXml",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)": {
           "name": "TestMethod(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)": {
           "name": "TestMethod1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml.TestMethod1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseLoadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml": {
           "name": "DoNotUseSetInnerXml",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)": {
           "name": "TestMethod(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)": {
           "name": "TestMethod1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)": {
           "name": "TestMethod2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)": {
           "name": "TestMethod3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml.TestMethod3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseSetInnerXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform": {
           "name": "DoNotUseXslTransform",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform..ctor()": {
           "name": ".ctor()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform..ctor()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform.xslTransform": {
           "name": "xslTransform",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform.xslTransform",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.DoNotUseXslTransform",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader": {
           "name": "ReviewClassesDerivedFromXmlTextReader",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()": {
           "name": "Method()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader.Method()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewClassesDerivedFromXmlTextReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString": {
           "name": "ReviewDataViewConnectionString",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)": {
           "name": "TestMethod1216(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString.TestMethod1216(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDataViewConnectionString",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment": {
           "name": "ReviewDtdProcessingAssignment",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)": {
           "name": "Test(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.Test(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)": {
           "name": "TestMethod(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment.TestMethod(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewDtdProcessingAssignment",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse": {
           "name": "ReviewTrustedXsltUse",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()": {
           "name": "TestMethod()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse.TestMethod()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewTrustedXsltUse",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data": {
           "name": "ReviewWebControlForSet_Data",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data.TestMethod34(System.String)": {
           "name": "TestMethod34(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data.TestMethod34(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_Data",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent": {
           "name": "ReviewWebControlForSet_DocumentContent",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent.TestMethod(System.String)": {
           "name": "TestMethod(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent.TestMethod(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.ReviewWebControlForSet_DocumentContent",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver": {
           "name": "TextReaderImplNeedsSettingsAndResolver",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver.TestMethod(System.String)": {
           "name": "TestMethod(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver.TestMethod(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.TextReaderImplNeedsSettingsAndResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml": {
           "name": "UseXmlReaderForDataSetReadXml",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)": {
           "name": "TestMethod1214(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)": {
           "name": "TestMethod1214Ok(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml.TestMethod1214Ok(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema": {
           "name": "UseXmlReaderForDataSetReadXmlSchema",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)": {
           "name": "TestMethod1215(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)": {
           "name": "TestMethod1215Ok(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema.TestMethod1215Ok(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataSetReadXmlSchema",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml": {
           "name": "UseXmlReaderForDataTableReadXml",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)": {
           "name": "TestMethod(System.IO.Stream)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod(System.IO.Stream)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)": {
           "name": "TestMethod1(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml.TestMethod1(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXml",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema": {
           "name": "UseXmlReaderForDataTableReadXmlSchema",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)": {
           "name": "TestMethod(System.IO.Stream)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod(System.IO.Stream)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)": {
           "name": "TestMethod1(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema.TestMethod1(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDataTableReadXmlSchema",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize": {
           "name": "UseXmlReaderForDeserialize",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221(System.IO.Stream)": {
           "name": "TestMethod1221(System.IO.Stream)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221(System.IO.Stream)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221Ok(System.Xml.XmlTextReader)": {
           "name": "TestMethod1221Ok(System.Xml.XmlTextReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize.TestMethod1221Ok(System.Xml.XmlTextReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForDeserialize",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad": {
           "name": "UseXmlReaderForLoad",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)": {
           "name": "TestMethod(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)": {
           "name": "TestMethod1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)": {
           "name": "TestMethod2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)": {
           "name": "TestMethod3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad.TestMethod3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForLoad",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead": {
           "name": "UseXmlReaderForSchemaRead",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)": {
           "name": "TestMethod18(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod18(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)": {
           "name": "TestMethod19(System.Xml.XmlTextReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead.TestMethod19(System.Xml.XmlTextReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForSchemaRead",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader": {
           "name": "UseXmlReaderForValidatingReader",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)": {
           "name": "TestMethod1213(System.IO.Stream)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213(System.IO.Stream)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)": {
           "name": "TestMethod1213Ok(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader.TestMethod1213Ok(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForValidatingReader",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument": {
           "name": "UseXmlReaderForXPathDocument",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)": {
           "name": "TestMethod16(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod16(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)": {
           "name": "TestMethod17(System.Xml.XmlReader)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument.TestMethod17(System.Xml.XmlReader)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlReaderForXPathDocument",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver": {
           "name": "UseXmlSecureResolver",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml",
           "kind": "type"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest1()": {
           "name": "LoadTest1()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest1()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest2()": {
           "name": "LoadTest2()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest2()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest3()": {
           "name": "LoadTest3()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest3()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest4()": {
           "name": "LoadTest4()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest4()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()": {
           "name": "LoadTest5()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest5()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest6()": {
           "name": "LoadTest6()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.LoadTest6()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest1()": {
           "name": "SuppresionTest1()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest1()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest2(System.String)": {
           "name": "SuppresionTest2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)": {
           "name": "SuppresionTest3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.SuppresionTest3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)": {
           "name": "TransformTest1(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest1(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)": {
           "name": "TransformTest2(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest2(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)": {
           "name": "TransformTest3(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest3(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)": {
           "name": "TransformTest4(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest4(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)": {
           "name": "TransformTest5(System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.TransformTest5(System.String)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()": {
           "name": "XmlDocumentTest1()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest1()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest2()": {
           "name": "XmlDocumentTest2()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest2()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()": {
           "name": "XmlDocumentTest3()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest3()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest4(System.Xml.XmlSecureResolver)": {
           "name": "XmlDocumentTest4(System.Xml.XmlSecureResolver)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest4(System.Xml.XmlSecureResolver)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest5()": {
           "name": "XmlDocumentTest5()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest5()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()": {
           "name": "XmlDocumentTest6()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest6()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest7()": {
           "name": "XmlDocumentTest7()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest7()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()": {
           "name": "XmlDocumentTest8()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlDocumentTest8()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()": {
           "name": "XmlReaderTest1()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest1()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()": {
           "name": "XmlReaderTest10()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest10()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()": {
           "name": "XmlReaderTest2()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest2()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)": {
           "name": "XmlReaderTest3(System.Xml.XmlSecureResolver)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest3(System.Xml.XmlSecureResolver)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)": {
           "name": "XmlReaderTest4(System.Xml.XmlSecureResolver)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest4(System.Xml.XmlSecureResolver)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()": {
           "name": "XmlReaderTest5()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest5()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()": {
           "name": "XmlReaderTest6()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest6()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()": {
           "name": "XmlReaderTest7()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest7()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()": {
           "name": "XmlReaderTest8()",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest8()",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)": {
           "name": "XmlReaderTest9(System.Xml.XmlReaderSettings)",
-          "fullyQualifiedName": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver.XmlReaderTest9(System.Xml.XmlReaderSettings)",
           "parentKey": "securityxmlruletests.dll!FxCopUnsafeXml.UseXmlSecureResolver",
           "kind": "member"
         },
         "securityxmlruletests.dll!SecurityXmlRuleTests": {
           "name": "SecurityXmlRuleTests",
-          "fullyQualifiedName": "securityxmlruletests.dll!SecurityXmlRuleTests",
           "parentKey": "securityxmlruletests.dll",
           "kind": "namespace"
         },
         "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema": {
           "name": "DoNotAddStringsToXmlSchema",
-          "fullyQualifiedName": "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema",
           "parentKey": "securityxmlruletests.dll!SecurityXmlRuleTests",
           "kind": "type"
         },
         "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.String,System.String)": {
           "name": "TestMethod(System.String,System.String)",
-          "fullyQualifiedName": "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.String,System.String)",
           "parentKey": "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema",
           "kind": "member"
         },
         "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.Xml.Schema.XmlSchema)": {
           "name": "TestMethod(System.Xml.Schema.XmlSchema)",
-          "fullyQualifiedName": "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema.TestMethod(System.Xml.Schema.XmlSchema)",
           "parentKey": "securityxmlruletests.dll!SecurityXmlRuleTests.DoNotAddStringsToXmlSchema",
           "kind": "member"
         }

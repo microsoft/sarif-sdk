@@ -17,24 +17,20 @@
       "logicalLocations": {
         "app": {
           "name": "app",
-          "fullyQualifiedName": "app",
           "kind": "module"
         },
         "app\\microsoft.androidstudioformatexample": {
           "name": "microsoft.androidstudioformatexample",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
           "parentKey": "app",
           "kind": "package"
         },
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()": {
           "name": "microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()",
           "parentKey": "app\\microsoft.androidstudioformatexample",
           "kind": "member"
         },
         "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
           "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo",
           "parentKey": "app\\microsoft.androidstudioformatexample",
           "kind": "type"
         }

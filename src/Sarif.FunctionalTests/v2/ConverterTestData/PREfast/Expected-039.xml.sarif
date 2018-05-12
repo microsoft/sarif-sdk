@@ -12,6 +12,24 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f1": {
+          "name": "f1",
+          "decoratedName": "?f1@@YAXXZ"
+        },
+        "f2": {
+          "name": "f2",
+          "decoratedName": "?f2@@YAXXZ"
+        },
+        "f3": {
+          "name": "f3",
+          "decoratedName": "?f3@@YAXXZ"
+        },
+        "f4": {
+          "name": "f4",
+          "decoratedName": "?f4@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

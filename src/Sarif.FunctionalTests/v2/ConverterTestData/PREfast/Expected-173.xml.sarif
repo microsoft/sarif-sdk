@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Foo": {
+          "name": "Foo",
+          "decoratedName": "?Foo@@YAPAGPAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26018",

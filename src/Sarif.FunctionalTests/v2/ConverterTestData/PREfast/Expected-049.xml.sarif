@@ -12,6 +12,24 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "": {
+          "name": "",
+          "decoratedName": ""
+        },
+        "test_b_a": {
+          "name": "test_b_a",
+          "decoratedName": "?test_b_a@@YAXPADPBVBase@@@Z"
+        },
+        "test_d_b": {
+          "name": "test_d_b",
+          "decoratedName": "?test_d_b@@YAXPADPBVDerived@@@Z"
+        },
+        "test_d_a": {
+          "name": "test_d_a",
+          "decoratedName": "?test_d_a@@YAXPADPBVDerived@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "28204",

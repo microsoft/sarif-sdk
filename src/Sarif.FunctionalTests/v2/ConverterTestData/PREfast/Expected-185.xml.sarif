@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "OutCaller1": {
+          "name": "OutCaller1",
+          "decoratedName": "?OutCaller1@@YAXXZ"
+        },
+        "OutCaller2": {
+          "name": "OutCaller2",
+          "decoratedName": "?OutCaller2@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

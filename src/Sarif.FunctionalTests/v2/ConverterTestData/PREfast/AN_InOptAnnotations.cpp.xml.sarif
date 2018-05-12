@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "DereferenceParameter": {
+          "name": "DereferenceParameter",
+          "decoratedName": "?DereferenceParameter@@YAXPEAH_N@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

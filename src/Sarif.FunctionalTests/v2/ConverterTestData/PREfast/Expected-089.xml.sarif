@@ -12,6 +12,28 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "congruent1": {
+          "name": "congruent1",
+          "decoratedName": "?congruent1@@YAXPAPADI@Z"
+        },
+        "congruent2": {
+          "name": "congruent2",
+          "decoratedName": "?congruent2@@YAXPAUEnum@@@Z"
+        },
+        "congruent3": {
+          "name": "congruent3",
+          "decoratedName": "?congruent3@@YA_NPAUEnum@@PAHI@Z"
+        },
+        "notcongruent1": {
+          "name": "notcongruent1",
+          "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z"
+        },
+        "notcongruent2": {
+          "name": "notcongruent2",
+          "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26035",

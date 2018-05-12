@@ -12,6 +12,44 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "name": "f",
+          "decoratedName": "?f@@YAPAHH@Z"
+        },
+        "g": {
+          "name": "g",
+          "decoratedName": "?g@@YAXPAPAHH@Z"
+        },
+        "h": {
+          "name": "h",
+          "decoratedName": "?h@@YAXPAPAHPAHH@Z"
+        },
+        "g1": {
+          "name": "g1",
+          "decoratedName": "?g1@@YAPAXH@Z"
+        },
+        "g2": {
+          "name": "g2",
+          "decoratedName": "?g2@@YAPAHH@Z"
+        },
+        "bar": {
+          "name": "bar",
+          "decoratedName": "?bar@@YAXPAH0@Z"
+        },
+        "Next": {
+          "name": "Next",
+          "decoratedName": "?Next@@YAXPAHIPAI@Z"
+        },
+        "NextUnannotated": {
+          "name": "NextUnannotated",
+          "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26030",

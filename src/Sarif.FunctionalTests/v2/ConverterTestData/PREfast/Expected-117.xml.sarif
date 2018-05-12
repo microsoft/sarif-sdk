@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "foo": {
+          "name": "foo",
+          "decoratedName": "?foo@@YAPAHH@Z"
+        },
+        "foo2b": {
+          "name": "foo2b",
+          "decoratedName": "?foo2b@@YAPADW4TT@@@Z"
+        },
+        "foo3": {
+          "name": "foo3",
+          "decoratedName": "?foo3@@YAXI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

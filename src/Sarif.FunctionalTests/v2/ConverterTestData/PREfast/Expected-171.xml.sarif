@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "UseDataSimple": {
+          "name": "UseDataSimple",
+          "decoratedName": "?UseDataSimple@@YAXXZ"
+        },
+        "UseDataSized": {
+          "name": "UseDataSized",
+          "decoratedName": "?UseDataSized@@YAXXZ"
+        },
+        "UseData": {
+          "name": "UseData",
+          "decoratedName": "?UseData@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26006",

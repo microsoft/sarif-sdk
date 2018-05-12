@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CDXGKDX_DUMP_LOG::{dtor}": {
+          "name": "CDXGKDX_DUMP_LOG::{dtor}",
+          "decoratedName": "??1CDXGKDX_DUMP_LOG@@QAE@XZ"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26003",

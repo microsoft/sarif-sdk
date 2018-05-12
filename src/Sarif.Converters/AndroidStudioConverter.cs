@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            location.FullyQualifiedLogicalName = CreateLogicalLocation(problem);
+            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(problem);
 
             Uri uri;
             string file = problem.File;
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private string CreateLogicalLocation(AndroidStudioProblem problem)
+        private string CreateFullyQualifiedLogicalName(AndroidStudioProblem problem)
         {
             string parentLogicalLocationKey = null;
 

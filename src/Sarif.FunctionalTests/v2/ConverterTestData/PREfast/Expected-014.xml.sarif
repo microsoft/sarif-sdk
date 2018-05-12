@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "indexing": {
+          "name": "indexing",
+          "decoratedName": "?indexing@@YAXI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

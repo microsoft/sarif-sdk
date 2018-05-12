@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "bad1": {
+          "name": "bad1",
+          "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        "bad2": {
+          "name": "bad2",
+          "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        "Buffer::{ctor}": {
+          "name": "Buffer::{ctor}",
+          "decoratedName": "??0Buffer@@QAE@PAH@Z"
+        },
+        "Buffer::badfetch": {
+          "name": "Buffer::badfetch",
+          "decoratedName": "?badfetch@Buffer@@QAEHH@Z"
+        },
+        "Bad1": {
+          "name": "Bad1",
+          "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z"
+        },
+        "Bad2": {
+          "name": "Bad2",
+          "decoratedName": "?Bad2@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

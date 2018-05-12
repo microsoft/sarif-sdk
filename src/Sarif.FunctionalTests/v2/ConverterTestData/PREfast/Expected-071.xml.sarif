@@ -12,6 +12,41 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "name": "f",
+          "decoratedName": "?f@@YAXPADIPBD@Z"
+        },
+        "f1": {
+          "name": "f1",
+          "decoratedName": "?f1@@YAXPADIPBD@Z"
+        },
+        "f2": {
+          "name": "f2",
+          "decoratedName": "?f2@@YAXPADIPBD@Z"
+        },
+        "foo": {
+          "name": "foo",
+          "decoratedName": "?foo@@YAXPAGI@Z"
+        },
+        "GetComputerName": {
+          "name": "GetComputerName",
+          "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
+        },
+        "TestFields": {
+          "name": "TestFields",
+          "decoratedName": "?TestFields@@YAXPADHH@Z"
+        },
+        "f-0": {
+          "name": "f",
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPADPAI@Z"
+        },
+        "Division": {
+          "name": "Division",
+          "decoratedName": "?Division@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",

@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CountCharsInMultiSzW1": {
+          "name": "CountCharsInMultiSzW1",
+          "decoratedName": "?CountCharsInMultiSzW1@@YAKPBG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26016",

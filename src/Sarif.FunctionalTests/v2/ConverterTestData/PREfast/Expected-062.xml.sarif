@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "WriteOutput": {
+          "name": "WriteOutput",
+          "decoratedName": "?WriteOutput@@YAHPADPAPAGPAF@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

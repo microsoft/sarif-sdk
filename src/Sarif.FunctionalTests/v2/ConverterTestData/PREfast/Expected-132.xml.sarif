@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestStrLenPrimOp1": {
+          "name": "TestStrLenPrimOp1",
+          "decoratedName": "?TestStrLenPrimOp1@@YAXXZ"
+        },
+        "TestWcsLenPrimOp1": {
+          "name": "TestWcsLenPrimOp1",
+          "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ"
+        },
+        "TestCountedString": {
+          "name": "TestCountedString",
+          "decoratedName": "?TestCountedString@@YAXPAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

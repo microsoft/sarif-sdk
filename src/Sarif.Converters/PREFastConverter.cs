@@ -57,6 +57,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     output.WriteFiles(fileDictionary);
                 }
 
+                if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
+                {
+                    output.WriteLogicalLocations(LogicalLocationsDictionary);
+                }
+
                 output.OpenResults();
                 output.WriteResults(results);
                 output.CloseResults();
@@ -81,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             location.SetProperty("funcline", defect.Funcline);
 
+            TryAddLogicalLocation(defect.Function, defect.Decorated);
+
             var result = new Result
             {
                 RuleId = defect.DefectCode,
@@ -96,6 +103,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             GenerateCodeFlows(defect, result);
 
             return result;
+        }
+
+        private void TryAddLogicalLocation(string name, string decoratedName)
+        {
+            var logicalLocation = new LogicalLocation
+            {
+                Name = name,
+                DecoratedName = decoratedName
+            };
+
+            AddLogicalLocation(logicalLocation);
         }
 
         private void SetRank(Defect defect, Result result)

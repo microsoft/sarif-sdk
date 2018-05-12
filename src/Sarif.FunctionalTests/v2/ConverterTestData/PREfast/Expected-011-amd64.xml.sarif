@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "dualchartest": {
+          "name": "dualchartest",
+          "decoratedName": "?dualchartest@@YAXHPEAY01D@Z"
+        },
+        "main": {
+          "name": "main",
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

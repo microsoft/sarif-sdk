@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SetIcvOrgbClrt": {
+          "name": "SetIcvOrgbClrt",
+          "decoratedName": "?SetIcvOrgbClrt@@YAXIPAJPAU_clrt@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",

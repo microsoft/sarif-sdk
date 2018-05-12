@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestSetToNull": {
+          "name": "TestSetToNull",
+          "decoratedName": "?TestSetToNull@@YAXXZ"
+        },
+        "TestSetToZero": {
+          "name": "TestSetToZero",
+          "decoratedName": "?TestSetToZero@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

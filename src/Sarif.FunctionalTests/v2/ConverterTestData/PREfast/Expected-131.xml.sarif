@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "NegDWord_Unsafe": {
+          "name": "NegDWord_Unsafe",
+          "decoratedName": "?NegDWord_Unsafe@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",

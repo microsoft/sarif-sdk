@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "EncodeBinary": {
+          "name": "EncodeBinary",
+          "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z"
+        },
+        "EncodeBinaryBad": {
+          "name": "EncodeBinaryBad",
+          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26005",

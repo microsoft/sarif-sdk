@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CompareToTen": {
+          "name": "CompareToTen",
+          "decoratedName": "?CompareToTen@@YAXPEAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6001",

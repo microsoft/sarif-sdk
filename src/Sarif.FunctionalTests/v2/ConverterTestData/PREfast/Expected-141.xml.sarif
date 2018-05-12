@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "ErrorTestFunc": {
+          "name": "ErrorTestFunc",
+          "decoratedName": "?ErrorTestFunc@@YAXXZ"
+        },
+        "UseRefParamsFromMyClass2": {
+          "name": "UseRefParamsFromMyClass2",
+          "decoratedName": "?UseRefParamsFromMyClass2@@YAXXZ"
+        },
+        "UseRefParamsNoTemplate": {
+          "name": "UseRefParamsNoTemplate",
+          "decoratedName": "?UseRefParamsNoTemplate@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
