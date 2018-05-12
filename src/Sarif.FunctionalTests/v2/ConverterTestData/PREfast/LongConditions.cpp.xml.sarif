@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6001LongCondition_Example": {
+          "name": "C6001LongCondition_Example",
+          "decoratedName": "?C6001LongCondition_Example@@YAHXZ"
+        },
+        "C6001LongCondition15_Example": {
+          "name": "C6001LongCondition15_Example",
+          "decoratedName": "?C6001LongCondition15_Example@@YAHXZ"
+        },
+        "C6001LongCondition14_Example": {
+          "name": "C6001LongCondition14_Example",
+          "decoratedName": "?C6001LongCondition14_Example@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6001",

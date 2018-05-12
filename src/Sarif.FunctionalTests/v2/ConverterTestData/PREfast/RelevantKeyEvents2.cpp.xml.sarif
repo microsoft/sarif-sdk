@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "fun": {
+          "name": "fun",
+          "decoratedName": "?fun@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "28182",
