@@ -14,19 +14,25 @@
       },
       "logicalLocations": {
         "test3": {
-          "name": "test3",
           "decoratedName": "?test3@@YAHH@Z"
         },
         "test4": {
-          "name": "test4",
           "decoratedName": "?test4@@YAHH@Z"
         },
         "test5": {
+          "decoratedName": "?test5@@YAHH@Z"
+        },
+        "test5-0": {
           "name": "test5",
+          "fullyQualifiedName": "test5",
           "decoratedName": "?test5@@YAHH@Z"
         },
         "test6": {
+          "decoratedName": "?test6@@YAHH@Z"
+        },
+        "test6-0": {
           "name": "test6",
+          "fullyQualifiedName": "test6",
           "decoratedName": "?test6@@YAHH@Z"
         }
       },

@@ -14,51 +14,49 @@
       },
       "logicalLocations": {
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXH@Z"
         },
         "calladd9": {
-          "name": "calladd9",
           "decoratedName": "?calladd9@@YAXXZ"
         },
         "calladd1deref": {
-          "name": "calladd1deref",
           "decoratedName": "?calladd1deref@@YAXXZ"
         },
         "CallAccessor": {
+          "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
+        },
+        "CallAccessor-0": {
           "name": "CallAccessor",
+          "fullyQualifiedName": "CallAccessor",
           "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXXZ"
         },
         "callAlloc": {
-          "name": "callAlloc",
           "decoratedName": "?callAlloc@@YAXXZ"
         },
         "callRecursive": {
+          "decoratedName": "?callRecursive@@YAXH@Z"
+        },
+        "callRecursive-0": {
           "name": "callRecursive",
+          "fullyQualifiedName": "callRecursive",
           "decoratedName": "?callRecursive@@YAXH@Z"
         },
         "repeated": {
-          "name": "repeated",
           "decoratedName": "?repeated@@YAXXZ"
         },
         "CallAccess": {
-          "name": "CallAccess",
           "decoratedName": "?CallAccess@@YAXPADI@Z"
         },
         "callLoop": {
-          "name": "callLoop",
           "decoratedName": "?callLoop@@YAXI@Z"
         },
         "callAdd": {
-          "name": "callAdd",
           "decoratedName": "?callAdd@@YAXPAUS@@@Z"
         },
         "callSet": {
-          "name": "callSet",
           "decoratedName": "?callSet@@YAXPAUS@@@Z"
         }
       },

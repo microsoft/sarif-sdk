@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "Bad1": {
-          "name": "Bad1",
           "decoratedName": "?Bad1@@YAXPAHH@Z"
         },
         "Bad2": {
-          "name": "Bad2",
           "decoratedName": "?Bad2@@YAPAHXZ"
         },
         "Bad3": {
-          "name": "Bad3",
           "decoratedName": "?Bad3@@YADPAUDataGetter@@@Z"
         }
       },

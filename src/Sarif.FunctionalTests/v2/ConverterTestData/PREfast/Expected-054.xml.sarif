@@ -14,31 +14,39 @@
       },
       "logicalLocations": {
         "f": {
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        "f-0": {
           "name": "f",
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXH@Z"
         },
         "find": {
-          "name": "find",
           "decoratedName": "?find@@YAHPAHHH@Z"
         },
         "h": {
+          "decoratedName": "?h@@YAXPAHH@Z"
+        },
+        "h-0": {
           "name": "h",
+          "fullyQualifiedName": "h",
           "decoratedName": "?h@@YAXPAHH@Z"
         },
         "h1": {
-          "name": "h1",
           "decoratedName": "?h1@@YAXPAHH@Z"
         },
         "search": {
-          "name": "search",
           "decoratedName": "?search@@YAXPAHABH0@Z"
         },
         "baz": {
-          "name": "baz",
           "decoratedName": "?baz@@YAXXZ"
         },
         "main": {
+          "decoratedName": "main"
+        },
+        "main-0": {
           "name": "main",
+          "fullyQualifiedName": "main",
           "decoratedName": "main"
         }
       },

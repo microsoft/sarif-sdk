@@ -32,151 +32,191 @@
       },
       "logicalLocations": {
         "ua_wcscpy": {
-          "name": "ua_wcscpy",
           "decoratedName": "ua_wcscpy"
         },
         "_wcsspnp": {
-          "name": "_wcsspnp",
           "decoratedName": "_wcsspnp"
         },
         "_wcsncat_l": {
-          "name": "_wcsncat_l",
           "decoratedName": "_wcsncat_l"
         },
         "StringCbCopyExW": {
-          "name": "StringCbCopyExW",
           "decoratedName": "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z"
         },
         "StringCbCopyNExW": {
-          "name": "StringCbCopyNExW",
           "decoratedName": "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
         },
         "StringCbCatNExW": {
-          "name": "StringCbCatNExW",
           "decoratedName": "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
         },
         "StringCbPrintfExW": {
-          "name": "StringCbPrintfExW",
           "decoratedName": "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ"
         },
         "StringCbGetsExW": {
-          "name": "StringCbGetsExW",
           "decoratedName": "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z"
         },
         "StringCchLengthA": {
-          "name": "StringCchLengthA",
           "decoratedName": "?StringCchLengthA@@YGJPBDIPAI@Z"
         },
         "StringCchLengthW": {
-          "name": "StringCchLengthW",
           "decoratedName": "?StringCchLengthW@@YGJPBGIPAI@Z"
         },
         "StringValidateDestAndLengthA": {
-          "name": "StringValidateDestAndLengthA",
           "decoratedName": "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z"
         },
         "StringValidateDestAndLengthW": {
-          "name": "StringValidateDestAndLengthW",
           "decoratedName": "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z"
         },
         "StringExHandleOtherFlagsA": {
-          "name": "StringExHandleOtherFlagsA",
           "decoratedName": "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z"
         },
         "StringExHandleOtherFlagsW": {
-          "name": "StringExHandleOtherFlagsW",
           "decoratedName": "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z"
         },
         "std::char_traits<unsigned short>::length": {
-          "name": "std::char_traits<unsigned short>::length",
+          "name": "length",
           "decoratedName": "?length@?$char_traits@G@std@@SAIPBG@Z"
         },
         "std::char_traits<unsigned short>::_Copy_s": {
-          "name": "std::char_traits<unsigned short>::_Copy_s",
+          "name": "_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        "std::char_traits<unsigned short>::_Copy_s-0": {
+          "name": "_Copy_s",
+          "fullyQualifiedName": "std::char_traits<unsigned short>::_Copy_s",
           "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
         },
         "std::char_traits<unsigned short>::_Move_s": {
-          "name": "std::char_traits<unsigned short>::_Move_s",
+          "name": "_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        "std::char_traits<unsigned short>::_Move_s-0": {
+          "name": "_Move_s",
+          "fullyQualifiedName": "std::char_traits<unsigned short>::_Move_s",
           "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
         },
         "std::char_traits<char>::length": {
-          "name": "std::char_traits<char>::length",
+          "name": "length",
           "decoratedName": "?length@?$char_traits@D@std@@SAIPBD@Z"
         },
         "std::char_traits<char>::_Copy_s": {
-          "name": "std::char_traits<char>::_Copy_s",
+          "name": "_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        "std::char_traits<char>::_Copy_s-0": {
+          "name": "_Copy_s",
+          "fullyQualifiedName": "std::char_traits<char>::_Copy_s",
           "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
         },
         "std::char_traits<char>::_Move_s": {
-          "name": "std::char_traits<char>::_Move_s",
+          "name": "_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        "std::char_traits<char>::_Move_s-0": {
+          "name": "_Move_s",
+          "fullyQualifiedName": "std::char_traits<char>::_Move_s",
           "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
         },
         "std::_Maklocstr": {
-          "name": "std::_Maklocstr",
+          "name": "_Maklocstr",
           "decoratedName": "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z"
         },
         "std::codecvt<unsigned short,char,int>::do_in": {
-          "name": "std::codecvt<unsigned short,char,int>::do_in",
+          "name": "do_in",
+          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_in-0": {
+          "name": "do_in",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
+          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_in-1": {
+          "name": "do_in",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
           "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
         },
         "std::codecvt<unsigned short,char,int>::do_out": {
-          "name": "std::codecvt<unsigned short,char,int>::do_out",
+          "name": "do_out",
+          "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_out-0": {
+          "name": "do_out",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_out",
           "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
         },
         "std::codecvt<unsigned short,char,int>::do_length": {
-          "name": "std::codecvt<unsigned short,char,int>::do_length",
+          "name": "do_length",
+          "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_length-0": {
+          "name": "do_length",
+          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_length",
           "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
         },
         "std::ctype<char>::do_tolower": {
-          "name": "std::ctype<char>::do_tolower",
+          "name": "do_tolower",
           "decoratedName": "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z"
         },
         "std::ctype<char>::do_toupper": {
-          "name": "std::ctype<char>::do_toupper",
+          "name": "do_toupper",
           "decoratedName": "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z"
         },
         "std::ctype<char>::_Do_widen_s": {
-          "name": "std::ctype<char>::_Do_widen_s",
+          "name": "_Do_widen_s",
           "decoratedName": "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z"
         },
         "std::ctype<char>::_Do_narrow_s": {
-          "name": "std::ctype<char>::_Do_narrow_s",
+          "name": "_Do_narrow_s",
           "decoratedName": "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z"
         },
         "std::ctype<unsigned short>::do_scan_is": {
-          "name": "std::ctype<unsigned short>::do_scan_is",
+          "name": "do_scan_is",
           "decoratedName": "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z"
         },
         "std::ctype<unsigned short>::do_scan_not": {
-          "name": "std::ctype<unsigned short>::do_scan_not",
+          "name": "do_scan_not",
           "decoratedName": "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z"
         },
         "std::ctype<unsigned short>::do_tolower": {
-          "name": "std::ctype<unsigned short>::do_tolower",
+          "name": "do_tolower",
           "decoratedName": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z"
         },
         "std::ctype<unsigned short>::do_toupper": {
-          "name": "std::ctype<unsigned short>::do_toupper",
+          "name": "do_toupper",
           "decoratedName": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z"
         },
         "std::ctype<unsigned short>::_Do_widen_s": {
-          "name": "std::ctype<unsigned short>::_Do_widen_s",
+          "name": "_Do_widen_s",
+          "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
+        },
+        "std::ctype<unsigned short>::_Do_widen_s-0": {
+          "name": "_Do_widen_s",
+          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_widen_s",
           "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
         },
         "std::ctype<unsigned short>::_Do_narrow_s": {
-          "name": "std::ctype<unsigned short>::_Do_narrow_s",
+          "name": "_Do_narrow_s",
+          "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
+        },
+        "std::ctype<unsigned short>::_Do_narrow_s-0": {
+          "name": "_Do_narrow_s",
+          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_narrow_s",
           "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
         },
         "ReadBinHeader": {
+          "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
+        },
+        "ReadBinHeader-0": {
           "name": "ReadBinHeader",
+          "fullyQualifiedName": "ReadBinHeader",
           "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
         },
         "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s": {
-          "name": "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s",
+          "name": "_Xsgetn_s",
           "decoratedName": "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z"
         },
         "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s": {
-          "name": "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s",
+          "name": "_Xsgetn_s",
           "decoratedName": "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z"
         }
       },

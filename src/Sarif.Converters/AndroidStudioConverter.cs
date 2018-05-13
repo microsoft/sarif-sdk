@@ -164,25 +164,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string parentLogicalLocationKey = null;
 
-            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
-            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
+            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
+            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
 
             if (problem.EntryPointName != null)
             {
                 if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
+                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
                 }
                 else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
+                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
                 }
             }
 
             return parentLogicalLocationKey;
         }
 
-        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
+        private string AddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
         {
             if (!String.IsNullOrEmpty(value))
             {

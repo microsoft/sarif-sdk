@@ -14,27 +14,27 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPAUS@@@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXPAD000US1@@@Z"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAD000ABUS1@@@Z"
         },
         "C::f": {
-          "name": "C::f",
+          "name": "f",
+          "decoratedName": "?f@C@@QAGXPAD@Z"
+        },
+        "C::f-0": {
+          "name": "f",
+          "fullyQualifiedName": "C::f",
           "decoratedName": "?f@C@@QAGXPAD@Z"
         },
         "fieldSameAsParam1": {
-          "name": "fieldSameAsParam1",
           "decoratedName": "?fieldSameAsParam1@@YAXPADAAUS@@H@Z"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

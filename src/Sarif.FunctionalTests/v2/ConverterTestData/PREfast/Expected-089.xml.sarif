@@ -14,23 +14,38 @@
       },
       "logicalLocations": {
         "congruent1": {
+          "decoratedName": "?congruent1@@YAXPAPADI@Z"
+        },
+        "congruent1-0": {
           "name": "congruent1",
+          "fullyQualifiedName": "congruent1",
           "decoratedName": "?congruent1@@YAXPAPADI@Z"
         },
         "congruent2": {
+          "decoratedName": "?congruent2@@YAXPAUEnum@@@Z"
+        },
+        "congruent2-0": {
           "name": "congruent2",
+          "fullyQualifiedName": "congruent2",
           "decoratedName": "?congruent2@@YAXPAUEnum@@@Z"
         },
         "congruent3": {
-          "name": "congruent3",
           "decoratedName": "?congruent3@@YA_NPAUEnum@@PAHI@Z"
         },
         "notcongruent1": {
+          "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z"
+        },
+        "notcongruent1-0": {
           "name": "notcongruent1",
+          "fullyQualifiedName": "notcongruent1",
           "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z"
         },
         "notcongruent2": {
+          "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z"
+        },
+        "notcongruent2-0": {
           "name": "notcongruent2",
+          "fullyQualifiedName": "notcongruent2",
           "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z"
         }
       },

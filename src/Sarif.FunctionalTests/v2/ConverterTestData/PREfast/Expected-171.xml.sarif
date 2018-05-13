@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "UseDataSimple": {
-          "name": "UseDataSimple",
           "decoratedName": "?UseDataSimple@@YAXXZ"
         },
         "UseDataSized": {
-          "name": "UseDataSized",
           "decoratedName": "?UseDataSized@@YAXXZ"
         },
         "UseData": {
-          "name": "UseData",
           "decoratedName": "?UseData@@YAXXZ"
         }
       },

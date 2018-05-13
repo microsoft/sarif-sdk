@@ -14,11 +14,19 @@
       },
       "logicalLocations": {
         "EncodeBinary": {
-          "name": "EncodeBinary",
           "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z"
         },
         "EncodeBinaryBad": {
+          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
+        },
+        "EncodeBinaryBad-0": {
           "name": "EncodeBinaryBad",
+          "fullyQualifiedName": "EncodeBinaryBad",
+          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
+        },
+        "EncodeBinaryBad-1": {
+          "name": "EncodeBinaryBad",
+          "fullyQualifiedName": "EncodeBinaryBad",
           "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
         }
       },

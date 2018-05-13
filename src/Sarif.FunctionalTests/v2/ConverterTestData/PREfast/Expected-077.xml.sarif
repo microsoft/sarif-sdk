@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "TxfConvertTxfFileIdToMungedName": {
-          "name": "TxfConvertTxfFileIdToMungedName",
           "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z"
         },
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXXZ"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXPAHH@Z"
         }
       },

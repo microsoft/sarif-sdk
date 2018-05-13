@@ -14,11 +14,14 @@
       },
       "logicalLocations": {
         "GetMachineName": {
+          "decoratedName": "?GetMachineName@@YAJPAGQAG@Z"
+        },
+        "GetMachineName-0": {
           "name": "GetMachineName",
+          "fullyQualifiedName": "GetMachineName",
           "decoratedName": "?GetMachineName@@YAJPAGQAG@Z"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

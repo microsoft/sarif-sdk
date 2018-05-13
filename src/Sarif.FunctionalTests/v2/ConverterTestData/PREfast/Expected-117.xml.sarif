@@ -14,15 +14,17 @@
       },
       "logicalLocations": {
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAPAHH@Z"
         },
         "foo2b": {
-          "name": "foo2b",
           "decoratedName": "?foo2b@@YAPADW4TT@@@Z"
         },
         "foo3": {
+          "decoratedName": "?foo3@@YAXI@Z"
+        },
+        "foo3-0": {
           "name": "foo3",
+          "fullyQualifiedName": "foo3",
           "decoratedName": "?foo3@@YAXI@Z"
         }
       },

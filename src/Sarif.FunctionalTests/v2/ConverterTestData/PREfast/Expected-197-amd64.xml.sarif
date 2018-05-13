@@ -14,11 +14,19 @@
       },
       "logicalLocations": {
         "BadGetData2": {
-          "name": "BadGetData2",
           "decoratedName": "?BadGetData2@@YAXPEAPEAXPEAK@Z"
         },
         "foo": {
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        "foo-0": {
           "name": "foo",
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        "foo-1": {
+          "name": "foo",
+          "fullyQualifiedName": "foo",
           "decoratedName": "?foo@@YAXXZ"
         }
       },

@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "ComplexMismatch1": {
-          "name": "ComplexMismatch1",
           "decoratedName": "?ComplexMismatch1@@YAHXZ"
         },
         "ComplexMismatch2": {
-          "name": "ComplexMismatch2",
           "decoratedName": "?ComplexMismatch2@@YAHXZ"
         }
       },

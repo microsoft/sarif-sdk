@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "TestMyStructBufferOverrun": {
-          "name": "TestMyStructBufferOverrun",
           "decoratedName": "?TestMyStructBufferOverrun@@YAXXZ"
         },
         "TestMyStructBufferOverrun2": {
-          "name": "TestMyStructBufferOverrun2",
           "decoratedName": "?TestMyStructBufferOverrun2@@YAXXZ"
         }
       },

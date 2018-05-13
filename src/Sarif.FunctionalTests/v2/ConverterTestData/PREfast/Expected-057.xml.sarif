@@ -14,23 +14,18 @@
       },
       "logicalLocations": {
         "TestPtrDiff1": {
-          "name": "TestPtrDiff1",
           "decoratedName": "?TestPtrDiff1@@YAXPAH0@Z"
         },
         "Bad": {
-          "name": "Bad",
           "decoratedName": "?Bad@@YAXXZ"
         },
         "TestPtrDiffChar2": {
-          "name": "TestPtrDiffChar2",
           "decoratedName": "?TestPtrDiffChar2@@YAXPAD0@Z"
         },
         "Read": {
-          "name": "Read",
           "decoratedName": "?Read@@YAXPAD0PAPAD@Z"
         },
         "PtrDiffIntBad": {
-          "name": "PtrDiffIntBad",
           "decoratedName": "?PtrDiffIntBad@@YAXPAH0@Z"
         }
       },

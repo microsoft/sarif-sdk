@@ -14,27 +14,51 @@
       },
       "logicalLocations": {
         "test2t": {
+          "decoratedName": "?test2t@@YAXXZ"
+        },
+        "test2t-0": {
           "name": "test2t",
+          "fullyQualifiedName": "test2t",
           "decoratedName": "?test2t@@YAXXZ"
         },
         "test2k": {
+          "decoratedName": "?test2k@@YAXXZ"
+        },
+        "test2k-0": {
           "name": "test2k",
+          "fullyQualifiedName": "test2k",
           "decoratedName": "?test2k@@YAXXZ"
         },
         "test2x": {
+          "decoratedName": "?test2x@@YAXXZ"
+        },
+        "test2x-0": {
           "name": "test2x",
+          "fullyQualifiedName": "test2x",
           "decoratedName": "?test2x@@YAXXZ"
         },
         "test2tu": {
+          "decoratedName": "?test2tu@@YAXXZ"
+        },
+        "test2tu-0": {
           "name": "test2tu",
+          "fullyQualifiedName": "test2tu",
           "decoratedName": "?test2tu@@YAXXZ"
         },
         "test2ku": {
+          "decoratedName": "?test2ku@@YAXXZ"
+        },
+        "test2ku-0": {
           "name": "test2ku",
+          "fullyQualifiedName": "test2ku",
           "decoratedName": "?test2ku@@YAXXZ"
         },
         "test2xu": {
+          "decoratedName": "?test2xu@@YAXXZ"
+        },
+        "test2xu-0": {
           "name": "test2xu",
+          "fullyQualifiedName": "test2xu",
           "decoratedName": "?test2xu@@YAXXZ"
         }
       },

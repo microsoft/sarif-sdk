@@ -16,7 +16,31 @@
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-0": {
           "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-1": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-2": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-3": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-4": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
           "kind": "module"
         }
       },
@@ -61,7 +85,7 @@
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-0"
             }
           ],
           "properties": {
@@ -85,7 +109,7 @@
                   "startLine": 4
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-1"
             }
           ],
           "properties": {
@@ -109,7 +133,7 @@
                   "startLine": 5
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-2"
             }
           ],
           "properties": {
@@ -133,7 +157,7 @@
                   "startLine": 6
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-3"
             }
           ],
           "properties": {
@@ -157,7 +181,7 @@
                   "startLine": 10
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-4"
             }
           ],
           "properties": {

@@ -14,7 +14,6 @@
       },
       "logicalLocations": {
         "Foo": {
-          "name": "Foo",
           "decoratedName": "?Foo@@YAPAGPAG@Z"
         }
       },

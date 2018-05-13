@@ -40,22 +40,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             int disambiguator = 0;
 
-            string logicalLocationKey = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
-            string generatedKey = logicalLocationKey;
+            string fullyQualifiedLogicalName = logicalLocation.ParentKey == null ? logicalLocation.Name : logicalLocation.ParentKey + delimiter + logicalLocation.Name;
+            string generatedKey = fullyQualifiedLogicalName;
 
             while (LogicalLocationsDictionary.ContainsKey(generatedKey) && !logicalLocation.ValueEquals(LogicalLocationsDictionary[generatedKey]))
             {
-                generatedKey = logicalLocationKey + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
+                generatedKey = fullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
                 ++disambiguator;
-            }
-
-            if (disambiguator > 0)
-            {
-                logicalLocation.FullyQualifiedName = logicalLocationKey;
             }
 
             if (!LogicalLocationsDictionary.ContainsKey(generatedKey))
             {
+                string logicalName = null;
+                int index;
+
+                if (logicalLocation.ParentKey == null)
+                {
+                    index = !string.IsNullOrWhiteSpace(delimiter) ? fullyQualifiedLogicalName.LastIndexOf(delimiter) : -1; ;
+                }
+                else
+                {
+                    index = logicalLocation.ParentKey.Length;
+                }
+
+                if (index == -1)
+                {
+                    if (generatedKey != fullyQualifiedLogicalName)
+                    {
+                        // It's a top-level location and FQLN differs from the key
+                        logicalName = fullyQualifiedLogicalName;
+                    }
+                }
+                else
+                {
+                    // Get the rightmost segment as the name
+                    // Example: Foo::Bar -> Bar where '::' is the delimiter
+                    int length = delimiter?.Length ?? 0;
+                    logicalName = fullyQualifiedLogicalName.Substring(index + length);
+                }
+
+                logicalLocation.Name = logicalName;
+
+                if (disambiguator > 0)
+                {
+                    logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
+                }
+
                 LogicalLocationsDictionary.Add(generatedKey, logicalLocation);
             }
 

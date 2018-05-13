@@ -14,27 +14,21 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXXZ"
         },
         "h": {
-          "name": "h",
           "decoratedName": "?h@@YAXPAHH@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXPAHI@Z"
         },
         "StrLen": {
-          "name": "StrLen",
           "decoratedName": "?StrLen@@YAIPBD@Z"
         },
         "BugLast": {
-          "name": "BugLast",
           "decoratedName": "?BugLast@@YADPBD@Z"
         },
         "g1": {
-          "name": "g1",
           "decoratedName": "?g1@@YAXPAH@Z"
         },
         "foo-0": {
@@ -43,19 +37,18 @@
           "decoratedName": "?foo@@YADXZ"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAHII@Z"
         },
         "ShiftTest::f": {
-          "name": "ShiftTest::f",
+          "name": "f",
           "decoratedName": "?f@ShiftTest@@YAXPAHH@Z"
         },
         "ShiftTest::foo": {
-          "name": "ShiftTest::foo",
+          "name": "foo",
           "decoratedName": "?foo@ShiftTest@@YAXXZ"
         },
         "ShiftTest::bar": {
-          "name": "ShiftTest::bar",
+          "name": "bar",
           "decoratedName": "?bar@ShiftTest@@YAXXZ"
         }
       },

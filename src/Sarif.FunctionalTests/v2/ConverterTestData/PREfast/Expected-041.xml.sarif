@@ -14,35 +14,32 @@
       },
       "logicalLocations": {
         "baz": {
-          "name": "baz",
           "decoratedName": "?baz@@YAXPAD@Z"
         },
         "ref1": {
-          "name": "ref1",
           "decoratedName": "?ref1@@YAXPADAAH@Z"
         },
         "ref2": {
-          "name": "ref2",
           "decoratedName": "?ref2@@YAXPADAAH@Z"
         },
         "ref5": {
-          "name": "ref5",
           "decoratedName": "?ref5@@YAXAAPAH0@Z"
         },
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXP6APAXPAHH@Z@Z"
         },
         "callDriver": {
-          "name": "callDriver",
           "decoratedName": "?callDriver@@YAXXZ"
         },
         "driverFn1": {
-          "name": "driverFn1",
           "decoratedName": "?driverFn1@@YAXPAHH@Z"
         },
         "main": {
+          "decoratedName": "main"
+        },
+        "main-0": {
           "name": "main",
+          "fullyQualifiedName": "main",
           "decoratedName": "main"
         }
       },

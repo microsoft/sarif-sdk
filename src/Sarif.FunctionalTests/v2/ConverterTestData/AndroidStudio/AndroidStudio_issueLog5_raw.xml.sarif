@@ -34,16 +34,429 @@
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-0": {
           "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-1": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-2": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-3": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-4": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-5": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-6": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-7": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-8": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-9": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-10": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-11": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-12": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-13": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-14": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-15": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-16": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-17": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-18": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-19": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-20": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-21": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-22": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-23": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-24": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-25": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-26": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-27": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-28": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-29": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-30": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-31": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-32": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-33": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-34": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-35": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-36": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-37": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-38": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-39": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-40": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-41": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-42": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-43": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-44": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-45": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-46": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-47": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-48": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-49": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-50": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-51": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-52": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-53": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-54": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-55": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-56": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-57": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-58": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-59": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-60": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-61": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-62": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-63": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-64": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-65": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-66": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-67": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-68": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-69": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-70": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-71": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-72": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-73": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-74": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-75": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-76": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-77": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-78": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        "AndroidStudioFormatExample-79": {
+          "name": "AndroidStudioFormatExample",
+          "fullyQualifiedName": "AndroidStudioFormatExample",
           "kind": "module"
         },
         "app": {
-          "name": "app",
           "kind": "module"
         },
-        "app\\microsoft.androidstudioformatexample": {
+        "app-0": {
+          "name": "app",
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        "app-1": {
+          "name": "app",
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        "app-2": {
+          "name": "app",
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        "app-2\\microsoft.androidstudioformatexample": {
           "name": "microsoft.androidstudioformatexample",
-          "parentKey": "app",
+          "parentKey": "app-2",
           "kind": "package"
         }
       },
@@ -88,7 +501,7 @@
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-0"
             }
           ],
           "properties": {
@@ -112,7 +525,7 @@
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-1"
             }
           ],
           "properties": {
@@ -136,7 +549,7 @@
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-2"
             }
           ],
           "properties": {
@@ -160,7 +573,7 @@
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-3"
             }
           ],
           "properties": {
@@ -184,7 +597,7 @@
                   "startLine": 5
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-4"
             }
           ],
           "properties": {
@@ -208,7 +621,7 @@
                   "startLine": 30
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-5"
             }
           ],
           "properties": {
@@ -232,7 +645,7 @@
                   "startLine": 31
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-6"
             }
           ],
           "properties": {
@@ -256,7 +669,7 @@
                   "startLine": 33
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-7"
             }
           ],
           "properties": {
@@ -280,7 +693,7 @@
                   "startLine": 34
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-8"
             }
           ],
           "properties": {
@@ -304,7 +717,7 @@
                   "startLine": 35
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-9"
             }
           ],
           "properties": {
@@ -328,7 +741,7 @@
                   "startLine": 40
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-10"
             }
           ],
           "properties": {
@@ -352,7 +765,7 @@
                   "startLine": 41
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-11"
             }
           ],
           "properties": {
@@ -376,7 +789,7 @@
                   "startLine": 43
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-12"
             }
           ],
           "properties": {
@@ -400,7 +813,7 @@
                   "startLine": 45
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-13"
             }
           ],
           "properties": {
@@ -424,7 +837,7 @@
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-14"
             }
           ],
           "properties": {
@@ -448,7 +861,7 @@
                   "startLine": 47
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-15"
             }
           ],
           "properties": {
@@ -472,7 +885,7 @@
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-16"
             }
           ],
           "properties": {
@@ -496,7 +909,7 @@
                   "startLine": 64
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-17"
             }
           ],
           "properties": {
@@ -520,7 +933,7 @@
                   "startLine": 73
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-18"
             }
           ],
           "properties": {
@@ -544,7 +957,7 @@
                   "startLine": 74
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-19"
             }
           ],
           "properties": {
@@ -568,7 +981,7 @@
                   "startLine": 76
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-20"
             }
           ],
           "properties": {
@@ -592,7 +1005,7 @@
                   "startLine": 78
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-21"
             }
           ],
           "properties": {
@@ -616,7 +1029,7 @@
                   "startLine": 85
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-22"
             }
           ],
           "properties": {
@@ -640,7 +1053,7 @@
                   "startLine": 93
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-23"
             }
           ],
           "properties": {
@@ -664,7 +1077,7 @@
                   "startLine": 94
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-24"
             }
           ],
           "properties": {
@@ -688,7 +1101,7 @@
                   "startLine": 99
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-25"
             }
           ],
           "properties": {
@@ -712,7 +1125,31 @@
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-26"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Xdock'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "uriBaseId": "$PROJECT_DIR$"
+                },
+                "region": {
+                  "startLine": 110
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-27"
             }
           ],
           "properties": {
@@ -736,7 +1173,7 @@
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-28"
             }
           ],
           "properties": {
@@ -760,7 +1197,7 @@
                   "startLine": 113
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-29"
             }
           ],
           "properties": {
@@ -784,7 +1221,7 @@
                   "startLine": 114
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-30"
             }
           ],
           "properties": {
@@ -808,7 +1245,7 @@
                   "startLine": 115
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-31"
             }
           ],
           "properties": {
@@ -832,7 +1269,7 @@
                   "startLine": 116
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-32"
             }
           ],
           "properties": {
@@ -856,7 +1293,7 @@
                   "startLine": 118
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-33"
             }
           ],
           "properties": {
@@ -880,7 +1317,7 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-34"
             }
           ],
           "properties": {
@@ -904,7 +1341,7 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-35"
             }
           ],
           "properties": {
@@ -928,7 +1365,7 @@
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-36"
             }
           ],
           "properties": {
@@ -952,7 +1389,7 @@
                   "startLine": 121
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-37"
             }
           ],
           "properties": {
@@ -976,7 +1413,31 @@
                   "startLine": 122
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-38"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'ROOTDIRS'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "uriBaseId": "$PROJECT_DIR$"
+                },
+                "region": {
+                  "startLine": 122
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-39"
             }
           ],
           "properties": {
@@ -1000,7 +1461,7 @@
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-40"
             }
           ],
           "properties": {
@@ -1024,7 +1485,7 @@
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-41"
             }
           ],
           "properties": {
@@ -1048,7 +1509,7 @@
                   "startLine": 126
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-42"
             }
           ],
           "properties": {
@@ -1072,7 +1533,7 @@
                   "startLine": 127
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-43"
             }
           ],
           "properties": {
@@ -1096,7 +1557,31 @@
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-44"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'OURCYGPATTERN'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "uriBaseId": "$PROJECT_DIR$"
+                },
+                "region": {
+                  "startLine": 128
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-45"
             }
           ],
           "properties": {
@@ -1120,7 +1605,7 @@
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-46"
             }
           ],
           "properties": {
@@ -1144,7 +1629,7 @@
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-47"
             }
           ],
           "properties": {
@@ -1168,7 +1653,7 @@
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-48"
             }
           ],
           "properties": {
@@ -1192,7 +1677,7 @@
                   "startLine": 134
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-49"
             }
           ],
           "properties": {
@@ -1216,7 +1701,7 @@
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-50"
             }
           ],
           "properties": {
@@ -1240,7 +1725,7 @@
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-51"
             }
           ],
           "properties": {
@@ -1264,7 +1749,7 @@
                   "startLine": 139
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-52"
             }
           ],
           "properties": {
@@ -1288,7 +1773,7 @@
                   "startLine": 154
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-53"
             }
           ],
           "properties": {
@@ -1312,7 +1797,7 @@
                   "startLine": 161
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-54"
             }
           ],
           "properties": {
@@ -1336,7 +1821,7 @@
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-55"
             }
           ],
           "properties": {
@@ -1360,7 +1845,7 @@
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-56"
             }
           ],
           "properties": {
@@ -1384,7 +1869,7 @@
                   "startLine": 164
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-57"
             }
           ],
           "properties": {
@@ -1408,7 +1893,7 @@
                   "startLine": 9
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-58"
             }
           ],
           "properties": {
@@ -1432,7 +1917,7 @@
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-59"
             }
           ],
           "properties": {
@@ -1456,7 +1941,31 @@
                   "startLine": 15
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-60"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'DIRNAME'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew.bat",
+                  "uriBaseId": "$PROJECT_DIR$"
+                },
+                "region": {
+                  "startLine": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-61"
             }
           ],
           "properties": {
@@ -1480,7 +1989,7 @@
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-62"
             }
           ],
           "properties": {
@@ -1504,7 +2013,7 @@
                   "startLine": 20
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-63"
             }
           ],
           "properties": {
@@ -1528,7 +2037,7 @@
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-64"
             }
           ],
           "properties": {
@@ -1552,7 +2061,7 @@
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-65"
             }
           ],
           "properties": {
@@ -1576,7 +2085,7 @@
                   "startLine": 32
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-66"
             }
           ],
           "properties": {
@@ -1600,7 +2109,7 @@
                   "startLine": 38
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-67"
             }
           ],
           "properties": {
@@ -1624,7 +2133,7 @@
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-68"
             }
           ],
           "properties": {
@@ -1648,7 +2157,7 @@
                   "startLine": 49
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-69"
             }
           ],
           "properties": {
@@ -1672,7 +2181,7 @@
                   "startLine": 51
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-70"
             }
           ],
           "properties": {
@@ -1696,7 +2205,7 @@
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-71"
             }
           ],
           "properties": {
@@ -1720,7 +2229,7 @@
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-72"
             }
           ],
           "properties": {
@@ -1744,7 +2253,7 @@
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-73"
             }
           ],
           "properties": {
@@ -1768,7 +2277,7 @@
                   "startLine": 63
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-74"
             }
           ],
           "properties": {
@@ -1792,7 +2301,7 @@
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-75"
             }
           ],
           "properties": {
@@ -1816,7 +2325,7 @@
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-76"
             }
           ],
           "properties": {
@@ -1840,7 +2349,7 @@
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-77"
             }
           ],
           "properties": {
@@ -1864,7 +2373,7 @@
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-78"
             }
           ],
           "properties": {
@@ -1888,7 +2397,7 @@
                   "startLine": 88
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample-79"
             }
           ],
           "properties": {
@@ -1936,7 +2445,7 @@
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app-0"
             }
           ],
           "properties": {
@@ -1960,7 +2469,7 @@
                   "startLine": 2
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app-1"
             }
           ],
           "properties": {
@@ -1984,7 +2493,7 @@
                   "startLine": 4
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
+              "fullyQualifiedLogicalName": "app-2\\microsoft.androidstudioformatexample"
             }
           ],
           "properties": {

@@ -14,7 +14,7 @@
       },
       "logicalLocations": {
         "std::pair<int const ,uls_perf_counter_info>::{ctor}": {
-          "name": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
+          "name": "{ctor}",
           "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z"
         }
       },

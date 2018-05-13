@@ -14,7 +14,6 @@
       },
       "logicalLocations": {
         "CreateLogString": {
-          "name": "CreateLogString",
           "decoratedName": "?CreateLogString@@YAIPBDPAPAD@Z"
         }
       },

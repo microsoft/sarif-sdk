@@ -14,7 +14,11 @@
       },
       "logicalLocations": {
         "GetDSNAMEBad": {
+          "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z"
+        },
+        "GetDSNAMEBad-0": {
           "name": "GetDSNAMEBad",
+          "fullyQualifiedName": "GetDSNAMEBad",
           "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z"
         }
       },

@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "SortList": {
-          "name": "SortList",
           "decoratedName": "?SortList@@YAXXZ"
         },
         "SortListUnroll": {
-          "name": "SortListUnroll",
           "decoratedName": "?SortListUnroll@@YAXXZ"
         }
       },

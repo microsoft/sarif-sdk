@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXXZ"
         },
         "f1": {
-          "name": "f1",
           "decoratedName": "?f1@@YAXXZ"
         },
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXPAUUS@@@Z"
         },
         "g-0": {
@@ -31,19 +28,20 @@
           "decoratedName": "?g@@YAXXZ"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAUUS@@@Z"
         },
         "bad": {
-          "name": "bad",
           "decoratedName": "?bad@@YAXXZ"
         },
         "InferredIn": {
-          "name": "InferredIn",
           "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
         },
         "TestInferredIn": {
+          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
+        },
+        "TestInferredIn-0": {
           "name": "TestInferredIn",
+          "fullyQualifiedName": "TestInferredIn",
           "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
         }
       },

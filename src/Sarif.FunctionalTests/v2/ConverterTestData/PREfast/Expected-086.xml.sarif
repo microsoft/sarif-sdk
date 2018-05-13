@@ -14,43 +14,43 @@
       },
       "logicalLocations": {
         "SimpleOverflow": {
-          "name": "SimpleOverflow",
           "decoratedName": "?SimpleOverflow@@YAXPAUS@@@Z"
         },
         "OffByOne": {
-          "name": "OffByOne",
           "decoratedName": "?OffByOne@@YAXPAUS@@@Z"
         },
         "TestFlexArray": {
-          "name": "TestFlexArray",
           "decoratedName": "?TestFlexArray@@YAXPAUFlex@@@Z"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAUS@@@Z"
         },
         "TestLocal": {
-          "name": "TestLocal",
           "decoratedName": "?TestLocal@@YAXXZ"
         },
         "TestPointedTo": {
+          "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
+        },
+        "TestPointedTo-0": {
           "name": "TestPointedTo",
+          "fullyQualifiedName": "TestPointedTo",
           "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
         },
         "TestNestedStructArrays": {
-          "name": "TestNestedStructArrays",
           "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z"
         },
         "TestArrayOfStructs1": {
-          "name": "TestArrayOfStructs1",
           "decoratedName": "?TestArrayOfStructs1@@YAXPAUS@@H@Z"
         },
         "TestArrayOfStructs2": {
-          "name": "TestArrayOfStructs2",
           "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z"
         },
         "TestArrayOfStructs3": {
+          "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
+        },
+        "TestArrayOfStructs3-0": {
           "name": "TestArrayOfStructs3",
+          "fullyQualifiedName": "TestArrayOfStructs3",
           "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
         }
       },

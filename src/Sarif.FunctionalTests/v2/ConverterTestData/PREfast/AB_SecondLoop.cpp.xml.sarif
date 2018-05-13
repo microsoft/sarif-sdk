@@ -14,15 +14,22 @@
       },
       "logicalLocations": {
         "C6011_OnlyOnSecondLoop": {
-          "name": "C6011_OnlyOnSecondLoop",
           "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
         },
         "C6011_OnlyOnSecondLoopWithParam": {
-          "name": "C6011_OnlyOnSecondLoopWithParam",
           "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
         },
         "C6011_OnlyOnSecondLoopPlusRollbackDefect": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
+        },
+        "C6011_OnlyOnSecondLoopPlusRollbackDefect-0": {
           "name": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
+        },
+        "C6011_OnlyOnSecondLoopPlusRollbackDefect-1": {
+          "name": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+          "fullyQualifiedName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
           "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
         }
       },

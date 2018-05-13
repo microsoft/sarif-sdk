@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "safe1": {
-          "name": "safe1",
           "decoratedName": "?safe1@@YAXPAUBufferDesc@@@Z"
         },
         "unsafe": {
-          "name": "unsafe",
           "decoratedName": "?unsafe@@YAXPAUBufferDesc@@@Z"
         }
       },

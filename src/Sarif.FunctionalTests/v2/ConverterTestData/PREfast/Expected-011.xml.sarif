@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "dualchartest": {
-          "name": "dualchartest",
           "decoratedName": "?dualchartest@@YAXHPAY01D@Z"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

@@ -14,23 +14,18 @@
       },
       "logicalLocations": {
         "BasicC6387": {
-          "name": "BasicC6387",
           "decoratedName": "?BasicC6387@@YAXXZ"
         },
         "BasicC6387_Opt": {
-          "name": "BasicC6387_Opt",
           "decoratedName": "?BasicC6387_Opt@@YAXPEAH@Z"
         },
         "BasicC6387_PostNull": {
-          "name": "BasicC6387_PostNull",
           "decoratedName": "?BasicC6387_PostNull@@YAXXZ"
         },
         "BasicC6387_Out": {
-          "name": "BasicC6387_Out",
           "decoratedName": "?BasicC6387_Out@@YAXXZ"
         },
         "BasicC6387_OutNotNull": {
-          "name": "BasicC6387_OutNotNull",
           "decoratedName": "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z"
         }
       },

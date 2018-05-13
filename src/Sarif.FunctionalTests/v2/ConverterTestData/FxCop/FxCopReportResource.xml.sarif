@@ -13,7 +13,6 @@
       },
       "logicalLocations": {
         "microsoft.teamfoundation.build.client.dll": {
-          "name": "microsoft.teamfoundation.build.client.dll",
           "kind": "module"
         },
         "microsoft.teamfoundation.build.client.dll!OMStrings.resources": {

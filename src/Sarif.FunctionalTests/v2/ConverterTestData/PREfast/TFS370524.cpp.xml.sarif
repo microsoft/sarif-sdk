@@ -14,15 +14,15 @@
       },
       "logicalLocations": {
         "MissedAliases::MissedAlias": {
-          "name": "MissedAliases::MissedAlias",
+          "name": "MissedAlias",
           "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ"
         },
         "MissedAliases::MissedAlias2": {
-          "name": "MissedAliases::MissedAlias2",
+          "name": "MissedAlias2",
           "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ"
         },
         "MissedAliases::MissedAlias3": {
-          "name": "MissedAliases::MissedAlias3",
+          "name": "MissedAlias3",
           "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z"
         }
       },

@@ -14,11 +14,11 @@
       },
       "logicalLocations": {
         "MyClass::GetValue": {
-          "name": "MyClass::GetValue",
+          "name": "GetValue",
           "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
         },
         "MyFixedSizeClass::GetValue": {
-          "name": "MyFixedSizeClass::GetValue",
+          "name": "GetValue",
           "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
         }
       },

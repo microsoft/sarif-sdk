@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "BadGetWord1": {
-          "name": "BadGetWord1",
           "decoratedName": "?BadGetWord1@@YAGPAPAD@Z"
         },
         "BadGetWord2": {
-          "name": "BadGetWord2",
           "decoratedName": "?BadGetWord2@@YAGPAPAD@Z"
         },
         "GetDWord": {
-          "name": "GetDWord",
           "decoratedName": "?GetDWord@@YAIPAPAD@Z"
         }
       },

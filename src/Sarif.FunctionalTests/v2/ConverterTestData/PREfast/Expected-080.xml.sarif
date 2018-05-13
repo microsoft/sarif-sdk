@@ -14,27 +14,26 @@
       },
       "logicalLocations": {
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXHH@Z"
         },
         "nested": {
+          "decoratedName": "?nested@@YAXXZ"
+        },
+        "nested-0": {
           "name": "nested",
+          "fullyQualifiedName": "nested",
           "decoratedName": "?nested@@YAXXZ"
         },
         "call": {
-          "name": "call",
           "decoratedName": "?call@@YADPADID@Z"
         },
         "call1": {
-          "name": "call1",
           "decoratedName": "?call1@@YADPADID@Z"
         },
         "TestRelopBad": {
-          "name": "TestRelopBad",
           "decoratedName": "?TestRelopBad@@YAXII@Z"
         },
         "TestRelopGood": {
-          "name": "TestRelopGood",
           "decoratedName": "?TestRelopGood@@YAXII@Z"
         }
       },

@@ -14,27 +14,21 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPAD@Z"
         },
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXPAD@Z"
         },
         "h": {
-          "name": "h",
           "decoratedName": "?h@@YAXPAG@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXPAG@Z"
         },
         "foo1": {
-          "name": "foo1",
           "decoratedName": "?foo1@@YAXPAG@Z"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAG0@Z"
         }
       },

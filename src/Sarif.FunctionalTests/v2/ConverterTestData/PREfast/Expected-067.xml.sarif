@@ -14,7 +14,6 @@
       },
       "logicalLocations": {
         "StrCchCopy": {
-          "name": "StrCchCopy",
           "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
         }
       },

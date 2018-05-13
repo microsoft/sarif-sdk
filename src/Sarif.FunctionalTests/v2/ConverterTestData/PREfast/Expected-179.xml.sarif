@@ -14,7 +14,6 @@
       },
       "logicalLocations": {
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXPAU_DIGEST_PARAMETER@@@Z"
         }
       },

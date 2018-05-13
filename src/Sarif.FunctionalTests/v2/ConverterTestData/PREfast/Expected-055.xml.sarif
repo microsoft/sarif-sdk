@@ -14,35 +14,42 @@
       },
       "logicalLocations": {
         "f": {
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        "f-0": {
           "name": "f",
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        "f-1": {
+          "name": "f",
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXH@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXH@Z"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAXXZ"
         },
         "testAlloca": {
+          "decoratedName": "?testAlloca@@YAXXZ"
+        },
+        "testAlloca-0": {
           "name": "testAlloca",
+          "fullyQualifiedName": "testAlloca",
           "decoratedName": "?testAlloca@@YAXXZ"
         },
         "testChar": {
-          "name": "testChar",
           "decoratedName": "?testChar@@YAXH@Z"
         },
         "TestNull": {
-          "name": "TestNull",
           "decoratedName": "?TestNull@@YAXPBD@Z"
         },
         "`dynamic initializer for 's5''": {
-          "name": "`dynamic initializer for 's5''",
           "decoratedName": "??__Es5@@YAXXZ"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

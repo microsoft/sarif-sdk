@@ -14,27 +14,66 @@
       },
       "logicalLocations": {
         "MyFunction": {
-          "name": "MyFunction",
           "decoratedName": "?MyFunction@@YAJPADH@Z"
         },
         "ConstantFoldingTest": {
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "ConstantFoldingTest-0": {
           "name": "ConstantFoldingTest",
+          "fullyQualifiedName": "ConstantFoldingTest",
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "ConstantFoldingTest-1": {
+          "name": "ConstantFoldingTest",
+          "fullyQualifiedName": "ConstantFoldingTest",
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "ConstantFoldingTest-2": {
+          "name": "ConstantFoldingTest",
+          "fullyQualifiedName": "ConstantFoldingTest",
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "ConstantFoldingTest-3": {
+          "name": "ConstantFoldingTest",
+          "fullyQualifiedName": "ConstantFoldingTest",
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "ConstantFoldingTest-4": {
+          "name": "ConstantFoldingTest",
+          "fullyQualifiedName": "ConstantFoldingTest",
           "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
         },
         "MyFunction2": {
+          "decoratedName": "?MyFunction2@@YAXK@Z"
+        },
+        "MyFunction2-0": {
           "name": "MyFunction2",
+          "fullyQualifiedName": "MyFunction2",
           "decoratedName": "?MyFunction2@@YAXK@Z"
         },
         "MyFunction3": {
+          "decoratedName": "?MyFunction3@@YAXK@Z"
+        },
+        "MyFunction3-0": {
           "name": "MyFunction3",
+          "fullyQualifiedName": "MyFunction3",
           "decoratedName": "?MyFunction3@@YAXK@Z"
         },
         "MyFunction4": {
+          "decoratedName": "?MyFunction4@@YAXK@Z"
+        },
+        "MyFunction4-0": {
           "name": "MyFunction4",
+          "fullyQualifiedName": "MyFunction4",
           "decoratedName": "?MyFunction4@@YAXK@Z"
         },
         "MyFunction5": {
+          "decoratedName": "?MyFunction5@@YAXK@Z"
+        },
+        "MyFunction5-0": {
           "name": "MyFunction5",
+          "fullyQualifiedName": "MyFunction5",
           "decoratedName": "?MyFunction5@@YAXK@Z"
         }
       },

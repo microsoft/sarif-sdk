@@ -14,7 +14,11 @@
       },
       "logicalLocations": {
         "CompareToTen": {
+          "decoratedName": "?CompareToTen@@YAXPEAHH@Z"
+        },
+        "CompareToTen-0": {
           "name": "CompareToTen",
+          "fullyQualifiedName": "CompareToTen",
           "decoratedName": "?CompareToTen@@YAXPEAHH@Z"
         }
       },

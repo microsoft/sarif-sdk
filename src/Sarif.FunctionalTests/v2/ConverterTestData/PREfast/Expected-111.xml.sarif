@@ -14,7 +14,36 @@
       },
       "logicalLocations": {
         "PbLoadExtRstSst": {
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-0": {
           "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-1": {
+          "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-2": {
+          "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-3": {
+          "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-4": {
+          "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        },
+        "PbLoadExtRstSst-5": {
+          "name": "PbLoadExtRstSst",
+          "fullyQualifiedName": "PbLoadExtRstSst",
           "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
         }
       },

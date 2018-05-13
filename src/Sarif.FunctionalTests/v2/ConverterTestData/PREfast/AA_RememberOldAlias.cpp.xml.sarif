@@ -14,11 +14,14 @@
       },
       "logicalLocations": {
         "DontRememberOldAlias": {
+          "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z"
+        },
+        "DontRememberOldAlias-0": {
           "name": "DontRememberOldAlias",
+          "fullyQualifiedName": "DontRememberOldAlias",
           "decoratedName": "?DontRememberOldAlias@@YAXPEAH@Z"
         },
         "RememberOldAlias": {
-          "name": "RememberOldAlias",
           "decoratedName": "?RememberOldAlias@@YAXHHPEAH@Z"
         }
       },

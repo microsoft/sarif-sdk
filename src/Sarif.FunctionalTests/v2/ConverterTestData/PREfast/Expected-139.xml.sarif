@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "TestFailOnImpl": {
-          "name": "TestFailOnImpl",
           "decoratedName": "?TestFailOnImpl@@YAHPBD@Z"
         },
         "TestFailOnCaller": {
-          "name": "TestFailOnCaller",
           "decoratedName": "?TestFailOnCaller@@YAXXZ"
         },
         "TestWeirdAlloc": {
-          "name": "TestWeirdAlloc",
           "decoratedName": "?TestWeirdAlloc@@YAXXZ"
         }
       },

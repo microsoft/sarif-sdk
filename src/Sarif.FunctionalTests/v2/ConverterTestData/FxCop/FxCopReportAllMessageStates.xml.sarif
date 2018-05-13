@@ -16,51 +16,189 @@
       },
       "logicalLocations": {
         "WpfApplication5": {
+          "kind": "namespace"
+        },
+        "WpfApplication5-0": {
           "name": "WpfApplication5",
+          "fullyQualifiedName": "WpfApplication5",
           "kind": "namespace"
         },
         "wpfapplication5.exe": {
-          "name": "wpfapplication5.exe",
           "kind": "module"
         },
-        "wpfapplication5.exe!WpfApplication5": {
+        "wpfapplication5.exe-0": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-1": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-2": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-2!WpfApplication5": {
           "name": "WpfApplication5",
-          "parentKey": "wpfapplication5.exe",
+          "parentKey": "wpfapplication5.exe-2",
           "kind": "namespace"
         },
-        "wpfapplication5.exe!WpfApplication5.Frz": {
+        "wpfapplication5.exe-2!WpfApplication5.Frz": {
           "name": "Frz",
-          "parentKey": "wpfapplication5.exe!WpfApplication5",
+          "parentKey": "wpfapplication5.exe-2!WpfApplication5",
           "kind": "type"
         },
-        "wpfapplication5.exe!WpfApplication5.Frz.Baz()": {
-          "name": "Baz()",
-          "parentKey": "wpfapplication5.exe!WpfApplication5.Frz",
-          "kind": "member"
+        "wpfapplication5.exe-3": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
         },
-        "wpfapplication5.exe!WpfApplication5.MainWindow": {
-          "name": "MainWindow",
-          "parentKey": "wpfapplication5.exe!WpfApplication5",
-          "kind": "type"
-        },
-        "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
-          "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
-          "parentKey": "wpfapplication5.exe!WpfApplication5.MainWindow",
-          "kind": "member"
-        },
-        "wpfapplication5.exe!WpfApplication5.Properties": {
-          "name": "WpfApplication5.Properties",
-          "parentKey": "wpfapplication5.exe",
+        "wpfapplication5.exe-3!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe-3",
           "kind": "namespace"
         },
-        "wpfapplication5.exe!WpfApplication5.Properties.Resources": {
-          "name": "Resources",
-          "parentKey": "wpfapplication5.exe!WpfApplication5.Properties",
+        "wpfapplication5.exe-3!WpfApplication5.Frz": {
+          "name": "Frz",
+          "parentKey": "wpfapplication5.exe-3!WpfApplication5",
           "kind": "type"
         },
-        "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()": {
+        "wpfapplication5.exe-3!WpfApplication5.Frz.Baz()": {
+          "name": "Baz()",
+          "parentKey": "wpfapplication5.exe-3!WpfApplication5.Frz",
+          "kind": "member"
+        },
+        "wpfapplication5.exe-4": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-4!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe-4",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-4!WpfApplication5.Frz": {
+          "name": "Frz",
+          "parentKey": "wpfapplication5.exe-4!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-4!WpfApplication5.Frz.Baz()": {
+          "name": "Baz()",
+          "parentKey": "wpfapplication5.exe-4!WpfApplication5.Frz",
+          "kind": "member"
+        },
+        "wpfapplication5.exe-5": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-5!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe-5",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-5!WpfApplication5.MainWindow": {
+          "name": "MainWindow",
+          "parentKey": "wpfapplication5.exe-5!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-5!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
+          "parentKey": "wpfapplication5.exe-5!WpfApplication5.MainWindow",
+          "kind": "member"
+        },
+        "wpfapplication5.exe-6": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-6!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe-6",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-6!WpfApplication5.MainWindow": {
+          "name": "MainWindow",
+          "parentKey": "wpfapplication5.exe-6!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-6!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
+          "parentKey": "wpfapplication5.exe-6!WpfApplication5.MainWindow",
+          "kind": "member"
+        },
+        "wpfapplication5.exe-7": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-7!WpfApplication5": {
+          "name": "WpfApplication5",
+          "parentKey": "wpfapplication5.exe-7",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-7!WpfApplication5.MainWindow": {
+          "name": "MainWindow",
+          "parentKey": "wpfapplication5.exe-7!WpfApplication5",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-7!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)": {
+          "name": "System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)",
+          "parentKey": "wpfapplication5.exe-7!WpfApplication5.MainWindow",
+          "kind": "member"
+        },
+        "wpfapplication5.exe-8": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-8!WpfApplication5.Properties": {
+          "name": "WpfApplication5.Properties",
+          "parentKey": "wpfapplication5.exe-8",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-8!WpfApplication5.Properties.Resources": {
+          "name": "Resources",
+          "parentKey": "wpfapplication5.exe-8!WpfApplication5.Properties",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-9": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-9!WpfApplication5.Properties": {
+          "name": "WpfApplication5.Properties",
+          "parentKey": "wpfapplication5.exe-9",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-9!WpfApplication5.Properties.Resources": {
+          "name": "Resources",
+          "parentKey": "wpfapplication5.exe-9!WpfApplication5.Properties",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-10": {
+          "name": "wpfapplication5.exe",
+          "fullyQualifiedName": "wpfapplication5.exe",
+          "kind": "module"
+        },
+        "wpfapplication5.exe-10!WpfApplication5.Properties": {
+          "name": "WpfApplication5.Properties",
+          "parentKey": "wpfapplication5.exe-10",
+          "kind": "namespace"
+        },
+        "wpfapplication5.exe-10!WpfApplication5.Properties.Resources": {
+          "name": "Resources",
+          "parentKey": "wpfapplication5.exe-10!WpfApplication5.Properties",
+          "kind": "type"
+        },
+        "wpfapplication5.exe-10!WpfApplication5.Properties.Resources..ctor()": {
           "name": ".ctor()",
-          "parentKey": "wpfapplication5.exe!WpfApplication5.Properties.Resources",
+          "parentKey": "wpfapplication5.exe-10!WpfApplication5.Properties.Resources",
           "kind": "member"
         }
       },
@@ -86,7 +224,7 @@
           },
           "locations": [
             {
-              "fullyQualifiedLogicalName": "WpfApplication5"
+              "fullyQualifiedLogicalName": "WpfApplication5-0"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -122,7 +260,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-0"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -140,7 +278,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-1"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -162,7 +300,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-2!WpfApplication5.Frz"
             }
           ],
           "partialFingerprints": {
@@ -192,7 +330,7 @@
                   "startLine": 11
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-3!WpfApplication5.Frz.Baz()"
             }
           ],
           "partialFingerprints": {
@@ -223,7 +361,7 @@
                   "startLine": 11
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-4!WpfApplication5.Frz.Baz()"
             }
           ],
           "properties": {
@@ -240,7 +378,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-5!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -258,7 +396,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-6!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -276,7 +414,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-7!WpfApplication5.MainWindow.System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)"
             }
           ],
           "suppressionStates": ["suppressedInSource"],
@@ -294,7 +432,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-8!WpfApplication5.Properties.Resources"
             }
           ],
           "properties": {
@@ -315,7 +453,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-9!WpfApplication5.Properties.Resources"
             }
           ],
           "properties": {
@@ -332,7 +470,7 @@
                   "uri": "file:///C:/Users/user/Documents/Visual%20Studio%202015/Projects/WpfApplication5/WpfApplication5/bin/Debug/WpfApplication5.exe"
                 }
               },
-              "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Properties.Resources..ctor()"
+              "fullyQualifiedLogicalName": "wpfapplication5.exe-10!WpfApplication5.Properties.Resources..ctor()"
             }
           ],
           "suppressionStates": ["suppressedInSource"],

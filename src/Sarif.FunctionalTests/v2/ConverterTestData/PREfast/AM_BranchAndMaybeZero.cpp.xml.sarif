@@ -14,15 +14,12 @@
       },
       "logicalLocations": {
         "CompareToZero": {
-          "name": "CompareToZero",
           "decoratedName": "?CompareToZero@@YAXPEAH@Z"
         },
         "CompareToZeroParam": {
-          "name": "CompareToZeroParam",
           "decoratedName": "?CompareToZeroParam@@YAXPEAH@Z"
         },
         "ComplexCompareToZero": {
-          "name": "ComplexCompareToZero",
           "decoratedName": "?ComplexCompareToZero@@YAXPEAH@Z"
         }
       },

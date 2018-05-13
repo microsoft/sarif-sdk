@@ -14,51 +14,39 @@
       },
       "logicalLocations": {
         "HResultSucceeded": {
-          "name": "HResultSucceeded",
           "decoratedName": "?HResultSucceeded@@YAXJ@Z"
         },
         "HResultSucceeded2": {
-          "name": "HResultSucceeded2",
           "decoratedName": "?HResultSucceeded2@@YAXJ_N@Z"
         },
         "HResultSucceeded3": {
-          "name": "HResultSucceeded3",
           "decoratedName": "?HResultSucceeded3@@YAXJ_N0@Z"
         },
         "HResultSucceeded4": {
-          "name": "HResultSucceeded4",
           "decoratedName": "?HResultSucceeded4@@YAXJ@Z"
         },
         "HResultFailed": {
-          "name": "HResultFailed",
           "decoratedName": "?HResultFailed@@YAXJ@Z"
         },
         "HResultFailed2": {
-          "name": "HResultFailed2",
           "decoratedName": "?HResultFailed2@@YAXJ_N@Z"
         },
         "HResultFailed3": {
-          "name": "HResultFailed3",
           "decoratedName": "?HResultFailed3@@YAXJ_N0@Z"
         },
         "HResultFailed4": {
-          "name": "HResultFailed4",
           "decoratedName": "?HResultFailed4@@YAXJ@Z"
         },
         "HResultSFalse": {
-          "name": "HResultSFalse",
           "decoratedName": "?HResultSFalse@@YAXJ@Z"
         },
         "HResultSFalse2": {
-          "name": "HResultSFalse2",
           "decoratedName": "?HResultSFalse2@@YAXJ_N0@Z"
         },
         "HResultSOk": {
-          "name": "HResultSOk",
           "decoratedName": "?HResultSOk@@YAXJ@Z"
         },
         "HResultSOk2": {
-          "name": "HResultSOk2",
           "decoratedName": "?HResultSOk2@@YAXJ@Z"
         }
       },

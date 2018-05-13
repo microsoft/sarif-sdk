@@ -16,7 +16,6 @@
       },
       "logicalLocations": {
         "app": {
-          "name": "app",
           "kind": "module"
         },
         "app\\microsoft.androidstudioformatexample": {
@@ -29,9 +28,19 @@
           "parentKey": "app\\microsoft.androidstudioformatexample",
           "kind": "member"
         },
-        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
+        "app-0": {
+          "name": "app",
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        "app-0\\microsoft.androidstudioformatexample": {
+          "name": "microsoft.androidstudioformatexample",
+          "parentKey": "app-0",
+          "kind": "package"
+        },
+        "app-0\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo": {
           "name": "microsoft.androidstudioformatexample.NamespaceTypo",
-          "parentKey": "app\\microsoft.androidstudioformatexample",
+          "parentKey": "app-0\\microsoft.androidstudioformatexample",
           "kind": "type"
         }
       },
@@ -76,7 +85,7 @@
                   "startLine": 6
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
+              "fullyQualifiedLogicalName": "app-0\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.NamespaceTypo"
             }
           ],
           "properties": {

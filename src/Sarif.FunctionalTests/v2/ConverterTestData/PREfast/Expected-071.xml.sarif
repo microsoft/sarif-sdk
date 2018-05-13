@@ -14,27 +14,31 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPADIPBD@Z"
         },
         "f1": {
+          "decoratedName": "?f1@@YAXPADIPBD@Z"
+        },
+        "f1-0": {
           "name": "f1",
+          "fullyQualifiedName": "f1",
           "decoratedName": "?f1@@YAXPADIPBD@Z"
         },
         "f2": {
-          "name": "f2",
           "decoratedName": "?f2@@YAXPADIPBD@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXPAGI@Z"
         },
         "GetComputerName": {
-          "name": "GetComputerName",
           "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
         },
         "TestFields": {
+          "decoratedName": "?TestFields@@YAXPADHH@Z"
+        },
+        "TestFields-0": {
           "name": "TestFields",
+          "fullyQualifiedName": "TestFields",
           "decoratedName": "?TestFields@@YAXPADHH@Z"
         },
         "f-0": {
@@ -43,7 +47,6 @@
           "decoratedName": "?f@@YAXPADPAI@Z"
         },
         "Division": {
-          "name": "Division",
           "decoratedName": "?Division@@YAXXZ"
         }
       },

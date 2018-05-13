@@ -14,39 +14,30 @@
       },
       "logicalLocations": {
         "VariableWorker": {
-          "name": "VariableWorker",
           "decoratedName": "?VariableWorker@@YAXHPAD@Z"
         },
         "Bad1": {
-          "name": "Bad1",
           "decoratedName": "?Bad1@@YAXXZ"
         },
         "Bad2": {
-          "name": "Bad2",
           "decoratedName": "?Bad2@@YAXH@Z"
         },
         "RangeWhen1": {
-          "name": "RangeWhen1",
           "decoratedName": "?RangeWhen1@@YAXHI@Z"
         },
         "Bad3": {
-          "name": "Bad3",
           "decoratedName": "?Bad3@@YAXXZ"
         },
         "WinHttpTestINT": {
-          "name": "WinHttpTestINT",
           "decoratedName": "?WinHttpTestINT@@YAXPBGH@Z"
         },
         "myWcsCpy": {
-          "name": "myWcsCpy",
           "decoratedName": "?myWcsCpy@@YAXPAGPBG@Z"
         },
         "CallWinHttpDWORD": {
-          "name": "CallWinHttpDWORD",
           "decoratedName": "?CallWinHttpDWORD@@YAXPBG@Z"
         },
         "CallWinHttpINT": {
-          "name": "CallWinHttpINT",
           "decoratedName": "?CallWinHttpINT@@YAXPBG@Z"
         }
       },

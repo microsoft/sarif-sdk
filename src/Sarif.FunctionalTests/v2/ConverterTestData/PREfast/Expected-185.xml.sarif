@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "OutCaller1": {
-          "name": "OutCaller1",
           "decoratedName": "?OutCaller1@@YAXXZ"
         },
         "OutCaller2": {
-          "name": "OutCaller2",
           "decoratedName": "?OutCaller2@@YAXXZ"
         }
       },

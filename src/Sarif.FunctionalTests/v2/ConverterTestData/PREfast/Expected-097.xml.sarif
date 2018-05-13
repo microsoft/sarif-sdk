@@ -14,23 +14,28 @@
       },
       "logicalLocations": {
         "MyFunction1": {
+          "decoratedName": "?MyFunction1@@YAJK@Z"
+        },
+        "MyFunction1-0": {
           "name": "MyFunction1",
+          "fullyQualifiedName": "MyFunction1",
+          "decoratedName": "?MyFunction1@@YAJK@Z"
+        },
+        "MyFunction1-1": {
+          "name": "MyFunction1",
+          "fullyQualifiedName": "MyFunction1",
           "decoratedName": "?MyFunction1@@YAJK@Z"
         },
         "MyFunction2": {
-          "name": "MyFunction2",
           "decoratedName": "?MyFunction2@@YAXK@Z"
         },
         "MyFunction3": {
-          "name": "MyFunction3",
           "decoratedName": "?MyFunction3@@YAXK@Z"
         },
         "MyFunction4": {
-          "name": "MyFunction4",
           "decoratedName": "?MyFunction4@@YAXK@Z"
         },
         "MyFunction5": {
-          "name": "MyFunction5",
           "decoratedName": "?MyFunction5@@YAXK@Z"
         }
       },

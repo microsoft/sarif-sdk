@@ -14,31 +14,44 @@
       },
       "logicalLocations": {
         "C6305FromAnnotation": {
-          "name": "C6305FromAnnotation",
           "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z"
         },
         "RemoveRedundantKeyEvents1": {
-          "name": "RemoveRedundantKeyEvents1",
           "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z"
         },
         "RemoveRedundantKeyEvents2": {
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2-0": {
           "name": "RemoveRedundantKeyEvents2",
+          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2-1": {
+          "name": "RemoveRedundantKeyEvents2",
+          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2-2": {
+          "name": "RemoveRedundantKeyEvents2",
+          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2-3": {
+          "name": "RemoveRedundantKeyEvents2",
+          "fullyQualifiedName": "RemoveRedundantKeyEvents2",
           "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
         },
         "CorrectAliasing": {
-          "name": "CorrectAliasing",
           "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z"
         },
         "ShowKeyEventsWhenNoLocation": {
-          "name": "ShowKeyEventsWhenNoLocation",
           "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ"
         },
         "ShowKeyEventsWhenNoLocation2": {
-          "name": "ShowKeyEventsWhenNoLocation2",
           "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ"
         },
         "ShowKeyEventsForPointerArithmetic": {
-          "name": "ShowKeyEventsForPointerArithmetic",
           "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z"
         }
       },

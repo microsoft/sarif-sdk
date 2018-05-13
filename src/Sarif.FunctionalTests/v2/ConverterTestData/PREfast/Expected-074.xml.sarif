@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "StrCchCopy": {
-          "name": "StrCchCopy",
           "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
         },
         "buggy": {
-          "name": "buggy",
           "decoratedName": "?buggy@@YAXPBD@Z"
         }
       },

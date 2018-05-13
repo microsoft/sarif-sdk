@@ -14,15 +14,22 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPADH@Z"
         },
         "f1": {
+          "decoratedName": "?f1@@YAXPADH@Z"
+        },
+        "f1-0": {
           "name": "f1",
+          "fullyQualifiedName": "f1",
           "decoratedName": "?f1@@YAXPADH@Z"
         },
         "foo": {
+          "decoratedName": "?foo@@YAXPADF@Z"
+        },
+        "foo-0": {
           "name": "foo",
+          "fullyQualifiedName": "foo",
           "decoratedName": "?foo@@YAXPADF@Z"
         }
       },

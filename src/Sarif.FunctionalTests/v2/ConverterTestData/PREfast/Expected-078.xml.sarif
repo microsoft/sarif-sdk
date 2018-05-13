@@ -14,31 +14,34 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPAH0@Z"
         },
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXXZ"
         },
         "DoSomethingBad": {
-          "name": "DoSomethingBad",
           "decoratedName": "?DoSomethingBad@@YAHPADPAI@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAPAXPAH@Z"
         },
         "bar": {
+          "decoratedName": "?bar@@YAXXZ"
+        },
+        "bar-0": {
           "name": "bar",
+          "fullyQualifiedName": "bar",
           "decoratedName": "?bar@@YAXXZ"
         },
         "baz": {
+          "decoratedName": "?baz@@YAXPAHH@Z"
+        },
+        "baz-0": {
           "name": "baz",
+          "fullyQualifiedName": "baz",
           "decoratedName": "?baz@@YAXPAHH@Z"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

@@ -14,23 +14,23 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXPAH0HH@Z"
         },
         "g": {
+          "decoratedName": "?g@@YAHH@Z"
+        },
+        "g-0": {
           "name": "g",
+          "fullyQualifiedName": "g",
           "decoratedName": "?g@@YAHH@Z"
         },
         "foo": {
-          "name": "foo",
           "decoratedName": "?foo@@YAXXZ"
         },
         "bar": {
-          "name": "bar",
           "decoratedName": "?bar@@YAHXZ"
         },
         "ineqnoise": {
-          "name": "ineqnoise",
           "decoratedName": "?ineqnoise@@YAHH@Z"
         }
       },

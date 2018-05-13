@@ -14,11 +14,19 @@
       },
       "logicalLocations": {
         "f": {
-          "name": "f",
           "decoratedName": "?f@@YAXXZ"
         },
         "doExtensible": {
+          "decoratedName": "?doExtensible@@YAXI@Z"
+        },
+        "doExtensible-0": {
           "name": "doExtensible",
+          "fullyQualifiedName": "doExtensible",
+          "decoratedName": "?doExtensible@@YAXI@Z"
+        },
+        "doExtensible-1": {
+          "name": "doExtensible",
+          "fullyQualifiedName": "doExtensible",
           "decoratedName": "?doExtensible@@YAXI@Z"
         }
       },

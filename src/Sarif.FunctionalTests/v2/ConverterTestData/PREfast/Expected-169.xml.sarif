@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "MyAPI3": {
-          "name": "MyAPI3",
           "decoratedName": "?MyAPI3@@YAJPAH@Z"
         },
         "MyAPI4": {
-          "name": "MyAPI4",
           "decoratedName": "?MyAPI4@@YAJPAH@Z"
         }
       },

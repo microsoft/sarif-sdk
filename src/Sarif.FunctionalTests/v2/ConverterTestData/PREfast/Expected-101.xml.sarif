@@ -14,19 +14,16 @@
       },
       "logicalLocations": {
         "bad1": {
-          "name": "bad1",
           "decoratedName": "?bad1@@YAXPAHIPAU_FLEXARRAY@@@Z"
         },
         "bad2": {
-          "name": "bad2",
           "decoratedName": "?bad2@@YAPAU_FLEXARRAY@@I@Z"
         },
         "Foo::what": {
-          "name": "Foo::what",
+          "name": "what",
           "decoratedName": "?what@Foo@@QAEXPAU_FLEXARRAY@@PAHI@Z"
         },
         "main": {
-          "name": "main",
           "decoratedName": "main"
         }
       },

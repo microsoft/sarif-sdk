@@ -14,11 +14,9 @@
       },
       "logicalLocations": {
         "MyCopyA": {
-          "name": "MyCopyA",
           "decoratedName": "?MyCopyA@@YAXPAUMyStructA@@0@Z"
         },
         "MyCopyW": {
-          "name": "MyCopyW",
           "decoratedName": "?MyCopyW@@YAXPAUMyStructW@@0@Z"
         }
       },

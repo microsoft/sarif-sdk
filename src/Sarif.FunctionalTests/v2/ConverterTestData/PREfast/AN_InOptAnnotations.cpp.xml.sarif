@@ -14,7 +14,6 @@
       },
       "logicalLocations": {
         "DereferenceParameter": {
-          "name": "DereferenceParameter",
           "decoratedName": "?DereferenceParameter@@YAXPEAH_N@Z"
         }
       },

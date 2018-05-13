@@ -14,19 +14,15 @@
       },
       "logicalLocations": {
         "WritesArray": {
-          "name": "WritesArray",
           "decoratedName": "?WritesArray@@YAXPEAJ@Z"
         },
         "WritesArrayRange": {
-          "name": "WritesArrayRange",
           "decoratedName": "?WritesArrayRange@@YAXPEAJH@Z"
         },
         "WritesArrayLoop": {
-          "name": "WritesArrayLoop",
           "decoratedName": "?WritesArrayLoop@@YAXPEAJH@Z"
         },
         "WritesArrayCompare": {
-          "name": "WritesArrayCompare",
           "decoratedName": "?WritesArrayCompare@@YAXPEAJH@Z"
         }
       },

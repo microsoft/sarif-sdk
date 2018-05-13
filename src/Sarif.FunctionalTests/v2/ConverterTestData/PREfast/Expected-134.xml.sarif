@@ -14,7 +14,11 @@
       },
       "logicalLocations": {
         "UnsafeTestStatus": {
+          "decoratedName": "?UnsafeTestStatus@@YAXJ@Z"
+        },
+        "UnsafeTestStatus-0": {
           "name": "UnsafeTestStatus",
+          "fullyQualifiedName": "UnsafeTestStatus",
           "decoratedName": "?UnsafeTestStatus@@YAXJ@Z"
         }
       },

@@ -14,31 +14,24 @@
       },
       "logicalLocations": {
         "g": {
-          "name": "g",
           "decoratedName": "?g@@YAXPAD@Z"
         },
         "Bad": {
-          "name": "Bad",
           "decoratedName": "?Bad@@YAXPADI@Z"
         },
         "ExplicitChar": {
-          "name": "ExplicitChar",
           "decoratedName": "?ExplicitChar@@YAXXZ"
         },
         "GetItem": {
-          "name": "GetItem",
           "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z"
         },
         "ArrInit4": {
-          "name": "ArrInit4",
           "decoratedName": "?ArrInit4@@YAXXZ"
         },
         "NotZeroMemroy": {
-          "name": "NotZeroMemroy",
           "decoratedName": "?NotZeroMemroy@@YAXXZ"
         },
         "BadMemset": {
-          "name": "BadMemset",
           "decoratedName": "?BadMemset@@YAXPAGI@Z"
         }
       },
