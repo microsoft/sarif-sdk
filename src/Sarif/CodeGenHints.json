@@ -351,6 +351,11 @@
       "kind": "DictionaryHint"
     }
   ],
+  "Run.OriginalUriBaseIds": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "Run.Rules": [
     {
       "kind": "DictionaryHint"

@@ -26,8 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            output.Initialize(id: null, automationId: null);
-
             TSLintLog tsLintLog = logReader.ReadLog(input);
 
             Tool tool = new Tool
@@ -35,7 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "TSLint"
             };
 
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             var results = new List<Result>();
             foreach(TSLintLogEntry entry in tsLintLog)

@@ -127,14 +127,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             invocationPropertiesToLog,
                             defaultFileEncoding);
 
-            if (!string.IsNullOrWhiteSpace(defaultFileEncoding))
-            {
-                _run.DefaultFileEncoding = defaultFileEncoding;
-            }
+
 
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
-            _issueLogJsonWriter.WriteTool(tool);
+
+            _run.Tool = tool;
+            _issueLogJsonWriter.Initialize(_run);
+
         }
 
         private static void SetSarifLoggerVersion(Tool tool)

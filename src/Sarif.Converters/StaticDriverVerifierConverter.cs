@@ -54,9 +54,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
+
             if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
 
             output.OpenResults();
