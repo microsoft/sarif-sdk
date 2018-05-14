@@ -27,15 +27,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri locationUri = new Uri(locationUriStr);
             Uri baseUri = new Uri(baseUriStr);
-            PhysicalLocation location = new PhysicalLocation(locationUri, null, null);
+            PhysicalLocation location = new PhysicalLocation
+            {
+                FileLocation = new FileLocation
+                {
+                    Uri = locationUri
+                }
+            };
             RebaseUriVisitor visitor = new RebaseUriVisitor(rootName, baseUri);
             PhysicalLocation newLocation = visitor.VisitPhysicalLocation(location);
 
             if (!string.IsNullOrEmpty(expectedDifference))
             {
-                newLocation.UriBaseId.ShouldBeEquivalentTo(rootName, "We should set the root name for these.");
-                newLocation.Uri.ShouldBeEquivalentTo(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
-                newLocation.Uri.ToString().ShouldBeEquivalentTo(expectedDifference, "We expect this difference.");
+                newLocation.FileLocation.UriBaseId.ShouldBeEquivalentTo(rootName, "We should set the root name for these.");
+                newLocation.FileLocation.Uri.ShouldBeEquivalentTo(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
+                newLocation.FileLocation.Uri.ToString().ShouldBeEquivalentTo(expectedDifference, "We expect this difference.");
             } else
             {
                 newLocation.ShouldBeEquivalentTo(location, "When we have no expected difference, we expect the location to not be changed by the rebase operation.");
@@ -45,7 +51,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitPhysicalLocation_DoesNotRebaseAlreadyRebasedUri()
         {
-            PhysicalLocation location = new PhysicalLocation(new Uri(@"C:\bld\src\test.dll"), "BLDROOT", null);
+            PhysicalLocation location = new PhysicalLocation
+            {
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(@"C:\bld\src\test.dll"),
+                    UriBaseId = "BLDROOT"
+                }
+            };
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
             rebaseUriVisitor.VisitPhysicalLocation(location).ShouldBeEquivalentTo(location, "We should not rebase a URI multiple times.");
@@ -164,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { Uri = fileUri, ParentKey =  parentKey};
+            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey};
             Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };
 
             string srcroot = "SRCROOT";
@@ -175,9 +188,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Files.Should().ContainKey("blah.zip#/stuff.doc");
             var newFileData = run.Files["blah.zip#/stuff.doc"];
 
-            newFileData.Uri.IsAbsoluteUri.Should().BeFalse();
-            newFileData.Uri.Should().NotBeSameAs(fileUri);
-            newFileData.UriBaseId.Should().Be(srcroot);
+            newFileData.FileLocation.Uri.IsAbsoluteUri.Should().BeFalse();
+            newFileData.FileLocation.Uri.Should().NotBeSameAs(fileUri);
+            newFileData.FileLocation.UriBaseId.Should().Be(srcroot);
             newFileData.ParentKey.Should().NotBeSameAs(parentKey);
         }
 
@@ -186,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { Uri = fileUri, ParentKey = parentKey };
+            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey };
             Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };
 
             string bldroot = "BLDROOT";
@@ -197,8 +210,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Files.Should().ContainKey(fileUri.ToString());
             var newFileData = run.Files[fileUri.ToString()];
 
-            newFileData.Uri.Should().BeSameAs(fileUri);
-            newFileData.UriBaseId.Should().BeNullOrEmpty();
+            newFileData.FileLocation.Uri.Should().BeSameAs(fileUri);
+            newFileData.FileLocation.UriBaseId.Should().BeNullOrEmpty();
             newFileData.ParentKey.Should().BeSameAs(parentKey);
         }
     }

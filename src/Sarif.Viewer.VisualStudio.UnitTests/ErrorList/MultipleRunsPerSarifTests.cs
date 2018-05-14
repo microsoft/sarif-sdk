@@ -34,14 +34,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                             new Result
                             {
                                 RuleId = "C0001",
-                                Message = "Error 1",
+                                Message = new Message { Text = "Error 1" },
                                 Locations = new List<Location>
                                 {
                                     new Location
                                     {
-                                        AnalysisTarget = new PhysicalLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
-                                            Uri = new Uri("file:///item1.cpp")
+                                            FileLocation = new FileLocation
+                                            {
+                                                Uri = new Uri("file:///item1.cpp")
+                                            }
                                         }
                                     }
                                 }
@@ -60,14 +63,17 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                             new Result
                             {
                                 RuleId = "C0002",
-                                Message = "Error 2",
+                                Message = new Message { Text = "Error 2" },
                                 Locations = new List<Location>
                                 {
                                     new Location
                                     {
-                                        AnalysisTarget = new PhysicalLocation
+                                        PhysicalLocation = new PhysicalLocation
                                         {
-                                            Uri = new Uri("file:///item2.cpp")
+                                            FileLocation = new FileLocation
+                                            {
+                                                Uri = new Uri("file:///item2.cpp")
+                                            }
                                         }
                                     }
                                 }

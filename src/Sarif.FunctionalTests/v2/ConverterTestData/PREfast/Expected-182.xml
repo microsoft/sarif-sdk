@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>17</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[n]'
+PREFAST_NEWLINE
+Buffer result.Alloc created during call to Alloc on line 9
+PREFAST_NEWLINE
+Buffer is of length n`7 bytes [from annotation SAL_readableTo(elementCount({parameter 1})) at c:\somepath\test182.cpp(3) on function Alloc called at line 9]
+PREFAST_NEWLINE
+Accessing the byte at byte offset n`7
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+n = n`7
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(result.Alloc)`9a == 0
+PREFAST_NEWLINE
+n`7 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>certain_overflow</FUNCTION><DECORATED>?certain_overflow@@YAXI@Z</DECORATED><FUNCLINE>7</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>7</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>9</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>9</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>9</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>14</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test182.cpp</FILENAME><LINE>17</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _files = _files ?? new Dictionary<string, FileData>();
 
-            string uriText = node.Uri.ToString();
+            string uriText = node.FileLocation.Uri.ToString();
 
             // If the file already exists, we will not insert one as we want to 
             // preserve mime-type, hash details, and other information that 

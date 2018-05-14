@@ -6,6 +6,7 @@ init:
 branches:
   only:
     - master
+    - sarif-v2
 
 before_build:
   - nuget restore src\Everything.sln -ConfigFile src\NuGet.Config -verbosity detailed

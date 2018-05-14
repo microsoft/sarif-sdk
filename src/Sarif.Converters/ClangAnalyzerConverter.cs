@@ -66,9 +66,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
                 Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-                output.Initialize(id: null, automationId: null);
 
-                output.WriteTool(tool);
+                var run = new Run()
+                {
+                    Tool = tool
+                };
+
+                output.Initialize(run);
+
                 if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
 
                 output.OpenResults();
@@ -160,14 +165,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var result = new Result
                 {
                     RuleId = issueType,
-                    Message = description,
+                    Message = new Message { Text = description },
                     Locations = new List<Location>
                     {
                         new Location
                         {
-                            AnalysisTarget = new PhysicalLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute),
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
+                                },
                                 Region = new Region()
                                 {
                                     StartLine = issueLine,

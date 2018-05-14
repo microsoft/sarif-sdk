@@ -10,10 +10,12 @@ set Version=%4
 ::Build release packages
 call :BuildNuGetPackageFromCsproj Sarif            %Version% || goto :ExitFailed
 call :BuildNuGetPackageFromCsproj Sarif.Converters %Version% || goto :ExitFailed
-call :BuildNuGetPackageFromCsproj Sarif.Driver     %Version% || goto :ExitFailed
+
+::Build pre-release packages
+call :BuildNuGetPackageFromCsproj Sarif.Driver    %Version%-beta || goto :ExitFailed
 
 ::Build Multitool package from nuspec
-call :BuildNuGetPackageFromNuspec Sarif.Multitool  %Version% || goto :ExitFailed
+call :BuildNuGetPackageFromNuspec Sarif.Multitool %Version% beta || goto :ExitFailed
 
 goto Exit
 

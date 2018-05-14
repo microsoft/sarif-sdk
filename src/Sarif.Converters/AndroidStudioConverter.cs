@@ -74,9 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
             if (fileDictionary != null && fileDictionary.Any())
             {
@@ -127,11 +130,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string description = AndroidStudioConverter.GetShortDescriptionForProblem(problem);
             if (problem.Hints.IsEmpty)
             {
-                result.Message = description;
+                result.Message = new Message { Text = description };
             }
             else
             {
-                result.Message = GenerateFullMessage(description, problem.Hints);
+                result.Message = new Message { Text = GenerateFullMessage(description, problem.Hints) };
             }
 
             SetSarifResultPropertiesForProblem(result, problem);
@@ -149,32 +152,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string file = problem.File;
             if (!String.IsNullOrEmpty(file))
             {
-                location.ResultFile = new PhysicalLocation
+                location.PhysicalLocation = new PhysicalLocation
                 {
+                    FileLocation = new FileLocation(),
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
 
                 if (RemoveBadRoot(file, out uri))
                 {
-                    location.ResultFile.UriBaseId = PROJECT_DIR;
+                    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
                 }
-                location.ResultFile.Uri = uri;
-            }
-
-            if ("file".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
-            {
-                if (location.AnalysisTarget != null)
-                {
-                    location.ResultFile = location.AnalysisTarget;
-                }
-
-                location.AnalysisTarget = new PhysicalLocation();
-
-                if (RemoveBadRoot(problem.EntryPointName, out uri))
-                {
-                    location.AnalysisTarget.UriBaseId = PROJECT_DIR;
-                }
-                location.AnalysisTarget.Uri = uri;
+                location.PhysicalLocation.FileLocation.Uri = uri;
             }
 
             result.Locations = new List<Location> { location };

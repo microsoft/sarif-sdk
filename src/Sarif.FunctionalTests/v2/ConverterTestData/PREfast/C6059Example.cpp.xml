@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+      <FILENAME>c6059example.cpp</FILENAME>
+      <LINE>10</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6059</DEFECTCODE>
+    <DESCRIPTION>Misuse of length parameter in call to 'strncat'.  Pass the number of remaining characters, not the buffer size of 'a'.</DESCRIPTION>
+    <FUNCTION>foo</FUNCTION>
+    <DECORATED>?foo@@YAXXZ</DECORATED>
+    <FUNCLINE>4</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>1</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+        <FILENAME>c6059example.cpp</FILENAME>
+        <LINE>6</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'a' is an array of 35 elements (35 bytes)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+        <FILENAME>c6059example.cpp</FILENAME>
+        <LINE>7</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+        <FILENAME>c6059example.cpp</FILENAME>
+        <LINE>9</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'a' is an Output from 'strcpy' (declared at c:\program files (x86)\microsoft visual studio 11.0\vc\wpsdk\wp80\include\string.h:110)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+        <FILENAME>c6059example.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'a' is an Output from 'strncat' (declared at c:\program files (x86)\microsoft visual studio 11.0\vc\wpsdk\wp80\include\string.h:182)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6059\</FILEPATH>
+        <FILENAME>c6059example.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Length argument to 'strncat' should be less than the length of 'a'</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

@@ -69,7 +69,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.ValueEquals(
                     new PhysicalLocation
                     {
-                        Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute),
+                        FileLocation = new FileLocation
+                        {
+                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                        },
                         Region = new Region { StartLine = 42 }
                     }));
         }

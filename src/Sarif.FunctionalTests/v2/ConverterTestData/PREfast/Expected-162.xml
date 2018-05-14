@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>26</LINE><COLUMN>25</COLUMN></SFA><DEFECTCODE>26026</DEFECTCODE><DESCRIPTION>Cast cannot be proven safe: "static_cast&lt;const struct WNF_IMMERSIVE_MODE_DATA[WNF_IMMERSIVE_MODE_DATA::rgMonitorData] *&gt;(pvBuffer)" Accessing 16 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pvBuffer is at offset offset(pvBuffer)`22 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression '(pModeData-&gt;rgMonitorData[pModeData-&gt;cMonitorData]).fIsImmersive' at line 29
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ImmersiveModeWNFCallback</FUNCTION><DECORATED>?ImmersiveModeWNFCallback@@YAJPBXK@Z</DECORATED><FUNCLINE>22</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>22</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>24</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>24</LINE><COLUMN>25</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>26</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test162.cpp</FILENAME><LINE>26</LINE><COLUMN>25</COLUMN></SFA></PATH></DEFECT></DEFECTS>

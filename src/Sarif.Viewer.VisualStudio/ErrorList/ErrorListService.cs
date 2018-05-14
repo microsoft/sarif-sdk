@@ -126,23 +126,29 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
             }
 
-            if (run.ConfigurationNotifications != null)
+            if (run.Invocations != null)
             {
-                foreach (Notification configurationNotification in run.ConfigurationNotifications)
+                foreach (var invocation in run.Invocations)
                 {
-                    var sarifError = new SarifErrorListItem(run, configurationNotification, logFilePath, projectNameCache);
-                    sarifErrors.Add(sarifError);
-                }
-            }
-
-            if (run.ToolNotifications != null)
-            {
-                foreach (Notification toolNotification in run.ToolNotifications)
-                {
-                    if (toolNotification.Level != NotificationLevel.Note)
+                    if (invocation.ConfigurationNotifications != null)
                     {
-                        var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
-                        sarifErrors.Add(sarifError);
+                        foreach (Notification configurationNotification in invocation.ConfigurationNotifications)
+                        {
+                            var sarifError = new SarifErrorListItem(run, configurationNotification, logFilePath, projectNameCache);
+                            sarifErrors.Add(sarifError);
+                        }
+                    }
+
+                    if (invocation.ToolNotifications != null)
+                    {
+                        foreach (Notification toolNotification in invocation.ToolNotifications)
+                        {
+                            if (toolNotification.Level != NotificationLevel.Note)
+                            {
+                                var sarifError = new SarifErrorListItem(run, toolNotification, logFilePath, projectNameCache);
+                                sarifErrors.Add(sarifError);
+                            }
+                        }
                     }
                 }
             }
@@ -163,20 +169,31 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 file.Hashes = new List<Hash>();
             }
             
-            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == AlgorithmKind.Sha256);
+            var hasSha256Hash = file.Hashes.Any(x => x.Algorithm == "sha-256");
             if (!hasSha256Hash)
             {
-                string hashString = GenerateHash(file.Contents);
+                byte[] data = null;
+                if (file.Contents?.Binary != null)
+                {
+                    data = Convert.FromBase64String(file.Contents.Binary);
+                }
+                else if (file.Contents?.Text != null)
+                {
+                    data = Encoding.UTF8.GetBytes(file.Contents.Text);
+                }
 
-                file.Hashes.Add(new Hash(hashString, AlgorithmKind.Sha256));
+                if (data != null)
+                {
+                    string hashString = GenerateHash(data);
+                    file.Hashes.Add(new Hash(hashString, "sha-256"));
+                }
             }
         }
 
-        internal string GenerateHash(string content)
+        internal string GenerateHash(byte[] data)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(content);
-            SHA256Managed hashstring = new SHA256Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
+            SHA256Managed hashFunction = new SHA256Managed();
+            byte[] hash = hashFunction.ComputeHash(data);
             return hash.Aggregate(string.Empty, (current, x) => current + $"{x:x2}");
         }
       

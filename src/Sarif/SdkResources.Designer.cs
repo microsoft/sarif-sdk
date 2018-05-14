@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid value for the id property of an annotatedCodeLocation object. The value must be a positive integer or the string representation of a positive integer..
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid value for the id property of an codeFlowLocation object. The value must be a positive integer or the string representation of a positive integer..
         /// </summary>
         internal static string AnnotatedCodeLocationIdMustBePositive {
             get {

@@ -24,29 +24,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Result result in results)
             {
+                if (result.AnalysisTarget != null)
+                {
+                    AddFile(new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = result.AnalysisTarget.Uri
+                        }
+                    });
+                }
+
                 if (result.Locations != null)
                 {
                     foreach (Location location in result.Locations)
                     {
-                        if (location.AnalysisTarget != null)
+                        if (location.PhysicalLocation != null)
                         {
-                            AddFile(location.AnalysisTarget);
-                        }
-
-                        if (location.ResultFile != null)
-                        {
-                            AddFile(location.ResultFile);
+                            AddFile(location.PhysicalLocation);
                         }
                     }
                 }
 
                 if (result.Stacks != null)
                 {
-                    foreach (IList<AnnotatedCodeLocation> stack in result.Stacks)
+                    foreach (IList<CodeFlowLocation> stack in result.Stacks)
                     {
-                        foreach (AnnotatedCodeLocation stackFrame in stack)
+                        foreach (CodeFlowLocation stackFrame in stack)
                         {
-                            AddFile(stackFrame.PhysicalLocation);
+                            AddFile(stackFrame.Location.PhysicalLocation);
                         }
                     }
 
@@ -56,16 +62,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        foreach (AnnotatedCodeLocation codeLocation in codeFlow.Locations)
+                        foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                         {
-                            AddFile(codeLocation.PhysicalLocation);
+                            foreach (CodeFlowLocation codeLocation in threadFlow.Locations)
+                            {
+                                if (codeLocation.Location?.PhysicalLocation != null)
+                                {
+                                    AddFile(codeLocation.Location.PhysicalLocation);
+                                }
+                            }
                         }
                     }
                 }
 
                 if (result.RelatedLocations != null)
                 {
-                    foreach (AnnotatedCodeLocation relatedLocation in result.RelatedLocations)
+                    foreach (Location relatedLocation in result.RelatedLocations)
                     {
                         AddFile(relatedLocation.PhysicalLocation);
                     }
@@ -77,12 +89,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddFile(PhysicalLocation physicalLocation)
         {
-            if (physicalLocation == null)
+            if (physicalLocation?.FileLocation == null)
             {
                 return;
             }
 
-            Uri uri = physicalLocation.Uri;
+            Uri uri = physicalLocation.FileLocation.Uri;
             string key = UriHelper.MakeValidUri(uri.OriginalString);
             string filePath = key;
 

@@ -3,12 +3,6 @@
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -19,13 +13,22 @@ namespace Microsoft.Sarif.Viewer.Sarif
             StackFrameModel model = new StackFrameModel();
 
             model.Address = stackFrame.Address;
-            model.Column = stackFrame.Column;
-            model.FullyQualifiedLogicalName = stackFrame.FullyQualifiedLogicalName;
-            model.Line = stackFrame.Line;
-            model.Message = stackFrame.Message;
+            model.FullyQualifiedLogicalName = stackFrame.Location?.FullyQualifiedLogicalName;
+            model.Message = stackFrame.Location?.Message?.Text;
             model.Module = stackFrame.Module;
             model.Offset = stackFrame.Offset;
-            model.FilePath = stackFrame.Uri.ToPath();
+
+            PhysicalLocation physicalLocation = stackFrame.Location?.PhysicalLocation;
+            if (physicalLocation?.FileLocation != null)
+            {
+                model.FilePath = physicalLocation.FileLocation.Uri.ToPath();
+                Region region = physicalLocation.Region;
+                if (region != null)
+                {
+                    model.Line = region.StartLine;
+                    model.Column = region.StartColumn;
+                }
+            }
 
             return model;
         }

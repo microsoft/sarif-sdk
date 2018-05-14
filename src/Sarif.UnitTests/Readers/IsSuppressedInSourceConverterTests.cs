@@ -31,11 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run();
+                var run = new Run() { Tool = DefaultTool };
 
-                uut.Initialize(id: null, automationId: null);
-
-                uut.WriteTool(DefaultTool);
+                uut.Initialize(run);
 
                 uut.WriteResults(new[] { new Result
                     {
@@ -69,9 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run();
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
 
                 uut.WriteResults(new[] { new Result
                     {
@@ -109,11 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run();
-
-                uut.Initialize(id: null, automationId: null);
-
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
 
                 uut.WriteResults(new[] { new Result
                     {

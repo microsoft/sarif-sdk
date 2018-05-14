@@ -7,7 +7,7 @@
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <converters:CallTreeNodeToTextConverter x:Key="CallTreeToTextConverter" />
+    <converters:CallTreeNodeToTextConverter x:Key="CallTreeNodeToTextConverter" />
 
     <Style x:Key="ToolBarTrayStyle" TargetType="ToolBarTray">
         <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowBorderBrushKey}}"/>
@@ -81,29 +81,19 @@
     
     <Style x:Key="CallTreeMessageTextStyle" BasedOn="{StaticResource CallTreeTextStyle}" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
+        <Setter Property="FontWeight" Value="Normal" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Location.Importance}" Value="Essential">
                 <Setter Property="FontWeight" Value="Bold" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Location.Importance}" Value="Important">
-                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Location.Importance}" Value="Unimportant">
-                <Setter Property="FontWeight" Value="Normal" />
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSeparatorBrushKey}}" />
+                <Setter Property="Opacity" Value="0.5"/>
             </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Location.Message, Converter={StaticResource StringToVisibilityConverter}}" Value="Collapsed" />
-                    <Condition Binding="{Binding Location.Snippet, Converter={StaticResource StringToVisibilityConverter}}" Value="Visible" />
-                </MultiDataTrigger.Conditions>
-                <Setter Property="TextBlock.FontFamily" Value="Consolas" />
-                <Setter Property="FontSize" Value="10pt" />
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTabSelectedTextBrushKey}}" />
-            </MultiDataTrigger>
             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
                 <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />
+                <Setter Property="Opacity" Value="1.0"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -112,6 +102,9 @@
         <Setter Property="Visibility" Value="{Binding LocationDisplayString, Converter={StaticResource StringToVisibilityConverter}}" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ToolWindowTextBrushKey}}"/>
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Location.Importance}" Value="Unimportant">
+                <Setter Property="Opacity" Value="0.5"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}" Value="True">
                 <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveGradientBrushKey}}" />
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.TitleBarActiveTextBrushKey}}" />

@@ -14,7 +14,18 @@
     <tags>SARIF command line static analysis</tags>
   </metadata>
   <files>
-    <file src="bld\bin\AnyCPU_$configuration$\Publish\**\*.*" target="tools"/>
+	  <!-- NOTE: the exclude attribute must be on a single line -->
+    <file src="bld\bin\AnyCPU_$configuration$\**\*"
+          target="tools"
+          exclude="**\ConverterTestData\**\*;**\DirectProducerTestData\**\*;**\SpecExamples\**\*;**\FluentAssertions.*;**\Castle.Core.dll;**\Moq.dll;**\UpdateBaselines.ps1;**\xunit.*;**\*Tests.*;**\*.TestUtilities.*;**\Sarif.schema.json"/>
+
+    <!-- Restore the netstandard assemblies from the package cache -->
+    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CommandLineParser.*\lib\netstandard1.5\CommandLine.*" target="tools\netstandard2.0" />
+    <file src="src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\CsvHelper.*\lib\netstandard1.3\CsvHelper.*" target="tools\netstandard2.0" />
+    <file src="src\packages\newtonsoft.json.10.*\lib\netstandard1.3\Newtonsoft.Json.*" target="tools\netcoreapp2.0" />
+    <file src="src\packages\newtonsoft.json.10.*\lib\netstandard1.3\Newtonsoft.Json.*" target="tools\netstandard2.0" />
 
     <file src="src\ReleaseHistory.md" />        
     <file src="src\Sarif.Multitool\**\*.cs" target="src" />

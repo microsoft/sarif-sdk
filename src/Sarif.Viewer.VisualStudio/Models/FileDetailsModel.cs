@@ -10,15 +10,14 @@ namespace Microsoft.Sarif.Viewer.Models
 {
     public class FileDetailsModel
     {
-        // Base64 encoded contents of file.
-        private string _rawContents;
+        private FileContent _fileContent;
         
         private readonly Lazy<string> _decodedContents;
 
         public FileDetailsModel(FileData fileData)
         {
-            Sha256Hash = fileData.Hashes.First(x => x.Algorithm == AlgorithmKind.Sha256).Value;
-            _rawContents = fileData.Contents;
+            Sha256Hash = fileData.Hashes.First(x => x.Algorithm == "sha-256").Value;
+            _fileContent = fileData.Contents;
             _decodedContents = new Lazy<string>(DecodeContents);
         }
 
@@ -31,10 +30,16 @@ namespace Microsoft.Sarif.Viewer.Models
 
         private string DecodeContents()
         {
-            byte[] data = Convert.FromBase64String(_rawContents);
-            string decodedContents = Encoding.UTF8.GetString(data);
-            _rawContents = null; // Clear _rawContents to save memory.
-            return decodedContents;
+            string content = _fileContent.Text;
+
+            if (content == null)
+            {
+                byte[] data = Convert.FromBase64String(_fileContent.Binary);
+                content = Encoding.UTF8.GetString(data);
+            }
+
+            _fileContent = null; // Clear _fileContent to save memory.
+            return content;
         }
     }
 }

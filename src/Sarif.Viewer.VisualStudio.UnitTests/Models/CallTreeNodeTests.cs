@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Globalization;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.Sarif.Viewer.Converters;
 using Microsoft.Sarif.Viewer.Models;
 using Xunit;
 
@@ -17,16 +15,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation(),
+                Location = new CodeFlowLocation(),
             };
 
-            callTreeNode.Location.Importance = AnnotatedCodeLocationImportance.Essential;
+            callTreeNode.Location.Importance = CodeFlowLocationImportance.Essential;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisKeyEventSelection");
 
-            callTreeNode.Location.Importance = AnnotatedCodeLocationImportance.Important;
+            callTreeNode.Location.Importance = CodeFlowLocationImportance.Important;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisLineTraceSelection");
 
-            callTreeNode.Location.Importance = AnnotatedCodeLocationImportance.Unimportant;
+            callTreeNode.Location.Importance = CodeFlowLocationImportance.Unimportant;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisLineTraceSelection");
         }
 
@@ -35,10 +33,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation(),
+                Location = new CodeFlowLocation(),
             };
 
-            callTreeNode.Location.Importance = AnnotatedCodeLocationImportance.Essential;
+            callTreeNode.Location.Importance = CodeFlowLocationImportance.Essential;
             callTreeNode.SelectedSourceHighlightColor.Should().Be("CodeAnalysisCurrentStatementSelection");
         }
     }

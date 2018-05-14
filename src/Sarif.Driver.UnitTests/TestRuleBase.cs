@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal abstract class TestRuleBase : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
     {
+        protected RuleConfiguration _ruleConfiguration = null;
+
         public virtual SupportedPlatform SupportedPlatforms
         {
             get
@@ -17,17 +19,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public Uri HelpUri { get; set; }
+        public FileLocation HelpLocation { get; set; }
 
-        public abstract string Id { get; }        
+        public abstract string Id { get; }
 
         public virtual ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        public virtual string Name { get { return this.GetType().Name; } }
+        public virtual Message Name { get { return new Message { Text = this.GetType().Name }; } }
 
-        public virtual string FullDescription { get { return this.GetType().Name + " full description."; } }
+        public virtual Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
 
-        public virtual string ShortDescription { get { return this.GetType().Name + " short description."; } }
+        public virtual Message ShortDescription { get { return new Message { Text = this.GetType().Name + " short description." }; } }
 
         public IDictionary<string, string> MessageFormats
         {
@@ -43,9 +45,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                return RuleConfiguration.Enabled;
+                if (_ruleConfiguration == null)
+                {
+                    _ruleConfiguration = new RuleConfiguration();
+                }
+
+                return _ruleConfiguration;
             }
         }
+
+        public string RichDescription => throw new NotImplementedException();
+
+        public IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
+
+        public IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
+
+        public Message Help => throw new NotImplementedException();
 
         public abstract void Analyze(TestAnalysisContext context);
 

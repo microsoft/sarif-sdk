@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\standardux\</FILEPATH>
+      <FILENAME>standardc6306.cxx</FILENAME>
+      <LINE>26</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6273</DEFECTCODE>
+    <DESCRIPTION>Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used.</DESCRIPTION>
+    <FUNCTION>fd</FUNCTION>
+    <DECORATED>?fd@@YAXHZZ</DECORATED>
+    <FUNCLINE>20</FUNCLINE>
+    <PATH />
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\standardux\</FILEPATH>
+      <FILENAME>standardc6306.cxx</FILENAME>
+      <LINE>26</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6306</DEFECTCODE>
+    <DESCRIPTION>Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument.</DESCRIPTION>
+    <FUNCTION>fd</FUNCTION>
+    <DECORATED>?fd@@YAXHZZ</DECORATED>
+    <FUNCLINE>20</FUNCLINE>
+    <PATH />
+  </DEFECT>
+</DEFECTS>

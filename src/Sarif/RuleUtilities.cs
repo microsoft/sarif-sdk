@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -21,15 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
+            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
 
             Result result = new Result
             {
                 RuleId = context.Rule.Id,
+                RuleMessageId = ruleMessageId,
 
-                FormattedRuleMessage = new FormattedRuleMessage()
+                Message = new Message
                 {
-                    FormatId = formatId,
                     Arguments = arguments
                 },
 
@@ -41,12 +41,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(targetPath),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(targetPath)
+                            },
                             Region = region
                         }
-               }};
+                    }
+                };
             }
 
             if (level == ResultLevel.Warning)
@@ -65,7 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static Dictionary<string, string> BuildDictionary(
             ResourceManager resourceManager, 
             IEnumerable<string> resourceNames, 
-            string ruleId)
+            string ruleId,
+            string prefix = null)
         {
             //validation
             if (resourceNames == null)
@@ -85,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeFormatId(ruleId, resourceName);
+                string normalizedResourceName = NormalizeRuleMessageId(resourceName, ruleId, prefix);
 
                 // We need to use the non-normalized key to retrieve the resource value
                 dictionary[normalizedResourceName] = resourceValue;
@@ -94,18 +99,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static string NormalizeFormatId(string ruleId, string formatId)
+        public static string NormalizeRuleMessageId(string ruleMessageId, string ruleId, string prefix = null)
         {
-            if (formatId == null)
+            if (ruleMessageId == null)
             {
-                throw new ArgumentNullException(nameof(formatId));
+                throw new ArgumentNullException(nameof(ruleMessageId));
             }
 
-            if (!string.IsNullOrEmpty(ruleId) && formatId.StartsWith(ruleId + "_", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(ruleId) && ruleMessageId.StartsWith(ruleId + "_", StringComparison.Ordinal))
             {
-                formatId = formatId.Substring(ruleId.Length + 1);
+                ruleMessageId = ruleMessageId.Substring(ruleId.Length + 1);
             }
-            return formatId;
+
+            if (!string.IsNullOrEmpty(prefix) && ruleMessageId.StartsWith(prefix + "_", StringComparison.Ordinal))
+            {
+                ruleMessageId = ruleMessageId.Substring(prefix.Length + 1);
+            }
+
+            return ruleMessageId;
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 stack = Create(current.StackTrace);
 
-                stack.Message = current.FormatMessage();
+                stack.Message = new Message { Text = current.FormatMessage() };
 
                 stacks.Add(stack);
             }
@@ -118,15 +118,27 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (match.Success)
                 {
-                    stackFrame.FullyQualifiedLogicalName = match.Groups[1].Value;
+                    stackFrame.Location = new Location
+                    {
+                        FullyQualifiedLogicalName = match.Groups[1].Value
+                    };
 
                     if (!string.IsNullOrEmpty(match.Groups[2].Value))
                     {
                         string fileName = match.Groups[3].Value;
                         int lineNumber = int.Parse(match.Groups[4].Value);
 
-                        stackFrame.Uri = new Uri(fileName);
-                        stackFrame.Line = lineNumber;
+                        stackFrame.Location.PhysicalLocation = new PhysicalLocation
+                        {
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(fileName)
+                            },
+                            Region = new Region
+                            {
+                                StartLine = lineNumber
+                            }
+                        };
                     }
                 }
                 stack.Frames.Add(stackFrame);

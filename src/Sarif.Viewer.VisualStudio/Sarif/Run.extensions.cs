@@ -1,14 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -42,16 +38,16 @@ namespace Microsoft.Sarif.Viewer.Sarif
         {
             rule = null;
 
-            if (run != null && run.Rules != null && (ruleId != null || ruleKey != null))
+            if (run?.Resources?.Rules != null && (ruleId != null || ruleKey != null))
             {
                 Rule concreteRule = null;
                 if (ruleKey != null)
                 {
-                    run.Rules.TryGetValue(ruleKey, out concreteRule);
+                    run.Resources.Rules.TryGetValue(ruleKey, out concreteRule);
                 }
                 else
                 {
-                    run.Rules.TryGetValue(ruleId, out concreteRule);
+                    run.Resources.Rules.TryGetValue(ruleId, out concreteRule);
                 }
 
                 rule = concreteRule;
@@ -62,10 +58,10 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 // If the rule is a PREfast rule. create a "fake" rule using the external rule metadata file.
                 if (RuleMetadata[ruleId] != null)
                 {
-                    string ruleName = null;
+                    Message ruleName = null;
                     if (RuleMetadata[ruleId]["heading"] != null)
                     {
-                        ruleName = RuleMetadata[ruleId]["heading"].Value<string>();
+                        ruleName = new Message { Text = RuleMetadata[ruleId]["heading"].Value<string>() };
                     }
 
                     Uri helpUri = null;
@@ -76,7 +72,17 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
                     if (ruleName != null || helpUri != null)
                     {
-                        rule = new Rule(ruleId, ruleName, null, null, null, RuleConfiguration.Unknown, ResultLevel.Warning, helpUri, null);
+                        rule = new Rule(
+                            ruleId,
+                            ruleName,
+                            shortDescription: null,
+                            fullDescription: null,
+                            configuration: null,
+                            messageStrings: null,
+                            richMessageStrings: null,
+                            helpLocation: new FileLocation { Uri = helpUri },
+                            help: null, // PREfast rules don't need a "help" property; they all have online documentation.
+                            properties: null);
                     }
                 }
             }

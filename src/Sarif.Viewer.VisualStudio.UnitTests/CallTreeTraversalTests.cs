@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using Xunit;
 using Moq;
+using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
@@ -15,36 +15,33 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SelectPreviousNextCommandsTest()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<AnnotatedCodeLocation>
+                new CodeFlowLocation
                 {
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    }
+                    NestingLevel = 0
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0
                 }
-            };
+            });
 
             var mockToolWindow = new Mock<IToolWindow>();
             mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));
@@ -78,16 +75,13 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void SelectPreviousNextCommandsCallNoChildrenTest()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<AnnotatedCodeLocation>
+                new CodeFlowLocation
                 {
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call
-                    }
+                    NestingLevel = 0
                 }
-            };
+            });
 
             var mockToolWindow = new Mock<IToolWindow>();
             mockToolWindow.Setup(s => s.UpdateSelectionList(It.IsAny<object[]>()));

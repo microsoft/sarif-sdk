@@ -91,10 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // TODO we need better retrieval for locations than these defaults
             // Note that we can potentially emit many messages from a single result
-            PhysicalLocation physicalLocation = result.Locations?.First().ResultFile ?? result.Locations?.First().AnalysisTarget;
+            PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
+
             WriteToConsole(
                 result.Level,
-                physicalLocation?.Uri,
+                physicalLocation?.FileLocation?.Uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);

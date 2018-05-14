@@ -4,30 +4,14 @@
 using System;
 using System.Globalization;
 using System.IO;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
-using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ResultLogJsonWriterTests : JsonTests
     {
-        [Fact]
-        public void ResultLogJsonWriter_DefaultIsEmpty()
-        {
-            string expected =
-@"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
-  ""runs"": [
-    {}
-  ]
-}";
-            GetJson(uut => uut.Initialize(id: null, automationId: null))
-                .Should()
-                .BeCrossPlatformEquivalent(expected);
-        }
-
         [Fact]
         public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
@@ -48,8 +32,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteResult(DefaultResult);
             });
 
@@ -57,13 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        public void ResultLogJsonWriter_ToolMayNotBeWrittenMoreThanOnce()
+        public void ResultLogJsonWriter_DoNotInitializeMoreThanOnce()
         {
             Assert.Throws<InvalidOperationException>(() => 
                 GetJson(uut =>
                 {
-                    uut.WriteTool(DefaultTool);
-                    uut.WriteTool(DefaultTool);
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
+                    uut.Initialize(run);
                 })
             );
         }
@@ -76,6 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Assert.Throws<InvalidOperationException>(() => 
                 GetJson(uut =>
                 {
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
+
                     uut.OpenResults();
                     uut.WriteResults(results);
                     uut.CloseResults();
@@ -90,8 +78,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_RequiresNonNullTool()
         {
-            Assert.Throws<ArgumentNullException>(() => GetJson(uut => uut.WriteTool(null)));
-        }
+            Assert.Throws<ArgumentNullException>(() =>
+            GetJson(uut =>
+            {
+                var run = new Run() { Tool = null };
+                uut.Initialize(run);
+            }));
+       }
 
         [Fact]
         public void ResultLogJsonWriter_RequiresNonNullResult()
@@ -99,7 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Assert.Throws<ArgumentNullException>(() => 
                 GetJson(uut =>
                 {
-                    uut.WriteTool(DefaultTool);
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
                     uut.WriteResult(null);
                 })
             );
@@ -113,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                Assert.Throws<InvalidOperationException>(() => uut.WriteTool(DefaultTool));
+                Assert.Throws<InvalidOperationException>(() => uut.Initialize(new Run() { Tool = DefaultTool}));
             }
         }
 
@@ -124,7 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.Dispose();
                 Assert.Throws<InvalidOperationException>(() => uut.WriteResult(DefaultResult));
             }
@@ -162,18 +157,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                var run = new Run()
+                {
+                    Tool = DefaultTool
+                };
+                uut.Initialize(run);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -196,18 +196,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
       ""tool"": {
         ""name"": null
       },
-      ""invocation"": {
-        ""commandLine"": ""/a /b c.dll"",
-        ""machine"": ""MY_MACHINE""
-      }
+      ""invocations"": [
+        {
+          ""commandLine"": ""/a /b c.dll"",
+          ""machine"": ""MY_MACHINE""
+        }
+      ]
     }
   ]
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: id, automationId: automationId);
-                uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
+                var run = new Run()
+                {
+                    Id = id,
+                    AutomationId = automationId,
+                    Tool = DefaultTool,
+                };
+                uut.Initialize(run);
+                uut.WriteInvocations(new[] { s_invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent(expected);
@@ -220,9 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
-                uut.WriteInvocation(s_invocation);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocation(s_invocation));
+                var run = new Run() { Tool = DefaultTool, Invocations = new[] { s_invocation } };
+                uut.Initialize(run);
+                Assert.Throws<InvalidOperationException>(() => uut.Initialize(run));
             }
         }
 
@@ -234,10 +241,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Id = "NOT0001",
                 RuleId = "TST0001",
                 Level = NotificationLevel.Error,
-                Message = "This is a test",
+                Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri("file:///C:/src/a.cs"),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri("file:///C:/src/a.cs")
+                    },
                     Region = new Region
                     {
                         StartLine = 3,
@@ -262,15 +272,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                     new StackFrame
                                     {
                                         Module = "a.dll",
-                                        FullyQualifiedLogicalName = "N1.N2.C.M1",
-                                        Line = 10
+                                        Location = new Location
+                                        {
+                                            FullyQualifiedLogicalName = "N1.N2.C.M1",
+                                            PhysicalLocation = new PhysicalLocation
+                                            {
+                                                Region = new Region
+                                                {
+                                                    StartLine = 10
+                                                }
+                                            }
+                                        }
                                     },
 
                                     new StackFrame
                                     {
                                         Module = "a.dll",
-                                        FullyQualifiedLogicalName = "N1.N2.C.M2",
-                                        Line = 6
+                                        Location = new Location
+                                        {
+                                            FullyQualifiedLogicalName = "N1.N2.C.M2",
+                                            PhysicalLocation = new PhysicalLocation
+                                            {
+                                                Region = new Region
+                                                {
+                                                    StartLine = 6
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -285,13 +313,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
           ""id"": ""NOT0001"",
           ""ruleId"": ""TST0001"",
           ""physicalLocation"": {
-            ""uri"": ""file:///C:/src/a.cs"",
+            ""fileLocation"": {
+              ""uri"": ""file:///C:/src/a.cs""
+            },
             ""region"": {
               ""startLine"": 3,
               ""startColumn"": 12
             }
           },
-          ""message"": ""This is a test"",
+          ""message"": {
+            ""text"": ""This is a test""
+          },
           ""level"": ""error"",
           ""time"": ""2016-04-29T00:00:00.000Z"",
           ""exception"": {
@@ -304,14 +336,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 ""stack"": {
                   ""frames"": [
                     {
-                      ""line"": 10,
-                      ""module"": ""a.dll"",
-                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""region"": {
+                            ""startLine"": 10
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
+                      },
+                      ""module"": ""a.dll""
                     },
                     {
-                      ""line"": 6,
-                      ""module"": ""a.dll"",
-                      ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""region"": {
+                            ""startLine"": 6
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
+                      },
+                      ""module"": ""a.dll""
                     }
                   ]
                 }
@@ -340,8 +384,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
 
@@ -368,8 +412,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteToolNotifications(s_notifications);
             });
 
@@ -383,7 +427,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteToolNotifications(s_notifications);
                 Assert.Throws<InvalidOperationException>(() => uut.WriteToolNotifications(s_notifications));
             }
@@ -396,7 +441,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteConfigurationNotifications(s_notifications);
                 Assert.Throws<InvalidOperationException>(() => uut.WriteConfigurationNotifications(s_notifications));
             }

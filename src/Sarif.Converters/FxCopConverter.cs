@@ -58,9 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
             if (fileDictionary != null && fileDictionary.Any())
             {
@@ -82,9 +85,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result();
 
             string uniqueId = context.GetUniqueId();
+
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprintContribution = uniqueId;
+                if (result.PartialFingerprints == null)
+                {
+                    result.PartialFingerprints = new Dictionary<string, string>();
+                }
+
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.PartialFingerprints, "UniqueId", uniqueId);
             }
 
             string status = context.Status;
@@ -99,24 +108,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = context.Message;
+            result.Message = !string.IsNullOrWhiteSpace(context.Message) ? new Message { Text = context.Message } : null;
             var location = new Location();
 
-            if (!String.IsNullOrEmpty(context.Target))
-            {
-                location.AnalysisTarget = new PhysicalLocation
-                {
-                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
-                };
+            string sourceFile = GetFilePath(context);
+            string targetFile = context.Target;
 
+            // If both source and target have values and they're different, set analysis target
+            if (!string.IsNullOrWhiteSpace(sourceFile) &&
+                !string.IsNullOrWhiteSpace(targetFile) &&
+                !sourceFile.Equals(targetFile))
+            {
+                result.AnalysisTarget = new FileLocation()
+                {
+                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
+                };
+            }
+            else
+            {
+                // One or the other or both is null, or they're different
+                sourceFile = string.IsNullOrWhiteSpace(sourceFile) ? targetFile : sourceFile;
             }
 
-            string sourceFile = GetFilePath(context);
-            if (!String.IsNullOrWhiteSpace(sourceFile))
+            // If we have a value, set physical location
+            if (!string.IsNullOrWhiteSpace(sourceFile))
             {
-                location.ResultFile = new PhysicalLocation
+                location.PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute)
+                    },
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }

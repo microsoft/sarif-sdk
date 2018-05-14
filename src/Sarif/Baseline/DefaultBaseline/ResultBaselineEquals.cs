@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
@@ -19,6 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
+                // Target file should match.
+                if (!FileLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
+                {
+                    return false;
+                }
+
                 // Locations should all be the same.
                 if (!ListComparisonHelpers.CompareListsAsSets(x.Locations, y.Locations, LocationBaselineEquals.Instance))
                 {
@@ -26,13 +34,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 }
 
                 // Related Locations should all be the same.
-                if (!ListComparisonHelpers.CompareListsAsSets(x.RelatedLocations, y.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance))
+                if (!ListComparisonHelpers.CompareListsAsSets(x.RelatedLocations, y.RelatedLocations, LocationBaselineEquals.Instance))
                 {
                     return false;
                 }
 
-                // Finger print contributions should be the same.
-                if (x.ToolFingerprintContribution != y.ToolFingerprintContribution)
+                // Fingerprints (values only, ignore keys) should be the same.
+                if (!ListComparisonHelpers.CompareListsAsSets(x.Fingerprints?.Values?.ToList(), y.Fingerprints?.Values?.ToList(), StringComparer.Ordinal))
+                {
+                    return false;
+                }
+
+                // Partial fingerprints (values only, ignore keys) should be the same.
+                if (!ListComparisonHelpers.CompareListsAsSets(x.PartialFingerprints?.Values?.ToList(), y.PartialFingerprints?.Values?.ToList(), StringComparer.Ordinal))
                 {
                     return false;
                 }
@@ -62,11 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.ToolFingerprintContribution.GetNullCheckedHashCode();
+                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.PartialFingerprints.GetNullCheckedHashCode();
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 
-                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, AnnotatedCodeLocationBaselineEquals.DefaultInstance);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.RelatedLocations, LocationBaselineEquals.Instance);
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Stacks, StackBaselineEquals.Instance);
 
