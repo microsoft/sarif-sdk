@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
-            output.Initialize(id: null, automationId: null);
 
             var tool = new Tool
             {
@@ -31,7 +30,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullName = "PREfast Code Analysis"
             };
 
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             XmlReaderSettings settings = new XmlReaderSettings
             {

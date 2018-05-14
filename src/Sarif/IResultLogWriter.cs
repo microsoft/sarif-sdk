@@ -9,29 +9,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     public interface IResultLogWriter
     {
         /// <summary>
-        /// Initialize the current output log.
+        /// Initialize the current output log. This method persists all run properties
+        /// except for those that may be populated during the course of persisting 
+        /// results. A result might produce a new file object to be stored in run.files,
+        /// for example, so run.Files will not be persisted on initialization.
         /// </summary>
         /// <param name="id">A string that uniquely identifies a run.</param>
         /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param> 
-        void Initialize(string id, string automationId);
-
-        /// <summary>Writes tool information to the log.</summary>
-        /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
-        /// written.</exception>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="info"/> is null.</exception>
-        /// <param name="tool">The tool information to write.</param>
-        void WriteTool(Tool tool);
-
-        /// <summary>Writes run information to the log. This object may appear after
-        /// the results, as it can contain data that can't be computed (such as the run
-        /// end time) until all results have been generated.</summary>
-        /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the object has already been
-        /// written.</exception>
-        void WriteInvocations(IEnumerable<Invocation> invocations);
+        void Initialize(Run run);
 
         /// <summary>
         /// Write information about scanned files to the log. This information may appear

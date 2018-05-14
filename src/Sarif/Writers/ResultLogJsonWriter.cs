@@ -19,17 +19,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Flags]
         private enum Conditions
         {
-            None = 0x0,
-            Initialized = 0x1,
-            ToolWritten = 0x2,
-            RulesWritten = 0x4,
-            FilesWritten = 0x8,
-            ResultsInitialized = 0x10,
-            ResultsClosed = 0x20,
-            InvocationsWritten = 0x40,
-            LogicalLocationsWritten = 0x80,
-            ToolNotificationsWritten = 0x100,
-            ConfigurationNotificationsWritten = 0x200,
+            None = 0x00,
+            RunInitialized = 0x001,
+            RulesWritten = 0x002,
+            FilesWritten = 0x004,
+            InvocationsWritten = 0x008,
+            ResultsInitialized = 0x010,
+            ResultsClosed = 0x020,
+            LogicalLocationsWritten = 0x040,
+            ToolNotificationsWritten = 0x080,
+            ConfigurationNotificationsWritten = 0x100,
             Disposed = 0x40000000
         }
 
@@ -53,9 +52,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// </summary>
         /// <param name="id">A string that uniquely identifies a run.</param>
         /// <param name="automationId">A global identifier for a run that permits correlation with a larger automation process.</param>
-        public void Initialize(string id, string automationId)
+        public void Initialize(Run run)
         {
-            this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.Initialized);
+            if (run == null)
+            {
+                throw new ArgumentNullException(nameof(run));
+            }
+
+            if (run.Tool == null)
+            {
+                throw new ArgumentNullException(nameof(run.Tool));
+            }
+
+            this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInitialized);
 
             SarifVersion sarifVersion = SarifVersion.TwoZeroZero;
 
@@ -70,44 +79,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(run.Id))
             {
                 _jsonWriter.WritePropertyName("id");
-                _serializer.Serialize(_jsonWriter, id, typeof(string));
+                _serializer.Serialize(_jsonWriter, run.Id);
             }
 
-            if (!string.IsNullOrEmpty(automationId))
+            if (!string.IsNullOrEmpty(run.BaselineId))
+            {
+                _jsonWriter.WritePropertyName("baselineId");
+                _serializer.Serialize(_jsonWriter, run.BaselineId);
+            }
+
+            if (!string.IsNullOrEmpty(run.AutomationId))
             {
                 _jsonWriter.WritePropertyName("automationId");
-                _serializer.Serialize(_jsonWriter, automationId, typeof(string));
+                _serializer.Serialize(_jsonWriter, run.AutomationId);
             }
 
-            _writeConditions |= Conditions.Initialized;
-        }
-
-        /// <summary>Writes a tool information entry to the log. This must be the first entry written into
-        /// a log, and it may be written at most once.</summary>
-        /// <exception cref="IOException">A file IO error occured. Clients implementing
-        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
-        /// written.</exception>
-        /// <param name="info">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
-        public void WriteTool(Tool tool)
-        {
-            if (tool == null)
+            if (!string.IsNullOrEmpty(run.StableId))
             {
-                throw new ArgumentNullException(nameof(tool));
+                _jsonWriter.WritePropertyName("stableId");
+                _serializer.Serialize(_jsonWriter, run.StableId);
             }
 
-            EnsureInitialized();
-            EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolWritten);
+            if (!string.IsNullOrEmpty(run.Architecture))
+            {
+                _jsonWriter.WritePropertyName("architecture");
+                _serializer.Serialize(_jsonWriter, run.Architecture);
+            }
 
-            _jsonWriter.WritePropertyName("tool");
-            _serializer.Serialize(_jsonWriter, tool, typeof(Tool));
+            if (run.Tool != null)
+            {
+                _jsonWriter.WritePropertyName("tool");
+                _serializer.Serialize(_jsonWriter, run.Tool);
+            }
 
-            _writeConditions |= Conditions.ToolWritten;
+            if (run.Conversion != null)
+            {
+                _jsonWriter.WritePropertyName("conversion");
+                _serializer.Serialize(_jsonWriter, run.Conversion);
+            }
+
+            if (run.VersionControlProvenance != null)
+            {
+                _jsonWriter.WritePropertyName("versionControlProvenance");
+                _serializer.Serialize(_jsonWriter, run.VersionControlProvenance);
+            }
+
+            if (run.OriginalUriBaseIds != null)
+            {
+                _jsonWriter.WritePropertyName("originalUriBaseIds");
+                _serializer.Serialize(_jsonWriter, run.OriginalUriBaseIds);
+            }
+
+            if (run.DefaultFileEncoding != null)
+            {
+                _jsonWriter.WritePropertyName("defaultFileEncoding");
+                _serializer.Serialize(_jsonWriter, run.DefaultFileEncoding);
+            }
+
+            if (run.RichMessageMimeType != null)
+            {
+                _jsonWriter.WritePropertyName("richMessageMimeType");
+                _serializer.Serialize(_jsonWriter, run.RichMessageMimeType);
+            }
+            if (run.RedactionToken != null)
+            {
+                _jsonWriter.WritePropertyName("redactionToken");
+                _serializer.Serialize(_jsonWriter, run.RedactionToken);
+            }
+
+            _writeConditions |= Conditions.RunInitialized;
         }
 
         /// <summary>
@@ -161,6 +204,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }
+
+        public void WriteInvocations(IEnumerable<Invocation> invocations)
+        {
+            if (invocations == null)
+            {
+                throw new ArgumentNullException(nameof(invocations));
+            }
+
+            EnsureInitialized();
+            EnsureResultsArrayIsNotOpen();
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationsWritten);
+
+            _jsonWriter.WritePropertyName("invocations");
+            _serializer.Serialize(_jsonWriter, invocations, typeof(List<Invocation>));
+
+            _writeConditions |= Conditions.InvocationsWritten;
+        }
+
 
         public void WriteRules(IDictionary<string, IRule> rules)
         {
@@ -282,23 +343,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        public void WriteInvocations(IEnumerable<Invocation> invocations)
-        {
-            if (invocations == null)
-            {
-                throw new ArgumentNullException(nameof(invocations));
-            }
-
-            EnsureInitialized();
-            EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationsWritten);
-
-            _jsonWriter.WritePropertyName("invocations");
-            _serializer.Serialize(_jsonWriter, invocations, typeof(List<Invocation>));
-
-            _writeConditions |= Conditions.InvocationsWritten;
-        }
-
         public void WriteToolNotifications(IEnumerable<Notification> notifications)
         {
             if (notifications == null)
@@ -350,24 +394,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            if (_writeConditions == Conditions.Initialized)
+            if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
+                (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
             {
-                // Log incomplete. No data should have been written at this point.
+                CloseResults();
             }
-            else
-            {
-                if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
-                    (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
-                {
-                    CloseResults();
-                }
 
-                // Log complete. Write the end object.
+            // Log complete. Write the end object.
 
-                _jsonWriter.WriteEndObject(); // End: run
-                _jsonWriter.WriteEndArray();  // End: runs
-                _jsonWriter.WriteEndObject(); // End: sarifLog
-            }
+            _jsonWriter.WriteEndObject(); // End: run
+            _jsonWriter.WriteEndArray();  // End: runs
+            _jsonWriter.WriteEndObject(); // End: sarifLog
 
             _writeConditions |= Conditions.Disposed;
         }
@@ -376,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (_writeConditions == Conditions.None)
             {
-                Initialize(id : Guid.NewGuid().ToString(), automationId: null);
+                Initialize(new Run() { Tool = new Tool() });
             }
         }
 

@@ -31,8 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Pylint"
             };
 
-            output.Initialize(id: null, automationId: null);
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             var results = new List<Result>();
 
