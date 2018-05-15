@@ -30,27 +30,6 @@
   "required": [ "version", "runs" ],
   "definitions": {
 
-    "annotation": {
-      "type": "object",
-      "properties": {
-
-        "message": {
-          "description": "A message relevant to the set of locations specified by this annotation.",
-          "$ref": "#/definitions/message"
-        },
-
-        "locations": {
-          "description": "An array of 'physicalLocation' objects associated with this annotation.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/physicalLocation"
-          }
-        }
-      },
-      "required": [ "message", "locations" ]
-    },
-
     "attachment": {
       "description": "A file relevant to a tool invocation or to a result.",
       "type": "object",
@@ -824,12 +803,12 @@
         },
 
         "annotations": {
-          "description": "A set of messages relevant to portions of the location.",
+          "description": "A set of regions relevant to the location.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/annotation"
+            "$ref": "#/definitions/region"
           }
         },
 
@@ -1061,7 +1040,9 @@
           "description": "Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.",
           "$ref": "#/definitions/region"
         }
-      }
+      },
+
+      "required": [ "fileLocation" ]
     },
 
     "region": {

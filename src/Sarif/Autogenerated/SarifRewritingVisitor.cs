@@ -46,8 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.Annotation:
-                    return VisitAnnotation((Annotation)node);
                 case SarifNodeKind.Attachment:
                     return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
@@ -131,23 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return (T)Visit(node);
-        }
-
-        public virtual Annotation VisitAnnotation(Annotation node)
-        {
-            if (node != null)
-            {
-                node.Message = VisitNullChecked(node.Message);
-                if (node.Locations != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
-                    {
-                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
-                    }
-                }
-            }
-
-            return node;
         }
 
         public virtual Attachment VisitAttachment(Attachment node)

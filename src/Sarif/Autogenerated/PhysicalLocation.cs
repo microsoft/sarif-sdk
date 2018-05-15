@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the file.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "fileLocation", IsRequired = true)]
         public FileLocation FileLocation { get; set; }
 
         /// <summary>

@@ -51,10 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// A set of messages relevant to portions of the location.
+        /// A set of regions relevant to the location.
         /// </summary>
         [DataMember(Name = "annotations", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Annotation> Annotations { get; set; }
+        public IList<Region> Annotations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the location.
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Location(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(physicalLocation, fullyQualifiedLogicalName, message, annotations, properties);
         }
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Annotation> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (physicalLocation != null)
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (annotations != null)
             {
-                var destination_0 = new List<Annotation>();
+                var destination_0 = new List<Region>();
                 foreach (var value_0 in annotations)
                 {
                     if (value_0 == null)
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new Annotation(value_0));
+                        destination_0.Add(new Region(value_0));
                     }
                 }
 

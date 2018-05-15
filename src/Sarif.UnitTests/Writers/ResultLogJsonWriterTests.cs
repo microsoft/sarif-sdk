@@ -277,6 +277,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             FullyQualifiedLogicalName = "N1.N2.C.M1",
                                             PhysicalLocation = new PhysicalLocation
                                             {
+                                                FileLocation = new FileLocation
+                                                {
+                                                    Uri = new Uri("file:///C:/src/a.cs")
+                                                },
                                                 Region = new Region
                                                 {
                                                     StartLine = 10
@@ -293,6 +297,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             FullyQualifiedLogicalName = "N1.N2.C.M2",
                                             PhysicalLocation = new PhysicalLocation
                                             {
+                                                FileLocation = new FileLocation
+                                                {
+                                                    Uri = new Uri("file:///C:/src/a.cs")
+                                                },
                                                 Region = new Region
                                                 {
                                                     StartLine = 6
@@ -338,6 +346,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                       ""location"": {
                         ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/a.cs""
+                          },
                           ""region"": {
                             ""startLine"": 10
                           }
@@ -349,6 +360,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                       ""location"": {
                         ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/a.cs""
+                          },
                           ""region"": {
                             ""startLine"": 6
                           }
