@@ -12,6 +12,15 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CDXGKDX_DUMP_LOG::{dtor}": {
+          "name": "{dtor}",
+          "decoratedName": "??1CDXGKDX_DUMP_LOG@@QAE@XZ"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26003",
@@ -30,7 +39,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CDXGKDX_DUMP_LOG::{dtor}",
-              "decoratedName": "??1CDXGKDX_DUMP_LOG@@QAE@XZ",
               "properties": {
                 "funcline": "23"
               }
@@ -372,7 +380,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "32"
               }

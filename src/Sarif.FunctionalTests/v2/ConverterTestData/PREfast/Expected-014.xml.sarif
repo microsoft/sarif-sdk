@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "indexing": {
+          "decoratedName": "?indexing@@YAXI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAXI@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -134,7 +138,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAXI@Z",
               "properties": {
                 "funcline": "7"
               }

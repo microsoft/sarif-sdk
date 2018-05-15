@@ -12,6 +12,34 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXPADIPBD@Z"
+        },
+        "f1": {
+          "decoratedName": "?f1@@YAXPADIPBD@Z"
+        },
+        "f2": {
+          "decoratedName": "?f2@@YAXPADIPBD@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAGI@Z"
+        },
+        "GetComputerName": {
+          "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
+        },
+        "TestFields": {
+          "decoratedName": "?TestFields@@YAXPADHH@Z"
+        },
+        "f-0": {
+          "name": "f",
+          "fullyQualifiedName": "f",
+          "decoratedName": "?f@@YAXPADPAI@Z"
+        },
+        "Division": {
+          "decoratedName": "?Division@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",
@@ -30,7 +58,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPADIPBD@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -162,7 +189,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
-              "decoratedName": "?f1@@YAXPADIPBD@Z",
               "properties": {
                 "funcline": "21"
               }
@@ -294,7 +320,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
-              "decoratedName": "?f1@@YAXPADIPBD@Z",
               "properties": {
                 "funcline": "21"
               }
@@ -482,7 +507,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f2",
-              "decoratedName": "?f2@@YAXPADIPBD@Z",
               "properties": {
                 "funcline": "34"
               }
@@ -600,7 +624,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXPAGI@Z",
               "properties": {
                 "funcline": "48"
               }
@@ -690,7 +713,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetComputerName",
-              "decoratedName": "?GetComputerName@@YAXPADPAI@Z",
               "properties": {
                 "funcline": "70"
               }
@@ -738,7 +760,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
-              "decoratedName": "?TestFields@@YAXPADHH@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -856,7 +877,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
-              "decoratedName": "?TestFields@@YAXPADHH@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -974,7 +994,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPADPAI@Z",
               "properties": {
                 "funcline": "116"
               }
@@ -1036,7 +1055,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Division",
-              "decoratedName": "?Division@@YAXXZ",
               "properties": {
                 "funcline": "128"
               }

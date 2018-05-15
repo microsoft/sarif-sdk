@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "foo3": {
+          "decoratedName": "?foo3@@YAXPAPAPAH0H@Z"
+        },
+        "SatFunc": {
+          "decoratedName": "?SatFunc@@YAHHHPAD@Z"
+        },
+        "TestSat1": {
+          "decoratedName": "?TestSat1@@YAXXZ"
+        },
+        "TestPresatBad": {
+          "decoratedName": "?TestPresatBad@@YADHHPAD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26061",
@@ -30,7 +44,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo3",
-              "decoratedName": "?foo3@@YAXPAPAPAH0H@Z",
               "properties": {
                 "funcline": "18"
               }
@@ -78,7 +91,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SatFunc",
-              "decoratedName": "?SatFunc@@YAHHHPAD@Z",
               "properties": {
                 "funcline": "23"
               }
@@ -140,7 +152,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSat1",
-              "decoratedName": "?TestSat1@@YAXXZ",
               "properties": {
                 "funcline": "28"
               }
@@ -216,7 +227,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestPresatBad",
-              "decoratedName": "?TestPresatBad@@YADHHPAD@Z",
               "properties": {
                 "funcline": "37"
               }

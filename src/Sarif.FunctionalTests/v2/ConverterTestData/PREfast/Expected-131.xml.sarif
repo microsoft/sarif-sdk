@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "NegDWord_Unsafe": {
+          "decoratedName": "?NegDWord_Unsafe@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NegDWord_Unsafe",
-              "decoratedName": "?NegDWord_Unsafe@@YAHXZ",
               "properties": {
                 "funcline": "15"
               }

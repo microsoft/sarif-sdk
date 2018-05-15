@@ -13,7 +13,6 @@
       },
       "logicalLocations": {
         "microsoft.teamfoundation.build.client.dll": {
-          "name": "microsoft.teamfoundation.build.client.dll",
           "kind": "module"
         },
         "microsoft.teamfoundation.build.client.dll!OMStrings.resources": {
@@ -38,7 +37,7 @@
               "fullyQualifiedLogicalName": "microsoft.teamfoundation.build.client.dll!OMStrings.resources"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Logon#StringResourceShouldBeCompoundWord"
           },
           "properties": {

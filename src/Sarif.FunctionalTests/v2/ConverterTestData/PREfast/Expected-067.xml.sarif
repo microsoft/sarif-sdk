@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "StrCchCopy": {
+          "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StrCchCopy",
-              "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z",
               "properties": {
                 "funcline": "4"
               }

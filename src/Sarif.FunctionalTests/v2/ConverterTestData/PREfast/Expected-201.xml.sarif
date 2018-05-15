@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MyClass::GetValue": {
+          "name": "GetValue",
+          "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
+        },
+        "MyFixedSizeClass::GetValue": {
+          "name": "GetValue",
+          "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26020",
@@ -30,7 +40,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyClass::GetValue",
-              "decoratedName": "?GetValue@MyClass@@QAEHI@Z",
               "properties": {
                 "funcline": "12"
               }
@@ -92,7 +101,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MyFixedSizeClass::GetValue",
-              "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z",
               "properties": {
                 "funcline": "38"
               }

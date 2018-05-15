@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Class::MemberFunc": {
+          "name": "MemberFunc",
+          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26035",
@@ -30,7 +36,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -330,7 +335,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -630,7 +634,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }
@@ -902,7 +905,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Class::MemberFunc",
-              "decoratedName": "?MemberFunc@Class@@QAEJXZ",
               "properties": {
                 "funcline": "17"
               }

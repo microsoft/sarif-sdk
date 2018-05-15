@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CompareToTen": {
+          "decoratedName": "?CompareToTen@@YAXPEAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6001",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
-              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
               "properties": {
                 "funcline": "2"
               }
@@ -120,7 +124,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
-              "decoratedName": "?CompareToTen@@YAXPEAHH@Z",
               "properties": {
                 "funcline": "2"
               }

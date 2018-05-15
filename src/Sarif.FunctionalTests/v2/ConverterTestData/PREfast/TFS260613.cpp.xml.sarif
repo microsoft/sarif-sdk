@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "ComplexMismatch1": {
+          "decoratedName": "?ComplexMismatch1@@YAHXZ"
+        },
+        "ComplexMismatch2": {
+          "decoratedName": "?ComplexMismatch2@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6305",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch1",
-              "decoratedName": "?ComplexMismatch1@@YAHXZ",
               "properties": {
                 "funcline": "4"
               }
@@ -135,7 +142,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch2",
-              "decoratedName": "?ComplexMismatch2@@YAHXZ",
               "properties": {
                 "funcline": "15"
               }

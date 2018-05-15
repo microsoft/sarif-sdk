@@ -37,9 +37,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.AnalysisToolLogFileLocation, right.AnalysisToolLogFileLocation))
+            if (!object.ReferenceEquals(left.AnalysisToolLogFiles, right.AnalysisToolLogFiles))
             {
-                return false;
+                if (left.AnalysisToolLogFiles == null || right.AnalysisToolLogFiles == null)
+                {
+                    return false;
+                }
+
+                if (left.AnalysisToolLogFiles.Count != right.AnalysisToolLogFiles.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.AnalysisToolLogFiles.Count; ++index_0)
+                {
+                    if (!FileLocation.ValueComparer.Equals(left.AnalysisToolLogFiles[index_0], right.AnalysisToolLogFiles[index_0]))
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;
@@ -65,9 +81,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Invocation.ValueGetHashCode();
                 }
 
-                if (obj.AnalysisToolLogFileLocation != null)
+                if (obj.AnalysisToolLogFiles != null)
                 {
-                    result = (result * 31) + obj.AnalysisToolLogFileLocation.ValueGetHashCode();
+                    foreach (var value_0 in obj.AnalysisToolLogFiles)
+                    {
+                        result = result * 31;
+                        if (value_0 != null)
+                        {
+                            result = (result * 31) + value_0.ValueGetHashCode();
+                        }
+                    }
                 }
             }
 

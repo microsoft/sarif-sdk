@@ -19,8 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
 
-                // Code locations (decorated name/fully qualified logical name) should match.
-                if (x.DecoratedName != y.DecoratedName || x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
+                // Code locations (fully qualified logical name) should match.
+                if (x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
                 {
                     return false;
                 }
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
                 hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
 
-                hs = hs ^ obj.DecoratedName.GetNullCheckedHashCode() ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
+                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 
                 return hs;
             }

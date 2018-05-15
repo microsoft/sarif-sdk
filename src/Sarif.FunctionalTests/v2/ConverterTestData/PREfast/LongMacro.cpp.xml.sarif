@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6001MacroExpansion_Example": {
+          "decoratedName": "?C6001MacroExpansion_Example@@YAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6001",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6001MacroExpansion_Example",
-              "decoratedName": "?C6001MacroExpansion_Example@@YAHH@Z",
               "properties": {
                 "funcline": "3"
               }

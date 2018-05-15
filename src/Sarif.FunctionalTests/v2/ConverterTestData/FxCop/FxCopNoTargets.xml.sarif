@@ -15,7 +15,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Microsoft.FxCop.Common.AssemblyLoadException"
           }
         },
@@ -27,7 +27,7 @@
           "locations": [
             {}
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Microsoft.FxCop.Sdk.FxCopException"
           }
         }

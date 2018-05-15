@@ -75,9 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Semmle QL"
             };
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
 			output.WriteFiles(fileDictionary);
 

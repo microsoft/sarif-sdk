@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "EncodeBinary": {
+          "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z"
+        },
+        "EncodeBinaryBad": {
+          "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26005",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinary",
-              "decoratedName": "?EncodeBinary@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -274,7 +281,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -854,7 +860,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }
@@ -1098,7 +1103,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EncodeBinaryBad",
-              "decoratedName": "?EncodeBinaryBad@@YAKPAGPAEK@Z",
               "properties": {
                 "funcline": "43"
               }

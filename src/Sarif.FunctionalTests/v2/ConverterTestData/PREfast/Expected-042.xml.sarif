@@ -12,6 +12,35 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAPAHH@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXPAPAHH@Z"
+        },
+        "h": {
+          "decoratedName": "?h@@YAXPAPAHPAHH@Z"
+        },
+        "g1": {
+          "decoratedName": "?g1@@YAPAXH@Z"
+        },
+        "g2": {
+          "decoratedName": "?g2@@YAPAHH@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAH0@Z"
+        },
+        "Next": {
+          "decoratedName": "?Next@@YAXPAHIPAI@Z"
+        },
+        "NextUnannotated": {
+          "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26030",
@@ -30,7 +59,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAPAHH@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -232,7 +260,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAPAHH@Z",
               "properties": {
                 "funcline": "16"
               }
@@ -434,7 +461,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "h",
-              "decoratedName": "?h@@YAXPAPAHPAHH@Z",
               "properties": {
                 "funcline": "27"
               }
@@ -538,7 +564,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g1",
-              "decoratedName": "?g1@@YAPAXH@Z",
               "properties": {
                 "funcline": "34"
               }
@@ -614,7 +639,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g2",
-              "decoratedName": "?g2@@YAPAHH@Z",
               "properties": {
                 "funcline": "39"
               }
@@ -676,7 +700,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g2",
-              "decoratedName": "?g2@@YAPAHH@Z",
               "properties": {
                 "funcline": "39"
               }
@@ -738,7 +761,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXPAH0@Z",
               "properties": {
                 "funcline": "56"
               }
@@ -912,7 +934,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Next",
-              "decoratedName": "?Next@@YAXPAHIPAI@Z",
               "properties": {
                 "funcline": "72"
               }
@@ -1240,7 +1261,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NextUnannotated",
-              "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z",
               "properties": {
                 "funcline": "88"
               }
@@ -1568,7 +1588,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "127"
               }

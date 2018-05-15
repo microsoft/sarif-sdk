@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "UlpFixupIISLogRecord": {
+          "decoratedName": "?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "UlpFixupIISLogRecord",
-              "decoratedName": "?UlpFixupIISLogRecord@@YAHPAULOG_DATA@@@Z",
               "properties": {
                 "funcline": "13"
               }

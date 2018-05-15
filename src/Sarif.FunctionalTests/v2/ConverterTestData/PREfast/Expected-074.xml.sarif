@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "StrCchCopy": {
+          "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z"
+        },
+        "buggy": {
+          "decoratedName": "?buggy@@YAXPBD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StrCchCopy",
-              "decoratedName": "?StrCchCopy@@YAJPADPBDI@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -204,7 +211,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "buggy",
-              "decoratedName": "?buggy@@YAXPBD@Z",
               "properties": {
                 "funcline": "18"
               }

@@ -12,6 +12,29 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXPAD@Z"
+        },
+        "Bad": {
+          "decoratedName": "?Bad@@YAXPADI@Z"
+        },
+        "ExplicitChar": {
+          "decoratedName": "?ExplicitChar@@YAXXZ"
+        },
+        "GetItem": {
+          "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z"
+        },
+        "ArrInit4": {
+          "decoratedName": "?ArrInit4@@YAXXZ"
+        },
+        "NotZeroMemroy": {
+          "decoratedName": "?NotZeroMemroy@@YAXXZ"
+        },
+        "BadMemset": {
+          "decoratedName": "?BadMemset@@YAXPAGI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26006",
@@ -30,7 +53,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAD@Z",
               "properties": {
                 "funcline": "25"
               }
@@ -92,7 +114,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad",
-              "decoratedName": "?Bad@@YAXPADI@Z",
               "properties": {
                 "funcline": "36"
               }
@@ -154,7 +175,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ExplicitChar",
-              "decoratedName": "?ExplicitChar@@YAXXZ",
               "properties": {
                 "funcline": "56"
               }
@@ -412,7 +432,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetItem",
-              "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z",
               "properties": {
                 "funcline": "72"
               }
@@ -516,7 +535,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ArrInit4",
-              "decoratedName": "?ArrInit4@@YAXXZ",
               "properties": {
                 "funcline": "114"
               }
@@ -606,7 +624,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NotZeroMemroy",
-              "decoratedName": "?NotZeroMemroy@@YAXXZ",
               "properties": {
                 "funcline": "128"
               }
@@ -696,7 +713,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadMemset",
-              "decoratedName": "?BadMemset@@YAXPAGI@Z",
               "properties": {
                 "funcline": "147"
               }

@@ -34,21 +34,14 @@ namespace Microsoft.Sarif.Viewer.Sarif
             }
         }
 
-        public static bool TryGetRule(this Run run, string ruleId, string ruleKey, out IRule rule)
+        public static bool TryGetRule(this Run run, string ruleId, out IRule rule)
         {
             rule = null;
 
-            if (run?.Resources?.Rules != null && (ruleId != null || ruleKey != null))
+            if (run?.Resources?.Rules != null && ruleId != null)
             {
                 Rule concreteRule = null;
-                if (ruleKey != null)
-                {
-                    run.Resources.Rules.TryGetValue(ruleKey, out concreteRule);
-                }
-                else
-                {
-                    run.Resources.Rules.TryGetValue(ruleId, out concreteRule);
-                }
+                run.Resources.Rules.TryGetValue(ruleId, out concreteRule);
 
                 rule = concreteRule;
             }

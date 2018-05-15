@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXPAH0HH@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAHH@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAHXZ"
+        },
+        "ineqnoise": {
+          "decoratedName": "?ineqnoise@@YAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",
@@ -30,7 +47,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPAH0HH@Z",
               "properties": {
                 "funcline": "3"
               }
@@ -176,7 +192,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAHH@Z",
               "properties": {
                 "funcline": "12"
               }
@@ -252,7 +267,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAHH@Z",
               "properties": {
                 "funcline": "12"
               }
@@ -328,7 +342,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "33"
               }
@@ -446,7 +459,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAHXZ",
               "properties": {
                 "funcline": "41"
               }
@@ -746,7 +758,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ineqnoise",
-              "decoratedName": "?ineqnoise@@YAHH@Z",
               "properties": {
                 "funcline": "76"
               }

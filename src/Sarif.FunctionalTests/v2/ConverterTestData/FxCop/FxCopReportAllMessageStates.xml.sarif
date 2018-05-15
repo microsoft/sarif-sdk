@@ -16,11 +16,9 @@
       },
       "logicalLocations": {
         "WpfApplication5": {
-          "name": "WpfApplication5",
           "kind": "namespace"
         },
         "wpfapplication5.exe": {
-          "name": "wpfapplication5.exe",
           "kind": "module"
         },
         "wpfapplication5.exe!WpfApplication5": {
@@ -165,7 +163,7 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "CSharp2_0"
           },
           "properties": {
@@ -195,7 +193,7 @@
               "fullyQualifiedLogicalName": "wpfapplication5.exe!WpfApplication5.Frz.Baz()"
             }
           ],
-          "toolFingerprintContributions": {
+          "partialFingerprints": {
             "UniqueId": "Baz#Member"
           },
           "properties": {

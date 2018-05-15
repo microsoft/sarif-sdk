@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAIPEAUS1@@@Z"
+        },
+        "f": {
+          "decoratedName": "?f@@YAXPEAUS1@@I@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAIPEAUS1@@@Z",
               "properties": {
                 "funcline": "16"
               }
@@ -106,7 +113,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAIPEAUS1@@@Z",
               "properties": {
                 "funcline": "16"
               }
@@ -182,7 +188,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXPEAUS1@@I@Z",
               "properties": {
                 "funcline": "24"
               }

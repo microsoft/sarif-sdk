@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestPtrDiff1": {
+          "decoratedName": "?TestPtrDiff1@@YAXPAH0@Z"
+        },
+        "Bad": {
+          "decoratedName": "?Bad@@YAXXZ"
+        },
+        "TestPtrDiffChar2": {
+          "decoratedName": "?TestPtrDiffChar2@@YAXPAD0@Z"
+        },
+        "Read": {
+          "decoratedName": "?Read@@YAXPAD0PAPAD@Z"
+        },
+        "PtrDiffIntBad": {
+          "decoratedName": "?PtrDiffIntBad@@YAXPAH0@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +47,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestPtrDiff1",
-              "decoratedName": "?TestPtrDiff1@@YAXPAH0@Z",
               "properties": {
                 "funcline": "4"
               }
@@ -92,7 +108,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad",
-              "decoratedName": "?Bad@@YAXXZ",
               "properties": {
                 "funcline": "15"
               }
@@ -168,7 +183,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestPtrDiffChar2",
-              "decoratedName": "?TestPtrDiffChar2@@YAXPAD0@Z",
               "properties": {
                 "funcline": "31"
               }
@@ -244,7 +258,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Read",
-              "decoratedName": "?Read@@YAXPAD0PAPAD@Z",
               "properties": {
                 "funcline": "64"
               }
@@ -488,7 +501,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PtrDiffIntBad",
-              "decoratedName": "?PtrDiffIntBad@@YAXPAH0@Z",
               "properties": {
                 "funcline": "92"
               }

@@ -342,7 +342,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = CreateMessage(v1Notification.Message),
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
-                    RuleKey = v1Notification.RuleKey,
                     ThreadId = v1Notification.ThreadId,
                     Time = v1Notification.Time
                 };

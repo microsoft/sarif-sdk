@@ -38,6 +38,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
+        /// The human-readable fully qualified name of the logical location.
+        /// </summary>
+        [DataMember(Name = "fullyQualifiedName", IsRequired = false, EmitDefaultValue = false)]
+        public string FullyQualifiedName { get; set; }
+
+        /// <summary>
+        /// The machine-readable name for the logical location, such as a mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.
+        /// </summary>
+        [DataMember(Name = "decoratedName", IsRequired = false, EmitDefaultValue = false)]
+        public string DecoratedName { get; set; }
+
+        /// <summary>
         /// Identifies the key of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
         [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
@@ -62,15 +74,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="name">
         /// An initialization value for the <see cref="P: Name" /> property.
         /// </param>
+        /// <param name="fullyQualifiedName">
+        /// An initialization value for the <see cref="P: FullyQualifiedName" /> property.
+        /// </param>
+        /// <param name="decoratedName">
+        /// An initialization value for the <see cref="P: DecoratedName" /> property.
+        /// </param>
         /// <param name="parentKey">
         /// An initialization value for the <see cref="P: ParentKey" /> property.
         /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
-        public LogicalLocation(string name, string parentKey, string kind)
+        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind)
         {
-            Init(name, parentKey, kind);
+            Init(name, fullyQualifiedName, decoratedName, parentKey, kind);
         }
 
         /// <summary>
@@ -89,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.ParentKey, other.Kind);
+            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentKey, other.Kind);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -110,9 +128,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, string parentKey, string kind)
+        private void Init(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind)
         {
             Name = name;
+            FullyQualifiedName = fullyQualifiedName;
+            DecoratedName = decoratedName;
             ParentKey = parentKey;
             Kind = kind;
         }

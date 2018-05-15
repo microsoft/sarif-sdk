@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6011_OnlyOnSecondLoop": {
+          "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
+        },
+        "C6011_OnlyOnSecondLoopWithParam": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
+        },
+        "C6011_OnlyOnSecondLoopPlusRollbackDefect": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",
@@ -30,7 +41,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoop",
-              "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ",
               "properties": {
                 "funcline": "8"
               }
@@ -233,7 +243,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopWithParam",
-              "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z",
               "properties": {
                 "funcline": "23"
               }
@@ -436,7 +445,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
-              "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "properties": {
                 "funcline": "38"
               }
@@ -716,7 +724,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
-              "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "properties": {
                 "funcline": "38"
               }
@@ -947,7 +954,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
-              "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z",
               "properties": {
                 "funcline": "38"
               }

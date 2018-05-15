@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "obvious": {
+          "decoratedName": "?obvious@@YAXXZ"
+        },
+        "with_condition": {
+          "decoratedName": "?with_condition@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "obvious",
-              "decoratedName": "?obvious@@YAXXZ",
               "properties": {
                 "funcline": "5"
               }
@@ -232,7 +239,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "with_condition",
-              "decoratedName": "?with_condition@@YAXXZ",
               "properties": {
                 "funcline": "15"
               }

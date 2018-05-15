@@ -38,16 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.LogicalLocationKey != right.LogicalLocationKey)
-            {
-                return false;
-            }
-
-            if (left.DecoratedName != right.DecoratedName)
-            {
-                return false;
-            }
-
             if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
@@ -67,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Annotations.Count; ++index_0)
                 {
-                    if (!Annotation.ValueComparer.Equals(left.Annotations[index_0], right.Annotations[index_0]))
+                    if (!Region.ValueComparer.Equals(left.Annotations[index_0], right.Annotations[index_0]))
                     {
                         return false;
                     }
@@ -117,16 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.FullyQualifiedLogicalName != null)
                 {
                     result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
-                }
-
-                if (obj.LogicalLocationKey != null)
-                {
-                    result = (result * 31) + obj.LogicalLocationKey.GetHashCode();
-                }
-
-                if (obj.DecoratedName != null)
-                {
-                    result = (result * 31) + obj.DecoratedName.GetHashCode();
                 }
 
                 if (obj.Message != null)

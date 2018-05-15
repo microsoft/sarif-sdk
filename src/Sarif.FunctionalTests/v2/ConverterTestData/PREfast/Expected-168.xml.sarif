@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestSetToNull": {
+          "decoratedName": "?TestSetToNull@@YAXXZ"
+        },
+        "TestSetToZero": {
+          "decoratedName": "?TestSetToZero@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSetToNull",
-              "decoratedName": "?TestSetToNull@@YAXXZ",
               "properties": {
                 "funcline": "9"
               }
@@ -148,7 +155,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSetToZero",
-              "decoratedName": "?TestSetToZero@@YAXXZ",
               "properties": {
                 "funcline": "20"
               }

@@ -74,9 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
             if (fileDictionary != null && fileDictionary.Any())
             {
@@ -136,14 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            location.FullyQualifiedLogicalName = CreateSignature(problem);
-
-            string logicalLocationKey = CreateLogicalLocation(problem);
-
-            if (logicalLocationKey != location.FullyQualifiedLogicalName)
-            {
-                location.LogicalLocationKey = logicalLocationKey;
-            }
+            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(problem);
 
             Uri uri;
             string file = problem.File;
@@ -167,53 +163,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static string CreateSignature(AndroidStudioProblem problem)
-        {
-            string entryPointName = problem.EntryPointName;
-            if ("file".Equals(problem.EntryPointType))
-            {
-                entryPointName = null;
-            }
-
-            string[] parts = new string[] { problem.Module, problem.Package, entryPointName };
-            var updated = parts
-                    .Where(part => !String.IsNullOrEmpty(part));
-
-            string joinedParts = String.Join(@"\", updated);
-
-            if (String.IsNullOrEmpty(joinedParts))
-            {
-                return problem.Module;
-            }
-            else
-            {
-                return joinedParts;
-            }
-        }
-
-        private string CreateLogicalLocation(AndroidStudioProblem problem)
+        private string CreateFullyQualifiedLogicalName(AndroidStudioProblem problem)
         {
             string parentLogicalLocationKey = null;
 
-            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
-            parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
+            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
+            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
 
             if (problem.EntryPointName != null)
             {
                 if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
+                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
                 }
                 else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
+                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
                 }
             }
 
             return parentLogicalLocationKey;
         }
 
-        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
+        private string AddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
         {
             if (!String.IsNullOrEmpty(value))
             {

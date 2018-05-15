@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "dualchartest": {
+          "decoratedName": "?dualchartest@@YAXHPAY01D@Z"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "dualchartest",
-              "decoratedName": "?dualchartest@@YAXHPAY01D@Z",
               "properties": {
                 "funcline": "10"
               }
@@ -288,7 +295,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "main",
-              "decoratedName": "main",
               "properties": {
                 "funcline": "21"
               }
