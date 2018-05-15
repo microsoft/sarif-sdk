@@ -31,11 +31,6 @@
         "TestPointedTo": {
           "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
         },
-        "TestPointedTo-0": {
-          "name": "TestPointedTo",
-          "fullyQualifiedName": "TestPointedTo",
-          "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
-        },
         "TestNestedStructArrays": {
           "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z"
         },
@@ -46,11 +41,6 @@
           "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z"
         },
         "TestArrayOfStructs3": {
-          "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
-        },
-        "TestArrayOfStructs3-0": {
-          "name": "TestArrayOfStructs3",
-          "fullyQualifiedName": "TestArrayOfStructs3",
           "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
         }
       },

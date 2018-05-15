@@ -16,16 +16,6 @@
         "bar1": {
           "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z"
         },
-        "bar1-0": {
-          "name": "bar1",
-          "fullyQualifiedName": "bar1",
-          "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z"
-        },
-        "bar1-1": {
-          "name": "bar1",
-          "fullyQualifiedName": "bar1",
-          "decoratedName": "?bar1@@YAXPAU_MyMDL@@PAXHK@Z"
-        },
         "UseData": {
           "decoratedName": "?UseData@@YAXXZ"
         }

@@ -19,11 +19,6 @@
         "f1": {
           "decoratedName": "?f1@@YAXPADIPBD@Z"
         },
-        "f1-0": {
-          "name": "f1",
-          "fullyQualifiedName": "f1",
-          "decoratedName": "?f1@@YAXPADIPBD@Z"
-        },
         "f2": {
           "decoratedName": "?f2@@YAXPADIPBD@Z"
         },
@@ -34,11 +29,6 @@
           "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
         },
         "TestFields": {
-          "decoratedName": "?TestFields@@YAXPADHH@Z"
-        },
-        "TestFields-0": {
-          "name": "TestFields",
-          "fullyQualifiedName": "TestFields",
           "decoratedName": "?TestFields@@YAXPADHH@Z"
         },
         "f-0": {

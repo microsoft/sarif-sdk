@@ -21,11 +21,6 @@
         },
         "foo3": {
           "decoratedName": "?foo3@@YAXI@Z"
-        },
-        "foo3-0": {
-          "name": "foo3",
-          "fullyQualifiedName": "foo3",
-          "decoratedName": "?foo3@@YAXI@Z"
         }
       },
       "results": [

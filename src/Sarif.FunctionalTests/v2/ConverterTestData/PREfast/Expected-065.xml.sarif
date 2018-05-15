@@ -16,11 +16,6 @@
         "GetMachineName": {
           "decoratedName": "?GetMachineName@@YAJPAGQAG@Z"
         },
-        "GetMachineName-0": {
-          "name": "GetMachineName",
-          "fullyQualifiedName": "GetMachineName",
-          "decoratedName": "?GetMachineName@@YAJPAGQAG@Z"
-        },
         "main": {
           "decoratedName": "main"
         }

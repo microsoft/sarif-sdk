@@ -15,21 +15,6 @@
       "logicalLocations": {
         "HpcellFromRwCol": {
           "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
-        },
-        "HpcellFromRwCol-0": {
-          "name": "HpcellFromRwCol",
-          "fullyQualifiedName": "HpcellFromRwCol",
-          "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
-        },
-        "HpcellFromRwCol-1": {
-          "name": "HpcellFromRwCol",
-          "fullyQualifiedName": "HpcellFromRwCol",
-          "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
-        },
-        "HpcellFromRwCol-2": {
-          "name": "HpcellFromRwCol",
-          "fullyQualifiedName": "HpcellFromRwCol",
-          "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
         }
       },
       "results": [

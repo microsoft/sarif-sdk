@@ -16,21 +16,6 @@
         "Class::MemberFunc": {
           "name": "MemberFunc",
           "decoratedName": "?MemberFunc@Class@@QAEJXZ"
-        },
-        "Class::MemberFunc-0": {
-          "name": "MemberFunc",
-          "fullyQualifiedName": "Class::MemberFunc",
-          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
-        },
-        "Class::MemberFunc-1": {
-          "name": "MemberFunc",
-          "fullyQualifiedName": "Class::MemberFunc",
-          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
-        },
-        "Class::MemberFunc-2": {
-          "name": "MemberFunc",
-          "fullyQualifiedName": "Class::MemberFunc",
-          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
         }
       },
       "results": [

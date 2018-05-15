@@ -16,17 +16,7 @@
         "index": {
           "decoratedName": "?index@@YAHPAHHH@Z"
         },
-        "index-0": {
-          "name": "index",
-          "fullyQualifiedName": "index",
-          "decoratedName": "?index@@YAHPAHHH@Z"
-        },
         "main": {
-          "decoratedName": "main"
-        },
-        "main-0": {
-          "name": "main",
-          "fullyQualifiedName": "main",
           "decoratedName": "main"
         }
       },

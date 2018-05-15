@@ -16,27 +16,7 @@
         "InitAttrBag": {
           "decoratedName": "?InitAttrBag@@YAXPAVCHtmTag@@@Z"
         },
-        "InitAttrBag-0": {
-          "name": "InitAttrBag",
-          "fullyQualifiedName": "InitAttrBag",
-          "decoratedName": "?InitAttrBag@@YAXPAVCHtmTag@@@Z"
-        },
-        "InitAttrBag-1": {
-          "name": "InitAttrBag",
-          "fullyQualifiedName": "InitAttrBag",
-          "decoratedName": "?InitAttrBag@@YAXPAVCHtmTag@@@Z"
-        },
         "MergeAttrBag": {
-          "decoratedName": "?MergeAttrBag@@YAXPAVCHtmTag@@@Z"
-        },
-        "MergeAttrBag-0": {
-          "name": "MergeAttrBag",
-          "fullyQualifiedName": "MergeAttrBag",
-          "decoratedName": "?MergeAttrBag@@YAXPAVCHtmTag@@@Z"
-        },
-        "MergeAttrBag-1": {
-          "name": "MergeAttrBag",
-          "fullyQualifiedName": "MergeAttrBag",
           "decoratedName": "?MergeAttrBag@@YAXPAVCHtmTag@@@Z"
         }
       },

@@ -15,11 +15,6 @@
       "logicalLocations": {
         "indexing": {
           "decoratedName": "?indexing@@YAXI@Z"
-        },
-        "indexing-0": {
-          "name": "indexing",
-          "fullyQualifiedName": "indexing",
-          "decoratedName": "?indexing@@YAXI@Z"
         }
       },
       "results": [

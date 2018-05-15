@@ -19,11 +19,6 @@
         "f715": {
           "decoratedName": "?f715@@YAXJPAG@Z"
         },
-        "f715-0": {
-          "name": "f715",
-          "fullyQualifiedName": "f715",
-          "decoratedName": "?f715@@YAXJPAG@Z"
-        },
         "f819": {
           "decoratedName": "?f819@@YAII@Z"
         },
@@ -31,11 +26,6 @@
           "decoratedName": "?f869c@@YAXAAUStruct869@@@Z"
         },
         "f926": {
-          "decoratedName": "?f926@@YA_NPAU_MyStruct926@@JPAJ@Z"
-        },
-        "f926-0": {
-          "name": "f926",
-          "fullyQualifiedName": "f926",
           "decoratedName": "?f926@@YA_NPAU_MyStruct926@@JPAJ@Z"
         }
       },

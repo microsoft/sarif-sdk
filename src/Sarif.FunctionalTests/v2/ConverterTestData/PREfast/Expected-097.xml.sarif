@@ -16,16 +16,6 @@
         "MyFunction1": {
           "decoratedName": "?MyFunction1@@YAJK@Z"
         },
-        "MyFunction1-0": {
-          "name": "MyFunction1",
-          "fullyQualifiedName": "MyFunction1",
-          "decoratedName": "?MyFunction1@@YAJK@Z"
-        },
-        "MyFunction1-1": {
-          "name": "MyFunction1",
-          "fullyQualifiedName": "MyFunction1",
-          "decoratedName": "?MyFunction1@@YAJK@Z"
-        },
         "MyFunction2": {
           "decoratedName": "?MyFunction2@@YAXK@Z"
         },

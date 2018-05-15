@@ -19,11 +19,6 @@
         "nested": {
           "decoratedName": "?nested@@YAXXZ"
         },
-        "nested-0": {
-          "name": "nested",
-          "fullyQualifiedName": "nested",
-          "decoratedName": "?nested@@YAXXZ"
-        },
         "call": {
           "decoratedName": "?call@@YADPADID@Z"
         },

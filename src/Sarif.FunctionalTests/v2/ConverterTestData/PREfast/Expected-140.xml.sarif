@@ -15,26 +15,6 @@
       "logicalLocations": {
         "Test": {
           "decoratedName": "?Test@@YAXH@Z"
-        },
-        "Test-0": {
-          "name": "Test",
-          "fullyQualifiedName": "Test",
-          "decoratedName": "?Test@@YAXH@Z"
-        },
-        "Test-1": {
-          "name": "Test",
-          "fullyQualifiedName": "Test",
-          "decoratedName": "?Test@@YAXH@Z"
-        },
-        "Test-2": {
-          "name": "Test",
-          "fullyQualifiedName": "Test",
-          "decoratedName": "?Test@@YAXH@Z"
-        },
-        "Test-3": {
-          "name": "Test",
-          "fullyQualifiedName": "Test",
-          "decoratedName": "?Test@@YAXH@Z"
         }
       },
       "results": [

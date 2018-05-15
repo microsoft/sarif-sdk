@@ -26,11 +26,6 @@
           "name": "f",
           "decoratedName": "?f@C@@QAGXPAD@Z"
         },
-        "C::f-0": {
-          "name": "f",
-          "fullyQualifiedName": "C::f",
-          "decoratedName": "?f@C@@QAGXPAD@Z"
-        },
         "fieldSameAsParam1": {
           "decoratedName": "?fieldSameAsParam1@@YAXPADAAUS@@H@Z"
         },

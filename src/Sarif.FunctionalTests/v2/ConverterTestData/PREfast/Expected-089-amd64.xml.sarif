@@ -16,17 +16,7 @@
         "congruent1": {
           "decoratedName": "?congruent1@@YAXPEAPEAD_K@Z"
         },
-        "congruent1-0": {
-          "name": "congruent1",
-          "fullyQualifiedName": "congruent1",
-          "decoratedName": "?congruent1@@YAXPEAPEAD_K@Z"
-        },
         "congruent2": {
-          "decoratedName": "?congruent2@@YAXPEAUEnum@@@Z"
-        },
-        "congruent2-0": {
-          "name": "congruent2",
-          "fullyQualifiedName": "congruent2",
           "decoratedName": "?congruent2@@YAXPEAUEnum@@@Z"
         },
         "congruent3": {
@@ -35,17 +25,7 @@
         "notcongruent1": {
           "decoratedName": "?notcongruent1@@YAXPEAUEnum@@@Z"
         },
-        "notcongruent1-0": {
-          "name": "notcongruent1",
-          "fullyQualifiedName": "notcongruent1",
-          "decoratedName": "?notcongruent1@@YAXPEAUEnum@@@Z"
-        },
         "notcongruent2": {
-          "decoratedName": "?notcongruent2@@YAXPEAUEnum@@@Z"
-        },
-        "notcongruent2-0": {
-          "name": "notcongruent2",
-          "fullyQualifiedName": "notcongruent2",
           "decoratedName": "?notcongruent2@@YAXPEAUEnum@@@Z"
         }
       },

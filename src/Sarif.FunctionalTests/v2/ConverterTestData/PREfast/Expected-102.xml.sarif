@@ -18,11 +18,6 @@
         },
         "bad1": {
           "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ"
-        },
-        "bad1-0": {
-          "name": "bad1",
-          "fullyQualifiedName": "bad1",
-          "decoratedName": "?bad1@@YAPAU_VARSTR@@XZ"
         }
       },
       "results": [

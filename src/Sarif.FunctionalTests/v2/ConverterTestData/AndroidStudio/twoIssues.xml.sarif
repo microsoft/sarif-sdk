@@ -28,19 +28,14 @@
           "parentKey": "yammer-droid-2\\com.yammer.droid",
           "kind": "member"
         },
-        "yammer-droid-2-0": {
-          "name": "yammer-droid-2",
-          "fullyQualifiedName": "yammer-droid-2",
-          "kind": "module"
-        },
-        "yammer-droid-2-0\\com.yammer.droid.ui": {
+        "yammer-droid-2\\com.yammer.droid.ui": {
           "name": "com.yammer.droid.ui",
-          "parentKey": "yammer-droid-2-0",
+          "parentKey": "yammer-droid-2",
           "kind": "package"
         },
-        "yammer-droid-2-0\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)": {
+        "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)": {
           "name": "com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)",
-          "parentKey": "yammer-droid-2-0\\com.yammer.droid.ui",
+          "parentKey": "yammer-droid-2\\com.yammer.droid.ui",
           "kind": "member"
         }
       },
@@ -85,7 +80,7 @@
                   "startLine": 51
                 }
               },
-              "fullyQualifiedLogicalName": "yammer-droid-2-0\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)"
+              "fullyQualifiedLogicalName": "yammer-droid-2\\com.yammer.droid.ui\\com.yammer.droid.ui.MessageUIBean.TYPE TYPE(int position)"
             }
           ],
           "properties": {

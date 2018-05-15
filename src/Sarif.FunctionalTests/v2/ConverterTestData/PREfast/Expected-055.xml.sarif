@@ -16,16 +16,6 @@
         "f": {
           "decoratedName": "?f@@YAXH@Z"
         },
-        "f-0": {
-          "name": "f",
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXH@Z"
-        },
-        "f-1": {
-          "name": "f",
-          "fullyQualifiedName": "f",
-          "decoratedName": "?f@@YAXH@Z"
-        },
         "foo": {
           "decoratedName": "?foo@@YAXH@Z"
         },
@@ -33,11 +23,6 @@
           "decoratedName": "?bar@@YAXXZ"
         },
         "testAlloca": {
-          "decoratedName": "?testAlloca@@YAXXZ"
-        },
-        "testAlloca-0": {
-          "name": "testAlloca",
-          "fullyQualifiedName": "testAlloca",
           "decoratedName": "?testAlloca@@YAXXZ"
         },
         "testChar": {

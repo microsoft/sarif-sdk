@@ -81,18 +81,8 @@
           "name": "_Copy_s",
           "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
         },
-        "std::char_traits<unsigned short>::_Copy_s-0": {
-          "name": "_Copy_s",
-          "fullyQualifiedName": "std::char_traits<unsigned short>::_Copy_s",
-          "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
-        },
         "std::char_traits<unsigned short>::_Move_s": {
           "name": "_Move_s",
-          "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
-        },
-        "std::char_traits<unsigned short>::_Move_s-0": {
-          "name": "_Move_s",
-          "fullyQualifiedName": "std::char_traits<unsigned short>::_Move_s",
           "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
         },
         "std::char_traits<char>::length": {
@@ -103,18 +93,8 @@
           "name": "_Copy_s",
           "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
         },
-        "std::char_traits<char>::_Copy_s-0": {
-          "name": "_Copy_s",
-          "fullyQualifiedName": "std::char_traits<char>::_Copy_s",
-          "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
-        },
         "std::char_traits<char>::_Move_s": {
           "name": "_Move_s",
-          "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
-        },
-        "std::char_traits<char>::_Move_s-0": {
-          "name": "_Move_s",
-          "fullyQualifiedName": "std::char_traits<char>::_Move_s",
           "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
         },
         "std::_Maklocstr": {
@@ -125,32 +105,12 @@
           "name": "do_in",
           "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
         },
-        "std::codecvt<unsigned short,char,int>::do_in-0": {
-          "name": "do_in",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
-          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
-        },
-        "std::codecvt<unsigned short,char,int>::do_in-1": {
-          "name": "do_in",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_in",
-          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
-        },
         "std::codecvt<unsigned short,char,int>::do_out": {
           "name": "do_out",
           "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
         },
-        "std::codecvt<unsigned short,char,int>::do_out-0": {
-          "name": "do_out",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_out",
-          "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
-        },
         "std::codecvt<unsigned short,char,int>::do_length": {
           "name": "do_length",
-          "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
-        },
-        "std::codecvt<unsigned short,char,int>::do_length-0": {
-          "name": "do_length",
-          "fullyQualifiedName": "std::codecvt<unsigned short,char,int>::do_length",
           "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
         },
         "std::ctype<char>::do_tolower": {
@@ -189,26 +149,11 @@
           "name": "_Do_widen_s",
           "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
         },
-        "std::ctype<unsigned short>::_Do_widen_s-0": {
-          "name": "_Do_widen_s",
-          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_widen_s",
-          "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
-        },
         "std::ctype<unsigned short>::_Do_narrow_s": {
           "name": "_Do_narrow_s",
           "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
         },
-        "std::ctype<unsigned short>::_Do_narrow_s-0": {
-          "name": "_Do_narrow_s",
-          "fullyQualifiedName": "std::ctype<unsigned short>::_Do_narrow_s",
-          "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
-        },
         "ReadBinHeader": {
-          "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
-        },
-        "ReadBinHeader-0": {
-          "name": "ReadBinHeader",
-          "fullyQualifiedName": "ReadBinHeader",
           "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
         },
         "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s": {

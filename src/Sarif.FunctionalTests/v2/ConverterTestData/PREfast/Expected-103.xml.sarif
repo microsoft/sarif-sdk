@@ -38,11 +38,6 @@
         },
         "TestInferredIn": {
           "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
-        },
-        "TestInferredIn-0": {
-          "name": "TestInferredIn",
-          "fullyQualifiedName": "TestInferredIn",
-          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
         }
       },
       "results": [

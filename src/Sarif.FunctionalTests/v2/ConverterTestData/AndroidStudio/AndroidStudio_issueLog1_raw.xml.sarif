@@ -28,19 +28,9 @@
           "parentKey": "app\\microsoft.androidstudioformatexample",
           "kind": "member"
         },
-        "app-0": {
-          "name": "app",
-          "fullyQualifiedName": "app",
-          "kind": "module"
-        },
-        "app-0\\microsoft.androidstudioformatexample": {
-          "name": "microsoft.androidstudioformatexample",
-          "parentKey": "app-0",
-          "kind": "package"
-        },
-        "app-0\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": {
+        "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity": {
           "name": "microsoft.androidstudioformatexample.MainActivity",
-          "parentKey": "app-0\\microsoft.androidstudioformatexample",
+          "parentKey": "app\\microsoft.androidstudioformatexample",
           "kind": "type"
         }
       },
@@ -85,7 +75,7 @@
                   "startLine": 1
                 }
               },
-              "fullyQualifiedLogicalName": "app-0\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample\\microsoft.androidstudioformatexample.MainActivity"
             }
           ],
           "properties": {

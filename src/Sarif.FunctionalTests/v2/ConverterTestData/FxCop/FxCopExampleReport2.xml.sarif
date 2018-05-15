@@ -21,54 +21,19 @@
         "securitycryptographyruletests.dll": {
           "kind": "module"
         },
-        "securitycryptographyruletests.dll-0": {
-          "name": "securitycryptographyruletests.dll",
-          "fullyQualifiedName": "securitycryptographyruletests.dll",
-          "kind": "module"
-        },
-        "securitycryptographyruletests.dll-0!SecurityCryptographyRuleTests": {
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests": {
           "name": "SecurityCryptographyRuleTests",
-          "parentKey": "securitycryptographyruletests.dll-0",
+          "parentKey": "securitycryptographyruletests.dll",
           "kind": "namespace"
         },
-        "securitycryptographyruletests.dll-0!SecurityCryptographyRuleTests.DESCannotBeUsed": {
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed": {
           "name": "DESCannotBeUsed",
-          "parentKey": "securitycryptographyruletests.dll-0!SecurityCryptographyRuleTests",
+          "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests",
           "kind": "type"
         },
-        "securitycryptographyruletests.dll-1": {
-          "name": "securitycryptographyruletests.dll",
-          "fullyQualifiedName": "securitycryptographyruletests.dll",
-          "kind": "module"
-        },
-        "securitycryptographyruletests.dll-1!SecurityCryptographyRuleTests": {
-          "name": "SecurityCryptographyRuleTests",
-          "parentKey": "securitycryptographyruletests.dll-1",
-          "kind": "namespace"
-        },
-        "securitycryptographyruletests.dll-1!SecurityCryptographyRuleTests.DESCannotBeUsed": {
-          "name": "DESCannotBeUsed",
-          "parentKey": "securitycryptographyruletests.dll-1!SecurityCryptographyRuleTests",
-          "kind": "type"
-        },
-        "securitycryptographyruletests.dll-2": {
-          "name": "securitycryptographyruletests.dll",
-          "fullyQualifiedName": "securitycryptographyruletests.dll",
-          "kind": "module"
-        },
-        "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests": {
-          "name": "SecurityCryptographyRuleTests",
-          "parentKey": "securitycryptographyruletests.dll-2",
-          "kind": "namespace"
-        },
-        "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests.DESCannotBeUsed": {
-          "name": "DESCannotBeUsed",
-          "parentKey": "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests",
-          "kind": "type"
-        },
-        "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": {
+        "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])": {
           "name": "EncryptData(System.String,System.String,System.Byte[],System.Byte[])",
-          "parentKey": "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests.DESCannotBeUsed",
+          "parentKey": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed",
           "kind": "member"
         }
       },
@@ -123,7 +88,7 @@
                   "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
                 }
               },
-              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll-0!SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "partialFingerprints": {
@@ -147,7 +112,7 @@
                   "uri": "file:///d:/SecDevTools/Main/bin/x86/Debug/FxCop/FxCopTestData/Crypto/SecurityCryptographyRuleTests.dll"
                 }
               },
-              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll-1!SecurityCryptographyRuleTests.DESCannotBeUsed"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed"
             }
           ],
           "partialFingerprints": {
@@ -177,7 +142,7 @@
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll-2!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
+              "fullyQualifiedLogicalName": "securitycryptographyruletests.dll!SecurityCryptographyRuleTests.DESCannotBeUsed.EncryptData(System.String,System.String,System.Byte[],System.Byte[])"
             }
           ],
           "properties": {

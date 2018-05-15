@@ -28,17 +28,7 @@
         "bar": {
           "decoratedName": "?bar@@YAXXZ"
         },
-        "bar-0": {
-          "name": "bar",
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YAXXZ"
-        },
         "baz": {
-          "decoratedName": "?baz@@YAXPAHH@Z"
-        },
-        "baz-0": {
-          "name": "baz",
-          "fullyQualifiedName": "baz",
           "decoratedName": "?baz@@YAXPAHH@Z"
         },
         "main": {

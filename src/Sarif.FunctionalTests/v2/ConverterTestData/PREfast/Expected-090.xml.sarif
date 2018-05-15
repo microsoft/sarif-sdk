@@ -25,11 +25,6 @@
         "CallAccessor": {
           "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
         },
-        "CallAccessor-0": {
-          "name": "CallAccessor",
-          "fullyQualifiedName": "CallAccessor",
-          "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
-        },
         "foo": {
           "decoratedName": "?foo@@YAXXZ"
         },
@@ -37,11 +32,6 @@
           "decoratedName": "?callAlloc@@YAXXZ"
         },
         "callRecursive": {
-          "decoratedName": "?callRecursive@@YAXH@Z"
-        },
-        "callRecursive-0": {
-          "name": "callRecursive",
-          "fullyQualifiedName": "callRecursive",
           "decoratedName": "?callRecursive@@YAXH@Z"
         },
         "repeated": {

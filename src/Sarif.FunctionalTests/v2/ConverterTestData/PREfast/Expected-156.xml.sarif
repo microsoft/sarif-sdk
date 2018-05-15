@@ -16,11 +16,6 @@
         "SimpleBadCalls": {
           "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
         },
-        "SimpleBadCalls-0": {
-          "name": "SimpleBadCalls",
-          "fullyQualifiedName": "SimpleBadCalls",
-          "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
-        },
         "MadePAGAndBad": {
           "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z"
         },

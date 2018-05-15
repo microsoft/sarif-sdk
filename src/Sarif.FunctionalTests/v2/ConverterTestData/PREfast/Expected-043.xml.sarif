@@ -16,38 +16,13 @@
         "g": {
           "decoratedName": "?g@@YAXXZ"
         },
-        "g-0": {
-          "name": "g",
-          "fullyQualifiedName": "g",
-          "decoratedName": "?g@@YAXXZ"
-        },
         "f1": {
           "decoratedName": "?f1@@YAHPAPAH@Z"
         },
         "foo": {
           "decoratedName": "?foo@@YA_NPAH0PAD@Z"
         },
-        "foo-0": {
-          "name": "foo",
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YA_NPAH0PAD@Z"
-        },
-        "foo-1": {
-          "name": "foo",
-          "fullyQualifiedName": "foo",
-          "decoratedName": "?foo@@YA_NPAH0PAD@Z"
-        },
         "bar": {
-          "decoratedName": "?bar@@YADPAD@Z"
-        },
-        "bar-0": {
-          "name": "bar",
-          "fullyQualifiedName": "bar",
-          "decoratedName": "?bar@@YADPAD@Z"
-        },
-        "bar-1": {
-          "name": "bar",
-          "fullyQualifiedName": "bar",
           "decoratedName": "?bar@@YADPAD@Z"
         },
         "SuccessSatisfied": {
