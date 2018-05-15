@@ -767,7 +767,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""module"": ""RuleLibrary"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
-                                  ""address"": 10092852
+                                  ""address"": 10092852,
+                                  ""line"": 15,
+                                  ""column"": 9
                                 },
                                 {
                                   ""module"": ""ExecutionEngine"",

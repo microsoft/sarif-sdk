@@ -1,6 +1,7 @@
 ﻿// Copyright(c) Microsoft.All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -84,6 +85,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
 
+        public static IList<TTo> TransformList<TFrom, TTo>(IList<TFrom> fromList, Func<TFrom, TTo> convertFunc)
+        {
+            List<TTo> result = null;
+
+            if (fromList != null && fromList.Count > 0)
+            {
+                result = new List<TTo>();
+
+                foreach (TFrom fromObject in fromList)
+                {
+                    result.Add(convertFunc(fromObject));
+                }
+            }
+
+            return result;
+        }
+
         public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
         {
             if (holder.Properties != null)
@@ -134,21 +152,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return RuleConfigurationDefaultLevel.Warning;
                 default:
                     return RuleConfigurationDefaultLevel.Warning;
-            }
-        }
-
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
-        {
-            switch (v2DefaultLevel)
-            {
-                case RuleConfigurationDefaultLevel.Error:
-                    return ResultLevelVersionOne.Error;
-                case RuleConfigurationDefaultLevel.Note:
-                    return ResultLevelVersionOne.Pass;
-                case RuleConfigurationDefaultLevel.Warning:
-                    return ResultLevelVersionOne.Warning;
-                default:
-                    return ResultLevelVersionOne.Warning;
             }
         }
     }
