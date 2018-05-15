@@ -12,6 +12,29 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6305FromAnnotation": {
+          "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z"
+        },
+        "RemoveRedundantKeyEvents1": {
+          "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2": {
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "CorrectAliasing": {
+          "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z"
+        },
+        "ShowKeyEventsWhenNoLocation": {
+          "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ"
+        },
+        "ShowKeyEventsWhenNoLocation2": {
+          "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ"
+        },
+        "ShowKeyEventsForPointerArithmetic": {
+          "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6305",
@@ -30,7 +53,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C6305FromAnnotation",
-              "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z",
               "properties": {
                 "funcline": "5"
               }
@@ -137,7 +159,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents1",
-              "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "18"
               }
@@ -227,7 +248,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
-              "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -362,7 +382,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
-              "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -467,7 +486,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
-              "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -587,7 +605,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
-              "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -662,7 +679,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
-              "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -812,7 +828,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CorrectAliasing",
-              "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z",
               "properties": {
                 "funcline": "44"
               }
@@ -920,7 +935,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation",
-              "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ",
               "properties": {
                 "funcline": "56"
               }
@@ -1007,7 +1021,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation2",
-              "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ",
               "properties": {
                 "funcline": "66"
               }
@@ -1094,7 +1107,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsForPointerArithmetic",
-              "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z",
               "properties": {
                 "funcline": "73"
               }

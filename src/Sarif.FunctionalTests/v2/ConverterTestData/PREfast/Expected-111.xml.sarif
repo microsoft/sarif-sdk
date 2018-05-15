@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "PbLoadExtRstSst": {
+          "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26024",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -428,7 +432,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -826,7 +829,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -1238,7 +1240,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -1818,7 +1819,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -2538,7 +2538,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -2950,7 +2949,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "PbLoadExtRstSst",
-              "decoratedName": "?PbLoadExtRstSst@@YAPAEPAU_srst@@HPAE1PAPAE@Z",
               "properties": {
                 "funcline": "103"
               }

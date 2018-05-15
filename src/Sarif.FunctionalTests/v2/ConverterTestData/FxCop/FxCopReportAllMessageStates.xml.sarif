@@ -16,11 +16,9 @@
       },
       "logicalLocations": {
         "WpfApplication5": {
-          "name": "WpfApplication5",
           "kind": "namespace"
         },
         "wpfapplication5.exe": {
-          "name": "wpfapplication5.exe",
           "kind": "module"
         },
         "wpfapplication5.exe!WpfApplication5": {

@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "congruent1": {
+          "decoratedName": "?congruent1@@YAXPAPADI@Z"
+        },
+        "congruent2": {
+          "decoratedName": "?congruent2@@YAXPAUEnum@@@Z"
+        },
+        "congruent3": {
+          "decoratedName": "?congruent3@@YA_NPAUEnum@@PAHI@Z"
+        },
+        "notcongruent1": {
+          "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z"
+        },
+        "notcongruent2": {
+          "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26035",
@@ -30,7 +47,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "congruent1",
-              "decoratedName": "?congruent1@@YAXPAPADI@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -484,7 +500,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "congruent1",
-              "decoratedName": "?congruent1@@YAXPAPADI@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -966,7 +981,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "congruent2",
-              "decoratedName": "?congruent2@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "46"
               }
@@ -1252,7 +1266,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "congruent2",
-              "decoratedName": "?congruent2@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "46"
               }
@@ -1734,7 +1747,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "congruent3",
-              "decoratedName": "?congruent3@@YA_NPAUEnum@@PAHI@Z",
               "properties": {
                 "funcline": "76"
               }
@@ -2076,7 +2088,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "notcongruent1",
-              "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -2782,7 +2793,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "notcongruent1",
-              "decoratedName": "?notcongruent1@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "103"
               }
@@ -3488,7 +3498,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "notcongruent2",
-              "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "137"
               }
@@ -3858,7 +3867,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "notcongruent2",
-              "decoratedName": "?notcongruent2@@YAXPAUEnum@@@Z",
               "properties": {
                 "funcline": "137"
               }

@@ -16,11 +16,9 @@
       },
       "logicalLocations": {
         "SecurityCryptographyRuleTests": {
-          "name": "SecurityCryptographyRuleTests",
           "kind": "namespace"
         },
         "securitycryptographyruletests.dll": {
-          "name": "securitycryptographyruletests.dll",
           "kind": "module"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests": {

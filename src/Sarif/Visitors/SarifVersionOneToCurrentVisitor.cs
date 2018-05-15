@@ -236,7 +236,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
-                    RuleKey = v1Notification.RuleKey,
                     ThreadId = v1Notification.ThreadId,
                     Time = v1Notification.Time
                 };

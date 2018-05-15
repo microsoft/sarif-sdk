@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CallUseValues": {
+          "decoratedName": "?CallUseValues@@YAX_N@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6001",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CallUseValues",
-              "decoratedName": "?CallUseValues@@YAX_N@Z",
               "properties": {
                 "funcline": "6"
               }

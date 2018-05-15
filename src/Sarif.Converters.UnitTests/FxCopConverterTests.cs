@@ -399,7 +399,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "mybinary.dll", new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    "mybinary.dll", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!mynamespace",
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 {
                     "mynamespace",
-                    new LogicalLocation { ParentKey = null, Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
+                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Namespace }
                 },
                 {
                     "mynamespace.mytype",
@@ -477,11 +477,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 {
                     "mybinary.dll",
-                    new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!myresource.resx",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx",Kind = LogicalLocationKind.Resource }
+                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx", Kind = LogicalLocationKind.Resource }
                 },
             };
 

@@ -12,6 +12,28 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "bad1": {
+          "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        "bad2": {
+          "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z"
+        },
+        "Buffer::{ctor}": {
+          "name": "{ctor}",
+          "decoratedName": "??0Buffer@@QAE@PAH@Z"
+        },
+        "Buffer::badfetch": {
+          "name": "badfetch",
+          "decoratedName": "?badfetch@Buffer@@QAEHH@Z"
+        },
+        "Bad1": {
+          "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z"
+        },
+        "Bad2": {
+          "decoratedName": "?Bad2@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",
@@ -30,7 +52,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad1",
-              "decoratedName": "?bad1@@YAXPAXIPAU_BUFFER@@@Z",
               "properties": {
                 "funcline": "24"
               }
@@ -92,7 +113,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad2",
-              "decoratedName": "?bad2@@YAXPAXIPAU_BUFFER@@@Z",
               "properties": {
                 "funcline": "29"
               }
@@ -154,7 +174,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Buffer::{ctor}",
-              "decoratedName": "??0Buffer@@QAE@PAH@Z",
               "properties": {
                 "funcline": "51"
               }
@@ -244,7 +263,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Buffer::{ctor}",
-              "decoratedName": "??0Buffer@@QAE@PAH@Z",
               "properties": {
                 "funcline": "51"
               }
@@ -334,7 +352,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Buffer::badfetch",
-              "decoratedName": "?badfetch@Buffer@@QAEHH@Z",
               "properties": {
                 "funcline": "66"
               }
@@ -396,7 +413,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Buffer::badfetch",
-              "decoratedName": "?badfetch@Buffer@@QAEHH@Z",
               "properties": {
                 "funcline": "66"
               }
@@ -458,7 +474,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad1",
-              "decoratedName": "?Bad1@@YAHPAUBuffer@@@Z",
               "properties": {
                 "funcline": "72"
               }
@@ -520,7 +535,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad2",
-              "decoratedName": "?Bad2@@YAXXZ",
               "properties": {
                 "funcline": "82"
               }

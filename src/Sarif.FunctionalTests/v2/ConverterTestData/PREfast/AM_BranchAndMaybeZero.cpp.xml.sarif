@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CompareToZero": {
+          "decoratedName": "?CompareToZero@@YAXPEAH@Z"
+        },
+        "CompareToZeroParam": {
+          "decoratedName": "?CompareToZeroParam@@YAXPEAH@Z"
+        },
+        "ComplexCompareToZero": {
+          "decoratedName": "?ComplexCompareToZero@@YAXPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",
@@ -30,7 +41,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZero",
-              "decoratedName": "?CompareToZero@@YAXPEAH@Z",
               "properties": {
                 "funcline": "3"
               }
@@ -134,7 +144,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZeroParam",
-              "decoratedName": "?CompareToZeroParam@@YAXPEAH@Z",
               "properties": {
                 "funcline": "11"
               }
@@ -208,7 +217,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ComplexCompareToZero",
-              "decoratedName": "?ComplexCompareToZero@@YAXPEAH@Z",
               "properties": {
                 "funcline": "19"
               }

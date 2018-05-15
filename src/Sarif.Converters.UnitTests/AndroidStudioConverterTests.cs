@@ -228,7 +228,7 @@ Possible resolution: delete", result.Message.Text);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "my_fancy_binary", new LogicalLocation { ParentKey = null, Name = "my_fancy_binary", Kind = LogicalLocationKind.Module }
+                    "my_fancy_binary", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     @"my_fancy_binary\my_method",
@@ -266,7 +266,7 @@ Possible resolution: delete", result.Message.Text);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "my_method", new LogicalLocation { ParentKey = null, Name = "my_method", Kind = LogicalLocationKind.Member }
+                    "my_method", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Member }
                 },
            };
 
@@ -300,7 +300,7 @@ Possible resolution: delete", result.Message.Text);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Package }
                 },
                 {
                     @"FancyPackageName\my_method", new LogicalLocation { ParentKey = "FancyPackageName", Name = "my_method", Kind = LogicalLocationKind.Member }
@@ -336,7 +336,7 @@ Possible resolution: delete", result.Message.Text);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Package }
                 }
            };
 
@@ -376,7 +376,7 @@ Possible resolution: delete", result.Message.Text);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "LastResortModule", new LogicalLocation { ParentKey = null, Name = "LastResortModule", Kind = LogicalLocationKind.Module }
+                    "LastResortModule", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 }
            };
 

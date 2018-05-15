@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "myConcat": {
+          "decoratedName": "?myConcat@@YA?AUbuffer@@PADH0H@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "myConcat",
-              "decoratedName": "?myConcat@@YA?AUbuffer@@PADH0H@Z",
               "properties": {
                 "funcline": "15"
               }

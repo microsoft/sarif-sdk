@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "GetDSNAMEBad": {
+          "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26019",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetDSNAMEBad",
-              "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "properties": {
                 "funcline": "58"
               }
@@ -176,7 +180,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetDSNAMEBad",
-              "decoratedName": "?GetDSNAMEBad@@YA_NKPAU_DSNAME@@KPAG@Z",
               "properties": {
                 "funcline": "58"
               }

@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "strchr": {
+          "decoratedName": "?strchr@@YAPADPBDH@Z"
+        },
+        "AddExtensionControlBlock": {
+          "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "strchr",
-              "decoratedName": "?strchr@@YAPADPBDH@Z",
               "properties": {
                 "funcline": "7"
               }
@@ -134,7 +141,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "AddExtensionControlBlock",
-              "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z",
               "properties": {
                 "funcline": "31"
               }
@@ -518,7 +524,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "AddExtensionControlBlock",
-              "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z",
               "properties": {
                 "funcline": "31"
               }

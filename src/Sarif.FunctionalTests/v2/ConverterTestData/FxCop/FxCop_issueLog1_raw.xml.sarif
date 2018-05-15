@@ -112,19 +112,15 @@
       },
       "logicalLocations": {
         "FxCopUnsafeXml": {
-          "name": "FxCopUnsafeXml",
           "kind": "namespace"
         },
         "SecurityCryptographyRuleTests": {
-          "name": "SecurityCryptographyRuleTests",
           "kind": "namespace"
         },
         "SecurityXmlRuleTests": {
-          "name": "SecurityXmlRuleTests",
           "kind": "namespace"
         },
         "securitycryptographyruletests.dll": {
-          "name": "securitycryptographyruletests.dll",
           "kind": "module"
         },
         "securitycryptographyruletests.dll!SecurityCryptographyRuleTests": {
@@ -298,7 +294,6 @@
           "kind": "member"
         },
         "securityxmlruletests.dll": {
-          "name": "securityxmlruletests.dll",
           "kind": "module"
         },
         "securityxmlruletests.dll!FxCopUnsafeXml": {

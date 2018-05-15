@@ -37,7 +37,7 @@ namespace Microsoft.Sarif.Viewer
         public SarifErrorListItem(Run run, Result result, string logFilePath, ProjectNameCache projectNameCache) : this()
         {
             IRule rule;
-            run.TryGetRule(result.RuleId, result.RuleKey, out rule);
+            run.TryGetRule(result.RuleId, out rule);
             Message = result.GetMessageText(rule, concise: false);
             ShortMessage = result.GetMessageText(rule, concise: true);
             FileName = result.GetPrimaryTargetFile();
@@ -115,7 +115,7 @@ namespace Microsoft.Sarif.Viewer
         {
             IRule rule;
             string ruleId = notification.RuleId ?? notification.Id;
-            run.TryGetRule(ruleId, notification.RuleKey, out rule);
+            run.TryGetRule(ruleId, out rule);
             Message = notification.Message.Text;
             ShortMessage = notification.Message.Text;
             LogFilePath = logFilePath;

@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BadGetData2": {
+          "decoratedName": "?BadGetData2@@YAXPAPAXPAK@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadGetData2",
-              "decoratedName": "?BadGetData2@@YAXPAPAXPAK@Z",
               "properties": {
                 "funcline": "16"
               }
@@ -106,7 +113,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "35"
               }
@@ -224,7 +230,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "35"
               }
@@ -454,7 +459,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "35"
               }

@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "ScsiGetTotalSenseByteCountIndicated": {
+          "decoratedName": "?ScsiGetTotalSenseByteCountIndicated@@YAXPEAXE@Z"
+        },
+        "f715": {
+          "decoratedName": "?f715@@YAXJPEAG@Z"
+        },
+        "f819": {
+          "decoratedName": "?f819@@YAII@Z"
+        },
+        "f869c": {
+          "decoratedName": "?f869c@@YAXAEAUStruct869@@@Z"
+        },
+        "f926": {
+          "decoratedName": "?f926@@YA_NPEAU_MyStruct926@@JPEAJ@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26026",
@@ -30,7 +47,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ScsiGetTotalSenseByteCountIndicated",
-              "decoratedName": "?ScsiGetTotalSenseByteCountIndicated@@YAXPEAXE@Z",
               "properties": {
                 "funcline": "62"
               }
@@ -148,7 +164,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f715",
-              "decoratedName": "?f715@@YAXJPEAG@Z",
               "properties": {
                 "funcline": "140"
               }
@@ -322,7 +337,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f715",
-              "decoratedName": "?f715@@YAXJPEAG@Z",
               "properties": {
                 "funcline": "140"
               }
@@ -468,7 +482,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f819",
-              "decoratedName": "?f819@@YAII@Z",
               "properties": {
                 "funcline": "158"
               }
@@ -558,7 +571,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f869c",
-              "decoratedName": "?f869c@@YAXAEAUStruct869@@@Z",
               "properties": {
                 "funcline": "185"
               }
@@ -620,7 +632,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f926",
-              "decoratedName": "?f926@@YA_NPEAU_MyStruct926@@JPEAJ@Z",
               "properties": {
                 "funcline": "265"
               }
@@ -696,7 +707,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f926",
-              "decoratedName": "?f926@@YA_NPEAU_MyStruct926@@JPEAJ@Z",
               "properties": {
                 "funcline": "265"
               }

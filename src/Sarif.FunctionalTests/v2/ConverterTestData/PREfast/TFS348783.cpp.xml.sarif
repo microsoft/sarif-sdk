@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "count": {
+          "decoratedName": "?count@@YAXPEB_W@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6386",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "count",
-              "decoratedName": "?count@@YAXPEB_W@Z",
               "properties": {
                 "funcline": "7"
               }

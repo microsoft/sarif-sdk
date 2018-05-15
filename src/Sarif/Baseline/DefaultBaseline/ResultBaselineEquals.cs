@@ -15,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                // Rule ID/Key should match
-                if (x.RuleId != y.RuleId || x.RuleKey != y.RuleKey)
+                // Rule ID should match
+                if (x.RuleId != y.RuleId)
                 {
                     return false;
                 }
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.RuleKey.GetNullCheckedHashCode() ^ obj.PartialFingerprints.GetNullCheckedHashCode();
+                hs = hs ^ obj.RuleId.GetNullCheckedHashCode() ^ obj.PartialFingerprints.GetNullCheckedHashCode();
 
                 hs = hs ^ ListComparisonHelpers.GetHashOfListContentsAsSets(obj.Locations, LocationBaselineEquals.Instance);
 
