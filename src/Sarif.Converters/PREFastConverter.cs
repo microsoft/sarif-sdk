@@ -32,7 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullName = "PREfast Code Analysis"
             };
 
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
