@@ -84,8 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""AssetScanner"",
                         ""semanticVersion"": ""1.7.2""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -195,8 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -276,8 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -372,8 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -473,8 +469,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -590,8 +585,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -694,8 +688,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -767,6 +760,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""module"": ""RuleLibrary"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                                  ""uri"": ""file:///C:/src/main.cs"",
                                   ""address"": 10092852,
                                   ""line"": 15,
                                   ""column"": 9
@@ -775,6 +769,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""module"": ""ExecutionEngine"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""uri"": ""file:///C:/src/utils.cs"",
                                   ""address"": 10073356,
                                   ""offset"": 10475
                                 }
@@ -793,8 +788,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";

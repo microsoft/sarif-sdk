@@ -18,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { SarifVersion.TwoZeroZero, "sarifv2" }
         };
 
+        public static readonly string[] FullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
+
         public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
         {
             ContractResolver = SarifContractResolverVersionOne.Instance,

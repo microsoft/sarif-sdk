@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -204,31 +205,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    DecoratedName = v1Location.DecoratedName,
-                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
-                    LogicalLocationKey = v1Location.LogicalLocationKey,
-                    //PhysicalLocation = TransformPhysicalLocationVersionOne(v1Location.ResultFile),
+                    FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
                     Properties = v1Location.Properties
                 };
 
-                //if (location.Properties == null)
-                //{
-                //    location.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                //}
-
-                //location.SetProperty("AnalysisTarget",
-                //                     new SerializedPropertyInfo(JsonConvert.SerializeObject(v1Location.AnalysisTarget), false));
-
-                //if (node.AnalysisTarget != null)
-                //{
-                //    if (location.Properties == null)
-                //    {
-                //        location.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                //    }
-
-                //    location.Properties.Add("AnalysisTarget",
-                //                            new SerializedPropertyInfo(JsonConvert.SerializeObject(node.AnalysisTarget), false));
-                //}
+                location.SetProperty($"{FromPropertyBagPrefix}/analysisTarget", v1Location.AnalysisTarget);
+                location.SetProperty($"{FromPropertyBagPrefix}/decoratedName", v1Location.DecoratedName);
             }
 
             return location;
@@ -247,31 +230,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Message = CreateMessage(message)
             };
 
-            if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+            if (string.IsNullOrWhiteSpace(logicalLocationKey) &&
+                !string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
             {
-                if (!string.IsNullOrWhiteSpace(logicalLocationKey))
-                {
-                    location.FullyQualifiedLogicalName = logicalLocationKey;
-
-                    //if (_currentRun.LogicalLocations == null)
-                }
-                else
-                {
-                    location.FullyQualifiedLogicalName = fullyQualifiedLogicalName;
-                }
+                LogicalLocation logicalLocation = CreateLogicalLocation(fullyQualifiedLogicalName);
+                location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
             }
 
-            location.PhysicalLocation = new PhysicalLocation
+            if (uri != null)
             {
-                FileLocation = CreateFileLocation(uri, uriBaseId)
-            };
-
-            if (column > 0 || line > 0)
-            {
-                location.PhysicalLocation.Region = new Region
+                location.PhysicalLocation = new PhysicalLocation
                 {
-                    StartColumn = column,
-                    StartLine = line
+                    FileLocation = CreateFileLocation(uri, uriBaseId),
+                    Region = CreateRegion(column, line)
                 };
             }
 
@@ -295,22 +266,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        internal LogicalLocation CreateLogicalLocation(string name, string logicalLocationKey, string fulyyQualifiedName)
+        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null)
         {
-            return null;
+            // How can we determine the delimiter?
+            string name = fullyQualifiedLogicalName.Split(SarifTransformerUtilities.FullyQualifiedNameDelimiters,
+                                                          StringSplitOptions.RemoveEmptyEntries).Last();
+
+            var logicalLocation = new LogicalLocation
+            {
+                FullyQualifiedName = fullyQualifiedLogicalName,
+                Name = name,
+                ParentKey = parentKey
+            };
+
+            return logicalLocation;
         }
 
-        internal string AddLogicalLocation()
+        internal string AddLogicalLocation(LogicalLocation logicalLocation)
         {
             if (_currentRun.LogicalLocations == null)
             {
                 _currentRun.LogicalLocations = new Dictionary<string, LogicalLocation>();
             }
 
-            string logicalLocationKey = "";
+            string logicalLocationKey = logicalLocation.FullyQualifiedName;
+            int disambiguator = 0;
 
+            // We need to do the comparison here too
+            while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
+            {
+                logicalLocationKey = logicalLocation.FullyQualifiedName + "-" + ++disambiguator;
+            }
+
+            if (!_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
+            {
+                _currentRun.LogicalLocations.Add(logicalLocationKey, logicalLocation);
+                FixUpLogicalLocation(logicalLocationKey);
+            }
 
             return logicalLocationKey;
+        }
+
+        internal void FixUpAllLogicalLocations()
+        {
+            foreach (string key in _currentRun.LogicalLocations.Keys)
+            {
+                FixUpLogicalLocation(key);
+            }
+        }
+
+        internal void FixUpLogicalLocation(string key)
+        {
+            LogicalLocation logicalLocation = _currentRun.LogicalLocations[key];
+
+            if (logicalLocation.FullyQualifiedName == key)
+            {
+                logicalLocation.FullyQualifiedName = null;
+            }
+
+            if (logicalLocation.Name == key)
+            {
+                logicalLocation.Name = null;
+            }
         }
 
         internal Message CreateMessage(string text)
@@ -428,17 +445,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal Region CreateRegion(int startColumn, int startLine, int endColumn, int endLine, int length, int offset)
+        internal Region CreateRegion(int startColumn, int startLine, int endColumn = 0, int endLine = 0, int length = 0, int offset = 0)
         {
-            Region region = new Region
+            Region region = null;
+
+            if (startColumn > 0 || startLine > 0 || endColumn > 0 || endLine > 0 || length > 0 || offset > 0)
             {
-                EndColumn = endColumn,
-                EndLine = endLine,
-                Length = length,
-                Offset = offset,
-                StartColumn = startColumn,
-                StartLine = startLine
-            };
+                region = new Region
+                {
+                    EndColumn = endColumn,
+                    EndLine = endLine,
+                    Length = length,
+                    Offset = offset,
+                    StartColumn = startColumn,
+                    StartLine = startLine
+                };
+            }
 
             return region;
         }
@@ -506,6 +528,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
+                if (v1Run.LogicalLocations != null)
+                {
+                    run.LogicalLocations = new Dictionary<string, LogicalLocation>();
+
+                    foreach (var pair in v1Run.LogicalLocations)
+                    {
+                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
+                    }
+
+                    FixUpAllLogicalLocations();
+                }
+
                 // Even if there is no v1 invocation, there may be notifications
                 // in which case we will need a v2 invocation to contain them
                 Invocation invocation = CreateInvocation(v1Run.Invocation,
@@ -518,16 +552,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         invocation
                     };
-                }
-
-                if (v1Run.LogicalLocations != null)
-                {
-                    run.LogicalLocations = new Dictionary<string, LogicalLocation>();
-
-                    foreach (var pair in v1Run.LogicalLocations)
-                    {
-                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
-                    }
                 }
 
                 if (v1Run.Rules != null)
@@ -615,8 +639,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return tool;
         }
-
-        internal void AddLogicalLocation()
-        { }
     }
 }
