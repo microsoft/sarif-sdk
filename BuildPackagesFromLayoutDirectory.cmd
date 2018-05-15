@@ -31,7 +31,7 @@ call :CopyFilesForMultitargeting Sarif.Multitool.exe  || goto :ExitFailed
 xcopy /Y %LayoutForSigningDirectory%\net452\Microsoft.Sarif.Viewer.dll %BinaryOutputDirectory%\..\Sarif.Viewer.VisualStudio\%Platform%_%Configuration%\
 
 call SetCurrentVersion.cmd
-set Version=%MAJOR%.%MINOR%.%PATCH%
+set Version=%MAJOR%.%MINOR%.%PATCH%%PRERELEASE%
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 
