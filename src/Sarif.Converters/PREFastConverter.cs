@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
-            output.Initialize(id: null, automationId: null);
+
             LogicalLocationsDictionary.Clear();
 
             var tool = new Tool
