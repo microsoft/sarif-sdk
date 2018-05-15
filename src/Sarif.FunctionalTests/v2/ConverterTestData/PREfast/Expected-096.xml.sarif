@@ -12,6 +12,26 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MyFunction": {
+          "decoratedName": "?MyFunction@@YAJPADH@Z"
+        },
+        "ConstantFoldingTest": {
+          "decoratedName": "?ConstantFoldingTest@@YAJK@Z"
+        },
+        "MyFunction2": {
+          "decoratedName": "?MyFunction2@@YAXK@Z"
+        },
+        "MyFunction3": {
+          "decoratedName": "?MyFunction3@@YAXK@Z"
+        },
+        "MyFunction4": {
+          "decoratedName": "?MyFunction4@@YAXK@Z"
+        },
+        "MyFunction5": {
+          "decoratedName": "?MyFunction5@@YAXK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26036",

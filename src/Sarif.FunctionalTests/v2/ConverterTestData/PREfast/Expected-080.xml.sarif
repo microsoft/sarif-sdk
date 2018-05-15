@@ -12,6 +12,26 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXHH@Z"
+        },
+        "nested": {
+          "decoratedName": "?nested@@YAXXZ"
+        },
+        "call": {
+          "decoratedName": "?call@@YADPADID@Z"
+        },
+        "call1": {
+          "decoratedName": "?call1@@YADPADID@Z"
+        },
+        "TestRelopBad": {
+          "decoratedName": "?TestRelopBad@@YAXII@Z"
+        },
+        "TestRelopGood": {
+          "decoratedName": "?TestRelopGood@@YAXII@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

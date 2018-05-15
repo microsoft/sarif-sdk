@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestPtrDiff1": {
+          "decoratedName": "?TestPtrDiff1@@YAXPAH0@Z"
+        },
+        "Bad": {
+          "decoratedName": "?Bad@@YAXXZ"
+        },
+        "TestPtrDiffChar2": {
+          "decoratedName": "?TestPtrDiffChar2@@YAXPAD0@Z"
+        },
+        "Read": {
+          "decoratedName": "?Read@@YAXPAD0PAPAD@Z"
+        },
+        "PtrDiffIntBad": {
+          "decoratedName": "?PtrDiffIntBad@@YAXPAH0@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

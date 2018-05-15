@@ -34,18 +34,13 @@
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {
-          "name": "AndroidStudioFormatExample",
-          "fullyQualifiedName": "AndroidStudioFormatExample",
           "kind": "module"
         },
         "app": {
-          "name": "app",
-          "fullyQualifiedName": "app",
           "kind": "module"
         },
         "app\\microsoft.androidstudioformatexample": {
           "name": "microsoft.androidstudioformatexample",
-          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
           "parentKey": "app",
           "kind": "package"
         }

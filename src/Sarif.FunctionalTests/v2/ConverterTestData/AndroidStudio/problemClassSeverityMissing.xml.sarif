@@ -13,13 +13,10 @@
       },
       "logicalLocations": {
         "northwindtraders-droid-2": {
-          "name": "northwindtraders-droid-2",
-          "fullyQualifiedName": "northwindtraders-droid-2",
           "kind": "module"
         },
         "northwindtraders-droid-2\\com.northwindtraders.droid.model": {
           "name": "com.northwindtraders.droid.model",
-          "fullyQualifiedName": "northwindtraders-droid-2\\com.northwindtraders.droid.model",
           "parentKey": "northwindtraders-droid-2",
           "kind": "package"
         }

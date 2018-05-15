@@ -12,6 +12,44 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "HResultSucceeded": {
+          "decoratedName": "?HResultSucceeded@@YAXJ@Z"
+        },
+        "HResultSucceeded2": {
+          "decoratedName": "?HResultSucceeded2@@YAXJ_N@Z"
+        },
+        "HResultSucceeded3": {
+          "decoratedName": "?HResultSucceeded3@@YAXJ_N0@Z"
+        },
+        "HResultSucceeded4": {
+          "decoratedName": "?HResultSucceeded4@@YAXJ@Z"
+        },
+        "HResultFailed": {
+          "decoratedName": "?HResultFailed@@YAXJ@Z"
+        },
+        "HResultFailed2": {
+          "decoratedName": "?HResultFailed2@@YAXJ_N@Z"
+        },
+        "HResultFailed3": {
+          "decoratedName": "?HResultFailed3@@YAXJ_N0@Z"
+        },
+        "HResultFailed4": {
+          "decoratedName": "?HResultFailed4@@YAXJ@Z"
+        },
+        "HResultSFalse": {
+          "decoratedName": "?HResultSFalse@@YAXJ@Z"
+        },
+        "HResultSFalse2": {
+          "decoratedName": "?HResultSFalse2@@YAXJ_N0@Z"
+        },
+        "HResultSOk": {
+          "decoratedName": "?HResultSOk@@YAXJ@Z"
+        },
+        "HResultSOk2": {
+          "decoratedName": "?HResultSOk2@@YAXJ@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

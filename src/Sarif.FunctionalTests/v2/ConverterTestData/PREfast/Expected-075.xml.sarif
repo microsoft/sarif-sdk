@@ -12,6 +12,26 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXPAD@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXPAD@Z"
+        },
+        "h": {
+          "decoratedName": "?h@@YAXPAG@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAG@Z"
+        },
+        "foo1": {
+          "decoratedName": "?foo1@@YAXPAG@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAG0@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

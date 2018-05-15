@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "ComplexMismatch1": {
+          "decoratedName": "?ComplexMismatch1@@YAHXZ"
+        },
+        "ComplexMismatch2": {
+          "decoratedName": "?ComplexMismatch2@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6305",

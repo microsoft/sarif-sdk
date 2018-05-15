@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "certain_overflow": {
+          "decoratedName": "?certain_overflow@@YAXI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

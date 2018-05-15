@@ -12,6 +12,26 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "test2t": {
+          "decoratedName": "?test2t@@YAXXZ"
+        },
+        "test2k": {
+          "decoratedName": "?test2k@@YAXXZ"
+        },
+        "test2x": {
+          "decoratedName": "?test2x@@YAXXZ"
+        },
+        "test2tu": {
+          "decoratedName": "?test2tu@@YAXXZ"
+        },
+        "test2ku": {
+          "decoratedName": "?test2ku@@YAXXZ"
+        },
+        "test2xu": {
+          "decoratedName": "?test2xu@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

@@ -170,9 +170,14 @@
           "$ref": "#/definitions/invocation"
         },
 
-        "analysisToolLogFileLocation": {
-          "description": "The location of the analysis tool's log file.",
-          "$ref": "#/definitions/fileLocation"
+        "analysisToolLogFiles": {
+          "description": "The locations of the analysis tool's per-run log files.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/fileLocation"
+          }
         }
       },
 

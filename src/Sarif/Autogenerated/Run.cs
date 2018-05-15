@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
-        public object OriginalUriBaseIds { get; set; }
+        public IDictionary<string, Uri> OriginalUriBaseIds { get; set; }
 
         /// <summary>
         /// A dictionary each of whose keys is a URI and each of whose values is a file object.
@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, stableId, automationId, baselineId, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, properties);
         }
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, object originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string id, string stableId, string automationId, string baselineId, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -301,9 +301,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 VersionControlProvenance = destination_1;
-            }
-
-            OriginalUriBaseIds = originalUriBaseIds;
+            };
             if (files != null)
             {
                 Files = new Dictionary<string, FileData>();

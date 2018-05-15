@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "strchr": {
+          "decoratedName": "?strchr@@YAPADPBDH@Z"
+        },
+        "AddExtensionControlBlock": {
+          "decoratedName": "?AddExtensionControlBlock@@YAXPAEK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26007",

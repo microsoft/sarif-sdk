@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MyAPI3": {
+          "decoratedName": "?MyAPI3@@YAJPAH@Z"
+        },
+        "MyAPI4": {
+          "decoratedName": "?MyAPI4@@YAJPAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26061",

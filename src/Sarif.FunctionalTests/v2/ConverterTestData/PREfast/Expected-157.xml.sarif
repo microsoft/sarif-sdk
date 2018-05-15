@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestMyStructBufferOverrun": {
+          "decoratedName": "?TestMyStructBufferOverrun@@YAXXZ"
+        },
+        "TestMyStructBufferOverrun2": {
+          "decoratedName": "?TestMyStructBufferOverrun2@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

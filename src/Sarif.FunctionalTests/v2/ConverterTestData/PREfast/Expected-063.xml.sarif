@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "FindARecord": {
+          "decoratedName": "?FindARecord@@YAXPAGPAK1@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

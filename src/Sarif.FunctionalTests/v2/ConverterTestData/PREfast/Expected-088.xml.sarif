@@ -12,6 +12,29 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXPAD@Z"
+        },
+        "Bad": {
+          "decoratedName": "?Bad@@YAXPADI@Z"
+        },
+        "ExplicitChar": {
+          "decoratedName": "?ExplicitChar@@YAXXZ"
+        },
+        "GetItem": {
+          "decoratedName": "?GetItem@@YA_NHPAUItem@@@Z"
+        },
+        "ArrInit4": {
+          "decoratedName": "?ArrInit4@@YAXXZ"
+        },
+        "NotZeroMemroy": {
+          "decoratedName": "?NotZeroMemroy@@YAXXZ"
+        },
+        "BadMemset": {
+          "decoratedName": "?BadMemset@@YAXPAGI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26006",

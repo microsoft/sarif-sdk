@@ -12,6 +12,44 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXH@Z"
+        },
+        "calladd9": {
+          "decoratedName": "?calladd9@@YAXXZ"
+        },
+        "calladd1deref": {
+          "decoratedName": "?calladd1deref@@YAXXZ"
+        },
+        "CallAccessor": {
+          "decoratedName": "?CallAccessor@@YAXPAUC@@@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        "callAlloc": {
+          "decoratedName": "?callAlloc@@YAXXZ"
+        },
+        "callRecursive": {
+          "decoratedName": "?callRecursive@@YAXH@Z"
+        },
+        "repeated": {
+          "decoratedName": "?repeated@@YAXXZ"
+        },
+        "CallAccess": {
+          "decoratedName": "?CallAccess@@YAXPADI@Z"
+        },
+        "callLoop": {
+          "decoratedName": "?callLoop@@YAXI@Z"
+        },
+        "callAdd": {
+          "decoratedName": "?callAdd@@YAXPAUS@@@Z"
+        },
+        "callSet": {
+          "decoratedName": "?callSet@@YAXPAUS@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

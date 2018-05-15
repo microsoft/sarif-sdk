@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "InitAttrBag": {
+          "decoratedName": "?InitAttrBag@@YAXPAVCHtmTag@@@Z"
+        },
+        "MergeAttrBag": {
+          "decoratedName": "?MergeAttrBag@@YAXPAVCHtmTag@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",

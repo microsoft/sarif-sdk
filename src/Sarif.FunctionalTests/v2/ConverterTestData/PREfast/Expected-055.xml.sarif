@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXH@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXH@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXXZ"
+        },
+        "testAlloca": {
+          "decoratedName": "?testAlloca@@YAXXZ"
+        },
+        "testChar": {
+          "decoratedName": "?testChar@@YAXH@Z"
+        },
+        "TestNull": {
+          "decoratedName": "?TestNull@@YAXPBD@Z"
+        },
+        "`dynamic initializer for 's5''": {
+          "decoratedName": "??__Es5@@YAXXZ"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

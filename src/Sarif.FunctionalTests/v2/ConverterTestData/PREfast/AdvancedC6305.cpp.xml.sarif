@@ -12,6 +12,29 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6305FromAnnotation": {
+          "decoratedName": "?C6305FromAnnotation@@YAXPEAHH_N@Z"
+        },
+        "RemoveRedundantKeyEvents1": {
+          "decoratedName": "?RemoveRedundantKeyEvents1@@YAHPEA_W@Z"
+        },
+        "RemoveRedundantKeyEvents2": {
+          "decoratedName": "?RemoveRedundantKeyEvents2@@YAHPEA_W@Z"
+        },
+        "CorrectAliasing": {
+          "decoratedName": "?CorrectAliasing@@YAHPEA_W@Z"
+        },
+        "ShowKeyEventsWhenNoLocation": {
+          "decoratedName": "?ShowKeyEventsWhenNoLocation@@YAHXZ"
+        },
+        "ShowKeyEventsWhenNoLocation2": {
+          "decoratedName": "?ShowKeyEventsWhenNoLocation2@@YAXXZ"
+        },
+        "ShowKeyEventsForPointerArithmetic": {
+          "decoratedName": "?ShowKeyEventsForPointerArithmetic@@YAXPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6305",

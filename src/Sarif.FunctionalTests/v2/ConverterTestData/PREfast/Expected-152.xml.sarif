@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Bad1": {
+          "decoratedName": "?Bad1@@YAHPAUMyStruct@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26019",

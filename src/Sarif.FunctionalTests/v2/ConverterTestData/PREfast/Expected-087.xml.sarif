@@ -12,6 +12,41 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "qcolon": {
+          "decoratedName": "?qcolon@@YAXPADIHH@Z"
+        },
+        "callqcolon": {
+          "decoratedName": "?callqcolon@@YAXXZ"
+        },
+        "TestAnd": {
+          "decoratedName": "?TestAnd@@YAXPADI_N1@Z"
+        },
+        "TestOr": {
+          "decoratedName": "?TestOr@@YAXPADI_N1@Z"
+        },
+        "CallAnd": {
+          "decoratedName": "?CallAnd@@YAXXZ"
+        },
+        "CallOr": {
+          "decoratedName": "?CallOr@@YAXXZ"
+        },
+        "CallDual": {
+          "decoratedName": "?CallDual@@YAXXZ"
+        },
+        "BadDualBit": {
+          "decoratedName": "?BadDualBit@@YAXPADII@Z"
+        },
+        "CallDualBit": {
+          "decoratedName": "?CallDualBit@@YAXXZ"
+        },
+        "callcleveraw": {
+          "decoratedName": "?callcleveraw@@YAXXZ"
+        },
+        "callfoo": {
+          "decoratedName": "?callfoo@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MergeAliasAndZero": {
+          "decoratedName": "?MergeAliasAndZero@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

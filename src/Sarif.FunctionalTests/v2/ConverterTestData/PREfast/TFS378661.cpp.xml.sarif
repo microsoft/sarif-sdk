@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "WritesArray": {
+          "decoratedName": "?WritesArray@@YAXPEAJ@Z"
+        },
+        "WritesArrayRange": {
+          "decoratedName": "?WritesArrayRange@@YAXPEAJH@Z"
+        },
+        "WritesArrayLoop": {
+          "decoratedName": "?WritesArrayLoop@@YAXPEAJH@Z"
+        },
+        "WritesArrayCompare": {
+          "decoratedName": "?WritesArrayCompare@@YAXPEAJH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6386",

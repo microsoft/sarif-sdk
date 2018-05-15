@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SimpleBadCalls": {
+          "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
+        },
+        "MadePAGAndBad": {
+          "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "NeverMadePAGAndBad": {
+          "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "EnsureIndexingWorksBad": {
+          "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "BadUnicodeStringCall": {
+          "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

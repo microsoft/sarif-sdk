@@ -12,6 +12,27 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXPAUS@@@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAD000US1@@@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAD000ABUS1@@@Z"
+        },
+        "C::f": {
+          "name": "f",
+          "decoratedName": "?f@C@@QAGXPAD@Z"
+        },
+        "fieldSameAsParam1": {
+          "decoratedName": "?fieldSameAsParam1@@YAXPADAAUS@@H@Z"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

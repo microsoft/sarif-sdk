@@ -123,11 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 }";
             string actualOutput = GetJson(uut =>
             {
-                var run = new Run();
-
-                uut.Initialize(id: null, automationId: null);
-
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
 
                 var result = new Result
                 {

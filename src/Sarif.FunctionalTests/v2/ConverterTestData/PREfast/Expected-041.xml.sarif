@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "baz": {
+          "decoratedName": "?baz@@YAXPAD@Z"
+        },
+        "ref1": {
+          "decoratedName": "?ref1@@YAXPADAAH@Z"
+        },
+        "ref2": {
+          "decoratedName": "?ref2@@YAXPADAAH@Z"
+        },
+        "ref5": {
+          "decoratedName": "?ref5@@YAXAAPAH0@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXP6APAXPAHH@Z@Z"
+        },
+        "callDriver": {
+          "decoratedName": "?callDriver@@YAXXZ"
+        },
+        "driverFn1": {
+          "decoratedName": "?driverFn1@@YAXPAHH@Z"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

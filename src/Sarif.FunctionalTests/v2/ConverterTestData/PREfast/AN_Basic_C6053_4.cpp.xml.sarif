@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BasicC6053": {
+          "decoratedName": "?BasicC6053@@YAXPEAD@Z"
+        },
+        "BasicC6054": {
+          "decoratedName": "?BasicC6054@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6053",

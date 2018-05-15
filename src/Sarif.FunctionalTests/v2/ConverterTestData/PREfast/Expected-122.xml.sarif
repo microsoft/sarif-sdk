@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "safe1": {
+          "decoratedName": "?safe1@@YAXPAUBufferDesc@@@Z"
+        },
+        "unsafe": {
+          "decoratedName": "?unsafe@@YAXPAUBufferDesc@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26003",

@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6385_IrrelevantLoop": {
+          "decoratedName": "?C6385_IrrelevantLoop@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6385",

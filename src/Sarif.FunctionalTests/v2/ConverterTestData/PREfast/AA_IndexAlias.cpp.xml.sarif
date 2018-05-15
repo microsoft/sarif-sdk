@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6385_IndexAlias": {
+          "decoratedName": "?C6385_IndexAlias@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6385",

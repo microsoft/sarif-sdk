@@ -12,6 +12,38 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SimpleOverflow": {
+          "decoratedName": "?SimpleOverflow@@YAXPAUS@@@Z"
+        },
+        "OffByOne": {
+          "decoratedName": "?OffByOne@@YAXPAUS@@@Z"
+        },
+        "TestFlexArray": {
+          "decoratedName": "?TestFlexArray@@YAXPAUFlex@@@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAUS@@@Z"
+        },
+        "TestLocal": {
+          "decoratedName": "?TestLocal@@YAXXZ"
+        },
+        "TestPointedTo": {
+          "decoratedName": "?TestPointedTo@@YAXPAUS1@@@Z"
+        },
+        "TestNestedStructArrays": {
+          "decoratedName": "?TestNestedStructArrays@@YAXPAUComplex@@@Z"
+        },
+        "TestArrayOfStructs1": {
+          "decoratedName": "?TestArrayOfStructs1@@YAXPAUS@@H@Z"
+        },
+        "TestArrayOfStructs2": {
+          "decoratedName": "?TestArrayOfStructs2@@YAXPAUS@@H@Z"
+        },
+        "TestArrayOfStructs3": {
+          "decoratedName": "?TestArrayOfStructs3@@YAXPAUS@@H@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TxfConvertTxfFileIdToMungedName": {
+          "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26001",

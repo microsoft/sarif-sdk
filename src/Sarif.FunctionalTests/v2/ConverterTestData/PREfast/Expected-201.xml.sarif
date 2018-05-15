@@ -12,6 +12,16 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MyClass::GetValue": {
+          "name": "GetValue",
+          "decoratedName": "?GetValue@MyClass@@QAEHI@Z"
+        },
+        "MyFixedSizeClass::GetValue": {
+          "name": "GetValue",
+          "decoratedName": "?GetValue@MyFixedSizeClass@@QAEHI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26020",

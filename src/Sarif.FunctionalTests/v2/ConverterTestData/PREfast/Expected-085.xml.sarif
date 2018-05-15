@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Irreducible": {
+          "decoratedName": "?Irreducible@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26051",

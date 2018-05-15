@@ -12,6 +12,35 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAPAHH@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXPAPAHH@Z"
+        },
+        "h": {
+          "decoratedName": "?h@@YAXPAPAHPAHH@Z"
+        },
+        "g1": {
+          "decoratedName": "?g1@@YAPAXH@Z"
+        },
+        "g2": {
+          "decoratedName": "?g2@@YAPAHH@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAH0@Z"
+        },
+        "Next": {
+          "decoratedName": "?Next@@YAXPAHIPAI@Z"
+        },
+        "NextUnannotated": {
+          "decoratedName": "?NextUnannotated@@YAXPAHIPAI@Z"
+        },
+        "main": {
+          "decoratedName": "main"
+        }
+      },
       "results": [
         {
           "ruleId": "26030",

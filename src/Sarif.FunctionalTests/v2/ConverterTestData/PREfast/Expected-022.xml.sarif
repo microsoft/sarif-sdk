@@ -12,6 +12,46 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXXZ"
+        },
+        "h": {
+          "decoratedName": "?h@@YAXPAHH@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAHI@Z"
+        },
+        "StrLen": {
+          "decoratedName": "?StrLen@@YAIPBD@Z"
+        },
+        "BugLast": {
+          "decoratedName": "?BugLast@@YADPBD@Z"
+        },
+        "g1": {
+          "decoratedName": "?g1@@YAXPAH@Z"
+        },
+        "foo-0": {
+          "name": "foo",
+          "fullyQualifiedName": "foo",
+          "decoratedName": "?foo@@YADXZ"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAHII@Z"
+        },
+        "ShiftTest::f": {
+          "name": "f",
+          "decoratedName": "?f@ShiftTest@@YAXPAHH@Z"
+        },
+        "ShiftTest::foo": {
+          "name": "foo",
+          "decoratedName": "?foo@ShiftTest@@YAXXZ"
+        },
+        "ShiftTest::bar": {
+          "name": "bar",
+          "decoratedName": "?bar@ShiftTest@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

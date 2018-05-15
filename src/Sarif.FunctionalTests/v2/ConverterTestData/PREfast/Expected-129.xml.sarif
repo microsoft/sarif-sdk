@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BadGetWord1": {
+          "decoratedName": "?BadGetWord1@@YAGPAPAD@Z"
+        },
+        "BadGetWord2": {
+          "decoratedName": "?BadGetWord2@@YAGPAPAD@Z"
+        },
+        "GetDWord": {
+          "decoratedName": "?GetDWord@@YAIPAPAD@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26002",

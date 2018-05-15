@@ -196,13 +196,39 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string propertyName = "numberValue";
             double propertyValue = 3.14;
+            string stableId = nameof(stableId) + ":" + Guid.NewGuid().ToString();
+            string baselineId = nameof(baselineId) + ":" + Guid.NewGuid().ToString();
+            string automationId = nameof(automationId) + ":" + Guid.NewGuid().ToString();
+            string architecture = nameof(architecture) + ":" + "x86";
+            var conversion = new Conversion() { Tool = DefaultTool };
+            var utcNow = DateTime.UtcNow;
+            var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
+            var versionControlDetails = new VersionControlDetails() { Uri = versionControlUri, Timestamp = DateTime.UtcNow };
+            string originalUriBaseIdKey = "testBase";
+            Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
+            var originalUriBaseIds = new Dictionary<string, Uri>() { { originalUriBaseIdKey, originalUriBaseIdValue } };
+            string defaultFileEncoding = "UTF7";
+            string richMessageMimeType = "sarif-markdown";
+            string redactionToken = "[MY_REDACTION_TOKEN]";
 
             var sb = new StringBuilder();
 
+            var run = new Run();
+
             using (var textWriter = new StringWriter(sb))
             {
-                var run = new Run();
                 run.SetProperty(propertyName, propertyValue);
+
+                run.StableId = stableId;
+                run.BaselineId = baselineId;
+                run.AutomationId = automationId;
+                run.Architecture = architecture;
+                run.Conversion = conversion;
+                run.VersionControlProvenance = new[] { versionControlDetails };
+                run.OriginalUriBaseIds = originalUriBaseIds;
+                run.DefaultFileEncoding = defaultFileEncoding;
+                run.RichMessageMimeType = richMessageMimeType;
+                run.RedactionToken = redactionToken;
 
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
@@ -215,7 +241,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             string output = sb.ToString();
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
 
-            sarifLog.Runs[0].GetProperty<double>(propertyName).Should().Be(propertyValue);
+            run = sarifLog.Runs[0];
+
+            run.GetProperty<double>(propertyName).Should().Be(propertyValue);
+            run.StableId.Should().Be(stableId);
+            run.BaselineId.Should().Be(baselineId);
+            run.AutomationId.Should().Be(automationId);
+            run.Architecture.Should().Be(architecture);
+            run.Conversion.Tool.ShouldBeEquivalentTo(DefaultTool);
+            //run.VersionControlProvenance[0].Timestamp.ShouldBeEquivalentTo(utcNow);
+            run.VersionControlProvenance[0].Uri.ShouldBeEquivalentTo(versionControlUri);
+            run.OriginalUriBaseIds[originalUriBaseIdKey].Should().Be(originalUriBaseIdValue);
+            run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
+            run.RichMessageMimeType.Should().Be(richMessageMimeType);
+            run.RedactionToken.Should().Be(redactionToken);
         }
 
         [Fact]

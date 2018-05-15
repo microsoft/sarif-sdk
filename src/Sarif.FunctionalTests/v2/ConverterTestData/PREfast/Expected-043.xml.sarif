@@ -12,6 +12,32 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "f1": {
+          "decoratedName": "?f1@@YAHPAPAH@Z"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YA_NPAH0PAD@Z"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YADPAD@Z"
+        },
+        "SuccessSatisfied": {
+          "decoratedName": "?SuccessSatisfied@@YAJPAPADI@Z"
+        },
+        "NoSuccess": {
+          "decoratedName": "?NoSuccess@@YAHPAPADI@Z"
+        },
+        "SuccessMaybeSatisified": {
+          "decoratedName": "?SuccessMaybeSatisified@@YAJPAPADI@Z"
+        },
+        "GetStreamData": {
+          "decoratedName": "?GetStreamData@@YAJPAVStream@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26003",

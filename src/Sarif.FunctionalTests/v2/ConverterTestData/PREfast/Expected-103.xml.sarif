@@ -12,6 +12,34 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXXZ"
+        },
+        "f1": {
+          "decoratedName": "?f1@@YAXXZ"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXPAUUS@@@Z"
+        },
+        "g-0": {
+          "name": "g",
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAUUS@@@Z"
+        },
+        "bad": {
+          "decoratedName": "?bad@@YAXXZ"
+        },
+        "InferredIn": {
+          "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
+        },
+        "TestInferredIn": {
+          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Test5_1": {
+          "decoratedName": "?Test5_1@@YAXXZ"
+        },
+        "Test5_2": {
+          "decoratedName": "?Test5_2@@YAXXZ"
+        },
+        "Test5_3": {
+          "decoratedName": "?Test5_3@@YAXXZ"
+        },
+        "Get2S_6": {
+          "decoratedName": "?Get2S_6@@YAXPAPAUS6@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",

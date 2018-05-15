@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MyCopyA": {
+          "decoratedName": "?MyCopyA@@YAXPAUMyStructA@@0@Z"
+        },
+        "MyCopyW": {
+          "decoratedName": "?MyCopyW@@YAXPAUMyStructW@@0@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

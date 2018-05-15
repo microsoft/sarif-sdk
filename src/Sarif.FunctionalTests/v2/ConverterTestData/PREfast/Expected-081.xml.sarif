@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXII@Z"
+        },
+        "TestSafeInt": {
+          "decoratedName": "?TestSafeInt@@YAXII@Z"
+        },
+        "R16_c": {
+          "decoratedName": "?R16_c@@YAXG@Z"
+        },
+        "R16_f": {
+          "decoratedName": "?R16_f@@YAXF@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",

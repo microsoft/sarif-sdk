@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "HpcellFromRwCol": {
+          "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26002",

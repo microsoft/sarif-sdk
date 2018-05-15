@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "UnsafeTestStatus": {
+          "decoratedName": "?UnsafeTestStatus@@YAXJ@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

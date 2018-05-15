@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C6011_OnlyOnSecondLoop": {
+          "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
+        },
+        "C6011_OnlyOnSecondLoopWithParam": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
+        },
+        "C6011_OnlyOnSecondLoopPlusRollbackDefect": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",

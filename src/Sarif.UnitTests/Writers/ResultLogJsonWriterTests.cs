@@ -4,30 +4,14 @@
 using System;
 using System.Globalization;
 using System.IO;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Xunit;
-using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class ResultLogJsonWriterTests : JsonTests
     {
-        [Fact]
-        public void ResultLogJsonWriter_DefaultIsEmpty()
-        {
-            string expected =
-@"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
-  ""runs"": [
-    {}
-  ]
-}";
-            GetJson(uut => uut.Initialize(id: null, automationId: null))
-                .Should()
-                .BeCrossPlatformEquivalent(expected);
-        }
-
         [Fact]
         public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
@@ -48,8 +32,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteResult(DefaultResult);
             });
 
@@ -57,13 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        public void ResultLogJsonWriter_ToolMayNotBeWrittenMoreThanOnce()
+        public void ResultLogJsonWriter_DoNotInitializeMoreThanOnce()
         {
             Assert.Throws<InvalidOperationException>(() => 
                 GetJson(uut =>
                 {
-                    uut.WriteTool(DefaultTool);
-                    uut.WriteTool(DefaultTool);
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
+                    uut.Initialize(run);
                 })
             );
         }
@@ -76,6 +61,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Assert.Throws<InvalidOperationException>(() => 
                 GetJson(uut =>
                 {
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
+
                     uut.OpenResults();
                     uut.WriteResults(results);
                     uut.CloseResults();
@@ -90,8 +78,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_RequiresNonNullTool()
         {
-            Assert.Throws<ArgumentNullException>(() => GetJson(uut => uut.WriteTool(null)));
-        }
+            Assert.Throws<ArgumentNullException>(() =>
+            GetJson(uut =>
+            {
+                var run = new Run() { Tool = null };
+                uut.Initialize(run);
+            }));
+       }
 
         [Fact]
         public void ResultLogJsonWriter_RequiresNonNullResult()
@@ -99,7 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Assert.Throws<ArgumentNullException>(() => 
                 GetJson(uut =>
                 {
-                    uut.WriteTool(DefaultTool);
+                    var run = new Run() { Tool = DefaultTool };
+                    uut.Initialize(run);
                     uut.WriteResult(null);
                 })
             );
@@ -113,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var uut = new ResultLogJsonWriter(json))
             {
                 uut.Dispose();
-                Assert.Throws<InvalidOperationException>(() => uut.WriteTool(DefaultTool));
+                Assert.Throws<InvalidOperationException>(() => uut.Initialize(new Run() { Tool = DefaultTool}));
             }
         }
 
@@ -124,7 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.Dispose();
                 Assert.Throws<InvalidOperationException>(() => uut.WriteResult(DefaultResult));
             }
@@ -173,8 +168,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run()
+                {
+                    Tool = DefaultTool
+                };
+                uut.Initialize(run);
                 uut.WriteInvocations(new[] { s_invocation });
             });
 
@@ -209,8 +207,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: id, automationId: automationId);
-                uut.WriteTool(DefaultTool);
+                var run = new Run()
+                {
+                    Id = id,
+                    AutomationId = automationId,
+                    Tool = DefaultTool,
+                };
+                uut.Initialize(run);
                 uut.WriteInvocations(new[] { s_invocation });
             });
 
@@ -224,9 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
-                uut.WriteInvocations(new[] { s_invocation });
-                Assert.Throws<InvalidOperationException>(() => uut.WriteInvocations(new[] { s_invocation }));
+                var run = new Run() { Tool = DefaultTool, Invocations = new[] { s_invocation } };
+                uut.Initialize(run);
+                Assert.Throws<InvalidOperationException>(() => uut.Initialize(run));
             }
         }
 
@@ -395,8 +398,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteConfigurationNotifications(s_notifications);
             });
 
@@ -423,8 +426,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 }";
             string actual = GetJson(uut =>
             {
-                uut.Initialize(id: null, automationId: null);
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteToolNotifications(s_notifications);
             });
 
@@ -438,7 +441,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteToolNotifications(s_notifications);
                 Assert.Throws<InvalidOperationException>(() => uut.WriteToolNotifications(s_notifications));
             }
@@ -451,7 +455,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
                 uut.WriteConfigurationNotifications(s_notifications);
                 Assert.Throws<InvalidOperationException>(() => uut.WriteConfigurationNotifications(s_notifications));
             }

@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "InvalidAliasing": {
+          "decoratedName": "?InvalidAliasing@@YAXPAKPAPAUMyStruct@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26030",

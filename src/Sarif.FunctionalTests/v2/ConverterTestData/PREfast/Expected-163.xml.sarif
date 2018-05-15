@@ -12,6 +12,12 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Class::MemberFunc": {
+          "name": "MemberFunc",
+          "decoratedName": "?MemberFunc@Class@@QAEJXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26035",

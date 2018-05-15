@@ -175,7 +175,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
-                node.AnalysisToolLogFileLocation = VisitNullChecked(node.AnalysisToolLogFileLocation);
+                if (node.AnalysisToolLogFiles != null)
+                {
+                    for (int index_0 = 0; index_0 < node.AnalysisToolLogFiles.Count; ++index_0)
+                    {
+                        node.AnalysisToolLogFiles[index_0] = VisitNullChecked(node.AnalysisToolLogFiles[index_0]);
+                    }
+                }
             }
 
             return node;

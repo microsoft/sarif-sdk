@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SortList": {
+          "decoratedName": "?SortList@@YAXXZ"
+        },
+        "SortListUnroll": {
+          "decoratedName": "?SortListUnroll@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",

@@ -12,6 +12,40 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Missed6305::MissedAlias": {
+          "name": "MissedAlias",
+          "decoratedName": "?MissedAlias@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::MissedAlias2": {
+          "name": "MissedAlias2",
+          "decoratedName": "?MissedAlias2@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::MissedAliasPlusAssign": {
+          "name": "MissedAliasPlusAssign",
+          "decoratedName": "?MissedAliasPlusAssign@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::MissedAliasPlusAssign2": {
+          "name": "MissedAliasPlusAssign2",
+          "decoratedName": "?MissedAliasPlusAssign2@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::MissedAlias_LocalIsCorrect": {
+          "name": "MissedAlias_LocalIsCorrect",
+          "decoratedName": "?MissedAlias_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::MissedAliasPlusAssign_LocalIsCorrect": {
+          "name": "MissedAliasPlusAssign_LocalIsCorrect",
+          "decoratedName": "?MissedAliasPlusAssign_LocalIsCorrect@Missed6305@@AEAAHPEA_W@Z"
+        },
+        "Missed6305::SizeOfMissedForMember": {
+          "name": "SizeOfMissedForMember",
+          "decoratedName": "?SizeOfMissedForMember@Missed6305@@AEAAHPEAH@Z"
+        },
+        "Missed6305::SizeOfMissedForMember_LocalIsCorrect": {
+          "name": "SizeOfMissedForMember_LocalIsCorrect",
+          "decoratedName": "?SizeOfMissedForMember_LocalIsCorrect@Missed6305@@AEAAHPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6305",
