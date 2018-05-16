@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void AddFilesVisitor_PopulateFilesObject()
         {
-            string filePath = "file:///DOESNOTEXIST.cpp";
+            string filePath = "file:///DOES NOT/EXIST.cpp";
 
             var run = new Run();
             run.Results = new List<Result>()
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.Visit(run);
 
             run.Files.Count.Should().Be(1);
-            run.Files[filePath].Should().NotBeNull();
+            run.Files[Uri.EscapeUriString(filePath)].Should().NotBeNull();
         }
     }
 }
