@@ -224,7 +224,6 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""kind"": ""type""
         },
         ""collections"": {
-          ""name"": ""collections"",
           ""kind"": ""namespace""
         }
       },
@@ -840,11 +839,47 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""frames"": [
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""startColumn"": 9
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate-0"",
+                        ""message"": {
+                          ""text"": ""Exception thrown""
+                        }
+                      },
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
                       ""address"": 10092852
                     },
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register""
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 1002485
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/utils.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule""
+                      },
                       ""module"": ""ExecutionEngine"",
                       ""threadId"": 52,
                       ""address"": 10073356,
@@ -863,6 +898,22 @@ namespace Microsoft.CodeAnalysis.Sarif
           ]
         }
       ],
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""Register""
+        },
+        ""Rules.SecureHashAlgorithmRule.Evaluate-0"": {
+          ""name"": ""Evaluate"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Evaluate""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
       ""results"": []
     }
   ]
