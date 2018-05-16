@@ -766,6 +766,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""column"": 9
                                 },
                                 {
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register"",
+                                  ""uri"": ""file:///C:/src/main.cs"",
+                                  ""address"": 1002485
+                                },
+                                {
                                   ""module"": ""ExecutionEngine"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
@@ -784,6 +791,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                           }
                         }
                       ],
+                      ""logicalLocations"": {
+                        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+                          ""name"": ""Evaluate"",
+                          ""kind"": ""some kind""
+                        },
+                        ""Rules.SecureHashAlgorithmRule.Register"": {
+                          ""name"": ""Register""
+                        }
+                      },
                       ""tool"": {
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""

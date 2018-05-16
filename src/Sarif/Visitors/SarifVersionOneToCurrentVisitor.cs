@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
@@ -266,16 +267,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null)
+        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null, string decoratedName = null)
         {
-            // How can we determine the delimiter?
-            string name = fullyQualifiedLogicalName.Split(SarifTransformerUtilities.FullyQualifiedNameDelimiters,
-                                                          StringSplitOptions.RemoveEmptyEntries).Last();
-
             var logicalLocation = new LogicalLocation
             {
+                DecoratedName = decoratedName,
                 FullyQualifiedName = fullyQualifiedLogicalName,
-                Name = name,
+                Name = GetLogicalLocationName(fullyQualifiedLogicalName),
                 ParentKey = parentKey
             };
 
@@ -289,13 +287,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _currentRun.LogicalLocations = new Dictionary<string, LogicalLocation>();
             }
 
+            string fullyQualifiedName = logicalLocation.FullyQualifiedName;
             string logicalLocationKey = logicalLocation.FullyQualifiedName;
             int disambiguator = 0;
 
             // We need to do the comparison here too
             while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
             {
-                logicalLocationKey = logicalLocation.FullyQualifiedName + "-" + ++disambiguator;
+                LogicalLocation logLoc = _currentRun.LogicalLocations[logicalLocationKey].DeepClone();
+                logLoc.Name = GetLogicalLocationName(fullyQualifiedName);
+                logLoc.FullyQualifiedName = logicalLocation.FullyQualifiedName;
+
+                if (logicalLocation.ValueEquals(logLoc))
+                {
+                    break;
+                }
+
+                logicalLocationKey = logicalLocation.FullyQualifiedName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
+                disambiguator++;
             }
 
             if (!_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
@@ -305,6 +314,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocationKey;
+        }
+
+        internal string GetLogicalLocationName(string fullyQualifiedLogicalName)
+        {
+            if (string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+            {
+                throw new ArgumentNullException(nameof(fullyQualifiedLogicalName));
+            }
+
+            return fullyQualifiedLogicalName.Split(SarifTransformerUtilities.FullyQualifiedNameDelimiters,
+                                                   StringSplitOptions.RemoveEmptyEntries).Last();
         }
 
         internal void FixUpAllLogicalLocations()
@@ -418,8 +438,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocation
                 {
-                    // Id = ??? this is used for embedded links, need to understand if we can infer that
-                    // According to the spec, this needs to be unique across results
                     FileLocation = CreateFileLocation(v1PhysicalLocation.Uri, v1PhysicalLocation.UriBaseId),
                     Region = CreateRegion(v1PhysicalLocation.Region)
                 };
