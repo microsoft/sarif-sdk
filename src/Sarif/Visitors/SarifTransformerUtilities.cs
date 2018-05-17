@@ -87,23 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
 
-        public static IList<TTo> TransformList<TFrom, TTo>(IList<TFrom> fromList, Func<TFrom, TTo> convertFunc)
-        {
-            List<TTo> result = null;
-
-            if (fromList != null && fromList.Count > 0)
-            {
-                result = new List<TTo>();
-
-                foreach (TFrom fromObject in fromList)
-                {
-                    result.Add(convertFunc(fromObject));
-                }
-            }
-
-            return result;
-        }
-
         public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
         {
             if (holder.Properties != null)

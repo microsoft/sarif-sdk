@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private static readonly SarifVersion FromSarifVersion = SarifVersion.OneZeroZero;
         private static readonly string FromPropertyBagPrefix =
-            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+            Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun = null;
 
@@ -41,9 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 exceptionData = new ExceptionData
                 {
-                    InnerExceptions = SarifTransformerUtilities.TransformList<ExceptionDataVersionOne, ExceptionData>(
-                                                                    v1ExceptionData.InnerExceptions,
-                                                                    CreateExceptionData),
+                    InnerExceptions = v1ExceptionData.InnerExceptions?.Select(e => CreateExceptionData(e)).ToList(),
                     Kind = v1ExceptionData.Kind,
                     Message = v1ExceptionData.Message
                 };
@@ -65,9 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileData
                 {
-                    Hashes = SarifTransformerUtilities.TransformList<HashVersionOne, Hash>(
-                                                            v1FileData.Hashes,
-                                                            CreateHash),
+                    Hashes = v1FileData.Hashes?.Select(h => CreateHash(h)).ToList(),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
@@ -88,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileData.Contents = new FileContent();
 
-                    if (SarifTransformerUtilities.TextMimeTypes.Contains(v1FileData.MimeType))
+                    if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
                     {
                         fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
                     }
@@ -125,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (v1Hash != null)
             {
                 string algorithm;
-                if (!SarifTransformerUtilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
+                if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
                 {
                     algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
                 }
@@ -141,16 +138,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         internal Invocation CreateInvocation(InvocationVersionOne v1Invocation,
-                                           IList<NotificationVersionOne> v1ToolNotifications,
-                                           IList<NotificationVersionOne> v1ConfigurationNotifications)
+                                             IList<NotificationVersionOne> v1ToolNotifications,
+                                             IList<NotificationVersionOne> v1ConfigurationNotifications)
         {
             Invocation invocation = CreateInvocation(v1Invocation);
-            IList<Notification> toolNotifications = SarifTransformerUtilities.TransformList<NotificationVersionOne, Notification>(
-                                                                                    v1ToolNotifications,
-                                                                                    CreateNotification);
-            IList<Notification> configurationNotifications = SarifTransformerUtilities.TransformList<NotificationVersionOne, Notification>(
-                                                                                    v1ConfigurationNotifications,
-                                                                                    CreateNotification); ;
+            IList<Notification> toolNotifications = v1ToolNotifications?.Select(n => CreateNotification(n)).ToList();
+            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(n => CreateNotification(n)).ToList(); ;
 
             if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
             {
@@ -323,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 throw new ArgumentNullException(nameof(fullyQualifiedLogicalName));
             }
 
-            return fullyQualifiedLogicalName.Split(SarifTransformerUtilities.FullyQualifiedNameDelimiters,
+            return fullyQualifiedLogicalName.Split(Utilities.FullyQualifiedNameDelimiters,
                                                    StringSplitOptions.RemoveEmptyEntries).Last();
         }
 
@@ -375,7 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
                     Id = v1Notification.Id,
-                    Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
+                    Level = Utilities.CreateNotificationLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
@@ -500,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                RuleConfigurationDefaultLevel level = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                RuleConfigurationDefaultLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
                 if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
                     level != RuleConfigurationDefaultLevel.Warning)
@@ -599,9 +592,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Message = CreateMessage(v1Stack.Message),
                     Properties = v1Stack.Properties,
-                    Frames = SarifTransformerUtilities.TransformList<StackFrameVersionOne, StackFrame>(
-                                                            v1Stack.Frames,
-                                                            CreateStackFrame)
+                    Frames = v1Stack.Frames?.Select(f => CreateStackFrame(f)).ToList()
                 };
             }
 
