@@ -40,46 +40,55 @@ namespace Sarif.Viewer.LoadServiceSample
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (IsSarifViewerInstalled())
+            if (!IsSarifViewerInstalled())
             {
-                // Get the SARIF Viewer assembly
-                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                Assembly assembly = assemblies.Where(a => a.GetName().Name == "Microsoft.Sarif.Viewer").FirstOrDefault();
+                VsShellUtilities.ShowMessageBox(
+                        this,
+                        "The SARIF Viewer extension is not installed.",
+                        null,
+                        OLEMSGICON.OLEMSGICON_INFO,
+                        OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return;
+            }
 
-                if (assembly != null)
+            // Get the SARIF Viewer assembly
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly assembly = assemblies.Where(a => a.GetName().Name == "Microsoft.Sarif.Viewer").FirstOrDefault();
+
+            if (assembly != null)
+            {
+                Version version = assembly.GetName().Version;
+
+                if (version.Major != 2)
                 {
-                    Version version = assembly.GetName().Version;
+                    VsShellUtilities.ShowMessageBox(
+                            this,
+                            "This feature requires SARIF Viewer version 2.0.",
+                            null,
+                            OLEMSGICON.OLEMSGICON_INFO,
+                            OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                            OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                    return;
+                }
 
-                    if (version.Major != 2)
+                // Get the service interface type
+                Type[] types = assembly.GetTypes();
+                Type sarifLoadServiceInterface = types.Where(t => t.Name == "SLoadSarifLogService").FirstOrDefault();
+
+                if (sarifLoadServiceInterface != null)
+                {
+                    // Get a service reference
+                    dynamic sarifLoadService = await ServiceProvider.GetGlobalServiceAsync(sarifLoadServiceInterface);
+
+                    if (sarifLoadService != null)
                     {
-                        VsShellUtilities.ShowMessageBox(
-                                this,
-                                "This feature requires SARIF Viewer version 2.0.",
-                                null,
-                                OLEMSGICON.OLEMSGICON_INFO,
-                                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-                        return;
-                    }
-
-                    // Get the service interface type
-                    Type[] types = assembly.GetTypes();
-                    Type sarifLoadServiceInterface = types.Where(t => t.Name == "SLoadSarifLogService").FirstOrDefault();
-
-                    if (sarifLoadServiceInterface != null)
-                    {
-                        // Get a service reference
-                        dynamic sarifLoadService = await ServiceProvider.GetGlobalServiceAsync(sarifLoadServiceInterface);
-
-                        if (sarifLoadService != null)
+                        try
                         {
-                            try
-                            {
-                                // Call the service API
-                                sarifLoadService.LoadSarifLog(path);
-                            }
-                            catch { }
+                            // Call the service API
+                            sarifLoadService.LoadSarifLog(path);
                         }
+                        catch { }
                     }
                 }
             }
