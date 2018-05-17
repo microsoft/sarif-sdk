@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.ComponentModel.Design;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -23,10 +24,11 @@ namespace Microsoft.Sarif.Viewer
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-    [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(SarifViewerPackage.PackageGuidString)]
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideEditorExtension(typeof(SarifEditorFactory), ".sarif", 128)]
-    [ProvideToolWindow(typeof(Microsoft.Sarif.Viewer.SarifToolWindow), Style = Microsoft.VisualStudio.Shell.VsDockStyle.Tabbed, Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
+    [ProvideToolWindow(typeof(SarifToolWindow), Style = VsDockStyle.Tabbed, Window = "3ae79031-e1bc-11d0-8f78-00a0c9110057")]
+    [ProvideService(typeof(SLoadSarifLogService))]
     public sealed class SarifViewerPackage : Package
     {
         public static DTE2 Dte;
@@ -100,6 +102,9 @@ namespace Microsoft.Sarif.Viewer
             OpenLogFileCommands.Initialize(this);
             base.Initialize();
 
+            ServiceCreatorCallback callback = new ServiceCreatorCallback(CreateService);
+            ((IServiceContainer)this).AddService(typeof(SLoadSarifLogService), callback, true);
+
             string path = Assembly.GetExecutingAssembly().Location;
             var configMap = new ExeConfigurationFileMap();
             configMap.ExeConfigFilename = Path.Combine(Path.GetDirectoryName(path), "App.config");
@@ -122,10 +127,15 @@ namespace Microsoft.Sarif.Viewer
             RegisterEditorFactory(_sarifEditorFactory);
 
             CodeAnalysisResultManager.Instance.Register();
-            Microsoft.Sarif.Viewer.SarifToolWindowCommand.Initialize(this);
-            Microsoft.Sarif.Viewer.ErrorList.ErrorListCommand.Initialize(this);
+            SarifToolWindowCommand.Initialize(this);
+            ErrorList.ErrorListCommand.Initialize(this);
         }
 
         #endregion
+
+        private object CreateService(IServiceContainer container, Type serviceType)
+        {
+            return (typeof(SLoadSarifLogService) == serviceType) ? new LoadSarifLogService() : null;
+        }
     }
 }
