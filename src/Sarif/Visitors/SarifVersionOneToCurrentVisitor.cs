@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-       internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
+        internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
         {
             ExceptionData exceptionData = null;
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 exceptionData = new ExceptionData
                 {
-                    InnerExceptions = v1ExceptionData.InnerExceptions?.Select(e => CreateExceptionData(e)).ToList(),
+                    InnerExceptions = v1ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v1ExceptionData.Kind,
                     Message = v1ExceptionData.Message
                 };
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileData
                 {
-                    Hashes = v1FileData.Hashes?.Select(h => CreateHash(h)).ToList(),
+                    Hashes = v1FileData.Hashes?.Select(CreateHash).ToList(),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
@@ -142,8 +142,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                              IList<NotificationVersionOne> v1ConfigurationNotifications)
         {
             Invocation invocation = CreateInvocation(v1Invocation);
-            IList<Notification> toolNotifications = v1ToolNotifications?.Select(n => CreateNotification(n)).ToList();
-            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(n => CreateNotification(n)).ToList(); ;
+            IList<Notification> toolNotifications = v1ToolNotifications?.Select(CreateNotification).ToList();
+            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList(); ;
 
             if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
             {
@@ -191,26 +191,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        internal Location CreateLocation(LocationVersionOne v1Location)
-        {
-            Location location = null;
-
-            if (v1Location != null)
-            {
-                location = new Location
-                {
-                    FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
-                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
-                    Properties = v1Location.Properties
-                };
-
-                location.SetProperty($"{FromPropertyBagPrefix}/analysisTarget", v1Location.AnalysisTarget);
-                location.SetProperty($"{FromPropertyBagPrefix}/decoratedName", v1Location.DecoratedName);
-            }
-
-            return location;
-        }
-
+        /// <summary>
+        /// This overload of CreateLocation is used by CreateStackFrame to assemble
+        /// a location object from a bunch of individual properties.
+        /// </summary>
         internal Location CreateLocation(string fullyQualifiedLogicalName,
                                          string logicalLocationKey,
                                          string message,
@@ -224,11 +208,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Message = CreateMessage(message)
             };
 
-            if (string.IsNullOrWhiteSpace(logicalLocationKey) &&
-                !string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+            if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
             {
-                LogicalLocation logicalLocation = CreateLogicalLocation(fullyQualifiedLogicalName);
-                location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+                if (string.IsNullOrWhiteSpace(logicalLocationKey))
+                {
+                    LogicalLocation logicalLocation = CreateLogicalLocation(fullyQualifiedLogicalName);
+                    location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+                }
+                else
+                {
+                    location.FullyQualifiedLogicalName = logicalLocationKey;
+                }
             }
 
             if (uri != null)
@@ -262,15 +252,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null, string decoratedName = null)
         {
-            var logicalLocation = new LogicalLocation
+            return new LogicalLocation
             {
                 DecoratedName = decoratedName,
                 FullyQualifiedName = fullyQualifiedLogicalName,
                 Name = GetLogicalLocationName(fullyQualifiedLogicalName),
                 ParentKey = parentKey
             };
-
-            return logicalLocation;
         }
 
         internal string AddLogicalLocation(LogicalLocation logicalLocation)
@@ -284,7 +272,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string logicalLocationKey = logicalLocation.FullyQualifiedName;
             int disambiguator = 0;
 
-            // We need to do the comparison here too
             while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
             {
                 LogicalLocation logLoc = _currentRun.LogicalLocations[logicalLocationKey].DeepClone();
@@ -296,14 +283,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     break;
                 }
 
-                logicalLocationKey = logicalLocation.FullyQualifiedName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
+                logicalLocationKey = Utilities.CreateDisambiguatedName(logicalLocation.FullyQualifiedName, disambiguator);
                 disambiguator++;
             }
 
             if (!_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
             {
                 _currentRun.LogicalLocations.Add(logicalLocationKey, logicalLocation);
-                FixUpLogicalLocation(logicalLocationKey);
+                RemoveRedundantProperties(logicalLocationKey);
             }
 
             return logicalLocationKey;
@@ -316,19 +303,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 throw new ArgumentNullException(nameof(fullyQualifiedLogicalName));
             }
 
-            return fullyQualifiedLogicalName.Split(Utilities.FullyQualifiedNameDelimiters,
+            return fullyQualifiedLogicalName.Split(Utilities.DefaultFullyQualifiedNameDelimiters,
                                                    StringSplitOptions.RemoveEmptyEntries).Last();
         }
 
-        internal void FixUpAllLogicalLocations()
+        internal void RemoveRedundantLogicalLocationProperties()
         {
             foreach (string key in _currentRun.LogicalLocations.Keys)
             {
-                FixUpLogicalLocation(key);
+                RemoveRedundantProperties(key);
             }
         }
 
-        internal void FixUpLogicalLocation(string key)
+        internal void RemoveRedundantProperties(string key)
         {
             LogicalLocation logicalLocation = _currentRun.LogicalLocations[key];
 
@@ -347,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Message message = null;
 
-            if (!string.IsNullOrWhiteSpace(text))
+            if (text != null)
             {
                 message = new Message
                 {
@@ -548,7 +535,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
                     }
 
-                    FixUpAllLogicalLocations();
+                    RemoveRedundantLogicalLocationProperties();
                 }
 
                 // Even if there is no v1 invocation, there may be notifications
@@ -592,7 +579,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Message = CreateMessage(v1Stack.Message),
                     Properties = v1Stack.Properties,
-                    Frames = v1Stack.Frames?.Select(f => CreateStackFrame(f)).ToList()
+                    Frames = v1Stack.Frames?.Select(CreateStackFrame).ToList()
                 };
             }
 

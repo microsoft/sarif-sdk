@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -18,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { SarifVersion.TwoZeroZero, "sarifv2" }
         };
 
-        public static readonly string[] FullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
+        public static readonly string[] DefaultFullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
 
         public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
         {
@@ -86,6 +87,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
+
+        public static string CreateDisambiguatedName(string baseName, int index)
+        {
+            return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
+        }
 
         public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
         {
