@@ -114,6 +114,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileLocation;
         }
 
+        internal FileLocation CreateFileLocation(PhysicalLocationVersionOne v1PhysicalLocation)
+        {
+            FileLocation fileLocation = null;
+
+            if (v1PhysicalLocation?.Uri != null)
+            {
+                fileLocation = new FileLocation
+                {
+                    Uri = v1PhysicalLocation.Uri,
+                    UriBaseId = v1PhysicalLocation.UriBaseId
+                };
+            }
+
+            return fileLocation;
+        }
+
         internal Hash CreateHash(HashVersionOne v1Hash)
         {
             Hash hash = null;
@@ -203,8 +219,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Location.Properties
                 };
 
-                location.SetProperty($"{FromPropertyBagPrefix}/analysisTarget", v1Location.AnalysisTarget);
-                location.SetProperty($"{FromPropertyBagPrefix}/decoratedName", v1Location.DecoratedName);
+                if (_currentRun.LogicalLocations.ContainsKey(location.FullyQualifiedLogicalName))
+                {
+                    _currentRun.LogicalLocations[location.FullyQualifiedLogicalName].DecoratedName = v1Location.DecoratedName;
+                }
             }
 
             return location;
@@ -495,6 +513,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 result = new Result
                 {
+                    AnalysisTarget = CreateFileLocation(v1Result.Locations?[0]?.AnalysisTarget),
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     Id = v1Result.Id,
                     Level = Utilities.CreateResultLevel(v1Result.Level),

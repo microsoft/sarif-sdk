@@ -1009,7 +1009,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""offset"": 254
                                 }
                               },
-                              ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                              ""fullyQualifiedLogicalName"": ""collections::list::add"",
                               ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
                             }
                           ]
@@ -1045,6 +1045,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""logicalLocations"": {
         ""collections::list::add"": {
           ""name"": ""add"",
+          ""decoratedName"": ""?add@list@collections@@QAEXH@Z"",
           ""parentKey"": ""collections::list"",
           ""kind"": ""function""
         },
@@ -1062,6 +1063,9 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""ruleId"": ""C2001"",
           ""level"": ""error"",
           ""ruleMessageId"": ""default"",
+          ""analysisTarget"": {
+            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+          },
           ""locations"": [
             {
               ""physicalLocation"": {
@@ -1077,11 +1081,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""length"": 1
                 }
               },
-              ""fullyQualifiedLogicalName"": ""collections::list:add"",
-              ""properties"": {
-                ""sarifv1/analysisTarget"": {""uri"":""file:///home/buildAgent/src/collections/list.cpp""},
-                ""sarifv1/decoratedName"": ""?add@list@collections@@QAEXH@Z""
-              }
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
             }
           ],
           ""suppressionStates"": [""suppressedExternally""],
