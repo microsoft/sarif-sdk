@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -210,14 +209,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             LogicalLocation logicalLocation;
 
-            if (!string.IsNullOrWhiteSpace(logicalLocationKey))
+            if (!string.IsNullOrWhiteSpace(logicalLocationKey) &&
+                _currentRun.LogicalLocations.TryGetValue(logicalLocationKey, out logicalLocation))
             {
-                if (_currentRun.LogicalLocations.TryGetValue(logicalLocationKey, out logicalLocation))
-                {
-                    logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
-                    logicalLocation.Name = GetLogicalLocationName(fullyQualifiedLogicalName);
-                    location.FullyQualifiedLogicalName = logicalLocationKey;
-                }
+                logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
+                logicalLocation.Name = GetLogicalLocationName(fullyQualifiedLogicalName);
+                location.FullyQualifiedLogicalName = logicalLocationKey;
             }
             else if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
             {
