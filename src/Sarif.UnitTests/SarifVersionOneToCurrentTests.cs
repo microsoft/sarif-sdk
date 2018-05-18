@@ -37,8 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -76,8 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     },
                     {
                       ""tool"": {
@@ -947,6 +945,169 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_BasicResult()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""logicalLocations"": {
+                        ""collections::list::add"": {
+                          ""name"": ""add"",
+                          ""kind"": ""function"",
+                          ""parentKey"": ""collections::list""
+                        },
+                        ""collections::list"": {
+                          ""name"": ""list"",
+                          ""kind"": ""type"",
+                          ""parentKey"": ""collections""
+                        },
+                        ""collections"": {
+                          ""name"": ""collections"",
+                          ""kind"": ""namespace""
+                        }
+                      },
+                      ""results"": [
+                        {
+                          ""ruleId"": ""C2001"",
+                          ""formattedRuleMessage"": {
+                            ""formatId"": ""default"",
+                            ""arguments"": [
+                              ""ptr""
+                            ]
+                          },
+                          ""suppressionStates"": [ ""suppressedExternally"" ],
+                          ""baselineState"": ""existing"",
+                          ""level"": ""error"",
+                          ""snippet"": ""add_core(ptr, offset, val);\n    return;"",
+                          ""locations"": [
+                            {
+                              ""analysisTarget"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+                              },
+                              ""resultFile"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                                ""region"": {
+                                  ""startLine"": 15,
+                                  ""startColumn"": 9,
+                                  ""endLine"": 15,
+                                  ""endColumn"": 10,
+                                  ""length"": 1,
+                                  ""offset"": 254
+                                }
+                              },
+                              ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+                            }
+                          ]
+		                }
+                      ],
+                      ""rules"": {
+                        ""C2001"": {
+                          ""id"": ""C2001"",
+                          ""shortDescription"": ""A variable was used without being initialized."",
+                          ""fullDescription"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",
+                          ""messageFormats"": {
+                            ""default"": ""Variable \""{0}\"" was used without being initialized.""
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""parentKey"": ""collections::list"",
+          ""kind"": ""function""
+        },
+        ""collections::list"": {
+          ""name"": ""list"",
+          ""parentKey"": ""collections"",
+          ""kind"": ""type""
+        },
+        ""collections"": {
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""level"": ""error"",
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 15,
+                  ""startColumn"": 9,
+                  ""endLine"": 15,
+                  ""endColumn"": 10,
+                  ""offset"": 254,
+                  ""length"": 1
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list:add"",
+              ""properties"": {
+                ""sarifv1/analysisTarget"": {""uri"":""file:///home/buildAgent/src/collections/list.cpp""},
+                ""sarifv1/decoratedName"": ""?add@list@collections@@QAEXH@Z""
+              }
+            }
+          ],
+          ""suppressionStates"": [""suppressedExternally""],
+          ""baselineState"": ""existing"",
+          ""properties"": {
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]},
+            ""sarifv1/snippet"": ""add_core(ptr, offset, val);\n    return;""
+          }
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""C2001"": {
+            ""id"": ""C2001"",
+            ""shortDescription"": {
+              ""text"": ""A variable was used without being initialized.""
+            },
+            ""fullDescription"": {
+              ""text"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Variable \""{0}\"" was used without being initialized.""
+            }
+          }
+        }
+      }
     }
   ]
 }";
