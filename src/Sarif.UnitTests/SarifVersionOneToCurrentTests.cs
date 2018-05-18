@@ -84,8 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""AssetScanner"",
                         ""semanticVersion"": ""1.7.2""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -195,8 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -226,7 +224,6 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""kind"": ""type""
         },
         ""collections"": {
-          ""name"": ""collections"",
           ""kind"": ""namespace""
         }
       },
@@ -276,8 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -372,8 +368,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -473,8 +468,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -590,8 +584,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -694,8 +687,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -767,12 +759,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""module"": ""RuleLibrary"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
-                                  ""address"": 10092852
+                                  ""uri"": ""file:///C:/src/main.cs"",
+                                  ""address"": 10092852,
+                                  ""line"": 15,
+                                  ""column"": 9
+                                },
+                                {
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register"",
+                                  ""uri"": ""file:///C:/src/main.cs"",
+                                  ""address"": 1002485
                                 },
                                 {
                                   ""module"": ""ExecutionEngine"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""uri"": ""file:///C:/src/utils.cs"",
+                                  ""address"": 10073356,
+                                  ""offset"": 10475
+                                },
+                                {
+                                  ""module"": ""ExecutionEngine"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""logicalLocationKey"": ""ExecutionEngine.Engine.FooBar"",
+                                  ""uri"": ""file:///C:/src/foobar.cs"",
                                   ""address"": 10073356,
                                   ""offset"": 10475
                                 }
@@ -787,12 +799,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                           }
                         }
                       ],
+                      ""logicalLocations"": {
+                        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+                          ""name"": ""Evaluate"",
+                          ""kind"": ""some kind""
+                        },
+                        ""Rules.SecureHashAlgorithmRule.Register"": {
+                          ""name"": ""InvalidName""
+                        },
+                        ""ExecutionEngine.Engine.FooBar"": {
+                          ""name"": ""FooBar"",
+                          ""kind"": ""another kind""
+                        }
+                      },
                       ""tool"": {
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -828,11 +852,61 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""frames"": [
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""startColumn"": 9
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                        ""message"": {
+                          ""text"": ""Exception thrown""
+                        }
+                      },
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
                       ""address"": 10092852
                     },
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 1002485
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/utils.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/foobar.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.FooBar""
+                      },
                       ""module"": ""ExecutionEngine"",
                       ""threadId"": 52,
                       ""address"": 10073356,
@@ -851,6 +925,27 @@ namespace Microsoft.CodeAnalysis.Sarif
           ]
         }
       ],
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
       ""results"": []
     }
   ]

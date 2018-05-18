@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -11,7 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private static readonly SarifVersion FromSarifVersion = SarifVersion.OneZeroZero;
         private static readonly string FromPropertyBagPrefix =
-            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+            Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+
+        private Run _currentRun = null;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -29,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public static ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
+        internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
         {
             ExceptionData exceptionData = null;
 
@@ -37,19 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 exceptionData = new ExceptionData
                 {
+                    InnerExceptions = v1ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v1ExceptionData.Kind,
                     Message = v1ExceptionData.Message
                 };
-
-                if (v1ExceptionData.InnerExceptions != null)
-                {
-                    exceptionData.InnerExceptions = new List<ExceptionData>();
-
-                    foreach (ExceptionDataVersionOne edvo in v1ExceptionData.InnerExceptions)
-                    {
-                        exceptionData.InnerExceptions.Add(CreateExceptionData(edvo));
-                    }
-                }
 
                 if (v1ExceptionData.Stack != null)
                 {
@@ -60,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return exceptionData;
         }
 
-        public static FileData CreateFileData(FileDataVersionOne v1FileData)
+        internal FileData CreateFileData(FileDataVersionOne v1FileData)
         {
             FileData fileData = null;
 
@@ -68,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileData
                 {
+                    Hashes = v1FileData.Hashes?.Select(CreateHash).ToList(),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
@@ -88,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileData.Contents = new FileContent();
 
-                    if (SarifTransformerUtilities.TextMimeTypes.Contains(v1FileData.MimeType))
+                    if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
                     {
                         fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
                     }
@@ -97,29 +93,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         fileData.Contents.Binary = v1FileData.Contents;
                     }
                 }
-
-                if (v1FileData.Hashes != null)
-                {
-                    fileData.Hashes = new List<Hash>();
-
-                    foreach (HashVersionOne hash in v1FileData.Hashes)
-                    {
-                        fileData.Hashes.Add(CreateHash(hash));
-                    }
-                }
             }
 
             return fileData;
         }
 
-        public static Hash CreateHash(HashVersionOne v1Hash)
+        internal FileLocation CreateFileLocation(Uri uri, string uriBaseId)
+        {
+            FileLocation fileLocation = null;
+
+            if (uri != null)
+            {
+                fileLocation = new FileLocation
+                {
+                    Uri = uri,
+                    UriBaseId = uriBaseId
+                };
+            }
+
+            return fileLocation;
+        }
+
+        internal Hash CreateHash(HashVersionOne v1Hash)
         {
             Hash hash = null;
 
             if (v1Hash != null)
             {
                 string algorithm;
-                if (!SarifTransformerUtilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
+                if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
                 {
                     algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
                 }
@@ -134,14 +136,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
-        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation,
-                                           IEnumerable<NotificationVersionOne> v1ToolNotifications,
-                                           IEnumerable<NotificationVersionOne> v1ConfigurationNotifications,
-                                           Run run)
+        internal Invocation CreateInvocation(InvocationVersionOne v1Invocation,
+                                             IList<NotificationVersionOne> v1ToolNotifications,
+                                             IList<NotificationVersionOne> v1ConfigurationNotifications)
         {
-            Invocation invocation = CreateInvocation(v1Invocation, run);
-            IList<Notification> toolNotifications = CreateNotificationsList(v1ToolNotifications);
-            IList<Notification> configurationNotifications = CreateNotificationsList(v1ConfigurationNotifications);
+            Invocation invocation = CreateInvocation(v1Invocation);
+            IList<Notification> toolNotifications = v1ToolNotifications?.Select(CreateNotification).ToList();
+            IList<Notification> configurationNotifications = v1ConfigurationNotifications?.Select(CreateNotification).ToList(); ;
 
             if (toolNotifications?.Count > 0 || configurationNotifications?.Count > 0)
             {
@@ -157,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public static Invocation CreateInvocation(InvocationVersionOne v1Invocation, Run run)
+        internal Invocation CreateInvocation(InvocationVersionOne v1Invocation)
         {
             Invocation invocation = null;
 
@@ -172,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Machine = v1Invocation.Machine,
                     ProcessId = v1Invocation.ProcessId,
                     Properties = v1Invocation.Properties,
-                    ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles, run),
+                    ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
                     StartTime = v1Invocation.StartTime,
                     WorkingDirectory = v1Invocation.WorkingDirectory
                 };
@@ -189,7 +190,51 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        public static LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
+        /// <summary>
+        /// This overload of CreateLocation is used by CreateStackFrame to assemble
+        /// a location object from a bunch of individual properties.
+        /// </summary>
+        internal Location CreateLocation(string fullyQualifiedLogicalName,
+                                         string logicalLocationKey,
+                                         string message,
+                                         Uri uri,
+                                         string uriBaseId,
+                                         int column,
+                                         int line)
+        {
+            var location = new Location
+            {
+                Message = CreateMessage(message)
+            };
+
+            LogicalLocation logicalLocation;
+
+            if (!string.IsNullOrWhiteSpace(logicalLocationKey) &&
+                _currentRun.LogicalLocations.TryGetValue(logicalLocationKey, out logicalLocation))
+            {
+                logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
+                logicalLocation.Name = GetLogicalLocationName(fullyQualifiedLogicalName);
+                location.FullyQualifiedLogicalName = logicalLocationKey;
+            }
+            else if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+            {
+                logicalLocation = CreateLogicalLocation(fullyQualifiedLogicalName);
+                location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+            }
+
+            if (uri != null)
+            {
+                location.PhysicalLocation = new PhysicalLocation
+                {
+                    FileLocation = CreateFileLocation(uri, uriBaseId),
+                    Region = CreateRegion(column, line)
+                };
+            }
+
+            return location;
+        }
+
+        internal LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
         {
             LogicalLocation logicalLocation = null;
 
@@ -206,24 +251,105 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        public static IList<Notification> CreateNotificationsList(IEnumerable<NotificationVersionOne> v1Notifications)
+        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null, string decoratedName = null, string kind = null)
         {
-            List<Notification> notifications = null;
-
-            if (v1Notifications != null)
+            return new LogicalLocation
             {
-                notifications = new List<Notification>();
-
-                foreach (NotificationVersionOne notification in v1Notifications)
-                {
-                    notifications.Add(CreateNotification(notification));
-                }
-            }
-
-            return notifications;
+                DecoratedName = decoratedName,
+                FullyQualifiedName = fullyQualifiedLogicalName,
+                Name = GetLogicalLocationName(fullyQualifiedLogicalName),
+                ParentKey = parentKey
+            };
         }
 
-        public static Notification CreateNotification(NotificationVersionOne v1Notification)
+        internal string AddLogicalLocation(LogicalLocation logicalLocation)
+        {
+            if (_currentRun.LogicalLocations == null)
+            {
+                _currentRun.LogicalLocations = new Dictionary<string, LogicalLocation>();
+            }
+
+            string fullyQualifiedName = logicalLocation.FullyQualifiedName;
+            string logicalLocationKey = logicalLocation.FullyQualifiedName;
+            int disambiguator = 0;
+
+            while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
+            {
+                LogicalLocation logLoc = _currentRun.LogicalLocations[logicalLocationKey].DeepClone();
+                logLoc.FullyQualifiedName = logLoc.FullyQualifiedName ?? fullyQualifiedName;
+                logLoc.Name = logLoc.Name ?? GetLogicalLocationName(logLoc.FullyQualifiedName);
+
+                // Compare only FQN and Name, since Kind, ParentKey, and DecoratedName on
+                // our new LogicalLocation don't have values for those properties
+                if (logicalLocation.FullyQualifiedName == logLoc.FullyQualifiedName &&
+                    logicalLocation.Name == logLoc.Name)
+                {
+                    break;
+                }
+
+                logicalLocationKey = Utilities.CreateDisambiguatedName(fullyQualifiedName, disambiguator);
+                disambiguator++;
+            }
+
+            if (!_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
+            {
+                _currentRun.LogicalLocations.Add(logicalLocationKey, logicalLocation);
+                RemoveRedundantProperties(logicalLocationKey);
+            }
+
+            return logicalLocationKey;
+        }
+
+        internal string GetLogicalLocationName(string fullyQualifiedLogicalName)
+        {
+            if (string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+            {
+                throw new ArgumentNullException(nameof(fullyQualifiedLogicalName));
+            }
+
+            return fullyQualifiedLogicalName.Split(Utilities.DefaultFullyQualifiedNameDelimiters,
+                                                   StringSplitOptions.RemoveEmptyEntries).Last();
+        }
+
+        internal void RemoveRedundantLogicalLocationProperties()
+        {
+            foreach (string key in _currentRun.LogicalLocations.Keys)
+            {
+                RemoveRedundantProperties(key);
+            }
+        }
+
+        internal void RemoveRedundantProperties(string key)
+        {
+            LogicalLocation logicalLocation = _currentRun.LogicalLocations[key];
+
+            if (logicalLocation.FullyQualifiedName == key)
+            {
+                logicalLocation.FullyQualifiedName = null;
+            }
+
+            if (logicalLocation.Name == key)
+            {
+                logicalLocation.Name = null;
+            }
+        }
+
+        internal Message CreateMessage(string text)
+        {
+            Message message = null;
+
+            if (text != null)
+            {
+                message = new Message
+                {
+                    Text = text
+                };
+            }
+
+            return message;
+        }
+
+        internal Notification CreateNotification(NotificationVersionOne v1Notification)
         {
             Notification notification = null;
 
@@ -233,26 +359,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
                     Id = v1Notification.Id,
-                    Level = SarifTransformerUtilities.CreateNotificationLevel(v1Notification.Level),
+                    Level = Utilities.CreateNotificationLevel(v1Notification.Level),
+                    Message = CreateMessage(v1Notification.Message),
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
                     ThreadId = v1Notification.ThreadId,
                     Time = v1Notification.Time
                 };
-
-                if (!string.IsNullOrWhiteSpace(v1Notification.Message))
-                {
-                    notification.Message = new Message
-                    {
-                        Text = v1Notification.Message
-                    };
-                }
             }
 
             return notification;
         }
 
-        private static IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary, Run run)
+        internal IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary)
         {
             List<FileLocation> fileLocations = null;
 
@@ -268,20 +387,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                     fileLocations.Add(fileLocation);
 
-                    if (run != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                    if (_currentRun != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
                     {
-                        // We have contents, so mention this file in run.files
-                        if (run.Files == null)
+                        // We have contents, so mention this file in _currentRun.files
+                        if (_currentRun.Files == null)
                         {
-                            run.Files = new Dictionary<string, FileData>();
+                            _currentRun.Files = new Dictionary<string, FileData>();
                         }
 
-                        if (!run.Files.ContainsKey(key))
+                        if (!_currentRun.Files.ContainsKey(key))
                         {
-                            run.Files.Add(key, new FileData());
+                            _currentRun.Files.Add(key, new FileData());
                         }
 
-                        FileData responseFile = run.Files[key];
+                        FileData responseFile = _currentRun.Files[key];
 
                         responseFile.Contents = new FileContent
                         {
@@ -295,7 +414,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileLocations;
         }
 
-        public static Rule CreateRule(RuleVersionOne v1Rule)
+        internal PhysicalLocation CreatePhysicalLocation(PhysicalLocationVersionOne v1PhysicalLocation)
+        {
+            PhysicalLocation physicalLocation = null;
+
+            if (v1PhysicalLocation != null)
+            {
+                physicalLocation = new PhysicalLocation
+                {
+                    FileLocation = CreateFileLocation(v1PhysicalLocation.Uri, v1PhysicalLocation.UriBaseId),
+                    Region = CreateRegion(v1PhysicalLocation.Region)
+                };
+            }
+
+            return physicalLocation;
+        }
+
+        internal Region CreateRegion(RegionVersionOne v1Region)
+        {
+            Region region = null;
+
+            if (v1Region != null)
+            {
+                region = CreateRegion(v1Region.StartColumn,
+                                      v1Region.StartLine,
+                                      v1Region.EndColumn,
+                                      v1Region.EndLine,
+                                      v1Region.Length,
+                                      v1Region.Offset);
+            }
+
+            return region;
+        }
+
+        internal Region CreateRegion(int startColumn, int startLine, int endColumn = 0, int endLine = 0, int length = 0, int offset = 0)
+        {
+            Region region = null;
+
+            if (startColumn > 0 || startLine > 0 || endColumn > 0 || endLine > 0 || length > 0 || offset > 0)
+            {
+                region = new Region
+                {
+                    EndColumn = endColumn,
+                    EndLine = endLine,
+                    Length = length,
+                    Offset = offset,
+                    StartColumn = startColumn,
+                    StartLine = startLine
+                };
+            }
+
+            return region;
+        }
+
+        internal Rule CreateRule(RuleVersionOne v1Rule)
         {
             Rule rule = null;
 
@@ -303,12 +475,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 rule = new Rule
                 {
+                    FullDescription = CreateMessage(v1Rule.FullDescription),
+                    HelpLocation = CreateFileLocation(v1Rule.HelpUri, null),
                     Id = v1Rule.Id,
                     MessageStrings = v1Rule.MessageFormats,
-                    Properties = v1Rule.Properties
+                    Name = CreateMessage(v1Rule.Name),
+                    Properties = v1Rule.Properties,
+                    ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                RuleConfigurationDefaultLevel level = SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                RuleConfigurationDefaultLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
                 if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
                     level != RuleConfigurationDefaultLevel.Warning)
@@ -319,44 +495,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
                     };
                 }
-
-                if (!string.IsNullOrWhiteSpace(v1Rule.Name))
-                {
-                    rule.Name = new Message
-                    {
-                        Text = v1Rule.Name
-                    };
-                }
-
-                if (!string.IsNullOrWhiteSpace(v1Rule.FullDescription))
-                {
-                    rule.FullDescription = new Message
-                    {
-                        Text = v1Rule.FullDescription
-                    };
-                }
-
-                if (!string.IsNullOrWhiteSpace(v1Rule.ShortDescription))
-                {
-                    rule.ShortDescription = new Message
-                    {
-                        Text = v1Rule.ShortDescription
-                    };
-                }
-
-                if (v1Rule.HelpUri != null)
-                {
-                    rule.HelpLocation = new FileLocation
-                    {
-                        Uri = v1Rule.HelpUri
-                    };
-                }
             }
 
             return rule;
         }
 
-        public static Run CreateRun(RunVersionOne v1Run)
+        internal Run CreateRun(RunVersionOne v1Run)
         {
             Run run = null;
 
@@ -374,6 +518,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Tool = CreateTool(v1Run.Tool)
                 };
 
+                _currentRun = run;
+
                 if (v1Run.Files != null)
                 {
                     run.Files = new Dictionary<string, FileData>();
@@ -384,21 +530,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                // Even if there is no v1 invocation, there may be notifications
-                // in which case we will need a v2 invocation to contain them
-                Invocation invocation = CreateInvocation(v1Run.Invocation,
-                                                         v1Run.ToolNotifications,
-                                                         v1Run.ConfigurationNotifications,
-                                                         run);
-
-                if (invocation != null)
-                {
-                    run.Invocations = new List<Invocation>()
-                    {
-                        invocation
-                    };
-                }
-
                 if (v1Run.LogicalLocations != null)
                 {
                     run.LogicalLocations = new Dictionary<string, LogicalLocation>();
@@ -407,6 +538,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
                     }
+
+                    RemoveRedundantLogicalLocationProperties();
+                }
+
+                // Even if there is no v1 invocation, there may be notifications
+                // in which case we will need a v2 invocation to contain them
+                Invocation invocation = CreateInvocation(v1Run.Invocation,
+                                                         v1Run.ToolNotifications,
+                                                         v1Run.ConfigurationNotifications);
+
+                if (invocation != null)
+                {
+                    run.Invocations = new List<Invocation>()
+                    {
+                        invocation
+                    };
                 }
 
                 if (v1Run.Rules != null)
@@ -426,7 +573,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
-        public static Stack CreateStack(StackVersionOne v1Stack)
+        internal Stack CreateStack(StackVersionOne v1Stack)
         {
             Stack stack = null;
 
@@ -434,32 +581,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stack = new Stack
                 {
-                    Properties = v1Stack.Properties
+                    Message = CreateMessage(v1Stack.Message),
+                    Properties = v1Stack.Properties,
+                    Frames = v1Stack.Frames?.Select(CreateStackFrame).ToList()
                 };
-
-                if (!string.IsNullOrWhiteSpace(v1Stack.Message))
-                {
-                    stack.Message = new Message
-                    {
-                        Text = v1Stack.Message
-                    };
-                }
-
-                if (v1Stack.Frames != null)
-                {
-                    stack.Frames = new List<StackFrame>();
-
-                    foreach (StackFrameVersionOne v1StackFrame in v1Stack.Frames)
-                    {
-                        stack.Frames.Add(CreateStackFrame(v1StackFrame));
-                    }
-                }
             }
 
             return stack;
         }
 
-        public static StackFrame CreateStackFrame(StackFrameVersionOne v1StackFrame)
+        internal StackFrame CreateStackFrame(StackFrameVersionOne v1StackFrame)
         {
             StackFrame stackFrame = null;
 
@@ -476,10 +607,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
+            stackFrame.Location = CreateLocation(v1StackFrame.FullyQualifiedLogicalName,
+                                                 v1StackFrame.LogicalLocationKey,
+                                                 v1StackFrame.Message,
+                                                 v1StackFrame.Uri,
+                                                 v1StackFrame.UriBaseId,
+                                                 v1StackFrame.Column,
+                                                 v1StackFrame.Line);
+
             return stackFrame;
         }
 
-        public static Tool CreateTool(ToolVersionOne v1Tool)
+        internal Tool CreateTool(ToolVersionOne v1Tool)
         {
             Tool tool = null;
 

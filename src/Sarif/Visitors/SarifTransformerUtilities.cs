@@ -1,7 +1,9 @@
 ﻿// Copyright(c) Microsoft.All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -16,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { SarifVersion.OneZeroZero, "sarifv1" },
             { SarifVersion.TwoZeroZero, "sarifv2" }
         };
+
+        public static readonly string[] DefaultFullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
 
         public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
         {
@@ -84,6 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
 
+        public static string CreateDisambiguatedName(string baseName, int index)
+        {
+            return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
+        }
+
         public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
         {
             if (holder.Properties != null)
@@ -134,21 +143,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return RuleConfigurationDefaultLevel.Warning;
                 default:
                     return RuleConfigurationDefaultLevel.Warning;
-            }
-        }
-
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
-        {
-            switch (v2DefaultLevel)
-            {
-                case RuleConfigurationDefaultLevel.Error:
-                    return ResultLevelVersionOne.Error;
-                case RuleConfigurationDefaultLevel.Note:
-                    return ResultLevelVersionOne.Pass;
-                case RuleConfigurationDefaultLevel.Warning:
-                    return ResultLevelVersionOne.Warning;
-                default:
-                    return ResultLevelVersionOne.Warning;
             }
         }
     }
