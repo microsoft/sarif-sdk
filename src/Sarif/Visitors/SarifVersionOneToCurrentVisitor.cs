@@ -190,6 +190,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
+        internal Location CreateLocation(LocationVersionOne v1Location)
+        {
+            Location location = null;
+
+            if (v1Location != null)
+            {
+                location = new Location
+                {
+                    FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
+                    Properties = v1Location.Properties
+                };
+
+                location.SetProperty($"{FromPropertyBagPrefix}/analysisTarget", v1Location.AnalysisTarget);
+                location.SetProperty($"{FromPropertyBagPrefix}/decoratedName", v1Location.DecoratedName);
+            }
+
+            return location;
+        }
+
         /// <summary>
         /// This overload of CreateLocation is used by CreateStackFrame to assemble
         /// a location object from a bunch of individual properties.
@@ -467,6 +487,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
+        internal Result CreateResult(ResultVersionOne v1Result)
+        {
+            Result result = null;
+
+            if (v1Result != null)
+            {
+                result = new Result
+                {
+                    BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
+                    Id = v1Result.Id,
+                    Level = Utilities.CreateResultLevel(v1Result.Level),
+                    Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
+                    Message = CreateMessage(v1Result.Message),
+                    Properties = v1Result.Properties,
+                    RuleId = v1Result.RuleId,
+                    RuleMessageId = v1Result.FormattedRuleMessage.FormatId,
+                    Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
+                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates),
+                };
+
+                // TODO: transfer formatted rule messages
+
+
+                if (!string.IsNullOrWhiteSpace(v1Result.ToolFingerprintContribution))
+                {
+                    result.PartialFingerprints = new Dictionary<string, string>
+                    {
+                        { "Fingerprint", v1Result.ToolFingerprintContribution }
+                    };
+                }
+
+                // *** Stash un-transferred properties in the property bag *** \\
+
+                if (v1Result.FormattedRuleMessage != null)
+                {
+                    // Only the formattedRuleMessage.formatId property is used above
+                    result.SetProperty($"{FromPropertyBagPrefix}/formattedRuleMessage", v1Result.FormattedRuleMessage);
+                }
+
+                if (!string.IsNullOrWhiteSpace(v1Result.Snippet))
+                {
+                    result.SetProperty($"{FromPropertyBagPrefix}/snippet", v1Result.Snippet);
+                }
+            }
+
+            return result;
+        }
+
         internal Rule CreateRule(RuleVersionOne v1Rule)
         {
             Rule rule = null;
@@ -554,6 +622,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         invocation
                     };
+                }
+
+                foreach (ResultVersionOne v1Result in v1Run.Results)
+                {
+                    run.Results.Add(CreateResult(v1Result));
                 }
 
                 if (v1Run.Rules != null)
