@@ -276,6 +276,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
             {
                 LogicalLocation logLoc = _currentRun.LogicalLocations[logicalLocationKey].DeepClone();
+                logLoc.FullyQualifiedName = logLoc.FullyQualifiedName ?? fullyQualifiedName;
+                logLoc.Name = logLoc.Name ?? GetLogicalLocationName(logLoc.FullyQualifiedName);
 
                 // Compare only FQN and Name, since Kind, ParentKey, and DecoratedName on
                 // our new LogicalLocation don't have values for those properties

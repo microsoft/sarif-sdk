@@ -862,7 +862,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ""startColumn"": 9
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate-0"",
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
                         ""message"": {
                           ""text"": ""Exception thrown""
                         }
@@ -878,7 +878,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ""uri"": ""file:///C:/src/main.cs""
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register""
                       },
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
@@ -937,14 +937,6 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""name"": ""EvaluateRule"",
           ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
           ""kind"": ""another kind""
-        },
-        ""Rules.SecureHashAlgorithmRule.Evaluate-0"": {
-          ""name"": ""Evaluate"",
-          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Evaluate""
-        },
-        ""Rules.SecureHashAlgorithmRule.Register-0"": {
-          ""name"": ""Register"",
-          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
         },
         ""ExecutionEngine.Engine.EvaluateRule"": {
           ""name"": ""EvaluateRule""
