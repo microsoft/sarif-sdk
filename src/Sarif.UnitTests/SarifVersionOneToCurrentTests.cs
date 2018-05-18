@@ -805,7 +805,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""kind"": ""some kind""
                         },
                         ""Rules.SecureHashAlgorithmRule.Register"": {
-                          ""name"": ""Register""
+                          ""name"": ""InvalidName""
                         },
                         ""ExecutionEngine.Engine.FooBar"": {
                           ""name"": ""FooBar"",
@@ -878,7 +878,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ""uri"": ""file:///C:/src/main.cs""
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register""
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
                       },
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
@@ -931,12 +931,16 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""kind"": ""some kind""
         },
         ""Rules.SecureHashAlgorithmRule.Register"": {
-          ""name"": ""Register""
+          ""name"": ""InvalidName""
         },
         ""ExecutionEngine.Engine.FooBar"": {
           ""name"": ""EvaluateRule"",
           ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
           ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
         },
         ""ExecutionEngine.Engine.EvaluateRule"": {
           ""name"": ""EvaluateRule""
