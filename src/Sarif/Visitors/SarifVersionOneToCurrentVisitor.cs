@@ -219,9 +219,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Location.Properties
                 };
 
-                if (_currentRun.LogicalLocations.ContainsKey(location.FullyQualifiedLogicalName))
+                if (_currentRun.LogicalLocations?.ContainsKey(location.FullyQualifiedLogicalName) == true)
                 {
                     _currentRun.LogicalLocations[location.FullyQualifiedLogicalName].DecoratedName = v1Location.DecoratedName;
+                }
+                else
+                {
+                    LogicalLocation logicalLocation = CreateLogicalLocation(location.FullyQualifiedLogicalName,
+                                                                            decoratedName: v1Location.DecoratedName);
+                    location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
                 }
             }
 
@@ -460,7 +466,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocation
                 {
-                    FileLocation = CreateFileLocation(v1PhysicalLocation.Uri, v1PhysicalLocation.UriBaseId),
+                    FileLocation = CreateFileLocation(v1PhysicalLocation),
                     Region = CreateRegion(v1PhysicalLocation.Region)
                 };
             }
@@ -547,7 +553,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v1Result.Snippet))
                 {
-                    result.SetProperty($"{FromPropertyBagPrefix}/snippet", v1Result.Snippet);
+                    Region region = result.Locations?[0]?.PhysicalLocation?.Region;
+
+                    if (region != null)
+                    {
+                        region.Snippet = new FileContent
+                        {
+                            Text = v1Result.Snippet
+                        };
+
+                        region.Length = v1Result.Snippet.Length;
+                        region.StartColumn = 1;
+                        region.EndColumn = region.Length + 1;
+                    }
                 }
             }
 

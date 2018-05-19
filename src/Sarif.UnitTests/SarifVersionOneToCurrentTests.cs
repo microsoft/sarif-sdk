@@ -992,7 +992,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""suppressionStates"": [ ""suppressedExternally"" ],
                           ""baselineState"": ""existing"",
                           ""level"": ""error"",
-                          ""snippet"": ""add_core(ptr, offset, val);\n    return;"",
+                          ""snippet"": ""add_core(ptr, offset, val);"",
                           ""locations"": [
                             {
                               ""analysisTarget"": {
@@ -1001,12 +1001,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                               ""resultFile"": {
                                 ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                                 ""region"": {
-                                  ""startLine"": 15,
-                                  ""startColumn"": 9,
-                                  ""endLine"": 15,
-                                  ""endColumn"": 10,
-                                  ""length"": 1,
-                                  ""offset"": 254
+                                  ""startLine"": 1,
+                                  ""startColumn"": 1,
+                                  ""endLine"": 1,
+                                  ""endColumn"": 1
                                 }
                               },
                               ""fullyQualifiedLogicalName"": ""collections::list::add"",
@@ -1073,12 +1071,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///home/buildAgent/src/collections/list.h""
                 },
                 ""region"": {
-                  ""startLine"": 15,
-                  ""startColumn"": 9,
-                  ""endLine"": 15,
-                  ""endColumn"": 10,
-                  ""offset"": 254,
-                  ""length"": 1
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27,
+                  ""snippet"": {
+                    ""text"": ""add_core(ptr, offset, val);""
+                  }
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add""
@@ -1087,8 +1087,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""suppressionStates"": [""suppressedExternally""],
           ""baselineState"": ""existing"",
           ""properties"": {
-            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]},
-            ""sarifv1/snippet"": ""add_core(ptr, offset, val);\n    return;""
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]}
           }
         }
       ],
