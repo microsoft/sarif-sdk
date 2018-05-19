@@ -553,15 +553,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v1Result.Snippet))
                 {
-                    Region region = result.Locations?[0]?.PhysicalLocation?.Region;
-
-                    if (region != null)
+                    if (result.Locations == null)
                     {
-                        region.Snippet = new FileContent
-                        {
-                            Text = v1Result.Snippet
-                        };
+                        result.Locations = new List<Location>();
                     }
+
+                    if (result.Locations.Count == 0)
+                    {
+                        result.Locations.Add(new Location());
+                    }
+
+                    if (result.Locations[0].PhysicalLocation == null)
+                    {
+                        result.Locations[0].PhysicalLocation = new PhysicalLocation();
+                    }
+
+                    if (result.Locations[0].PhysicalLocation.Region == null)
+                    {
+                        result.Locations[0].PhysicalLocation.Region = new Region();
+                    }
+
+                    result.Locations[0].PhysicalLocation.Region.Snippet = new FileContent
+                    {
+                        Text = v1Result.Snippet
+                    };
                 }
             }
 
