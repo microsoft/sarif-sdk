@@ -145,5 +145,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return RuleConfigurationDefaultLevel.Warning;
             }
         }
+
+        public static ResultLevel CreateResultLevel(ResultLevelVersionOne v1ResultLevel)
+        {
+            switch (v1ResultLevel)
+            {
+                case ResultLevelVersionOne.Error:
+                    return ResultLevel.Error;
+                case ResultLevelVersionOne.Note:
+                    return ResultLevel.Note;
+                case ResultLevelVersionOne.Pass:
+                    return ResultLevel.Pass;
+                case ResultLevelVersionOne.Warning:
+                    return ResultLevel.Warning;
+                case ResultLevelVersionOne.NotApplicable:
+                    return ResultLevel.NotApplicable;
+                default:
+                    return ResultLevel.Default;
+            }
+        }
+
+        public static SuppressionStates CreateSuppressionStates(SuppressionStatesVersionOne v1SuppressionStates)
+        {
+            switch (v1SuppressionStates)
+            {
+                case SuppressionStatesVersionOne.SuppressedExternally:
+                    return SuppressionStates.SuppressedExternally;
+                case SuppressionStatesVersionOne.SuppressedInSource:
+                    return SuppressionStates.SuppressedInSource;
+                default:
+                    return SuppressionStates.None;
+            }
+        }
+
+        public static BaselineState CreateBaselineState(BaselineStateVersionOne v1BaselineState)
+        {
+            switch (v1BaselineState)
+            {
+                case BaselineStateVersionOne.Absent:
+                    return BaselineState.Absent;
+                case BaselineStateVersionOne.Existing:
+                    return BaselineState.Existing;
+                case BaselineStateVersionOne.New:
+                    return BaselineState.New;
+                default:
+                    return BaselineState.None;
+            }
+        }
     }
 }
