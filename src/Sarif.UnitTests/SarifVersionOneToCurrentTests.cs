@@ -1004,7 +1004,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""startLine"": 1,
                                   ""startColumn"": 1,
                                   ""endLine"": 1,
-                                  ""endColumn"": 1
+                                  ""endColumn"": 28,
+                                  ""length"": 27
                                 }
                               },
                               ""fullyQualifiedLogicalName"": ""collections::list::add"",

@@ -561,10 +561,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             Text = v1Result.Snippet
                         };
-
-                        region.Length = v1Result.Snippet.Length;
-                        region.StartColumn = 1;
-                        region.EndColumn = region.Length + 1;
                     }
                 }
             }
