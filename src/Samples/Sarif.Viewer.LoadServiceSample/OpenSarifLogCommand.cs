@@ -83,7 +83,7 @@ namespace Sarif.Viewer.LoadServiceSample
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -95,7 +95,8 @@ namespace Sarif.Viewer.LoadServiceSample
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                (this.package as VSPackage).OpenSarifLog(openFileDialog.FileName);
+                //await (this.package as VSPackage).OpenSarifLog(openFileDialog.FileName);
+                await (this.package as VSPackage).OpenSarifLogViaInterop(openFileDialog.FileName);
             }
         }
     }
