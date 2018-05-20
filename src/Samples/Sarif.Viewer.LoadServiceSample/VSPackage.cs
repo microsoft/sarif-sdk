@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Microsoft.Sarif.Viewer.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -30,16 +29,18 @@ namespace Sarif.Viewer.LoadServiceSample
         {
         }
 
-        internal async Task OpenSarifLogViaInterop(string path)
-        {
-            IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
+        // Uncomment after Sarif.Viewer.VisualStudio.Interop nuget package is available
+        //
+        //internal async Task OpenSarifLogViaInterop(string path)
+        //{
+        //    IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
 
-            if (shell != null)
-            {
-                SarifViewerInterop sarifViewerInterop = new SarifViewerInterop(shell);
-                await sarifViewerInterop.OpenSarifLogAsync(path);
-            }
-        }
+        //    if (shell != null)
+        //    {
+        //        SarifViewerInterop sarifViewerInterop = new SarifViewerInterop(shell);
+        //        await sarifViewerInterop.OpenSarifLogAsync(path);
+        //    }
+        //}
 
         /// <summary>
         /// Opens the specified SARIF log file in the SARIF Viewer extension.
