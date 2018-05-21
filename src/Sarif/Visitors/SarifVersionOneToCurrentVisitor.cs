@@ -565,8 +565,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 result = new Result
                 {
-                    AnalysisTarget = CreateFileLocation(v1Result.Locations?[0]?.AnalysisTarget),
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
+                    Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
                     Id = v1Result.Id,
                     Level = Utilities.CreateResultLevel(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
@@ -576,6 +576,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates),
                 };
+
+                if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
+                {
+                    result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
+                }
                 
                 if (v1Result.FormattedRuleMessage != null)
                 {
