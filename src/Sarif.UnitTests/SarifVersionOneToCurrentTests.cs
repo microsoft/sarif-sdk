@@ -1205,9 +1205,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""DIV""
               ]
             },
-            ""suppressionStates"": [ ""suppressedExternally"" ],
-            ""baselineState"": ""existing"",
-            ""level"": ""error"",
             ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",
             ""locations"": [
               {
@@ -1357,7 +1354,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         },
         {
           ""ruleId"": ""WEB1066"",
-          ""level"": ""error"",
           ""message"": {
             ""arguments"": [
               ""DIV""
@@ -1383,8 +1379,6 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             }
           ],
-          ""suppressionStates"": [""suppressedExternally""],
-          ""baselineState"": ""existing"",
           ""fixes"": [
             {
               ""description"": {

@@ -577,6 +577,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates),
                 };
 
+                // The spec says that analysisTarget is required only if it differs from the result file.
                 if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
