@@ -148,6 +148,8 @@ namespace Microsoft.Sarif.Viewer.Interop
         /// <returns>The extension package that has been loaded.</returns>
         public IVsPackage LoadViewerExtension()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Guid serviceGuid = ViewerExtensionGuid;
             IVsPackage package = null; ;
 
@@ -161,6 +163,8 @@ namespace Microsoft.Sarif.Viewer.Interop
 
         private bool IsExtensionInstalled()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Guid serviceGuid = ViewerExtensionGuid;
             int result;
 
@@ -174,6 +178,8 @@ namespace Microsoft.Sarif.Viewer.Interop
 
         private bool IsExtensionLoaded()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Guid serviceGuid = ViewerExtensionGuid;
             IVsPackage package;
 
