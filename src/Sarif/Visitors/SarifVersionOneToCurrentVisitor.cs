@@ -55,6 +55,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return exceptionData;
         }
 
+        internal FileChange CreateFileChange(FileChangeVersionOne v1FileChange)
+        {
+            FileChange fileChange = null;
+
+            if (v1FileChange != null)
+            {
+                fileChange = new FileChange
+                {
+                    FileLocation = CreateFileLocation(v1FileChange),
+                    Replacements = v1FileChange.Replacements?.Select(CreateReplacement).ToList()
+                };
+            }
+
+            return fileChange;
+        }
+
         internal FileData CreateFileData(FileDataVersionOne v1FileData)
         {
             FileData fileData = null;
@@ -116,18 +132,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal FileLocation CreateFileLocation(PhysicalLocationVersionOne v1PhysicalLocation)
         {
-            FileLocation fileLocation = null;
+            return CreateFileLocation(v1PhysicalLocation?.Uri, v1PhysicalLocation?.UriBaseId);
+        }
 
-            if (v1PhysicalLocation?.Uri != null)
+        internal FileLocation CreateFileLocation(FileChangeVersionOne v1FileChange)
+        {
+            return CreateFileLocation(v1FileChange?.Uri, v1FileChange?.UriBaseId);
+        }
+
+        internal Fix CreateFix(FixVersionOne v1Fix)
+        {
+            Fix fix = null;
+
+            if (v1Fix != null)
             {
-                fileLocation = new FileLocation
+                fix = new Fix()
                 {
-                    Uri = v1PhysicalLocation.Uri,
-                    UriBaseId = v1PhysicalLocation.UriBaseId
+                    Description = CreateMessage(v1Fix.Description),
+                    FileChanges = v1Fix.FileChanges?.Select(CreateFileChange).ToList()
                 };
             }
 
-            return fileLocation;
+            return fix;
         }
 
         internal Hash CreateHash(HashVersionOne v1Hash)
@@ -219,15 +245,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Location.Properties
                 };
 
-                if (_currentRun.LogicalLocations?.ContainsKey(location.FullyQualifiedLogicalName) == true)
+                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
                 {
-                    _currentRun.LogicalLocations[location.FullyQualifiedLogicalName].DecoratedName = v1Location.DecoratedName;
-                }
-                else
-                {
-                    LogicalLocation logicalLocation = CreateLogicalLocation(location.FullyQualifiedLogicalName,
-                                                                            decoratedName: v1Location.DecoratedName);
-                    location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+                    if (_currentRun.LogicalLocations?.ContainsKey(location.FullyQualifiedLogicalName) == true)
+                    {
+                        _currentRun.LogicalLocations[location.FullyQualifiedLogicalName].DecoratedName = v1Location.DecoratedName;
+                    }
+                    else
+                    {
+                        LogicalLocation logicalLocation = CreateLogicalLocation(location.FullyQualifiedLogicalName,
+                                                                                decoratedName: v1Location.DecoratedName);
+                        location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+                    }
                 }
             }
 
@@ -415,6 +444,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return notification;
         }
 
+        internal Replacement CreateReplacement(ReplacementVersionOne v1Replacement)
+        {
+            Replacement replacement = null;
+
+            if (v1Replacement != null)
+            {
+                replacement = new Replacement
+                {
+                    DeletedLength = v1Replacement.DeletedLength,
+                    InsertedBytes = v1Replacement.InsertedBytes,
+                    Offset = v1Replacement.Offset
+                };
+            }
+
+            return replacement;
+        }
+
         internal IList<FileLocation> CreateResponseFilesList(IDictionary<string, string> responseFileToContentsDictionary)
         {
             List<FileLocation> fileLocations = null;
@@ -527,13 +573,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
                     RuleId = v1Result.RuleId,
-                    RuleMessageId = v1Result.FormattedRuleMessage.FormatId,
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates),
                 };
+                
+                if (v1Result.FormattedRuleMessage != null)
+                {
+                    result.RuleMessageId = v1Result.FormattedRuleMessage.FormatId;
 
-                // TODO: transfer formatted rule messages
+                    if (result.Message == null)
+                    {
+                        result.Message = new Message();
+                    }
 
+                    result.Message.Arguments = v1Result.FormattedRuleMessage.Arguments;
+                }
 
                 if (!string.IsNullOrWhiteSpace(v1Result.ToolFingerprintContribution))
                 {
@@ -541,14 +595,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         { "Fingerprint", v1Result.ToolFingerprintContribution }
                     };
-                }
-
-                // *** Stash un-transferred properties in the property bag *** \\
-
-                if (v1Result.FormattedRuleMessage != null)
-                {
-                    // Only the formattedRuleMessage.formatId property is used above
-                    result.SetProperty($"{FromPropertyBagPrefix}/formattedRuleMessage", v1Result.FormattedRuleMessage);
                 }
 
                 if (!string.IsNullOrWhiteSpace(v1Result.Snippet))
@@ -577,6 +623,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Text = v1Result.Snippet
                     };
+                }
+
+                // *** Stash un-transferred properties in the property bag *** \\
+
+                if (v1Result.FormattedRuleMessage != null)
+                {
+                    result.SetProperty($"{FromPropertyBagPrefix}/formattedRuleMessage", v1Result.FormattedRuleMessage);
                 }
             }
 
