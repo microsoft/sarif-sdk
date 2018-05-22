@@ -3,10 +3,10 @@
   "$schema": "http://json.schemastore.org/sarif-2.0.0",
   "runs": [
     {
-      "id": "BC650830-A9FE-44CB-8818-AD6C387279A0",
-      "stableId": "Nightly code scan",
-      "baselineId": "0A106451-C9B1-4309-A7EE-06988B95F723",
-      "automationId": "Build-14.0.1.2-Release-20160716-13:22:18",
+      "instanceGuid": "BC650830-A9FE-44CB-8818-AD6C387279A0",
+      "logicalId": "Nightly code scan",
+      "baselineInstanceGuid": "0A106451-C9B1-4309-A7EE-06988B95F723",
+      "automationLogicalId": "Build-14.0.1.2-Release-20160716-13:22:18",
       "architecture": "x86",
       "tool": {
         "name": "CodeScanner",

@@ -18,8 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         Attachment,
         ResponseFile,
         ResultFile,
-        Screenshot,
         StandardStream,
-        TraceFile
+        TraceFile,
+        UnmodifiedFile,
+        ModifiedFile,
+        AddedFile,
+        DeletedFile,
+        RenamedFile,
+        GeneratedFile
     }
 }

@@ -58,13 +58,13 @@ namespace Microsoft.Sarif.Viewer
             Rule = rule.ToRuleModel(result.RuleId);
             Invocation = run.Invocations?[0]?.ToInvocationModel();
 
-            if (string.IsNullOrWhiteSpace(run.Id))
+            if (string.IsNullOrWhiteSpace(run.InstanceGuid))
             {
                 WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
             else
             {
-                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.InstanceGuid);
             }
 
             if (result.Locations != null)
@@ -129,13 +129,13 @@ namespace Microsoft.Sarif.Viewer
             Rule.DefaultLevel = notification.Level.ToString();
             Invocation = run.Invocations?[0]?.ToInvocationModel();
 
-            if (string.IsNullOrWhiteSpace(run.Id))
+            if (string.IsNullOrWhiteSpace(run.InstanceGuid))
             {
                 WorkingDirectory = Path.Combine(Path.GetTempPath(), run.GetHashCode().ToString());
             }
             else
             {
-                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.Id);
+                WorkingDirectory = Path.Combine(Path.GetTempPath(), run.InstanceGuid);
             }
         }
 

@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.Id != right.Id)
+            if (left.InstanceGuid != right.InstanceGuid)
             {
                 return false;
             }
@@ -233,6 +233,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.BaselineState != right.BaselineState)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Attachments, right.Attachments))
             {
                 if (left.Attachments == null || right.Attachments == null)
@@ -254,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.BaselineState != right.BaselineState)
+            if (!FileLocation.ValueComparer.Equals(left.WorkItemLocation, right.WorkItemLocation))
             {
                 return false;
             }
@@ -369,9 +374,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Id != null)
+                if (obj.InstanceGuid != null)
                 {
-                    result = (result * 31) + obj.Id.GetHashCode();
+                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
                 }
 
                 if (obj.PartialFingerprints != null)
@@ -467,6 +472,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.SuppressionStates.GetHashCode();
+                result = (result * 31) + obj.BaselineState.GetHashCode();
                 if (obj.Attachments != null)
                 {
                     foreach (var value_14 in obj.Attachments)
@@ -479,7 +485,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.BaselineState.GetHashCode();
+                if (obj.WorkItemLocation != null)
+                {
+                    result = (result * 31) + obj.WorkItemLocation.ValueGetHashCode();
+                }
+
                 if (obj.ConversionProvenance != null)
                 {
                     foreach (var value_15 in obj.ConversionProvenance)

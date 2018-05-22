@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string ParentKey { get; set; }
 
         /// <summary>
-        /// The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'resource', or 'type', if any of those accurately describe the construct.
+        /// The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'variable', 'member', 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', or 'type', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }

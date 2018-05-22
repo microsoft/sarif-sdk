@@ -567,7 +567,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
-                    Id = v1Result.Id,
+                    InstanceGuid = v1Result.Id,
                     Level = Utilities.CreateResultLevel(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
                     Message = CreateMessage(v1Result.Message),
@@ -684,12 +684,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 run = new Run()
                 {
                     Architecture = v1Run.Architecture,
-                    AutomationId = v1Run.AutomationId,
-                    BaselineId = v1Run.BaselineId,
-                    Id = v1Run.Id,
+                    AutomationLogicalId = v1Run.AutomationId,
+                    BaselineInstanceGuid = v1Run.BaselineId,
+                    InstanceGuid = v1Run.Id,
                     Properties = v1Run.Properties,
                     Results = new List<Result>(),
-                    StableId = v1Run.StableId,
+                    LogicalId = v1Run.StableId,
                     Tool = CreateTool(v1Run.Tool)
                 };
 
