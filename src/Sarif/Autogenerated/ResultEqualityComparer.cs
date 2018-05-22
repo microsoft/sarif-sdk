@@ -74,6 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!FileContent.ValueComparer.Equals(left.Snippet, right.Snippet))
+            {
+                return false;
+            }
+
             if (left.InstanceGuid != right.InstanceGuid)
             {
                 return false;
@@ -372,6 +377,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_6.ValueGetHashCode();
                         }
                     }
+                }
+
+                if (obj.Snippet != null)
+                {
+                    result = (result * 31) + obj.Snippet.ValueGetHashCode();
                 }
 
                 if (obj.InstanceGuid != null)

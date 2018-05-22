@@ -1314,12 +1314,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""replacements"": [
                     {
-                      ""offset"": 720,
-                      ""insertedBytes"": ""Jw==""
+                      ""deletedRegion"": {
+                        ""offset"": 720,
+                        ""length"": 1
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
                     },
                     {
-                      ""offset"": 725,
-                      ""insertedBytes"": ""Jw==""
+                      ""deletedRegion"": {
+                        ""offset"": 725,
+                        ""length"": 1
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
                     }
                   ]
                 }
@@ -1336,12 +1346,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""replacements"": [
                     {
-                      ""offset"": 720,
-                      ""insertedBytes"": ""Ig==""
+                      ""deletedRegion"": {
+                        ""offset"": 720,
+                        ""length"": 1
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
                     },
                     {
-                      ""offset"": 725,
-                      ""insertedBytes"": ""Ig==""
+                      ""deletedRegion"": {
+                        ""offset"": 725,
+                        ""length"": 1
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
                     }
                   ]
                 }
@@ -1391,9 +1411,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""replacements"": [
                     {
-                      ""offset"": 804,
-                      ""deletedLength"": 3,
-                      ""insertedBytes"": ""ZGl2""
+                      ""deletedRegion"": {
+                        ""offset"": 804,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""ZGl2""
+                      }
                     }
                   ]
                 }

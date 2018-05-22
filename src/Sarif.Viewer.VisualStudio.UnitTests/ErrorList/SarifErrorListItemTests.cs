@@ -221,7 +221,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 },
                                 Replacements = new[]
                                 {
-                                    new Replacement(0, 0, string.Empty)
+                                    new Replacement()
                                 }
                             }
                         }

@@ -450,12 +450,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1Replacement != null)
             {
-                replacement = new Replacement
+                replacement = new Replacement();
+
+                int insertedLength = 0;
+                if (v1Replacement.InsertedBytes != null)
                 {
-                    DeletedLength = v1Replacement.DeletedLength,
-                    InsertedBytes = v1Replacement.InsertedBytes,
-                    Offset = v1Replacement.Offset
-                };
+                    replacement.InsertedContent = new FileContent
+                    {
+                        Binary = v1Replacement.InsertedBytes
+                    };
+
+                    byte[] bytes = Convert.FromBase64String(v1Replacement.InsertedBytes);
+                    insertedLength = bytes.Length;
+                }
+
+                if (v1Replacement.DeletedLength > 0 || insertedLength > 0)
+                {
+                    replacement.DeletedRegion = new Region
+                    {
+                        Length = insertedLength > 0 ? insertedLength : v1Replacement.DeletedLength,
+                        Offset = v1Replacement.Offset
+                    };
+                }
             }
 
             return replacement;
