@@ -900,7 +900,7 @@
         },
 
         "kind": {
-          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'variable', 'member', 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', or 'type', if any of those accurately describe the construct.",
+          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.",
           "type": "string"
         }
       }
