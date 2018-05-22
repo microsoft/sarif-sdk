@@ -87,6 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Hash> Hashes { get; set; }
 
         /// <summary>
+        /// The date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
+        /// </summary>
+        [DataMember(Name = "lastModifiedTime", IsRequired = false, EmitDefaultValue = false)]
+        public DateTime LastModifiedTime { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the file.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -129,12 +135,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="hashes">
         /// An initialization value for the <see cref="P: Hashes" /> property.
         /// </param>
+        /// <param name="lastModifiedTime">
+        /// An initialization value for the <see cref="P: LastModifiedTime" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, DateTime lastModifiedTime, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, properties);
+            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTime, properties);
         }
 
         /// <summary>
@@ -153,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.Properties);
+            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTime, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -174,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, DateTime lastModifiedTime, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -210,6 +219,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Hashes = destination_0;
             }
 
+            LastModifiedTime = lastModifiedTime;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

@@ -31,12 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 RunVersionOne run = new RunVersionOne()
                 {
                     Architecture = v2Run.Architecture,
-                    AutomationId = v2Run.AutomationId,
-                    BaselineId = v2Run.BaselineId,
-                    Id = v2Run.Id,
+                    AutomationId = v2Run.AutomationLogicalId,
+                    BaselineId = v2Run.BaselineInstanceGuid,
+                    Id = v2Run.InstanceGuid,
                     Properties = v2Run.Properties,
                     Results = new List<ResultVersionOne>(),
-                    StableId = v2Run.StableId,
+                    StableId = v2Run.LogicalId,
                     Tool = CreateTool(v2Run.Tool)
                 };
 

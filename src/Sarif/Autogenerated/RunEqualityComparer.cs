@@ -193,22 +193,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
+            if (left.InstanceGuid != right.InstanceGuid)
             {
                 return false;
             }
 
-            if (left.StableId != right.StableId)
+            if (left.LogicalId != right.LogicalId)
             {
                 return false;
             }
 
-            if (left.AutomationId != right.AutomationId)
+            if (!Message.ValueComparer.Equals(left.Description, right.Description))
             {
                 return false;
             }
 
-            if (left.BaselineId != right.BaselineId)
+            if (left.AutomationLogicalId != right.AutomationLogicalId)
+            {
+                return false;
+            }
+
+            if (left.BaselineInstanceGuid != right.BaselineInstanceGuid)
             {
                 return false;
             }
@@ -379,24 +384,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Resources.ValueGetHashCode();
                 }
 
-                if (obj.Id != null)
+                if (obj.InstanceGuid != null)
                 {
-                    result = (result * 31) + obj.Id.GetHashCode();
+                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
                 }
 
-                if (obj.StableId != null)
+                if (obj.LogicalId != null)
                 {
-                    result = (result * 31) + obj.StableId.GetHashCode();
+                    result = (result * 31) + obj.LogicalId.GetHashCode();
                 }
 
-                if (obj.AutomationId != null)
+                if (obj.Description != null)
                 {
-                    result = (result * 31) + obj.AutomationId.GetHashCode();
+                    result = (result * 31) + obj.Description.ValueGetHashCode();
                 }
 
-                if (obj.BaselineId != null)
+                if (obj.AutomationLogicalId != null)
                 {
-                    result = (result * 31) + obj.BaselineId.GetHashCode();
+                    result = (result * 31) + obj.AutomationLogicalId.GetHashCode();
+                }
+
+                if (obj.BaselineInstanceGuid != null)
+                {
+                    result = (result * 31) + obj.BaselineInstanceGuid.GetHashCode();
                 }
 
                 if (obj.Architecture != null)

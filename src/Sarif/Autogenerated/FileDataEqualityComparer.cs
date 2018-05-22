@@ -89,6 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (left.LastModifiedTime != right.LastModifiedTime)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -164,6 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                result = (result * 31) + obj.LastModifiedTime.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

@@ -108,6 +108,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         PhysicalLocation,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rectangle" />.
+        /// </summary>
+        Rectangle,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Region" />.
         /// </summary>
         Region,
