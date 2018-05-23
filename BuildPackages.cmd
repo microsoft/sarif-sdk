@@ -14,8 +14,9 @@ call :BuildNuGetPackageFromCsproj Sarif.Converters %Version% || goto :ExitFailed
 ::Build pre-release packages
 call :BuildNuGetPackageFromCsproj Sarif.Driver    %Version% || goto :ExitFailed
 
-::Build Multitool package from nuspec
+::Build packages from nuspec
 call :BuildNuGetPackageFromNuspec Sarif.Multitool %Version% || goto :ExitFailed
+call :BuildNuGetPackageFromNuspec Sarif.Viewer.VisualStudio.Interop %Version% || goto :ExitFailed
 
 goto Exit
 

@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\RunUnitTests.ps1 = ..\RunUnitTests.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio.Interop", "Sarif.Viewer.VisualStudio.Interop\Sarif.Viewer.VisualStudio.Interop.csproj", "{75235DA5-B864-451F-A194-0389B66085C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AnyCPU = Debug|AnyCPU
@@ -51,6 +53,18 @@ Global
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x64.Build.0 = Release|x64
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x86.ActiveCfg = Release|x86
 		{D0210D4B-32A8-46CA-8BA4-0703517481B4}.Release|x86.Build.0 = Release|x86
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|AnyCPU.Build.0 = Release|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|x64.Build.0 = Release|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{75235DA5-B864-451F-A194-0389B66085C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

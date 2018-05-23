@@ -87,6 +87,9 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Sarif.Viewer.Interop">
+      <HintPath>..\..\..\bld\bin\Sarif.Viewer.VisualStudio.Interop\AnyCPU_Release\Microsoft.Sarif.Viewer.Interop.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>

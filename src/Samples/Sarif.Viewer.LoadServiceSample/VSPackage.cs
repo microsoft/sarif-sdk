@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.Sarif.Viewer.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -29,55 +30,23 @@ namespace Sarif.Viewer.LoadServiceSample
         {
         }
 
-        // Uncomment after Sarif.Viewer.VisualStudio.Interop nuget package is available
-        //
-        //internal async Task OpenSarifLogViaInterop(string path)
-        //{
-        //    IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
-
-        //    if (shell != null)
-        //    {
-        //        SarifViewerInterop sarifViewerInterop = new SarifViewerInterop(shell);
-        //        await sarifViewerInterop.OpenSarifLogAsync(path);
-        //    }
-        //}
-
         /// <summary>
         /// Opens the specified SARIF log file in the SARIF Viewer extension.
         /// </summary>
         /// <param name="path">The path of the log file.</param>
         internal async Task OpenSarifLog(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
+            IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
+
+            if (shell != null)
             {
-                throw new ArgumentNullException(nameof(path));
-            }
+                SarifViewerInterop sarifViewerInterop = new SarifViewerInterop(shell);
 
-            if (!IsSarifViewerInstalled())
-            {
-                VsShellUtilities.ShowMessageBox(
-                        this,
-                        "The SARIF Viewer extension is not installed.",
-                        null,
-                        OLEMSGICON.OLEMSGICON_INFO,
-                        OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-                return;
-            }
-
-            // Get the SARIF Viewer assembly
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            Assembly assembly = assemblies.Where(a => a.GetName().Name == "Microsoft.Sarif.Viewer").FirstOrDefault();
-
-            if (assembly != null)
-            {
-                Version version = assembly.GetName().Version;
-
-                if (version.Major != 2)
+                if (!sarifViewerInterop.IsViewerExtensionInstalled)
                 {
                     VsShellUtilities.ShowMessageBox(
                             this,
-                            "This feature requires SARIF Viewer version 2.0.",
+                            "The SARIF Viewer extension is not installed.",
                             null,
                             OLEMSGICON.OLEMSGICON_INFO,
                             OLEMSGBUTTON.OLEMSGBUTTON_OK,
@@ -85,44 +54,13 @@ namespace Sarif.Viewer.LoadServiceSample
                     return;
                 }
 
-                // Get the service interface type
-                Type[] types = assembly.GetTypes();
-                Type sarifLoadServiceInterface = types.Where(t => t.Name == "SLoadSarifLogService").FirstOrDefault();
-
-                if (sarifLoadServiceInterface != null)
+                if (!sarifViewerInterop.IsViewerExtensionLoaded)
                 {
-                    // Get a service reference
-                    dynamic sarifLoadService = await ServiceProvider.GetGlobalServiceAsync(sarifLoadServiceInterface);
-
-                    if (sarifLoadService != null)
-                    {
-                        try
-                        {
-                            // Call the service API
-                            sarifLoadService.LoadSarifLog(path);
-                        }
-                        catch { }
-                    }
+                    sarifViewerInterop.LoadViewerExtension();
                 }
+
+                await sarifViewerInterop.OpenSarifLogAsync(path);
             }
-        }
-
-        private bool IsSarifViewerInstalled()
-        {
-            IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
-
-            if (shell != null)
-            {
-                Guid serviceGuid = new Guid("b97edb99-282e-444c-8f53-7de237f2ec5e");
-                int result;
-
-                if (0 == shell.IsPackageInstalled(ref serviceGuid, out result) && result == 1)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         #region Package Members
