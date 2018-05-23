@@ -29,7 +29,6 @@ namespace Microsoft.Sarif.Viewer.Sarif
             else if (replacement.InsertedContent?.Binary != null)
             {
                 model.InsertedBytes = Convert.FromBase64String(replacement.InsertedContent.Binary);
-                model.InsertedString = Encoding.UTF8.GetString(model.InsertedBytes);
             }
 
             return model;

@@ -1315,8 +1315,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720,
-                        ""length"": 1
+                        ""offset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1324,8 +1323,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725,
-                        ""length"": 1
+                        ""offset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1347,8 +1345,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720,
-                        ""length"": 1
+                        ""offset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1356,8 +1353,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725,
-                        ""length"": 1
+                        ""offset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
