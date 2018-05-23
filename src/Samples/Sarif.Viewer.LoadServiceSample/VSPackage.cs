@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.Sarif.Viewer.Interop;
@@ -34,9 +32,10 @@ namespace Sarif.Viewer.LoadServiceSample
         /// Opens the specified SARIF log file in the SARIF Viewer extension.
         /// </summary>
         /// <param name="path">The path of the log file.</param>
-        internal async Task OpenSarifLog(string path)
+        internal async Task OpenSarifLogAsync(string path)
         {
-            IVsShell shell = GetService(typeof(SVsShell)) as IVsShell;
+            ThreadHelper.ThrowIfNotOnUIThread();
+            IVsShell shell = await GetServiceAsync(typeof(SVsShell)) as IVsShell;
 
             if (shell != null)
             {

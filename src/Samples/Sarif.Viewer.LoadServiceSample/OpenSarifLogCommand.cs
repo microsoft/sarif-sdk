@@ -95,7 +95,7 @@ namespace Sarif.Viewer.LoadServiceSample
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                await (this.package as VSPackage).OpenSarifLog(openFileDialog.FileName);
+                await (this.package as VSPackage).OpenSarifLogAsync(openFileDialog.FileName);
             }
         }
     }

@@ -1,22 +1,29 @@
 ﻿<?xml version="1.0"?>
-<package>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Sarif.Viewer.VisualStudio.Interop</id>
     <version>$version$</version>
     <title>Microsoft SARIF Viewer for Visual Studio Interop Assembly</title>
     <authors>Microsoft Corporation</authors>
+    <owners>Microsoft Corporation</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <description>Interop library that enables Visual Studio extensions to consume services exposed by the SARIF Viewer extension.</description>
     <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
-    <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <tags>SARIF viewer visual studio extension</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.VisualStudio.Shell.15.0" version="15.7.27703" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.VisualStudio.Shell.Interop" version="7.10.6072" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
-    <file src="bld\bin\Sarif.Viewer.VisualStudio.Interop\AnyCPU_$configuration$\**\*"
-          target="tools"/>
-
+    <file src="bld\bin\Sarif.Viewer.VisualStudio.Interop\AnyCPU_$configuration$\Microsoft.Sarif.Viewer.Interop.*"
+          target="lib\net461"/>
     <file src="src\ReleaseHistory.md" />        
     <file src="src\Sarif.Viewer.VisualStudio.Interop\**\*.cs" target="src" />
   </files>
