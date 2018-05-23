@@ -1179,24 +1179,17 @@
       "type": "object",
       "properties": {
 
-        "offset": {
-          "description": "A non-negative integer specifying the offset in bytes from the beginning of the file at which bytes are to be removed, inserted or both. An offset of 0 shall denote the first byte in the file.",
-          "type": "integer",
-          "minimum": 0
+        "deletedRegion": {
+          "description": "The region of the file to delete.",
+          "$ref": "#/definitions/region"
         },
 
-        "deletedLength": {
-          "description": "The number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.",
-          "type": "integer",
-          "minimum": 1
-        },
-
-        "insertedBytes": {
-          "description": "The MIME Base64-encoded byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.",
-          "type": "string"
+        "insertedContent": {
+          "description": "The content to insert at the location specified by the 'deletedRegion' property.",
+          "$ref": "#/definitions/fileContent"
         }
       },
-      "required": [ "offset" ]
+      "required": [ "deletedRegion" ]
     },
 
     "resources": {
@@ -1261,6 +1254,11 @@
           "items": {
             "$ref": "#/definitions/location"
           }
+        },
+
+        "snippet": {
+          "description": "A source code or other file fragment that illustrates the result.",
+          "$ref": "#/definitions/fileContent"
         },
 
         "instanceGuid": {

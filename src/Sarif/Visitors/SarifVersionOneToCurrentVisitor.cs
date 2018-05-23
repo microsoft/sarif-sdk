@@ -450,10 +450,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1Replacement != null)
             {
-                replacement = new Replacement
+                replacement = new Replacement();
+                
+                if (v1Replacement.InsertedBytes != null)
                 {
-                    DeletedLength = v1Replacement.DeletedLength,
-                    InsertedBytes = v1Replacement.InsertedBytes,
+                    replacement.InsertedContent = new FileContent
+                    {
+                        Binary = v1Replacement.InsertedBytes
+                    };
+                }
+
+                replacement.DeletedRegion = new Region
+                {
+                    Length = v1Replacement.DeletedLength,
                     Offset = v1Replacement.Offset
                 };
             }

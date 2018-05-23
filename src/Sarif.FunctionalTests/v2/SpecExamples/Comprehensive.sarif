@@ -375,8 +375,12 @@
                   },
                   "replacements": [
                     {
-                      "offset": 109,
-                      "insertedBytes": "PSBudWxs"
+                      "deletedRegion": {
+                        "offset": 109
+                      },
+                      "insertedContent": {
+                        "binary": "PSBudWxs"
+                      }
                     }
                   ]
                 }

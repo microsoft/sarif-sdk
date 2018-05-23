@@ -27,17 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Offset != right.Offset)
+            if (!Region.ValueComparer.Equals(left.DeletedRegion, right.DeletedRegion))
             {
                 return false;
             }
 
-            if (left.DeletedLength != right.DeletedLength)
-            {
-                return false;
-            }
-
-            if (left.InsertedBytes != right.InsertedBytes)
+            if (!FileContent.ValueComparer.Equals(left.InsertedContent, right.InsertedContent))
             {
                 return false;
             }
@@ -55,11 +50,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.Offset.GetHashCode();
-                result = (result * 31) + obj.DeletedLength.GetHashCode();
-                if (obj.InsertedBytes != null)
+                if (obj.DeletedRegion != null)
                 {
-                    result = (result * 31) + obj.InsertedBytes.GetHashCode();
+                    result = (result * 31) + obj.DeletedRegion.ValueGetHashCode();
+                }
+
+                if (obj.InsertedContent != null)
+                {
+                    result = (result * 31) + obj.InsertedContent.ValueGetHashCode();
                 }
             }
 
