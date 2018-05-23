@@ -6,7 +6,7 @@
     <title>Microsoft SARIF Viewer for Visual Studio Interop Assembly</title>
     <authors>Microsoft Corporation</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Interop utility that enables Visual Studio extensions to consume services exposed by the SARIF Viewer extension.</description>
+    <description>Interop library that enables Visual Studio extensions to consume services exposed by the SARIF Viewer extension.</description>
     <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
@@ -14,7 +14,6 @@
     <tags>SARIF viewer visual studio extension</tags>
   </metadata>
   <files>
-	  <!-- NOTE: the exclude attribute must be on a single line -->
     <file src="bld\bin\Sarif.Viewer.VisualStudio.Interop\AnyCPU_$configuration$\**\*"
           target="tools"/>
 

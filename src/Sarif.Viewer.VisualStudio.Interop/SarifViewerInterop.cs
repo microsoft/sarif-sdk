@@ -132,12 +132,8 @@ namespace Microsoft.Sarif.Viewer.Interop
 
                 if (sarifLoadService != null)
                 {
-                    try
-                    {
-                        // Call the service API
-                        sarifLoadService.LoadSarifLog(path);
-                    }
-                    catch { }
+                    // Call the service API
+                    sarifLoadService.LoadSarifLog(path);
                 }
             }
         }
