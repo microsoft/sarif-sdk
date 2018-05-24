@@ -90,8 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Id = _runId,
-                AutomationId = _automationId,
+                InstanceGuid = _runId,
+                AutomationLogicalId = _automationId,
                 Tool = tool,
                 Invocations = new[] { _invocation }
             };

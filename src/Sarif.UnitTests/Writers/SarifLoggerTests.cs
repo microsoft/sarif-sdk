@@ -196,9 +196,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string propertyName = "numberValue";
             double propertyValue = 3.14;
-            string stableId = nameof(stableId) + ":" + Guid.NewGuid().ToString();
-            string baselineId = nameof(baselineId) + ":" + Guid.NewGuid().ToString();
-            string automationId = nameof(automationId) + ":" + Guid.NewGuid().ToString();
+            string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();
+            string baselineInstanceGuid = nameof(baselineInstanceGuid) + ":" + Guid.NewGuid().ToString();
+            string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
             string architecture = nameof(architecture) + ":" + "x86";
             var conversion = new Conversion() { Tool = DefaultTool };
             var utcNow = DateTime.UtcNow;
@@ -219,9 +219,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 run.SetProperty(propertyName, propertyValue);
 
-                run.StableId = stableId;
-                run.BaselineId = baselineId;
-                run.AutomationId = automationId;
+                run.LogicalId = logicalId;
+                run.BaselineInstanceGuid = baselineInstanceGuid;
+                run.AutomationLogicalId = automationLogicalId;
                 run.Architecture = architecture;
                 run.Conversion = conversion;
                 run.VersionControlProvenance = new[] { versionControlDetails };
@@ -244,9 +244,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             run = sarifLog.Runs[0];
 
             run.GetProperty<double>(propertyName).Should().Be(propertyValue);
-            run.StableId.Should().Be(stableId);
-            run.BaselineId.Should().Be(baselineId);
-            run.AutomationId.Should().Be(automationId);
+            run.LogicalId.Should().Be(logicalId);
+            run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
+            run.AutomationLogicalId.Should().Be(automationLogicalId);
             run.Architecture.Should().Be(architecture);
             run.Conversion.Tool.ShouldBeEquivalentTo(DefaultTool);
             //run.VersionControlProvenance[0].Timestamp.ShouldBeEquivalentTo(utcNow);

@@ -182,8 +182,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_WritesIdAndAutomationId()
         {
-            string id = Guid.NewGuid().ToString();
-            string automationId = Guid.NewGuid().ToString();
+            string instanceGuid = Guid.NewGuid().ToString();
+            string automationLogicalId = Guid.NewGuid().ToString();
 
             string expected =
 @"{
@@ -191,8 +191,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
   ""version"": """ + SarifFormatVersion + @""",
   ""runs"": [
     {
-      ""id"": """ + id + @""",
-      ""automationId"": """ + automationId + @""",
+      ""instanceGuid"": """ + instanceGuid + @""",
+      ""automationLogicalId"": """ + automationLogicalId + @""",
       ""tool"": {
         ""name"": null
       },
@@ -209,8 +209,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 var run = new Run()
                 {
-                    Id = id,
-                    AutomationId = automationId,
+                    InstanceGuid = instanceGuid,
+                    AutomationLogicalId = automationLogicalId,
                     Tool = DefaultTool,
                 };
                 uut.Initialize(run);

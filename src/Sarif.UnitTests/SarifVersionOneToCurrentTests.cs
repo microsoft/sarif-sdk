@@ -37,8 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -76,16 +75,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     },
                     {
                       ""tool"": {
                         ""name"": ""AssetScanner"",
                         ""semanticVersion"": ""1.7.2""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -195,8 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -226,7 +222,6 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""kind"": ""type""
         },
         ""collections"": {
-          ""name"": ""collections"",
           ""kind"": ""namespace""
         }
       },
@@ -276,8 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -372,8 +366,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -473,8 +466,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -590,8 +582,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -694,8 +685,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -767,12 +757,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""module"": ""RuleLibrary"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
-                                  ""address"": 10092852
+                                  ""uri"": ""file:///C:/src/main.cs"",
+                                  ""address"": 10092852,
+                                  ""line"": 15,
+                                  ""column"": 9
+                                },
+                                {
+                                  ""module"": ""RuleLibrary"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register"",
+                                  ""uri"": ""file:///C:/src/main.cs"",
+                                  ""address"": 1002485
                                 },
                                 {
                                   ""module"": ""ExecutionEngine"",
                                   ""threadId"": 52,
                                   ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""uri"": ""file:///C:/src/utils.cs"",
+                                  ""address"": 10073356,
+                                  ""offset"": 10475
+                                },
+                                {
+                                  ""module"": ""ExecutionEngine"",
+                                  ""threadId"": 52,
+                                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                                  ""logicalLocationKey"": ""ExecutionEngine.Engine.FooBar"",
+                                  ""uri"": ""file:///C:/src/foobar.cs"",
                                   ""address"": 10073356,
                                   ""offset"": 10475
                                 }
@@ -787,12 +797,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                           }
                         }
                       ],
+                      ""logicalLocations"": {
+                        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+                          ""name"": ""Evaluate"",
+                          ""kind"": ""some kind""
+                        },
+                        ""Rules.SecureHashAlgorithmRule.Register"": {
+                          ""name"": ""InvalidName""
+                        },
+                        ""ExecutionEngine.Engine.FooBar"": {
+                          ""name"": ""FooBar"",
+                          ""kind"": ""another kind""
+                        }
+                      },
                       ""tool"": {
                         ""name"": ""CodeScanner"",
                         ""semanticVersion"": ""2.1.0""
                       },
-                      ""results"": [
-                      ]
+                      ""results"": []
                     }
                   ]
                 }";
@@ -828,11 +850,61 @@ namespace Microsoft.CodeAnalysis.Sarif
                   },
                   ""frames"": [
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""startColumn"": 9
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                        ""message"": {
+                          ""text"": ""Exception thrown""
+                        }
+                      },
                       ""module"": ""RuleLibrary"",
                       ""threadId"": 52,
                       ""address"": 10092852
                     },
                     {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 1002485
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/utils.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/foobar.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.FooBar""
+                      },
                       ""module"": ""ExecutionEngine"",
                       ""threadId"": 52,
                       ""address"": 10073356,
@@ -851,7 +923,888 @@ namespace Microsoft.CodeAnalysis.Sarif
           ]
         }
       ],
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
       ""results"": []
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_BasicResult()
+        {
+            string v1LogText =
+              @"{
+                  ""version"": ""1.0.0"",
+                  ""runs"": [
+                    {
+                      ""tool"": {
+                        ""name"": ""CodeScanner"",
+                        ""semanticVersion"": ""2.1.0""
+                      },
+                      ""logicalLocations"": {
+                        ""collections::list::add"": {
+                          ""name"": ""add"",
+                          ""kind"": ""function"",
+                          ""parentKey"": ""collections::list""
+                        },
+                        ""collections::list"": {
+                          ""name"": ""list"",
+                          ""kind"": ""type"",
+                          ""parentKey"": ""collections""
+                        },
+                        ""collections"": {
+                          ""name"": ""collections"",
+                          ""kind"": ""namespace""
+                        }
+                      },
+                      ""results"": [
+                        {
+                          ""ruleId"": ""C2001"",
+                          ""formattedRuleMessage"": {
+                            ""formatId"": ""default"",
+                            ""arguments"": [
+                              ""ptr""
+                            ]
+                          },
+                          ""suppressionStates"": [ ""suppressedExternally"" ],
+                          ""baselineState"": ""existing"",
+                          ""level"": ""error"",
+                          ""snippet"": ""add_core(ptr, offset, val);"",
+                          ""locations"": [
+                            {
+                              ""analysisTarget"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+                              },
+                              ""resultFile"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                                ""region"": {
+                                  ""startLine"": 1,
+                                  ""startColumn"": 1,
+                                  ""endLine"": 1,
+                                  ""endColumn"": 28,
+                                  ""length"": 27
+                                }
+                              },
+                              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+                            }
+                          ],
+                          ""relatedLocations"": [
+                            {
+                              ""message"": ""\""count\"" was declared here."",
+                              ""physicalLocation"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                                ""region"": {
+                                  ""startLine"": 8,
+                                  ""startColumn"": 5
+                                }
+                              },
+                              ""fullyQualifiedLogicalName"": ""collections::list::add""
+                            }
+                          ]
+		                }
+                      ],
+                      ""rules"": {
+                        ""C2001"": {
+                          ""id"": ""C2001"",
+                          ""shortDescription"": ""A variable was used without being initialized."",
+                          ""fullDescription"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",
+                          ""messageFormats"": {
+                            ""default"": ""Variable \""{0}\"" was used without being initialized.""
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""decoratedName"": ""?add@list@collections@@QAEXH@Z"",
+          ""parentKey"": ""collections::list"",
+          ""kind"": ""function""
+        },
+        ""collections::list"": {
+          ""name"": ""list"",
+          ""parentKey"": ""collections"",
+          ""kind"": ""type""
+        },
+        ""collections"": {
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""level"": ""error"",
+          ""message"": {
+            ""arguments"": [
+              ""ptr""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""analysisTarget"": {
+            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+          },
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27,
+                  ""snippet"": {
+                    ""text"": ""add_core(ptr, offset, val);""
+                  }
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
+            }
+          ],
+          ""relatedLocations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 8,
+                  ""startColumn"": 5
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+              ""message"": {
+                ""text"": ""\""count\"" was declared here.""
+              }
+            }
+          ],
+          ""suppressionStates"": [""suppressedExternally""],
+          ""baselineState"": ""existing"",
+          ""properties"": {
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]}
+          }
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""C2001"": {
+            ""id"": ""C2001"",
+            ""shortDescription"": {
+              ""text"": ""A variable was used without being initialized.""
+            },
+            ""fullDescription"": {
+              ""text"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Variable \""{0}\"" was used without being initialized.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
+        {
+            string v1LogText =
+@"{
+    ""version"": ""1.0.0"",
+    ""runs"": [
+      {
+        ""tool"": {
+          ""name"": ""CodeScanner""
+        },
+        ""results"": [
+          {
+            ""ruleId"": ""WEB1079"",
+            ""formattedRuleMessage"": {
+              ""formatId"": ""default"",
+              ""arguments"": [
+                ""shape""
+              ]
+            },
+            ""snippet"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />"",
+            ""locations"": [
+              {
+                ""analysisTarget"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""resultFile"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""region"": {
+                    ""startLine"": 20,
+                    ""startColumn"": 69,
+                    ""endColumn"": 74,
+                    ""offset"": 720,
+                    ""length"": 5
+                  }
+                }
+              }
+            ],
+            ""fixes"": [
+              {
+                ""description"": ""Wrap attribute values in single quotes."",
+                ""fileChanges"": [
+                  {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                    ""replacements"": [
+                      {
+                        ""offset"": 720,
+                        ""insertedBytes"": ""Jw==""
+                      },
+                      {
+                        ""offset"": 725,
+                        ""insertedBytes"": ""Jw==""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                ""description"": ""Wrap attribute value in double quotes."",
+                ""fileChanges"": [
+                  {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                    ""replacements"": [
+                      {
+                        ""offset"": 720,
+                        ""insertedBytes"": ""Ig==""
+                      },
+                      {
+                        ""offset"": 725,
+                        ""insertedBytes"": ""Ig==""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            ""ruleId"": ""WEB1066"",
+            ""formattedRuleMessage"": {
+              ""formatId"": ""default"",
+              ""arguments"": [
+                ""DIV""
+              ]
+            },
+            ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",
+            ""locations"": [
+              {
+                ""analysisTarget"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""resultFile"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""region"": {
+                    ""startLine"": 24,
+                    ""startColumn"": 4,
+                    ""endColumn"": 38,
+                    ""offset"": 803,
+                    ""length"": 34
+                  }
+                }
+              }
+            ],
+            ""fixes"": [
+              {
+                ""description"": ""Convert tag name to lowercase."",
+                ""fileChanges"": [
+                  {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                    ""replacements"": [
+                      {
+                        ""offset"": 804,
+                        ""deletedLength"": 3,
+                        ""insertedBytes"": ""ZGl2""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        ""rules"": {
+          ""WEB1079.AttributeValueIsNotQuoted"": {
+            ""id"": ""WEB1079"",
+            ""shortDescription"": ""The attribute value is not quoted."",
+            ""messageFormats"": {
+              ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+            }
+          },
+          ""WEB1066.TagNameIsNotLowercase"": {
+            ""id"": ""WEB1066"",
+            ""shortDescription"": ""The tag name is not lowercase."",
+            ""messageFormats"": {
+              ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    ]
+  }";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""message"": {
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 20,
+                  ""startColumn"": 69,
+                  ""endColumn"": 74,
+                  ""offset"": 720,
+                  ""length"": 5,
+                  ""snippet"": {
+                    ""text"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute values in single quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute value in double quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          ""properties"": {
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""shape""]}
+          }
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Convert tag name to lowercase.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 804,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""ZGl2""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          ""properties"": {
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""DIV""]}
+          }
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""WEB1079.AttributeValueIsNotQuoted"": {
+            ""id"": ""WEB1079"",
+            ""shortDescription"": {
+              ""text"": ""The attribute value is not quoted.""
+            },
+            ""messageStrings"": {
+              ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+            }
+          },
+          ""WEB1066.TagNameIsNotLowercase"": {
+            ""id"": ""WEB1066"",
+            ""shortDescription"": {
+              ""text"": ""The tag name is not lowercase.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_CodeFlows()
+        {
+            string v1LogText =
+@"{
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""message"": ""Variable \""ptr\"" declared."",
+          ""snippet"": ""add_core(ptr, offset, val);"",
+          ""locations"": [
+            {
+              ""analysisTarget"": {
+                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+              },
+              ""resultFile"": {
+                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                ""region"": {
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+            }
+          ],
+          ""codeFlows"": [
+            {
+              ""message"": ""Path from declaration to usage"",
+              ""locations"": [
+                {
+                  ""kind"": ""declaration"",
+                  ""importance"": ""essential"",
+                  ""message"": ""Variable \""ptr\"" declared."",
+                  ""snippet"": ""int *ptr;"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 15
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52,
+                  ""taintKind"": ""sink"",
+                  ""target"": ""foo::bar"",
+                  ""targetKey"": ""collections::list::add"",
+                  ""values"": [
+                    ""id"",
+                    ""name"",
+                    ""param3""
+                  ]
+                },
+                {
+                  ""annotations"": [
+                    {
+                      ""message"": ""This is a test annotation"",
+                      ""locations"": [
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                          ""region"": {
+                            ""startLine"": 40
+                          }
+                        },
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                          ""region"": {
+                            ""startLine"": 240
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      ""message"": ""This is a second test annotation"",
+                      ""locations"": [
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/foo.cpp"",
+                          ""region"": {
+                            ""startLine"": 128
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  ""step"": 1,
+                  ""kind"": ""assignment"",
+                  ""importance"": ""unimportant"",
+                  ""snippet"": ""offset = 0;"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 15
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52
+                },
+                {
+                  ""step"": 2,
+                  ""kind"": ""callReturn"",
+                  ""importance"": ""essential"",
+                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
+                  ""snippet"": ""add_core(ptr, offset, val)"",
+                  ""state"": {
+                    ""Foo"": ""bar""
+                  },
+                  ""target"": ""collections::list::add_core"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 25
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""message"": {
+            ""text"": ""Variable \""ptr\"" declared.""
+          },
+          ""analysisTarget"": {
+            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+          },
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27,
+                  ""snippet"": {
+                    ""text"": ""add_core(ptr, offset, val);""
+                  }
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
+            }
+          ],
+          ""codeFlows"": [
+            {
+              ""message"": {
+                ""text"": ""Path from declaration to usage""
+              },
+              ""threadFlows"": [
+                {
+                  ""locations"": [
+                    {
+                      ""step"": 1,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""snippet"": {
+                              ""text"": ""int *ptr;""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""message"": {
+                          ""text"": ""Variable \""ptr\"" declared.""
+                        }
+                      },
+                      ""module"": ""platform"",
+                      ""importance"": ""essential"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": null,
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""declaration"",
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": ""sink"",
+                        ""sarifv1/target"": ""foo::bar"",
+                        ""sarifv1/targetKey"": ""collections::list::add"",
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": [""id"",""name"",""param3""]
+                      }
+                    },
+                    {
+                      ""step"": 2,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""snippet"": {
+                              ""text"": ""offset = 0;""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""annotations"": [
+                          {
+                            ""startLine"": 40,
+                            ""message"": {
+                              ""text"": ""This is a test annotation""
+                            }
+                          },
+                          {
+                            ""startLine"": 240,
+                            ""message"": {
+                              ""text"": ""This is a test annotation""
+                            }
+                          }
+                        ]
+                      },
+                      ""module"": ""platform"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": [{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}],
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""assignment"",
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": ""unknown"",
+                        ""sarifv1/target"": null,
+                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": null
+                      }
+                    },
+                    {
+                      ""step"": 3,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 25,
+                            ""snippet"": {
+                              ""text"": ""add_core(ptr, offset, val)""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""message"": {
+                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
+                        }
+                      },
+                      ""module"": ""platform"",
+                      ""state"": {
+                        ""Foo"": ""bar""
+                      },
+                      ""importance"": ""essential"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": null,
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""callReturn"",
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": ""unknown"",
+                        ""sarifv1/target"": ""collections::list::add_core"",
+                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": null
+                      }
+                    }
+                  ]
+                }
+              ],
+              ""properties"": {
+                ""sarifv1/isStepZeroBased"": true
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }";

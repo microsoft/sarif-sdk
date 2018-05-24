@@ -62,6 +62,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!Message.ValueComparer.Equals(left.Message, right.Message))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -84,6 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Snippet != null)
                 {
                     result = (result * 31) + obj.Snippet.ValueGetHashCode();
+                }
+
+                if (obj.Message != null)
+                {
+                    result = (result * 31) + obj.Message.ValueGetHashCode();
                 }
             }
 

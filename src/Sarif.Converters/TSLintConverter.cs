@@ -117,14 +117,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (TSLintLogFix fix in entry.Fixes)
                 {
-                    Replacement replacement = new Replacement()
+                    Replacement replacement = new Replacement();
+
+                    replacement.DeletedRegion = new Region
                     {
-                        Offset = fix.InnerStart,
-                        DeletedLength = fix.InnerLength,
+                        Length = fix.InnerLength,
+                        Offset = fix.InnerStart
                     };
 
-                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
-                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
+                    if (!string.IsNullOrEmpty(fix.InnerText))
+                    {
+                        replacement.InsertedContent = new FileContent
+                        {
+                            Text = fix.InnerText
+                        };
+                    }
 
                     replacements.Add(replacement);
                 }

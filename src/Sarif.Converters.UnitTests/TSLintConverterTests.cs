@@ -117,9 +117,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Replacement replacement = new Replacement()
             {
-                Offset = 10,
-                DeletedLength = 5,
-                InsertedBytes = Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value"))
+                DeletedRegion = new Region
+                {
+                    Length = 5,
+                    Offset = 10
+                },
+                InsertedContent = new FileContent
+                {
+                    Text = "fix.innerText.test.value"
+                }
             };
 
             testResult.Fixes = new List<Fix>()
