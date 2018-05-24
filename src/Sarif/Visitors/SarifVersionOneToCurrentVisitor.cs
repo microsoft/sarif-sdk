@@ -104,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/essential", v1AnnotatedCodeLocation.Essential);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/fullyQualifiedLogicalName", v1AnnotatedCodeLocation.FullyQualifiedLogicalName);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/id", v1AnnotatedCodeLocation.Id);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/kind", v1AnnotatedCodeLocation.Kind.ToString().ToLowerInvariant());
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/kind", Utilities.ToCamelCase(v1AnnotatedCodeLocation.Kind.ToString()));
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/logicalLocationKey", v1AnnotatedCodeLocation.LogicalLocationKey);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", v1AnnotatedCodeLocation.TaintKind.ToString().ToLowerInvariant());
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", Utilities.ToCamelCase(v1AnnotatedCodeLocation.TaintKind.ToString()));
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/target", v1AnnotatedCodeLocation.Target);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/targetKey", v1AnnotatedCodeLocation.TargetKey);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/threadId", v1AnnotatedCodeLocation.ThreadId);
@@ -675,6 +675,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Region region = null;
 
+            // In SARIF v1, a location could have annotations that referred to files other than the location's own file.
+            // That made no sense. In SARIF v2, a location can only be annotated with regions in the same file.
+            // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
                 region = CreateRegion(v1PhysicalLocation.Region);

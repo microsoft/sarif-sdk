@@ -1594,7 +1594,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 {
                   ""step"": 2,
-                  ""kind"": ""call"",
+                  ""kind"": ""callReturn"",
                   ""importance"": ""essential"",
                   ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
                   ""snippet"": ""add_core(ptr, offset, val)"",
@@ -1786,7 +1786,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""sarifv1/essential"": false,
                         ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
-                        ""sarifv1/kind"": ""call"",
+                        ""sarifv1/kind"": ""callReturn"",
                         ""sarifv1/logicalLocationKey"": null,
                         ""sarifv1/taintKind"": ""unknown"",
                         ""sarifv1/target"": ""collections::list::add_core"",
