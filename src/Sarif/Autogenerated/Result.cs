@@ -69,12 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Location> Locations { get; set; }
 
         /// <summary>
-        /// A source code or other file fragment that illustrates the result.
-        /// </summary>
-        [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
-        public FileContent Snippet { get; set; }
-
-        /// <summary>
         /// A stable, unique identifer for the result in the form of a GUID.
         /// </summary>
         [DataMember(Name = "instanceGuid", IsRequired = false, EmitDefaultValue = false)]
@@ -188,9 +182,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="locations">
         /// An initialization value for the <see cref="P: Locations" /> property.
         /// </param>
-        /// <param name="snippet">
-        /// An initialization value for the <see cref="P: Snippet" /> property.
-        /// </param>
         /// <param name="instanceGuid">
         /// An initialization value for the <see cref="P: InstanceGuid" /> property.
         /// </param>
@@ -236,9 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, FileContent snippet, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, level, message, ruleMessageId, analysisTarget, locations, snippet, instanceGuid, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, workItemLocation, conversionProvenance, fixes, properties);
+            Init(ruleId, level, message, ruleMessageId, analysisTarget, locations, instanceGuid, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, workItemLocation, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -257,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.Snippet, other.InstanceGuid, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.WorkItemLocation, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.WorkItemLocation, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -278,7 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, FileContent snippet, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             Level = level;
@@ -309,11 +300,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Locations = destination_0;
-            }
-
-            if (snippet != null)
-            {
-                Snippet = new FileContent(snippet);
             }
 
             InstanceGuid = instanceGuid;

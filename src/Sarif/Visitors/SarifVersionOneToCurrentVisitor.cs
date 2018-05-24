@@ -16,6 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun = null;
+        private int _codeFlowLocationNestingLevel;
+        private int _codeFlowLocationStepAdjustment = 0;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -31,6 +33,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return null;
+        }
+
+        internal CodeFlow CreateCodeFlow(CodeFlowVersionOne v1CodeFlow)
+        {
+            CodeFlow codeFlow = null;
+
+            if (v1CodeFlow != null)
+            {
+                codeFlow = new CodeFlow
+                {
+                    Message = CreateMessage(v1CodeFlow.Message),
+                    Properties = v1CodeFlow.Properties
+                };
+
+                if (v1CodeFlow.Locations != null && v1CodeFlow.Locations.Count > 0)
+                {
+                    _codeFlowLocationNestingLevel = 0;
+
+                    if (v1CodeFlow.Locations[0].Step == 0)
+                    {
+                        // If the steps are zero-based, add 1 to comply with the v2 spec
+                        _codeFlowLocationStepAdjustment = 1;
+                    }
+
+                    codeFlow.ThreadFlows = new List<ThreadFlow>
+                    {
+                        new ThreadFlow
+                        {
+                            Locations = v1CodeFlow.Locations.Select(CreateCodeFlowLocation).ToList()
+                        }
+                    };
+
+                    _codeFlowLocationStepAdjustment = 0;
+                }
+            }
+
+            return codeFlow;
+        }
+
+        internal CodeFlowLocation CreateCodeFlowLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
+        {
+            CodeFlowLocation codeFlowLocation = null;
+
+            if (v1AnnotatedCodeLocation != null)
+            {
+                codeFlowLocation = new CodeFlowLocation
+                {
+                    Importance = Utilities.CreateCodeFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
+                    Kind = v1AnnotatedCodeLocation.Kind.ToString(),
+                    Location = CreateLocation(v1AnnotatedCodeLocation),
+                    Module = v1AnnotatedCodeLocation.Module,
+                    NestingLevel = _codeFlowLocationNestingLevel,
+                    Properties = v1AnnotatedCodeLocation.Properties,
+                    State = v1AnnotatedCodeLocation.State,
+                    Step = v1AnnotatedCodeLocation.Step + _codeFlowLocationStepAdjustment
+                };
+
+                if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)
+                {
+                    _codeFlowLocationNestingLevel++;
+                }
+                else if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.CallReturn)
+                {
+                    _codeFlowLocationNestingLevel--;
+                }
+
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/annotations", v1AnnotatedCodeLocation.Annotations);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/essential", v1AnnotatedCodeLocation.Essential);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/fullyQualifiedLogicalName", v1AnnotatedCodeLocation.FullyQualifiedLogicalName);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/id", v1AnnotatedCodeLocation.Id);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/logicalLocationKey", v1AnnotatedCodeLocation.LogicalLocationKey);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", v1AnnotatedCodeLocation.TaintKind);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/target", v1AnnotatedCodeLocation.Target);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/targetKey", v1AnnotatedCodeLocation.TargetKey);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/threadId", v1AnnotatedCodeLocation.ThreadId);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/values", v1AnnotatedCodeLocation.Values);
+            }
+
+            return codeFlowLocation;
         }
 
         internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
@@ -257,6 +338,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                 decoratedName: v1Location.DecoratedName);
                         location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
                     }
+                }
+            }
+
+            return location;
+        }
+
+        internal Location CreateLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
+        {
+            Location location = null;
+
+            if (v1AnnotatedCodeLocation != null)
+            {
+                location = new Location
+                {
+                    Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations, (a, pl) => CreateRegion(pl)).ToList(),
+                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
+                    Message = CreateMessage(v1AnnotatedCodeLocation.Message),
+                    PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
+                    Properties = v1AnnotatedCodeLocation.Properties
+                };
+
+                if (!string.IsNullOrWhiteSpace(v1AnnotatedCodeLocation.Snippet))
+                {
+                    if (location.PhysicalLocation == null)
+                    {
+                        location.PhysicalLocation = new PhysicalLocation();
+                    }
+
+                    if (location.PhysicalLocation.Region == null)
+                    {
+                        location.PhysicalLocation.Region = new Region();
+                    }
+
+                    location.PhysicalLocation.Region.Snippet = new FileContent(v1AnnotatedCodeLocation.Snippet, null);
                 }
             }
 
@@ -546,6 +661,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
+        internal Region CreateRegion(PhysicalLocationVersionOne v1PhysicalLocation)
+        {
+            Region region = null;
+
+            if (v1PhysicalLocation != null)
+            {
+                region = CreateRegion(v1PhysicalLocation.Region);
+            }
+
+            return region;
+        }
+
         internal Region CreateRegion(int startColumn, int startLine, int endColumn = 0, int endLine = 0, int length = 0, int offset = 0)
         {
             Region region = null;
@@ -575,15 +702,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = new Result
                 {
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
+                    CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
                     InstanceGuid = v1Result.Id,
                     Level = Utilities.CreateResultLevel(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
+                    RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
                     RuleId = v1Result.RuleId,
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates),
+                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
 
                 // The spec says that analysisTarget is required only if it differs from the result file.

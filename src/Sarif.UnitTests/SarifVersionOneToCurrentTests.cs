@@ -1011,6 +1011,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                               ""fullyQualifiedLogicalName"": ""collections::list::add"",
                               ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
                             }
+                          ],
+                          ""relatedLocations"": [
+                            {
+                              ""message"": ""\""count\"" was declared here."",
+                              ""physicalLocation"": {
+                                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                                ""region"": {
+                                  ""startLine"": 8,
+                                  ""startColumn"": 5
+                                }
+                              },
+                              ""fullyQualifiedLogicalName"": ""collections::list:add""
+                            }
                           ]
 		                }
                       ],
@@ -1088,6 +1101,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add""
+            }
+          ],
+          ""relatedLocations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 8,
+                  ""startColumn"": 5
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list:add"",
+              ""message"": {
+                ""text"": ""\""count\"" was declared here.""
+              }
             }
           ],
           ""suppressionStates"": [""suppressedExternally""],
@@ -1443,6 +1473,337 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             ""messageStrings"": {
               ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_CodeFlows()
+        {
+            string v1LogText =
+@"{
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""kind"": ""function"",
+          ""parentKey"": ""collections::list""
+        },
+        ""collections::list"": {
+          ""name"": ""list"",
+          ""kind"": ""type"",
+          ""parentKey"": ""collections""
+        },
+        ""collections"": {
+          ""name"": ""collections"",
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""ptr""
+            ]
+          },
+          ""snippet"": ""add_core(ptr, offset, val);"",
+          ""locations"": [
+            {
+              ""analysisTarget"": {
+                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+              },
+              ""resultFile"": {
+                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                ""region"": {
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+            }
+          ],
+          ""codeFlows"": [
+            {
+              ""message"": ""Path from declaration to usage"",
+              ""locations"": [
+                {
+                  ""kind"": ""declaration"",
+                  ""importance"": ""essential"",
+                  ""message"": ""Variable \""ptr\"" declared."",
+                  ""snippet"": ""int *ptr;"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 15
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52
+                },
+                {
+                  ""step"": 1,
+                  ""kind"": ""assignment"",
+                  ""importance"": ""unimportant"",
+                  ""snippet"": ""offset = 0;"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 15
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52
+                },
+                {
+                  ""step"": 2,
+                  ""kind"": ""call"",
+                  ""importance"": ""essential"",
+                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
+                  ""snippet"": ""add_core(ptr, offset, val)"",
+                  ""target"": ""collections::list:add_core"",
+                  ""physicalLocation"": {
+                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                    ""region"": {
+                      ""startLine"": 25
+                    }
+                  },
+                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""module"": ""platform"",
+                  ""threadId"": 52
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      ""rules"": {
+        ""C2001"": {
+          ""id"": ""C2001"",
+          ""shortDescription"": ""A variable was used without being initialized."",
+          ""fullDescription"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",
+          ""messageFormats"": {
+            ""default"": ""Variable \""{0}\"" was used without being initialized.""
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""decoratedName"": ""?add@list@collections@@QAEXH@Z"",
+          ""parentKey"": ""collections::list"",
+          ""kind"": ""function""
+        },
+        ""collections::list"": {
+          ""name"": ""list"",
+          ""parentKey"": ""collections"",
+          ""kind"": ""type""
+        },
+        ""collections"": {
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""C2001"",
+          ""message"": {
+            ""arguments"": [
+              ""ptr""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""analysisTarget"": {
+            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
+          },
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                },
+                ""region"": {
+                  ""startLine"": 1,
+                  ""startColumn"": 1,
+                  ""endLine"": 1,
+                  ""endColumn"": 28,
+                  ""length"": 27,
+                  ""snippet"": {
+                    ""text"": ""add_core(ptr, offset, val);""
+                  }
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
+            }
+          ],
+          ""codeFlows"": [
+            {
+              ""message"": {
+                ""text"": ""Path from declaration to usage""
+              },
+              ""threadFlows"": [
+                {
+                  ""locations"": [
+                    {
+                      ""step"": 1,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""snippet"": {
+                              ""text"": ""int *ptr;""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""message"": {
+                          ""text"": ""Variable \""ptr\"" declared.""
+                        }
+                      },
+                      ""kind"": ""Declaration"",
+                      ""module"": ""platform"",
+                      ""importance"": ""essential"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": null,
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": 0,
+                        ""sarifv1/target"": null,
+                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": null
+                      }
+                    },
+                    {
+                      ""step"": 2,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""snippet"": {
+                              ""text"": ""offset = 0;""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list:add""
+                      },
+                      ""kind"": ""Assignment"",
+                      ""module"": ""platform"",
+                      ""importance"": ""unimportant"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": null,
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": 0,
+                        ""sarifv1/target"": null,
+                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": null
+                      }
+                    },
+                    {
+                      ""step"": 3,
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                          },
+                          ""region"": {
+                            ""startLine"": 25,
+                            ""snippet"": {
+                              ""text"": ""add_core(ptr, offset, val)""
+                            }
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""message"": {
+                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
+                        }
+                      },
+                      ""kind"": ""Call"",
+                      ""module"": ""platform"",
+                      ""importance"": ""essential"",
+                      ""properties"": {
+                        ""sarifv1/annotations"": null,
+                        ""sarifv1/essential"": false,
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/id"": 0,
+                        ""sarifv1/logicalLocationKey"": null,
+                        ""sarifv1/taintKind"": 0,
+                        ""sarifv1/target"": ""collections::list:add_core"",
+                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/threadId"": 52,
+                        ""sarifv1/values"": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          ""properties"": {
+            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]}
+          }
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""C2001"": {
+            ""id"": ""C2001"",
+            ""shortDescription"": {
+              ""text"": ""A variable was used without being initialized.""
+            },
+            ""fullDescription"": {
+              ""text"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Variable \""{0}\"" was used without being initialized.""
             }
           }
         }

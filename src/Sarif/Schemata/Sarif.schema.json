@@ -1256,11 +1256,6 @@
           }
         },
 
-        "snippet": {
-          "description": "A source code or other file fragment that illustrates the result.",
-          "$ref": "#/definitions/fileContent"
-        },
-
         "instanceGuid": {
           "description": "A stable, unique identifer for the result in the form of a GUID.",
           "type": "string"
