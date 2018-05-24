@@ -1498,7 +1498,8 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [
         {
-          ""message"": ""C2001"",
+          ""ruleId"": ""C2001"",
+          ""message"": ""Variable \""ptr\"" declared."",
           ""snippet"": ""add_core(ptr, offset, val);"",
           ""locations"": [
             {
@@ -1641,8 +1642,9 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [
         {
+          ""ruleId"": ""C2001"",
           ""message"": {
-            ""text"": ""C2001""
+            ""text"": ""Variable \""ptr\"" declared.""
           },
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
@@ -1701,9 +1703,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""sarifv1/essential"": false,
                         ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
-                        ""sarifv1/kind"": ""Declaration"",
+                        ""sarifv1/kind"": ""declaration"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": ""Sink"",
+                        ""sarifv1/taintKind"": ""sink"",
                         ""sarifv1/target"": ""foo::bar"",
                         ""sarifv1/targetKey"": ""collections::list::add"",
                         ""sarifv1/threadId"": 52,
@@ -1737,12 +1739,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                             ""message"": {
                               ""text"": ""This is a test annotation""
                             }
-                          },
-                          {
-                            ""startLine"": 128,
-                            ""message"": {
-                              ""text"": ""This is a second test annotation""
-                            }
                           }
                         ]
                       },
@@ -1752,9 +1748,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""sarifv1/essential"": false,
                         ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
-                        ""sarifv1/kind"": ""Assignment"",
+                        ""sarifv1/kind"": ""assignment"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": ""Unknown"",
+                        ""sarifv1/taintKind"": ""unknown"",
                         ""sarifv1/target"": null,
                         ""sarifv1/targetKey"": null,
                         ""sarifv1/threadId"": 52,
@@ -1790,9 +1786,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ""sarifv1/essential"": false,
                         ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
-                        ""sarifv1/kind"": ""Call"",
+                        ""sarifv1/kind"": ""call"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": ""Unknown"",
+                        ""sarifv1/taintKind"": ""unknown"",
                         ""sarifv1/target"": ""collections::list::add_core"",
                         ""sarifv1/targetKey"": null,
                         ""sarifv1/threadId"": 52,
