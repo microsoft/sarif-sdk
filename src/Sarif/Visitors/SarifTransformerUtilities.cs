@@ -1,7 +1,6 @@
 ﻿// Copyright(c) Microsoft.All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -190,6 +189,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return BaselineState.New;
                 default:
                     return BaselineState.None;
+            }
+        }
+        public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
+        {
+            switch (v1AnnotatedCodeLocationImportance)
+            {
+                case AnnotatedCodeLocationImportanceVersionOne.Essential:
+                    return CodeFlowLocationImportance.Essential;
+                case AnnotatedCodeLocationImportanceVersionOne.Important:
+                    return CodeFlowLocationImportance.Important;
+                default:
+                    return CodeFlowLocationImportance.Important;
+            }
+        }
+
+        public static string ToCamelCase(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return s;
+            }
+            else if (s.Length == 1)
+            {
+                return s.ToLowerInvariant();
+            }
+            else
+            {
+                return char.ToLowerInvariant(s[0]) + s.Substring(1);
             }
         }
     }

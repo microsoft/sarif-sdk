@@ -535,7 +535,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Snippet = VisitNullChecked(node.Snippet);
                 if (node.Stacks != null)
                 {
                     for (int index_0 = 0; index_0 < node.Stacks.Count; ++index_0)
