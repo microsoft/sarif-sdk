@@ -1022,7 +1022,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                   ""startColumn"": 5
                                 }
                               },
-                              ""fullyQualifiedLogicalName"": ""collections::list:add""
+                              ""fullyQualifiedLogicalName"": ""collections::list::add""
                             }
                           ]
 		                }
@@ -1114,7 +1114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startColumn"": 5
                 }
               },
-              ""fullyQualifiedLogicalName"": ""collections::list:add"",
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
               ""message"": {
                 ""text"": ""\""count\"" was declared here.""
               }
@@ -1496,31 +1496,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add"",
-          ""kind"": ""function"",
-          ""parentKey"": ""collections::list""
-        },
-        ""collections::list"": {
-          ""name"": ""list"",
-          ""kind"": ""type"",
-          ""parentKey"": ""collections""
-        },
-        ""collections"": {
-          ""name"": ""collections"",
-          ""kind"": ""namespace""
-        }
-      },
       ""results"": [
         {
-          ""ruleId"": ""C2001"",
-          ""formattedRuleMessage"": {
-            ""formatId"": ""default"",
-            ""arguments"": [
-              ""ptr""
-            ]
-          },
+          ""message"": ""C2001"",
           ""snippet"": ""add_core(ptr, offset, val);"",
           ""locations"": [
             {
@@ -1556,11 +1534,49 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
-                  ""threadId"": 52
+                  ""threadId"": 52,
+                  ""taintKind"": ""sink"",
+                  ""target"": ""foo::bar"",
+                  ""targetKey"": ""collections::list::add"",
+                  ""values"": [
+                    ""id"",
+                    ""name"",
+                    ""param3""
+                  ]
                 },
                 {
+                  ""annotations"": [
+                    {
+                      ""message"": ""This is a test annotation"",
+                      ""locations"": [
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                          ""region"": {
+                            ""startLine"": 40
+                          }
+                        },
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                          ""region"": {
+                            ""startLine"": 240
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      ""message"": ""This is a second test annotation"",
+                      ""locations"": [
+                        {
+                          ""uri"": ""file:///home/buildAgent/src/collections/foo.cpp"",
+                          ""region"": {
+                            ""startLine"": 128
+                          }
+                        }
+                      ]
+                    }
+                  ],
                   ""step"": 1,
                   ""kind"": ""assignment"",
                   ""importance"": ""unimportant"",
@@ -1571,7 +1587,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 },
@@ -1581,14 +1597,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""importance"": ""essential"",
                   ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
                   ""snippet"": ""add_core(ptr, offset, val)"",
-                  ""target"": ""collections::list:add_core"",
+                  ""state"": {
+                    ""Foo"": ""bar""
+                  },
+                  ""target"": ""collections::list::add_core"",
                   ""physicalLocation"": {
                     ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                     ""region"": {
                       ""startLine"": 25
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 }
@@ -1596,17 +1615,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
           ]
         }
-      ],
-      ""rules"": {
-        ""C2001"": {
-          ""id"": ""C2001"",
-          ""shortDescription"": ""A variable was used without being initialized."",
-          ""fullDescription"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",
-          ""messageFormats"": {
-            ""default"": ""Variable \""{0}\"" was used without being initialized.""
-          }
-        }
-      }
+      ]
     }
   ]
 }";
@@ -1627,28 +1636,14 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""logicalLocations"": {
         ""collections::list::add"": {
           ""name"": ""add"",
-          ""decoratedName"": ""?add@list@collections@@QAEXH@Z"",
-          ""parentKey"": ""collections::list"",
-          ""kind"": ""function""
-        },
-        ""collections::list"": {
-          ""name"": ""list"",
-          ""parentKey"": ""collections"",
-          ""kind"": ""type""
-        },
-        ""collections"": {
-          ""kind"": ""namespace""
+          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
         }
       },
       ""results"": [
         {
-          ""ruleId"": ""C2001"",
           ""message"": {
-            ""arguments"": [
-              ""ptr""
-            ]
+            ""text"": ""C2001""
           },
-          ""ruleMessageId"": ""default"",
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
           },
@@ -1694,25 +1689,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
                           ""text"": ""Variable \""ptr\"" declared.""
                         }
                       },
-                      ""kind"": ""Declaration"",
                       ""module"": ""platform"",
                       ""importance"": ""essential"",
                       ""properties"": {
                         ""sarifv1/annotations"": null,
                         ""sarifv1/essential"": false,
-                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""Declaration"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": 0,
-                        ""sarifv1/target"": null,
-                        ""sarifv1/targetKey"": null,
+                        ""sarifv1/taintKind"": ""Sink"",
+                        ""sarifv1/target"": ""foo::bar"",
+                        ""sarifv1/targetKey"": ""collections::list::add"",
                         ""sarifv1/threadId"": 52,
-                        ""sarifv1/values"": null
+                        ""sarifv1/values"": [""id"",""name"",""param3""]
                       }
                     },
                     {
@@ -1729,18 +1724,37 @@ namespace Microsoft.CodeAnalysis.Sarif
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list:add""
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""annotations"": [
+                          {
+                            ""startLine"": 40,
+                            ""message"": {
+                              ""text"": ""This is a test annotation""
+                            }
+                          },
+                          {
+                            ""startLine"": 240,
+                            ""message"": {
+                              ""text"": ""This is a test annotation""
+                            }
+                          },
+                          {
+                            ""startLine"": 128,
+                            ""message"": {
+                              ""text"": ""This is a second test annotation""
+                            }
+                          }
+                        ]
                       },
-                      ""kind"": ""Assignment"",
                       ""module"": ""platform"",
-                      ""importance"": ""unimportant"",
                       ""properties"": {
-                        ""sarifv1/annotations"": null,
+                        ""sarifv1/annotations"": [{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}],
                         ""sarifv1/essential"": false,
-                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""Assignment"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": 0,
+                        ""sarifv1/taintKind"": ""Unknown"",
                         ""sarifv1/target"": null,
                         ""sarifv1/targetKey"": null,
                         ""sarifv1/threadId"": 52,
@@ -1761,22 +1775,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
                           ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
                         }
                       },
-                      ""kind"": ""Call"",
                       ""module"": ""platform"",
+                      ""state"": {
+                        ""Foo"": ""bar""
+                      },
                       ""importance"": ""essential"",
                       ""properties"": {
                         ""sarifv1/annotations"": null,
                         ""sarifv1/essential"": false,
-                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list:add"",
+                        ""sarifv1/fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""sarifv1/id"": 0,
+                        ""sarifv1/kind"": ""Call"",
                         ""sarifv1/logicalLocationKey"": null,
-                        ""sarifv1/taintKind"": 0,
-                        ""sarifv1/target"": ""collections::list:add_core"",
+                        ""sarifv1/taintKind"": ""Unknown"",
+                        ""sarifv1/target"": ""collections::list::add_core"",
                         ""sarifv1/targetKey"": null,
                         ""sarifv1/threadId"": 52,
                         ""sarifv1/values"": null
@@ -1784,30 +1801,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                   ]
                 }
-              ]
+              ],
+              ""properties"": {
+                ""sarifv1/isStepZeroBased"": true
+              }
             }
-          ],
-          ""properties"": {
-            ""sarifv1/formattedRuleMessage"": {""formatId"":""default"",""arguments"":[""ptr""]}
-          }
+          ]
         }
-      ],
-      ""resources"": {
-        ""rules"": {
-          ""C2001"": {
-            ""id"": ""C2001"",
-            ""shortDescription"": {
-              ""text"": ""A variable was used without being initialized.""
-            },
-            ""fullDescription"": {
-              ""text"": ""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.""
-            },
-            ""messageStrings"": {
-              ""default"": ""Variable \""{0}\"" was used without being initialized.""
-            }
-          }
-        }
-      }
+      ]
     }
   ]
 }";

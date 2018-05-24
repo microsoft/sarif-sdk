@@ -57,6 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _codeFlowLocationStepAdjustment = 1;
                     }
 
+                    codeFlow.SetProperty($"{FromPropertyBagPrefix}/isStepZeroBased", _codeFlowLocationStepAdjustment == 1);
+
                     codeFlow.ThreadFlows = new List<ThreadFlow>
                     {
                         new ThreadFlow
@@ -81,7 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 codeFlowLocation = new CodeFlowLocation
                 {
                     Importance = Utilities.CreateCodeFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
-                    Kind = v1AnnotatedCodeLocation.Kind.ToString(),
                     Location = CreateLocation(v1AnnotatedCodeLocation),
                     Module = v1AnnotatedCodeLocation.Module,
                     NestingLevel = _codeFlowLocationNestingLevel,
@@ -103,8 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/essential", v1AnnotatedCodeLocation.Essential);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/fullyQualifiedLogicalName", v1AnnotatedCodeLocation.FullyQualifiedLogicalName);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/id", v1AnnotatedCodeLocation.Id);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/kind", v1AnnotatedCodeLocation.Kind.ToString());
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/logicalLocationKey", v1AnnotatedCodeLocation.LogicalLocationKey);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", v1AnnotatedCodeLocation.TaintKind);
+                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", v1AnnotatedCodeLocation.TaintKind.ToString());
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/target", v1AnnotatedCodeLocation.Target);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/targetKey", v1AnnotatedCodeLocation.TargetKey);
                 codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/threadId", v1AnnotatedCodeLocation.ThreadId);
@@ -352,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations, (a, pl) => CreateRegion(pl)).ToList(),
+                    Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations, (a, pl) => CreateRegion(pl, a.Message)).ToList(),
                     FullyQualifiedLogicalName = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
@@ -371,7 +373,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         location.PhysicalLocation.Region = new Region();
                     }
 
-                    location.PhysicalLocation.Region.Snippet = new FileContent(v1AnnotatedCodeLocation.Snippet, null);
+                    location.PhysicalLocation.Region.Snippet = new FileContent
+                    {
+                        Text = v1AnnotatedCodeLocation.Snippet
+                    };
                 }
             }
 
@@ -661,13 +666,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal Region CreateRegion(PhysicalLocationVersionOne v1PhysicalLocation)
+        internal Region CreateRegion(PhysicalLocationVersionOne v1PhysicalLocation, string message)
         {
             Region region = null;
 
             if (v1PhysicalLocation != null)
             {
                 region = CreateRegion(v1PhysicalLocation.Region);
+                region.Message = CreateMessage(message);
             }
 
             return region;
