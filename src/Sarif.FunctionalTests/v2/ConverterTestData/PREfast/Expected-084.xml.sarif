@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXXZ"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +41,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "23"
               }
@@ -120,7 +130,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXXZ",
               "properties": {
                 "funcline": "29"
               }
@@ -196,7 +205,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXH@Z",
               "properties": {
                 "funcline": "35"
               }

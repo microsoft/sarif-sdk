@@ -686,8 +686,6 @@ namespace Microsoft.Sarif.Viewer
             }
         }
 
-        /// <summary>
-        /// 
         private string GetDocumentName(uint docCookie, IVsWindowFrame pFrame)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

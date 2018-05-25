@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "indexing": {
+          "decoratedName": "?indexing@@YAHI@Z"
+        },
+        "unannotated": {
+          "decoratedName": "?unannotated@@YAHPAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "indexing",
-              "decoratedName": "?indexing@@YAHI@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -190,7 +197,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "unannotated",
-              "decoratedName": "?unannotated@@YAHPAH@Z",
               "properties": {
                 "funcline": "24"
               }
@@ -350,7 +356,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "unannotated",
-              "decoratedName": "?unannotated@@YAHPAH@Z",
               "properties": {
                 "funcline": "24"
               }

@@ -20,10 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Annotation" />.
-        /// </summary>
-        Annotation,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Attachment" />.
         /// </summary>
         Attachment,
@@ -111,6 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="PhysicalLocation" />.
         /// </summary>
         PhysicalLocation,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rectangle" />.
+        /// </summary>
+        Rectangle,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Region" />.
         /// </summary>

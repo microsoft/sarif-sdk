@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MissedAliases::MissedAlias": {
+          "name": "MissedAlias",
+          "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ"
+        },
+        "MissedAliases::MissedAlias2": {
+          "name": "MissedAlias2",
+          "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ"
+        },
+        "MissedAliases::MissedAlias3": {
+          "name": "MissedAlias3",
+          "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",
@@ -30,7 +44,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
-              "decoratedName": "?MissedAlias@MissedAliases@@AEAAHXZ",
               "properties": {
                 "funcline": "9"
               }
@@ -120,7 +133,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
-              "decoratedName": "?MissedAlias2@MissedAliases@@AEAAHXZ",
               "properties": {
                 "funcline": "19"
               }
@@ -210,7 +222,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
-              "decoratedName": "?MissedAlias3@MissedAliases@@AEAAHPEAH@Z",
               "properties": {
                 "funcline": "29"
               }

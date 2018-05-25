@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "ImmersiveModeWNFCallback": {
+          "decoratedName": "?ImmersiveModeWNFCallback@@YAJPBXK@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26026",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ImmersiveModeWNFCallback",
-              "decoratedName": "?ImmersiveModeWNFCallback@@YAJPBXK@Z",
               "properties": {
                 "funcline": "22"
               }

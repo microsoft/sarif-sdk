@@ -46,8 +46,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.Annotation:
-                    return VisitAnnotation((Annotation)node);
                 case SarifNodeKind.Attachment:
                     return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
@@ -92,6 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
                     return VisitPhysicalLocation((PhysicalLocation)node);
+                case SarifNodeKind.Rectangle:
+                    return VisitRectangle((Rectangle)node);
                 case SarifNodeKind.Region:
                     return VisitRegion((Region)node);
                 case SarifNodeKind.Replacement:
@@ -133,29 +133,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (T)Visit(node);
         }
 
-        public virtual Annotation VisitAnnotation(Annotation node)
-        {
-            if (node != null)
-            {
-                node.Message = VisitNullChecked(node.Message);
-                if (node.Locations != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
-                    {
-                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
         public virtual Attachment VisitAttachment(Attachment node)
         {
             if (node != null)
             {
                 node.Description = VisitNullChecked(node.Description);
                 node.FileLocation = VisitNullChecked(node.FileLocation);
+                if (node.Regions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Regions.Count; ++index_0)
+                    {
+                        node.Regions[index_0] = VisitNullChecked(node.Regions[index_0]);
+                    }
+                }
+
+                if (node.Rectangles != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Rectangles.Count; ++index_0)
+                    {
+                        node.Rectangles[index_0] = VisitNullChecked(node.Rectangles[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -183,6 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Location = VisitNullChecked(node.Location);
+                node.Stack = VisitNullChecked(node.Stack);
             }
 
             return node;
@@ -194,7 +193,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
-                node.AnalysisToolLogFileLocation = VisitNullChecked(node.AnalysisToolLogFileLocation);
+                if (node.AnalysisToolLogFiles != null)
+                {
+                    for (int index_0 = 0; index_0 < node.AnalysisToolLogFiles.Count; ++index_0)
+                    {
+                        node.AnalysisToolLogFiles[index_0] = VisitNullChecked(node.AnalysisToolLogFiles[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -475,11 +480,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Rectangle VisitRectangle(Rectangle node)
+        {
+            if (node != null)
+            {
+                node.Message = VisitNullChecked(node.Message);
+            }
+
+            return node;
+        }
+
         public virtual Region VisitRegion(Region node)
         {
             if (node != null)
             {
                 node.Snippet = VisitNullChecked(node.Snippet);
+                node.Message = VisitNullChecked(node.Message);
             }
 
             return node;
@@ -489,6 +505,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.DeletedRegion = VisitNullChecked(node.DeletedRegion);
+                node.InsertedContent = VisitNullChecked(node.InsertedContent);
             }
 
             return node;
@@ -565,6 +583,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                node.WorkItemLocation = VisitNullChecked(node.WorkItemLocation);
                 if (node.ConversionProvenance != null)
                 {
                     for (int index_0 = 0; index_0 < node.ConversionProvenance.Count; ++index_0)
@@ -674,6 +693,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 node.Resources = VisitNullChecked(node.Resources);
+                node.Description = VisitNullChecked(node.Description);
             }
 
             return node;

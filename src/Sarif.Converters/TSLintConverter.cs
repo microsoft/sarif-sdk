@@ -26,8 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            output.Initialize(id: null, automationId: null);
-
             TSLintLog tsLintLog = logReader.ReadLog(input);
 
             Tool tool = new Tool
@@ -35,7 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "TSLint"
             };
 
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             var results = new List<Result>();
             foreach(TSLintLogEntry entry in tsLintLog)
@@ -114,14 +117,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (TSLintLogFix fix in entry.Fixes)
                 {
-                    Replacement replacement = new Replacement()
+                    Replacement replacement = new Replacement();
+
+                    replacement.DeletedRegion = new Region
                     {
-                        Offset = fix.InnerStart,
-                        DeletedLength = fix.InnerLength,
+                        Length = fix.InnerLength,
+                        Offset = fix.InnerStart
                     };
 
-                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
-                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
+                    if (!string.IsNullOrEmpty(fix.InnerText))
+                    {
+                        replacement.InsertedContent = new FileContent
+                        {
+                            Text = fix.InnerText
+                        };
+                    }
 
                     replacements.Add(replacement);
                 }

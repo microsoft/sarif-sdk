@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BasicC6053": {
+          "decoratedName": "?BasicC6053@@YAXPEAD@Z"
+        },
+        "BasicC6054": {
+          "decoratedName": "?BasicC6054@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6053",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6053",
-              "decoratedName": "?BasicC6053@@YAXPEAD@Z",
               "properties": {
                 "funcline": "9"
               }
@@ -122,7 +129,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6054",
-              "decoratedName": "?BasicC6054@@YAXXZ",
               "properties": {
                 "funcline": "17"
               }

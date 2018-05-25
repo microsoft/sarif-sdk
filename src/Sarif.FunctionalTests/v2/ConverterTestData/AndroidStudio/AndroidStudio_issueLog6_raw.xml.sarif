@@ -16,7 +16,6 @@
       },
       "logicalLocations": {
         "app": {
-          "name": "app",
           "kind": "module"
         },
         "app\\microsoft.androidstudioformatexample": {

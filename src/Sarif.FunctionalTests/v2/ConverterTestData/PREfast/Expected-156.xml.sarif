@@ -12,6 +12,23 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SimpleBadCalls": {
+          "decoratedName": "?SimpleBadCalls@@YAXPAX@Z"
+        },
+        "MadePAGAndBad": {
+          "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "NeverMadePAGAndBad": {
+          "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "EnsureIndexingWorksBad": {
+          "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z"
+        },
+        "BadUnicodeStringCall": {
+          "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +47,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SimpleBadCalls",
-              "decoratedName": "?SimpleBadCalls@@YAXPAX@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -162,7 +178,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SimpleBadCalls",
-              "decoratedName": "?SimpleBadCalls@@YAXPAX@Z",
               "properties": {
                 "funcline": "8"
               }
@@ -294,7 +309,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MadePAGAndBad",
-              "decoratedName": "?MadePAGAndBad@@YAXPAU_MyStruct@@@Z",
               "properties": {
                 "funcline": "27"
               }
@@ -356,7 +370,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "NeverMadePAGAndBad",
-              "decoratedName": "?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z",
               "properties": {
                 "funcline": "42"
               }
@@ -418,7 +431,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "EnsureIndexingWorksBad",
-              "decoratedName": "?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z",
               "properties": {
                 "funcline": "64"
               }
@@ -480,7 +492,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadUnicodeStringCall",
-              "decoratedName": "?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z",
               "properties": {
                 "funcline": "92"
               }

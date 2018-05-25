@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "BadFunctionKvtInNewArray": {
+          "decoratedName": "?BadFunctionKvtInNewArray@@YAHXZ"
+        },
+        "BadFunctionKvtInConstructor": {
+          "decoratedName": "?BadFunctionKvtInConstructor@@YAHXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6385",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInNewArray",
-              "decoratedName": "?BadFunctionKvtInNewArray@@YAHXZ",
               "properties": {
                 "funcline": "8"
               }
@@ -155,7 +162,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInConstructor",
-              "decoratedName": "?BadFunctionKvtInConstructor@@YAHXZ",
               "properties": {
                 "funcline": "34"
               }

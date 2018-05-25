@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SetIcvOrgbClrt": {
+          "decoratedName": "?SetIcvOrgbClrt@@YAXIPAJPAU_clrt@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26017",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SetIcvOrgbClrt",
-              "decoratedName": "?SetIcvOrgbClrt@@YAXIPAJPAU_clrt@@@Z",
               "properties": {
                 "funcline": "21"
               }

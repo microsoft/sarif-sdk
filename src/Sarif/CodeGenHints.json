@@ -108,9 +108,14 @@
           "Attachment",
           "ResponseFile",
           "ResultFile",
-          "Screenshot",
           "StandardStream",
-          "TraceFile"
+          "TraceFile",
+          "UnmodifiedFile",
+          "ModifiedFile",
+          "AddedFile",
+          "DeletedFile",
+          "RenamedFile",
+          "GeneratedFile"
         ]
       }
     }
@@ -264,7 +269,12 @@
       }
     }
   ],
-  "Result.ToolFingerprintContributions": [
+  "Result.PartialFingerprints": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Result.Fingerprints": [
     {
       "kind": "DictionaryHint"
     }
@@ -290,6 +300,7 @@
       "arguments": {
         "typeName": "RuleConfigurationDefaultLevel",
         "description": "A value that specifies the default severity level of the result",
+        "zeroValueName": "None",
         "memberNames": [
           "Note",
           "Warning",
@@ -341,6 +352,11 @@
     }
   ],
   "Run.LogicalLocations": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.OriginalUriBaseIds": [
     {
       "kind": "DictionaryHint"
     }

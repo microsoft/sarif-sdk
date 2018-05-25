@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "MergeAliasAndZero": {
+          "decoratedName": "?MergeAliasAndZero@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "6011",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndZero",
-              "decoratedName": "?MergeAliasAndZero@@YAXXZ",
               "properties": {
                 "funcline": "1"
               }

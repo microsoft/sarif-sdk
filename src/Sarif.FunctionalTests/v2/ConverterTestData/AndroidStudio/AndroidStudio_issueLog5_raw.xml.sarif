@@ -34,11 +34,9 @@
       },
       "logicalLocations": {
         "AndroidStudioFormatExample": {
-          "name": "AndroidStudioFormatExample",
           "kind": "module"
         },
         "app": {
-          "name": "app",
           "kind": "module"
         },
         "app\\microsoft.androidstudioformatexample": {

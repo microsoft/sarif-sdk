@@ -42,11 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run();
-
-                uut.Initialize(id: null, automationId: null);
-
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
 
                 uut.WriteRules(new Dictionary<string, IRule>
                 {

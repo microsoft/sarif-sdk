@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TestStrLenPrimOp1": {
+          "decoratedName": "?TestStrLenPrimOp1@@YAXXZ"
+        },
+        "TestWcsLenPrimOp1": {
+          "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ"
+        },
+        "TestCountedString": {
+          "decoratedName": "?TestCountedString@@YAXPAG@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +41,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestStrLenPrimOp1",
-              "decoratedName": "?TestStrLenPrimOp1@@YAXXZ",
               "properties": {
                 "funcline": "14"
               }
@@ -148,7 +158,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestWcsLenPrimOp1",
-              "decoratedName": "?TestWcsLenPrimOp1@@YAXXZ",
               "properties": {
                 "funcline": "45"
               }
@@ -266,7 +275,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestCountedString",
-              "decoratedName": "?TestCountedString@@YAXPAG@Z",
               "properties": {
                 "funcline": "103"
               }

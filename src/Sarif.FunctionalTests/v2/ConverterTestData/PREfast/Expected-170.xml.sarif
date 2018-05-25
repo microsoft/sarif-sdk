@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "CopyNullTerminatedBufferToOffset": {
+          "decoratedName": "?CopyNullTerminatedBufferToOffset@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "CopyNullTerminatedBufferToOffset",
-              "decoratedName": "?CopyNullTerminatedBufferToOffset@@YAXXZ",
               "properties": {
                 "funcline": "47"
               }

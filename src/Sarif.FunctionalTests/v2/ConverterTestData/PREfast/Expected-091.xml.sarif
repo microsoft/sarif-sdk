@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "RtlEncodeUtf16LE": {
+          "decoratedName": "?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26061",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "RtlEncodeUtf16LE",
-              "decoratedName": "?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z",
               "properties": {
                 "funcline": "21"
               }

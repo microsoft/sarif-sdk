@@ -38,6 +38,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!Stack.ValueComparer.Equals(left.Stack, right.Stack))
+            {
+                return false;
+            }
+
+            if (left.Kind != right.Kind)
+            {
+                return false;
+            }
+
             if (left.Module != right.Module)
             {
                 return false;
@@ -102,6 +112,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
+                }
+
+                if (obj.Stack != null)
+                {
+                    result = (result * 31) + obj.Stack.ValueGetHashCode();
+                }
+
+                if (obj.Kind != null)
+                {
+                    result = (result * 31) + obj.Kind.GetHashCode();
                 }
 
                 if (obj.Module != null)

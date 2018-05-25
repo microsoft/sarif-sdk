@@ -45,6 +45,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Location Location { get; set; }
 
         /// <summary>
+        /// The call stack leading to this location.
+        /// </summary>
+        [DataMember(Name = "stack", IsRequired = false, EmitDefaultValue = false)]
+        public Stack Stack { get; set; }
+
+        /// <summary>
+        /// A string describing the type of this location.
+        /// </summary>
+        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        public string Kind { get; set; }
+
+        /// <summary>
         /// The name of the module that contains the code that is executing.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
@@ -96,6 +108,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="location">
         /// An initialization value for the <see cref="P: Location" /> property.
         /// </param>
+        /// <param name="stack">
+        /// An initialization value for the <see cref="P: Stack" /> property.
+        /// </param>
+        /// <param name="kind">
+        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P: Module" /> property.
         /// </param>
@@ -114,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public CodeFlowLocation(int step, Location location, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public CodeFlowLocation(int step, Location location, Stack stack, string kind, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(step, location, module, state, nestingLevel, executionOrder, importance, properties);
+            Init(step, location, stack, kind, module, state, nestingLevel, executionOrder, importance, properties);
         }
 
         /// <summary>
@@ -135,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Step, other.Location, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.Importance, other.Properties);
+            Init(other.Step, other.Location, other.Stack, other.Kind, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlowLocation(this);
         }
 
-        private void Init(int step, Location location, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int step, Location location, Stack stack, string kind, string module, object state, int nestingLevel, int executionOrder, CodeFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Step = step;
             if (location != null)
@@ -164,6 +182,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Location = new Location(location);
             }
 
+            if (stack != null)
+            {
+                Stack = new Stack(stack);
+            }
+
+            Kind = kind;
             Module = module;
             State = state;
             NestingLevel = nestingLevel;

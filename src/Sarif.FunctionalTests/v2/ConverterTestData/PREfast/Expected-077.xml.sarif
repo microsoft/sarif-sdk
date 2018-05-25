@@ -12,6 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "TxfConvertTxfFileIdToMungedName": {
+          "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "foo": {
+          "decoratedName": "?foo@@YAXPAHH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26001",
@@ -30,7 +41,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TxfConvertTxfFileIdToMungedName",
-              "decoratedName": "?TxfConvertTxfFileIdToMungedName@@YAEPAHPAG@Z",
               "properties": {
                 "funcline": "6"
               }
@@ -1184,7 +1194,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "46"
               }
@@ -1848,7 +1857,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
-              "decoratedName": "?foo@@YAXPAHH@Z",
               "properties": {
                 "funcline": "86"
               }

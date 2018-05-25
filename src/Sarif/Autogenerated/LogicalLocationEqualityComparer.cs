@@ -32,6 +32,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.FullyQualifiedName != right.FullyQualifiedName)
+            {
+                return false;
+            }
+
+            if (left.DecoratedName != right.DecoratedName)
+            {
+                return false;
+            }
+
             if (left.ParentKey != right.ParentKey)
             {
                 return false;
@@ -58,6 +68,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.GetHashCode();
+                }
+
+                if (obj.FullyQualifiedName != null)
+                {
+                    result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
+                }
+
+                if (obj.DecoratedName != null)
+                {
+                    result = (result * 31) + obj.DecoratedName.GetHashCode();
                 }
 
                 if (obj.ParentKey != null)

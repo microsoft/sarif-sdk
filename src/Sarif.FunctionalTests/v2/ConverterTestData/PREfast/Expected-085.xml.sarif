@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "Irreducible": {
+          "decoratedName": "?Irreducible@@YAXH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26051",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Irreducible",
-              "decoratedName": "?Irreducible@@YAXH@Z",
               "properties": {
                 "funcline": "5"
               }

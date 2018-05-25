@@ -12,6 +12,34 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXXZ"
+        },
+        "f1": {
+          "decoratedName": "?f1@@YAXXZ"
+        },
+        "g": {
+          "decoratedName": "?g@@YAXPAUUS@@@Z"
+        },
+        "g-0": {
+          "name": "g",
+          "fullyQualifiedName": "g",
+          "decoratedName": "?g@@YAXXZ"
+        },
+        "bar": {
+          "decoratedName": "?bar@@YAXPAUUS@@@Z"
+        },
+        "bad": {
+          "decoratedName": "?bad@@YAXXZ"
+        },
+        "InferredIn": {
+          "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
+        },
+        "TestInferredIn": {
+          "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +58,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXXZ",
               "properties": {
                 "funcline": "20"
               }
@@ -204,7 +231,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
-              "decoratedName": "?f1@@YAXXZ",
               "properties": {
                 "funcline": "30"
               }
@@ -378,7 +404,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "40"
               }
@@ -440,7 +465,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXXZ",
               "properties": {
                 "funcline": "56"
               }
@@ -530,7 +554,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
-              "decoratedName": "?bar@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "69"
               }
@@ -592,7 +615,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad",
-              "decoratedName": "?bad@@YAXXZ",
               "properties": {
                 "funcline": "92"
               }
@@ -710,7 +732,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "InferredIn",
-              "decoratedName": "?InferredIn@@YAXPBUUS@@@Z",
               "properties": {
                 "funcline": "101"
               }
@@ -772,7 +793,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
-              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "106"
               }
@@ -848,7 +868,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
-              "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z",
               "properties": {
                 "funcline": "106"
               }

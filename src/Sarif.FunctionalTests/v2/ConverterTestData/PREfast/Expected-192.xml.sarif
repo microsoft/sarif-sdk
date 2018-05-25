@@ -30,6 +30,141 @@
           "mimeType": "application/octet-stream"
         }
       },
+      "logicalLocations": {
+        "ua_wcscpy": {
+          "decoratedName": "ua_wcscpy"
+        },
+        "_wcsspnp": {
+          "decoratedName": "_wcsspnp"
+        },
+        "_wcsncat_l": {
+          "decoratedName": "_wcsncat_l"
+        },
+        "StringCbCopyExW": {
+          "decoratedName": "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z"
+        },
+        "StringCbCopyNExW": {
+          "decoratedName": "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
+        },
+        "StringCbCatNExW": {
+          "decoratedName": "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z"
+        },
+        "StringCbPrintfExW": {
+          "decoratedName": "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ"
+        },
+        "StringCbGetsExW": {
+          "decoratedName": "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z"
+        },
+        "StringCchLengthA": {
+          "decoratedName": "?StringCchLengthA@@YGJPBDIPAI@Z"
+        },
+        "StringCchLengthW": {
+          "decoratedName": "?StringCchLengthW@@YGJPBGIPAI@Z"
+        },
+        "StringValidateDestAndLengthA": {
+          "decoratedName": "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z"
+        },
+        "StringValidateDestAndLengthW": {
+          "decoratedName": "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z"
+        },
+        "StringExHandleOtherFlagsA": {
+          "decoratedName": "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z"
+        },
+        "StringExHandleOtherFlagsW": {
+          "decoratedName": "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z"
+        },
+        "std::char_traits<unsigned short>::length": {
+          "name": "length",
+          "decoratedName": "?length@?$char_traits@G@std@@SAIPBG@Z"
+        },
+        "std::char_traits<unsigned short>::_Copy_s": {
+          "name": "_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        "std::char_traits<unsigned short>::_Move_s": {
+          "name": "_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z"
+        },
+        "std::char_traits<char>::length": {
+          "name": "length",
+          "decoratedName": "?length@?$char_traits@D@std@@SAIPBD@Z"
+        },
+        "std::char_traits<char>::_Copy_s": {
+          "name": "_Copy_s",
+          "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        "std::char_traits<char>::_Move_s": {
+          "name": "_Move_s",
+          "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z"
+        },
+        "std::_Maklocstr": {
+          "name": "_Maklocstr",
+          "decoratedName": "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_in": {
+          "name": "do_in",
+          "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_out": {
+          "name": "do_out",
+          "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z"
+        },
+        "std::codecvt<unsigned short,char,int>::do_length": {
+          "name": "do_length",
+          "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z"
+        },
+        "std::ctype<char>::do_tolower": {
+          "name": "do_tolower",
+          "decoratedName": "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z"
+        },
+        "std::ctype<char>::do_toupper": {
+          "name": "do_toupper",
+          "decoratedName": "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z"
+        },
+        "std::ctype<char>::_Do_widen_s": {
+          "name": "_Do_widen_s",
+          "decoratedName": "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z"
+        },
+        "std::ctype<char>::_Do_narrow_s": {
+          "name": "_Do_narrow_s",
+          "decoratedName": "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z"
+        },
+        "std::ctype<unsigned short>::do_scan_is": {
+          "name": "do_scan_is",
+          "decoratedName": "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z"
+        },
+        "std::ctype<unsigned short>::do_scan_not": {
+          "name": "do_scan_not",
+          "decoratedName": "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z"
+        },
+        "std::ctype<unsigned short>::do_tolower": {
+          "name": "do_tolower",
+          "decoratedName": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z"
+        },
+        "std::ctype<unsigned short>::do_toupper": {
+          "name": "do_toupper",
+          "decoratedName": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z"
+        },
+        "std::ctype<unsigned short>::_Do_widen_s": {
+          "name": "_Do_widen_s",
+          "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z"
+        },
+        "std::ctype<unsigned short>::_Do_narrow_s": {
+          "name": "_Do_narrow_s",
+          "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z"
+        },
+        "ReadBinHeader": {
+          "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z"
+        },
+        "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s": {
+          "name": "_Xsgetn_s",
+          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z"
+        },
+        "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s": {
+          "name": "_Xsgetn_s",
+          "decoratedName": "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26036",
@@ -48,7 +183,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ua_wcscpy",
-              "decoratedName": "ua_wcscpy",
               "properties": {
                 "funcline": "109"
               }
@@ -124,7 +258,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "_wcsspnp",
-              "decoratedName": "_wcsspnp",
               "properties": {
                 "funcline": "725"
               }
@@ -214,7 +347,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "_wcsncat_l",
-              "decoratedName": "_wcsncat_l",
               "properties": {
                 "funcline": "770"
               }
@@ -276,7 +408,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCbCopyExW",
-              "decoratedName": "?StringCbCopyExW@@YGJPAGIPBGPAPAGPAIK@Z",
               "properties": {
                 "funcline": "1459"
               }
@@ -618,7 +749,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCbCopyNExW",
-              "decoratedName": "?StringCbCopyNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
               "properties": {
                 "funcline": "2571"
               }
@@ -848,7 +978,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCbCatNExW",
-              "decoratedName": "?StringCbCatNExW@@YGJPAGIPBGIPAPAGPAIK@Z",
               "properties": {
                 "funcline": "4631"
               }
@@ -1092,7 +1221,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCbPrintfExW",
-              "decoratedName": "?StringCbPrintfExW@@YAJPAGIPAPAGPAIKPBGZZ",
               "properties": {
                 "funcline": "6791"
               }
@@ -1434,7 +1562,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCbGetsExW",
-              "decoratedName": "?StringCbGetsExW@@YGJPAGIPAPAGPAIK@Z",
               "properties": {
                 "funcline": "9374"
               }
@@ -1748,7 +1875,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCchLengthA",
-              "decoratedName": "?StringCchLengthA@@YGJPBDIPAI@Z",
               "properties": {
                 "funcline": "9552"
               }
@@ -1894,7 +2020,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringCchLengthW",
-              "decoratedName": "?StringCchLengthW@@YGJPBGIPAI@Z",
               "properties": {
                 "funcline": "9584"
               }
@@ -2040,7 +2165,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringValidateDestAndLengthA",
-              "decoratedName": "?StringValidateDestAndLengthA@@YGJPBDIPAII@Z",
               "properties": {
                 "funcline": "10240"
               }
@@ -2186,7 +2310,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringValidateDestAndLengthW",
-              "decoratedName": "?StringValidateDestAndLengthW@@YGJPBGIPAII@Z",
               "properties": {
                 "funcline": "10296"
               }
@@ -2332,7 +2455,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringExHandleOtherFlagsA",
-              "decoratedName": "?StringExHandleOtherFlagsA@@YGJPADIIPAPADPAIK@Z",
               "properties": {
                 "funcline": "11010"
               }
@@ -2506,7 +2628,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "StringExHandleOtherFlagsW",
-              "decoratedName": "?StringExHandleOtherFlagsW@@YGJPAGIIPAPAGPAIK@Z",
               "properties": {
                 "funcline": "11079"
               }
@@ -2652,7 +2773,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<unsigned short>::length",
-              "decoratedName": "?length@?$char_traits@G@std@@SAIPBG@Z",
               "properties": {
                 "funcline": "326"
               }
@@ -2714,7 +2834,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<unsigned short>::_Copy_s",
-              "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "properties": {
                 "funcline": "340"
               }
@@ -2776,7 +2895,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<unsigned short>::_Copy_s",
-              "decoratedName": "?_Copy_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "properties": {
                 "funcline": "340"
               }
@@ -2838,7 +2956,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<unsigned short>::_Move_s",
-              "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "properties": {
                 "funcline": "364"
               }
@@ -2900,7 +3017,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<unsigned short>::_Move_s",
-              "decoratedName": "?_Move_s@?$char_traits@G@std@@SAPAGPAGIPBGI@Z",
               "properties": {
                 "funcline": "364"
               }
@@ -2962,7 +3078,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<char>::length",
-              "decoratedName": "?length@?$char_traits@D@std@@SAIPBD@Z",
               "properties": {
                 "funcline": "441"
               }
@@ -3024,7 +3139,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<char>::_Copy_s",
-              "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "properties": {
                 "funcline": "455"
               }
@@ -3086,7 +3200,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<char>::_Copy_s",
-              "decoratedName": "?_Copy_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "properties": {
                 "funcline": "455"
               }
@@ -3148,7 +3261,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<char>::_Move_s",
-              "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "properties": {
                 "funcline": "479"
               }
@@ -3210,7 +3322,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::char_traits<char>::_Move_s",
-              "decoratedName": "?_Move_s@?$char_traits@D@std@@SAPADPADIPBDI@Z",
               "properties": {
                 "funcline": "479"
               }
@@ -3272,7 +3383,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::_Maklocstr",
-              "decoratedName": "??$_Maklocstr@G@std@@YAPAGPBDPAGABU_Cvtvec@@@Z",
               "properties": {
                 "funcline": "605"
               }
@@ -3446,7 +3556,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_in",
-              "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "properties": {
                 "funcline": "872"
               }
@@ -3760,7 +3869,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_in",
-              "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "properties": {
                 "funcline": "872"
               }
@@ -4004,7 +4112,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_in",
-              "decoratedName": "?do_in@?$codecvt@GDH@std@@MBEHAAHPBD1AAPBDPAG3AAPAG@Z",
               "properties": {
                 "funcline": "872"
               }
@@ -4416,7 +4523,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_out",
-              "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
               "properties": {
                 "funcline": "908"
               }
@@ -4772,7 +4878,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_out",
-              "decoratedName": "?do_out@?$codecvt@GDH@std@@MBEHAAHPBG1AAPBGPAD3AAPAD@Z",
               "properties": {
                 "funcline": "908"
               }
@@ -5128,7 +5233,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_length",
-              "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
               "properties": {
                 "funcline": "972"
               }
@@ -5386,7 +5490,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::codecvt<unsigned short,char,int>::do_length",
-              "decoratedName": "?do_length@?$codecvt@GDH@std@@MBEHABHPBD1I@Z",
               "properties": {
                 "funcline": "972"
               }
@@ -5826,7 +5929,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<char>::do_tolower",
-              "decoratedName": "?do_tolower@?$ctype@D@std@@MBEPBDPADPBD@Z",
               "properties": {
                 "funcline": "1520"
               }
@@ -5958,7 +6060,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<char>::do_toupper",
-              "decoratedName": "?do_toupper@?$ctype@D@std@@MBEPBDPADPBD@Z",
               "properties": {
                 "funcline": "1534"
               }
@@ -6090,7 +6191,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<char>::_Do_widen_s",
-              "decoratedName": "?_Do_widen_s@?$ctype@D@std@@IBEPBDPBD0PADI@Z",
               "properties": {
                 "funcline": "1557"
               }
@@ -6166,7 +6266,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<char>::_Do_narrow_s",
-              "decoratedName": "?_Do_narrow_s@?$ctype@D@std@@IBEPBDPBD0DPADI@Z",
               "properties": {
                 "funcline": "1581"
               }
@@ -6242,7 +6341,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::do_scan_is",
-              "decoratedName": "?do_scan_is@?$ctype@G@std@@MBEPBGFPBG0@Z",
               "properties": {
                 "funcline": "1756"
               }
@@ -6374,7 +6472,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::do_scan_not",
-              "decoratedName": "?do_scan_not@?$ctype@G@std@@MBEPBGFPBG0@Z",
               "properties": {
                 "funcline": "1765"
               }
@@ -6506,7 +6603,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::do_tolower",
-              "decoratedName": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
               "properties": {
                 "funcline": "1779"
               }
@@ -6638,7 +6734,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::do_toupper",
-              "decoratedName": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
               "properties": {
                 "funcline": "1793"
               }
@@ -6770,7 +6865,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::_Do_widen_s",
-              "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
               "properties": {
                 "funcline": "1824"
               }
@@ -6930,7 +7024,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::_Do_widen_s",
-              "decoratedName": "?_Do_widen_s@?$ctype@G@std@@IBEPBDPBD0PAGI@Z",
               "properties": {
                 "funcline": "1824"
               }
@@ -7104,7 +7197,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::_Do_narrow_s",
-              "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
               "properties": {
                 "funcline": "1857"
               }
@@ -7264,7 +7356,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::ctype<unsigned short>::_Do_narrow_s",
-              "decoratedName": "?_Do_narrow_s@?$ctype@G@std@@IBEPBGPBG0DPADI@Z",
               "properties": {
                 "funcline": "1857"
               }
@@ -7438,7 +7529,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ReadBinHeader",
-              "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
               "properties": {
                 "funcline": "57"
               }
@@ -7878,7 +7968,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "ReadBinHeader",
-              "decoratedName": "?ReadBinHeader@@YAPBEPAUtagNET_DESC@@PBEH@Z",
               "properties": {
                 "funcline": "57"
               }
@@ -8360,7 +8449,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::basic_streambuf<unsigned short,std::char_traits<unsigned short> >::_Xsgetn_s",
-              "decoratedName": "?_Xsgetn_s@?$basic_streambuf@GU?$char_traits@G@std@@@std@@IAEHPAGIH@Z",
               "properties": {
                 "funcline": "324"
               }
@@ -8842,7 +8930,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::basic_streambuf<char,std::char_traits<char> >::_Xsgetn_s",
-              "decoratedName": "?_Xsgetn_s@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IAEHPADIH@Z",
               "properties": {
                 "funcline": "324"
               }

@@ -12,6 +12,12 @@
           "mimeType": "application/octet-stream"
         }
       },
+      "logicalLocations": {
+        "std::pair<int const ,uls_perf_counter_info>::{ctor}": {
+          "name": "{ctor}",
+          "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26035",
@@ -30,7 +36,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "std::pair<int const ,uls_perf_counter_info>::{ctor}",
-              "decoratedName": "??$?0HUuls_perf_counter_info@@X@?$pair@$$CBHUuls_perf_counter_info@@@std@@QAE@$$QAU?$pair@HUuls_perf_counter_info@@@1@@Z",
               "properties": {
                 "funcline": "152"
               }

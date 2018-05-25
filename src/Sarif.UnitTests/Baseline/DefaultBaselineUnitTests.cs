@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, DefaultBaseline.ResultBaselineEquals.DefaultInstance, 5);
             Run next = baseline.DeepClone();
-            next.Results[0].ToolFingerprintContributions = new Dictionary<string, string>();
-            next.Results[0].ToolFingerprintContributions.Add("Fingerprint1", "New fingerprint");
+            next.Results[0].PartialFingerprints = new Dictionary<string, string>();
+            next.Results[0].PartialFingerprints.Add("Fingerprint1", "New fingerprint");
 
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 

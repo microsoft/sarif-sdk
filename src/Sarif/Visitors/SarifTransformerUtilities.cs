@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright(c) Microsoft.All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -8,6 +12,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public static class SarifTransformerUtilities
     {
+        public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
+        {
+            { SarifVersion.OneZeroZero, "sarifv1" },
+            { SarifVersion.TwoZeroZero, "sarifv2" }
+        };
+
+        public static readonly string[] DefaultFullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
+
         public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
         {
             ContractResolver = SarifContractResolverVersionOne.Instance,
@@ -74,6 +86,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
+        public static string CreateDisambiguatedName(string baseName, int index)
+        {
+            return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
+        }
 
         public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
         {
@@ -140,6 +156,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return ResultLevelVersionOne.Warning;
                 default:
                     return ResultLevelVersionOne.Warning;
+            }
+        }
+
+        public static ResultLevel CreateResultLevel(ResultLevelVersionOne v1ResultLevel)
+        {
+            switch (v1ResultLevel)
+            {
+                case ResultLevelVersionOne.Error:
+                    return ResultLevel.Error;
+                case ResultLevelVersionOne.Note:
+                    return ResultLevel.Note;
+                case ResultLevelVersionOne.Pass:
+                    return ResultLevel.Pass;
+                case ResultLevelVersionOne.Warning:
+                    return ResultLevel.Warning;
+                case ResultLevelVersionOne.NotApplicable:
+                    return ResultLevel.NotApplicable;
+                default:
+                    return ResultLevel.Default;
+            }
+        }
+
+        public static SuppressionStates CreateSuppressionStates(SuppressionStatesVersionOne v1SuppressionStates)
+        {
+            switch (v1SuppressionStates)
+            {
+                case SuppressionStatesVersionOne.SuppressedExternally:
+                    return SuppressionStates.SuppressedExternally;
+                case SuppressionStatesVersionOne.SuppressedInSource:
+                    return SuppressionStates.SuppressedInSource;
+                default:
+                    return SuppressionStates.None;
+            }
+        }
+
+        public static BaselineState CreateBaselineState(BaselineStateVersionOne v1BaselineState)
+        {
+            switch (v1BaselineState)
+            {
+                case BaselineStateVersionOne.Absent:
+                    return BaselineState.Absent;
+                case BaselineStateVersionOne.Existing:
+                    return BaselineState.Existing;
+                case BaselineStateVersionOne.New:
+                    return BaselineState.New;
+                default:
+                    return BaselineState.None;
+            }
+        }
+        public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
+        {
+            switch (v1AnnotatedCodeLocationImportance)
+            {
+                case AnnotatedCodeLocationImportanceVersionOne.Essential:
+                    return CodeFlowLocationImportance.Essential;
+                case AnnotatedCodeLocationImportanceVersionOne.Important:
+                    return CodeFlowLocationImportance.Important;
+                default:
+                    return CodeFlowLocationImportance.Important;
             }
         }
     }

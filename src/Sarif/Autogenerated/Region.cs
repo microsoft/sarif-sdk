@@ -74,6 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileContent Snippet { get; set; }
 
         /// <summary>
+        /// A message relevant to the region.
+        /// </summary>
+        [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
+        public Message Message { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Region" /> class.
         /// </summary>
         public Region()
@@ -104,9 +110,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="snippet">
         /// An initialization value for the <see cref="P: Snippet" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet)
+        /// <param name="message">
+        /// An initialization value for the <see cref="P: Message" /> property.
+        /// </param>
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet, Message message)
         {
-            Init(startLine, startColumn, endLine, endColumn, offset, length, snippet);
+            Init(startLine, startColumn, endLine, endColumn, offset, length, snippet, message);
         }
 
         /// <summary>
@@ -125,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.Offset, other.Length, other.Snippet);
+            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.Offset, other.Length, other.Snippet, other.Message);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -146,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet)
+        private void Init(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet, Message message)
         {
             StartLine = startLine;
             StartColumn = startColumn;
@@ -157,6 +166,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (snippet != null)
             {
                 Snippet = new FileContent(snippet);
+            }
+
+            if (message != null)
+            {
+                Message = new Message(message);
             }
         }
     }

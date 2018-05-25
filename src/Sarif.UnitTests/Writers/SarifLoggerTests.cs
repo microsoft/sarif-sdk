@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -104,6 +105,54 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+
+
+        [Theory]
+        // These values are emitted both verbose and non-verbose
+        [InlineData(ResultLevel.Error, true, true)]
+        [InlineData(ResultLevel.Error, false, true)]
+        [InlineData(ResultLevel.Warning, true, true)]
+        [InlineData(ResultLevel.Warning, false, true)]
+        [InlineData(ResultLevel.Default, true, true)]
+        [InlineData(ResultLevel.Default, false, true)]
+
+        // These result levels only emitted in verbose logging mode
+        [InlineData(ResultLevel.NotApplicable, true, true)]
+        [InlineData(ResultLevel.NotApplicable, false, false)]
+        [InlineData(ResultLevel.Note, true, true)]
+        [InlineData(ResultLevel.Note, false, false)]
+        [InlineData(ResultLevel.Open, true, true)]
+        [InlineData(ResultLevel.Open, false, false)]
+        [InlineData(ResultLevel.Pass, true, true)]
+        [InlineData(ResultLevel.Pass, false, false)]
+
+        public void SarifLogger_ShouldLog(ResultLevel resultLevel, bool verboseLogging, bool expectedReturn)
+        {
+            LoggingOptions loggingOptions = verboseLogging ? LoggingOptions.Verbose : LoggingOptions.None;
+
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+            bool result = logger.ShouldLog(resultLevel);
+            result.Should().Be(expectedReturn);
+        }
+
+        [Fact]
+        public void SarifLogger_ShouldLogRecognizesAllResultLevels()
+        {
+            LoggingOptions loggingOptions = LoggingOptions.Verbose;
+            var sb = new StringBuilder();
+            var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
+
+            foreach (object resultLevelObject in Enum.GetValues(typeof(ResultLevel)))
+            {
+                // The point of this test is that every defined enum value
+                // should pass a call to ShouldLog and will not raise an 
+                // exception because the enum value isn't recognized
+                logger.ShouldLog((ResultLevel)resultLevelObject);
+            }
+        }
+
+
         [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {
@@ -138,6 +187,74 @@ namespace Microsoft.CodeAnalysis.Sarif
             string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
 
             sarifLog.Runs[0].Tool.SarifLoggerVersion.Should().Be(expectedVersion);
+        }
+
+
+
+        [Fact]
+        public void SarifLogger_WritesRunProperties()
+        {
+            string propertyName = "numberValue";
+            double propertyValue = 3.14;
+            string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();
+            string baselineInstanceGuid = nameof(baselineInstanceGuid) + ":" + Guid.NewGuid().ToString();
+            string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
+            string architecture = nameof(architecture) + ":" + "x86";
+            var conversion = new Conversion() { Tool = DefaultTool };
+            var utcNow = DateTime.UtcNow;
+            var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
+            var versionControlDetails = new VersionControlDetails() { Uri = versionControlUri, Timestamp = DateTime.UtcNow };
+            string originalUriBaseIdKey = "testBase";
+            Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
+            var originalUriBaseIds = new Dictionary<string, Uri>() { { originalUriBaseIdKey, originalUriBaseIdValue } };
+            string defaultFileEncoding = "UTF7";
+            string richMessageMimeType = "sarif-markdown";
+            string redactionToken = "[MY_REDACTION_TOKEN]";
+
+            var sb = new StringBuilder();
+
+            var run = new Run();
+
+            using (var textWriter = new StringWriter(sb))
+            {
+                run.SetProperty(propertyName, propertyValue);
+
+                run.LogicalId = logicalId;
+                run.BaselineInstanceGuid = baselineInstanceGuid;
+                run.AutomationLogicalId = automationLogicalId;
+                run.Architecture = architecture;
+                run.Conversion = conversion;
+                run.VersionControlProvenance = new[] { versionControlDetails };
+                run.OriginalUriBaseIds = originalUriBaseIds;
+                run.DefaultFileEncoding = defaultFileEncoding;
+                run.RichMessageMimeType = richMessageMimeType;
+                run.RedactionToken = redactionToken;
+
+                using (var sarifLogger = new SarifLogger(
+                    textWriter,
+                    run: run,
+                    invocationPropertiesToLog: null))
+                {
+                }
+            }
+
+            string output = sb.ToString();
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+
+            run = sarifLog.Runs[0];
+
+            run.GetProperty<double>(propertyName).Should().Be(propertyValue);
+            run.LogicalId.Should().Be(logicalId);
+            run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
+            run.AutomationLogicalId.Should().Be(automationLogicalId);
+            run.Architecture.Should().Be(architecture);
+            run.Conversion.Tool.ShouldBeEquivalentTo(DefaultTool);
+            //run.VersionControlProvenance[0].Timestamp.ShouldBeEquivalentTo(utcNow);
+            run.VersionControlProvenance[0].Uri.ShouldBeEquivalentTo(versionControlUri);
+            run.OriginalUriBaseIds[originalUriBaseIdKey].Should().Be(originalUriBaseIdValue);
+            run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
+            run.RichMessageMimeType.Should().Be(richMessageMimeType);
+            run.RedactionToken.Should().Be(redactionToken);
         }
 
         [Fact]

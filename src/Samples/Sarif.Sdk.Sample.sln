@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Sdk.Sample", "Sarif.Sdk.Sample\Sarif.Sdk.Sample.csproj", "{38369193-CC76-4CA6-AF49-DD6F5BD05DEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38369193-CC76-4CA6-AF49-DD6F5BD05DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38369193-CC76-4CA6-AF49-DD6F5BD05DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38369193-CC76-4CA6-AF49-DD6F5BD05DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38369193-CC76-4CA6-AF49-DD6F5BD05DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19499097-9B18-44E2-8113-9884968DEEC4}
+	EndGlobalSection
+EndGlobal

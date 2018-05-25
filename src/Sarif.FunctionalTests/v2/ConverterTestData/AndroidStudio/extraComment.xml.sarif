@@ -13,7 +13,6 @@
       },
       "logicalLocations": {
         "northwindtraders-droid-2": {
-          "name": "northwindtraders-droid-2",
           "kind": "module"
         },
         "northwindtraders-droid-2\\com.northwindtraders.droid.model": {

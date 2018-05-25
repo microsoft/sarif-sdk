@@ -12,6 +12,14 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "SortList": {
+          "decoratedName": "?SortList@@YAXXZ"
+        },
+        "SortListUnroll": {
+          "decoratedName": "?SortListUnroll@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26015",
@@ -30,7 +38,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SortList",
-              "decoratedName": "?SortList@@YAXXZ",
               "properties": {
                 "funcline": "174"
               }
@@ -344,7 +351,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "SortListUnroll",
-              "decoratedName": "?SortListUnroll@@YAXXZ",
               "properties": {
                 "funcline": "186"
               }

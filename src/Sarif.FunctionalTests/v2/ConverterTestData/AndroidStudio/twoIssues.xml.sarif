@@ -16,7 +16,6 @@
       },
       "logicalLocations": {
         "yammer-droid-2": {
-          "name": "yammer-droid-2",
           "kind": "module"
         },
         "yammer-droid-2\\com.yammer.droid": {

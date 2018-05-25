@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXXZ"
+        }
+      },
       "results": [
         {
           "ruleId": "26019",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXXZ",
               "properties": {
                 "funcline": "18"
               }

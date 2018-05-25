@@ -44,10 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Invocation Invocation { get; set; }
 
         /// <summary>
-        /// The location of the analysis tool's log file.
+        /// The locations of the analysis tool's per-run log files.
         /// </summary>
-        [DataMember(Name = "analysisToolLogFileLocation", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation AnalysisToolLogFileLocation { get; set; }
+        [DataMember(Name = "analysisToolLogFiles", IsRequired = false, EmitDefaultValue = false)]
+        public IList<FileLocation> AnalysisToolLogFiles { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Conversion" /> class.
@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="invocation">
         /// An initialization value for the <see cref="P: Invocation" /> property.
         /// </param>
-        /// <param name="analysisToolLogFileLocation">
-        /// An initialization value for the <see cref="P: AnalysisToolLogFileLocation" /> property.
+        /// <param name="analysisToolLogFiles">
+        /// An initialization value for the <see cref="P: AnalysisToolLogFiles" /> property.
         /// </param>
-        public Conversion(Tool tool, Invocation invocation, FileLocation analysisToolLogFileLocation)
+        public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles)
         {
-            Init(tool, invocation, analysisToolLogFileLocation);
+            Init(tool, invocation, analysisToolLogFiles);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisToolLogFileLocation);
+            Init(other.Tool, other.Invocation, other.AnalysisToolLogFiles);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, FileLocation analysisToolLogFileLocation)
+        private void Init(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles)
         {
             if (tool != null)
             {
@@ -122,9 +122,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Invocation = new Invocation(invocation);
             }
 
-            if (analysisToolLogFileLocation != null)
+            if (analysisToolLogFiles != null)
             {
-                AnalysisToolLogFileLocation = new FileLocation(analysisToolLogFileLocation);
+                var destination_0 = new List<FileLocation>();
+                foreach (var value_0 in analysisToolLogFiles)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new FileLocation(value_0));
+                    }
+                }
+
+                AnalysisToolLogFiles = destination_0;
             }
         }
     }

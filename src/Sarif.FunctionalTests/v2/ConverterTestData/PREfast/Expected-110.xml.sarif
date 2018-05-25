@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "HpcellFromRwCol": {
+          "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26002",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -526,7 +530,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -1134,7 +1137,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }
@@ -1560,7 +1562,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "HpcellFromRwCol",
-              "decoratedName": "?HpcellFromRwCol@@YAPAU_cell@@HH@Z",
               "properties": {
                 "funcline": "82"
               }

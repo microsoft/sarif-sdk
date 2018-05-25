@@ -12,6 +12,20 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "f": {
+          "decoratedName": "?f@@YAXII@Z"
+        },
+        "TestSafeInt": {
+          "decoratedName": "?TestSafeInt@@YAXII@Z"
+        },
+        "R16_c": {
+          "decoratedName": "?R16_c@@YAXG@Z"
+        },
+        "R16_f": {
+          "decoratedName": "?R16_f@@YAXF@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +44,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
-              "decoratedName": "?f@@YAXII@Z",
               "properties": {
                 "funcline": "63"
               }
@@ -134,7 +147,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestSafeInt",
-              "decoratedName": "?TestSafeInt@@YAXII@Z",
               "properties": {
                 "funcline": "112"
               }
@@ -336,7 +348,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "R16_c",
-              "decoratedName": "?R16_c@@YAXG@Z",
               "properties": {
                 "funcline": "155"
               }
@@ -398,7 +409,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "R16_f",
-              "decoratedName": "?R16_f@@YAXF@Z",
               "properties": {
                 "funcline": "170"
               }

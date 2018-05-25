@@ -12,6 +12,11 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "g": {
+          "decoratedName": "?g@@YAXPAHI@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26000",
@@ -30,7 +35,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAHI@Z",
               "properties": {
                 "funcline": "13"
               }
@@ -92,7 +96,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
-              "decoratedName": "?g@@YAXPAHI@Z",
               "properties": {
                 "funcline": "13"
               }

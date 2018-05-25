@@ -88,10 +88,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             AddSnippetsToResults();
             AddSnippetsToCodeFlowLocations();
 
-            output.Initialize(id: _runId, automationId: _automationId);
+            var run = new Run()
+            {
+                InstanceGuid = _runId,
+                AutomationLogicalId = _automationId,
+                Tool = tool,
+                Invocations = new[] { _invocation }
+            };
 
-            output.WriteTool(tool);
-            output.WriteInvocations(new[] { _invocation });
+            output.Initialize(run);
+
 
             if (_fileDictionary.Any())
             {

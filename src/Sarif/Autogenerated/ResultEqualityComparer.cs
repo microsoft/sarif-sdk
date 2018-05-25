@@ -33,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.RuleKey != right.RuleKey)
-            {
-                return false;
-            }
-
             if (left.Level != right.Level)
             {
                 return false;
@@ -79,27 +74,49 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.Id != right.Id)
+            if (left.InstanceGuid != right.InstanceGuid)
             {
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.ToolFingerprintContributions, right.ToolFingerprintContributions))
+            if (!object.ReferenceEquals(left.PartialFingerprints, right.PartialFingerprints))
             {
-                if (left.ToolFingerprintContributions == null || right.ToolFingerprintContributions == null || left.ToolFingerprintContributions.Count != right.ToolFingerprintContributions.Count)
+                if (left.PartialFingerprints == null || right.PartialFingerprints == null || left.PartialFingerprints.Count != right.PartialFingerprints.Count)
                 {
                     return false;
                 }
 
-                foreach (var value_0 in left.ToolFingerprintContributions)
+                foreach (var value_0 in left.PartialFingerprints)
                 {
                     string value_1;
-                    if (!right.ToolFingerprintContributions.TryGetValue(value_0.Key, out value_1))
+                    if (!right.PartialFingerprints.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
                     if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Fingerprints, right.Fingerprints))
+            {
+                if (left.Fingerprints == null || right.Fingerprints == null || left.Fingerprints.Count != right.Fingerprints.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_2 in left.Fingerprints)
+                {
+                    string value_3;
+                    if (!right.Fingerprints.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
+
+                    if (value_2.Value != value_3)
                     {
                         return false;
                     }
@@ -216,6 +233,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.BaselineState != right.BaselineState)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Attachments, right.Attachments))
             {
                 if (left.Attachments == null || right.Attachments == null)
@@ -237,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.BaselineState != right.BaselineState)
+            if (!FileLocation.ValueComparer.Equals(left.WorkItemLocation, right.WorkItemLocation))
             {
                 return false;
             }
@@ -291,15 +313,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_2 in left.Properties)
+                foreach (var value_4 in left.Properties)
                 {
-                    SerializedPropertyInfo value_3;
-                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
+                    SerializedPropertyInfo value_5;
+                    if (!right.Properties.TryGetValue(value_4.Key, out value_5))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_2.Value, value_3))
+                    if (!object.Equals(value_4.Value, value_5))
                     {
                         return false;
                     }
@@ -324,11 +346,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
-                if (obj.RuleKey != null)
-                {
-                    result = (result * 31) + obj.RuleKey.GetHashCode();
-                }
-
                 result = (result * 31) + obj.Level.GetHashCode();
                 if (obj.Message != null)
                 {
@@ -347,40 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Locations != null)
                 {
-                    foreach (var value_4 in obj.Locations)
-                    {
-                        result = result * 31;
-                        if (value_4 != null)
-                        {
-                            result = (result * 31) + value_4.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.Id != null)
-                {
-                    result = (result * 31) + obj.Id.GetHashCode();
-                }
-
-                if (obj.ToolFingerprintContributions != null)
-                {
-                    // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_5 in obj.ToolFingerprintContributions)
-                    {
-                        xor_0 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
-                        {
-                            xor_0 ^= value_5.Value.GetHashCode();
-                        }
-                    }
-
-                    result = (result * 31) + xor_0;
-                }
-
-                if (obj.Stacks != null)
-                {
-                    foreach (var value_6 in obj.Stacks)
+                    foreach (var value_6 in obj.Locations)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -390,33 +374,46 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.CodeFlows != null)
+                if (obj.InstanceGuid != null)
                 {
-                    foreach (var value_7 in obj.CodeFlows)
-                    {
-                        result = result * 31;
-                        if (value_7 != null)
-                        {
-                            result = (result * 31) + value_7.ValueGetHashCode();
-                        }
-                    }
+                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
                 }
 
-                if (obj.Graphs != null)
+                if (obj.PartialFingerprints != null)
                 {
-                    foreach (var value_8 in obj.Graphs)
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_7 in obj.PartialFingerprints)
                     {
-                        result = result * 31;
-                        if (value_8 != null)
+                        xor_0 ^= value_7.Key.GetHashCode();
+                        if (value_7.Value != null)
                         {
-                            result = (result * 31) + value_8.ValueGetHashCode();
+                            xor_0 ^= value_7.Value.GetHashCode();
                         }
                     }
+
+                    result = (result * 31) + xor_0;
                 }
 
-                if (obj.GraphTraversals != null)
+                if (obj.Fingerprints != null)
                 {
-                    foreach (var value_9 in obj.GraphTraversals)
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
+                    foreach (var value_8 in obj.Fingerprints)
+                    {
+                        xor_1 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
+                        {
+                            xor_1 ^= value_8.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_1;
+                }
+
+                if (obj.Stacks != null)
+                {
+                    foreach (var value_9 in obj.Stacks)
                     {
                         result = result * 31;
                         if (value_9 != null)
@@ -426,9 +423,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.RelatedLocations != null)
+                if (obj.CodeFlows != null)
                 {
-                    foreach (var value_10 in obj.RelatedLocations)
+                    foreach (var value_10 in obj.CodeFlows)
                     {
                         result = result * 31;
                         if (value_10 != null)
@@ -438,10 +435,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.SuppressionStates.GetHashCode();
-                if (obj.Attachments != null)
+                if (obj.Graphs != null)
                 {
-                    foreach (var value_11 in obj.Attachments)
+                    foreach (var value_11 in obj.Graphs)
                     {
                         result = result * 31;
                         if (value_11 != null)
@@ -451,10 +447,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.BaselineState.GetHashCode();
-                if (obj.ConversionProvenance != null)
+                if (obj.GraphTraversals != null)
                 {
-                    foreach (var value_12 in obj.ConversionProvenance)
+                    foreach (var value_12 in obj.GraphTraversals)
                     {
                         result = result * 31;
                         if (value_12 != null)
@@ -464,9 +459,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Fixes != null)
+                if (obj.RelatedLocations != null)
                 {
-                    foreach (var value_13 in obj.Fixes)
+                    foreach (var value_13 in obj.RelatedLocations)
                     {
                         result = result * 31;
                         if (value_13 != null)
@@ -476,20 +471,63 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                result = (result * 31) + obj.SuppressionStates.GetHashCode();
+                result = (result * 31) + obj.BaselineState.GetHashCode();
+                if (obj.Attachments != null)
+                {
+                    foreach (var value_14 in obj.Attachments)
+                    {
+                        result = result * 31;
+                        if (value_14 != null)
+                        {
+                            result = (result * 31) + value_14.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.WorkItemLocation != null)
+                {
+                    result = (result * 31) + obj.WorkItemLocation.ValueGetHashCode();
+                }
+
+                if (obj.ConversionProvenance != null)
+                {
+                    foreach (var value_15 in obj.ConversionProvenance)
+                    {
+                        result = result * 31;
+                        if (value_15 != null)
+                        {
+                            result = (result * 31) + value_15.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Fixes != null)
+                {
+                    foreach (var value_16 in obj.Fixes)
+                    {
+                        result = result * 31;
+                        if (value_16 != null)
+                        {
+                            result = (result * 31) + value_16.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_1 = 0;
-                    foreach (var value_14 in obj.Properties)
+                    int xor_2 = 0;
+                    foreach (var value_17 in obj.Properties)
                     {
-                        xor_1 ^= value_14.Key.GetHashCode();
-                        if (value_14.Value != null)
+                        xor_2 ^= value_17.Key.GetHashCode();
+                        if (value_17.Value != null)
                         {
-                            xor_1 ^= value_14.Value.GetHashCode();
+                            xor_2 ^= value_17.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_1;
+                    result = (result * 31) + xor_2;
                 }
             }
 

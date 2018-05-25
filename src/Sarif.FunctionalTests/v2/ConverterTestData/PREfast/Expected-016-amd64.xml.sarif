@@ -12,6 +12,19 @@
           "mimeType": "text/x-cpp"
         }
       },
+      "logicalLocations": {
+        "C::Bad1": {
+          "name": "Bad1",
+          "decoratedName": "?Bad1@C@@QEAAHXZ"
+        },
+        "C::Bad2": {
+          "name": "Bad2",
+          "decoratedName": "?Bad2@C@@QEAAHXZ"
+        },
+        "Bad3": {
+          "decoratedName": "?Bad3@@YAHPEAUC@@@Z"
+        }
+      },
       "results": [
         {
           "ruleId": "26014",
@@ -30,7 +43,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C::Bad1",
-              "decoratedName": "?Bad1@C@@QEAAHXZ",
               "properties": {
                 "funcline": "60"
               }
@@ -316,7 +328,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "C::Bad2",
-              "decoratedName": "?Bad2@C@@QEAAHXZ",
               "properties": {
                 "funcline": "84"
               }
@@ -602,7 +613,6 @@
                 }
               },
               "fullyQualifiedLogicalName": "Bad3",
-              "decoratedName": "?Bad3@@YAHPEAUC@@@Z",
               "properties": {
                 "funcline": "108"
               }

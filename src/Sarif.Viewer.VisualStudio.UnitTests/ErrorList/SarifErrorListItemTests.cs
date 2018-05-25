@@ -221,7 +221,14 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 },
                                 Replacements = new[]
                                 {
-                                    new Replacement(0, 0, string.Empty)
+                                    new Replacement()
+                                    {
+                                        DeletedRegion = new Region
+                                        {
+                                            Length = 5,
+                                            Offset = 10
+                                        }
+                                    }
                                 }
                             }
                         }

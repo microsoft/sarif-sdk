@@ -127,14 +127,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             invocationPropertiesToLog,
                             defaultFileEncoding);
 
-            if (!string.IsNullOrWhiteSpace(defaultFileEncoding))
-            {
-                _run.DefaultFileEncoding = defaultFileEncoding;
-            }
+
 
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
-            _issueLogJsonWriter.WriteTool(tool);
+
+            _run.Tool = tool;
+            _issueLogJsonWriter.Initialize(_run);
+
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -213,6 +213,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteInvocations(invocations: _run.Invocations);
                 }
 
+                if (_run?.Properties != null)
+                {
+                    _issueLogJsonWriter.WriteRunProperties(_run.Properties);
+                }
+
                 _issueLogJsonWriter.Dispose();
             }
 
@@ -268,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            Rules[result.RuleKey ?? result.RuleId] = rule;
+            Rules[result.RuleId] = rule;
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
@@ -472,6 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case ResultLevel.Note:
                 case ResultLevel.Pass:
+                case ResultLevel.Open:
                 case ResultLevel.NotApplicable:
                 {
                     if (!Verbose)
