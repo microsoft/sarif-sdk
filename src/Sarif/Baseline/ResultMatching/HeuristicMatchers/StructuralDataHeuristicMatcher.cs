@@ -7,10 +7,12 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
-    // TODO--Consider matching graphs/stacks/etc. on non-'region' elements, e.x. removing offsets, exact regions, etc. from this comparison.
+    /// <summary>
+    /// TODO--we should consider matching graphs/stacks/etc. on non-'region' elements, e.x. removing offsets, exact regions, etc. from this comparison.
+    /// </summary>
     internal class StructuralDataHeuristicMatcher : GenericHeuristicMatcher
     {
-        public StructuralDataHeuristicMatcher() : base (StructuralDataEqualityComparator.Instance) { throw new NotImplementedException(); }
+        public StructuralDataHeuristicMatcher() : base (StructuralDataEqualityComparator.Instance) {  }
         
         public class StructuralDataEqualityComparator : IEqualityComparer<MatchingResult>
         {
@@ -56,7 +58,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
 
                 return true;
-
             }
 
             private bool ListContentsSame<T>(IList<T> first, IList<T> second, IEqualityComparer<T> comparer)

@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
+    // TODO
     internal class PartialFingerprintResultMatcher : GenericHeuristicMatcher
     {
         public PartialFingerprintResultMatcher() : base(null) { throw new NotImplementedException(); }

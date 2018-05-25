@@ -7,27 +7,33 @@ using System.Text;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers;
+using Microsoft.CodeAnalysis.Sarif.Processors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class ResultMatchingBaseliner
     {
-
         public static ResultMatchingBaseliner DefaultResultMatchingBaseliner()
         {
             return new ResultMatchingBaseliner
                 (
-                    // Exact matchers run first, in order.  These do *no* remapping.
+                    // Exact matchers run first, in order.  These should do *no* remapping and offer fast comparisons to filter out
+                    // common cases (e.x. identical results).
                     new List<IResultMatcher>()
                     {
                         new IdenticalResultMatcher(),
                         new FullFingerprintResultMatcher()
                     },
                     // Heuristic matchers run in order after the exact matchers.
+                    // These can do remapping, and catch the long tail of "changed" results.
                     new List<IResultMatcher>()
                     {
+
+                        new PartialFingerprintResultMatcher(),
                         new ContextRegionHeuristicMatcher(),
-                        new PartialFingerprintResultMatcher()
                     }
                 );
         }
@@ -68,8 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 baselinedByToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            // TODO--merge logs.
-            throw new NotImplementedException();
+            return baselinedByToolLogs.Merge();
         }
 
         private static Dictionary<string, List<Run>> GetRunsByTool(SarifLog sarifLog)
@@ -107,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             AddUnmatchedResults(baselineResults, currentResults, matchedResults);
 
             // Create a combined SARIF log with the total results.
-            return ConstructSarifLogFromMatchedResults(matchedResults);
+            return ConstructSarifLogFromMatchedResults(matchedResults, baseline[0].Id, current);
         }
 
         private static void AddUnmatchedResults(List<MatchingResult> baselineResults, List<MatchingResult> currentResults, List<MatchedResults> matchedResults)
@@ -177,9 +182,101 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        public SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results)
+        public SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, string baselineId, Run[] currentRuns)
         {
-            throw new NotImplementedException();
+            if(currentRuns == null || !currentRuns.Any())
+            {
+                throw new ArgumentException(nameof(currentRuns));
+            }
+
+            // Results should all be from the same tool, so we'll pull the log from the first run.
+            Tool tool = currentRuns[0].Tool.DeepClone();
+
+            Run run = new Run()
+            {
+                Tool = tool,
+                AutomationId = currentRuns[0].AutomationId,
+                BaselineId = baselineId,
+                Id = currentRuns[0].Id,
+            };
+
+            List<Result> newRunResults = new List<Result>();
+            foreach (MatchedResults resultPair in results)
+            {
+                newRunResults.Add(resultPair.CalculateNewBaselineResult());
+            }
+            run.Results = newRunResults;
+            
+            // Merge run File data, resources, etc...
+            Dictionary<string, FileData> fileData = new Dictionary<string, FileData>();
+            Dictionary<string, Rule> ruleData = new Dictionary<string, Rule>();
+            Dictionary<string, string> messageData = new Dictionary<string, string>();
+            List<Graph> graphs = new List<Graph>();
+            Dictionary<string, LogicalLocation> logicalLocations = new Dictionary<string, LogicalLocation>();
+            List<Invocation> invocations = new List<Invocation>();
+
+            foreach (Run currentRun in currentRuns)
+            {
+                if (run.Files != null)
+                {
+                    MergeDictionaryInto(fileData, run.Files, FileDataEqualityComparer.Instance);
+                }
+                if (run.Resources != null)
+                {
+                    if (run.Resources.Rules != null)
+                    {
+                        MergeDictionaryInto(ruleData, run.Resources.Rules, RuleEqualityComparer.Instance);
+                    }
+                    if (run.Resources.MessageStrings != null)
+                    {
+                        // Autogenerated code does not currently mark this properly as a string, string dictionary.
+                        IDictionary<string, string> converted = run.Resources.MessageStrings as Dictionary<string, string>;
+                        if (converted == null)
+                        {
+                            throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");
+                        }
+                        MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
+                    }
+                }
+                if (run.LogicalLocations != null)
+                {
+                    MergeDictionaryInto(logicalLocations, run.LogicalLocations, LogicalLocationEqualityComparer.Instance);
+                }
+                if (run.Graphs != null)
+                {
+                    graphs.AddRange(run.Graphs);
+                }
+                if (run.Invocations != null)
+                {
+                    invocations.AddRange(run.Invocations);
+                }
+            }
+
+            run.Files = fileData;
+            run.Graphs = graphs;
+            run.LogicalLocations = logicalLocations;
+            run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
+            run.Invocations = invocations;
+
+            return new SarifLog()
+            {
+                Runs = new Run[] { run },
+            };
+        }
+        
+        private void MergeDictionaryInto<T, S>(Dictionary<T, S> baseDictionary, IDictionary<T, S> dictionaryToAdd, IEqualityComparer<S> duplicateCatch)
+        {
+            foreach (KeyValuePair<T, S> pair in dictionaryToAdd)
+            {
+                if (!baseDictionary.ContainsKey(pair.Key))
+                {
+                    baseDictionary.Add(pair.Key, pair.Value);
+                }
+                else if (duplicateCatch.Equals(baseDictionary[pair.Key], pair.Value))
+                {
+                    throw new NotImplementedException("We do not, at this moment, support two different pieces of supporting metadata going to the same key in the same scan.");
+                }
+            }
         }
     }
 }
