@@ -2,21 +2,29 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
+        private static readonly SarifVersion FromSarifVersion = SarifVersion.TwoZeroZero;
+        private static readonly SarifVersion ToSarifVersion = SarifVersion.OneZeroZero;
+        private static readonly string FromPropertyBagPrefix = 
+            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+        private static readonly string ToPropertyBagPrefix =
+            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[SarifVersion.OneZeroZero];
+
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
 
-        public override SarifLog VisitSarifLog(SarifLog node)
+        public override SarifLog VisitSarifLog(SarifLog v2SarifLog)
         {
             SarifLogVersionOne = new SarifLogVersionOne(SarifVersionVersionOne.OneZeroZero.ConvertToSchemaUri(),
                                     SarifVersionVersionOne.OneZeroZero,
                                     new List<RunVersionOne>());
 
-            foreach (Run run in node.Runs)
+            foreach (Run run in v2SarifLog.Runs)
             {
                 VisitRun(run);
             }
@@ -93,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
                     ParentKey = v2FileData.ParentKey,
-                    Properties = v2FileData.Properties
+                    Properties = v2FileData.Properties ?? new Dictionary<string, SerializedPropertyInfo>()
                 };
 
                 if (v2FileData.FileLocation != null)
@@ -103,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 fileData.Contents = SarifTransformerUtilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
-                    v2FileData.Contents.Text :
+                    SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                     v2FileData.Contents.Binary;
 
                 if (v2FileData.Hashes != null)
@@ -116,9 +124,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
+                if (!string.IsNullOrWhiteSpace(v2FileData.Encoding))
+                {
+                    fileData.SetProperty($"{FromPropertyBagPrefix}/encoding", v2FileData.Encoding);
+                }
+
+                if (!v2FileData.Roles.HasFlag(FileRoles.None))
+                {
+                    fileData.SetProperty($"{FromPropertyBagPrefix}/roles", v2FileData.Roles);
+                }
+
                 if (v2FileData.Tags.Count > 0)
                 {
                     fileData.Tags.UnionWith(v2FileData.Tags);
+                }
+
+                if (fileData.Properties != null && fileData.Properties.Count == 0)
+                {
+                    fileData.Properties = null;
+                }
+                else
+                {
+                    // Remove any transformer compatibility property bag items
+                    // that were added by a previous transformer
+                    SarifTransformerUtilities.RemoveSarifPropertyBagItems(fileData, ToSarifVersion);
                 }
             }
 
@@ -174,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Id = v2Rule.Id,
                     MessageFormats = v2Rule.MessageStrings,
-                    Properties = v2Rule.Properties
+                    Properties = v2Rule.Properties ?? new Dictionary<string, SerializedPropertyInfo>()
                 };
 
                 if (v2Rule.Configuration != null)
@@ -183,6 +212,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
                     rule.DefaultLevel = SarifTransformerUtilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
+
+                    if (v2Rule.Configuration.Parameters != null)
+                    {
+                        v2Rule.SetProperty("sarifv2/configuration.parameters", v2Rule.Configuration.Parameters);
+                    }
                 }
 
                 if (v2Rule.Name != null)
@@ -203,11 +237,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v2Rule.HelpLocation != null)
                 {
                     rule.HelpUri = v2Rule.HelpLocation.Uri;
+
+                    if (!string.IsNullOrWhiteSpace(v2Rule.HelpLocation.UriBaseId))
+                    {
+                        v2Rule.SetProperty("sarifv2/helplocation.uribaseid", v2Rule.Configuration.Parameters);
+                    }
                 }
 
                 if (v2Rule.Tags.Count > 0)
                 {
                     rule.Tags.UnionWith(v2Rule.Tags);
+                }
+
+                if (rule.Properties != null && rule.Properties.Count == 0)
+                {
+                    rule.Properties = null;
                 }
             }
 

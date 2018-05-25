@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
@@ -73,6 +74,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
+
+        public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
+        {
+            if (holder.Properties != null)
+            {
+                string prefix = PropertyBagTransformerItemPrefixes[version];
+                holder.PropertyNames.Where(n => n.StartsWith(prefix))
+                                    .Select(p => p)
+                                    .ToList()
+                                    .ForEach(k => holder.RemoveProperty(k));
+            }
+        }
 
         public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
         {
