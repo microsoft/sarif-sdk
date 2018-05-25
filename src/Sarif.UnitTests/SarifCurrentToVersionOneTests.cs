@@ -36,19 +36,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifTransformerTests_ToVersionOne_Minimum()
         {
             const string V2LogText =
-              @"{
-                  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-                  ""version"": ""2.0.0"",
-                  ""runs"": [
-                    {
-                      ""tool"": {
-                        ""name"": ""CodeScanner"",
-                        ""semanticVersion"": ""2.1.0""
-                      },
-                      ""results"": []
-                    }
-                  ]
-                }";
+@"{
+    ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+    ""version"": ""2.0.0"",
+    ""runs"": [
+      {
+        ""tool"": {
+          ""name"": ""CodeScanner"",
+          ""semanticVersion"": ""2.1.0""
+        },
+        ""results"": []
+      }
+    ]
+  }";
 
             const string V1LogExpectedText =
 @"{
@@ -60,7 +60,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": []
+      ""results"": [],
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""results\"": []\r\n}""
+      }
     }
   ]
 }";
@@ -72,26 +75,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifTransformerTests_ToVersionOne_MinimumWithTwoRuns()
         {
             const string V2LogText =
-              @"{
-                  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-                  ""version"": ""2.0.0"",
-                  ""runs"": [
-                    {
-                      ""tool"": {
-                        ""name"": ""CodeScanner"",
-                        ""semanticVersion"": ""2.1.0""
-                      },
-                      ""results"": []
-                    },
-                    {
-                      ""tool"": {
-                        ""name"": ""AssetScanner"",
-                        ""semanticVersion"": ""1.7.2""
-                      },
-                      ""results"": []
-                    }
-                  ]
-                }";
+@"{
+    ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+    ""version"": ""2.0.0"",
+    ""runs"": [
+      {
+        ""tool"": {
+          ""name"": ""CodeScanner"",
+          ""semanticVersion"": ""2.1.0""
+        },
+        ""results"": []
+      },
+      {
+        ""tool"": {
+          ""name"": ""AssetScanner"",
+          ""semanticVersion"": ""1.7.2""
+        },
+        ""results"": []
+      }
+    ]
+  }";
 
             const string V1LogExpectedText =
 @"{
@@ -103,14 +106,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": []
+      ""results"": [],
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""results\"": []\r\n}""
+      }
     },
     {
       ""tool"": {
         ""name"": ""AssetScanner"",
         ""semanticVersion"": ""1.7.2""
       },
-      ""results"": []
+      ""results"": [],
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""AssetScanner\"",\r\n    \""semanticVersion\"": \""1.7.2\""\r\n  },\r\n  \""results\"": []\r\n}""
+      }
     }
   ]
 }";
@@ -122,35 +131,35 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void SarifTransformerTests_ToVersionOne_OneRunWithLogicalLocations()
         {
             const string V2LogText =
-              @"{
-                  ""version"": ""2.0.0"",
-                  ""runs"": [
-                    {
-                      ""tool"": {
-                        ""name"": ""CodeScanner"",
-                        ""semanticVersion"": ""2.1.0""
-                      },
-                      ""logicalLocations"": {
-                        ""collections::list::add"": {
-                          ""name"": ""add"",
-                          ""kind"": ""function"",
-                          ""parentKey"": ""collections::list""
-                        },
-                        ""collections::list"": {
-                          ""name"": ""list"",
-                          ""kind"": ""type"",
-                          ""parentKey"": ""collections""
-                        },
-                        ""collections"": {
-                          ""name"": ""collections"",
-                          ""kind"": ""namespace""
-                        }
-                      },
-                      ""results"": [
-                      ]
-                    }
-                  ]
-                }";
+@"{
+    ""version"": ""2.0.0"",
+    ""runs"": [
+      {
+        ""tool"": {
+          ""name"": ""CodeScanner"",
+          ""semanticVersion"": ""2.1.0""
+        },
+        ""logicalLocations"": {
+          ""collections::list::add"": {
+            ""name"": ""add"",
+            ""kind"": ""function"",
+            ""parentKey"": ""collections::list""
+          },
+          ""collections::list"": {
+            ""name"": ""list"",
+            ""kind"": ""type"",
+            ""parentKey"": ""collections""
+          },
+          ""collections"": {
+            ""name"": ""collections"",
+            ""kind"": ""namespace""
+          }
+        },
+        ""results"": [
+        ]
+      }
+    ]
+  }";
 
             const string V1LogExpectedText =
 @"{
@@ -178,7 +187,10 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""kind"": ""namespace""
         }
       },
-      ""results"": []
+      ""results"": [],
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""logicalLocations\"": {\r\n    \""collections::list::add\"": {\r\n      \""name\"": \""add\"",\r\n      \""parentKey\"": \""collections::list\"",\r\n      \""kind\"": \""function\""\r\n    },\r\n    \""collections::list\"": {\r\n      \""name\"": \""list\"",\r\n      \""parentKey\"": \""collections\"",\r\n      \""kind\"": \""type\""\r\n    },\r\n    \""collections\"": {\r\n      \""name\"": \""collections\"",\r\n      \""kind\"": \""namespace\""\r\n    }\r\n  },\r\n  \""results\"": []\r\n}""
+      }
     }
   ]
 }";
@@ -216,7 +228,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         },
         ""file:///home/buildAgent/bin/app.zip"": {
           ""mimeType"": ""application/zip"",
-          ""contents"": {},
           ""properties"": {
             ""my_key"": ""some value""
           }
@@ -272,7 +283,10 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""mimeType"": ""application/vnd.openxmlformats-officedocument.wordprocessingml.document""
         }
       },
-      ""results"": []
+      ""results"": [],
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""files\"": {\r\n    \""file:///home/list.txt\"": {\r\n      \""length\"": 43,\r\n      \""mimeType\"": \""text/plain\"",\r\n      \""contents\"": {\r\n        \""text\"": \""The quick brown fox jumps over the lazy dog\"",\r\n        \""binary\"": \""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==\""\r\n      },\r\n      \""hashes\"": [\r\n        {\r\n          \""value\"": \""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\"",\r\n          \""algorithm\"": \""sha-256\""\r\n        }\r\n      ]\r\n    },\r\n    \""file:///home/buildAgent/bin/app.zip\"": {\r\n      \""mimeType\"": \""application/zip\"",\r\n      \""properties\"": {\r\n        \""my_key\"": \""some value\""\r\n      }\r\n    },\r\n    \""file:///home/buildAgent/bin/app.zip#/docs/intro.docx\"": {\r\n      \""fileLocation\"": {\r\n        \""uri\"": \""file:///docs/intro.docx\""\r\n      },\r\n      \""parentKey\"": \""file:///home/buildAgent/bin/app.zip\"",\r\n      \""offset\"": 17522,\r\n      \""length\"": 4050,\r\n      \""mimeType\"": \""application/vnd.openxmlformats-officedocument.wordprocessingml.document\"",\r\n      \""contents\"": {}\r\n    }\r\n  },\r\n  \""results\"": []\r\n}""
+      }
     }
   ]
 }";
@@ -293,9 +307,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""invocations"": [
-        null
-      ],
       ""results"": [],
       ""resources"": {
         ""rules"": {
@@ -318,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             ""configuration"": {
               ""enabled"": true,
-              ""defaultLevel"": 2
+              ""defaultLevel"": ""error""
             },
             ""helpLocation"": {
               ""uri"": ""http://www.domain.com/rules/c2002.html""
@@ -334,8 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             },
             ""fullDescription"": {
               ""text"": ""Rent internal rebellion competence biography photograph.""
-            },
-            ""configuration"": {}
+            }
           }
         }
       }
@@ -375,10 +385,11 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""id"": ""C2003"",
           ""name"": ""Rule C2003"",
           ""shortDescription"": ""Rules were meant to be broken."",
-          ""fullDescription"": ""Rent internal rebellion competence biography photograph."",
-          ""configuration"": ""disabled"",
-          ""defaultLevel"": ""pass""
+          ""fullDescription"": ""Rent internal rebellion competence biography photograph.""
         }
+      },
+      ""properties"": {
+        ""sarifv2/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""results\"": [],\r\n  \""resources\"": {\r\n    \""rules\"": {\r\n      \""C2001\"": {\r\n        \""id\"": \""C2001\"",\r\n        \""shortDescription\"": {\r\n          \""text\"": \""A variable was used without being initialized.\""\r\n        },\r\n        \""messageStrings\"": {\r\n          \""default\"": \""Variable \\\""{0}\\\"" was used without being initialized.\""\r\n        },\r\n        \""properties\"": {\r\n          \""some_key\"": \""FoxForceFive\""\r\n        }\r\n      },\r\n      \""C2002\"": {\r\n        \""id\"": \""C2002\"",\r\n        \""fullDescription\"": {\r\n          \""text\"": \""Catfish season continuous hen lamb include dose copy grant.\""\r\n        },\r\n        \""configuration\"": {\r\n          \""enabled\"": true,\r\n          \""defaultLevel\"": \""error\""\r\n        },\r\n        \""helpLocation\"": {\r\n          \""uri\"": \""http://www.domain.com/rules/c2002.html\""\r\n        }\r\n      },\r\n      \""C2003\"": {\r\n        \""id\"": \""C2003\"",\r\n        \""name\"": {\r\n          \""text\"": \""Rule C2003\""\r\n        },\r\n        \""shortDescription\"": {\r\n          \""text\"": \""Rules were meant to be broken.\""\r\n        },\r\n        \""fullDescription\"": {\r\n          \""text\"": \""Rent internal rebellion competence biography photograph.\""\r\n        }\r\n      }\r\n    }\r\n  }\r\n}""
       }
     }
   ]

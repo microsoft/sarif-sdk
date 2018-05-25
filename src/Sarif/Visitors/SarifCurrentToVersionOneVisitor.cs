@@ -4,92 +4,36 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Newtonsoft.Json;
+using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
         private static readonly SarifVersion FromSarifVersion = SarifVersion.TwoZeroZero;
-        private static readonly SarifVersion ToSarifVersion = SarifVersion.OneZeroZero;
-        private static readonly string FromPropertyBagPrefix = 
-            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
-        private static readonly string ToPropertyBagPrefix =
-            SarifTransformerUtilities.PropertyBagTransformerItemPrefixes[SarifVersion.OneZeroZero];
+        private static readonly string FromPropertyBagPrefix =
+            Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+
+        private RunVersionOne _currentRun = null;
 
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
 
         public override SarifLog VisitSarifLog(SarifLog v2SarifLog)
         {
             SarifLogVersionOne = new SarifLogVersionOne(SarifVersionVersionOne.OneZeroZero.ConvertToSchemaUri(),
-                                    SarifVersionVersionOne.OneZeroZero,
-                                    new List<RunVersionOne>());
+                                                        SarifVersionVersionOne.OneZeroZero,
+                                                        new List<RunVersionOne>());
 
-            foreach (Run run in v2SarifLog.Runs)
+            foreach (Run v2Run in v2SarifLog.Runs)
             {
-                VisitRun(run);
+                SarifLogVersionOne.Runs.Add(CreateRun(v2Run));
             }
 
             return null;
         }
 
-        public new RunVersionOne VisitRun(Run v2Run)
-        {
-            if (v2Run != null)
-            {
-                RunVersionOne run = new RunVersionOne()
-                {
-                    Architecture = v2Run.Architecture,
-                    AutomationId = v2Run.AutomationLogicalId,
-                    BaselineId = v2Run.BaselineInstanceGuid,
-                    Id = v2Run.InstanceGuid,
-                    Properties = v2Run.Properties,
-                    Results = new List<ResultVersionOne>(),
-                    StableId = v2Run.LogicalId,
-                    Tool = CreateTool(v2Run.Tool)
-                };
-
-                SarifLogVersionOne.Runs.Add(run);
-
-                if (v2Run.Files != null)
-                {
-                    run.Files = new Dictionary<string, FileDataVersionOne>();
-
-                    foreach (var pair in v2Run.Files)
-                    {
-                        run.Files.Add(pair.Key, CreateFileDataVersionOne(pair.Value));
-                    }
-                }
-
-                if (v2Run.LogicalLocations != null)
-                {
-                    run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
-
-                    foreach (var pair in v2Run.LogicalLocations)
-                    {
-                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocationVersionOne(pair.Value));
-                    }
-                }
-
-                if (v2Run.Resources?.Rules != null)
-                {
-                    run.Rules = new Dictionary<string, RuleVersionOne>();
-
-                    foreach (var pair in v2Run.Resources.Rules)
-                    {
-                        run.Rules.Add(pair.Key, CreateRule(pair.Value));
-                    }
-                }
-
-                if (v2Run.Tags.Count > 0)
-                {
-                    run.Tags.UnionWith(v2Run.Tags);
-                }
-            }
-
-            return null;
-        }
-
-        public static FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
+        public FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
         {
             FileDataVersionOne fileData = null;
 
@@ -101,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
                     ParentKey = v2FileData.ParentKey,
-                    Properties = v2FileData.Properties ?? new Dictionary<string, SerializedPropertyInfo>()
+                    Properties = v2FileData.Properties
                 };
 
                 if (v2FileData.FileLocation != null)
@@ -110,9 +54,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fileData.UriBaseId = v2FileData.FileLocation.UriBaseId;
                 }
 
-                fileData.Contents = SarifTransformerUtilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
-                    SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
-                    v2FileData.Contents.Binary;
+                if (v2FileData.Contents != null)
+                {
+                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                        SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
+                        v2FileData.Contents.Binary;
+                }
 
                 if (v2FileData.Hashes != null)
                 {
@@ -124,44 +71,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                if (!string.IsNullOrWhiteSpace(v2FileData.Encoding))
-                {
-                    fileData.SetProperty($"{FromPropertyBagPrefix}/encoding", v2FileData.Encoding);
-                }
-
-                if (!v2FileData.Roles.HasFlag(FileRoles.None))
-                {
-                    fileData.SetProperty($"{FromPropertyBagPrefix}/roles", v2FileData.Roles);
-                }
-
                 if (v2FileData.Tags.Count > 0)
                 {
                     fileData.Tags.UnionWith(v2FileData.Tags);
-                }
-
-                if (fileData.Properties != null && fileData.Properties.Count == 0)
-                {
-                    fileData.Properties = null;
-                }
-                else
-                {
-                    // Remove any transformer compatibility property bag items
-                    // that were added by a previous transformer
-                    SarifTransformerUtilities.RemoveSarifPropertyBagItems(fileData, ToSarifVersion);
                 }
             }
 
             return fileData;
         }
 
-        public static HashVersionOne CreateHash(Hash v2Hash)
+        public HashVersionOne CreateHash(Hash v2Hash)
         {
             HashVersionOne hash = null;
 
             if (v2Hash != null)
             {
                 AlgorithmKindVersionOne algorithm;
-                if (!SarifTransformerUtilities.AlgorithmNameKindMap.TryGetValue(v2Hash.Algorithm, out algorithm))
+                if (!Utilities.AlgorithmNameKindMap.TryGetValue(v2Hash.Algorithm, out algorithm))
                 {
                     algorithm = AlgorithmKindVersionOne.Unknown;
                 }
@@ -176,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
-        public static LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
+        public LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
         {
             LogicalLocationVersionOne logicalLocation = null;
 
@@ -193,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        public static RuleVersionOne CreateRule(Rule v2Rule)
+        public RuleVersionOne CreateRule(Rule v2Rule)
         {
             RuleVersionOne rule = null;
 
@@ -203,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Id = v2Rule.Id,
                     MessageFormats = v2Rule.MessageStrings,
-                    Properties = v2Rule.Properties ?? new Dictionary<string, SerializedPropertyInfo>()
+                    Properties = v2Rule.Properties
                 };
 
                 if (v2Rule.Configuration != null)
@@ -211,12 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     rule.Configuration = v2Rule.Configuration.Enabled ?
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
-                    rule.DefaultLevel = SarifTransformerUtilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
-
-                    if (v2Rule.Configuration.Parameters != null)
-                    {
-                        v2Rule.SetProperty("sarifv2/configuration.parameters", v2Rule.Configuration.Parameters);
-                    }
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
                 }
 
                 if (v2Rule.Name != null)
@@ -237,28 +158,79 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v2Rule.HelpLocation != null)
                 {
                     rule.HelpUri = v2Rule.HelpLocation.Uri;
-
-                    if (!string.IsNullOrWhiteSpace(v2Rule.HelpLocation.UriBaseId))
-                    {
-                        v2Rule.SetProperty("sarifv2/helplocation.uribaseid", v2Rule.Configuration.Parameters);
-                    }
-                }
-
-                if (v2Rule.Tags.Count > 0)
-                {
-                    rule.Tags.UnionWith(v2Rule.Tags);
-                }
-
-                if (rule.Properties != null && rule.Properties.Count == 0)
-                {
-                    rule.Properties = null;
                 }
             }
 
             return rule;
         }
 
-        public static ToolVersionOne CreateTool(Tool v2Tool)
+        public RunVersionOne CreateRun(Run v2Run)
+        {
+            RunVersionOne run = null;
+
+            if (v2Run != null)
+            {
+                string serializedV1Run;
+
+                if (v2Run.TryGetProperty("sarifv1/run", out serializedV1Run))
+                {
+                    run = JsonConvert.DeserializeObject<RunVersionOne>(serializedV1Run, Utilities.JsonSettingsV1);
+                }
+                else
+                {
+                    run = new RunVersionOne()
+                    {
+                        Architecture = v2Run.Architecture,
+                        AutomationId = v2Run.AutomationLogicalId,
+                        BaselineId = v2Run.BaselineInstanceGuid,
+                        Id = v2Run.InstanceGuid,
+                        Properties = v2Run.Properties,
+                        Results = new List<ResultVersionOne>(),
+                        StableId = v2Run.LogicalId,
+                        Tool = CreateTool(v2Run.Tool)
+                    };
+
+                    _currentRun = run;
+
+                    if (v2Run.Files != null)
+                    {
+                        run.Files = new Dictionary<string, FileDataVersionOne>();
+
+                        foreach (var pair in v2Run.Files)
+                        {
+                            run.Files.Add(pair.Key, CreateFileDataVersionOne(pair.Value));
+                        }
+                    }
+
+                    if (v2Run.LogicalLocations != null)
+                    {
+                        run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
+
+                        foreach (var pair in v2Run.LogicalLocations)
+                        {
+                            run.LogicalLocations.Add(pair.Key, CreateLogicalLocationVersionOne(pair.Value));
+                        }
+                    }
+
+                    if (v2Run.Resources?.Rules != null)
+                    {
+                        run.Rules = new Dictionary<string, RuleVersionOne>();
+
+                        foreach (var pair in v2Run.Resources.Rules)
+                        {
+                            run.Rules.Add(pair.Key, CreateRule(pair.Value));
+                        }
+                    }
+
+                    // Stash the entire v2 run in this v1 run's property bag
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2));
+                }
+            }
+
+            return run;
+        }
+
+        public ToolVersionOne CreateTool(Tool v2Tool)
         {
             ToolVersionOne tool = null;
 
@@ -275,11 +247,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SemanticVersion = v2Tool.SemanticVersion,
                     Version = v2Tool.Version
                 };
-
-                if (v2Tool.Tags.Count > 0)
-                {
-                    tool.Tags.UnionWith(v2Tool.Tags);
-                }
             }
 
             return tool;

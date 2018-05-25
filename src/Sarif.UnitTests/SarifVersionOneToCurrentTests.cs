@@ -25,10 +25,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return transformer.SarifLog;
         }
 
+        private static void VerifyVersionOneToCurrentTransformation(string v1LogText, string v2LogExpectedText)
+        {
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            v2LogText.Should().Be(v2LogExpectedText);
+        }
+
         [Fact]
         public void SarifTransformerTests_ToCurrent_Minimum()
         {
-            string v1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -42,10 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -63,13 +67,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -90,10 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -121,13 +122,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -145,10 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -173,13 +171,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -209,10 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -245,13 +240,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -291,10 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -342,13 +334,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWitRules()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -389,10 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -448,19 +437,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv1/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""results\"": [],\r\n  \""rules\"": {\r\n    \""C2001\"": {\r\n      \""id\"": \""C2001\"",\r\n      \""shortDescription\"": \""A variable was used without being initialized.\"",\r\n      \""messageFormats\"": {\r\n        \""default\"": \""Variable \\\""{0}\\\"" was used without being initialized.\""\r\n      },\r\n      \""properties\"": {\r\n        \""some_key\"": \""FoxForceFive\""\r\n      }\r\n    },\r\n    \""C2002\"": {\r\n      \""id\"": \""C2002\"",\r\n      \""fullDescription\"": \""Catfish season continuous hen lamb include dose copy grant.\"",\r\n      \""configuration\"": 1,\r\n      \""defaultLevel\"": \""error\"",\r\n      \""helpUri\"": \""http://www.domain.com/rules/c2002.html\""\r\n    },\r\n    \""C2003\"": {\r\n      \""id\"": \""C2003\"",\r\n      \""name\"": \""Rule C2003\"",\r\n      \""shortDescription\"": \""Rules were meant to be broken.\"",\r\n      \""fullDescription\"": \""Rent internal rebellion competence biography photograph.\"",\r\n      \""configuration\"": 2,\r\n      \""defaultLevel\"": \""pass\""\r\n    }\r\n  }\r\n}""
+        ""sarifv1/run"": ""{\r\n  \""tool\"": {\r\n    \""name\"": \""CodeScanner\"",\r\n    \""semanticVersion\"": \""2.1.0\""\r\n  },\r\n  \""results\"": [],\r\n  \""rules\"": {\r\n    \""C2001\"": {\r\n      \""id\"": \""C2001\"",\r\n      \""shortDescription\"": \""A variable was used without being initialized.\"",\r\n      \""messageFormats\"": {\r\n        \""default\"": \""Variable \\\""{0}\\\"" was used without being initialized.\""\r\n      },\r\n      \""properties\"": {\r\n        \""some_key\"": \""FoxForceFive\""\r\n      }\r\n    },\r\n    \""C2002\"": {\r\n      \""id\"": \""C2002\"",\r\n      \""fullDescription\"": \""Catfish season continuous hen lamb include dose copy grant.\"",\r\n      \""configuration\"": \""enabled\"",\r\n      \""defaultLevel\"": \""error\"",\r\n      \""helpUri\"": \""http://www.domain.com/rules/c2002.html\""\r\n    },\r\n    \""C2003\"": {\r\n      \""id\"": \""C2003\"",\r\n      \""name\"": \""Rule C2003\"",\r\n      \""shortDescription\"": \""Rules were meant to be broken.\"",\r\n      \""fullDescription\"": \""Rent internal rebellion competence biography photograph.\"",\r\n      \""configuration\"": \""disabled\"",\r\n      \""defaultLevel\"": \""pass\""\r\n    }\r\n  }\r\n}""
       }
     }
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -492,10 +481,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -547,13 +533,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithInvocationAndNotifications()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -611,10 +597,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -682,13 +665,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithNotificationsButNoInvocations()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -717,10 +700,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -760,13 +740,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -849,10 +829,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -982,13 +959,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_BasicResult()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -1074,10 +1051,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -1180,13 +1154,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -1325,10 +1299,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     ]
   }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -1511,13 +1482,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
         {
-            string v1LogText =
+            string V1LogText =
 @"{
   ""version"": ""1.0.0"",
   ""runs"": [
@@ -1651,10 +1622,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
-            string v2LogExpectedText =
+            const string V2LogExpectedText =
 @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
   ""version"": ""2.0.0"",
@@ -1800,7 +1768,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            v2LogText.Should().Be(v2LogExpectedText);
+            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
         }
     }
 }
