@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -41,39 +41,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileDataVersionOne
                 {
+                    Hashes = v2FileData.Hashes?.Select(CreateHash).ToList(),
                     Length = v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
                     ParentKey = v2FileData.ParentKey,
-                    Properties = v2FileData.Properties
+                    Properties = v2FileData.Properties,
+                    Uri = v2FileData.FileLocation?.Uri,
+                    UriBaseId = v2FileData.FileLocation?.UriBaseId
                 };
-
-                if (v2FileData.FileLocation != null)
-                {
-                    fileData.Uri = v2FileData.FileLocation.Uri;
-                    fileData.UriBaseId = v2FileData.FileLocation.UriBaseId;
-                }
 
                 if (v2FileData.Contents != null)
                 {
                     fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
                         SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                         v2FileData.Contents.Binary;
-                }
-
-                if (v2FileData.Hashes != null)
-                {
-                    fileData.Hashes = new List<HashVersionOne>();
-
-                    foreach (Hash hash in v2FileData.Hashes)
-                    {
-                        fileData.Hashes.Add(CreateHash(hash));
-                    }
-                }
-
-                if (v2FileData.Tags.Count > 0)
-                {
-                    fileData.Tags.UnionWith(v2FileData.Tags);
                 }
             }
 
@@ -127,9 +109,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 rule = new RuleVersionOne
                 {
+                    FullDescription = v2Rule.FullDescription?.Text,
+                    HelpUri = v2Rule.HelpLocation?.Uri,
                     Id = v2Rule.Id,
                     MessageFormats = v2Rule.MessageStrings,
-                    Properties = v2Rule.Properties
+                    Name = v2Rule.Name?.Text,
+                    Properties = v2Rule.Properties,
+                    ShortDescription = v2Rule.ShortDescription?.Text
                 };
 
                 if (v2Rule.Configuration != null)
@@ -138,26 +124,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
                     rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
-                }
-
-                if (v2Rule.Name != null)
-                {
-                    rule.Name = v2Rule.Name.Text;
-                }
-
-                if (v2Rule.FullDescription != null)
-                {
-                    rule.FullDescription = v2Rule.FullDescription.Text;
-                }
-
-                if (v2Rule.ShortDescription != null)
-                {
-                    rule.ShortDescription = v2Rule.ShortDescription.Text;
-                }
-
-                if (v2Rule.HelpLocation != null)
-                {
-                    rule.HelpUri = v2Rule.HelpLocation.Uri;
                 }
             }
 
@@ -183,44 +149,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Architecture = v2Run.Architecture,
                         AutomationId = v2Run.AutomationLogicalId,
                         BaselineId = v2Run.BaselineInstanceGuid,
+                        Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileDataVersionOne(v.Value)),
                         Id = v2Run.InstanceGuid,
+                        LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocationVersionOne(v.Value)),
                         Properties = v2Run.Properties,
                         Results = new List<ResultVersionOne>(),
+                        Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value)),
                         StableId = v2Run.LogicalId,
                         Tool = CreateTool(v2Run.Tool)
                     };
 
                     _currentRun = run;
-
-                    if (v2Run.Files != null)
-                    {
-                        run.Files = new Dictionary<string, FileDataVersionOne>();
-
-                        foreach (var pair in v2Run.Files)
-                        {
-                            run.Files.Add(pair.Key, CreateFileDataVersionOne(pair.Value));
-                        }
-                    }
-
-                    if (v2Run.LogicalLocations != null)
-                    {
-                        run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
-
-                        foreach (var pair in v2Run.LogicalLocations)
-                        {
-                            run.LogicalLocations.Add(pair.Key, CreateLogicalLocationVersionOne(pair.Value));
-                        }
-                    }
-
-                    if (v2Run.Resources?.Rules != null)
-                    {
-                        run.Rules = new Dictionary<string, RuleVersionOne>();
-
-                        foreach (var pair in v2Run.Resources.Rules)
-                        {
-                            run.Rules.Add(pair.Key, CreateRule(pair.Value));
-                        }
-                    }
 
                     // Stash the entire v2 run in this v1 run's property bag
                     run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2));
