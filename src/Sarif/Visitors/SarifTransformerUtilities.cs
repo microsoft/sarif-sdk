@@ -203,21 +203,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return CodeFlowLocationImportance.Important;
             }
         }
-
-        public static string ToCamelCase(string s)
-        {
-            if (string.IsNullOrWhiteSpace(s))
-            {
-                return s;
-            }
-            else if (s.Length == 1)
-            {
-                return s.ToLowerInvariant();
-            }
-            else
-            {
-                return char.ToLowerInvariant(s[0]) + s.Substring(1);
-            }
-        }
     }
 }

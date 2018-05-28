@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Newtonsoft.Json;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -57,8 +58,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _codeFlowLocationStepAdjustment = 1;
                     }
 
-                    codeFlow.SetProperty($"{FromPropertyBagPrefix}/isStepZeroBased", _codeFlowLocationStepAdjustment == 1);
-
                     codeFlow.ThreadFlows = new List<ThreadFlow>
                     {
                         new ThreadFlow
@@ -99,18 +98,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _codeFlowLocationNestingLevel--;
                 }
-
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/annotations", v1AnnotatedCodeLocation.Annotations);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/essential", v1AnnotatedCodeLocation.Essential);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/fullyQualifiedLogicalName", v1AnnotatedCodeLocation.FullyQualifiedLogicalName);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/id", v1AnnotatedCodeLocation.Id);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/kind", Utilities.ToCamelCase(v1AnnotatedCodeLocation.Kind.ToString()));
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/logicalLocationKey", v1AnnotatedCodeLocation.LogicalLocationKey);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/taintKind", Utilities.ToCamelCase(v1AnnotatedCodeLocation.TaintKind.ToString()));
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/target", v1AnnotatedCodeLocation.Target);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/targetKey", v1AnnotatedCodeLocation.TargetKey);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/threadId", v1AnnotatedCodeLocation.ThreadId);
-                codeFlowLocation.SetProperty($"{FromPropertyBagPrefix}/values", v1AnnotatedCodeLocation.Values);
             }
 
             return codeFlowLocation;
@@ -782,13 +769,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         Text = v1Result.Snippet
                     };
                 }
-
-                // *** Stash un-transferred properties in the property bag *** \\
-
-                if (v1Result.FormattedRuleMessage != null)
-                {
-                    result.SetProperty($"{FromPropertyBagPrefix}/formattedRuleMessage", v1Result.FormattedRuleMessage);
-                }
             }
 
             return result;
@@ -900,6 +880,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
                 }
+
+                // Stash the entire v1 run in this v2 run's property bag
+                run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v1Run, Utilities.JsonSettingsV1));
             }
 
             return run;
