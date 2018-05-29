@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -340,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWitRules()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -449,7 +449,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -539,7 +539,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithInvocationAndNotifications()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -671,7 +671,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithNotificationsButNoInvocations()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -746,7 +746,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -965,7 +965,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_BasicResult()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -1160,7 +1160,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
     ""version"": ""1.0.0"",
     ""runs"": [
@@ -1488,7 +1488,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
         {
-            string V1LogText =
+            const string V1LogText =
 @"{
   ""version"": ""1.0.0"",
   ""runs"": [
