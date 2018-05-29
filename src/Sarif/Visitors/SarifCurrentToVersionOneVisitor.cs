@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -16,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private RunVersionOne _currentRun = null;
+        private Run _currentV2Run = null;
 
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
 
@@ -33,7 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
-        public FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
+        internal ExceptionDataVersionOne CreateExceptionData(ExceptionData v2ExceptionData)
+        {
+            ExceptionDataVersionOne exceptionData = null;
+
+            if (v2ExceptionData != null)
+            {
+                exceptionData = new ExceptionDataVersionOne
+                {
+                    InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
+                    Kind = v2ExceptionData.Kind,
+                    Message = v2ExceptionData.Message
+                };
+            }
+
+            return exceptionData;
+        }
+
+        internal FileDataVersionOne CreateFileData(FileData v2FileData)
         {
             FileDataVersionOne fileData = null;
 
@@ -62,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileData;
         }
 
-        public HashVersionOne CreateHash(Hash v2Hash)
+        internal HashVersionOne CreateHash(Hash v2Hash)
         {
             HashVersionOne hash = null;
 
@@ -84,24 +103,136 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return hash;
         }
 
-        public LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
+        internal InvocationVersionOne CreateInvocation(Invocation v2Invocation)
+        {
+            InvocationVersionOne invocation = null;
+
+            if (v2Invocation != null)
+            {
+                invocation = new InvocationVersionOne
+                {
+                    Account = v2Invocation.Account,
+                    CommandLine = v2Invocation.CommandLine,
+                    EndTime = v2Invocation.EndTime,
+                    EnvironmentVariables = v2Invocation.EnvironmentVariables,
+                    FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
+                    Machine = v2Invocation.Machine,
+                    ProcessId = v2Invocation.ProcessId,
+                    Properties = v2Invocation.Properties,
+                    ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
+                    StartTime = v2Invocation.StartTime,
+                    WorkingDirectory = v2Invocation.WorkingDirectory
+                };
+
+                if (v2Invocation.ConfigurationNotifications != null)
+                {
+                    if (_currentRun.ConfigurationNotifications == null)
+                    {
+                        _currentRun.ConfigurationNotifications = new List<NotificationVersionOne>();
+                    }
+
+                    List<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotification).ToList();
+                    _currentRun.ConfigurationNotifications = _currentRun.ConfigurationNotifications.Union(notifications).ToList();
+                }
+
+                if (v2Invocation.ToolNotifications != null)
+                {
+                    if (_currentRun.ToolNotifications == null)
+                    {
+                        _currentRun.ToolNotifications = new List<NotificationVersionOne>();
+                    }
+
+                    List<NotificationVersionOne> notifications = v2Invocation.ToolNotifications.Select(CreateNotification).ToList();
+                    _currentRun.ToolNotifications = _currentRun.ToolNotifications.Union(notifications).ToList();
+                }
+            }
+
+            return invocation;
+        }
+
+        internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
         {
             LogicalLocationVersionOne logicalLocation = null;
 
-            if (v2LogicalLocatiom != null)
+            if (v2LogicalLocation != null)
             {
                 logicalLocation = new LogicalLocationVersionOne
                 {
-                    Kind = v2LogicalLocatiom.Kind,
-                    Name = v2LogicalLocatiom.Name,
-                    ParentKey = v2LogicalLocatiom.ParentKey
+                    Kind = v2LogicalLocation.Kind,
+                    Name = v2LogicalLocation.Name,
+                    ParentKey = v2LogicalLocation.ParentKey
                 };
             }
 
             return logicalLocation;
         }
 
-        public RuleVersionOne CreateRule(Rule v2Rule)
+        internal NotificationVersionOne CreateNotification(Notification v2Notification)
+        {
+            NotificationVersionOne notification = null;
+
+            if (v2Notification != null)
+            {
+                notification = new NotificationVersionOne
+                {
+                    Exception = CreateExceptionData(v2Notification.Exception),
+                    Id = v2Notification.Id,
+                    Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
+                    Message = v2Notification.Message?.Text,
+                    PhysicalLocation = CreatePhysicalLocation(v2Notification.PhysicalLocation),
+                    Properties = v2Notification.Properties,
+                    RuleId = v2Notification.RuleId,
+                    ThreadId = v2Notification.ThreadId,
+                    Time = v2Notification.Time
+                };
+            }
+
+            return notification;
+        }
+
+        internal PhysicalLocationVersionOne CreatePhysicalLocation(PhysicalLocation v2PhysicalLocation)
+        {
+            PhysicalLocationVersionOne physicalLocation = null;
+
+            if (v2PhysicalLocation != null)
+            {
+                physicalLocation = new PhysicalLocationVersionOne
+                {
+                    Uri = v2PhysicalLocation.FileLocation?.Uri,
+                    UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
+                };
+            }
+
+            return physicalLocation;
+        }
+
+        internal Dictionary<string, string> CreateResponseFilesDictionary(IList<FileLocation> v2ResponseFilesList)
+        {
+            Dictionary<string, string> responseFiles = null;
+
+            if (v2ResponseFilesList != null)
+            {
+                responseFiles = new Dictionary<string, string>();
+
+                foreach (FileLocation fileLocation in v2ResponseFilesList)
+                {
+                    string key = fileLocation.Uri.OriginalString;
+                    string fileContent = null;
+                    FileData responseFile;
+
+                    if (_currentV2Run.Files != null && _currentV2Run.Files.TryGetValue(key, out responseFile))
+                    {
+                        fileContent = responseFile.Contents?.Text;
+                    }
+
+                    responseFiles.Add(key, fileContent);
+                }
+            }
+
+            return responseFiles;
+        }
+
+        internal RuleVersionOne CreateRule(Rule v2Rule)
         {
             RuleVersionOne rule = null;
 
@@ -130,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        public RunVersionOne CreateRun(Run v2Run)
+        internal RunVersionOne CreateRun(Run v2Run)
         {
             RunVersionOne run = null;
 
@@ -140,36 +271,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2Run.TryGetProperty("sarifv1/run", out serializedV1Run))
                 {
-                    run = JsonConvert.DeserializeObject<RunVersionOne>(serializedV1Run, Utilities.JsonSettingsV1);
+                    run = JsonConvert.DeserializeObject<RunVersionOne>(Regex.Unescape(serializedV1Run), Utilities.JsonSettingsV1Compact);
                 }
                 else
                 {
-                    run = new RunVersionOne()
-                    {
-                        Architecture = v2Run.Architecture,
-                        AutomationId = v2Run.AutomationLogicalId,
-                        BaselineId = v2Run.BaselineInstanceGuid,
-                        Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileDataVersionOne(v.Value)),
-                        Id = v2Run.InstanceGuid,
-                        LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocationVersionOne(v.Value)),
-                        Properties = v2Run.Properties,
-                        Results = new List<ResultVersionOne>(),
-                        Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value)),
-                        StableId = v2Run.LogicalId,
-                        Tool = CreateTool(v2Run.Tool)
-                    };
+                    _currentV2Run = v2Run;
 
+                    // We need to create the run before we start working on children
+                    // because some of them will need to refer to _currentRun
+                    run = new RunVersionOne();
                     _currentRun = run;
 
+                    run.Architecture = v2Run.Architecture;
+                    run.AutomationId = v2Run.AutomationLogicalId;
+                    run.BaselineId = v2Run.BaselineInstanceGuid;
+                    run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
+                    run.Id = v2Run.InstanceGuid;
+                    run.Invocation = CreateInvocation(v2Run.Invocations?[0]);
+                    run.LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocation(v.Value));
+                    run.Properties = v2Run.Properties;
+                    run.Results = new List<ResultVersionOne>();
+                    run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
+                    run.StableId = v2Run.LogicalId;
+                    run.Tool = CreateTool(v2Run.Tool);
+
+                    RemoveResponseFilesFromFileDictionary();
+
                     // Stash the entire v2 run in this v1 run's property bag
-                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2));
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2Compact));
                 }
             }
 
             return run;
         }
 
-        public ToolVersionOne CreateTool(Tool v2Tool)
+        internal void RemoveResponseFilesFromFileDictionary()
+        {
+            if (_currentRun.Invocation?.ResponseFiles != null)
+            {
+                _currentRun.Invocation.ResponseFiles.Keys.ToList().ForEach(k => _currentRun.Files.Remove(k));
+
+                if (_currentRun.Files.Count == 0)
+                {
+                    _currentRun.Files = null;
+                }
+            }
+        }
+
+        internal ToolVersionOne CreateTool(Tool v2Tool)
         {
             ToolVersionOne tool = null;
 
