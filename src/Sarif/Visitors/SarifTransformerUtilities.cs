@@ -86,7 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
-
         public static string CreateDisambiguatedName(string baseName, int index)
         {
             return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
@@ -142,6 +141,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return RuleConfigurationDefaultLevel.Warning;
                 default:
                     return RuleConfigurationDefaultLevel.Warning;
+            }
+        }
+
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
+        {
+            switch (v2DefaultLevel)
+            {
+                case RuleConfigurationDefaultLevel.Error:
+                    return ResultLevelVersionOne.Error;
+                case RuleConfigurationDefaultLevel.Note:
+                    return ResultLevelVersionOne.Pass;
+                case RuleConfigurationDefaultLevel.Warning:
+                    return ResultLevelVersionOne.Warning;
+                default:
+                    return ResultLevelVersionOne.Warning;
             }
         }
 

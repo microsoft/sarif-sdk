@@ -38,6 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(ResultLevelVersionOne))
                 contract.Converter = EnumConverter.Instance;
 
+            else if (objectType == typeof(RuleConfigurationVersionOne))
+                contract.Converter = EnumConverter.Instance;
+
             else if (objectType == typeof(NotificationLevelVersionOne))
                 contract.Converter = EnumConverter.Instance;
 

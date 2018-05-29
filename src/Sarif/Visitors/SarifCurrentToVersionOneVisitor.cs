@@ -2,66 +2,89 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Newtonsoft.Json;
+using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
+        private static readonly SarifVersion FromSarifVersion = SarifVersion.TwoZeroZero;
+        private static readonly string FromPropertyBagPrefix =
+            Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
+
+        private RunVersionOne _currentRun = null;
+
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
 
-        public override SarifLog VisitSarifLog(SarifLog node)
+        public override SarifLog VisitSarifLog(SarifLog v2SarifLog)
         {
             SarifLogVersionOne = new SarifLogVersionOne(SarifVersionVersionOne.OneZeroZero.ConvertToSchemaUri(),
-                                    SarifVersionVersionOne.OneZeroZero,
-                                    new List<RunVersionOne>());
+                                                        SarifVersionVersionOne.OneZeroZero,
+                                                        new List<RunVersionOne>());
 
-            foreach (Run run in node.Runs)
+            foreach (Run v2Run in v2SarifLog.Runs)
             {
-                VisitRun(run);
+                SarifLogVersionOne.Runs.Add(CreateRun(v2Run));
             }
 
             return null;
         }
 
-        public new RunVersionOne VisitRun(Run v2Run)
+        public FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
         {
-            if (v2Run != null)
+            FileDataVersionOne fileData = null;
+
+            if (v2FileData != null)
             {
-                RunVersionOne run = new RunVersionOne()
+                fileData = new FileDataVersionOne
                 {
-                    Architecture = v2Run.Architecture,
-                    AutomationId = v2Run.AutomationLogicalId,
-                    BaselineId = v2Run.BaselineInstanceGuid,
-                    Id = v2Run.InstanceGuid,
-                    Properties = v2Run.Properties,
-                    Results = new List<ResultVersionOne>(),
-                    StableId = v2Run.LogicalId,
-                    Tool = CreateTool(v2Run.Tool)
+                    Hashes = v2FileData.Hashes?.Select(CreateHash).ToList(),
+                    Length = v2FileData.Length,
+                    MimeType = v2FileData.MimeType,
+                    Offset = v2FileData.Offset,
+                    ParentKey = v2FileData.ParentKey,
+                    Properties = v2FileData.Properties,
+                    Uri = v2FileData.FileLocation?.Uri,
+                    UriBaseId = v2FileData.FileLocation?.UriBaseId
                 };
 
-                SarifLogVersionOne.Runs.Add(run);
-
-                if (v2Run.LogicalLocations != null)
+                if (v2FileData.Contents != null)
                 {
-                    run.LogicalLocations = new Dictionary<string, LogicalLocationVersionOne>();
-
-                    foreach (var pair in v2Run.LogicalLocations)
-                    {
-                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocationVersionOne(pair.Value));
-                    }
-                }
-
-                if (v2Run.Tags.Count > 0)
-                {
-                    run.Tags.UnionWith(v2Run.Tags);
+                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                        SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
+                        v2FileData.Contents.Binary;
                 }
             }
 
-            return null;
+            return fileData;
         }
 
-        public static LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
+        public HashVersionOne CreateHash(Hash v2Hash)
+        {
+            HashVersionOne hash = null;
+
+            if (v2Hash != null)
+            {
+                AlgorithmKindVersionOne algorithm;
+                if (!Utilities.AlgorithmNameKindMap.TryGetValue(v2Hash.Algorithm, out algorithm))
+                {
+                    algorithm = AlgorithmKindVersionOne.Unknown;
+                }
+
+                hash = new HashVersionOne
+                {
+                    Algorithm = algorithm,
+                    Value = v2Hash.Value
+                };
+            }
+
+            return hash;
+        }
+
+        public LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocatiom)
         {
             LogicalLocationVersionOne logicalLocation = null;
 
@@ -78,7 +101,75 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocation;
         }
 
-        public static ToolVersionOne CreateTool(Tool v2Tool)
+        public RuleVersionOne CreateRule(Rule v2Rule)
+        {
+            RuleVersionOne rule = null;
+
+            if (v2Rule != null)
+            {
+                rule = new RuleVersionOne
+                {
+                    FullDescription = v2Rule.FullDescription?.Text,
+                    HelpUri = v2Rule.HelpLocation?.Uri,
+                    Id = v2Rule.Id,
+                    MessageFormats = v2Rule.MessageStrings,
+                    Name = v2Rule.Name?.Text,
+                    Properties = v2Rule.Properties,
+                    ShortDescription = v2Rule.ShortDescription?.Text
+                };
+
+                if (v2Rule.Configuration != null)
+                {
+                    rule.Configuration = v2Rule.Configuration.Enabled ?
+                            RuleConfigurationVersionOne.Enabled :
+                            RuleConfigurationVersionOne.Disabled;
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
+                }
+            }
+
+            return rule;
+        }
+
+        public RunVersionOne CreateRun(Run v2Run)
+        {
+            RunVersionOne run = null;
+
+            if (v2Run != null)
+            {
+                string serializedV1Run;
+
+                if (v2Run.TryGetProperty("sarifv1/run", out serializedV1Run))
+                {
+                    run = JsonConvert.DeserializeObject<RunVersionOne>(serializedV1Run, Utilities.JsonSettingsV1);
+                }
+                else
+                {
+                    run = new RunVersionOne()
+                    {
+                        Architecture = v2Run.Architecture,
+                        AutomationId = v2Run.AutomationLogicalId,
+                        BaselineId = v2Run.BaselineInstanceGuid,
+                        Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileDataVersionOne(v.Value)),
+                        Id = v2Run.InstanceGuid,
+                        LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocationVersionOne(v.Value)),
+                        Properties = v2Run.Properties,
+                        Results = new List<ResultVersionOne>(),
+                        Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value)),
+                        StableId = v2Run.LogicalId,
+                        Tool = CreateTool(v2Run.Tool)
+                    };
+
+                    _currentRun = run;
+
+                    // Stash the entire v2 run in this v1 run's property bag
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2));
+                }
+            }
+
+            return run;
+        }
+
+        public ToolVersionOne CreateTool(Tool v2Tool)
         {
             ToolVersionOne tool = null;
 
@@ -95,11 +186,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SemanticVersion = v2Tool.SemanticVersion,
                     Version = v2Tool.Version
                 };
-
-                if (v2Tool.Tags.Count > 0)
-                {
-                    tool.Tags.UnionWith(v2Tool.Tags);
-                }
             }
 
             return tool;
