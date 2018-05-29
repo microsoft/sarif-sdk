@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 using Microsoft.Sarif.Viewer.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -32,9 +33,10 @@ namespace Sarif.Viewer.LoadServiceSample
         /// Opens the specified SARIF log file in the SARIF Viewer extension.
         /// </summary>
         /// <param name="path">The path of the log file.</param>
-        internal async Task OpenSarifLogAsync(string path)
+        internal async Task OpenSarifLogAsync()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
             IVsShell shell = await GetServiceAsync(typeof(SVsShell)) as IVsShell;
 
             if (shell != null)
@@ -58,7 +60,16 @@ namespace Sarif.Viewer.LoadServiceSample
                     sarifViewerInterop.LoadViewerExtension();
                 }
 
-                await sarifViewerInterop.OpenSarifLogAsync(path);
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+
+                openFileDialog.Title = "Open SARIF Log";
+                openFileDialog.Filter = "SARIF files (*.sarif)|*.sarif";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    await sarifViewerInterop.OpenSarifLogAsync(openFileDialog.FileName);
+                }
             }
         }
 

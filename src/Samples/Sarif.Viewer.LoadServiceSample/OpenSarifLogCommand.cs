@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
@@ -86,17 +85,7 @@ namespace Sarif.Viewer.LoadServiceSample
         private async void Execute(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Title = "Open SARIF Log";
-            openFileDialog.Filter = "SARIF files (*.sarif)|*.sarif";
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                await (this.package as VSPackage).OpenSarifLogAsync(openFileDialog.FileName);
-            }
+            await (this.package as VSPackage).OpenSarifLogAsync();
         }
     }
 }
