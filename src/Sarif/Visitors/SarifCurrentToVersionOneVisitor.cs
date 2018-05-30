@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _currentRun.ConfigurationNotifications = new List<NotificationVersionOne>();
                     }
 
-                    List<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotification).ToList();
+                    IEnumerable<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotification);
                     _currentRun.ConfigurationNotifications = _currentRun.ConfigurationNotifications.Union(notifications).ToList();
                 }
 
@@ -267,11 +267,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v2Run != null)
             {
-                string serializedV1Run;
-
-                if (v2Run.TryGetProperty("sarifv1/run", out serializedV1Run))
+                if (v2Run.TryGetProperty("sarifv1/run", out run))
                 {
-                    run = JsonConvert.DeserializeObject<RunVersionOne>(Regex.Unescape(serializedV1Run), Utilities.JsonSettingsV1Compact);
+                    return run;
                 }
                 else
                 {
@@ -295,27 +293,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.StableId = v2Run.LogicalId;
                     run.Tool = CreateTool(v2Run.Tool);
 
-                    RemoveResponseFilesFromFileDictionary();
-
                     // Stash the entire v2 run in this v1 run's property bag
-                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v2Run, Utilities.JsonSettingsV2Compact));
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", v2Run);
                 }
             }
 
             return run;
-        }
-
-        internal void RemoveResponseFilesFromFileDictionary()
-        {
-            if (_currentRun.Invocation?.ResponseFiles != null)
-            {
-                _currentRun.Invocation.ResponseFiles.Keys.ToList().ForEach(k => _currentRun.Files.Remove(k));
-
-                if (_currentRun.Files.Count == 0)
-                {
-                    _currentRun.Files = null;
-                }
-            }
         }
 
         internal ToolVersionOne CreateTool(Tool v2Tool)

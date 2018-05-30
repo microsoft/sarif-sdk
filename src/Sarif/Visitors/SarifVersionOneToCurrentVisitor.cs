@@ -811,11 +811,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1Run != null)
             {
-                string serializedV1Run;
-
-                if (v1Run.TryGetProperty("sarifv2/run", out serializedV1Run))
+                if (v1Run.TryGetProperty("sarifv2/run", out run))
                 {
-                    run = JsonConvert.DeserializeObject<Run>(Regex.Unescape(serializedV1Run), Utilities.JsonSettingsV2Compact);
+                    return run;
                 }
                 else
                 {
@@ -888,7 +886,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
 
                     // Stash the entire v1 run in this v2 run's property bag
-                    run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v1Run, Utilities.JsonSettingsV1Compact));
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", v1Run);
                 }
             }
 

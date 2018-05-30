@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""results\"":[]}""
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[]}
       }
     }
   ]
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[]}
       }
     }
   ]
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[]}
       }
     },
     {
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""AssetScanner\"",\""semanticVersion\"":\""1.7.2\""},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""AssetScanner"",""semanticVersion"":""1.7.2""},""results"":[]}
       }
     }
   ]
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""logicalLocations\"":{\""collections::list::add\"":{\""name\"":\""add\"",\""parentKey\"":\""collections::list\"",\""kind\"":\""function\""},\""collections::list\"":{\""name\"":\""list\"",\""parentKey\"":\""collections\"",\""kind\"":\""type\""},\""collections\"":{\""name\"":\""collections\"",\""kind\"":\""namespace\""}},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""name"":""collections"",""kind"":""namespace""}},""results"":[]}
       }
     }
   ]
@@ -323,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""files\"":{\""file:///home/list.txt\"":{\""length\"":43,\""mimeType\"":\""text/plain\"",\""contents\"":{\""text\"":\""The quick brown fox jumps over the lazy dog\"",\""binary\"":\""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==\""},\""hashes\"":[{\""value\"":\""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592\"",\""algorithm\"":\""sha-256\""}]},\""file:///home/buildAgent/bin/app.zip\"":{\""mimeType\"":\""application/zip\"",\""properties\"":{\""my_key\"":\""some value\""}},\""file:///home/buildAgent/bin/app.zip#/docs/intro.docx\"":{\""fileLocation\"":{\""uri\"":\""file:///docs/intro.docx\""},\""parentKey\"":\""file:///home/buildAgent/bin/app.zip\"",\""offset\"":17522,\""length\"":4050,\""mimeType\"":\""application/vnd.openxmlformats-officedocument.wordprocessingml.document\"",\""contents\"":{}}},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""files"":{""file:///home/list.txt"":{""length"":43,""mimeType"":""text/plain"",""contents"":{""text"":""The quick brown fox jumps over the lazy dog"",""binary"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""},""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""file:///home/buildAgent/bin/app.zip"":{""mimeType"":""application/zip"",""properties"":{""my_key"":""some value""}},""file:///home/buildAgent/bin/app.zip#/docs/intro.docx"":{""fileLocation"":{""uri"":""file:///docs/intro.docx""},""parentKey"":""file:///home/buildAgent/bin/app.zip"",""offset"":17522,""length"":4050,""mimeType"":""application/vnd.openxmlformats-officedocument.wordprocessingml.document"",""contents"":{}}},""results"":[]}
       }
     }
   ]
@@ -427,7 +427,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""results\"":[],\""resources\"":{\""rules\"":{\""C2001\"":{\""id\"":\""C2001\"",\""shortDescription\"":{\""text\"":\""A variable was used without being initialized.\""},\""messageStrings\"":{\""default\"":\""Variable \\\""{0}\\\"" was used without being initialized.\""},\""properties\"":{\""some_key\"":\""FoxForceFive\""}},\""C2002\"":{\""id\"":\""C2002\"",\""fullDescription\"":{\""text\"":\""Catfish season continuous hen lamb include dose copy grant.\""},\""configuration\"":{\""enabled\"":true,\""defaultLevel\"":\""error\""},\""helpLocation\"":{\""uri\"":\""http://www.domain.com/rules/c2002.html\""}},\""C2003\"":{\""id\"":\""C2003\"",\""name\"":{\""text\"":\""Rule C2003\""},\""shortDescription\"":{\""text\"":\""Rules were meant to be broken.\""},\""fullDescription\"":{\""text\"":\""Rent internal rebellion competence biography photograph.\""}}}}}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""resources"":{""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":{""text"":""A variable was used without being initialized.""},""messageStrings"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":{""text"":""Catfish season continuous hen lamb include dose copy grant.""},""configuration"":{""enabled"":true,""defaultLevel"":3},""helpLocation"":{""uri"":""http://www.domain.com/rules/c2002.html""}},""C2003"":{""id"":""C2003"",""name"":{""text"":""Rule C2003""},""shortDescription"":{""text"":""Rules were meant to be broken.""},""fullDescription"":{""text"":""Rent internal rebellion competence biography photograph.""}}}}}
       }
     }
   ]
@@ -515,9 +515,14 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""TZ"": ""EST""
         }
       },
+      ""files"": {
+        ""collections.rsp"": {
+          ""uri"": ""collections.rsp""
+        }
+      },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""invocations\"":[{\""commandLine\"":\""CodeScanner @collections.rsp\"",\""responseFiles\"":[{\""uri\"":\""collections.rsp\""}],\""startTime\"":\""2016-07-16T14:18:25.000Z\"",\""endTime\"":\""2016-07-16T14:19:01.000Z\"",\""machine\"":\""BLD01\"",\""account\"":\""buildAgent\"",\""processId\"":1218,\""executableLocation\"":{\""uri\"":\""/bin/tools/CodeScanner\""},\""workingDirectory\"":\""/home/buildAgent/src\"",\""environmentVariables\"":{\""PATH\"":\""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin\"",\""HOME\"":\""/home/buildAgent\"",\""TZ\"":\""EST\""}}],\""files\"":{\""collections.rsp\"":{\""fileLocation\"":{\""uri\"":\""collections.rsp\""},\""contents\"":{\""text\"":\""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\""}}},\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""commandLine"":""CodeScanner @collections.rsp"",""responseFiles"":[{""uri"":""collections.rsp""}],""startTime"":""2016-07-16T14:18:25Z"",""endTime"":""2016-07-16T14:19:01Z"",""machine"":""BLD01"",""account"":""buildAgent"",""processId"":1218,""executableLocation"":{""uri"":""/bin/tools/CodeScanner""},""workingDirectory"":""/home/buildAgent/src"",""environmentVariables"":{""PATH"":""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",""HOME"":""/home/buildAgent"",""TZ"":""EST""}}],""files"":{""collections.rsp"":{""fileLocation"":{""uri"":""collections.rsp""},""contents"":{""text"":""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""}}},""results"":[]}
       }
     }
   ]
@@ -654,83 +659,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""invocations\"":[{\""commandLine\"":\""CodeScanner @collections.rsp\"",\""toolNotifications\"":[{\""id\"":\""CTN0001\"",\""message\"":{\""text\"":\""Run started.\""},\""level\"":\""note\""},{\""id\"":\""CTN9999\"",\""ruleId\"":\""C2152\"",\""physicalLocation\"":{\""fileLocation\"":{\""uri\"":\""file:///home/buildAgent/src/crypto/hash.cpp\""}},\""message\"":{\""text\"":\""Exception evaluating rule \\\""C2152\\\"". Rule disabled; run continues.\""},\""level\"":\""error\"",\""threadId\"":52,\""time\"":\""2016-07-16T14:18:43.119Z\"",\""exception\"":{\""kind\"":\""ExecutionEngine.RuleFailureException\"",\""message\"":\""Unhandled exception during rule evaluation.\"",\""innerExceptions\"":[{\""kind\"":\""System.ArgumentException\"",\""message\"":\""length is < 0\""}]}},{\""id\"":\""CTN0002\"",\""message\"":{\""text\"":\""Run ended.\""},\""level\"":\""note\""}],\""configurationNotifications\"":[{\""id\"":\""UnknownRule\"",\""ruleId\"":\""ABC0001\"",\""message\"":{\""text\"":\""Could not disable rule \\\""ABC0001\\\"" because there is no rule with that id.\""}}]}],\""results\"":[]}""
-      }
-    }
-  ]
-}";
-
-            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
-        }
-
-        [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWithNotificationsButNoInvocations()
-        {
-            const string V2LogText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""invocations"": [
-        {
-          ""toolNotifications"": [
-            {
-              ""id"": ""CTN0001"",
-              ""message"": {
-                ""text"": ""Run started.""
-              },
-              ""level"": ""note""
-            }
-          ],
-          ""configurationNotifications"": [
-            {
-              ""id"": ""UnknownRule"",
-              ""ruleId"": ""ABC0001"",
-              ""message"": {
-                ""text"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
-              }
-            }
-          ]
-        }
-      ],
-      ""results"": []
-    }
-  ]
-}";
-
-            const string V1LogExpectedText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""invocation"": {},
-      ""results"": [],
-      ""toolNotifications"": [
-        {
-          ""id"": ""CTN0001"",
-          ""message"": ""Run started."",
-          ""level"": ""note""
-        }
-      ],
-      ""configurationNotifications"": [
-        {
-          ""id"": ""UnknownRule"",
-          ""ruleId"": ""ABC0001"",
-          ""message"": ""Could not disable rule \""ABC0001\"" because there is no rule with that id.""
-        }
-      ],
-      ""properties"": {
-        ""sarifv2/run"": ""{\""tool\"":{\""name\"":\""CodeScanner\"",\""semanticVersion\"":\""2.1.0\""},\""invocations\"":[{\""toolNotifications\"":[{\""id\"":\""CTN0001\"",\""message\"":{\""text\"":\""Run started.\""},\""level\"":\""note\""}],\""configurationNotifications\"":[{\""id\"":\""UnknownRule\"",\""ruleId\"":\""ABC0001\"",\""message\"":{\""text\"":\""Could not disable rule \\\""ABC0001\\\"" because there is no rule with that id.\""}}]}],\""results\"":[]}""
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""commandLine"":""CodeScanner @collections.rsp"",""toolNotifications"":[{""id"":""CTN0001"",""message"":{""text"":""Run started.""},""level"":1},{""id"":""CTN9999"",""ruleId"":""C2152"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/crypto/hash.cpp""}},""message"":{""text"":""Exception evaluating rule \""C2152\"". Rule disabled; run continues.""},""level"":2,""threadId"":52,""time"":""2016-07-16T14:18:43.119Z"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}},{""id"":""CTN0002"",""message"":{""text"":""Run ended.""},""level"":1}],""configurationNotifications"":[{""id"":""UnknownRule"",""ruleId"":""ABC0001"",""message"":{""text"":""Could not disable rule \""ABC0001\"" because there is no rule with that id.""}}]}],""results"":[]}
       }
     }
   ]
