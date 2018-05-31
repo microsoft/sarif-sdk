@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -14,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                SarifLog baselineFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.BaselineFilePath);
-                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.CurrentFilePath);
+                SarifLog baselineFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.BaselineFilePath);
+                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.CurrentFilePath);
                 if (baselineFile.Runs.Count != 1 || currentFile.Runs.Count != 1)
                 {
                     throw new ArgumentException("Invalid sarif logs, we can only baseline logs with a single run in them.");
@@ -30,14 +31,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 output.Runs.Add(diffedRun);
 
                 var formatting = baselineOptions.PrettyPrint
-                        ? Newtonsoft.Json.Formatting.Indented
-                        : Newtonsoft.Json.Formatting.None;
+                        ? Formatting.Indented
+                        : Formatting.None;
                 
                 MultitoolFileHelpers.WriteSarifFile(output, baselineOptions.OutputFilePath, formatting);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex);
                 return 1;
             }
 

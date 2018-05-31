@@ -32,6 +32,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Formatting = Formatting.Indented
         };
 
+        public static readonly JsonSerializerSettings JsonSettingsV1Compact = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolverVersionOne.Instance
+        };
+
+        public static readonly JsonSerializerSettings JsonSettingsV2Compact = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolver.Instance
+        };
+
         #region Text MIME types
         public static HashSet<string> TextMimeTypes = new HashSet<string>()
         {
@@ -86,22 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
-
         public static string CreateDisambiguatedName(string baseName, int index)
         {
             return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
-        }
-
-        public static void RemoveSarifPropertyBagItems(PropertyBagHolder holder, SarifVersion version)
-        {
-            if (holder.Properties != null)
-            {
-                string prefix = PropertyBagTransformerItemPrefixes[version];
-                holder.PropertyNames.Where(n => n.StartsWith(prefix))
-                                    .Select(p => p)
-                                    .ToList()
-                                    .ForEach(k => holder.RemoveProperty(k));
-            }
         }
 
         public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
@@ -145,6 +142,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
+        {
+            switch (v2DefaultLevel)
+            {
+                case RuleConfigurationDefaultLevel.Error:
+                    return ResultLevelVersionOne.Error;
+                case RuleConfigurationDefaultLevel.Note:
+                    return ResultLevelVersionOne.Pass;
+                case RuleConfigurationDefaultLevel.Warning:
+                    return ResultLevelVersionOne.Warning;
+                default:
+                    return ResultLevelVersionOne.Warning;
+            }
+        }
+
         public static ResultLevel CreateResultLevel(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)
@@ -161,6 +173,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return ResultLevel.NotApplicable;
                 default:
                     return ResultLevel.Default;
+            }
+        }
+
+        public static ResultLevelVersionOne CreateResultLevel(ResultLevel v2ResultLevel)
+        {
+            switch (v2ResultLevel)
+            {
+                case ResultLevel.Error:
+                    return ResultLevelVersionOne.Error;
+                case ResultLevel.Note:
+                    return ResultLevelVersionOne.Note;
+                case ResultLevel.Pass:
+                    return ResultLevelVersionOne.Pass;
+                case ResultLevel.Warning:
+                    return ResultLevelVersionOne.Warning;
+                case ResultLevel.NotApplicable:
+                    return ResultLevelVersionOne.NotApplicable;
+                default:
+                    return ResultLevelVersionOne.Default;
             }
         }
 
@@ -191,6 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return BaselineState.None;
             }
         }
+
         public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
         {
             switch (v1AnnotatedCodeLocationImportance)
