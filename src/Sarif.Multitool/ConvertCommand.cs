@@ -36,15 +36,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
-                    convertOptions.ToolFormat,
-                    convertOptions.InputFilePath,
-                    convertOptions.OutputFilePath,
-                    loggingOptions,
-                    convertOptions.PluginAssemblyPath);
+                                                convertOptions.ToolFormat,
+                                                convertOptions.InputFilePath,
+                                                convertOptions.OutputFilePath,
+                                                loggingOptions,
+                                                convertOptions.PluginAssemblyPath);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex);
                 return 1;
             }
 

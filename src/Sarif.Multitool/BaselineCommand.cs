@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex);
                 return 1;
             }
 
