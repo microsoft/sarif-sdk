@@ -568,7 +568,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocation"":{""commandLine"":""CodeScanner @collections.rsp"",""responseFiles"":{""collections.rsp"":""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""},""startTime"":""2016-07-16T14:18:25Z"",""endTime"":""2016-07-16T14:19:01Z"",""machine"":""BLD01"",""account"":""buildAgent"",""processId"":1218,""fileName"":""/bin/tools/CodeScanner"",""workingDirectory"":""/home/buildAgent/src"",""environmentVariables"":{""PATH"":""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",""HOME"":""/home/buildAgent"",""TZ"":""EST""}},""results"":[]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocation"":{""commandLine"":""CodeScanner @collections.rsp"",""responseFiles"":{""collections.rsp"":""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""},""startTime"":""2016-07-16T14:18:25.000Z"",""endTime"":""2016-07-16T14:19:01.000Z"",""machine"":""BLD01"",""account"":""buildAgent"",""processId"":1218,""fileName"":""/bin/tools/CodeScanner"",""workingDirectory"":""/home/buildAgent/src"",""environmentVariables"":{""PATH"":""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",""HOME"":""/home/buildAgent"",""TZ"":""EST""}},""results"":[]}
       }
     }
   ]
