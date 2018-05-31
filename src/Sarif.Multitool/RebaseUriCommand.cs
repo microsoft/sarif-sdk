@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -36,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     // Write output to file.
                     string outputName = sarifLog.GetOutputFileName(rebaseOptions);
                     var formatting = rebaseOptions.PrettyPrint
-                        ? Newtonsoft.Json.Formatting.Indented
-                        : Newtonsoft.Json.Formatting.None;
+                        ? Formatting.Indented
+                        : Formatting.None;
                     
                     MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
                 }
@@ -57,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HashSet<string> fileNames = MultitoolFileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
             foreach(var file in fileNames)
             {
-                yield return new RebaseUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile(file) };
+                yield return new RebaseUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile<SarifLog>(file) };
             }
         }
         

@@ -4,8 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -25,8 +25,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     // Write output to file.
                     string outputName = sarifLog.GetOutputFileName(absoluteUriOptions);
                     var formatting = absoluteUriOptions.PrettyPrint
-                        ? Newtonsoft.Json.Formatting.Indented
-                        : Newtonsoft.Json.Formatting.None;
+                        ? Formatting.Indented
+                        : Formatting.None;
 
                     MultitoolFileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
                 }
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HashSet<string> fileNames = MultitoolFileHelpers.CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse);
             foreach (var file in fileNames)
             {
-                yield return new AbsoluteUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile(file) };
+                yield return new AbsoluteUriFile() { FileName = file, Log = MultitoolFileHelpers.ReadSarifFile<SarifLog>(file) };
             }
         }
 
