@@ -123,4 +123,7 @@
   <data name="ErrorIllegalContextReuse" xml:space="preserve">
     <value>A context object was reinitialized with a new target URI.</value>
   </data>
+  <data name="ErrorInvalidTransformTargetVersion" xml:space="preserve">
+    <value>Target version must be 1 or 2</value>
+  </data>
 </root>

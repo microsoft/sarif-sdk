@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -15,19 +17,24 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     static class MultitoolFileHelpers
     {
-        public static SarifLog ReadSarifFile(string filePath)
+        public static T ReadSarifFile<T>(string filePath)
+        {
+            return ReadSarifFile<T>(filePath, SarifContractResolver.Instance);
+        }
+
+        public static T ReadSarifFile<T>(string filePath, IContractResolver contractResolver)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = SarifContractResolver.Instance
+                ContractResolver = contractResolver
             };
 
             string logText = File.ReadAllText(filePath);
 
-            return JsonConvert.DeserializeObject<SarifLog>(logText, settings);
+            return JsonConvert.DeserializeObject<T>(logText, settings);
         }
 
-        public static void WriteSarifFile(SarifLog sarifFile, string outputName, Formatting formatting)
+        public static void WriteSarifFile<T>(T sarifFile, string outputName, Formatting formatting)
         {
             var settings = new JsonSerializerSettings
             {
