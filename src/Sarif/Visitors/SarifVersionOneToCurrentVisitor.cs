@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
-using Newtonsoft.Json;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -113,13 +112,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v1ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v1ExceptionData.Kind,
-                    Message = v1ExceptionData.Message
+                    Message = v1ExceptionData.Message,
+                    Stack = CreateStack(v1ExceptionData.Stack)
                 };
-
-                if (v1ExceptionData.Stack != null)
-                {
-                    exceptionData.Stack = CreateStack(v1ExceptionData.Stack);
-                }
             }
 
             return exceptionData;
@@ -546,6 +541,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Id = v1Notification.Id,
                     Level = Utilities.CreateNotificationLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
+                    PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
                     ThreadId = v1Notification.ThreadId,
@@ -813,76 +809,83 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1Run != null)
             {
-                run = new Run()
+                if (v1Run.TryGetProperty("sarifv2/run", out run))
                 {
-                    Architecture = v1Run.Architecture,
-                    AutomationLogicalId = v1Run.AutomationId,
-                    BaselineInstanceGuid = v1Run.BaselineId,
-                    InstanceGuid = v1Run.Id,
-                    Properties = v1Run.Properties,
-                    Results = new List<Result>(),
-                    LogicalId = v1Run.StableId,
-                    Tool = CreateTool(v1Run.Tool)
-                };
-
-                _currentRun = run;
-
-                if (v1Run.Files != null)
-                {
-                    run.Files = new Dictionary<string, FileData>();
-
-                    foreach (var pair in v1Run.Files)
-                    {
-                        run.Files.Add(pair.Key, CreateFileData(pair.Value));
-                    }
+                    return run;
                 }
-
-                if (v1Run.LogicalLocations != null)
+                else
                 {
-                    run.LogicalLocations = new Dictionary<string, LogicalLocation>();
-
-                    foreach (var pair in v1Run.LogicalLocations)
+                    run = new Run()
                     {
-                        run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
+                        Architecture = v1Run.Architecture,
+                        AutomationLogicalId = v1Run.AutomationId,
+                        BaselineInstanceGuid = v1Run.BaselineId,
+                        InstanceGuid = v1Run.Id,
+                        Properties = v1Run.Properties,
+                        Results = new List<Result>(),
+                        LogicalId = v1Run.StableId,
+                        Tool = CreateTool(v1Run.Tool)
+                    };
+
+                    _currentRun = run;
+
+                    if (v1Run.Files != null)
+                    {
+                        run.Files = new Dictionary<string, FileData>();
+
+                        foreach (var pair in v1Run.Files)
+                        {
+                            run.Files.Add(pair.Key, CreateFileData(pair.Value));
+                        }
                     }
 
-                    RemoveRedundantLogicalLocationProperties();
-                }
+                    if (v1Run.LogicalLocations != null)
+                    {
+                        run.LogicalLocations = new Dictionary<string, LogicalLocation>();
 
-                // Even if there is no v1 invocation, there may be notifications
-                // in which case we will need a v2 invocation to contain them
-                Invocation invocation = CreateInvocation(v1Run.Invocation,
-                                                         v1Run.ToolNotifications,
-                                                         v1Run.ConfigurationNotifications);
+                        foreach (var pair in v1Run.LogicalLocations)
+                        {
+                            run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
+                        }
 
-                if (invocation != null)
-                {
-                    run.Invocations = new List<Invocation>()
+                        RemoveRedundantLogicalLocationProperties();
+                    }
+
+                    // Even if there is no v1 invocation, there may be notifications
+                    // in which case we will need a v2 invocation to contain them
+                    Invocation invocation = CreateInvocation(v1Run.Invocation,
+                                                             v1Run.ToolNotifications,
+                                                             v1Run.ConfigurationNotifications);
+
+                    if (invocation != null)
+                    {
+                        run.Invocations = new List<Invocation>()
                     {
                         invocation
                     };
-                }
-
-                foreach (ResultVersionOne v1Result in v1Run.Results)
-                {
-                    run.Results.Add(CreateResult(v1Result));
-                }
-
-                if (v1Run.Rules != null)
-                {
-                    run.Resources = new Resources
-                    {
-                        Rules = new Dictionary<string, Rule>()
-                    };
-
-                    foreach (var pair in v1Run.Rules)
-                    {
-                        run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                     }
-                }
 
-                // Stash the entire v1 run in this v2 run's property bag
-                run.SetProperty($"{FromPropertyBagPrefix}/run", JsonConvert.SerializeObject(v1Run, Utilities.JsonSettingsV1));
+                    foreach (ResultVersionOne v1Result in v1Run.Results)
+                    {
+                        run.Results.Add(CreateResult(v1Result));
+                    }
+
+                    if (v1Run.Rules != null)
+                    {
+                        run.Resources = new Resources
+                        {
+                            Rules = new Dictionary<string, Rule>()
+                        };
+
+                        foreach (var pair in v1Run.Rules)
+                        {
+                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
+                        }
+                    }
+
+                    // Stash the entire v1 run in this v2 run's property bag
+                    run.SetProperty($"{FromPropertyBagPrefix}/run", v1Run);
+                }
             }
 
             return run;
