@@ -895,5 +895,268 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
         }
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""message"": {
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute values in single quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute value in double quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Convert tag name to lowercase.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 804,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""ZGl2""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""WEB1079.AttributeValueIsNotQuoted"": {
+            ""id"": ""WEB1079"",
+            ""shortDescription"": {
+              ""text"": ""The attribute value is not quoted.""
+            },
+            ""messageStrings"": {
+              ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+            }
+          },
+          ""WEB1066.TagNameIsNotLowercase"": {
+            ""id"": ""WEB1066"",
+            ""shortDescription"": {
+              ""text"": ""The tag name is not lowercase.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""fixes"": [
+            {
+              ""description"": ""Wrap attribute values in single quotes."",
+              ""fileChanges"": [
+                {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""replacements"": [
+                    {
+                      ""offset"": 720,
+                      ""insertedBytes"": ""Jw==""
+                    },
+                    {
+                      ""offset"": 725,
+                      ""insertedBytes"": ""Jw==""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""description"": ""Wrap attribute value in double quotes."",
+              ""fileChanges"": [
+                {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""replacements"": [
+                    {
+                      ""offset"": 720,
+                      ""insertedBytes"": ""Ig==""
+                    },
+                    {
+                      ""offset"": 725,
+                      ""insertedBytes"": ""Ig==""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",
+          ""fixes"": [
+            {
+              ""description"": ""Convert tag name to lowercase."",
+              ""fileChanges"": [
+                {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""replacements"": [
+                    {
+                      ""offset"": 804,
+                      ""deletedLength"": 3,
+                      ""insertedBytes"": ""ZGl2""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      ""rules"": {
+        ""WEB1079.AttributeValueIsNotQuoted"": {
+          ""id"": ""WEB1079"",
+          ""shortDescription"": ""The attribute value is not quoted."",
+          ""messageFormats"": {
+            ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+          }
+        },
+        ""WEB1066.TagNameIsNotLowercase"": {
+          ""id"": ""WEB1066"",
+          ""shortDescription"": ""The tag name is not lowercase."",
+          ""messageFormats"": {
+            ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+          }
+        }
+      },
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":804,""length"":3},""insertedContent"":{""binary"":""ZGl2""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+      }
+    }
+  ]
+}";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
     }
 }

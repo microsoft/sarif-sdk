@@ -51,6 +51,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return exceptionData;
         }
 
+        internal FileChangeVersionOne CreateFileChange(FileChange v2FileChange)
+        {
+            FileChangeVersionOne fileChange = null;
+
+            if (v2FileChange != null)
+            {
+                fileChange = new FileChangeVersionOne
+                {
+                    Replacements = v2FileChange.Replacements?.Select(CreateReplacement).ToList(),
+                    Uri = v2FileChange.FileLocation?.Uri,
+                    UriBaseId = v2FileChange.FileLocation?.UriBaseId
+                };
+            }
+
+            return fileChange;
+        }
+
         internal FileDataVersionOne CreateFileData(FileData v2FileData)
         {
             FileDataVersionOne fileData = null;
@@ -78,6 +95,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return fileData;
+        }
+
+        internal FixVersionOne CreateFix(Fix v2Fix)
+        {
+            FixVersionOne fix = null;
+
+            if (v2Fix != null)
+            {
+                fix = new FixVersionOne()
+                {
+                    Description = v2Fix.Description?.Text,
+                    FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
+                };
+            }
+
+            return fix;
         }
 
         internal HashVersionOne CreateHash(Hash v2Hash)
@@ -231,6 +264,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
+        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement)
+        {
+            ReplacementVersionOne replacement = null;
+
+            if (v2Replacement != null)
+            {
+                replacement = new ReplacementVersionOne();
+
+                if (v2Replacement.InsertedContent != null)
+                {
+                    replacement.InsertedBytes = v2Replacement.InsertedContent.Text != null ?
+                                                    SarifUtilities.GetUtf8Base64String(v2Replacement.InsertedContent.Text) :
+                                                    v2Replacement.InsertedContent.Binary;
+                }
+
+                replacement.DeletedLength = v2Replacement.DeletedRegion.Length;
+                replacement.Offset = v2Replacement.DeletedRegion.Offset;
+            }
+
+            return replacement;
+        }
+
         internal Dictionary<string, string> CreateResponseFilesDictionary(IList<FileLocation> v2ResponseFilesList)
         {
             Dictionary<string, string> responseFiles = null;
@@ -255,6 +310,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return responseFiles;
+        }
+
+        internal ResultVersionOne CreateResult(Result v2Result)
+        {
+            ResultVersionOne result = null;
+
+            if (v2Result != null)
+            {
+                result = new ResultVersionOne
+                {
+                    BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
+                    Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
+                    Id = v2Result.InstanceGuid,
+                    Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
+                    Message = v2Result.Message?.Text,
+                    Properties = v2Result.Properties,
+                    RuleId = v2Result.RuleId,
+                    Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
+                    Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
+                };
+            }
+
+            return result;
         }
 
         internal RuleVersionOne CreateRule(Rule v2Rule)
@@ -317,6 +395,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
                     run.StableId = v2Run.LogicalId;
                     run.Tool = CreateTool(v2Run.Tool);
+
+                    foreach (Result v2Result in v2Run.Results)
+                    {
+                        run.Results.Add(CreateResult(v2Result));
+                    }
 
                     // Stash the entire v2 run in this v1 run's property bag
                     run.SetProperty($"{FromPropertyBagPrefix}/run", v2Run);
