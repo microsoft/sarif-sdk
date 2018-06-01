@@ -43,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v2ExceptionData.Kind,
-                    Message = v2ExceptionData.Message
+                    Message = v2ExceptionData.Message,
+                    Stack = CreateStack(v2ExceptionData.Stack)
                 };
             }
 
@@ -196,12 +197,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
+                    Region = CreateRegion(v2PhysicalLocation.Region),
                     Uri = v2PhysicalLocation.FileLocation?.Uri,
                     UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
                 };
             }
 
             return physicalLocation;
+        }
+
+        internal RegionVersionOne CreateRegion(Region v2Region)
+        {
+            RegionVersionOne region = null;
+
+            if (v2Region != null && (v2Region.StartColumn > 0 ||
+                                     v2Region.StartLine > 0 || 
+                                     v2Region.EndColumn > 0 || 
+                                     v2Region.EndLine > 0 || 
+                                     v2Region.Length > 0 || 
+                                     v2Region.Offset > 0))
+            {
+                region = new RegionVersionOne
+                {
+                    EndColumn = v2Region.EndColumn,
+                    EndLine = v2Region.EndLine,
+                    Length = v2Region.Length,
+                    Offset = v2Region.Offset,
+                    StartColumn = v2Region.StartColumn,
+                    StartLine = v2Region.StartLine
+                };
+            }
+
+            return region;
         }
 
         internal Dictionary<string, string> CreateResponseFilesDictionary(IList<FileLocation> v2ResponseFilesList)
@@ -297,6 +324,72 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return run;
+        }
+
+        internal StackVersionOne CreateStack(Stack v2Stack)
+        {
+            StackVersionOne stack = null;
+
+            if (v2Stack != null)
+            {
+                stack = new StackVersionOne
+                {
+                    Message = v2Stack.Message?.Text,
+                    Properties = v2Stack.Properties,
+                    Frames = v2Stack.Frames?.Select(CreateStackFrame).ToList()
+                };
+            }
+
+            return stack;
+        }
+
+        internal StackFrameVersionOne CreateStackFrame(StackFrame v2StackFrame)
+        {
+            StackFrameVersionOne stackFrame = null;
+
+            if (v2StackFrame != null)
+            {
+                stackFrame = new StackFrameVersionOne
+                {
+                    Address = v2StackFrame.Address,
+                    Module = v2StackFrame.Module,
+                    Offset = v2StackFrame.Offset,
+                    Parameters = v2StackFrame.Parameters,
+                    Properties = v2StackFrame.Properties,
+                    ThreadId = v2StackFrame.ThreadId
+                };
+
+                Location location = v2StackFrame.Location;
+                if (location != null)
+                {
+                    string fqln = location.FullyQualifiedLogicalName;
+
+                    if (_currentV2Run.LogicalLocations != null &&
+                        _currentV2Run.LogicalLocations.ContainsKey(fqln) &&
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[fqln].FullyQualifiedName))
+                    {
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[fqln].FullyQualifiedName;
+                        stackFrame.LogicalLocationKey = fqln;
+                    }
+                    else
+                    {
+                        stackFrame.FullyQualifiedLogicalName = fqln;
+                    }
+
+                    stackFrame.Message = location.Message?.Text;
+
+                    PhysicalLocation physicalLocation = location.PhysicalLocation;
+                    if (physicalLocation != null)
+                    {
+                        stackFrame.Column = physicalLocation.Region?.StartColumn ?? 0;
+                        stackFrame.Line = physicalLocation.Region?.StartLine ?? 0;
+                        stackFrame.Uri = physicalLocation.FileLocation?.Uri;
+                        stackFrame.UriBaseId = physicalLocation.FileLocation?.UriBaseId;
+                    }
+                }
+            }
+
+            return stackFrame;
         }
 
         internal ToolVersionOne CreateTool(Tool v2Tool)

@@ -667,5 +667,233 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
         }
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_NotificationExceptionWithStack()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""toolNotifications"": [
+            {
+              ""id"": ""CTN0001"",
+              ""message"": {
+                ""text"": ""Unhandled exception.""
+              },
+              ""level"": ""error"",
+              ""exception"": {
+                ""kind"": ""ExecutionEngine.RuleFailureException"",
+                ""message"": ""Unhandled exception during rule evaluation."",
+                ""stack"": {
+                  ""message"": {
+                    ""text"": ""This is the stack messasge.""
+                  },
+                  ""frames"": [
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""startColumn"": 9
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                        ""message"": {
+                          ""text"": ""Exception thrown""
+                        }
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 10092852
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 1002485
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/utils.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/foobar.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.FooBar""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    }
+                  ]
+                },
+                ""innerExceptions"": [
+                  {
+                    ""kind"": ""System.ArgumentException"",
+                    ""message"": ""length is < 0""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocation"": {},
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
+      ""results"": [],
+      ""toolNotifications"": [
+        {
+          ""id"": ""CTN0001"",
+          ""message"": ""Unhandled exception."",
+          ""level"": ""error"",
+          ""exception"": {
+            ""kind"": ""ExecutionEngine.RuleFailureException"",
+            ""message"": ""Unhandled exception during rule evaluation."",
+            ""stack"": {
+              ""message"": ""This is the stack messasge."",
+              ""frames"": [
+                {
+                  ""message"": ""Exception thrown"",
+                  ""uri"": ""file:///C:/src/main.cs"",
+                  ""line"": 15,
+                  ""column"": 9,
+                  ""module"": ""RuleLibrary"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                  ""address"": 10092852
+                },
+                {
+                  ""uri"": ""file:///C:/src/main.cs"",
+                  ""module"": ""RuleLibrary"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register"",
+                  ""logicalLocationKey"": ""Rules.SecureHashAlgorithmRule.Register-0"",
+                  ""address"": 1002485
+                },
+                {
+                  ""uri"": ""file:///C:/src/utils.cs"",
+                  ""module"": ""ExecutionEngine"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                  ""address"": 10073356,
+                  ""offset"": 10475
+                },
+                {
+                  ""uri"": ""file:///C:/src/foobar.cs"",
+                  ""module"": ""ExecutionEngine"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                  ""logicalLocationKey"": ""ExecutionEngine.Engine.FooBar"",
+                  ""address"": 10073356,
+                  ""offset"": 10475
+                }
+              ]
+            },
+            ""innerExceptions"": [
+              {
+                ""kind"": ""System.ArgumentException"",
+                ""message"": ""length is < 0""
+              }
+            ]
+          }
+        }
+      ],
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""CTN0001"",""message"":{""text"":""Unhandled exception.""},""level"":""error"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""stack"":{""message"":{""text"":""This is the stack messasge.""},""frames"":[{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/main.cs""},""region"":{""startLine"":15,""startColumn"":9}},""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Evaluate"",""message"":{""text"":""Exception thrown""}},""module"":""RuleLibrary"",""threadId"":52,""address"":10092852},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/main.cs""}},""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Register-0""},""module"":""RuleLibrary"",""threadId"":52,""address"":1002485},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/utils.cs""}},""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule""},""module"":""ExecutionEngine"",""threadId"":52,""address"":10073356,""offset"":10475},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/foobar.cs""}},""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.FooBar""},""module"":""ExecutionEngine"",""threadId"":52,""address"":10073356,""offset"":10475}]},""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}}]}],""logicalLocations"":{""Rules.SecureHashAlgorithmRule.Evaluate"":{""name"":""Evaluate"",""kind"":""some kind""},""Rules.SecureHashAlgorithmRule.Register"":{""name"":""InvalidName""},""ExecutionEngine.Engine.FooBar"":{""name"":""EvaluateRule"",""fullyQualifiedName"":""ExecutionEngine.Engine.EvaluateRule"",""kind"":""another kind""},""Rules.SecureHashAlgorithmRule.Register-0"":{""name"":""Register"",""fullyQualifiedName"":""Rules.SecureHashAlgorithmRule.Register""},""ExecutionEngine.Engine.EvaluateRule"":{""name"":""EvaluateRule""}},""results"":[]}
+      }
+    }
+  ]
+}";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
     }
 }
