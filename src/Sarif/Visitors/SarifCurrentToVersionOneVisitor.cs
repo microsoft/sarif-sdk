@@ -210,33 +210,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RegionVersionOne region = null;
 
-            if (v2Region != null)
-            {
-                region = CreateRegion(v2Region.StartColumn,
-                                      v2Region.StartLine,
-                                      v2Region.EndColumn,
-                                      v2Region.EndLine,
-                                      v2Region.Length,
-                                      v2Region.Offset);
-            }
-
-            return region;
-        }
-
-        internal RegionVersionOne CreateRegion(int startColumn, int startLine, int endColumn = 0, int endLine = 0, int length = 0, int offset = 0)
-        {
-            RegionVersionOne region = null;
-
-            if (startColumn > 0 || startLine > 0 || endColumn > 0 || endLine > 0 || length > 0 || offset > 0)
+            if (v2Region != null && (v2Region.StartColumn > 0 ||
+                                     v2Region.StartLine > 0 || 
+                                     v2Region.EndColumn > 0 || 
+                                     v2Region.EndLine > 0 || 
+                                     v2Region.Length > 0 || 
+                                     v2Region.Offset > 0))
             {
                 region = new RegionVersionOne
                 {
-                    EndColumn = endColumn,
-                    EndLine = endLine,
-                    Length = length,
-                    Offset = offset,
-                    StartColumn = startColumn,
-                    StartLine = startLine
+                    EndColumn = v2Region.EndColumn,
+                    EndLine = v2Region.EndLine,
+                    Length = v2Region.Length,
+                    Offset = v2Region.Offset,
+                    StartColumn = v2Region.StartColumn,
+                    StartLine = v2Region.StartLine
                 };
             }
 
@@ -374,7 +362,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Location location = v2StackFrame.Location;
                 if (location != null)
                 {
-                    stackFrame.FullyQualifiedLogicalName = location.FullyQualifiedLogicalName;
+                    string fqln = location.FullyQualifiedLogicalName;
+
+                    if (_currentV2Run.LogicalLocations != null &&
+                        _currentV2Run.LogicalLocations.ContainsKey(fqln) &&
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[fqln].FullyQualifiedName))
+                    {
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[fqln].FullyQualifiedName;
+                        stackFrame.LogicalLocationKey = fqln;
+                    }
+                    else
+                    {
+                        stackFrame.FullyQualifiedLogicalName = fqln;
+                    }
+
                     stackFrame.Message = location.Message?.Text;
 
                     PhysicalLocation physicalLocation = location.PhysicalLocation;
