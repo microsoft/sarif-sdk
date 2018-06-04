@@ -908,6 +908,34 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""CodeScanner""
       },
+      ""files"": {
+        ""http://localhost:34420/HtmlFixes.html"": {
+          ""length"": 43,
+          ""enoding"": ""utf-8"",
+          ""mimeType"": ""text/plain"",
+          ""contents"": {
+            ""text"": ""The quick brown fox jumps over the lazy dog"",
+            ""binary"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""
+          },
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFix.html"": {
+          ""length"": 87,
+          ""encoding"": ""foo-bar"",
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        }
+      },
       ""results"": [
         {
           ""ruleId"": ""WEB1079"",
@@ -1015,16 +1043,16 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""fileChanges"": [
                 {
                   ""fileLocation"": {
-                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                    ""uri"": ""http://localhost:34420/HtmlTextFix.html""
                   },
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 804,
+                        ""offset"": 125,
                         ""length"": 3
                       },
                       ""insertedContent"": {
-                        ""binary"": ""ZGl2""
+                        ""text"": ""<div>""
                       }
                     }
                   ]
@@ -1069,9 +1097,38 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""CodeScanner""
       },
+      ""files"": {
+        ""http://localhost:34420/HtmlFixes.html"": {
+          ""length"": 43,
+          ""mimeType"": ""text/plain"",
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFix.html"": {
+          ""length"": 87,
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha256""
+            }
+          ]
+        }
+      },
       ""results"": [
         {
           ""ruleId"": ""WEB1079"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""shape""
+            ]
+          },
           ""fixes"": [
             {
               ""description"": ""Wrap attribute values in single quotes."",
@@ -1113,24 +1170,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         },
         {
           ""ruleId"": ""WEB1066"",
-          ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",
-          ""fixes"": [
-            {
-              ""description"": ""Convert tag name to lowercase."",
-              ""fileChanges"": [
-                {
-                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
-                  ""replacements"": [
-                    {
-                      ""offset"": 804,
-                      ""deletedLength"": 3,
-                      ""insertedBytes"": ""ZGl2""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
         }
       ],
       ""rules"": {
@@ -1150,7 +1196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":804,""length"":3},""insertedContent"":{""binary"":""ZGl2""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""files"":{""http://localhost:34420/HtmlFixes.html"":{""length"":43,""mimeType"":""text/plain"",""contents"":{""text"":""The quick brown fox jumps over the lazy dog"",""binary"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""},""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFix.html"":{""length"":87,""mimeType"":""text/plain"",""encoding"":""foo-bar"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
       }
     }
   ]

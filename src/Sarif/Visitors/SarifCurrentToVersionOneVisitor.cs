@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
@@ -59,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileChange = new FileChangeVersionOne
                 {
-                    Replacements = v2FileChange.Replacements?.Select(CreateReplacement).ToList(),
+                    Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, v2FileChange.FileLocation?.Uri)).ToList(),
                     Uri = v2FileChange.FileLocation?.Uri,
                     UriBaseId = v2FileChange.FileLocation?.UriBaseId
                 };
@@ -103,11 +105,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v2Fix != null)
             {
-                fix = new FixVersionOne()
+                try
                 {
-                    Description = v2Fix.Description?.Text,
-                    FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
-                };
+                    fix = new FixVersionOne()
+                    {
+                        Description = v2Fix.Description?.Text,
+                        FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
+                    };
+                }
+                catch (UnsupportedEncodingException)
+                {
+                    // A replacement in this fix specifies plain text, but the file's
+                    // encoding is unknown or unsupported, so we refuse to transform the fix.
+                    return null;
+                }
             }
 
             return fix;
@@ -264,19 +275,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement)
+        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Uri uri)
         {
             ReplacementVersionOne replacement = null;
 
             if (v2Replacement != null)
             {
                 replacement = new ReplacementVersionOne();
+                FileContent insertedContent = v2Replacement.InsertedContent;
 
-                if (v2Replacement.InsertedContent != null)
+                if (insertedContent != null)
                 {
-                    replacement.InsertedBytes = v2Replacement.InsertedContent.Text != null ?
-                                                    SarifUtilities.GetUtf8Base64String(v2Replacement.InsertedContent.Text) :
-                                                    v2Replacement.InsertedContent.Binary;
+                    if (insertedContent.Text != null)
+                    {
+                        FileData fileData = _currentV2Run.Files[uri.OriginalString];
+
+                        try
+                        {
+                            Encoding encoding = Encoding.GetEncoding(fileData.Encoding);
+                            replacement.InsertedBytes = SarifUtilities.GetBase64String(insertedContent.Text, encoding);
+                        }
+                        catch (ArgumentException)
+                        {
+                            // The encoding is null or not supported on the current platform
+                            throw new UnsupportedEncodingException(fileData.Encoding);
+                        }
+                    }
+                    else
+                    {
+                        replacement.InsertedBytes = insertedContent.Binary;
+                    }
                 }
 
                 replacement.DeletedLength = v2Replacement.DeletedRegion.Length;
@@ -330,6 +358,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
                 };
+
+                if (result.Fixes != null)
+                {
+                    // Null Fixes will be present in the case of unsupported encoding
+                    (result.Fixes as List<FixVersionOne>).RemoveAll(f => f == null);
+
+                    if (result.Fixes.Count == 0)
+                    {
+                        result.Fixes = null;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
+                {
+                    result.FormattedRuleMessage = new FormattedRuleMessageVersionOne
+                    {
+                        Arguments = v2Result.Message?.Arguments,
+                        FormatId = v2Result.RuleMessageId
+                    };
+                }
             }
 
             return result;
