@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RuleId { get; set; }
 
         /// <summary>
-        /// A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.
+        /// A value specifying the severity level of the result.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         public ResultLevel Level { get; set; }
