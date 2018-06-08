@@ -13,9 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     public class IdenticalResultMatcherTests
     {
         private static IdenticalResultMatcher matcher = new IdenticalResultMatcher();
-
-
-        public Result CreateMatchingResult(string target, string location, string context)
+        
+        public static Result CreateMatchingResult(string target, string location, string context)
         {
             return new Result()
             {
@@ -81,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             MatchingResult resultAB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             MatchingResult resultBB = new MatchingResult()
@@ -93,8 +92,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
 
             matchedResults.Should().HaveCount(2);
-            matchedResults.Where(f => f.BaselineResult == resultAA && f.BaselineResult == resultAB).Should().HaveCount(1);
-            matchedResults.Where(f => f.BaselineResult == resultBA && f.BaselineResult == resultBB).Should().HaveCount(1);
+            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
 
         [Fact]
@@ -203,8 +202,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
 
             matchedResults.Should().HaveCount(2);
-            matchedResults.Where(f => f.BaselineResult == resultAA && f.BaselineResult == resultAB).Should().HaveCount(1);
-            matchedResults.Where(f => f.BaselineResult == resultBA && f.BaselineResult == resultBB).Should().HaveCount(1);
+            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
     }
 }

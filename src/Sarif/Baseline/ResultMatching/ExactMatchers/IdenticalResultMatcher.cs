@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Result, MatchingResult> baselineResults = new Dictionary<Result, MatchingResult>(ResultEqualityComparer.Instance);
+            Dictionary<Result, MatchingResult> baselineResults = new Dictionary<Result, MatchingResult>(IdenticalResultEqualityComparer.Instance);
 
             foreach (var result in baseline)
             {
@@ -29,5 +29,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             return matchedResults;
         }
+
+        /// <summary>
+        /// We want to mask out the fields that may be set during baselining, as they will not be equivalent during a comparison.
+        /// </summary>
+        public class IdenticalResultEqualityComparer : IEqualityComparer<Result>
+        {
+            public static readonly IdenticalResultEqualityComparer Instance = new IdenticalResultEqualityComparer();
+
+            public bool Equals(Result x, Result y)
+            {
+                return ResultEqualityComparer.Instance.Equals(CreateMaskedResult(x), CreateMaskedResult(y));
+            }
+
+            public int GetHashCode(Result obj)
+            {
+                return ResultEqualityComparer.Instance.GetHashCode(CreateMaskedResult(obj));
+            }
+
+            public Result CreateMaskedResult(Result result)
+            {
+                Result masked = result.DeepClone();
+                masked.Id = null;
+                masked.SuppressionStates = SuppressionStates.None;
+                masked.BaselineState = BaselineState.None;
+                return masked;
+            }
+
+        }
+
     }
 }
