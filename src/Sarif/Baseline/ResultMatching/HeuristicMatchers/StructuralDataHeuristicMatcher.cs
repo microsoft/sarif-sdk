@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
     {
         public StructuralDataHeuristicMatcher() : base (StructuralDataEqualityComparator.Instance) {  }
         
-        public class StructuralDataEqualityComparator : IEqualityComparer<MatchingResult>
+        public class StructuralDataEqualityComparator : IResultMatchingComparer
         {
             public static readonly StructuralDataEqualityComparator Instance = new StructuralDataEqualityComparator();
 
@@ -115,6 +116,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
 
                 return hash;
+            }
+
+            public bool ResultMatcherApplies(MatchingResult result)
+            {
+                return (result.Result.Stacks != null && result.Result.Stacks.Any())
+                    || (result.Result.Graphs != null && result.Result.Graphs.Any())
+                    || (result.Result.GraphTraversals != null && result.Result.GraphTraversals.Any())
+                    || (result.Result.CodeFlows != null && result.Result.CodeFlows.Any());
             }
         }
     }

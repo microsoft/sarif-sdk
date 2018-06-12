@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
+    // TODO: Before adding this to the baseliner, this needs to not match on results w/o fingerprints, and this needs to match fingerprints if *any* of the entries match, not if *all* of the entries match.
     internal class FullFingerprintResultMatcher : IResultMatcher
     {
         public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)

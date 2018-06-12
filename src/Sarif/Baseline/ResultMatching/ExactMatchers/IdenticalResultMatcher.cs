@@ -7,7 +7,13 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
-    internal class IdenticalResultMatcher : IResultMatcher
+    /// <summary>
+    /// Matches two results if every part of the result is identical, except the fields used in baselining.
+    /// 
+    /// TODO:  There is the scenario where two results are identical in every way, but for some reason the tool outputs two of them.
+    /// This is obviously non-ideal behavior by the tool, but we should handle it properly....
+    /// </summary>
+    class IdenticalResultMatcher : IResultMatcher
     {
         public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
         {

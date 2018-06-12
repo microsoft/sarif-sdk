@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
     {
         public ContextRegionHeuristicMatcher() : base(ContextRegionResultComparer.Instance) { }
         
-        public class ContextRegionResultComparer : IEqualityComparer<MatchingResult>
+        public class ContextRegionResultComparer : IResultMatchingComparer
         {
             public static readonly ContextRegionResultComparer Instance = new ContextRegionResultComparer();
 
@@ -52,6 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
 
                 return hashCode;
+            }
+
+            public bool ResultMatcherApplies(MatchingResult result)
+            {
+                return result.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet).Any();
             }
         }
 

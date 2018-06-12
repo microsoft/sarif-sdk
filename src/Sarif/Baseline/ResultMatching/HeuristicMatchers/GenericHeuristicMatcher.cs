@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     internal class GenericHeuristicMatcher : IResultMatcher
     {
-        public GenericHeuristicMatcher(IEqualityComparer<MatchingResult> comparer, IRemappingCalculator remapper = null)
+        public GenericHeuristicMatcher(IResultMatchingComparer comparer, IRemappingCalculator remapper = null)
         {
             Comparer = comparer;
             Remapper = remapper;
         }
 
-        public IEqualityComparer<MatchingResult> Comparer { get; }
+        public IResultMatchingComparer Comparer { get; }
         public IRemappingCalculator Remapper { get; }
 
         public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
@@ -32,33 +32,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             foreach (var baseResult in baseline)
             {
-                int key = Comparer.GetHashCode(baseResult);
-                if (baselineResults.ContainsKey(key))
+                if (Comparer.ResultMatcherApplies(baseResult))
                 {
-                    baselineResults[key].Add(baseResult);
-                }
-                else 
-                {
-                    baselineResults[key] = new List<MatchingResult>() { baseResult };
+                    int key = Comparer.GetHashCode(baseResult);
+                    if (baselineResults.ContainsKey(key))
+                    {
+                        baselineResults[key].Add(baseResult);
+                    }
+                    else
+                    {
+                        baselineResults[key] = new List<MatchingResult>() { baseResult };
+                    }
                 }
             }
 
             foreach (var currResult in current)
             {
-                MatchedResults result;
-                if (TryMatchResult(baselineResults, currResult, out result))
+                if (Comparer.ResultMatcherApplies(currResult))
                 {
-                    results.Add(result);
-                }
-                else if (possibleRemappings != null)
-                {
-                    var applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currResult));
-                    foreach (SarifLogRemapping remap in applicableRemappings)
+                    MatchedResults result;
+                    if (TryMatchResult(baselineResults, currResult, out result))
                     {
-                        if (TryMatchResult(baselineResults, remap.RemapResult(currResult), out result))
+                        results.Add(result);
+                    }
+                    else if (possibleRemappings != null)
+                    {
+                        var applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currResult));
+                        foreach (SarifLogRemapping remap in applicableRemappings)
                         {
-                            results.Add(result);
-                            continue;
+                            if (TryMatchResult(baselineResults, remap.RemapResult(currResult), out result))
+                            {
+                                results.Add(result);
+                                continue;
+                            }
                         }
                     }
                 }
@@ -80,8 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
                 else if (matchingBaselineResult.Count > 1)
                 {
-                    // TODO--what if multiple results match here?  Grab the first?  Group them up? ...?  We do want this to be completely deterministic, which is part of the problem....
-                    throw new NotImplementedException();
+                    // TODO--what if multiple results match here?  Grab the first?  Group them up? ...?  We do want this to be completely deterministic, which is part of the problem.
+                    // This will remain unsolved in the early implementation.  A discrete difference metric probably makes sense here.
+                    throw new NotImplementedException("Not implemented for early matchers.");
                 }
             }
             result = null;

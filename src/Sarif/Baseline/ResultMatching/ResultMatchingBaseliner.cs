@@ -5,39 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers;
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
     /// <summary>
-    /// 
+    /// Default Result Matching Baseliner.
     /// </summary>
-    class ResultMatchingBaseliner
+    class ResultMatchingBaseliner : IResultMatchingBaseliner
     {
-        public static ResultMatchingBaseliner DefaultResultMatchingBaseliner()
-        {
-            return new ResultMatchingBaseliner
-                (
-                    // Exact matchers run first, in order.  These should do *no* remapping and offer fast comparisons to filter out
-                    // common cases (e.x. identical results).
-                    new List<IResultMatcher>()
-                    {
-                        new IdenticalResultMatcher(),
-                        new FullFingerprintResultMatcher()
-                    },
-                    // Heuristic matchers run in order after the exact matchers.
-                    // These can do remapping, and catch the long tail of "changed" results.
-                    new List<IResultMatcher>()
-                    {
-
-                        new PartialFingerprintResultMatcher(),
-                        new ContextRegionHeuristicMatcher(),
-                    }
-                );
-        }
-
         public ResultMatchingBaseliner(IEnumerable<IResultMatcher> exactResultMatchers,
             IEnumerable<IResultMatcher> heuristicMatchers)
         {
@@ -48,13 +24,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public IEnumerable<IResultMatcher> ExactResultMatchers { get; }
         public IEnumerable<IResultMatcher> HeuristicMatchers { get; }
 
-        public SarifLog BaselineSarifLogs(SarifLog baseline, SarifLog current)
+        /// <summary>
+        /// Take two groups of sarif logs, and compute a sarif log containing the complete set of results,
+        /// with status (compared to baseline) and various baseline-related fields persisted (e.x. work item links,
+        /// ID, etc.
+        /// </summary>
+        /// <param name="baseline">Array of sarif logs representing the baseline run</param>
+        /// <param name="current">Array of sarif logs representing the current run</param>
+        /// <returns>A SARIF log with the merged set of results.</returns>
+        public SarifLog BaselineSarifLogs(SarifLog[] baseline, SarifLog[] current)
         {
             Dictionary<string, List<Run>> runsByToolBaseline = GetRunsByTool(baseline);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(current);
             
             List<string> tools = runsByToolBaseline.Keys.ToList();
             tools.AddRange(runsByToolCurrent.Keys);
+            tools = tools.Distinct().ToList();
 
             List<SarifLog> baselinedByToolLogs = new List<SarifLog>();
 
@@ -77,19 +62,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return baselinedByToolLogs.Merge();
         }
 
-        private static Dictionary<string, List<Run>> GetRunsByTool(SarifLog sarifLog)
+        private static Dictionary<string, List<Run>> GetRunsByTool(SarifLog[] sarifLogs)
         {
             Dictionary<string, List<Run>> runsByTool = new Dictionary<string, List<Run>>();
-            foreach (var run in sarifLog.Runs)
+            foreach (SarifLog sarifLog in sarifLogs)
             {
-                string toolName = run.Tool.Name;
-                if (runsByTool.ContainsKey(toolName))
+                foreach (Run run in sarifLog.Runs)
                 {
-                    runsByTool[toolName].Add(run);
-                }
-                else
-                {
-                    runsByTool[toolName] = new List<Run>() { run };
+                    string toolName = run.Tool.Name;
+                    if (runsByTool.ContainsKey(toolName))
+                    {
+                        runsByTool[toolName].Add(run);
+                    }
+                    else
+                    {
+                        runsByTool[toolName] = new List<Run>() { run };
+                    }
                 }
             }
             return runsByTool;
@@ -130,15 +118,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         private void CalculateMatches(IEnumerable<IResultMatcher> matchers, List<MatchingResult> baselineResults, List<MatchingResult> currentResults, List<MatchedResults> matchedResults)
         {
-            foreach (IResultMatcher matcher in matchers)
+            if (matchers != null)
             {
-                IEnumerable<MatchedResults> results = matcher.MatchResults(baselineResults, currentResults);
-                foreach (var result in results)
+                foreach (IResultMatcher matcher in matchers)
                 {
-                    baselineResults.Remove(result.BaselineResult);
-                    currentResults.Remove(result.CurrentResult);
+                    IEnumerable<MatchedResults> results = matcher.MatchResults(baselineResults, currentResults);
+                    foreach (var result in results)
+                    {
+                        baselineResults.Remove(result.BaselineResult);
+                        currentResults.Remove(result.CurrentResult);
+                    }
+                    matchedResults.AddRange(results);
                 }
-                matchedResults.AddRange(results);
             }
         }
 
