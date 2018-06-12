@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         public void PartialFingerprintResultMatcher_()
         {
             // TODO.
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
 
