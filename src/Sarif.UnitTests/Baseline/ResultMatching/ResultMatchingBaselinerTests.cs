@@ -27,10 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
-
-            // For now, we will remove all duplicate results, as we aren't addressing that case.
-            baselineLog.Runs[0].Results = baselineLog.Runs[0].Results.Distinct(ResultEqualityComparer.Instance).ToList();
-
             SarifLog currentLog = baselineLog.DeepClone();
 
             if (currentLog.Runs[0].Results.Any())
@@ -42,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 result.Id = Guid.NewGuid().ToString();
             }
-            
+
             SarifLog calculatedNextBaseline = baseliner.BaselineSarifLogs(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog });
-            
+
             calculatedNextBaseline.Runs.Should().HaveCount(1);
 
             if (currentLog.Runs[0].Results.Any())
