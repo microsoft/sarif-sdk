@@ -19,8 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         /// </summary>
         public static IResultMatcher GetFullFingerprintResultMatcher()
         {
-            throw new NotImplementedException("Not implemented yet.");
-            //return new FullFingerprintResultMatcher();
+            return new FullFingerprintResultMatcher();
         }
 
     }

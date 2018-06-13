@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
@@ -10,26 +11,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     /// <summary>
     /// Matches two results if every part of the result is identical, except the fields used in baselining.
     /// 
-    /// TODO:  There is the scenario where two results are identical in every way, but for some reason the tool outputs two of them.
-    /// This is obviously non-ideal behavior by the tool, but we should handle it properly....
+    /// If a run contains multiple identical results, we will match them in order.
     /// </summary>
     class IdenticalResultMatcher : IResultMatcher
     {
         public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Result, MatchingResult> baselineResults = new Dictionary<Result, MatchingResult>(IdenticalResultEqualityComparer.Instance);
+            Dictionary<Result, List<MatchingResult>> baselineResults = new Dictionary<Result, List<MatchingResult>>(IdenticalResultEqualityComparer.Instance);
 
             foreach (var result in baseline)
             {
-                baselineResults.Add(result.Result, result);
+                if (!baselineResults.ContainsKey(result.Result) || baselineResults[result.Result] == null)
+                {
+                    baselineResults[result.Result] = new List<MatchingResult>() { result };
+                }
+                else
+                {
+                    baselineResults[result.Result].Add(result);
+                }
             }
 
             foreach (var result in current)
             {
                 if (baselineResults.ContainsKey(result.Result))
                 {
-                    matchedResults.Add(new MatchedResults() { BaselineResult = baselineResults[result.Result], CurrentResult = result, MatchingAlgorithm = this });
+                    if (baselineResults[result.Result].Count != 0)
+                    {
+                        // Pull the first element from the list and match it.  These results are *identical*, so we can just match them in the order they come in.
+                        MatchingResult baselineResult = baselineResults[result.Result].First();
+                        baselineResults[result.Result].Remove(baselineResult);
+                        matchedResults.Add(new MatchedResults() { BaselineResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
+                    }
                 }
             }
 
