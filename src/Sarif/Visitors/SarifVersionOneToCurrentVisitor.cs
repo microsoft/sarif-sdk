@@ -707,7 +707,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
                     RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
-                    RuleId = v1Result.RuleId,
+                    RuleId = v1Result.RuleKey ?? v1Result.RuleId,
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
