@@ -59,15 +59,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v2FileChange != null)
             {
+                string encodingName = GetFileEncodingName(v2FileChange.FileLocation?.Uri);
+
                 fileChange = new FileChangeVersionOne
                 {
-                    Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, v2FileChange.FileLocation?.Uri)).ToList(),
+                    Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encodingName)).ToList(),
                     Uri = v2FileChange.FileLocation?.Uri,
                     UriBaseId = v2FileChange.FileLocation?.UriBaseId
                 };
             }
 
             return fileChange;
+        }
+
+        private string GetFileEncodingName(Uri uri)
+        {
+            string encodingName = null;
+            IDictionary<string, FileData> filesDictionary = _currentV2Run.Files;
+
+            FileData fileData;
+            if (uri != null &&
+                filesDictionary != null &&
+                filesDictionary.TryGetValue(uri.OriginalString, out fileData))
+            {
+                encodingName = fileData.Encoding;
+            }
+
+            return encodingName;
         }
 
         internal FileDataVersionOne CreateFileData(FileData v2FileData)
@@ -113,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
                     };
                 }
-                catch (UnsupportedEncodingException)
+                catch (UnknownEncodingException)
                 {
                     // A replacement in this fix specifies plain text, but the file's
                     // encoding is unknown or unsupported, so we refuse to transform the fix.
@@ -255,10 +273,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             RegionVersionOne region = null;
 
             if (v2Region != null && (v2Region.StartColumn > 0 ||
-                                     v2Region.StartLine > 0 || 
-                                     v2Region.EndColumn > 0 || 
-                                     v2Region.EndLine > 0 || 
-                                     v2Region.Length > 0 || 
+                                     v2Region.StartLine > 0 ||
+                                     v2Region.EndColumn > 0 ||
+                                     v2Region.EndLine > 0 ||
+                                     v2Region.Length > 0 ||
                                      v2Region.Offset > 0))
             {
                 region = new RegionVersionOne
@@ -275,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Uri uri)
+        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, string encodingName)
         {
             ReplacementVersionOne replacement = null;
 
@@ -286,24 +304,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (insertedContent != null)
                 {
-                    if (insertedContent.Text != null)
+                    if (insertedContent.Binary != null)
                     {
-                        FileData fileData = _currentV2Run.Files[uri.OriginalString];
-
+                        replacement.InsertedBytes = insertedContent.Binary;
+                    }
+                    else if (insertedContent.Text != null)
+                    {
                         try
                         {
-                            Encoding encoding = Encoding.GetEncoding(fileData.Encoding);
+                            Encoding encoding = Encoding.GetEncoding(encodingName);
                             replacement.InsertedBytes = SarifUtilities.GetBase64String(insertedContent.Text, encoding);
                         }
                         catch (ArgumentException)
                         {
                             // The encoding is null or not supported on the current platform
-                            throw new UnsupportedEncodingException(fileData.Encoding);
+                            throw new UnknownEncodingException(encodingName);
                         }
-                    }
-                    else
-                    {
-                        replacement.InsertedBytes = insertedContent.Binary;
                     }
                 }
 

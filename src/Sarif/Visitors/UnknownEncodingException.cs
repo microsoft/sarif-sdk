@@ -5,11 +5,11 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    internal class UnsupportedEncodingException : Exception
+    internal class UnknownEncodingException : Exception
     {
-        public string EncodingName { get; private set; }
+        public string EncodingName { get; }
 
-        public UnsupportedEncodingException(string encodingName)
+        public UnknownEncodingException(string encodingName)
         {
             EncodingName = encodingName;
         }
