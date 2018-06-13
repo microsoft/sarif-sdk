@@ -60,13 +60,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (v2FileChange != null)
             {
                 string encodingName = GetFileEncodingName(v2FileChange.FileLocation?.Uri);
+                Encoding encoding = GetFileEncoding(encodingName);
 
-                fileChange = new FileChangeVersionOne
+                try
                 {
-                    Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encodingName)).ToList(),
-                    Uri = v2FileChange.FileLocation?.Uri,
-                    UriBaseId = v2FileChange.FileLocation?.UriBaseId
-                };
+                    fileChange = new FileChangeVersionOne
+                    {
+                        Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encoding)).ToList(),
+                        Uri = v2FileChange.FileLocation?.Uri,
+                        UriBaseId = v2FileChange.FileLocation?.UriBaseId
+                    };
+                }
+                catch (UnknownEncodingException ex)
+                {
+                    // Set the unknown encoding name so the caller can provide useful reporting
+                    ex.EncodingName = encodingName;
+                    throw ex;
+                }
             }
 
             return fileChange;
@@ -86,6 +96,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return encodingName;
+        }
+
+        private Encoding GetFileEncoding(string encodingName)
+        {
+            Encoding encoding = null;
+
+            try
+            {
+                encoding = Encoding.GetEncoding(encodingName);
+            }
+            catch (ArgumentException) { }
+
+            return encoding;
         }
 
         internal FileDataVersionOne CreateFileData(FileData v2FileData)
@@ -293,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, string encodingName)
+        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Encoding encoding)
         {
             ReplacementVersionOne replacement = null;
 
@@ -310,15 +333,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                     else if (insertedContent.Text != null)
                     {
-                        try
+                        if (encoding != null)
                         {
-                            Encoding encoding = Encoding.GetEncoding(encodingName);
                             replacement.InsertedBytes = SarifUtilities.GetBase64String(insertedContent.Text, encoding);
                         }
-                        catch (ArgumentException)
+                        else
                         {
                             // The encoding is null or not supported on the current platform
-                            throw new UnknownEncodingException(encodingName);
+                            throw new UnknownEncodingException();
                         }
                     }
                 }

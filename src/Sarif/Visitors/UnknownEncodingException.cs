@@ -7,7 +7,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     internal class UnknownEncodingException : Exception
     {
-        public string EncodingName { get; }
+        public string EncodingName { get; set; }
+
+        public UnknownEncodingException() { }
 
         public UnknownEncodingException(string encodingName)
         {
