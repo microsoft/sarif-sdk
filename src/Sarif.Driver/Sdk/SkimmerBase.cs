@@ -14,42 +14,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             this.Options = new Dictionary<string, string>();
         }
 
-        abstract public Uri HelpUri { get;  }
+        abstract public FileLocation HelpLocation { get;  }
 
-        private IDictionary<string, string> messageFormats;
+        abstract public Message Help { get; }
+
+        private IDictionary<string, string> messageStrings;
+        private IDictionary<string, string> richMessageStrings;
 
         abstract protected ResourceManager ResourceManager { get; }
 
-        abstract protected IEnumerable<string> FormatIds { get; }
+        abstract protected IEnumerable<string> MessageResourceNames { get; }
 
-        virtual public RuleConfiguration Configuration {  get { return RuleConfiguration.Enabled; } }
+        virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
+
+        virtual public RuleConfiguration Configuration {  get; }
 
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        virtual public IDictionary<string, string> MessageFormats
+        virtual public IDictionary<string, string> MessageStrings
         {
             get
             {
-                if (this.messageFormats == null)
+                if (this.messageStrings == null)
                 {
-                    this.messageFormats = InitializeMessageFormats();
+                    this.messageStrings = InitializeMessageStrings();
                 }
-                return this.messageFormats;
+                return this.messageStrings;
             }
         }
 
-        private Dictionary<string, string> InitializeMessageFormats()
+        virtual public IDictionary<string, string> RichMessageStrings
         {
-            return RuleUtilities.BuildDictionary(ResourceManager, FormatIds, Id);
+            get
+            {
+                if (this.richMessageStrings == null)
+                {
+                    this.richMessageStrings = InitializeRichMessageStrings();
+                }
+                return this.richMessageStrings;
+            }
+        }
+
+        private Dictionary<string, string> InitializeMessageStrings()
+        {
+            return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
+        }
+
+        private Dictionary<string, string> InitializeRichMessageStrings()
+        {
+            return RuleUtilities.BuildDictionary(ResourceManager, RichMessageResourceNames,ruleId: Id, prefix: "Rich");
         }
 
         abstract public string Id { get; }
 
-        abstract public string FullDescription { get; }
+        abstract public Message FullDescription { get; }
 
-        public virtual string ShortDescription
+        public virtual Message ShortDescription
         {
-            get { return FirstSentence(FullDescription); }
+            get { return new Message { Text = FirstSentence(FullDescription.Text) }; }
         }
 
         internal static string FirstSentence(string fullDescription)
@@ -80,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
         }
 
-        public virtual string Name {  get { return this.GetType().Name; } }
+        public virtual Message Name {  get { return new Message { Text = this.GetType().Name }; } }
 
         public IDictionary<string, string> Options { get; }
 

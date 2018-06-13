@@ -419,7 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     else
                     {
-                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name, skimmer.SupportedPlatforms, currentOS);
+                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name.Text, skimmer.SupportedPlatforms, currentOS);
                     }
                 }
             }
@@ -662,7 +662,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             logger.LogToolNotification(new Notification
             {
                 Level = level,
-                Message = message,
+                Message = new Message { Text = message },
                 Exception = exceptionData
             });
         }

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (!ListComparisonHelpers.CompareListsOrdered(x.Locations, y.Locations, AnnotatedCodeLocationBaselineEquals.DefaultInstance))
+                if (!ListComparisonHelpers.CompareListsOrdered(x.ThreadFlows, y.ThreadFlows, ThreadFlowBaselineEqualityComparator.Instance))
                 {
                     return false;
                 }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.Locations);
+                hs = hs ^ ListComparisonHelpers.GetHashOfListContentsOrdered(obj.ThreadFlows);
 
                 return hs;
             }

@@ -1,5 +1,5 @@
 {
-  "annotatedCodeLocation": [
+  "codeFlowLocation": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -9,90 +9,12 @@
       }
     }
   ],
-  "AnnotatedCodeLocation.Kind": [
+  "CodeFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "AnnotatedCodeLocationKind",
-        "description": "Values specifying the kind of an annotated code location.",
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "Alias",
-          "Assignment",
-          "Branch",
-          "Call",
-          "CallReturn",
-          "Continuation",
-          "Declaration",
-          "FunctionEnter",
-          "FunctionExit",
-          "FunctionReturn",
-          "Usage"
-        ]
-      }
-    }
-  ],
-  "AnnotatedCodeLocation.TaintKind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "TaintKind",
-        "description": "Values that classify the annotated code location in terms of a taint analysis.",
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "Sink",
-          "Source",
-          "Sanitizer"
-        ]
-      }
-    }
-  ],
-  "AnnotatedCodeLocation.Essential": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "JsonProperty",
-        "namespaceName": "Newtonsoft.Json",
-        "arguments": [
-          "\"essential\""
-        ],
-        "properties": {
-          "DefaultValueHandling": "DefaultValueHandling.Ignore"
-        }
-      }
-    }
-  ],
-  "AnnotatedCodeLocation.Importance": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "AnnotatedCodeLocationImportance",
-        "description": "Values specifying the importance of an \"annotatedCodeLocation\" within the \"codeFlow\" in which it occurs"
-      }
-    }
-  ],
-  "AnnotatedCodeLocation.Id": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "JsonConverter",
-        "namespaceName": "Newtonsoft.Json",
-        "arguments": [
-          "typeof(Microsoft.CodeAnalysis.Sarif.Readers.AnnotatedCodeLocationIdConverter)"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "JsonProperty",
-        "namespaceName": "Newtonsoft.Json",
-        "arguments": [
-          "\"id\""
-        ],
-        "properties": {
-          "DefaultValueHandling": "DefaultValueHandling.IgnoreAndPopulate"
-        }
+        "typeName": "CodeFlowLocationImportance",
+        "description": "Values specifying the importance of an \"codeFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],
@@ -118,6 +40,26 @@
     }
   ],
   "codeFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "edge": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "edgeTraversal": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -153,48 +95,42 @@
       }
     }
   ],
-  "Hash.Algorithm": [
+  "FileData.Roles": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "AlgorithmKind",
-        "description": "Values specifying different hashing algorithms.",
-        "zeroValueName": "Unknown",
+        "typeName": "FileRoles",
+        "description": "Values specifying the roles played by the file in the analysis.",
+        "flags": true,
+        "zeroValueName": "None",
         "memberNames": [
-          "Authentihash",
-          "Blake256",
-          "Blake512",
-          "Ecoh",
-          "Fsb",
-          "Gost",
-          "Groestl",
-          "Has160",
-          "Haval",
-          "JH",
-          "MD2",
-          "MD4",
-          "MD5",
-          "MD6",
-          "RadioGatun",
-          "RipeMD",
-          "RipeMD128",
-          "RipeMD160",
-          "RipeMD320",
-          "Sdhash",
-          "Sha1",
-          "Sha224",
-          "Sha256",
-          "Sha384",
-          "Sha512",
-          "Sha3",
-          "Skein",
-          "Snefru",
-          "SpectralHash",
-          "Ssdeep",
-          "Swifft",
-          "Tiger",
-          "Tlsh",
-          "Whirlpool"
+          "AnalysisTarget",
+          "Attachment",
+          "ResponseFile",
+          "ResultFile",
+          "Screenshot",
+          "StandardStream",
+          "TraceFile"
+        ]
+      }
+    }
+  ],
+  "graph": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "graphTraversal": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
         ]
       }
     }
@@ -229,6 +165,16 @@
       }
     }
   ],
+  "node": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "notification": [
     {
       "kind": "BaseTypeHint",
@@ -250,6 +196,28 @@
           "Note",
           "Error"
         ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Resources.Rules": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "Rule",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
       }
     }
   ],
@@ -290,9 +258,20 @@
           "Pass",
           "Note",
           "Warning",
-          "Error"
+          "Error",
+          "Open"
         ]
       }
+    }
+  ],
+  "Result.PartialFingerprints": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Result.Fingerprints": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "Result.SuppressionStates": [
@@ -306,6 +285,22 @@
         "memberNames": [
           "SuppressedInSource",
           "SuppressedExternally"
+        ]
+      }
+    }
+  ],
+  "RuleConfiguration.DefaultLevel": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "RuleConfigurationDefaultLevel",
+        "description": "A value that specifies the default severity level of the result",
+        "zeroValueName": "None",
+        "memberNames": [
+          "Note",
+          "Warning",
+          "Error",
+          "Open"
         ]
       }
     }
@@ -326,41 +321,12 @@
       }
     }
   ],
-
-  "Rule.Configuration": [
+  "Rule.MessageStrings": [
     {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "RuleConfiguration",
-        "description": "A value that specifies whether a rule is enabled.",
-        "memberNames": [
-          "Unknown",
-          "Enabled",
-          "Disabled"
-        ]
-      }
+      "kind": "DictionaryHint"
     }
   ],
-
-  "Rule.DefaultLevel": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultLevel",
-        "description": "The level of a result.",
-        "zeroValueName": "Default",
-        "memberNames": [
-          "NotApplicable",
-          "Pass",
-          "Note",
-          "Warning",
-          "Error"
-        ],
-        "allowMemberCountMismatch": true
-      }
-    }
-  ],
-  "Rule.MessageFormats": [
+  "Rule.RichMessageStrings": [
     {
       "kind": "DictionaryHint"
     }
@@ -381,6 +347,11 @@
     }
   ],
   "Run.LogicalLocations": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Run.OriginalUriBaseIds": [
     {
       "kind": "DictionaryHint"
     }
@@ -408,7 +379,8 @@
         "zeroValueName": "Unknown",
         "memberNames": [
           "OneZeroZeroBetaFive",
-          "OneZeroZero"
+          "OneZeroZero",
+          "TwoZeroZero"
         ]
       }
     }
@@ -433,7 +405,27 @@
       }
     }
   ],
+  "threadFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "tool": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "versionControlDetails": [
     {
       "kind": "BaseTypeHint",
       "arguments": {

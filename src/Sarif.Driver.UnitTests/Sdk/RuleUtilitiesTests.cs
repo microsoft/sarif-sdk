@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Driver
         public void BuildResult_BuildsExpectedResult()
         {
             // Arrange
-            const string FormatId = "Default";
+            const string RuleMessageId = "Default";
             const string RuleId = "TST0001";
             string[] Arguments = new string[] { "42", "54" };
 
@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Driver
                 Rule = new Rule
                 {
                     Id = RuleId,
-                    MessageFormats = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, string>
                     {
-                        [FormatId] = "Expected {0} but got {1}."
+                        [RuleMessageId] = "Expected {0} but got {1}."
                     }
                 }
             };
@@ -45,20 +45,20 @@ namespace Microsoft.CodeAnalysis.Driver
                 ResultLevel.Error,
                 context,
                 region,
-                FormatId,
+                RuleMessageId,
                 Arguments);
 
             // Assert.
             result.RuleId.Should().Be(RuleId);
 
-            result.FormattedRuleMessage.FormatId.Should().Be(FormatId);
+            result.RuleMessageId.Should().Be(RuleMessageId);
 
-            result.FormattedRuleMessage.Arguments.Count.Should().Be(Arguments.Length);
-            result.FormattedRuleMessage.Arguments[0].Should().Be(Arguments[0]);
-            result.FormattedRuleMessage.Arguments[1].Should().Be(Arguments[1]);
+            result.Message.Arguments.Count.Should().Be(Arguments.Length);
+            result.Message.Arguments[0].Should().Be(Arguments[0]);
+            result.Message.Arguments[1].Should().Be(Arguments[1]);
 
             result.Locations.Count.Should().Be(1);
-            result.Locations[0].AnalysisTarget.Region.ValueEquals(region).Should().BeTrue();
+            result.Locations[0].PhysicalLocation.Region.ValueEquals(region).Should().BeTrue();
 
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.None);
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.OneOrMoreErrorsFired);
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Driver
                 ResultLevel.Warning,
                 context,
                 region,
-                FormatId,
+                RuleMessageId,
                 Arguments);
 
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreWarningsFired).Should().Be(RuntimeConditions.OneOrMoreWarningsFired);

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "fd": {
+          "decoratedName": "?fd@@YAXHZZ"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6273",
+          "message": {
+            "text": "Non-integer passed as _Param_(2) when an integer is required in call to 'printf' Actual type: 'char *':  if a pointer value is being passed, %p should be used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                },
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "fd",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "6306",
+          "message": {
+            "text": "Incorrect call to 'printf': consider using 'vprintf' which accepts a va_list as an argument."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/standardux/standardc6306.cxx"
+                },
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "fd",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

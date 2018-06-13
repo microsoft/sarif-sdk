@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\wincsa\src\ddsuites\src\vs\edtqa\static\xmlvalidation\standardux\</FILEPATH><FILENAME>standardc6259.cxx</FILENAME><LINE>22</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>6259</DEFECTCODE><DESCRIPTION>Labeled code is unreachable:  '(&lt;expression&gt; &amp; 0x3)' in a switch-expr cannot evaluate to '0x4'.</DESCRIPTION><FUNCTION>f_d</FUNCTION><DECORATED>?f_d@@YAXXZ</DECORATED><FUNCLINE>16</FUNCLINE><PATH/></DEFECT></DEFECTS>

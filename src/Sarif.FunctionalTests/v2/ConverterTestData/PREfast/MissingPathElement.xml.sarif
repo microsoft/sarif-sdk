@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "C6385_IndexAlias": {
+          "decoratedName": "?C6385_IndexAlias@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'contentStores':  the readable size is '2*4' bytes, but 'index' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_IndexAlias",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

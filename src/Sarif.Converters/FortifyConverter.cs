@@ -72,9 +72,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
+
             if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
 
             output.OpenResults();
@@ -92,7 +96,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result();
             result.RuleId = fortify.Category;
-            result.ToolFingerprintContribution = fortify.InstanceId;
+
+            if (!string.IsNullOrWhiteSpace(fortify.InstanceId))
+            {
+                if (result.PartialFingerprints == null)
+                {
+                    result.PartialFingerprints = new Dictionary<string, string>();
+                }
+
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.PartialFingerprints, "InstanceId", fortify.InstanceId);
+            }
+
             List<string> messageComponents = new List<string>();
             if (fortify.Abstract != null)
             {
@@ -106,11 +120,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (messageComponents.Count == 0)
             {
-                result.Message = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId);
+                result.Message = new Message
+                {
+                    Text = String.Format(CultureInfo.InvariantCulture, ConverterResources.FortifyFallbackMessage, result.RuleId)
+                };
             }
             else
             {
-                result.Message = String.Join(Environment.NewLine, messageComponents);
+                result.Message = new Message
+                {
+                    Text = String.Join(Environment.NewLine, messageComponents)
+                };
             }
 
             result.SetProperty("kingdom", fortify.Kingdom);
@@ -135,30 +155,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Location
                 {
-                    ResultFile = primaryOrSink
+                    PhysicalLocation = primaryOrSink
                 }
             };
 
             if (fortify.Source != null)
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
-                result.CodeFlows = new List<CodeFlow>
-                {
-                    new CodeFlow
-                    {
-                        Locations = new List<AnnotatedCodeLocation>
-                        {
-                            new AnnotatedCodeLocation
-                            {
-                                PhysicalLocation = source
-                            },
 
-                            new AnnotatedCodeLocation
-                            {
-                                PhysicalLocation = primaryOrSink
-                            }
-                        }
-                    }
+                var locations = new List<CodeFlowLocation>()
+                {
+                    new CodeFlowLocation { Location = new Location { PhysicalLocation = source } },
+                    new CodeFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
+                };
+                result.CodeFlows = new List<CodeFlow>()
+                {
+                    SarifUtilities.CreateSingleThreadedCodeFlow(locations)
                 };
             }
 
@@ -169,7 +181,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             return new PhysicalLocation
             {
-                Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(element.FilePath, UriKind.RelativeOrAbsolute)
+                },
                 Region = Extensions.CreateRegion(element.LineStart)
             };
         }

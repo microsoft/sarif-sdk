@@ -21,11 +21,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation newNode = base.VisitPhysicalLocation(node);
             
-            if (_currentUriMappings != null && !string.IsNullOrEmpty(newNode.UriBaseId) && _currentUriMappings.ContainsKey(newNode.UriBaseId))
+            if (_currentUriMappings != null && !string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId) && _currentUriMappings.ContainsKey(newNode.FileLocation.UriBaseId))
             {
-                Uri baseUri = _currentUriMappings[newNode.UriBaseId];
-                newNode.Uri = CombineUris(baseUri, newNode.Uri);
-                newNode.UriBaseId = null;
+                Uri baseUri = _currentUriMappings[newNode.FileLocation.UriBaseId];
+                newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);
+                newNode.FileLocation.UriBaseId = null;
             }
 
             return newNode;
@@ -74,11 +74,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 Uri baseUri;
                 // Node has a UriBaseId && we're going to rewrite it.
-                if (!string.IsNullOrEmpty(newNode.UriBaseId) && _currentUriMappings.ContainsKey(newNode.UriBaseId))
+                if (!string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId) && _currentUriMappings.ContainsKey(newNode.FileLocation?.UriBaseId))
                 {
                     // Rewrite the filedata's URI
-                    baseUri = _currentUriMappings[newNode.UriBaseId];
-                    newNode.Uri = CombineUris(baseUri, newNode.Uri);                    
+                    baseUri = _currentUriMappings[newNode.FileLocation.UriBaseId];
+                    newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);                    
 
                     Uri parentUri;
                     // If the parent uri is relative, we should rewrite it as well.
@@ -87,11 +87,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         newNode.ParentKey = CombineUris(baseUri, parentUri).ToString();
                     }
 
-                    newNode.UriBaseId = null;
+                    newNode.FileLocation.UriBaseId = null;
                 }
 
                 // fix dictionary
-                newDictionary[newNode.Uri.ToString()] = newNode;
+                newDictionary[newNode.FileLocation.Uri.ToString()] = newNode;
             }
 
             run.Files = newDictionary;

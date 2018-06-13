@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6305\</FILEPATH>
+      <FILENAME>c6305example.cpp</FILENAME>
+      <LINE>6</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6305</DEFECTCODE>
+    <DESCRIPTION>Potential mismatch between sizeof and countof quantities. Use sizeof() to scale byte sizes.</DESCRIPTION>
+    <FUNCTION>C6305_Example1</FUNCTION>
+    <DECORATED>?C6305_Example1@@YAHPEAH@Z</DECORATED>
+    <FUNCLINE>1</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>2</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6305\</FILEPATH>
+        <FILENAME>c6305example.cpp</FILENAME>
+        <LINE>3</LINE>
+        <COLUMN>7</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6305\</FILEPATH>
+        <FILENAME>c6305example.cpp</FILENAME>
+        <LINE>4</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'cb' is a byte quantity</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\c6305\</FILEPATH>
+        <FILENAME>c6305example.cpp</FILENAME>
+        <LINE>6</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Expression mixes element counts and byte quantities</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

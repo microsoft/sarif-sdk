@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+      <FILENAME>an_functionandinannotations.cpp</FILENAME>
+      <LINE>10</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Using uninitialized memory 'source'.</DESCRIPTION>
+    <FUNCTION>CallUseValues</FUNCTION>
+    <DECORATED>?CallUseValues@@YAX_N@Z</DECORATED>
+    <FUNCLINE>6</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_functionandinannotations.cpp</FILENAME>
+        <LINE>8</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>declaration</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'source' is not initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_functionandinannotations.cpp</FILENAME>
+        <LINE>9</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Enter this branch, (assume 'flag')</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_functionandinannotations.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'source' is an Input to 'UseValues' (declared on line 4)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\src\sarif-sdk\src\sarif.functionaltests\convertertestdata\prefast\src\advancedannotations\</FILEPATH>
+        <FILENAME>an_functionandinannotations.cpp</FILENAME>
+        <LINE>10</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'source' is used, but may not have been initialized</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

@@ -1,0 +1,1175 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "C6011_OnlyOnSecondLoop": {
+          "decoratedName": "?C6011_OnlyOnSecondLoop@@YAXXZ"
+        },
+        "C6011_OnlyOnSecondLoopWithParam": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopWithParam@@YAXH@Z"
+        },
+        "C6011_OnlyOnSecondLoopPlusRollbackDefect": {
+          "decoratedName": "?C6011_OnlyOnSecondLoopPlusRollbackDefect@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoop",
+              "properties": {
+                "funcline": "8"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "5"
+                      }
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 18,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "6"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopWithParam",
+              "properties": {
+                "funcline": "23"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 31,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "5"
+                      }
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 33,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "6"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'x':  the readable size is '8' bytes, but 'param' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "properties": {
+                "funcline": "38"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "5"
+                      }
+                    },
+                    {
+                      "step": 12,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 13,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 14,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "6"
+                      }
+                    },
+                    {
+                      "step": 15,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "7"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'y':  the readable size is '8' bytes, but '12' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "properties": {
+                "funcline": "38"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 12,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 53,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "5"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'source'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
+              "properties": {
+                "funcline": "38"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 40,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 41,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    },
+                    {
+                      "step": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "5"
+                      }
+                    },
+                    {
+                      "step": 12,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_secondloop.cpp"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "6"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

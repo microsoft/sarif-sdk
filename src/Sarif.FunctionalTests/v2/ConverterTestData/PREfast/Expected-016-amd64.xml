@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test016.cpp</FILENAME>
+      <LINE>75</LINE>
+      <COLUMN>30</COLUMN>
+    </SFA>
+    <DEFECTCODE>26014</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow using expression '(c_rgPropSources[i]).pfn'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is c_rgPropSources
+PREFAST_NEWLINE
+Buffer is of length 48 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 16 bytes starting at byte offset 16*{loop iterations}'73 + 32
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+i = {loop iterations}'73 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'73 &lt;= 1
+PREFAST_NEWLINE
+{loop iterations}'73 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'73 == 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>C::Bad1</FUNCTION>
+    <DECORATED>?Bad1@C@@QEAAHXZ</DECORATED>
+    <FUNCLINE>60</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>66</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>28</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>28</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>28</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>75</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test016.cpp</FILENAME>
+      <LINE>99</LINE>
+      <COLUMN>30</COLUMN>
+    </SFA>
+    <DEFECTCODE>26014</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow using expression '(c_rgPropSources[i]).pfn'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is c_rgPropSources
+PREFAST_NEWLINE
+Buffer is of length 48 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 16 bytes starting at byte offset 16*{loop iterations}'97 + 32
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+i = {loop iterations}'97 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'97 &lt;= 7
+PREFAST_NEWLINE
+{loop iterations}'97 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'97 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>C::Bad2</FUNCTION>
+    <DECORATED>?Bad2@C@@QEAAHXZ</DECORATED>
+    <FUNCLINE>84</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>84</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>90</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>91</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>96</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>96</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>97</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test016.cpp</FILENAME>
+      <LINE>119</LINE>
+      <COLUMN>29</COLUMN>
+    </SFA>
+    <DEFECTCODE>26014</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow using expression 'c_rgPropSources[i]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is c_rgPropSources
+PREFAST_NEWLINE
+Buffer is of length 3 elements (16 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (16 bytes/element) at element offset {loop iterations}'117 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+i = {loop iterations}'117 + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+{loop iterations}'117 &lt;= 7
+PREFAST_NEWLINE
+{loop iterations}'117 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+{loop iterations}'117 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>Bad3</FUNCTION>
+    <DECORATED>?Bad3@@YAHPEAUC@@@Z</DECORATED>
+    <FUNCLINE>108</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>108</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>110</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>111</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>116</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>116</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>119</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>119</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>119</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>30</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>117</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test016.cpp</FILENAME>
+        <LINE>119</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

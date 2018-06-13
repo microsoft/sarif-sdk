@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -108,7 +107,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
             // For Call nodes, find the first visible child.
             CallTreeNode nextNode;
-            if (includeChildren && currentNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetFirstItem(currentNode.Children, out nextNode))
+            if (includeChildren && TryGetFirstItem(currentNode.Children, out nextNode))
             {
                 return nextNode;
             }
@@ -160,7 +159,7 @@ namespace Microsoft.Sarif.Viewer.Models
             if (TryGetPreviousSibling(nodeList, currentNode, out previousNode))
             {
                 CallTreeNode previousNodeChild;
-                if (includeChildren && previousNode.Location.Kind == AnnotatedCodeLocationKind.Call && TryGetLastItem(previousNode.Children, out previousNodeChild))
+                if (includeChildren && TryGetLastItem(previousNode.Children, out previousNodeChild))
                 {
                     return previousNodeChild;
 
@@ -297,7 +296,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     _selectPreviousCommand = new DelegateCommand<TreeView>(treeView =>
                     {
-                        System.Windows.Controls.TreeView control = treeView as System.Windows.Controls.TreeView;
+                        TreeView control = treeView as TreeView;
                         CallTree model = control.DataContext as CallTree;
                         model.SelectedItem = FindPrevious();
                     });
@@ -316,7 +315,7 @@ namespace Microsoft.Sarif.Viewer.Models
                 {
                     _selectNextCommand = new DelegateCommand<TreeView>(treeView =>
                     {
-                        System.Windows.Controls.TreeView control = treeView as System.Windows.Controls.TreeView;
+                        TreeView control = treeView as TreeView;
                         CallTree model = control.DataContext as CallTree;
                         model.SelectedItem = FindNext();
                     });
@@ -359,7 +358,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(AnnotatedCodeLocationImportance importance)
+        internal void SetVerbosity(CodeFlowLocationImportance importance)
         {
             if (TopLevelNodes != null)
             {

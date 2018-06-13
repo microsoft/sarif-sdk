@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "C6385_Example": {
+          "decoratedName": "?C6385_Example@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'a':  the readable size is '5' bytes, but 'i' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 9
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_Example",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 3,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 33
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 24
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 33
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 24
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 12,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 8,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

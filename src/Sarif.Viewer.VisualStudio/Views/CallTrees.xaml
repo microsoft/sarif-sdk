@@ -96,7 +96,7 @@
                                             <ColumnDefinition SharedSizeGroup="LocationGroup" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
-                                                   Text="{Binding Converter={StaticResource CallTreeToTextConverter}}"
+                                                   Text="{Binding Converter={StaticResource CallTreeNodeToTextConverter}}"
                                                    Style="{StaticResource CallTreeMessageTextStyle}" />
                                         <TextBlock Grid.Column="1"
                                                    Text="{Binding LocationDisplayString, Mode=OneWay}"

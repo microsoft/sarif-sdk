@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test085.cpp</FILENAME><LINE>5</LINE><COLUMN>5</COLUMN></SFA><DEFECTCODE>26051</DEFECTCODE><DESCRIPTION>Function with irreducible control flow graph.
+ESPX can only perform limited analysis of functions with irreducible control flow graph.
+The function contains a loop with multiple entry points which usually indicates a poorly structured function.
+</DESCRIPTION><FUNCTION>Irreducible</FUNCTION><DECORATED>?Irreducible@@YAXH@Z</DECORATED><FUNCLINE>5</FUNCLINE><PATH/></DEFECT></DEFECTS>

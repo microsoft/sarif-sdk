@@ -11,6 +11,9 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using EnvDTE;
 using Microsoft.VisualStudio;
@@ -21,7 +24,7 @@ using Newtonsoft.Json;
 namespace Microsoft.Sarif.Viewer
 {
 
-    public static class SdkUiUtilities
+    public static class SdkUIUtilities
     {
         private static string s_staticAnalysisToolsDirectory;
         private static string[] s_ruleSetDirectories;
@@ -29,6 +32,9 @@ namespace Microsoft.Sarif.Viewer
         private static string s_plugInsDirectory;
         private static readonly Guid s_appIdUsesIsolatedCLR = new System.Guid("{074a44d3-1d9d-406c-9f91-c2a4982b1974}");
         internal static readonly Guid s_enviornmentThemeCategory = new System.Guid("624ed9c3-bdfd-41fa-96c3-7c824ea32e3d");
+
+        // Embedded link format: [link text](n) where n is a non-negative integer
+        private const string EmbeddedLinkPattern = @"\[(?<link>[^\\\]]+)\]\((?<index>\d+)\)";
 
         internal const string RuleSetFileExtension = ".ruleset";
         /// <summary>
@@ -129,7 +135,7 @@ namespace Microsoft.Sarif.Viewer
                     }
                 }
             }
-            return SystemFonts.DialogFont;
+            return System.Drawing.SystemFonts.DialogFont;
         }
 
         /// <summary>
@@ -631,10 +637,10 @@ namespace Microsoft.Sarif.Viewer
             catch (COMException)
             {
                 string fname = Path.GetFileName(file);
-                if (MessageBox.Show(string.Format(Resources.FileOpenFail_DialogMessage, fname),
-                                    Resources.FileOpenFail_DialogCaption,
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show(string.Format(Resources.FileOpenFail_DialogMessage, fname),
+                                                                       Resources.FileOpenFail_DialogCaption,
+                                                                       MessageBoxButtons.YesNo,
+                                                                       MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
                     System.Diagnostics.Process.Start(Path.GetDirectoryName(file));
                 }
@@ -650,8 +656,8 @@ namespace Microsoft.Sarif.Viewer
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            IVsUIShellOpenDocument openDoc = SdkUiUtilities.GetService<SVsUIShellOpenDocument, IVsUIShellOpenDocument>(provider);
-            IVsRunningDocumentTable runningDocTable = SdkUiUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(provider);
+            IVsUIShellOpenDocument openDoc = SdkUIUtilities.GetService<SVsUIShellOpenDocument, IVsUIShellOpenDocument>(provider);
+            IVsRunningDocumentTable runningDocTable = SdkUIUtilities.GetService<SVsRunningDocumentTable, IVsRunningDocumentTable>(provider);
             if (openDoc == null || runningDocTable == null)
             {
                 throw Marshal.GetExceptionForHR(VSConstants.E_FAIL);
@@ -1000,7 +1006,7 @@ namespace Microsoft.Sarif.Viewer
                 {
                     if (Directory.Exists(path))
                     {
-                        string[] files = Directory.GetFiles(path, "*" + SdkUiUtilities.RuleSetFileExtension);
+                        string[] files = Directory.GetFiles(path, "*" + SdkUIUtilities.RuleSetFileExtension);
                         foreach (string file in files)
                         {
                             string fileName = Path.GetFileName(file).ToLowerInvariant();
@@ -1079,6 +1085,82 @@ namespace Microsoft.Sarif.Viewer
             ErrorHandler.ThrowOnFailure(shell.GetProperty((int)__VSSPROPID.VSSPROPID_IsInCommandLineMode, out isInCommandLineModeAsObject));
 
             return ((bool)isInCommandLineModeAsObject);
+        }
+
+        /// <summary>
+        /// Builds a set of Inline elements from the specified message, without embedded hyperlinks.
+        /// </summary>
+        /// <param name="message">The message to process.</param>
+        /// <returns>A collection of Inline elements that represent the specified message.</returns>
+        internal static List<Inline> GetInlinesForErrorMessage(string message)
+        {
+            return GetMessageInlines(message, -1, null);
+        }
+
+        /// <summary>
+        /// Builds a set of Inline elements from the specified message, optionally with embedded hyperlinks.
+        /// </summary>
+        /// <param name="message">The message to process.</param>
+        /// <param name="index">The index of the error item</param>
+        /// <param name="clickHandler">A delegate for the Hyperlink.Click event.</param>
+        /// <returns>A collection of Inline elements that represent the specified message.</returns>
+        internal static List<Inline> GetMessageInlines(string message, int index, RoutedEventHandler clickHandler)
+        {
+            var inlines = new List<Inline>();
+
+            MatchCollection matches = Regex.Matches(message, EmbeddedLinkPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            int start = 0;
+
+            if (matches.Count > 0)
+            {
+                Group group = null;
+
+                foreach (Match match in matches)
+                {
+                    group = match.Groups["link"];
+
+                    // Add the plain text segment between the end of the last group and the current link
+                    inlines.Add(new Run(UnescapeBrackets(message.Substring(start, group.Index - 1 - start))));
+
+                    if (clickHandler != null)
+                    {
+                        var link = new Hyperlink();
+
+                        // Stash the error index and relative link id
+                        link.Tag = new Tuple<int, int>(index, Convert.ToInt32(match.Groups["index"].Value));
+
+                        // Set the hyperlink text
+                        link.Inlines.Add(new Run($"{group.Value}"));
+
+                        inlines.Add(link);
+                    }
+                    else
+                    {
+                        // Add the link text as plain text
+                        inlines.Add(new Run($"{group.Value}"));
+                    }
+
+                    start = match.Index + match.Length;
+                }
+            }
+
+            if (start < message.Length)
+            {
+                // Add the plain text segment after the last link
+                inlines.Add(new Run(UnescapeBrackets(message.Substring(start))));
+            }
+
+            return inlines;
+        }
+
+        /// <summary>
+        /// Removes escape backslashes that were used to suppress embedded linking.
+        /// </summary>
+        /// <param name="s">The string to be processed.</param>
+        /// <returns></returns>
+        internal static string UnescapeBrackets(string s)
+        {
+            return s.Replace(@"\[", "[").Replace(@"\]", "]");
         }
     }
 }

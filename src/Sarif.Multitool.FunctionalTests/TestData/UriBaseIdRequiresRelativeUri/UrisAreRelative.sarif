@@ -22,7 +22,7 @@
                   "startLine": 1
                 }
               },
-              "resultFile": {
+              "physicalLocation": {
                 "uriBaseId": "%SRCROOT%",
                 "uri": "/c:/src/file2.c",
                 "region": {

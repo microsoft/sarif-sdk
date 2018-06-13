@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Clang"
+      },
+      "files": {
+        "jcmaster.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Result of operation is garbage or undefined",
+          "message": {
+            "text": "The left operand of '<' is a garbage value"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jcmaster.c"
+                },
+                "region": {
+                  "startLine": 251,
+                  "startColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "validate_script",
+            "issueHash": "117"
+          }
+        }
+      ]
+    }
+  ]
+}

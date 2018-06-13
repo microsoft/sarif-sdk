@@ -13,126 +13,112 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
     public class CallTreeNodeToTextConverterTests
     {
         [Fact]
-        public void CallTreeNodeToTextConverter_HandlesCall()
+        public void CallTreeNodeToTextConverter_HandlesLocationMessage()
         {
+            string message = "my_function";
+
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Region = new Region
+                        Message = new Message
                         {
-                            StartLine = 42
+                            Text = message
+                        },
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
             };
 
-            VerifyConversion(callTreeNode, "my_function");
+            VerifyConversion(callTreeNode, message);
         }
 
         [Fact]
-        public void CallTreeNodeToTextConverter_HandlesCallWithNoCallee()
+        public void CallTreeNodeToTextConverter_HandlesRegionSnippet()
         {
+            string snippet = "    int x = 42;";
+
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
             };
 
-            VerifyConversion(callTreeNode, "<unknown callee>");
+            VerifyConversion(callTreeNode, snippet.Trim());
         }
 
         [Fact]
-        public void CallTreeNodeToTextConverter_HandlesReturn()
+        public void CallTreeNodeToTextConverter_HandlesNoMessageNorSnippet()
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.CallReturn,
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Region = new Region
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42
+                            }
                         }
                     }
                 }
             };
 
-            VerifyConversion(callTreeNode, "Return");
+            VerifyConversion(callTreeNode, Microsoft.Sarif.Viewer.Resources.ContinuingCallTreeNodeMessage);
         }
 
         [Fact]
-        public void CallTreeNodeToTextConverter_HandlesNonCallOrReturnNodes()
+        public void CallTreeNodeToTextConverter_HandlesMessageAndSnippet()
         {
+            string snippet = "    int x = 42;";
+            string message = "my_function";
+
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Continuation,
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Region = new Region
+                        Message = new Message
                         {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, "Continuation");
-        }
-
-        [Fact]
-        public void CallTreeNodeToTextConverter_HandlesMissingRegion()
-        {
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.CallReturn,
-                    PhysicalLocation = new PhysicalLocation()
-                }
-            };
-
-            VerifyConversion(callTreeNode, "Return");
-        }
-
-        [Fact]
-        public void CallTreeNodeToTextConverter_HandlesMessage()
-        {
-            string snippet = "    contentStores[0] = contentStores[index];";
-            string message = "The error happened here.";
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
-
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Message = message,
-                    Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                            Text = message
+                        },
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            StartLine = 42
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
@@ -144,84 +130,35 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         [Fact]
         public void CallTreeNodeToTextConverter_HandlesNullMessage()
         {
-            string snippet = "    contentStores[0] = contentStores[index];";
+            string snippet = "    int x = 42;";
             string message = null;
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new AnnotatedCodeLocation
+                Location = new CodeFlowLocation
                 {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Message = message,
-                    Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
+                        Message = new Message
                         {
-                            StartLine = 42
+                            Text = message
+                        },
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            Region = new Region
+                            {
+                                StartLine = 42,
+                                Snippet = new FileContent
+                                {
+                                    Text = snippet
+                                }
+                            }
                         }
                     }
                 }
             };
 
             VerifyConversion(callTreeNode, snippet.Trim());
-        }
-
-        [Fact]
-        public void CallTreeNodeToTextConverter_HandlesSnippet()
-        {
-            string snippet = "    contentStores[0] = contentStores[index];";
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
-
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, snippet.Trim());
-        }
-
-        [Fact]
-        public void CallTreeNodeToTextConverter_HandlesNullSnippet()
-        {
-            string snippet = null;
-            string sourceFile = @"file:///c:/dir1/dir%202\source%20file.cpp";
-
-            var callTreeNode = new CallTreeNode
-            {
-                Location = new AnnotatedCodeLocation
-                {
-                    Kind = AnnotatedCodeLocationKind.Call,
-                    Snippet = snippet,
-                    Target = "my_function",
-                    PhysicalLocation = new PhysicalLocation
-                    {
-                        Uri = new System.Uri(sourceFile),
-                        Region = new Region
-                        {
-                            StartLine = 42
-                        }
-                    }
-                }
-            };
-
-            VerifyConversion(callTreeNode, "my_function");
         }
 
         private static void VerifyConversion(CallTreeNode callTreeNode, string expectedText)
@@ -232,6 +169,5 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             text.Should().Be(expectedText);
         }
-
     }
 }

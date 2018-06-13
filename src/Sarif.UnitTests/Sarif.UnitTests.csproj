@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Baseline\ResultMatching\SarifElementRemappers\" />
+  </ItemGroup>
 </Project>

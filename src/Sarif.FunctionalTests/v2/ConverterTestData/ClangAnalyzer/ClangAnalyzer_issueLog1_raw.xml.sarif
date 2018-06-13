@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Clang"
+      },
+      "files": {
+        "jmemmgr.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Dereference of null pointer",
+          "message": {
+            "text": "Dereference of null pointer"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
+                "region": {
+                  "startLine": 369,
+                  "startColumn": 21
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "alloc_large",
+            "issueHash": "25"
+          }
+        },
+        {
+          "ruleId": "Dereference of null pointer",
+          "message": {
+            "text": "Array access (via field 'mem_buffer') results in a null pointer dereference"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
+                "region": {
+                  "startLine": 824,
+                  "startColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_sarray",
+            "issueHash": "62"
+          }
+        },
+        {
+          "ruleId": "Dereference of null pointer",
+          "message": {
+            "text": "Array access (via field 'mem_buffer') results in a null pointer dereference"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
+                "region": {
+                  "startLine": 909,
+                  "startColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "access_virt_barray",
+            "issueHash": "62"
+          }
+        },
+        {
+          "ruleId": "Dereference of null pointer",
+          "message": {
+            "text": "Dereference of null pointer"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jmemmgr.c"
+                },
+                "region": {
+                  "startLine": 1067,
+                  "startColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "jinit_memory_mgr",
+            "issueHash": "38"
+          }
+        }
+      ]
+    }
+  ]
+}

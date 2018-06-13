@@ -1,0 +1,504 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "BasicC6387": {
+          "decoratedName": "?BasicC6387@@YAXXZ"
+        },
+        "BasicC6387_Opt": {
+          "decoratedName": "?BasicC6387_Opt@@YAXPEAH@Z"
+        },
+        "BasicC6387_PostNull": {
+          "decoratedName": "?BasicC6387_PostNull@@YAXXZ"
+        },
+        "BasicC6387_Out": {
+          "decoratedName": "?BasicC6387_Out@@YAXXZ"
+        },
+        "BasicC6387_OutNotNull": {
+          "decoratedName": "?BasicC6387_OutNotNull@@YAXPEAPEAH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6387",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387",
+              "properties": {
+                "funcline": "12"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 16,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_Opt",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNull'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 20
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_PostNull",
+              "properties": {
+                "funcline": "26"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 30,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": {
+            "text": "'data' could be '0':  this does not adhere to the specification for the function 'RequiresNotNullOut'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 23
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_Out",
+              "properties": {
+                "funcline": "34"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 36,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6387",
+          "message": {
+            "text": "'*pOut' could be '0':  this does not adhere to the specification for the function 'BasicC6387_OutNotNull'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                },
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "BasicC6387_OutNotNull",
+              "properties": {
+                "funcline": "43"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 11
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "startColumn": 1
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "startColumn": 27
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

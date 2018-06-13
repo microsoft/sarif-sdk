@@ -14,57 +14,84 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         [Fact]
         public void CanConvertCodeFlowToTree()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<AnnotatedCodeLocation>
+                new CodeFlowLocation
                 {
-                    new AnnotatedCodeLocation
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "first parent"
-                    },
-                    new AnnotatedCodeLocation
+                        Message = new Message
+                        {
+                            Text = "first parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "second parent"
-                    },
-                    new AnnotatedCodeLocation
+                        Message = new Message
+                        {
+                            Text = "second parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
+                        Message = new Message
+                        {
+                            Text = "third parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "third parent"
-                    },
-                    new AnnotatedCodeLocation
+                        Message = new Message
+                        {
+                            Text = "fourth parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 2, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "fourth parent"
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "fifth parent"
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn,
-                    },
+                        Message = new Message
+                        {
+                            Text = "fifth parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn,
                 }
-            };
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -73,77 +100,86 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[0].Children[2].Children.Count.Should().Be(1);
 
             // Check that we have the right nodes at the right places in the tree.
-            topLevelNodes[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[0].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[0].Children[0].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
-            topLevelNodes[0].Children[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[0].Children[1].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
-            topLevelNodes[0].Children[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[0].Children[2].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
-            topLevelNodes[0].Children[3].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
-            topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[1].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0);                         // Call
+            topLevelNodes[0].Children[0].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[0].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[1].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[1].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[2].Location.NestingLevel.Should().Be(1);             // Call
+            topLevelNodes[0].Children[2].Children[0].Location.NestingLevel.Should().Be(2); // CallReturn
+            topLevelNodes[0].Children[3].Location.NestingLevel.Should().Be(1);             // CallReturn
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0);                         // Call
+            topLevelNodes[1].Children[0].Location.NestingLevel.Should().Be(1);             // CallReturn
 
             // Check parents
             topLevelNodes[0].Parent.Should().Be(null);
-            topLevelNodes[0].Children[0].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[0].Children[0].Parent.Location.Message.Should().Be("second parent");
-            topLevelNodes[0].Children[1].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[1].Children[0].Parent.Location.Message.Should().Be("third parent");
-            topLevelNodes[0].Children[2].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[2].Children[0].Parent.Location.Message.Should().Be("fourth parent");
-            topLevelNodes[0].Children[3].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[0].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[0].Children[0].Parent.Location.Location.Message.Text.Should().Be("second parent");
+            topLevelNodes[0].Children[1].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[1].Children[0].Parent.Location.Location.Message.Text.Should().Be("third parent");
+            topLevelNodes[0].Children[2].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[2].Children[0].Parent.Location.Location.Message.Text.Should().Be("fourth parent");
+            topLevelNodes[0].Children[3].Parent.Location.Location.Message.Text.Should().Be("first parent");
             topLevelNodes[1].Parent.Should().Be(null);
-            topLevelNodes[1].Children[0].Parent.Location.Message.Should().Be("fifth parent");
+            topLevelNodes[1].Children[0].Parent.Location.Location.Message.Text.Should().Be("fifth parent");
         }
 
         [Fact]
         public void CanConvertCodeFlowToTreeNonCallOrReturn()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<AnnotatedCodeLocation>
+                new CodeFlowLocation
                 {
-                    new AnnotatedCodeLocation
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "first parent"
-                    },
-                    new AnnotatedCodeLocation
+                        Message = new Message
+                        {
+                            Text = "first parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Call
+                    Location = new Location
                     {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Call,
-                        Message = "second parent"
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.CallReturn
-                    },
-                }
-            };
+                        Message = new Message
+                        {
+                            Text = "second parent"
+                        }
+                    }
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 1, // CallReturn
+                },
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -152,45 +188,42 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[1].Children.Count.Should().Be(3);
 
             // Spot-check that we have the right nodes at the right places in the tree.
-            topLevelNodes[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[0].Children[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
-            topLevelNodes[0].Children[3].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
-            topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Call);
-            topLevelNodes[1].Children[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.CallReturn);
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0);             // Call
+            topLevelNodes[0].Children[0].Location.NestingLevel.Should().Be(1); // Declaration
+            topLevelNodes[0].Children[3].Location.NestingLevel.Should().Be(1); // CallReturn
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0);             // Call
+            topLevelNodes[1].Children[2].Location.NestingLevel.Should().Be(1); // CallReturn
 
             // Check parents
             topLevelNodes[0].Parent.Should().Be(null);
-            topLevelNodes[0].Children[0].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[1].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[2].Parent.Location.Message.Should().Be("first parent");
-            topLevelNodes[0].Children[3].Parent.Location.Message.Should().Be("first parent");
+            topLevelNodes[0].Children[0].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[1].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[2].Parent.Location.Location.Message.Text.Should().Be("first parent");
+            topLevelNodes[0].Children[3].Parent.Location.Location.Message.Text.Should().Be("first parent");
             topLevelNodes[1].Parent.Should().Be(null);
-            topLevelNodes[1].Children[0].Parent.Location.Message.Should().Be("second parent");
-            topLevelNodes[1].Children[1].Parent.Location.Message.Should().Be("second parent");
-            topLevelNodes[1].Children[2].Parent.Location.Message.Should().Be("second parent");
+            topLevelNodes[1].Children[0].Parent.Location.Location.Message.Text.Should().Be("second parent");
+            topLevelNodes[1].Children[1].Parent.Location.Location.Message.Text.Should().Be("second parent");
+            topLevelNodes[1].Children[2].Parent.Location.Location.Message.Text.Should().Be("second parent");
         }
 
         [Fact]
         public void CanConvertCodeFlowToTreeOnlyDeclarations()
         {
-            var codeFlow = new CodeFlow
+            var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                Locations = new List<AnnotatedCodeLocation>
+                new CodeFlowLocation
                 {
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                    new AnnotatedCodeLocation
-                    {
-                        Kind = AnnotatedCodeLocationKind.Declaration
-                    },
-                }
-            };
+                    NestingLevel = 0, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Declaration
+                },
+                new CodeFlowLocation
+                {
+                    NestingLevel = 0, // Declaration
+                },
+            });
 
             List<CallTreeNode> topLevelNodes = CodeFlowToTreeConverter.Convert(codeFlow);
 
@@ -199,9 +232,9 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             topLevelNodes[1].Children.Should().BeEmpty();
             topLevelNodes[2].Children.Should().BeEmpty();
 
-            topLevelNodes[0].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
-            topLevelNodes[1].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
-            topLevelNodes[2].Location.Kind.Should().Be(AnnotatedCodeLocationKind.Declaration);
+            topLevelNodes[1].Location.NestingLevel.Should().Be(0); // Declaration
+            topLevelNodes[0].Location.NestingLevel.Should().Be(0); // Declaration
+            topLevelNodes[2].Location.NestingLevel.Should().Be(0); // Declaration
 
             topLevelNodes[0].Parent.Should().Be(null);
             topLevelNodes[1].Parent.Should().Be(null);

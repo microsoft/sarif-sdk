@@ -92,7 +92,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             if (s_sourceFileFixLedger.Count > 0)
             {
-                SdkUiUtilities.StoreObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedger, s_sourceFileFixLedgerFileName);
+                SdkUIUtilities.StoreObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedger, s_sourceFileFixLedgerFileName);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             if (s_sourceFileFixLedger == null)
             {
-                s_sourceFileFixLedger = SdkUiUtilities.GetStoredObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedgerFileName) ?? new Dictionary<string, FixOffsetList>();
+                s_sourceFileFixLedger = SdkUIUtilities.GetStoredObject<Dictionary<string, FixOffsetList>>(s_sourceFileFixLedgerFileName) ?? new Dictionary<string, FixOffsetList>();
 
                 // Remove entries where the last modified timestamps don't match
                 // This could indicate that the file was modified or overwritten externally

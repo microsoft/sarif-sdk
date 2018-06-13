@@ -1,14 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -21,14 +17,13 @@ namespace Microsoft.Sarif.Viewer.Sarif
             var messageLines = new List<string>();
             foreach (var location in result.Locations)
             {
-                PhysicalLocation physicalLocation = location.ResultFile ?? location.AnalysisTarget;
-                Uri uri = physicalLocation.Uri;
+                Uri uri = location.PhysicalLocation.FileLocation.Uri;
                 string path = uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(
                         CultureInfo.InvariantCulture, "{0}{1}: {2} {3}: {4}",
                         path,
-                        physicalLocation.Region.FormatForVisualStudio(),
+                        location.PhysicalLocation.Region.FormatForVisualStudio(),
                         result.Level.FormatForVisualStudio(),
                         result.RuleId,
                         result.GetMessageText(rule)
@@ -52,13 +47,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             Location primaryLocation = result.Locations[0];
 
-            if (primaryLocation.ResultFile != null)
+            if (primaryLocation.PhysicalLocation?.FileLocation != null)
             {
-                return primaryLocation.ResultFile.Uri.ToPath();
-            }
-            else if (primaryLocation.AnalysisTarget != null)
-            {
-                return primaryLocation.AnalysisTarget.Uri.ToPath();
+                return primaryLocation.PhysicalLocation.FileLocation.Uri.ToPath();
             }
             else if (primaryLocation.FullyQualifiedLogicalName != null)
             {
@@ -77,13 +68,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             Location primaryLocation = result.Locations[0];
 
-            if (primaryLocation.ResultFile != null)
+            if (primaryLocation.PhysicalLocation != null)
             {
-                return primaryLocation.ResultFile.Region;
-            }
-            else if (primaryLocation.AnalysisTarget != null)
-            {
-                return primaryLocation.AnalysisTarget.Region;
+                return primaryLocation.PhysicalLocation.Region;
             }
             else
             {

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "logicalLocations": {
+        "northwindtraders-droid-2": {
+          "kind": "module"
+        },
+        "northwindtraders-droid-2\\com.northwindtraders.droid.model": {
+          "name": "com.northwindtraders.droid.model",
+          "parentKey": "northwindtraders-droid-2",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Assertions",
+          "message": {
+            "text": "Assertions are unreliable. Use BuildConfig.DEBUG conditional checks instead."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "northwindtraders-droid-2\\com.northwindtraders.droid.model"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

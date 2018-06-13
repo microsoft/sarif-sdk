@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "C6386_Example2": {
+          "decoratedName": "?C6386_Example2@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": {
+            "text": "Buffer overrun while writing to 'a':  the writable size is '80' bytes, but '84' bytes might be written."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp"
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 14
+                }
+              },
+              "fullyQualifiedLogicalName": "C6386_Example2",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp"
+                          },
+                          "region": {
+                            "startLine": 3,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp"
+                          },
+                          "region": {
+                            "startLine": 7,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

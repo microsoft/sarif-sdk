@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Different"
+                        Message = new Message { Text = "Different" }
                     }
                 }
             };
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Same"
+                        Message = new Message { Text = "Same" }
                     }
                 }
             };
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Stack
                     {
-                        Message = "Different"
+                        Message = new Message { Text = "Different" }
                     }
                 }
             };

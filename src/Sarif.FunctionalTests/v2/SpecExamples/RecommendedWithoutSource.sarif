@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "BinaryScanner",
+        "semanticVersion": "1.0.1"
+      },
+      "files": {
+        "file:///user/builder/work/bin/example": {
+          "mimeType": "application/vnd.microsoft.portable-executable"
+        }
+      },
+      "logicalLocations": {
+        "Example": {
+          "name": "Example",
+          "kind": "namespace"
+        },
+        "Example.Worker": {
+          "name": "Worker",
+          "kind": "type",
+          "parentKey": "Example"
+        },
+        "Example.Worker.DoWork": {
+          "name": "DoWork",
+          "kind": "function",
+          "parentKey": "Example.Worker"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "B6412",
+          "message": {
+            "text": "The insecure method \"Crypto.Sha1.Encrypt\" should not be used."
+          },
+            "level": "warning",
+            "locations": [
+              {
+                "fullyQualifiedLogicalName": "Example.Worker.DoWork"
+              }
+            ]
+          }
+      ]
+    }
+  ]
+}

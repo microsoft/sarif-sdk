@@ -1,0 +1,12 @@
+1:workerthread=>12[SDV_FAILED]
+2:kedpcroutine=>12[SDV_FAILED]
+3:dispatchroutine=>12[SDV_FAILED]
+4:checkirpmjpnp=>12[SDV_FAILED]
+5:checkdriverunload=>12[SDV_FAILED]
+6:isrroutine=>12[SDV_FAILED]
+7:checkadddevice=>12[SDV_FAILED]
+8:iodpcroutine=>12[SDV_FAILED]
+9:startioroutine=>12[SDV_FAILED]
+10:iocompletion=>12[SDV_FAILED]
+11:cancelroutine=>12[SDV_FAILED]
+12:cancelspinlock

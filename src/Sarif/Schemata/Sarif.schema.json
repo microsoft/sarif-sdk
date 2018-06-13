@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 1.0.0 JSON Schema: a standard format for the output of static analysis and other tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0 JSON Schema: a standard format for the output of static analysis and other tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "1.0.0" ]
+      "enum": [ "2.0.0" ]
     },
 
     "runs": {
@@ -26,173 +26,47 @@
       }
     }
   },
+
   "required": [ "version", "runs" ],
   "definitions": {
 
-    "annotatedCodeLocation": {
-      "description": "An annotation used to express code flows through a method or other locations that are related to a result.",
+    "attachment": {
+      "description": "A file relevant to a tool invocation or to a result.",
+      "type": "object",
+      "properties": {
+
+        "description": {
+          "description": "A message describing the role played by the attachment.",
+          "$ref": "#/definitions/message"
+        },
+
+        "fileLocation": {
+          "description": "The location of the attachment.",
+          "$ref": "#/definitions/fileLocation"
+        }
+      },
+
+      "required": [ "fileLocation" ]
+    },
+
+    "codeFlow": {
+      "description": "A set of threadFlows which together describe a pattern of code execution relevant to detecting a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "id": {
-          "description": "OBSOLETE (use \"step\" instead): An identifier for the location, unique within the scope of the code flow within which it occurs.",
-          "type": [ "integer", "string" ],
-          "pattern": "^[1-9][0-9]*$",
-          "minimum": 1
-        },
-
-        "step": {
-          "description": "The 0-based sequence number of the location in the code flow within which it occurs.",
-          "type": "integer",
-          "minimum": 0
-        },
-
-        "physicalLocation": {
-          "description": "A file location to which this annotation refers.",
-          "$ref": "#/definitions/physicalLocation"
-        },
-
-        "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the method or function that is executing.",
-          "type": "string"
-        },
-
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the annotation's logicalLocation from the logicalLocations dictionary.",
-          "type": "string"
-        },
-
-        "module": {
-          "description": "The name of the module that contains the code that is executing.",
-          "type": "string"
-        },
-
-        "threadId": {
-          "description": "The thread identifier of the code that is executing.",
-          "type": "integer"
-        },
-
         "message": {
-          "description": "A message relevant to this annotation.",
-          "type": "string"
+          "description": "A message relevant to the code flow.",
+          "$ref": "#/definitions/message"
         },
 
-        "kind": {
-          "description": "Categorizes the location.",
-          "enum": [ "alias", "assignment", "branch", "call", "callReturn", "continuation", "declaration", "functionEnter", "functionExit", "functionReturn", "usage" ]
-        },
-
-        "taintKind": {
-          "description": "Classifies state transitions in code locations relevant to a taint analysis.",
-          "enum": [ "source", "sink", "sanitizer" ]
-        },
-
-        "target": {
-          "description": "The fully qualified name of the target on which this location operates. For an annotation of kind 'call', for example, the target refers to the fully qualified logical name of the function called from this location.",
-          "type": "string"
-        },
-
-        "values": {
-          "description": "An ordered set of strings that comprise input or return values for the current operation. For an annotation of kind 'call', for example, this property may hold the ordered list of arguments passed to the callee.",
-          "type": "array",
-          "default": [ ],
-          "items": {
-            "type": "string"
-          }
-        },
-
-        "state": {
-          "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
-          "type": "object"
-        },
-
-        "targetKey": {
-          "description": "A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.",
-          "type": "string"
-        },
-
-        "essential": {
-          "description": "OBSOLETE (use \"importance\" instead): True if this location is essential to understanding the code flow in which it occurs.",
-          "type": "boolean"
-        },
-
-        "importance": {
-          "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
-          "enum": [ "important", "essential", "unimportant" ]
-        },
-
-        "snippet": {
-          "description": "The source code at the specified location.",
-          "type": "string"
-        },
-
-        "annotations": {
-          "description": "A set of messages relevant to the current annotated code location.",
+        "threadFlows": {
+          "description": "An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/annotation"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the code location.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [ ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-
-    "annotation": {
-      "type": "object",
-      "properties": {
-
-        "message": {
-          "description": "A message relevant to a code location",
-          "type": "string"
-        },
-
-        "locations": {
-          "description": "An array of 'physicalLocation' objects associated with the annotation.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/physicalLocation"
-          }
-        }
-      },
-      "required": [ "message", "locations" ]
-    },
-
-    "codeFlow": {
-      "type": "object",
-      "properties": {
-
-        "message": {
-          "description": "A message relevant to the code flow",
-          "type": "string"
-        },
-
-        "locations": {
-          "description": "An array of 'annotatedCodeLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/threadFlow"
           }
         },
 
@@ -206,7 +80,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -214,8 +88,196 @@
           }
         }
       },
-      "required": [ "locations" ]
+
+      "required": [ "threadFlows" ]
     },
+
+    "codeFlowLocation": {
+      "description": "A location visited by an analysis tool in the course of simulating or monitoring the execution of a program.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "step": {
+          "description": "The 0-based sequence number of the location in the code flow within which it occurs.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "location": {
+          "description": "The code location.",
+          "$ref": "#/definitions/location"
+        },
+
+        "module": {
+          "description": "The name of the module that contains the code that is executing.",
+          "type": "string"
+        },
+
+        "state": {
+          "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
+          "type": "object"
+        },
+
+        "nestingLevel": {
+          "description": "An integer representing a containment hierarchy within the thread flow",
+          "type": "integer"
+        },
+
+        "executionOrder": {
+          "description": "An integer representing the temporal order in which execution reached this location.",
+          "type": "integer"
+        },
+
+        "importance": {
+          "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
+          "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the code location.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "conversion": {
+      "description": "Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "tool": {
+          "description": "A tool object that describes the converter.",
+          "$ref": "#/definitions/tool"
+        },
+
+        "invocation": {
+          "description": "An invocation object that describes the invocation of the converter.",
+          "$ref": "#/definitions/invocation"
+        },
+
+        "analysisToolLogFiles": {
+          "description": "The locations of the analysis tool's per-run log files.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/fileLocation"
+          }
+        }
+      },
+
+      "required": [ "tool" ]
+    },
+
+    "edge": {
+      "description": "Represents a directed edge in a graph.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "id": {
+          "description": "A string that uniquely identifies the edge within its graph.",
+          "type": "string"
+        },
+
+        "label": {
+          "description": "A short description of the edge.",
+          "$ref": "#/definitions/message"
+        },
+
+        "sourceNodeId": {
+          "description": "Identifies the source node (the node at which the edge starts).",
+          "type": "string"
+        },
+
+        "targetNodeId": {
+          "description": "Identifies the target node (the node at which the edge ends).",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the edge.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "id", "sourceNodeId", "targetNodeId" ]
+    },
+
+    "edgeTraversal": {
+      "description": "Represents the traversal of a single edge in the course of a graph traversal.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "edgeId": {
+          "description": "Identifies the edge being traversed.",
+          "type": "string"
+        },
+
+        "message": {
+          "description": "A message to display to the user as the edge is traversed.",
+          "$ref": "#/definitions/message"
+        },
+
+        "finalState": {
+          "description": "The values of relevant expressions after the edge has been traversed.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the edge traversal.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "edgeId" ]
+    },
+
     "exception": {
       "type": "object",
       "properties": {
@@ -227,7 +289,7 @@
 
         "message": {
           "type": "string",
-          "description": "A string that describes the exception."
+          "description": "A plain text message that describes the exception."
         },
 
         "stack": {
@@ -244,25 +306,20 @@
         }
       }
     },
+
     "fileChange": {
       "description": "A change to a single file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "uri": {
-          "description": "A string that represents the location of the file to change as a valid URI.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "uriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
-          "type": "string"
+        "fileLocation": {
+          "description": "The location of the file to change.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "replacements": {
-          "description": "An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'uri'.",
+          "description": "An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'fileLocation'.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -271,26 +328,18 @@
         }
       },
 
-      "required": [ "uri", "replacements" ],
-      "dependencies": {
-        "uriBaseId": [ "uri" ]
-      }
+      "required": [ "replacements" ]
     },
+
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "uri": {
-          "description": "The path to the file within its containing file.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "uriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
-          "type": "string"
+        "fileLocation": {
+          "description": "The location of the file.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "parentKey": {
@@ -308,6 +357,24 @@
           "type": "integer"
         },
 
+        "roles": {
+          "description": "The role or roles played by the file in the analysis.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "analysisTarget",
+              "attachment",
+              "responseFile",
+              "resultFile",
+              "screenshot",
+              "standardStream",
+              "traceFile"
+            ]
+          }
+        },
+
         "mimeType": {
           "description": "The MIME type (RFC 2045) of the file.",
           "type": "string",
@@ -316,11 +383,16 @@
 
         "contents": {
           "description": "The contents of the file, expressed as a MIME Base64-encoded byte sequence.",
+          "$ref": "#/definitions/fileContent"
+        },
+
+        "encoding": {
+          "description": "Specifies the encoding for a file object that refers to a text file.",
           "type": "string"
         },
 
         "hashes": {
-          "description": "An array of hash objects, each of which specifies a hashed value for the file, along with the name of the algorithm used to compute the hash.",
+          "description": "An array of hash objects, each of which specifies a hashed value for the file, along with the name of the hash function used to compute the hash.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
@@ -339,19 +411,55 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
             }
           }
         }
-      },
-
-      "dependencies": {
-        "uriBaseId": [ "uri" ]
       }
     },
+
+    "fileContent": {
+      "description": "Represents content from an external file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "text": {
+          "description": "UTF-8-encoded content from a text file.",
+          "type": "string"
+        },
+
+        "binary": {
+          "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
+          "type": "string"
+        }
+      }
+    },
+
+    "fileLocation": {
+      "description": "Specifies the location of a file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "uri": {
+          "description": "A string containing a valid relative or absolute URI.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "uriBaseId": {
+          "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
+          "type": "string"
+        }
+      },
+
+      "required": [ "uri" ]
+    },
+
     "fix": {
       "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
       "additionalProperties": false,
@@ -359,8 +467,8 @@
       "properties": {
 
         "description": {
-          "description": "A string that describes the proposed fix, enabling viewers to present a proposed change to an end user.",
-          "type": "string"
+          "description": "A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.",
+          "$ref": "#/definitions/message"
         },
 
         "fileChanges": {
@@ -373,60 +481,174 @@
       },
       "required": [ "fileChanges" ]
     },
-    "formattedRuleMessage": {
-      "description": "Contains information that can be used to construct a formatted message that describes a result.",
-      "additionalProperties": false,
+
+    "graph": {
+      "description": "A network of nodes and directed edges that describes some aspect of the structure of the code (for example, a call graph).",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
-        "formatId": {
-          "description": "A string that identifies the message format used to format the message that describes this result. The value of formatId must correspond to one of the names in the set of name/value pairs contained in the 'messageFormats' property of the rule object whose 'id' property matches the 'ruleId' property of this result.",
+        "id": {
+          "description": "A string that uniquely identifies the graph within a run.graphs or result.graphs array.",
           "type": "string"
         },
 
-        "arguments": {
-          "description": "An array of strings that will be used, in combination with a message format, to construct a result message.",
+        "description": {
+          "description": "A description of the graph.",
+          "$ref": "#/definitions/message"
+        },
+
+        "nodes": {
+          "description": "An array of node objects representing the nodes of the graph.",
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/node"
+          }
+        },
+
+        "edges": {
+          "description": "An array of edge objects representing the edges of the graph.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/edge"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the graph.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
-      "required": [ "formatId" ]
+
+      "required": [ "id", "nodes", "edges" ]
     },
+
+    "graphTraversal": {
+      "description": "Represents a path through a graph.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "id": {
+          "description": "A string that uniquely identifies this graph traversal with its containing result.",
+          "type": "string"
+        },
+
+        "graphId": {
+          "description": "A string that uniquely identifies that graph being traversed.",
+          "type": "string"
+        },
+
+        "description": {
+          "description": "A description of this graph traversal.",
+          "$ref": "#/definitions/message"
+        },
+
+        "initialState": {
+          "description": "Values of relevant expressions at the start of the graph traversal.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "edgeTraversals": {
+          "description": "The sequences of edges traversed by this graph traversal.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/edgeTraversal"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the graph traversal.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "graphId", "edgeTraversals" ]
+    },
+
     "hash": {
-      "description": "A hash value of some file or collection of files, together with the algorithm used to compute the hash.",
+      "description": "A hash value of some file or collection of files, together with the hash function used to compute the hash.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "value": {
-          "description": "The hash value of some file or collection of files, computed by the algorithm named in the 'algorithm' property.",
+          "description": "The hash value of some file or collection of files, computed by the hash function named in the 'algorithm' property.",
           "type": "string"
         },
 
         "algorithm": {
-          "description": "The name of the algorithm used to compute the hash value specified in the 'value' property.",
-          "enum": [ "authentihash", "blake256", "blake512", "ecoh", "fsb", "gost", "groestl", "has160", "haval", "jh", "md2", "md4", "md5", "md6", "radioGatun", "ripeMD", "ripeMD128", "ripeMD160", "ripeMD320", "sdhash", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3", "skein", "snefru", "spectralHash", "ssdeep", "swifft", "tiger", "tlsh", "whirlpool" ]
+          "description": "The name of the hash function used to compute the hash value specified in the 'value' property.",
+          "type": "string"
         }
       },
       "required": [ "value", "algorithm" ]
     },
+
     "invocation": {
       "description": "The runtime environment of the analysis tool run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
+        "attachments": {
+          "description": "A set of files relevant to the invocation of the tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
+          }
+        },
+
         "commandLine": {
           "description": "The command line used to invoke the tool.",
           "type": "string"
         },
 
+        "arguments": {
+          "description": "An array of strings, containing in order the command line arguments passed to the tool from the operating system.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
         "responseFiles": {
-          "description": "The contents of any response files specified on the tool's command line.",
-          "type": "object",
-          "additionalProperties": true
+          "description": "The locations of any response files specified on the tool's command line.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/fileLocation"
+          }
         },
 
         "startTime": {
@@ -439,6 +661,52 @@
           "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
+        },
+
+        "exitCode": {
+          "description": "The process exit code.",
+          "type": "integer"
+        },
+
+        "toolNotifications": {
+          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
+        "configurationNotifications": {
+          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/notification"
+          }
+        },
+
+        "exitCodeDescription": {
+          "description": "The reason for the process exit.",
+          "type": "string"
+        },
+
+        "exitSignalName": {
+          "description": "The name of the signal that caused the process to exit.",
+          "type": "string"
+        },
+
+        "exitSignalNumber": {
+          "description": "The numeric value of the signal that caused the process to exit.",
+          "type": "integer"
+        },
+
+        "processStartFailureMessage": {
+          "description": "The reason given by the operating system that the process failed to start.",
+          "type": "string"
+        },
+
+        "toolExecutionSuccessful": {
+          "description": "A value indicating whether the tool's execution completed successfully.",
+          "type": "boolean"
         },
 
         "machine": {
@@ -456,9 +724,9 @@
           "type": "integer"
         },
 
-        "fileName": {
-          "description": "The fully qualified path to the analysis tool.",
-          "type": "string"
+        "executableLocation": {
+          "description": "An absolute URI specifying the location of the analysis tool's executable.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "workingDirectory": {
@@ -470,7 +738,27 @@
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
           "additionalProperties": true,
-          "default": { }
+          "default": {}
+        },
+
+        "stdin": {
+          "description": "A file containing the standard input stream to the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stdout": {
+          "description": "A file containing the standard output stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stderr": {
+          "description": "A file containing the standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "stdoutStderr": {
+          "description": "A file containing the interleaved standard output and standard error stream from the process that was invoked.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "properties": {
@@ -483,7 +771,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -492,18 +780,14 @@
         }
       }
     },
+
     "location": {
       "description": "The location where an analysis tool produced a result.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "analysisTarget": {
-          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
-          "$ref": "#/definitions/physicalLocation"
-        },
-
-        "resultFile": {
+        "physicalLocation": {
           "description": "Identifies the file where the analysis tool produced the result.",
           "$ref": "#/definitions/physicalLocation"
         },
@@ -513,14 +797,19 @@
           "type": "string"
         },
 
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the location logicalLocation from the logicalLocations dictionary, when the string specified by 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
+        "message": {
+          "description": "A message relevant to the location.",
+          "$ref": "#/definitions/message"
         },
 
-        "decoratedName": {
-          "description": "The machine-readable fully qualified name for the logical location where the analysis tool produced the result, such as the mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.",
-          "type": "string"
+        "annotations": {
+          "description": "A set of regions relevant to the location.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/region"
+          }
         },
 
         "properties": {
@@ -533,7 +822,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -542,6 +831,7 @@
         }
       }
     },
+
     "logicalLocation": {
       "description": "A logical location of a construct that produced a result.",
       "additionalProperties": false,
@@ -550,6 +840,16 @@
 
         "name": {
           "description": "Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.",
+          "type": "string"
+        },
+
+        "fullyQualifiedName": {
+          "description": "The human-readable fully qualified name of the logical location.",
+          "type": "string"
+        },
+
+        "decoratedName": {
+          "description": "The machine-readable name for the logical location, such as a mangled function name provided by a C++ compiler that encodes calling convention, return type and other details along with the function name.",
           "type": "string"
         },
 
@@ -564,6 +864,88 @@
         }
       }
     },
+
+    "message": {
+      "description": "Encapsulates a message intended to be read by the end user.",
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+
+        "text": {
+          "description": "A plain text message string.",
+          "type": "string"
+        },
+
+        "messageId": {
+          "description": "The resource id for a plain text message string.",
+          "type": "string"
+        },
+
+        "richText": {
+          "description": "A rich text message string.",
+          "type": "string"
+        },
+
+        "richMessageId": {
+          "description": "The resource id for a rich text message string.",
+          "type": "string"
+        },
+
+        "arguments": {
+          "description": "An array of strings to substitute into the message string.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "node": {
+      "description": "Represents a node in a graph.",
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+
+        "id": {
+          "description": "A string that uniquely identifies the node within its graph.",
+          "type": "string"
+        },
+
+        "label": {
+          "description": "A short description of the node.",
+          "$ref": "#/definitions/message"
+        },
+
+        "location": {
+          "description": "A code location associated with the node.",
+          "$ref": "#/definitions/location"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the node.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "id" ]
+    },
+
     "notification": {
       "type": "object",
       "description": "Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.",
@@ -580,19 +962,14 @@
           "type": "string"
         },
 
-        "ruleKey": {
-          "description": "A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.",
-          "type": "string"
-        },
-
         "physicalLocation": {
           "description": "The file and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
         },
 
         "message": {
-          "description": "A string that describes the condition that was encountered.",
-          "type": "string"
+          "description": "A message that describes the condition that was encountered.",
+          "$ref": "#/definitions/message"
         },
 
         "level": {
@@ -627,7 +1004,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -637,33 +1014,37 @@
       },
       "required": [ "message" ]
     },
+
     "physicalLocation": {
       "description": "A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "uri": {
-          "description": "The location of the file as a valid URI.",
-          "type": "string",
-          "format": "uri"
+        "id": {
+          "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
+          "type": "integer"
         },
 
-        "uriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
-          "type": "string"
+        "fileLocation": {
+          "description": "The location of the file.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "region": {
           "description": "The region within the file where the result was detected.",
           "$ref": "#/definitions/region"
+        },
+
+        "contextRegion": {
+          "description": "Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.",
+          "$ref": "#/definitions/region"
         }
       },
 
-      "dependencies": {
-        "uriBaseId": [ "uri" ]
-      }
+      "required": [ "fileLocation" ]
     },
+
     "region": {
       "description": "A region within a file where a result was detected.",
       "additionalProperties": false,
@@ -704,9 +1085,15 @@
           "description": "The length of the region in bytes or characters.",
           "type": "integer",
           "minimum": 0
+        },
+
+        "snippet": {
+          "description": "The portion of the file contents within the specified region.",
+          "$ref": "#/definitions/fileContent"
         }
       }
     },
+
     "replacement": {
       "description": "The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.",
       "additionalProperties": false,
@@ -732,6 +1119,30 @@
       },
       "required": [ "offset" ]
     },
+
+    "resources": {
+      "description": "Container for items that require localization.",
+      "type": "object",
+      "properties": {
+
+        "messageStrings": {
+          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "rules": {
+          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/rule"
+          }
+        }
+      }
+    },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -743,25 +1154,24 @@
           "type": "string"
         },
 
-        "ruleKey": {
-          "description": "A key used to retrieve the rule metadata from the rules dictionary that is relevant to the notificationn.",
-          "type": "string"
-        },
-
         "level": {
           "description": "A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.",
-          "default": "warning",
-          "enum": [ "notApplicable", "pass", "note", "warning", "error" ]
+          "enum": [ "notApplicable", "pass", "note", "warning", "error", "open" ]
         },
 
         "message": {
-          "description": "A string that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
+          "description": "A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.",
+          "$ref": "#/definitions/message"
+        },
+
+        "ruleMessageId": {
+          "description": "A string that identifies the message within the metadata for the rule used in this result.",
           "type": "string"
         },
 
-        "formattedRuleMessage": {
-          "description": "A 'formattedRuleMessage' object that can be used to construct a formatted message that describes the result. If the 'formattedMessage' property is present on a result, the 'fullMessage' property shall not be present. If the 'fullMessage' property is present on an result, the 'formattedMessage' property shall not be present",
-          "$ref": "#/definitions/formattedRuleMessage"
+        "analysisTarget": {
+          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "locations": {
@@ -774,19 +1184,25 @@
           }
         },
 
-        "snippet": {
-          "description": "A source code or other file fragment that illustrates the result.",
-          "type": "string"
-        },
-
         "id": {
           "description": "A unique identifer for the result.",
           "type": "string"
         },
 
-        "toolFingerprintContribution": {
-          "description": "A string that contributes to the unique identity of the result.",
-          "type": "string"
+        "partialFingerprints": {
+          "description": "A set of strings that contribute to the stable, unique identity of the result.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "fingerprints": {
+          "description": "A set of strings each of which individually defines a stable, unique identity for the result.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "stacks": {
@@ -809,13 +1225,33 @@
           }
         },
 
-        "relatedLocations": {
-          "description": "A grouped set of locations and messages, if available, that represent code areas that are related to this result.",
+        "graphs": {
+          "description": "An array of one or more unique 'graph' objects.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/annotatedCodeLocation"
+            "$ref": "#/definitions/graph"
+          }
+        },
+
+        "graphTraversals": {
+          "description": "An array of one or more unique 'graphTraversal' objects.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/graphTraversal"
+          }
+        },
+
+        "relatedLocations": {
+          "description": "A set of locations relevant to this result.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/location"
           }
         },
 
@@ -824,8 +1260,19 @@
           "items": {
             "description": "A flag value indicating one or more suppression conditions.",
             "enum": [
-              "suppressedInSource", "suppressedExternally"
+              "suppressedInSource",
+              "suppressedExternally"
             ]
+          }
+        },
+
+        "attachments": {
+          "description": "A set of files relevant to the result.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/attachment"
           }
         },
 
@@ -836,6 +1283,16 @@
             "existing",
             "absent"
           ]
+        },
+
+        "conversionProvenance": {
+          "description": "An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/physicalLocation"
+          }
         },
 
         "fixes": {
@@ -858,7 +1315,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -867,6 +1324,7 @@
         }
       }
     },
+
     "rule": {
       "description": "Describes an analysis rule.",
       "additionalProperties": false,
@@ -880,40 +1338,49 @@
 
         "name": {
           "description": "A rule identifier that is understandable to an end user.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "shortDescription": {
           "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "fullDescription": {
-          "description": "A string that describes the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "type": "string"
+          "description": "A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/message"
         },
 
-        "messageFormats": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair shall consist of plain text interspersed with placeholders, which can be used to format a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object"
+        "messageStrings": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "richMessageStrings": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "configuration": {
-          "description": "A value specifying whether a rule is enabled.",
-          "default": "unknown",
-          "enum": [ "unknown", "enabled", "disabled" ]
-        }, 
-
-        "defaultLevel": {
-          "description": "A value specifying the default severity level of the result.",
-          "default": "warning",
-          "enum": [ "note", "warning", "error" ]
+          "description": "Information about the rule that can be configured at runtime.",
+          "$ref": "#/definitions/ruleConfiguration"
         },
 
-        "helpUri": {
+        "helpLocation": {
           "description": "A URI where the primary documentation for the rule can be found.",
           "type": "string",
-          "format": "uri"
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "help": {
+          "description": "Provides the primary documentation for the rule, useful when there is no online documentation.",
+          "$ref": "#/definitions/message"
         },
 
         "properties": {
@@ -926,7 +1393,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -936,6 +1403,43 @@
       },
       "required": [ "id" ]
     },
+
+    "ruleConfiguration": {
+      "description": "Information about a rule that can be configured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "enabled": {
+          "description": "Specifies whether the rule will be evaluated during the scan.",
+          "type": "boolean"
+        },
+
+        "defaultLevel": {
+          "description": "Specifies the default severity level of the result.",
+          "default": "warning",
+          "enum": [ "note", "warning", "error", "open" ]
+        },
+
+        "parameters": {
+          "description": "Contains configuration information specific to this rule.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "tags": {
+              "description": "A set of distinct strings that provide additional configuration information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
     "run": {
       "description": "Describes a single run of an analysis tool, and contains the output of that run.",
       "additionalProperties": false,
@@ -947,13 +1451,42 @@
           "$ref": "#/definitions/tool"
         },
 
-        "invocation": {
-          "description": "Describes the runtime environment, including parameterization, of the analysis tool run.",
-          "$ref": "#/definitions/invocation"
+        "invocations": {
+          "description": "Describes the invocation of the analysis tool.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/invocation"
+          }
+        },
+
+        "conversion": {
+          "description": "A conversion object that describes how a converter transformed an analysis tool's native output format into the SARIF format.",
+          "$ref": "#/definitions/conversion"
+        },
+
+        "versionControlProvenance": {
+          "description": "Specifies the revision in version control of the files that were scanned.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/versionControlDetails"
+          }
+        },
+
+        "originalUriBaseIds": {
+          "description": "The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "uri"
+          }
         },
 
         "files": {
-          "description": "A dictionary, each of whose keys is a URI and each of whose values is an array of file objects representing the location of a single file scanned during the run.",
+          "description": "A dictionary each of whose keys is a URI and each of whose values is a file object.",
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/file"
@@ -968,38 +1501,28 @@
           }
         },
 
+        "graphs": {
+          "description": "An array of one or more unique 'graph' objects.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/graph"
+          }
+        },
+
         "results": {
           "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/result"
           }
         },
 
-        "toolNotifications": {
-          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
-          }
-        },
-
-        "configurationNotifications": {
-          "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/notification"
-          }
-        },
-
-        "rules": {
-          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/rule"
-          }
+        "resources": {
+          "description": "Items that can be localized, such as message strings and rule metadata.",
+          "$ref": "#/definitions/resources"
         },
 
         "id": {
@@ -1011,7 +1534,7 @@
           "description": "A stable identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.",
           "type": "string"
         },
-        
+
         "automationId": {
           "description": "A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
           "type": "string"
@@ -1021,9 +1544,25 @@
           "description": "The 'id' property of a separate (potentially external) SARIF 'run' instance that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string"
         },
-        
+
         "architecture": {
           "description": "The hardware architecture for which the run was targeted.",
+          "type": "string"
+        },
+
+        "richMessageMimeType": {
+          "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
+          "type": "string",
+          "default": "text/markdown;variant=GFM"
+        },
+
+        "redactionToken": {
+          "description": "The string used to replace sensitive information in a redaction-aware property.",
+          "type": "string"
+        },
+
+        "defaultFileEncoding": {
+          "description": "Specifies the default encoding for any file object that refers to a text file.",
           "type": "string"
         },
 
@@ -1037,7 +1576,7 @@
               "description": "A set of distinct strings that provide additional information about the run.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1047,6 +1586,7 @@
       },
       "required": [ "tool" ]
     },
+
     "stack": {
       "description": "A call stack that is relevant to a result.",
       "additionalProperties": false,
@@ -1055,7 +1595,7 @@
 
         "message": {
           "description": "A message relevant to this call stack.",
-          "type": "string"
+          "$ref": "#/definitions/message"
         },
 
         "frames": {
@@ -1077,7 +1617,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1087,36 +1627,16 @@
       },
       "required": [ "frames" ]
     },
+
     "stackFrame": {
       "description": "A function call within a stack trace.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "message": {
-          "description": "A message relevant to this stack frame.",
-          "type": "string"
-        },
-
-        "uri": {
-          "description": "The uri of the source code file to which this stack frame refers.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "uriBaseId": {
-          "description": "A string that identifies the conceptual base for the 'uri' property (if it is relative), e.g.,'$(SolutionDir)' or '%SRCROOT%'.",
-          "type": "string"
-        },
-
-        "line": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
-        },
-
-        "column": {
-          "description": "The line of the location to which this stack frame refers.",
-          "type": "integer"
+        "location": {
+          "description": "The location to which this stack frame refers.",
+          "$ref": "#/definitions/location"
         },
 
         "module": {
@@ -1127,16 +1647,6 @@
         "threadId": {
           "description": "The thread identifier of the stack frame.",
           "type": "integer"
-        },
-
-        "fullyQualifiedLogicalName": {
-          "description": "The fully qualified name of the method or function that is executing.",
-          "type": "string"
-        },
-
-        "logicalLocationKey": {
-          "description": "A key used to retrieve the stack frame logicalLocation from the logicalLocations dictionary, when the 'fullyQualifiedLogicalName' is not unique.",
-          "type": "string"
         },
 
         "address": {
@@ -1154,7 +1664,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "default": [ ]
+            "default": []
           }
         },
 
@@ -1168,7 +1678,50 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "threadFlow": {
+      "type": "object",
+      "properties": {
+
+        "id": {
+          "description": "An string that uniquely identifies the threadFlow within the codeFlow in which it occurs.",
+          "type": "string"
+        },
+
+        "message": {
+          "description": "A message relevant to the code flow.",
+          "$ref": "#/definitions/message"
+        },
+
+        "locations": {
+          "description": "An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/codeFlowLocation"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the code flow.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1176,14 +1729,9 @@
           }
         }
       },
-
-      "required": [ "fullyQualifiedLogicalName" ],
-      "dependencies": {
-        "uriBaseId": [ "uri" ],
-        "line": [ "uri" ],
-        "column": [ "line" ]
-      }
+      "required": [ "locations" ]
     },
+
     "tool": {
       "description": "The analysis tool that was run.",
       "additionalProperties": false,
@@ -1223,7 +1771,8 @@
 
         "language": {
           "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-          "type": "string"
+          "type": "string",
+          "default": "en-US"
         },
 
         "properties": {
@@ -1236,7 +1785,7 @@
               "description": "A set of distinct strings that provide additional information.",
               "type": "array",
               "uniqueItems": true,
-              "default": [ ],
+              "default": [],
               "items": {
                 "type": "string"
               }
@@ -1245,6 +1794,61 @@
         }
       },
       "required": [ "name" ]
+    },
+
+    "versionControlDetails": {
+      "descriptipn": "Specifies the information necessary to retrieve a desired revision from a version control system.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "uri": {
+          "description": "The absolute URI of the repository.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "revisionId": {
+          "description": "A string that uniquely and permanently identifies the revision within the repository.",
+          "type": "string"
+        },
+
+        "branch": {
+          "description": "The name of a branch containing the revision.",
+          "type": "string"
+        },
+
+        "tag": {
+          "description": "A tag that has been applied to the revision.",
+          "type": "string"
+        },
+
+        "timestamp": {
+          "description": "The date and time at which the revision was created.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the revision.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+
+            "tags": {
+              "description": "A set of distinct strings that provide additional information.",
+              "type": "array",
+              "uniqueItems": true,
+              "default": [],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+
+      "required": [ "uri" ]
     }
   }
 }

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Clang"
+      },
+      "files": {
+        "jcparam.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Dead assignment",
+          "message": {
+            "text": "Value stored to 'scanptr' is never read"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jcparam.c"
+                },
+                "region": {}
+              }
+            }
+          ],
+          "properties": {
+            "category": "Dead store",
+            "issue_context_kind": "function",
+            "issueContext": "jpeg_simple_progression",
+            "issueHash": "57"
+          }
+        },
+        {
+          "ruleId": "Dead assignment",
+          "message": {
+            "text": "Value stored to 'scanptr' is never read"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jcparam.c"
+                },
+                "region": {}
+              }
+            }
+          ],
+          "properties": {
+            "category": "Dead store",
+            "issue_context_kind": "function",
+            "issueContext": "jpeg_simple_progression",
+            "issueHash": "68"
+          }
+        }
+      ]
+    }
+  ]
+}

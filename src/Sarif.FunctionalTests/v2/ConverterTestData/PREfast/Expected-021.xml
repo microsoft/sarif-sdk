@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>6</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26006</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Read overflow using expression '(const void *)b'
+PREFAST_NEWLINE
+Buffer b is a parameter to this function declared on line 3
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(b)`3 + 1 bytes [from annotation valid(elementCount(1)) at c:\somepath\test021.cpp(3)]
+PREFAST_NEWLINE
+Accessing 11 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 2} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 2} is (const void *)b; {parameter 3} is 11
+PREFAST_NEWLINE
+[Annotation _In_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer b is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAD@Z</DECORATED><FUNCLINE>3</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>3</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>5</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>6</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>6</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(void *)(&amp; a)'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 11 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memcpy requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; a); {parameter 3} is 11
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAD@Z</DECORATED><FUNCLINE>3</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>3</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>5</LINE><COLUMN>6</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test021.cpp</FILENAME><LINE>6</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // a rule is enabled or forced to a particular warning level.
             // We therefore expect two top-level items in the configuration,
             // each of which is a properties collection for a rule.
-            configuration.Keys.Count.Should().Be(2);
+            configuration.Keys.Count.Should().Be(3);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             PropertiesDictionary configuration = CreateAllRulesDisabledConfiguration();
 
             configuration.Should().NotBeNull();
-            configuration.Keys.Count.Should().Be(2);
+            configuration.Keys.Count.Should().Be(3);
 
             foreach (PropertiesDictionary ruleProperties in configuration.Values)
             {

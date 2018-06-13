@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>29</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 26
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`26 + 4*(*pcb)`26 bytes [from annotation SAL_writableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(26)]
+PREFAST_NEWLINE
+Accessing 4*(*pcb)`26 + 4 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function test2p requires that buf is of length &gt;= * pcb elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(26)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcb) = (*pcb)`26 + 1
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`26 == 0
+PREFAST_NEWLINE
+(*pcb)`26 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>test2p</FUNCTION><DECORATED>?test2p@@YAJPAH0@Z</DECORATED><FUNCLINE>26</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>26</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>28</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>29</LINE><COLUMN>36</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>29</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>63</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 56
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`56 + 4*(*pcb)`56 bytes [from annotation SAL_writableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(56)]
+PREFAST_NEWLINE
+Accessing 4*(*pcb)`56 + 4 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function test3p requires that buf is of length &gt;= * pcb elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(56)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcb) = (*pcb)`56 + 1
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`56 == 0
+PREFAST_NEWLINE
+(*pcb)`56 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>test3p</FUNCTION><DECORATED>?test3p@@YAJPAH0@Z</DECORATED><FUNCLINE>56</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>56</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>58</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>59</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>60</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>60</LINE><COLUMN>29</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>61</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>63</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>95</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 88
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`88 + 4*(*pcb)`88 bytes [from annotation SAL_writableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(88)]
+PREFAST_NEWLINE
+Accessing 4*(*pcb)`88 + 4 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function test4p requires that buf is of length &gt;= * pcb elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(88)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcb) = (*pcb)`88 + 1
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`88 == 0
+PREFAST_NEWLINE
+(*pcb)`88 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>test4p</FUNCTION><DECORATED>?test4p@@YAJPAH0@Z</DECORATED><FUNCLINE>88</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>88</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>90</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>91</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>91</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>92</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>92</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>93</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>95</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>111</LINE><COLUMN>8</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 104
+PREFAST_NEWLINE
+Buffer is of length offset(buf)`104 + 4*(*pcb)`104 bytes [from annotation SAL_writableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(104)]
+PREFAST_NEWLINE
+Accessing 4*(*pcb)`104 + 4 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function test5p requires that buf is of length &gt;= * pcb elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount(* pcb)) at c:\somepath\test113.cpp(104)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*pcb) = (*pcb)`104 + 1
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`104 == 0
+PREFAST_NEWLINE
+(*pcb)`104 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>test5p</FUNCTION><DECORATED>?test5p@@YAJPAH0@Z</DECORATED><FUNCLINE>104</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>104</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>106</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>107</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>107</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>108</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>108</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>109</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>111</LINE><COLUMN>8</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>146</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26011</DEFECTCODE><DESCRIPTION>Potential read underflow using expression 'buf[size - 1]'
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset size`144a - 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+size = size`144a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+size`144a &lt;= 100
+PREFAST_NEWLINE
+size`144a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Underflow access occurs when
+PREFAST_NEWLINE
+size`144a == 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential Underflow using expression 'buf[size - 1]' at line 147
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 152
+PREFAST_NEWLINE
+Potential Underflow using expression 'buf[size - 1]' at line 153
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 158
+PREFAST_NEWLINE
+Potential Underflow using expression 'buf[size - 1]' at line 159
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 164
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 169
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 174
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 179
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 184
+PREFAST_NEWLINE
+Potential read underflow using expression 'buf[size - 1]' at line 189
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>135</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>135</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>137</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>138</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>139</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>141</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>143</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>144</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>144</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>145</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>146</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>147</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26015</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'buf[size - 1]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: size`144a is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is buf
+PREFAST_NEWLINE
+Buffer is of length 100 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset size`144a - 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+ when function test1n called at line 144 fails.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+size = size`144a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+size`144a &gt;= 101
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow using expression 'buf[size - 1]' at line 153
+PREFAST_NEWLINE
+Potential overflow using expression 'buf[size - 1]' at line 159
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>135</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>135</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>137</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>138</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>139</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>141</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>143</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>144</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>144</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>145</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test113.cpp</FILENAME><LINE>147</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT></DEFECTS>

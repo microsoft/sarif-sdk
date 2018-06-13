@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Notification> _toolNotifications;
         private Dictionary<string, FileData> _fileDictionary;
         private Dictionary<string, IRule> _ruleDictionary;
-        private Dictionary<AnnotatedCodeLocation, string> _aclToSnippetIdDictionary;
+        private Dictionary<CodeFlowLocation, string> _cflToSnippetIdDictionary;
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
         private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
 
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications = new List<Notification>();
             _fileDictionary = new Dictionary<string, FileData>();
             _ruleDictionary = new Dictionary<string, IRule>();
-            _aclToSnippetIdDictionary = new Dictionary<AnnotatedCodeLocation, string>();
+            _cflToSnippetIdDictionary = new Dictionary<CodeFlowLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
         }
@@ -79,19 +79,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Clear();
             _fileDictionary.Clear();
             _ruleDictionary.Clear();
-            _aclToSnippetIdDictionary.Clear();
+            _cflToSnippetIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
 
             ParseFprFile(input);
             AddMessagesToResults();
             AddSnippetsToResults();
-            AddSnippetsToAnnotatedCodeLocations();
+            AddSnippetsToCodeFlowLocations();
 
-            output.Initialize(id: _runId, automationId: _automationId);
+            var run = new Run()
+            {
+                Id = _runId,
+                AutomationId = _automationId,
+                Tool = tool,
+                Invocations = new[] { _invocation }
+            };
 
-            output.WriteTool(tool);
-            output.WriteInvocation(_invocation);
+            output.Initialize(run);
+
 
             if (_fileDictionary.Any())
             {
@@ -303,12 +309,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
-                CodeFlows = new List<CodeFlow>
+                CodeFlows = new []
                 {
-                    new CodeFlow
-                    {
-                        Locations = new List<AnnotatedCodeLocation>()
-                    }
+                    SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
             };
 
@@ -346,20 +349,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
                     PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
 
-                    var acl = new AnnotatedCodeLocation
+                    var cfl = new CodeFlowLocation
                     {
-                        Step = step++,
-                        PhysicalLocation = physLoc
+                        Step = ++step,
+                        Location = new Location
+                        {
+                            PhysicalLocation = physLoc
+                        }
                     };
 
                     // Remember the id of the snippet associated with this location.
                     // We'll use it to fill the snippet text when we read the Snippets element later on.
                     if (!String.IsNullOrEmpty(snippetId))
                     {
-                        _aclToSnippetIdDictionary.Add(acl, snippetId);
+                        _cflToSnippetIdDictionary.Add(cfl, snippetId);
                     }
 
-                    codeFlow.Locations.Add(acl);
+                    codeFlow.ThreadFlows[0].Locations.Add(cfl);
 
                     // Keep track of the snippet associated with the last location in the
                     // CodeFlow; that's the snippet that we'll associate with the Result
@@ -375,14 +381,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (codeFlow.Locations.Any())
+            if (codeFlow.ThreadFlows[0].Locations.Any())
             {
                 result.Locations.Add(new Location
                 {
                     // TODO: Confirm that the traces are ordered chronologically
                     // (so that we really do want to use the last one as the
                     // overall result location).
-                    ResultFile = codeFlow.Locations.Last().PhysicalLocation
+                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
                 });
 
                 if (!String.IsNullOrEmpty(lastSnippetId))
@@ -419,7 +425,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return new PhysicalLocation
             {
-                Uri = new Uri(path, UriKind.Relative),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(path, UriKind.Relative)
+                },
                 Region = new Region
                 {
                     StartLine = startLine,
@@ -441,11 +450,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
-                    rule.ShortDescription = _reader.ReadElementContentAsString();
+                    rule.ShortDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
-                    rule.FullDescription = _reader.ReadElementContentAsString();
+                    rule.FullDescription = new Message { Text = _reader.ReadElementContentAsString() };
                 }
                 else
                 {
@@ -529,7 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Id = errorCode,
                         Level = NotificationLevel.Error,
-                        Message = message
+                        Message = new Message { Text = message }
                     });
                 }
                 else
@@ -594,14 +603,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 string snippetId, snippetText;
                 if (_resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
-                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
+                    result.Locations?[0]?.PhysicalLocation?.Region != null)
                 {
-                    result.Snippet = snippetText;
+                    result.Locations[0].PhysicalLocation.Region.Snippet.Text = snippetText;
                 }
             }
         }
 
-        private void AddSnippetsToAnnotatedCodeLocations()
+        private void AddSnippetsToCodeFlowLocations()
         {
             foreach (Result result in _results)
             {
@@ -609,15 +619,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     foreach (CodeFlow codeFlow in result.CodeFlows)
                     {
-                        if (codeFlow.Locations != null)
+                        if (codeFlow.ThreadFlows[0].Locations != null)
                         {
-                            foreach (AnnotatedCodeLocation acl in codeFlow.Locations)
+                            foreach (CodeFlowLocation cfl in codeFlow.ThreadFlows[0].Locations)
                             {
                                 string snippetId, snippetText;
-                                if (_aclToSnippetIdDictionary.TryGetValue(acl, out snippetId) &&
-                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                                if (_cflToSnippetIdDictionary.TryGetValue(cfl, out snippetId) &&
+                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
+                                    cfl.Location?.PhysicalLocation?.Region != null)
                                 {
-                                    acl.Snippet = snippetText;
+                                    cfl.Location.PhysicalLocation.Region.Snippet = new FileContent
+                                    {
+                                        Text = snippetText
+                                    };
                                 }
                             }
                         }

@@ -57,18 +57,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualResults, expectedResults);
 
-            Notification[] actualConfigurationNotifications = SafeListToArray(actualLog.Runs[0].ConfigurationNotifications);
-            Notification[] expectedConfigurationNotifications = SafeListToArray(expectedLog.Runs[0].ConfigurationNotifications);
+            Notification[] actualConfigurationNotifications = SafeListToArray(actualLog.Runs[0].Invocations?[0]?.ConfigurationNotifications);
+            Notification[] expectedConfigurationNotifications = SafeListToArray(expectedLog.Runs[0].Invocations?[0]?.ConfigurationNotifications);
 
             SelectiveCompare(actualConfigurationNotifications, expectedConfigurationNotifications);
 
-            Notification[] actualToolNotifications = SafeListToArray(actualLog.Runs[0].ToolNotifications);
-            Notification[] expectedToolNotifications = SafeListToArray(expectedLog.Runs[0].ToolNotifications);
+            Notification[] actualToolNotifications = SafeListToArray(actualLog.Runs[0].Invocations?[0]?.ToolNotifications);
+            Notification[] expectedToolNotifications = SafeListToArray(expectedLog.Runs[0].Invocations[0]?.ToolNotifications);
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Rules;
-            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Rules;
+            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Resources.Rules;
+            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Resources.Rules;
 
             SelectiveCompare(actualRules, expectedRules);
         }
@@ -114,8 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     actualResult.Level.Should().Be(expectedResult.Level);
 
-                    actualResult.Locations[0].AnalysisTarget.Region.ValueEquals(
-                        expectedResult.Locations[0].AnalysisTarget.Region).Should().BeTrue();
+                    actualResult.Locations[0].PhysicalLocation.Region.ValueEquals(
+                        expectedResult.Locations[0].PhysicalLocation.Region).Should().BeTrue();
                 }
             }
         }

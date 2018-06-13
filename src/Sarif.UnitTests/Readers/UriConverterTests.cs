@@ -109,8 +109,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
         {
           ""locations"": [
             {
-              ""analysisTarget"": {
-                ""uri"": """ + expectedUri + @"""
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": """ + expectedUri + @"""
+                }
               }
             }
           ]
@@ -121,11 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 }";
             string actualOutput = GetJson(uut =>
             {
-                var run = new Run();
-
-                uut.Initialize(id: null, automationId: null);
-
-                uut.WriteTool(DefaultTool);
+                var run = new Run() { Tool = DefaultTool };
+                uut.Initialize(run);
 
                 var result = new Result
                 {
@@ -133,9 +132,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                     {
                         new Location
                         {
-                            AnalysisTarget = new PhysicalLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
+                                }
                             }
                         }
                     }
