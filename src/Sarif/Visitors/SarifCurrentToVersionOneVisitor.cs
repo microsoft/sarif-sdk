@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
-                    RuleId = v2Result.RuleId,
+                    RuleKey = v2Result.RuleId,
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
                 };
