@@ -667,5 +667,688 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
         }
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_NotificationExceptionWithStack()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""toolNotifications"": [
+            {
+              ""id"": ""CTN0001"",
+              ""message"": {
+                ""text"": ""Unhandled exception.""
+              },
+              ""level"": ""error"",
+              ""exception"": {
+                ""kind"": ""ExecutionEngine.RuleFailureException"",
+                ""message"": ""Unhandled exception during rule evaluation."",
+                ""stack"": {
+                  ""message"": {
+                    ""text"": ""This is the stack messasge.""
+                  },
+                  ""frames"": [
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          },
+                          ""region"": {
+                            ""startLine"": 15,
+                            ""startColumn"": 9
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                        ""message"": {
+                          ""text"": ""Exception thrown""
+                        }
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 10092852
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/main.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register-0""
+                      },
+                      ""module"": ""RuleLibrary"",
+                      ""threadId"": 52,
+                      ""address"": 1002485
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/utils.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    },
+                    {
+                      ""location"": {
+                        ""physicalLocation"": {
+                          ""fileLocation"": {
+                            ""uri"": ""file:///C:/src/foobar.cs""
+                          }
+                        },
+                        ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.FooBar""
+                      },
+                      ""module"": ""ExecutionEngine"",
+                      ""threadId"": 52,
+                      ""address"": 10073356,
+                      ""offset"": 10475
+                    }
+                  ]
+                },
+                ""innerExceptions"": [
+                  {
+                    ""kind"": ""System.ArgumentException"",
+                    ""message"": ""length is < 0""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""fullyQualifiedName"": ""ExecutionEngine.Engine.EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register"",
+          ""fullyQualifiedName"": ""Rules.SecureHashAlgorithmRule.Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocation"": {},
+      ""logicalLocations"": {
+        ""Rules.SecureHashAlgorithmRule.Evaluate"": {
+          ""name"": ""Evaluate"",
+          ""kind"": ""some kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register"": {
+          ""name"": ""InvalidName""
+        },
+        ""ExecutionEngine.Engine.FooBar"": {
+          ""name"": ""EvaluateRule"",
+          ""kind"": ""another kind""
+        },
+        ""Rules.SecureHashAlgorithmRule.Register-0"": {
+          ""name"": ""Register""
+        },
+        ""ExecutionEngine.Engine.EvaluateRule"": {
+          ""name"": ""EvaluateRule""
+        }
+      },
+      ""results"": [],
+      ""toolNotifications"": [
+        {
+          ""id"": ""CTN0001"",
+          ""message"": ""Unhandled exception."",
+          ""level"": ""error"",
+          ""exception"": {
+            ""kind"": ""ExecutionEngine.RuleFailureException"",
+            ""message"": ""Unhandled exception during rule evaluation."",
+            ""stack"": {
+              ""message"": ""This is the stack messasge."",
+              ""frames"": [
+                {
+                  ""message"": ""Exception thrown"",
+                  ""uri"": ""file:///C:/src/main.cs"",
+                  ""line"": 15,
+                  ""column"": 9,
+                  ""module"": ""RuleLibrary"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
+                  ""address"": 10092852
+                },
+                {
+                  ""uri"": ""file:///C:/src/main.cs"",
+                  ""module"": ""RuleLibrary"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Register"",
+                  ""logicalLocationKey"": ""Rules.SecureHashAlgorithmRule.Register-0"",
+                  ""address"": 1002485
+                },
+                {
+                  ""uri"": ""file:///C:/src/utils.cs"",
+                  ""module"": ""ExecutionEngine"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                  ""address"": 10073356,
+                  ""offset"": 10475
+                },
+                {
+                  ""uri"": ""file:///C:/src/foobar.cs"",
+                  ""module"": ""ExecutionEngine"",
+                  ""threadId"": 52,
+                  ""fullyQualifiedLogicalName"": ""ExecutionEngine.Engine.EvaluateRule"",
+                  ""logicalLocationKey"": ""ExecutionEngine.Engine.FooBar"",
+                  ""address"": 10073356,
+                  ""offset"": 10475
+                }
+              ]
+            },
+            ""innerExceptions"": [
+              {
+                ""kind"": ""System.ArgumentException"",
+                ""message"": ""length is < 0""
+              }
+            ]
+          }
+        }
+      ],
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""CTN0001"",""message"":{""text"":""Unhandled exception.""},""level"":""error"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""stack"":{""message"":{""text"":""This is the stack messasge.""},""frames"":[{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/main.cs""},""region"":{""startLine"":15,""startColumn"":9}},""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Evaluate"",""message"":{""text"":""Exception thrown""}},""module"":""RuleLibrary"",""threadId"":52,""address"":10092852},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/main.cs""}},""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Register-0""},""module"":""RuleLibrary"",""threadId"":52,""address"":1002485},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/utils.cs""}},""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule""},""module"":""ExecutionEngine"",""threadId"":52,""address"":10073356,""offset"":10475},{""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///C:/src/foobar.cs""}},""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.FooBar""},""module"":""ExecutionEngine"",""threadId"":52,""address"":10073356,""offset"":10475}]},""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}}]}],""logicalLocations"":{""Rules.SecureHashAlgorithmRule.Evaluate"":{""name"":""Evaluate"",""kind"":""some kind""},""Rules.SecureHashAlgorithmRule.Register"":{""name"":""InvalidName""},""ExecutionEngine.Engine.FooBar"":{""name"":""EvaluateRule"",""fullyQualifiedName"":""ExecutionEngine.Engine.EvaluateRule"",""kind"":""another kind""},""Rules.SecureHashAlgorithmRule.Register-0"":{""name"":""Register"",""fullyQualifiedName"":""Rules.SecureHashAlgorithmRule.Register""},""ExecutionEngine.Engine.EvaluateRule"":{""name"":""EvaluateRule""}},""results"":[]}
+      }
+    }
+  ]
+}";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""files"": {
+        ""http://localhost:34420/HtmlFixes.html"": {
+          ""length"": 43,
+          ""enoding"": ""utf-8"",
+          ""mimeType"": ""text/plain"",
+          ""contents"": {
+            ""text"": ""The quick brown fox jumps over the lazy dog"",
+            ""binary"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""
+          },
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFix.html"": {
+          ""length"": 87,
+          ""encoding"": ""foo-bar"",
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFixNoEncoding.html"": {
+          ""length"": 87,
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""message"": {
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute values in single quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Jw==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""description"": {
+                ""text"": ""Wrap attribute value in double quotes.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 720
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    },
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 725
+                      },
+                      ""insertedContent"": {
+                        ""binary"": ""Ig==""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlTextFix.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Convert tag name to lowercase.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlTextFix.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 125,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""text"": ""<div>""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlTextFixNoEncoding.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Convert tag name to lowercase.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""http://localhost:34420/HtmlTextFixNoEncoding.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 125,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""text"": ""<div>""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""/wwwroot/vdir/HtmlTextFixNoEntry.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""fixes"": [
+            {
+              ""description"": {
+                ""text"": ""Convert tag name to lowercase.""
+              },
+              ""fileChanges"": [
+                {
+                  ""fileLocation"": {
+                    ""uri"": ""/wwwroot/vdir/HtmlTextFixNoEntry.html""
+                  },
+                  ""replacements"": [
+                    {
+                      ""deletedRegion"": {
+                        ""offset"": 125,
+                        ""length"": 3
+                      },
+                      ""insertedContent"": {
+                        ""text"": ""<div>""
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""WEB1079.AttributeValueIsNotQuoted"": {
+            ""id"": ""WEB1079"",
+            ""shortDescription"": {
+              ""text"": ""The attribute value is not quoted.""
+            },
+            ""messageStrings"": {
+              ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+            }
+          },
+          ""WEB1066.TagNameIsNotLowercase"": {
+            ""id"": ""WEB1066"",
+            ""shortDescription"": {
+              ""text"": ""The tag name is not lowercase.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""files"": {
+        ""http://localhost:34420/HtmlFixes.html"": {
+          ""length"": 43,
+          ""mimeType"": ""text/plain"",
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFix.html"": {
+          ""length"": 87,
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha256""
+            }
+          ]
+        },
+        ""http://localhost:34420/HtmlTextFixNoEncoding.html"": {
+          ""length"": 87,
+          ""mimeType"": ""text/plain"",
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha256""
+            }
+          ]
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""fixes"": [
+            {
+              ""description"": ""Wrap attribute values in single quotes."",
+              ""fileChanges"": [
+                {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""replacements"": [
+                    {
+                      ""offset"": 720,
+                      ""insertedBytes"": ""Jw==""
+                    },
+                    {
+                      ""offset"": 725,
+                      ""insertedBytes"": ""Jw==""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              ""description"": ""Wrap attribute value in double quotes."",
+              ""fileChanges"": [
+                {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                  ""replacements"": [
+                    {
+                      ""offset"": 720,
+                      ""insertedBytes"": ""Ig==""
+                    },
+                    {
+                      ""offset"": 725,
+                      ""insertedBytes"": ""Ig==""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""snippet"": ""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""snippet"": ""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""
+        }
+      ],
+      ""rules"": {
+        ""WEB1079.AttributeValueIsNotQuoted"": {
+          ""id"": ""WEB1079"",
+          ""shortDescription"": ""The attribute value is not quoted."",
+          ""messageFormats"": {
+            ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+          }
+        },
+        ""WEB1066.TagNameIsNotLowercase"": {
+          ""id"": ""WEB1066"",
+          ""shortDescription"": ""The tag name is not lowercase."",
+          ""messageFormats"": {
+            ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+          }
+        }
+      },
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""files"":{""http://localhost:34420/HtmlFixes.html"":{""length"":43,""mimeType"":""text/plain"",""contents"":{""text"":""The quick brown fox jumps over the lazy dog"",""binary"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""},""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFix.html"":{""length"":87,""mimeType"":""text/plain"",""encoding"":""foo-bar"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFixNoEncoding.html"":{""length"":87,""mimeType"":""text/plain"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+      }
+    }
+  ]
+}";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
     }
 }

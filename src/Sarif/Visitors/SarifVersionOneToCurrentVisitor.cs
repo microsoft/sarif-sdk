@@ -860,9 +860,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (invocation != null)
                     {
                         run.Invocations = new List<Invocation>()
-                    {
-                        invocation
-                    };
+                        {
+                            invocation
+                        };
                     }
 
                     foreach (ResultVersionOne v1Result in v1Run.Results)
