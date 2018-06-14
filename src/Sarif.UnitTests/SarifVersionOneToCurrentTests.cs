@@ -417,7 +417,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": []
+      ""results"": [
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2001"",
+          ""ruleKey"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2002"",
+          ""ruleKey"": ""C2002-1""
+        },
+        {
+          ""ruleKey"": ""C2003""
+        }
+      ]
     }
   ]
 }";
@@ -432,7 +447,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": [],
+      ""results"": [
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2002-1""
+        },
+        {
+          ""ruleId"": ""C2003""
+        }
+      ],
       ""resources"": {
         ""rules"": {
           ""C2001"": {
@@ -474,11 +502,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""configuration"": {
               ""defaultLevel"": ""note""
             }
+          },
+          ""C2002-1"": {
+            ""id"": ""C2002""
           }
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":1,""defaultLevel"":5,""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":2,""defaultLevel"":2}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001""},{""ruleId"":""C2001"",""ruleKey"":""C2001""},{""ruleId"":""C2002"",""ruleKey"":""C2002-1""},{""ruleKey"":""C2003""}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":1,""defaultLevel"":5,""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":2,""defaultLevel"":2}}}
       }
     }
   ]
@@ -1217,7 +1248,6 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""results"": [
         {
           ""ruleId"": ""WEB1079"",
-          ""ruleKey"": ""WEB1079.AttributeValueIsNotQuoted"",
           ""formattedRuleMessage"": {
             ""formatId"": ""default"",
             ""arguments"": [
@@ -1357,7 +1387,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [
         {
-          ""ruleId"": ""WEB1079.AttributeValueIsNotQuoted"",
+          ""ruleId"": ""WEB1079"",
           ""message"": {
             ""arguments"": [
               ""shape""
@@ -1523,7 +1553,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""WEB1079"",""ruleKey"":""WEB1079.AttributeValueIsNotQuoted"",""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""shape""]},""locations"":[{""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""resultFile"":{""uri"":""http://localhost:34420/HtmlFixes.html"",""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""offset"":720,""length"":5}}}],""snippet"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />"",""fixes"":[{""description"":""Wrap attribute values in single quotes."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":720,""insertedBytes"":""Jw==""},{""offset"":725,""insertedBytes"":""Jw==""}]}]},{""description"":""Wrap attribute value in double quotes."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":720,""insertedBytes"":""Ig==""},{""offset"":725,""insertedBytes"":""Ig==""}]}]}]},{""ruleId"":""WEB1066"",""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""DIV""]},""locations"":[{""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""resultFile"":{""uri"":""http://localhost:34420/HtmlFixes.html"",""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34}}}],""snippet"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",""fixes"":[{""description"":""Convert tag name to lowercase."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":804,""deletedLength"":3,""insertedBytes"":""ZGl2""}]}]}]}],""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":""The attribute value is not quoted."",""messageFormats"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":""The tag name is not lowercase."",""messageFormats"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""WEB1079"",""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""shape""]},""locations"":[{""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""resultFile"":{""uri"":""http://localhost:34420/HtmlFixes.html"",""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""offset"":720,""length"":5}}}],""snippet"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />"",""fixes"":[{""description"":""Wrap attribute values in single quotes."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":720,""insertedBytes"":""Jw==""},{""offset"":725,""insertedBytes"":""Jw==""}]}]},{""description"":""Wrap attribute value in double quotes."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":720,""insertedBytes"":""Ig==""},{""offset"":725,""insertedBytes"":""Ig==""}]}]}]},{""ruleId"":""WEB1066"",""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""DIV""]},""locations"":[{""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""resultFile"":{""uri"":""http://localhost:34420/HtmlFixes.html"",""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34}}}],""snippet"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",""fixes"":[{""description"":""Convert tag name to lowercase."",""fileChanges"":[{""uri"":""http://localhost:34420/HtmlFixes.html"",""replacements"":[{""offset"":804,""deletedLength"":3,""insertedBytes"":""ZGl2""}]}]}]}],""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":""The attribute value is not quoted."",""messageFormats"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":""The tag name is not lowercase."",""messageFormats"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}
       }
     }
   ]
