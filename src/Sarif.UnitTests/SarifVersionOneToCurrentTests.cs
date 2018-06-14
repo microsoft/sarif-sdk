@@ -1773,7 +1773,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                           }
                         ]
                       },
-                      ""module"": ""platform""
+                      ""module"": ""platform"",
+                      ""importance"": ""unimportant""
                     },
                     {
                       ""step"": 3,
