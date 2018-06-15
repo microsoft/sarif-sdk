@@ -409,7 +409,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Locations = v2Result.Locations?.Select(CreateLocation).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
-                    RuleKey = v2Result.RuleId,
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
                 };
@@ -428,6 +427,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v2Result.AnalysisTarget != null)
                 {
                     // TODO: set Uri on result.Locations[0]
+                }
+
+                if (_currentV2Run.Resources?.Rules != null)
+                {
+                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
+                    Rule v2Rule;
+
+                    if (v2Result.RuleId != null &&
+                        rules.TryGetValue(v2Result.RuleId, out v2Rule) &&
+                        v2Rule.Id != v2Result.RuleId)
+                    {
+                        result.RuleId = v2Rule.Id;
+                        result.RuleKey = v2Result.RuleId;
+                    }
+                    else
+                    {
+                        result.RuleId = v2Result.RuleId;
+                    }
+                }
+                else
+                {
+                    result.RuleId = v2Result.RuleId;
                 }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
