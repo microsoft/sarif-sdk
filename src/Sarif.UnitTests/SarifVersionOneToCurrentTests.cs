@@ -417,7 +417,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": []
+      ""results"": [
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2001"",
+          ""ruleKey"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2002"",
+          ""ruleKey"": ""C2002-1""
+        },
+        {
+          ""ruleKey"": ""C2003""
+        }
+      ]
     }
   ]
 }";
@@ -432,7 +447,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": [],
+      ""results"": [
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2001""
+        },
+        {
+          ""ruleId"": ""C2002-1""
+        },
+        {
+          ""ruleId"": ""C2003""
+        }
+      ],
       ""resources"": {
         ""rules"": {
           ""C2001"": {
@@ -474,11 +502,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""configuration"": {
               ""defaultLevel"": ""note""
             }
+          },
+          ""C2002-1"": {
+            ""id"": ""C2002""
           }
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":1,""defaultLevel"":5,""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":2,""defaultLevel"":2}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001""},{""ruleId"":""C2001"",""ruleKey"":""C2001""},{""ruleId"":""C2002"",""ruleKey"":""C2002-1""},{""ruleKey"":""C2003""}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":1,""defaultLevel"":5,""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":2,""defaultLevel"":2}}}
       }
     }
   ]

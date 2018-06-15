@@ -707,7 +707,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
                     RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
-                    RuleId = v1Result.RuleId,
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
@@ -716,6 +715,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
+                }
+
+                if (v1Result.RuleKey == null)
+                {
+                    result.RuleId = v1Result.RuleId;
+                }
+                else
+                {
+                    if (v1Result.RuleId == null)
+                    {
+                        result.RuleId = v1Result.RuleKey;
+                    }
+                    else
+                    {
+                        if (v1Result.RuleId == v1Result.RuleKey)
+                        {
+                            result.RuleId = v1Result.RuleId;
+                        }
+                        else
+                        {
+                            result.RuleId = v1Result.RuleKey;
+
+                            if (_currentRun.Resources == null)
+                            {
+                                _currentRun.Resources = new Resources();
+                            }
+
+                            if (_currentRun.Resources.Rules == null)
+                            {
+                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
+                            }
+
+                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
+
+                            if (!rules.ContainsKey(v1Result.RuleKey))
+                            {
+                                rules.Add(v1Result.RuleKey, new Rule());
+                            }
+
+                            rules[v1Result.RuleKey].Id = v1Result.RuleId;
+                        }
+                    }
                 }
                 
                 if (v1Result.FormattedRuleMessage != null)
@@ -829,6 +870,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     _currentRun = run;
 
+                    if (v1Run.Rules != null)
+                    {
+                        run.Resources = new Resources
+                        {
+                            Rules = new Dictionary<string, Rule>()
+                        };
+
+                        foreach (var pair in v1Run.Rules)
+                        {
+                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
+                        }
+                    }
+
                     if (v1Run.Files != null)
                     {
                         run.Files = new Dictionary<string, FileData>();
@@ -868,19 +922,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     foreach (ResultVersionOne v1Result in v1Run.Results)
                     {
                         run.Results.Add(CreateResult(v1Result));
-                    }
-
-                    if (v1Run.Rules != null)
-                    {
-                        run.Resources = new Resources
-                        {
-                            Rules = new Dictionary<string, Rule>()
-                        };
-
-                        foreach (var pair in v1Run.Rules)
-                        {
-                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
-                        }
                     }
 
                     // Stash the entire v1 run in this v2 run's property bag

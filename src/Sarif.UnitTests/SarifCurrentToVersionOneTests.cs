@@ -345,7 +345,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": [],
+      ""results"": [
+        {
+          ""ruleId"": ""C2009""
+        },
+        {
+          ""ruleId"": ""C2002""
+        },
+        {
+          ""ruleId"": ""C2003""
+        },
+        {
+          ""ruleId"": ""C2003-1""
+        }
+      ],
       ""resources"": {
         ""rules"": {
           ""C2001"": {
@@ -373,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""uri"": ""http://www.domain.com/rules/c2002.html""
             }
           },
-          ""C2003"": {
+          ""C2003-1"": {
             ""id"": ""C2003"",
             ""name"": {
               ""text"": ""Rule C2003""
@@ -400,7 +413,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": [],
+      ""results"": [
+        {
+          ""ruleId"": ""C2009""
+        },
+        {
+          ""ruleId"": ""C2002""
+        },
+        {
+          ""ruleId"": ""C2003""
+        },
+        {
+          ""ruleId"": ""C2003"",
+          ""ruleKey"": ""C2003-1""
+        }
+      ],
       ""rules"": {
         ""C2001"": {
           ""id"": ""C2001"",
@@ -419,7 +446,7 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""defaultLevel"": ""error"",
           ""helpUri"": ""http://www.domain.com/rules/c2002.html""
         },
-        ""C2003"": {
+        ""C2003-1"": {
           ""id"": ""C2003"",
           ""name"": ""Rule C2003"",
           ""shortDescription"": ""Rules were meant to be broken."",
@@ -427,7 +454,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""resources"":{""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":{""text"":""A variable was used without being initialized.""},""messageStrings"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":{""text"":""Catfish season continuous hen lamb include dose copy grant.""},""configuration"":{""enabled"":true,""defaultLevel"":""error""},""helpLocation"":{""uri"":""http://www.domain.com/rules/c2002.html""}},""C2003"":{""id"":""C2003"",""name"":{""text"":""Rule C2003""},""shortDescription"":{""text"":""Rules were meant to be broken.""},""fullDescription"":{""text"":""Rent internal rebellion competence biography photograph.""}}}}}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2009""},{""ruleId"":""C2002""},{""ruleId"":""C2003""},{""ruleId"":""C2003-1""}],""resources"":{""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":{""text"":""A variable was used without being initialized.""},""messageStrings"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":{""text"":""Catfish season continuous hen lamb include dose copy grant.""},""configuration"":{""enabled"":true,""defaultLevel"":""error""},""helpLocation"":{""uri"":""http://www.domain.com/rules/c2002.html""}},""C2003-1"":{""id"":""C2003"",""name"":{""text"":""Rule C2003""},""shortDescription"":{""text"":""Rules were meant to be broken.""},""fullDescription"":{""text"":""Rent internal rebellion competence biography photograph.""}}}}}
       }
     }
   ]
