@@ -246,6 +246,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return CodeFlowLocationImportance.Essential;
                 case AnnotatedCodeLocationImportanceVersionOne.Important:
                     return CodeFlowLocationImportance.Important;
+                case AnnotatedCodeLocationImportanceVersionOne.Unimportant:
+                    return CodeFlowLocationImportance.Unimportant;
                 default:
                     return CodeFlowLocationImportance.Important;
             }
