@@ -424,6 +424,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         result.RuleId = v2Result.RuleId;
                     }
                 }
+                else
+                {
+                    result.RuleId = v2Result.RuleId;
+                }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
                 {
