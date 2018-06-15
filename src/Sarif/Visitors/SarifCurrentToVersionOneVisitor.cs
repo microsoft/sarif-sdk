@@ -234,6 +234,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
+        internal LocationVersionOne CreateLocation(Location v2Location)
+        {
+            LocationVersionOne location = null;
+
+            if (v2Location != null)
+            {
+                location = new LocationVersionOne
+                {
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    Properties = v2Location.Properties
+                };
+            }
+
+            return location;
+        }
+
         internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
         {
             LogicalLocationVersionOne logicalLocation = null;
@@ -390,9 +406,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
                     Id = v2Result.InstanceGuid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
+                    Locations = v2Result.Locations?.Select(CreateLocation).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
-                    RuleId = v2Result.RuleId,
+                    RuleKey = v2Result.RuleId,
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
                 };
@@ -406,6 +423,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         result.Fixes = null;
                     }
+                }
+
+                if (v2Result.AnalysisTarget != null)
+                {
+                    // TODO: set Uri on result.Locations[0]
                 }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
