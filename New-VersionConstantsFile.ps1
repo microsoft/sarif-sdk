@@ -32,6 +32,9 @@ namespace $namespace
 }
 "@
 
-New-Item -ItemType Directory -Path $outputDirectory | Out-Null
+if (-not (Test-Path $outputDirectory)) {
+    New-Item -ItemType Directory -Path $outputDirectory | Out-Null
+}
+
 $outputFile = "$outputDirectory\VersionConstants.cs"
 Set-Content $outputFile $versionConstantsFileContents
