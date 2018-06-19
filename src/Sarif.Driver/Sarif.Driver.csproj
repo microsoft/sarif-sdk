@@ -1,14 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sarif\Sarif.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.2.1" />
-    <PackageReference Include="System.Composition" Version="1.2.0" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -17,6 +8,15 @@
     <AssemblyTitle>SARIF Driver Framework</AssemblyTitle>
     <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="System.Composition" Version="1.2.0" />
+  </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
