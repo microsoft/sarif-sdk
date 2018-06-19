@@ -19,4 +19,11 @@
     <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Label="Package">
+    <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
+    <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
+  </PropertyGroup>
+
 </Project>
