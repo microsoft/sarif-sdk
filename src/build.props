@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
+  <RootNamespace>Microsoft.CodeAnalysis.$(MSBuildProjectName)</RootNamespace>
     <OutputSubDir>$(Platform)_$(Configuration)</OutputSubDir>
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(OutputSubDir)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
@@ -25,5 +26,12 @@
     <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
   </PropertyGroup>
+
+  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
+    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
+    </ItemGroup>
+  </Target>
 
 </Project>

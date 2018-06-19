@@ -5,7 +5,6 @@ SETLOCAL
 @REM create a nuget package for the SARIF SDK) so must opt-in
 @REM %~dp0.nuget\NuGet.exe update -self
 
-set Platform=AnyCPU
 set Configuration=Release
 
 :NextArg
@@ -22,50 +21,20 @@ echo Unrecognized option "%1" && goto :ExitFailed
 if exist bld (rd /s /q bld)
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
-call SetCurrentVersion.cmd 
-
-@REM Write VersionConstants files 
-set SDK_VERSION_CONSTANTS=src\Sarif\VersionConstants.cs
-set DRV_VERSION_CONSTANTS=src\Sarif.Driver\VersionConstants.cs
-set Version=%MAJOR%.%MINOR%.%PATCH%
-
-@REM Rewrite VersionConstants.cs
-echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        >  %SDK_VERSION_CONSTANTS%
-echo // license. See LICENSE file in the project root for full license information. >> %SDK_VERSION_CONSTANTS%
-echo namespace Microsoft.CodeAnalysis.Sarif                                         >> %SDK_VERSION_CONSTANTS%
-echo {                                                                              >> %SDK_VERSION_CONSTANTS%
-echo     public static class VersionConstants                                       >> %SDK_VERSION_CONSTANTS%
-echo     {                                                                          >> %SDK_VERSION_CONSTANTS%
-echo         public const string Prerelease = "%PRERELEASE%";                       >> %SDK_VERSION_CONSTANTS%
-echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";       >> %SDK_VERSION_CONSTANTS%
-echo         public const string FileVersion = "%MAJOR%.%MINOR%.%PATCH%" + ".0";    >> %SDK_VERSION_CONSTANTS%
-echo         public const string Version = AssemblyVersion + Prerelease;            >> %SDK_VERSION_CONSTANTS%
-echo     }                                                                          >> %SDK_VERSION_CONSTANTS%
-echo  }                                                                             >> %SDK_VERSION_CONSTANTS%
-
-@REM Rewrite VersionConstants.cs
-echo // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        >  %DRV_VERSION_CONSTANTS%
-echo // license. See LICENSE file in the project root for full license information. >> %DRV_VERSION_CONSTANTS%
-echo namespace Microsoft.CodeAnalysis.Sarif.Driver                                  >> %DRV_VERSION_CONSTANTS%
-echo {                                                                              >> %DRV_VERSION_CONSTANTS%
-echo     public static class VersionConstants                                       >> %DRV_VERSION_CONSTANTS%
-echo     {                                                                          >> %DRV_VERSION_CONSTANTS%
-echo         public const string Prerelease = "%PRERELEASE%";                       >> %DRV_VERSION_CONSTANTS%
-echo         public const string AssemblyVersion = "%MAJOR%.%MINOR%.%PATCH%";       >> %DRV_VERSION_CONSTANTS%
-echo         public const string FileVersion = AssemblyVersion + ".0";              >> %DRV_VERSION_CONSTANTS%
-echo         public const string Version = AssemblyVersion + Prerelease;            >> %DRV_VERSION_CONSTANTS%
-echo     }                                                                          >> %DRV_VERSION_CONSTANTS%
-echo  }                                                                             >> %DRV_VERSION_CONSTANTS%
-
-call BeforeBuild.cmd
-
+:: Generate the SARIF object model classes from the SARIF JSON schema.
+msbuild /verbosity:minimal /target:BuildAndInjectObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed;LogFile=CodeGen.log
 if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
+    echo SARIF object model generation failed.
+    goto ExitFailed
 )
 
-msbuild /verbosity:minimal /target:rebuild src\Everything.sln /filelogger /fileloggerparameters:Verbosity=detailed /p:AutoGenerateBindingRedirects=false
 if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
+    goto ExitFailed
+)
+
+dotnet build src\Everything.sln
+if "%ERRORLEVEL%" NEQ "0" (
+    goto ExitFailed
 )
 
 call :CreatePublishPackage Sarif.Multitool net452
