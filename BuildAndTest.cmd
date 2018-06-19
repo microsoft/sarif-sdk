@@ -37,6 +37,18 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
+for %%i in (Sarif, Sarif.Converters, Sarif.Driver) DO (
+    dotnet test --no-build --no-restore src\%%i.UnitTests\%%i.UnitTests.csproj
+    if "%ERRORLEVEL%" NEQ "0" (
+        echo %%i unit tests failed.
+        goto ExitFailed
+    )
+)
+
+echo SUCCESS -- so far!
+echo TODO -- Finish modifying the rest of this script.
+goto Exit
+
 call :CreatePublishPackage Sarif.Multitool net452
 call :CreatePublishPackage Sarif.Multitool netcoreapp2.0
 call :CreatePublishPackage Sarif.Multitool netstandard2.0

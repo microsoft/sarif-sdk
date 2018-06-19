@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.UnitTests", "Sarif.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Converters.UnitTests", "Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj", "{848A1288-BD16-4E54-8D0F-B365F4AFBD63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Driver.UnitTests", "Sarif.Driver.UnitTests\Sarif.Driver.UnitTests.csproj", "{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,18 @@ Global
 		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x64.Build.0 = Release|Any CPU
 		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x86.ActiveCfg = Release|Any CPU
 		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x86.Build.0 = Release|Any CPU
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|x64.ActiveCfg = Debug|x64
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|x64.Build.0 = Debug|x64
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|x86.ActiveCfg = Debug|x86
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Debug|x86.Build.0 = Debug|x86
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|x64.ActiveCfg = Release|x64
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|x64.Build.0 = Release|x64
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|x86.ActiveCfg = Release|x86
+		{9EF5CE70-E3A3-42AA-B2AE-23492EE75CF4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

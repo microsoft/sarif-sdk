@@ -9,6 +9,8 @@
     <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
@@ -17,7 +19,5 @@
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
     <PackageReference Include="System.Composition" Version="1.2.0" />
   </ItemGroup>
-
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
 </Project>

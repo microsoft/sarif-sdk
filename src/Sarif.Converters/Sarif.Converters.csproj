@@ -9,6 +9,8 @@
     <Description>Classes for converting the output of various static analysis tools to the SARIF format.</Description>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <EmbeddedResource Include="Schemata\FxCopReport.xsd" />
   </ItemGroup>
@@ -21,7 +23,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
-
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
 </Project>

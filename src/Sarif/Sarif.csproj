@@ -9,6 +9,8 @@
     <Description>Object model and utilities for reading and writing files in the SARIF format</Description>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
@@ -28,7 +30,6 @@
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
   <Import Project="ToDotNet\ToDotNet.targets" />
 
 </Project>
