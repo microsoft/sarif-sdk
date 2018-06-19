@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Action action = () => { FileData.Create(null, LoggingOptions.None); };
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
