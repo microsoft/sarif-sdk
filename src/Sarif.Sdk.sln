@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.TestUtilities", "Sari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.UnitTests", "Sarif.UnitTests\Sarif.UnitTests.csproj", "{BA21EDA4-3981-47B2-8840-8DFE4169A641}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Converters.UnitTests", "Sarif.Converters.UnitTests\Sarif.Converters.UnitTests.csproj", "{848A1288-BD16-4E54-8D0F-B365F4AFBD63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,18 @@ Global
 		{BA21EDA4-3981-47B2-8840-8DFE4169A641}.Release|x64.Build.0 = Release|Any CPU
 		{BA21EDA4-3981-47B2-8840-8DFE4169A641}.Release|x86.ActiveCfg = Release|Any CPU
 		{BA21EDA4-3981-47B2-8840-8DFE4169A641}.Release|x86.Build.0 = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|x64.Build.0 = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Debug|x86.Build.0 = Debug|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x64.ActiveCfg = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x64.Build.0 = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x86.ActiveCfg = Release|Any CPU
+		{848A1288-BD16-4E54-8D0F-B365F4AFBD63}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
