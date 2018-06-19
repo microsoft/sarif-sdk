@@ -21,6 +21,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
+    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
+    <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
   </ItemGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
