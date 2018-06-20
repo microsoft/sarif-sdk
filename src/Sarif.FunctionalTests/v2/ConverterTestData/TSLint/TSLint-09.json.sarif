@@ -59,8 +59,8 @@
                   "startColumn": 1,
                   "endLine": 7,
                   "endColumn": 9,
-                  "offset": 80,
-                  "length": 9
+                  "byteOffset": 80,
+                  "byteLength": 9
                 }
               }
             }
@@ -83,8 +83,8 @@
                   "startColumn": 1,
                   "endLine": 8,
                   "endColumn": 14,
-                  "offset": 106,
-                  "length": 14
+                  "byteOffset": 106,
+                  "byteLength": 14
                 }
               }
             }
@@ -107,8 +107,8 @@
                   "startColumn": 1,
                   "endLine": 9,
                   "endColumn": 16,
-                  "offset": 137,
-                  "length": 16
+                  "byteOffset": 137,
+                  "byteLength": 16
                 }
               }
             }
@@ -131,8 +131,8 @@
                   "startColumn": 1,
                   "endLine": 11,
                   "endColumn": 19,
-                  "offset": 172,
-                  "length": 19
+                  "byteOffset": 172,
+                  "byteLength": 19
                 }
               }
             }
@@ -155,8 +155,8 @@
                   "startColumn": 1,
                   "endLine": 14,
                   "endColumn": 4,
-                  "offset": 231,
-                  "length": 4
+                  "byteOffset": 231,
+                  "byteLength": 4
                 }
               }
             }
@@ -179,8 +179,8 @@
                   "startColumn": 16,
                   "endLine": 5,
                   "endColumn": 24,
-                  "offset": 61,
-                  "length": 9
+                  "byteOffset": 61,
+                  "byteLength": 9
                 }
               }
             }
@@ -203,8 +203,8 @@
                   "startColumn": 9,
                   "endLine": 1,
                   "endColumn": 38,
-                  "offset": 8,
-                  "length": 30
+                  "byteOffset": 8,
+                  "byteLength": 30
                 }
               }
             }
@@ -227,8 +227,8 @@
                   "startColumn": 1,
                   "endLine": 4,
                   "endColumn": 36,
-                  "offset": 131,
-                  "length": 36
+                  "byteOffset": 131,
+                  "byteLength": 36
                 }
               }
             }
@@ -251,8 +251,8 @@
                   "startColumn": 1,
                   "endLine": 5,
                   "endColumn": 41,
-                  "offset": 189,
-                  "length": 41
+                  "byteOffset": 189,
+                  "byteLength": 41
                 }
               }
             }
@@ -275,8 +275,8 @@
                   "startColumn": 1,
                   "endLine": 6,
                   "endColumn": 43,
-                  "offset": 247,
-                  "length": 43
+                  "byteOffset": 247,
+                  "byteLength": 43
                 }
               }
             }
@@ -299,8 +299,8 @@
                   "startColumn": 1,
                   "endLine": 4,
                   "endColumn": 24,
-                  "offset": 76,
-                  "length": 24
+                  "byteOffset": 76,
+                  "byteLength": 24
                 }
               }
             }
@@ -323,8 +323,8 @@
                   "startColumn": 1,
                   "endLine": 5,
                   "endColumn": 29,
-                  "offset": 134,
-                  "length": 29
+                  "byteOffset": 134,
+                  "byteLength": 29
                 }
               }
             }
@@ -347,8 +347,8 @@
                   "startColumn": 1,
                   "endLine": 6,
                   "endColumn": 31,
-                  "offset": 192,
-                  "length": 31
+                  "byteOffset": 192,
+                  "byteLength": 31
                 }
               }
             }
@@ -371,8 +371,8 @@
                   "startColumn": 1,
                   "endLine": 4,
                   "endColumn": 29,
-                  "offset": 135,
-                  "length": 29
+                  "byteOffset": 135,
+                  "byteLength": 29
                 }
               }
             }
@@ -395,8 +395,8 @@
                   "startColumn": 1,
                   "endLine": 5,
                   "endColumn": 34,
-                  "offset": 193,
-                  "length": 34
+                  "byteOffset": 193,
+                  "byteLength": 34
                 }
               }
             }
@@ -419,8 +419,8 @@
                   "startColumn": 1,
                   "endLine": 6,
                   "endColumn": 36,
-                  "offset": 252,
-                  "length": 36
+                  "byteOffset": 252,
+                  "byteLength": 36
                 }
               }
             }
@@ -443,8 +443,8 @@
                   "startColumn": 1,
                   "endLine": 3,
                   "endColumn": 36,
-                  "offset": 41,
-                  "length": 36
+                  "byteOffset": 41,
+                  "byteLength": 36
                 }
               }
             }
@@ -467,8 +467,8 @@
                   "startColumn": 1,
                   "endLine": 4,
                   "endColumn": 41,
-                  "offset": 79,
-                  "length": 41
+                  "byteOffset": 79,
+                  "byteLength": 41
                 }
               }
             }
@@ -491,8 +491,8 @@
                   "startColumn": 1,
                   "endLine": 5,
                   "endColumn": 43,
-                  "offset": 122,
-                  "length": 43
+                  "byteOffset": 122,
+                  "byteLength": 43
                 }
               }
             }
@@ -515,8 +515,8 @@
                   "startColumn": 1,
                   "endLine": 4,
                   "endColumn": 32,
-                  "offset": 87,
-                  "length": 32
+                  "byteOffset": 87,
+                  "byteLength": 32
                 }
               }
             }
@@ -539,8 +539,8 @@
                   "startColumn": 1,
                   "endLine": 5,
                   "endColumn": 37,
-                  "offset": 145,
-                  "length": 37
+                  "byteOffset": 145,
+                  "byteLength": 37
                 }
               }
             }
@@ -563,8 +563,8 @@
                   "startColumn": 1,
                   "endLine": 6,
                   "endColumn": 39,
-                  "offset": 203,
-                  "length": 39
+                  "byteOffset": 203,
+                  "byteLength": 39
                 }
               }
             }
@@ -587,8 +587,8 @@
                   "startColumn": 13,
                   "endLine": 11,
                   "endColumn": 51,
-                  "offset": 174,
-                  "length": 39
+                  "byteOffset": 174,
+                  "byteLength": 39
                 }
               }
             }
@@ -611,8 +611,8 @@
                   "startColumn": 44,
                   "endLine": 5,
                   "endColumn": 63,
-                  "offset": 94,
-                  "length": 20
+                  "byteOffset": 94,
+                  "byteLength": 20
                 }
               }
             }
@@ -635,8 +635,8 @@
                   "startColumn": 13,
                   "endLine": 11,
                   "endColumn": 51,
-                  "offset": 174,
-                  "length": 39
+                  "byteOffset": 174,
+                  "byteLength": 39
                 }
               }
             }

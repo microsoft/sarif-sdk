@@ -56,16 +56,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int EndColumn { get; set; }
 
         /// <summary>
-        /// The zero-based offset from the beginning of the file of the first byte or character in the region.
+        /// The zero-based offset from the beginning of the file of the first character in the region.
         /// </summary>
-        [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public int Offset { get; set; }
+        [DataMember(Name = "charOffset", IsRequired = false, EmitDefaultValue = false)]
+        public int CharOffset { get; set; }
 
         /// <summary>
-        /// The length of the region in bytes or characters.
+        /// The length of the region in characters.
         /// </summary>
-        [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
-        public int Length { get; set; }
+        [DataMember(Name = "charLength", IsRequired = false, EmitDefaultValue = false)]
+        public int CharLength { get; set; }
+
+        /// <summary>
+        /// The zero-based offset from the beginning of the file of the first byte in the region.
+        /// </summary>
+        [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
+        public int ByteOffset { get; set; }
+
+        /// <summary>
+        /// The length of the region in bytes.
+        /// </summary>
+        [DataMember(Name = "byteLength", IsRequired = false, EmitDefaultValue = false)]
+        public int ByteLength { get; set; }
 
         /// <summary>
         /// The portion of the file contents within the specified region.
@@ -101,11 +113,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="endColumn">
         /// An initialization value for the <see cref="P: EndColumn" /> property.
         /// </param>
-        /// <param name="offset">
-        /// An initialization value for the <see cref="P: Offset" /> property.
+        /// <param name="charOffset">
+        /// An initialization value for the <see cref="P: CharOffset" /> property.
         /// </param>
-        /// <param name="length">
-        /// An initialization value for the <see cref="P: Length" /> property.
+        /// <param name="charLength">
+        /// An initialization value for the <see cref="P: CharLength" /> property.
+        /// </param>
+        /// <param name="byteOffset">
+        /// An initialization value for the <see cref="P: ByteOffset" /> property.
+        /// </param>
+        /// <param name="byteLength">
+        /// An initialization value for the <see cref="P: ByteLength" /> property.
         /// </param>
         /// <param name="snippet">
         /// An initialization value for the <see cref="P: Snippet" /> property.
@@ -113,9 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet, Message message)
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message)
         {
-            Init(startLine, startColumn, endLine, endColumn, offset, length, snippet, message);
+            Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message);
         }
 
         /// <summary>
@@ -134,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.Offset, other.Length, other.Snippet, other.Message);
+            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.CharOffset, other.CharLength, other.ByteOffset, other.ByteLength, other.Snippet, other.Message);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -155,14 +173,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int offset, int length, FileContent snippet, Message message)
+        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message)
         {
             StartLine = startLine;
             StartColumn = startColumn;
             EndLine = endLine;
             EndColumn = endColumn;
-            Offset = offset;
-            Length = length;
+            CharOffset = charOffset;
+            CharLength = charLength;
+            ByteOffset = byteOffset;
+            ByteLength = byteLength;
             if (snippet != null)
             {
                 Snippet = new FileContent(snippet);

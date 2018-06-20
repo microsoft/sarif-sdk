@@ -150,46 +150,48 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="region"></param>
         /// <param name="newLineIndex"></param>
-        public static void Populate(this Region region, NewLineIndex newLineIndex)
-        {
-            if (region == null)
-            {
-                throw new ArgumentNullException(nameof(region));
-            }
+        //public static void Populate(this Region region, NewLineIndex newLineIndex)
+        //{
+        //    if (region == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(region));
+        //    }
 
-            if (newLineIndex == null)
-            {
-                throw new ArgumentNullException(nameof(newLineIndex));
-            }
+        //    if (newLineIndex == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(newLineIndex));
+        //    }
 
-            // A call to Populate is an implicit indicator that we are working
-            // with a text region (otherwise the offset and length would be 
-            // sufficient data to constitute the region).
+        //    // A call to Populate is an implicit indicator that we are working
+        //    // with a text region (otherwise the offset and length would be 
+        //    // sufficient data to constitute the region).
+        //    int offset = region.ByteOffset > 0 ? region.ByteOffset : region.CharOffset;
+        //    int length = region.ByteLength > 0 ? region.ByteLength : region.CharLength;
 
-            if (region.StartLine == 0)
-            {
-                OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset);
-                region.StartLine = offsetInfo.LineNumber;
-                region.StartColumn = offsetInfo.ColumnNumber;
+        //    if (region.StartLine == 0)
+        //    {
+        //        OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(offset);
+        //        region.StartLine = offsetInfo.LineNumber;
+        //        region.StartColumn = offsetInfo.ColumnNumber;
 
-                offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset + region.Length);
-                region.EndLine = offsetInfo.LineNumber;
-                region.EndColumn = offsetInfo.ColumnNumber;
-            }
-            else
-            {
-                // Make endColumn and endLine explicit, if not expressed
-                if (region.EndLine == 0) { region.EndLine = region.StartLine; }
-                if (region.StartColumn == 0) { region.StartColumn = 1; }
-                if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }
+        //        offsetInfo = newLineIndex.GetOffsetInfoForOffset(offset + length);
+        //        region.EndLine = offsetInfo.LineNumber;
+        //        region.EndColumn = offsetInfo.ColumnNumber;
+        //    }
+        //    else
+        //    {
+        //        // Make endColumn and endLine explicit, if not expressed
+        //        if (region.EndLine == 0) { region.EndLine = region.StartLine; }
+        //        if (region.StartColumn == 0) { region.StartColumn = 1; }
+        //        if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }
 
-                LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);
-                region.Offset = lineInfo.StartOffset + (region.StartColumn - 1);
+        //        LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);
+        //        offset = lineInfo.StartOffset + (region.StartColumn - 1);
 
-                lineInfo = newLineIndex.GetLineInfoForLine(region.EndLine);
-                region.Length = lineInfo.StartOffset + (region.EndColumn - 1) - region.Offset;
-            }
-        }
+        //        lineInfo = newLineIndex.GetLineInfoForLine(region.EndLine);
+        //        length = lineInfo.StartOffset + (region.EndColumn - 1) - region.Offset;
+        //    }
+        //}
 
         public static string GetMessageText(this Result result, IRule rule)
         {

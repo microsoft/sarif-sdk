@@ -941,7 +941,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                           },
                           ""region"": {
                             ""startLine"": 15,
-                            ""startColumn"": 9
+                            ""startColumn"": 9,
+                            ""endColumn"": 9
                           }
                         },
                         ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
@@ -1178,7 +1179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startColumn"": 1,
                   ""endLine"": 1,
                   ""endColumn"": 28,
-                  ""length"": 27,
+                  ""byteLength"": 27,
                   ""snippet"": {
                     ""text"": ""add_core(ptr, offset, val);""
                   }
@@ -1195,7 +1196,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 ""region"": {
                   ""startLine"": 8,
-                  ""startColumn"": 5
+                  ""startColumn"": 5,
+                  ""endColumn"": 5
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add"",
@@ -1404,8 +1406,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 20,
                   ""startColumn"": 69,
                   ""endColumn"": 74,
-                  ""offset"": 720,
-                  ""length"": 5,
+                  ""byteOffset"": 720,
+                  ""byteLength"": 5,
                   ""snippet"": {
                     ""text"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
                   }
@@ -1426,7 +1428,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1434,7 +1436,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1456,7 +1458,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1464,7 +1466,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1494,8 +1496,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1516,8 +1518,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 804,
-                        ""length"": 3
+                        ""byteOffset"": 804,
+                        ""byteLength"": 3
                       },
                       ""insertedContent"": {
                         ""binary"": ""ZGl2""
@@ -1735,7 +1737,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startColumn"": 1,
                   ""endLine"": 1,
                   ""endColumn"": 28,
-                  ""length"": 27,
+                  ""byteLength"": 27,
                   ""snippet"": {
                     ""text"": ""add_core(ptr, offset, val);""
                   }

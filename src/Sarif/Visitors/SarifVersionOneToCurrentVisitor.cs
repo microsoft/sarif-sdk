@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
                     {
-                        fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
+                        fileData.Contents.Text = SarifUtilities.DecodeBase64String(v1FileData.Contents);
                     }
                     else
                     {
@@ -570,8 +570,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 replacement.DeletedRegion = new Region
                 {
-                    Length = v1Replacement.DeletedLength,
-                    Offset = v1Replacement.Offset
+                    ByteLength = v1Replacement.DeletedLength,
+                    ByteOffset = v1Replacement.Offset
                 };
             }
 
@@ -678,13 +678,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 region = new Region
                 {
+                    ByteLength = length,
+                    ByteOffset = offset,
                     EndColumn = endColumn,
                     EndLine = endLine,
-                    Length = length,
-                    Offset = offset,
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
+
+                if (endColumn == 0 && length == 0)
+                {
+                    // It's an insertion point, transform to v2 spec
+                    region.EndColumn = startColumn;
+                }
             }
 
             return region;

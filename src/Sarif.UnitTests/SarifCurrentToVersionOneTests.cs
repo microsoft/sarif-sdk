@@ -995,7 +995,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1003,7 +1003,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1025,7 +1025,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1033,7 +1033,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1063,8 +1063,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1085,8 +1085,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 125,
-                        ""length"": 3
+                        ""byteOffset"": 125,
+                        ""byteLength"": 3
                       },
                       ""insertedContent"": {
                         ""text"": ""<div>""
@@ -1116,8 +1116,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1138,8 +1138,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 125,
-                        ""length"": 3
+                        ""byteOffset"": 125,
+                        ""byteLength"": 3
                       },
                       ""insertedContent"": {
                         ""text"": ""<div>""
@@ -1169,8 +1169,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1191,8 +1191,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 125,
-                        ""length"": 3
+                        ""byteOffset"": 125,
+                        ""byteLength"": 3
                       },
                       ""insertedContent"": {
                         ""text"": ""<div>""
@@ -1369,11 +1369,145 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""files"":{""http://localhost:34420/HtmlFixes.html"":{""length"":43,""mimeType"":""text/plain"",""contents"":{""text"":""The quick brown fox jumps over the lazy dog"",""binary"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""},""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFix.html"":{""length"":87,""mimeType"":""text/plain"",""encoding"":""foo-bar"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFixNoEncoding.html"":{""length"":87,""mimeType"":""text/plain"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""offset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""offset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""replacements"":[{""deletedRegion"":{""offset"":125,""length"":3},""insertedContent"":{""text"":""<div>""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""files"":{""http://localhost:34420/HtmlFixes.html"":{""length"":43,""mimeType"":""text/plain"",""contents"":{""text"":""The quick brown fox jumps over the lazy dog"",""binary"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==""},""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFix.html"":{""length"":87,""mimeType"":""text/plain"",""encoding"":""foo-bar"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]},""http://localhost:34420/HtmlTextFixNoEncoding.html"":{""length"":87,""mimeType"":""text/plain"",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha-256""}]}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""fixes"":[{""description"":{""text"":""Wrap attribute values in single quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""byteOffset"":720},""insertedContent"":{""binary"":""Jw==""}},{""deletedRegion"":{""byteOffset"":725},""insertedContent"":{""binary"":""Jw==""}}]}]},{""description"":{""text"":""Wrap attribute value in double quotes.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""replacements"":[{""deletedRegion"":{""byteOffset"":720},""insertedContent"":{""binary"":""Ig==""}},{""deletedRegion"":{""byteOffset"":725},""insertedContent"":{""binary"":""Ig==""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""byteOffset"":803,""byteLength"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFix.html""},""replacements"":[{""deletedRegion"":{""byteOffset"":125,""byteLength"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""byteOffset"":803,""byteLength"":34,""snippet"":{""text"":""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""http://localhost:34420/HtmlTextFixNoEncoding.html""},""replacements"":[{""deletedRegion"":{""byteOffset"":125,""byteLength"":3},""insertedContent"":{""text"":""<div>""}}]}]}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""byteOffset"":803,""byteLength"":34,""snippet"":{""text"":""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""}}}}],""fixes"":[{""description"":{""text"":""Convert tag name to lowercase.""},""fileChanges"":[{""fileLocation"":{""uri"":""/wwwroot/vdir/HtmlTextFixNoEntry.html""},""replacements"":[{""deletedRegion"":{""byteOffset"":125,""byteLength"":3},""insertedContent"":{""text"":""<div>""}}]}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
       }
     }
   ]
 }";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_Regions()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocations"": [
+        {
+          ""toolNotifications"": [
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""From charOffset to end""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""charOffset"": 8
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""xxxx""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""startColumn"": 4,
+                  ""startLine"": 2,
+                  ""charOffset"": 9
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""xxxx""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""startColumn"": 1,
+                  ""startLine"": 2,
+                  ""charOffset"": 6
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""xxxx""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""startColumn"": 2,
+                  ""startLine"": 1
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""xxxx""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""startLine"": 2
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest1"",
+              ""message"": {
+                ""text"": ""xxxx""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/base/driver.cs""
+                },
+                ""region"": {
+                  ""endLine"": 3,
+                  ""startLine"": 2,
+                  ""message"": {
+                    ""text"": ""This region includes all of line 2, excluding the trailing newline sequence""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      ""files"": {
+        ""file:///src/base/driver.cs"": {
+          ""fileLocation"": {
+            ""uri"": ""file:///src/base/driver.cs""
+          },
+          ""encoding"": ""unicode"",
+          ""contents"": {
+            ""binary"": ""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""
+          }
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"";
 
             VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
         }

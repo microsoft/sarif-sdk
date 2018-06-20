@@ -123,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 ""region"": {
                   ""startLine"": 7,
-                  ""offset"": 152,
-                  ""length"": 16
+                  ""byteOffset"": 152,
+                  ""byteLength"": 16
                 }
               }
             },
@@ -137,8 +137,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 ""region"": {
                   ""startLine"": 14,
-                  ""offset"": 333,
-                  ""length"": 16
+                  ""byteOffset"": 333,
+                  ""byteLength"": 16
                 }
               }
             }
