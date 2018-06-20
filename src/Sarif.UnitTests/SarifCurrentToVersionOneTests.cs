@@ -1409,9 +1409,9 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
-              ""id"": ""RegionTest1"",
+              ""id"": ""RegionTest2"",
               ""message"": {
-                ""text"": ""xxxx""
+                ""text"": ""startColumn/Line same as charOffset""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
@@ -1425,9 +1425,9 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
-              ""id"": ""RegionTest1"",
+              ""id"": ""RegionTest3"",
               ""message"": {
-                ""text"": ""xxxx""
+                ""text"": ""startColumn/Line same as charOffset""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
@@ -1441,9 +1441,9 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
-              ""id"": ""RegionTest1"",
+              ""id"": ""RegionTest4"",
               ""message"": {
-                ""text"": ""xxxx""
+                ""text"": ""startLine and startColumn only""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
@@ -1456,13 +1456,13 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
-              ""id"": ""RegionTest1"",
+              ""id"": ""RegionTest5"",
               ""message"": {
-                ""text"": ""xxxx""
+                ""text"": ""startLine only""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
-                  ""uri"": ""file:///src/base/driver.cs""
+                  ""uri"": ""file:///src/ui/client.cs""
                 },
                 ""region"": {
                   ""startLine"": 2
@@ -1470,13 +1470,13 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
-              ""id"": ""RegionTest1"",
+              ""id"": ""RegionTest6"",
               ""message"": {
-                ""text"": ""xxxx""
+                ""text"": ""One whole line""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
-                  ""uri"": ""file:///src/base/driver.cs""
+                  ""uri"": ""file:///src/ui/client.cs""
                 },
                 ""region"": {
                   ""endLine"": 3,
@@ -1499,6 +1499,15 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""contents"": {
             ""binary"": ""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""
           }
+        },
+        ""file:///src/ui/client.cs"": {
+          ""fileLocation"": {
+            ""uri"": ""file:///src/ui/client.cs""
+          },
+          ""mimeType"": ""text/x-csharp"",
+          ""contents"": {
+            ""text"": ""The quick brown fox\r\njumps over the laazy dog""
+          }
         }
       },
       ""results"": []
@@ -1507,7 +1516,106 @@ namespace Microsoft.CodeAnalysis.Sarif
 }";
 
             const string V1LogExpectedText =
-@"";
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""invocation"": {},
+      ""files"": {
+        ""file:///src/base/driver.cs"": {
+          ""uri"": ""file:///src/base/driver.cs"",
+          ""contents"": ""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""
+        },
+        ""file:///src/ui/client.cs"": {
+          ""uri"": ""file:///src/ui/client.cs"",
+          ""mimeType"": ""text/x-csharp"",
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveA0KanVtcHMgb3ZlciB0aGUgbGFhenkgZG9n""
+        }
+      },
+      ""results"": [],
+      ""toolNotifications"": [
+        {
+          ""id"": ""RegionTest1"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/base/driver.cs"",
+            ""region"": {
+              ""startColumn"": 1,
+              ""offset"": 16
+            }
+          },
+          ""message"": ""From charOffset to end""
+        },
+        {
+          ""id"": ""RegionTest2"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/base/driver.cs"",
+            ""region"": {
+              ""startLine"": 2,
+              ""startColumn"": 4,
+              ""offset"": 18
+            }
+          },
+          ""message"": ""startColumn/Line same as charOffset""
+        },
+        {
+          ""id"": ""RegionTest3"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/base/driver.cs"",
+            ""region"": {
+              ""startLine"": 2,
+              ""startColumn"": 1,
+              ""offset"": 12
+            }
+          },
+          ""message"": ""startColumn/Line same as charOffset""
+        },
+        {
+          ""id"": ""RegionTest4"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/base/driver.cs"",
+            ""region"": {
+              ""startLine"": 1,
+              ""startColumn"": 2,
+              ""endColumn"": 4
+            }
+          },
+          ""message"": ""startLine and startColumn only""
+        },
+        {
+          ""id"": ""RegionTest5"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/ui/client.cs"",
+            ""region"": {
+              ""startLine"": 2,
+              ""startColumn"": 1
+            }
+          },
+          ""message"": ""startLine only""
+        },
+        {
+          ""id"": ""RegionTest6"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/ui/client.cs"",
+            ""region"": {
+              ""startLine"": 2,
+              ""startColumn"": 1,
+              ""endLine"": 3
+            }
+          },
+          ""message"": ""One whole line""
+        }
+      ],
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""RegionTest1"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""charOffset"":8}},""message"":{""text"":""From charOffset to end""}},{""id"":""RegionTest2"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":4,""charOffset"":9}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest3"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":1,""charOffset"":6}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest4"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":1,""startColumn"":2}},""message"":{""text"":""startLine and startColumn only""}},{""id"":""RegionTest5"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2}},""message"":{""text"":""startLine only""}},{""id"":""RegionTest6"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2,""endLine"":3,""message"":{""text"":""This region includes all of line 2, excluding the trailing newline sequence""}}},""message"":{""text"":""One whole line""}}]}],""files"":{""file:///src/base/driver.cs"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""contents"":{""binary"":""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""},""encoding"":""unicode""},""file:///src/ui/client.cs"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""}}},""results"":[]}
+      }
+    }
+  ]
+}";
 
             VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
         }
