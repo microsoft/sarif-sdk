@@ -76,18 +76,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V2LogText =
 @"{
-    ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-    ""version"": ""2.0.0"",
-    ""runs"": [
-      {
-        ""tool"": {
-          ""name"": ""CodeScanner"",
-          ""semanticVersion"": ""2.1.0""
-        },
-        ""results"": []
-      }
-    ]
-  }";
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""results"": []
+    }
+  ]
+}";
 
             const string V1LogExpectedText =
 @"{
@@ -115,25 +115,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V2LogText =
 @"{
-    ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-    ""version"": ""2.0.0"",
-    ""runs"": [
-      {
-        ""tool"": {
-          ""name"": ""CodeScanner"",
-          ""semanticVersion"": ""2.1.0""
-        },
-        ""results"": []
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
       },
-      {
-        ""tool"": {
-          ""name"": ""AssetScanner"",
-          ""semanticVersion"": ""1.7.2""
-        },
-        ""results"": []
-      }
-    ]
-  }";
+      ""results"": []
+    },
+    {
+      ""tool"": {
+        ""name"": ""AssetScanner"",
+        ""semanticVersion"": ""1.7.2""
+      },
+      ""results"": []
+    }
+  ]
+}";
 
             const string V1LogExpectedText =
 @"{
@@ -171,33 +171,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V2LogText =
 @"{
-    ""version"": ""2.0.0"",
-    ""runs"": [
-      {
-        ""tool"": {
-          ""name"": ""CodeScanner"",
-          ""semanticVersion"": ""2.1.0""
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner"",
+        ""semanticVersion"": ""2.1.0""
+      },
+      ""logicalLocations"": {
+        ""collections::list::add"": {
+          ""name"": ""add"",
+          ""kind"": ""function"",
+          ""parentKey"": ""collections::list""
         },
-        ""logicalLocations"": {
-          ""collections::list::add"": {
-            ""name"": ""add"",
-            ""kind"": ""function"",
-            ""parentKey"": ""collections::list""
-          },
-          ""collections::list"": {
-            ""name"": ""list"",
-            ""kind"": ""type"",
-            ""parentKey"": ""collections""
-          },
-          ""collections"": {
-            ""name"": ""collections"",
-            ""kind"": ""namespace""
-          }
+        ""collections::list"": {
+          ""name"": ""list"",
+          ""kind"": ""type"",
+          ""parentKey"": ""collections""
         },
-        ""results"": []
-      }
-    ]
-  }";
+        ""collections"": {
+          ""name"": ""collections"",
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": []
+    }
+  ]
+}";
 
             const string V1LogExpectedText =
 @"{
@@ -924,6 +924,289 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifTransformerTests_ToVersionOne_ResultLocations()
+        {
+            const string V2LogText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""logicalLocations"": {
+        ""html.body.header"": {
+          ""name"": ""header"",
+          ""decoratedName"": ""!!PageHeader#asdf"",
+          ""kind"": ""member"",
+          ""parentKey"": ""html.body""
+        },
+        ""html.body"": {
+          ""name"": ""body"",
+          ""kind"": ""namespace"",
+          ""parentKey"": ""html""
+        },
+        ""html"": {
+          ""name"": ""html"",
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""message"": {
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 20,
+                  ""startColumn"": 69,
+                  ""endColumn"": 74,
+                  ""offset"": 720,
+                  ""length"": 5,
+                  ""snippet"": {
+                    ""text"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""analysisTarget"": {
+            ""uri"": ""http://localhost:34420/HtmlFixes.html""
+          },
+          ""message"": {
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""ruleMessageId"": ""default"",
+          ""locations"": [
+            {
+              ""fullyQualifiedLogicalName"": ""html.body.header"",
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
+                  }
+                }
+              }
+            }
+          ],
+          ""relatedLocations"": [
+            {
+              ""message"": {
+                ""text"": ""Second location with this violation""
+              },
+              ""annotations"": [
+                {
+                  ""offset"": 1345,
+                  ""length"": 22,
+                  ""message"": {
+                    ""text"": ""Foxes, quick and brown""
+                  }
+                }
+              ],
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""http://localhost:34420/HtmlFixes.html""
+                },
+                ""region"": {
+                  ""startLine"": 56,
+                  ""startColumn"": 8,
+                  ""endColumn"": 78,
+                  ""offset"": 1124,
+                  ""length"": 22,
+                  ""snippet"": {
+                    ""text"": ""<DIV id=\""test3\""></DIV>""
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ],
+      ""resources"": {
+        ""rules"": {
+          ""WEB1079.AttributeValueIsNotQuoted"": {
+            ""id"": ""WEB1079"",
+            ""shortDescription"": {
+              ""text"": ""The attribute value is not quoted.""
+            },
+            ""messageStrings"": {
+              ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+            }
+          },
+          ""WEB1066.TagNameIsNotLowercase"": {
+            ""id"": ""WEB1066"",
+            ""shortDescription"": {
+              ""text"": ""The tag name is not lowercase.""
+            },
+            ""messageStrings"": {
+              ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+            }
+          }
+        }
+      }
+    }
+  ]
+}";
+
+            const string V1LogExpectedText =
+@"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
+  ""version"": ""1.0.0"",
+  ""runs"": [
+    {
+      ""tool"": {
+        ""name"": ""CodeScanner""
+      },
+      ""logicalLocations"": {
+        ""html.body.header"": {
+          ""name"": ""header"",
+          ""parentKey"": ""html.body"",
+          ""kind"": ""member""
+        },
+        ""html.body"": {
+          ""name"": ""body"",
+          ""parentKey"": ""html"",
+          ""kind"": ""namespace""
+        },
+        ""html"": {
+          ""name"": ""html"",
+          ""kind"": ""namespace""
+        }
+      },
+      ""results"": [
+        {
+          ""ruleId"": ""WEB1079"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""shape""
+            ]
+          },
+          ""locations"": [
+            {
+              ""resultFile"": {
+                ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                ""region"": {
+                  ""startLine"": 20,
+                  ""startColumn"": 69,
+                  ""endColumn"": 74,
+                  ""offset"": 720,
+                  ""length"": 5
+                }
+              }
+            }
+          ],
+          ""snippet"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
+        },
+        {
+          ""ruleId"": ""WEB1066"",
+          ""formattedRuleMessage"": {
+            ""formatId"": ""default"",
+            ""arguments"": [
+              ""DIV""
+            ]
+          },
+          ""locations"": [
+            {
+              ""analysisTarget"": {
+                ""uri"": ""http://localhost:34420/HtmlFixes.html""
+              },
+              ""resultFile"": {
+                ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""html.body.header"",
+              ""decoratedName"": ""!!PageHeader#asdf""
+            }
+          ],
+          ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>"",
+          ""relatedLocations"": [
+            {
+              ""physicalLocation"": {
+                ""uri"": ""http://localhost:34420/HtmlFixes.html"",
+                ""region"": {
+                  ""startLine"": 56,
+                  ""startColumn"": 8,
+                  ""endColumn"": 78,
+                  ""offset"": 1124,
+                  ""length"": 22
+                }
+              },
+              ""message"": ""Second location with this violation"",
+              ""snippet"": ""<DIV id=\""test3\""></DIV>"",
+              ""annotations"": [
+                {
+                  ""message"": ""Foxes, quick and brown"",
+                  ""locations"": [
+                    {
+                      ""region"": {
+                        ""offset"": 1345,
+                        ""length"": 22
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      ""rules"": {
+        ""WEB1079.AttributeValueIsNotQuoted"": {
+          ""id"": ""WEB1079"",
+          ""shortDescription"": ""The attribute value is not quoted."",
+          ""messageFormats"": {
+            ""default"": ""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""
+          }
+        },
+        ""WEB1066.TagNameIsNotLowercase"": {
+          ""id"": ""WEB1066"",
+          ""shortDescription"": ""The tag name is not lowercase."",
+          ""messageFormats"": {
+            ""default"": ""Convert the name of the <{0}> tag to lowercase.""
+          }
+        }
+      },
+      ""properties"": {
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""logicalLocations"":{""html.body.header"":{""name"":""header"",""decoratedName"":""!!PageHeader#asdf"",""parentKey"":""html.body"",""kind"":""member""},""html.body"":{""name"":""body"",""parentKey"":""html"",""kind"":""namespace""},""html"":{""name"":""html"",""kind"":""namespace""}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""offset"":720,""length"":5,""snippet"":{""text"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""}}}}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}},""fullyQualifiedLogicalName"":""html.body.header""}],""relatedLocations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":56,""startColumn"":8,""endColumn"":78,""offset"":1124,""length"":22,""snippet"":{""text"":""<DIV id=\""test3\""></DIV>""}}},""message"":{""text"":""Second location with this violation""},""annotations"":[{""offset"":1345,""length"":22,""message"":{""text"":""Foxes, quick and brown""}}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+      }
+    }
+  ]
+}";
+
+            VerifyCurrentToVersionOneTransformation(V2LogText, V1LogExpectedText);
+        }
+
+        [Fact]
         public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes()
         {
             const string V2LogText =
@@ -1329,6 +1612,20 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""DIV""
             ]
           },
+          ""locations"": [
+            {
+              ""resultFile"": {
+                ""uri"": ""http://localhost:34420/HtmlTextFix.html"",
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34
+                }
+              }
+            }
+          ],
           ""snippet"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
         },
         {
@@ -1339,6 +1636,20 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""DIV""
             ]
           },
+          ""locations"": [
+            {
+              ""resultFile"": {
+                ""uri"": ""http://localhost:34420/HtmlTextFixNoEncoding.html"",
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34
+                }
+              }
+            }
+          ],
           ""snippet"": ""<DIV id=\""test2\"" xweb:fixindex=\""0\""></DIV>""
         },
         {
@@ -1349,6 +1660,20 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""DIV""
             ]
           },
+          ""locations"": [
+            {
+              ""resultFile"": {
+                ""uri"": ""/wwwroot/vdir/HtmlTextFixNoEntry.html"",
+                ""region"": {
+                  ""startLine"": 24,
+                  ""startColumn"": 4,
+                  ""endColumn"": 38,
+                  ""offset"": 803,
+                  ""length"": 34
+                }
+              }
+            }
+          ],
           ""snippet"": ""<DIV id=\""test3\"" xweb:fixindex=\""0\""></DIV>""
         }
       ],
