@@ -1112,7 +1112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""fullyQualifiedLogicalName"": ""collections::list::add""
             }
           ]
-  }
+        }
       ],
       ""rules"": {
         ""C2001"": {
