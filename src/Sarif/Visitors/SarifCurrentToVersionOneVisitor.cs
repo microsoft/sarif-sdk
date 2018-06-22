@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
                 {
                     Annotations = v2Location.Annotations?.Select(CreateAnnotation).ToList(),
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
                     LogicalLocationKey = v2Location.FullyQualifiedLogicalName,
                     Message = v2Location.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
@@ -504,7 +505,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2Result.AnalysisTarget != null)
                 {
-                    result.Locations[0].AnalysisTarget = CreatePhysicalLocation(v2Result.AnalysisTarget);
+                    foreach (LocationVersionOne location in result.Locations)
+                    {
+                        location.AnalysisTarget = CreatePhysicalLocation(v2Result.AnalysisTarget);
+                    }
                 }
 
                 if (_currentV2Run.Resources?.Rules != null)
