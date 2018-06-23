@@ -6,12 +6,18 @@ SETLOCAL
 @REM %~dp0.nuget\NuGet.exe update -self
 
 set Configuration=Release
+set SolutionFile=src\Everything.sln
 
 :NextArg
 if "%1" == "" goto :EndArgs
 if "%1" == "/config" (
     if not "%2" == "Debug" if not "%2" == "Release" echo error: /config must be either Debug or Release && goto :ExitFailed
     set Configuration=%2&& shift && shift && goto :NextArg
+)
+if "%1" == "/sln" (
+    if "%2" == "" echo error: no argument specified for /sln && goto ExitFailed
+    if not exist "%2" echo error: solution file "%2" does not exist && goto ExitFailed
+    set SolutionFile=%2&& shift && shift && goto :NextArg
 )
 echo Unrecognized option "%1" && goto :ExitFailed
 
@@ -32,12 +38,12 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
-dotnet build src\Everything.sln
+dotnet build %SolutionFile%
 if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
-for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests) DO (
+for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests) DO (
     dotnet test --no-build --no-restore src\%%i\%%i.csproj
     if "%ERRORLEVEL%" NEQ "0" (
         echo %%i: tests failed.
