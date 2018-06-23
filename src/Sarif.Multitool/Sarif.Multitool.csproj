@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Rules\AnnotatedCodeLocationEssentialIsObsolete.cs" />
-    <Compile Remove="Rules\AnnotatedCodeLocationIdIsObsolete.cs" />
     <Compile Remove="Rules\DoNotUseFriendlyNameAsRuleId.cs" />
     <Compile Remove="Rules\EndColumnMustNotBeLessThanStartColumn.cs" />
     <Compile Remove="Rules\EndLineMustNotBeLessThanStartLine.cs" />
