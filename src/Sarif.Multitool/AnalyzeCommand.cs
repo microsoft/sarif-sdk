@@ -1,17 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
-using Microsoft.Json.Schema.JsonSchemaValidator;
-using Microsoft.Json.Schema.JsonSchemaValidator.Sarif;
-using Microsoft.Json.Schema.JsonSchemaValidator.Validation;
+using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -151,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     schemaValidationException.ErrorNumber,
                     schemaValidationException.Args);
 
-                result.SetAnalysisTargetUri(schemaFile);
+                result.SetResultFile(schemaFile);
                 ReportResult(result, logger);
             }
         }
