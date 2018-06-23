@@ -12,6 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     {
         public override string Id => "TST0001";
 
+        private readonly string[] _emptyMessageStringIds = new string[0];
+        public override IEnumerable<string> MessageStringIds => _emptyMessageStringIds;
+
         protected override ResourceManager ResourceManager => SkimmerBaseTestResources.ResourceManager;
 
         protected override IEnumerable<string> MessageResourceNames => new List<string>
