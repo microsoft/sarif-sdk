@@ -8,7 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class DoNotUseFriendlyNameAsRuleId : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF001_DoNotUseFriendlyNameAsRuleIdDescription;
+        private Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF001_DoNotUseFriendlyNameAsRuleIdDescription
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
@@ -17,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.DoNotUseFriendlyNameAsRuleId;
 
-        protected override IEnumerable<string> FormatIds
+        public override IEnumerable<string> MessageStringIds
         {
             get
             {
@@ -31,8 +36,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Rule rule, string rulePointer)
         {
             if (rule.Id != null &&
-                rule.Name != null && 
-                rule.Id.Equals(rule.Name, StringComparison.OrdinalIgnoreCase))
+                rule.Name != null &&
+                rule.Name.Text != null &&
+                rule.Id.Equals(rule.Name.Text, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
                     rulePointer,

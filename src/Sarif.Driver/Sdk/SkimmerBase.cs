@@ -18,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract public Message Help { get; }
 
+        abstract public IEnumerable<string> MessageStringIds { get; }
+
         private IDictionary<string, string> messageStrings;
         private IDictionary<string, string> richMessageStrings;
 

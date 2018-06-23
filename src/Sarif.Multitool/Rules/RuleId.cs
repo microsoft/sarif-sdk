@@ -8,8 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string DoNotUseFriendlyNameAsRuleId = "SARIF001";
         public const string UseAbsolutePathsForNestedFileUriFragments = "SARIF002";
         public const string UrisMustBeValid = "SARIF003";
-        public const string AnnotatedCodeLocationIdIsObsolete = "SARIF004";
-        public const string AnnotatedCodeLocationEssentialIsObsolete = "SARIF005";
         public const string HashAlgorithmsMustBeUnique = "SARIF006";
         public const string EndTimeMustBeAfterStartTime = "SARIF007";
         public const string MessagesShouldEndWithPeriod = "SARIF008";

@@ -22,9 +22,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override FileLocation HelpLocation => new FileLocation { Uri = _defaultHelpUri };
 
+        private readonly Message _emptyHelpMessage = new Message
+        {
+            Text = string.Empty
+        };
+
+        public override Message Help => _emptyHelpMessage;
+
         protected SarifValidationContext Context { get; private set; }
 
         protected override sealed ResourceManager ResourceManager => RuleResources.ResourceManager;
+
+        private readonly string[] _emptyMessageResourceNames = new string[0];
+
+        protected override IEnumerable<string> MessageResourceNames => _emptyMessageResourceNames;
 
         public override sealed void Analyze(SarifValidationContext context)
         {
