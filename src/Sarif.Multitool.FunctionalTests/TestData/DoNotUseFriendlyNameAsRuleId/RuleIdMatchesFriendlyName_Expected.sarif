@@ -1,84 +1,93 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "4a05bc1d-fcf7-4d8e-880b-0a4941710af7",
       "tool": {
-        "name": "Sarif",
-        "fullName": "Sarif 1.5.27.0",
-        "version": "1.5.27.0",
-        "semanticVersion": "1.5.27",
-        "sarifLoggerVersion": "1.5.27.0",
+        "name": "testhost",
+        "fullName": "testhost 15.0.0.0",
+        "version": "15.0.0.0",
+        "semanticVersion": "15.0.0",
+        "fileVersion": "15.0.0",
+        "sarifLoggerVersion": "0.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
-          "CompanyName": "Microsoft Corporation",
-          "ProductName": "Microsoft SARIF SDK"
+          "ProductName": "Microsoft.TestHost"
         }
       },
       "results": [
         {
           "ruleId": "SARIF001",
           "level": "warning",
-          "formattedRuleMessage": {
-            "formatId": "DefaultFormatId",
+          "message": {
             "arguments": [
-              "RuleIdMatchesFriendlyName.sarif",
-              "/runs/0/rules/ImportantRule",
+              "/runs/0/resources/rules/ImportantRule",
               "ImportantRule"
             ]
           },
+          "ruleMessageId": "Default",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif"
+                },
                 "region": {
-                  "startLine": 13,
-                  "startColumn": 27
+                  "startLine": 12,
+                  "startColumn": 28
                 }
               }
             }
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif"
-          },
-          "message": "Analyzing 'RuleIdMatchesFriendlyName.sarif'...",
-          "level": "note",
-          "time": "2016-08-25T21:26:42.049Z"
-        }
-      ],
-      "rules": {
-        "SARIF001": {
-          "id": "SARIF001",
-          "name": "DoNotUseFriendlyNameAsRuleId",
-          "shortDescription": "Do not use the same string for a rule's id and name properties. The id property ...",
-          "fullDescription": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\".",
-          "messageFormats": {
-            "Default": "In \"{0}\", at \"{1}\", the name and id properties of rule \"{2}\" are the same."
-          },
-          "defaultLevel": "warning",
-          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+      "resources": {
+        "rules": {
+          "SARIF001": {
+            "id": "SARIF001",
+            "name": {
+              "text": "DoNotUseFriendlyNameAsRuleId"
+            },
+            "shortDescription": {
+              "text": "Do not use the same string for a rule's id and name properties. The id property ..."
+            },
+            "fullDescription": {
+              "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
+            },
+            "messageStrings": {},
+            "richMessageStrings": {},
+            "helpLocation": {
+              "uri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+            }
+          }
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif": {
-          "mimeType": "application/octet-stream"
+        "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif": {
+          "mimeType": "application/sarif-json"
         }
       },
-      "invocation": {
-        "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Multitool.dll",
-        "startTime": "2016-08-25T21:26:42.049Z",
-        "endTime": "2016-08-25T21:26:42.052Z",
-        "processId": 8856,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release"
-      }
+      "invocations": [
+        {
+          "startTime": "2018-06-24T21:34:00.651Z",
+          "endTime": "2018-06-24T21:34:04.816Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdMatchesFriendlyName.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'RuleIdMatchesFriendlyName.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-06-24T21:34:00.671Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
