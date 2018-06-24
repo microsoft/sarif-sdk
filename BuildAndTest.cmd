@@ -48,7 +48,7 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
-for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests) DO (
+for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests, Sarif.Multitool.FunctionalTests) DO (
     dotnet test --no-build --no-restore src\%%i\%%i.csproj
     if "%ERRORLEVEL%" NEQ "0" (
         echo %%i: tests failed.
