@@ -1,5 +1,5 @@
 @ECHO off
-SETLOCAL
+SETLOCAL ENABLEDELAYEDEXPANSION
 @REM Uncomment this line to update nuget.exe
 @REM Doing so can break SLN build (which uses nuget.exe to
 @REM create a nuget package for the SARIF SDK) so must opt-in
@@ -7,6 +7,7 @@ SETLOCAL
 
 set Configuration=Release
 set SolutionFile=src\Everything.sln
+set FullClean=false
 
 :NextArg
 if "%1" == "" goto :EndArgs
@@ -19,12 +20,16 @@ if "%1" == "/sln" (
     if not exist "%2" echo error: solution file "%2" does not exist && goto ExitFailed
     set SolutionFile=%2&& shift && shift && goto :NextArg
 )
+if "%1" == "/fullclean" (
+    set FullClean=true&& shift && goto :NextArg
+)
 echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
 
 @REM Remove existing build data
-if exist bld (rd /s /q bld)
+CALL :Clean %FullClean%
+
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
 :: Generate the SARIF object model classes from the SARIF JSON schema.
@@ -85,6 +90,35 @@ goto ExitFailed
 )
 
 goto Exit
+
+:Clean
+ECHO Cleaning enlistment...
+
+SET BLDDIR=bld
+IF EXIST !BLDDIR! (
+    ECHO Removing !BLDDIR!...
+    RMDIR /S /Q !BLDDIR!
+)
+
+IF "%FullClean%" EQU "true" (
+    ECHO Performing full clean...
+    SET PKGDIR=src\packages
+    IF EXIST !PKGDIR! (
+        ECHO Removing !PKGDIR!...
+        RMDIR /S /Q !PKGDIR!
+    )
+
+    FOR /D %%D IN (src\*) DO (
+        SET OBJDIR=%%D\obj
+        IF EXIST !OBJDIR! (
+            ECHO Removing !OBJDIR!...
+            RMDIR /S /Q !OBJDIR!
+        )
+    )
+)
+
+ECHO Done.
+EXIT /B %ERRORLEVEL%
 
 :CreatePublishPackage
 set Project=%1
