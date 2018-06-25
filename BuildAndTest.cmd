@@ -8,6 +8,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 set Configuration=Release
 set SolutionFile=src\Everything.sln
 set FullClean=false
+set NoTest=false
 
 :NextArg
 if "%1" == "" goto :EndArgs
@@ -22,6 +23,9 @@ if "%1" == "/sln" (
 )
 if "%1" == "/fullclean" (
     set FullClean=true&& shift && goto :NextArg
+)
+if "%1" == "/notest" (
+    set NoTest=true&& shift && goto :NextArg
 )
 echo Unrecognized option "%1" && goto :ExitFailed
 
@@ -48,11 +52,13 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
-for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests, Sarif.Multitool.FunctionalTests) DO (
-    dotnet test --no-build --no-restore src\%%i\%%i.csproj
-    if "%ERRORLEVEL%" NEQ "0" (
-        echo %%i: tests failed.
-        goto ExitFailed
+if "%NoTest%" EQU "false" (
+    for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests, Sarif.Multitool.FunctionalTests) do (
+        dotnet test --no-build --no-restore src\%%i\%%i.csproj
+        if "%ERRORLEVEL%" NEQ "0" (
+            echo %%i: tests failed.
+            goto ExitFailed
+        )
     )
 )
 
