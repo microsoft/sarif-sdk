@@ -29,8 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     // These can do remapping, and catch the long tail of "changed" results.
                     new List<IResultMatcher>()
                     {
-                        HeuristicResultMatcherFactory.GetPartialFingerprintResultMatcher(),
-                        HeuristicResultMatcherFactory.GetContextRegionHeuristicResultMatcher()
+                        HeuristicResultMatcherFactory.GetPartialFingerprintResultMatcher()
                     }
                 );
         }

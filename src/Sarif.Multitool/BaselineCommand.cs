@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
+using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -14,21 +15,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                SarifLog baselineFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.BaselineFilePath);
-                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.CurrentFilePath);
-                if (baselineFile.Runs.Count != 1 || currentFile.Runs.Count != 1)
+                SarifLog baselineFile = null;
+                if (!string.IsNullOrEmpty(baselineOptions.BaselineFilePath))
                 {
-                    throw new ArgumentException("Invalid sarif logs, we can only baseline logs with a single run in them.");
+                    baselineFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.BaselineFilePath);
                 }
-
-                ISarifLogBaseliner baseliner = SarifLogBaselinerFactory.CreateSarifLogBaseliner(baselineOptions.BaselineType);
-
-                Run diffedRun = baseliner.CreateBaselinedRun(baselineFile.Runs.First(), currentFile.Runs.First());
+                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.CurrentFilePath);
                 
-                SarifLog output = currentFile.DeepClone();
-                output.Runs = new List<Run>();
-                output.Runs.Add(diffedRun);
+                IResultMatchingBaseliner matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
+                SarifLog output = matcher.BaselineSarifLogs(new SarifLog[] { baselineFile }, new SarifLog[] { currentFile });
+                
                 var formatting = baselineOptions.PrettyPrint
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;

@@ -12,7 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             'b',
             "baseline",
             HelpText = "Path to a Sarif Log containing a single run representing the baseline file",
-            Required = true)]
+            Required = false,
+            Default = null)]
         public string BaselineFilePath { get; internal set; }
 
         [Option(
