@@ -405,7 +405,7 @@
               "addedFile",
               "deletedFile",
               "renamedFile",
-              "generatedFile"
+              "uncontrolledFile"
             ]
           }
         },
@@ -834,7 +834,7 @@
         },
 
         "fullyQualifiedLogicalName": {
-          "description": "The human-readable fully qualified name of the logical location where the analysis tool produced the result. If 'logicalLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.",
+          "description": "The human-readable fully qualified name of the logical location where the analysis tool produced the result.",
           "type": "string"
         },
 
@@ -1227,7 +1227,7 @@
         },
 
         "level": {
-          "description": "A value specifying the severity level of the result. If this property is not present, its implied value is 'warning'.",
+          "description": "A value specifying the severity level of the result.",
           "enum": [ "notApplicable", "pass", "note", "warning", "error", "open" ]
         },
 

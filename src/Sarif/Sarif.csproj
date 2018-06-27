@@ -28,10 +28,26 @@
       <HintsFilePath>CodeGenHints.json</HintsFilePath>
     </JsonSchemaFile>
   </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Update="SdkResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
+      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="CodeGenHints.json" />
     <None Include="CopyrightNotice.txt" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="SdkResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SdkResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <Import Project="ToDotNet\ToDotNet.targets" />

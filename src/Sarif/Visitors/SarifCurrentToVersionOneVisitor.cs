@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
@@ -33,6 +35,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(Location v2Location)
+        {
+            AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
+
+            if (v2Location != null)
+            {
+                annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
+                {
+                    Annotations = v2Location.Annotations?.Select(CreateAnnotation).ToList(),
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    LogicalLocationKey = v2Location.FullyQualifiedLogicalName,
+                    Message = v2Location.Message?.Text,
+                    PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
+                    Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
+                };
+            }
+
+            return annotatedCodeLocation;
+        }
+
+        internal AnnotationVersionOne CreateAnnotation(Region v2Region)
+        {
+            AnnotationVersionOne annotation = null;
+
+            if (v2Region != null)
+            {
+                annotation = new AnnotationVersionOne
+                {
+                    Locations = new List<PhysicalLocationVersionOne>
+                    {
+                        CreatePhysicalLocation(v2Region)
+                    },
+                    Message = v2Region.Message?.Text
+                };
+            }
+
+            return annotation;
+        }
+
         internal ExceptionDataVersionOne CreateExceptionData(ExceptionData v2ExceptionData)
         {
             ExceptionDataVersionOne exceptionData = null;
@@ -49,6 +90,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return exceptionData;
+        }
+
+        internal FileChangeVersionOne CreateFileChange(FileChange v2FileChange)
+        {
+            FileChangeVersionOne fileChange = null;
+
+            if (v2FileChange != null)
+            {
+                string encodingName = GetFileEncodingName(v2FileChange.FileLocation?.Uri);
+                Encoding encoding = GetFileEncoding(encodingName);
+
+                try
+                {
+                    fileChange = new FileChangeVersionOne
+                    {
+                        Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encoding)).ToList(),
+                        Uri = v2FileChange.FileLocation?.Uri,
+                        UriBaseId = v2FileChange.FileLocation?.UriBaseId
+                    };
+                }
+                catch (UnknownEncodingException ex)
+                {
+                    // Set the unknown encoding name so the caller can provide useful reporting
+                    ex.EncodingName = encodingName;
+                    throw ex;
+                }
+            }
+
+            return fileChange;
+        }
+
+        private string GetFileEncodingName(Uri uri)
+        {
+            string encodingName = null;
+            IDictionary<string, FileData> filesDictionary = _currentV2Run.Files;
+
+            FileData fileData;
+            if (uri != null &&
+                filesDictionary != null &&
+                filesDictionary.TryGetValue(uri.OriginalString, out fileData))
+            {
+                encodingName = fileData.Encoding;
+            }
+
+            return encodingName;
+        }
+
+        private Encoding GetFileEncoding(string encodingName)
+        {
+            Encoding encoding = null;
+
+            try
+            {
+                encoding = Encoding.GetEncoding(encodingName);
+            }
+            catch (ArgumentException) { }
+
+            return encoding;
         }
 
         internal FileDataVersionOne CreateFileData(FileData v2FileData)
@@ -78,6 +177,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return fileData;
+        }
+
+        internal FixVersionOne CreateFix(Fix v2Fix)
+        {
+            FixVersionOne fix = null;
+
+            if (v2Fix != null)
+            {
+                try
+                {
+                    fix = new FixVersionOne()
+                    {
+                        Description = v2Fix.Description?.Text,
+                        FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
+                    };
+                }
+                catch (UnknownEncodingException)
+                {
+                    // A replacement in this fix specifies plain text, but the file's
+                    // encoding is unknown or unsupported, so we refuse to transform the fix.
+                    return null;
+                }
+            }
+
+            return fix;
         }
 
         internal HashVersionOne CreateHash(Hash v2Hash)
@@ -149,6 +273,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
+        internal LocationVersionOne CreateLocation(Location v2Location)
+        {
+            LocationVersionOne location = null;
+
+            if (v2Location != null)
+            {
+                location = new LocationVersionOne
+                {
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    Properties = v2Location.Properties,
+                    ResultFile = CreatePhysicalLocation(v2Location.PhysicalLocation)
+                };
+
+                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName) &&
+                    _currentV2Run.LogicalLocations?.ContainsKey(v2Location.FullyQualifiedLogicalName) == true)
+                {
+                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.FullyQualifiedLogicalName].DecoratedName;
+                }
+            }
+
+            return location;
+        }
+
         internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
         {
             LogicalLocationVersionOne logicalLocation = null;
@@ -206,15 +353,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return physicalLocation;
         }
 
+        internal PhysicalLocationVersionOne CreatePhysicalLocation(FileLocation v2FileLocation)
+        {
+            PhysicalLocationVersionOne physicalLocation = null;
+
+            if (v2FileLocation != null)
+            {
+                physicalLocation = new PhysicalLocationVersionOne
+                {
+                    Uri = v2FileLocation.Uri,
+                    UriBaseId = v2FileLocation.UriBaseId
+                };
+            }
+
+            return physicalLocation;
+        }
+
+        internal PhysicalLocationVersionOne CreatePhysicalLocation(Region v2Region)
+        {
+            PhysicalLocationVersionOne physicalLocation = null;
+
+            if (v2Region != null)
+            {
+                physicalLocation = new PhysicalLocationVersionOne
+                {
+                    Region = CreateRegion(v2Region)
+                };
+            }
+
+            return physicalLocation;
+        }
+
         internal RegionVersionOne CreateRegion(Region v2Region)
         {
             RegionVersionOne region = null;
 
             if (v2Region != null && (v2Region.StartColumn > 0 ||
-                                     v2Region.StartLine > 0 || 
-                                     v2Region.EndColumn > 0 || 
-                                     v2Region.EndLine > 0 || 
-                                     v2Region.Length > 0 || 
+                                     v2Region.StartLine > 0 ||
+                                     v2Region.EndColumn > 0 ||
+                                     v2Region.EndLine > 0 ||
+                                     v2Region.Length > 0 ||
                                      v2Region.Offset > 0))
             {
                 region = new RegionVersionOne
@@ -229,6 +407,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return region;
+        }
+
+        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Encoding encoding)
+        {
+            ReplacementVersionOne replacement = null;
+
+            if (v2Replacement != null)
+            {
+                replacement = new ReplacementVersionOne();
+                FileContent insertedContent = v2Replacement.InsertedContent;
+
+                if (insertedContent != null)
+                {
+                    if (insertedContent.Binary != null)
+                    {
+                        replacement.InsertedBytes = insertedContent.Binary;
+                    }
+                    else if (insertedContent.Text != null)
+                    {
+                        if (encoding != null)
+                        {
+                            replacement.InsertedBytes = SarifUtilities.GetBase64String(insertedContent.Text, encoding);
+                        }
+                        else
+                        {
+                            // The encoding is null or not supported on the current platform
+                            throw new UnknownEncodingException();
+                        }
+                    }
+                }
+
+                replacement.DeletedLength = v2Replacement.DeletedRegion.Length;
+                replacement.Offset = v2Replacement.DeletedRegion.Offset;
+            }
+
+            return replacement;
         }
 
         internal Dictionary<string, string> CreateResponseFilesDictionary(IList<FileLocation> v2ResponseFilesList)
@@ -255,6 +469,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return responseFiles;
+        }
+
+        internal ResultVersionOne CreateResult(Result v2Result)
+        {
+            ResultVersionOne result = null;
+
+            if (v2Result != null)
+            {
+                result = new ResultVersionOne
+                {
+                    BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
+                    Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
+                    Id = v2Result.InstanceGuid,
+                    Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
+                    Locations = v2Result.Locations?.Select(CreateLocation).ToList(),
+                    Message = v2Result.Message?.Text,
+                    Properties = v2Result.Properties,
+                    RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocation).ToList(),
+                    Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
+                    Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
+                };
+
+                if (result.Fixes != null)
+                {
+                    // Null Fixes will be present in the case of unsupported encoding
+                    (result.Fixes as List<FixVersionOne>).RemoveAll(f => f == null);
+
+                    if (result.Fixes.Count == 0)
+                    {
+                        result.Fixes = null;
+                    }
+                }
+
+                if (v2Result.AnalysisTarget != null)
+                {
+                    foreach (LocationVersionOne location in result.Locations)
+                    {
+                        location.AnalysisTarget = CreatePhysicalLocation(v2Result.AnalysisTarget);
+                    }
+                }
+
+                if (_currentV2Run.Resources?.Rules != null)
+                {
+                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
+                    Rule v2Rule;
+
+                    if (v2Result.RuleId != null &&
+                        rules.TryGetValue(v2Result.RuleId, out v2Rule) &&
+                        v2Rule.Id != v2Result.RuleId)
+                    {
+                        result.RuleId = v2Rule.Id;
+                        result.RuleKey = v2Result.RuleId;
+                    }
+                    else
+                    {
+                        result.RuleId = v2Result.RuleId;
+                    }
+                }
+                else
+                {
+                    result.RuleId = v2Result.RuleId;
+                }
+
+                if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
+                {
+                    result.FormattedRuleMessage = new FormattedRuleMessageVersionOne
+                    {
+                        Arguments = v2Result.Message?.Arguments,
+                        FormatId = v2Result.RuleMessageId
+                    };
+                }
+            }
+
+            return result;
         }
 
         internal RuleVersionOne CreateRule(Rule v2Rule)
@@ -317,6 +606,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
                     run.StableId = v2Run.LogicalId;
                     run.Tool = CreateTool(v2Run.Tool);
+
+                    foreach (Result v2Result in v2Run.Results)
+                    {
+                        run.Results.Add(CreateResult(v2Result));
+                    }
 
                     // Stash the entire v2 run in this v1 run's property bag
                     run.SetProperty($"{FromPropertyBagPrefix}/run", v2Run);

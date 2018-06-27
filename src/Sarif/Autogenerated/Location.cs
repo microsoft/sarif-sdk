@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// The human-readable fully qualified name of the logical location where the analysis tool produced the result. If 'logicalLocationKey' is not specified, this member is can used to retrieve the location logicalLocation from the logicalLocations dictionary, if one exists.
+        /// The human-readable fully qualified name of the logical location where the analysis tool produced the result.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
         public string FullyQualifiedLogicalName { get; set; }

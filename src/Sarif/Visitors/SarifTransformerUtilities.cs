@@ -96,6 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             { "sha-384", AlgorithmKindVersionOne.Sha384 },
             { "sha-512", AlgorithmKindVersionOne.Sha512 }
         };
+
         public static string CreateDisambiguatedName(string baseName, int index)
         {
             return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
@@ -142,21 +143,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
-        {
-            switch (v2DefaultLevel)
-            {
-                case RuleConfigurationDefaultLevel.Error:
-                    return ResultLevelVersionOne.Error;
-                case RuleConfigurationDefaultLevel.Note:
-                    return ResultLevelVersionOne.Pass;
-                case RuleConfigurationDefaultLevel.Warning:
-                    return ResultLevelVersionOne.Warning;
-                default:
-                    return ResultLevelVersionOne.Warning;
-            }
-        }
-
         public static ResultLevel CreateResultLevel(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)
@@ -176,7 +162,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevel(ResultLevel v2ResultLevel)
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
+        {
+            switch (v2DefaultLevel)
+            {
+                case RuleConfigurationDefaultLevel.Error:
+                    return ResultLevelVersionOne.Error;
+                case RuleConfigurationDefaultLevel.Note:
+                    return ResultLevelVersionOne.Pass;
+                case RuleConfigurationDefaultLevel.Warning:
+                    return ResultLevelVersionOne.Warning;
+                default:
+                    return ResultLevelVersionOne.Warning;
+            }
+        }
+
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(ResultLevel v2ResultLevel)
         {
             switch (v2ResultLevel)
             {
@@ -208,6 +209,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
+        public static SuppressionStatesVersionOne CreateSuppressionStatesVersionOne(SuppressionStates v2SuppressionStates)
+        {
+            switch (v2SuppressionStates)
+            {
+                case SuppressionStates.SuppressedExternally:
+                    return SuppressionStatesVersionOne.SuppressedExternally;
+                case SuppressionStates.SuppressedInSource:
+                    return SuppressionStatesVersionOne.SuppressedInSource;
+                default:
+                    return SuppressionStatesVersionOne.None;
+            }
+        }
+
         public static BaselineState CreateBaselineState(BaselineStateVersionOne v1BaselineState)
         {
             switch (v1BaselineState)
@@ -222,6 +236,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return BaselineState.None;
             }
         }
+        public static BaselineStateVersionOne CreateBaselineStateVersionOne(BaselineState v2BaselineState)
+        {
+            switch (v2BaselineState)
+            {
+                case BaselineState.Absent:
+                    return BaselineStateVersionOne.Absent;
+                case BaselineState.Existing:
+                    return BaselineStateVersionOne.Existing;
+                case BaselineState.New:
+                    return BaselineStateVersionOne.New;
+                default:
+                    return BaselineStateVersionOne.None;
+            }
+        }
 
         public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
         {
@@ -231,6 +259,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return CodeFlowLocationImportance.Essential;
                 case AnnotatedCodeLocationImportanceVersionOne.Important:
                     return CodeFlowLocationImportance.Important;
+                case AnnotatedCodeLocationImportanceVersionOne.Unimportant:
+                    return CodeFlowLocationImportance.Unimportant;
                 default:
                     return CodeFlowLocationImportance.Important;
             }
