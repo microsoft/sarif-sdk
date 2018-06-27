@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="..\..\fcib\*.dll" />
+    <Reference Include="..\..\fcib\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
   <ItemGroup>

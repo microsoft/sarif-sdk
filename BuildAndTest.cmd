@@ -47,7 +47,7 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
-dotnet build %SolutionFile%
+dotnet build --no-incremental --configuration %Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
 if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )

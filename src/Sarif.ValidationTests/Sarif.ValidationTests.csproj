@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="..\..\fcib\*.dll" />
+    <Reference Include="..\..\fcib\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
   <Target Name="CopyTestData" AfterTargets="Build">
@@ -37,12 +37,12 @@
       <v2DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v2\DirectProducerTestData\**\*.sarif" />
       <v2SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\**\*.sarif" />
     </ItemGroup>
-    <Copy SourceFiles="@(v1ConverterTestData)" DestinationFolder="$(OutDir)v1\ConverterTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v1DirectProducerTestData)" DestinationFolder="$(OutDir)v1\DirectProducerTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v1SpecExamples)" DestinationFolder="$(OutDir)v1\SpecExamples\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2ConverterTestData)" DestinationFolder="$(OutDir)v2\ConverterTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2DirectProducerTestData)" DestinationFolder="$(OutDir)v2\DirectProducerTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2SpecExamples)" DestinationFolder="$(OutDir)v2\SpecExamples\%(RecursiveDir)" />
-    <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="@(v1ConverterTestData)" DestinationFolder="$(OutputPath)v1\ConverterTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v1DirectProducerTestData)" DestinationFolder="$(OutputPath)v1\DirectProducerTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v1SpecExamples)" DestinationFolder="$(OutputPath)v1\SpecExamples\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2ConverterTestData)" DestinationFolder="$(OutputPath)v2\ConverterTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2DirectProducerTestData)" DestinationFolder="$(OutputPath)v2\DirectProducerTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2SpecExamples)" DestinationFolder="$(OutputPath)v2\SpecExamples\%(RecursiveDir)" />
+    <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>
