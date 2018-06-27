@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class AnalyzeCommand : AnalyzeCommandBase<SarifValidationContext, AnalyzeOptions>
+    internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
     {
         public override string Prerelease => VersionConstants.Prerelease;
 
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        protected override SarifValidationContext CreateContext(AnalyzeOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, string filePath = null)
+        protected override SarifValidationContext CreateContext(ValidateOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, string filePath = null)
         {
             SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
             context.SchemaFilePath = options.SchemaFilePath;

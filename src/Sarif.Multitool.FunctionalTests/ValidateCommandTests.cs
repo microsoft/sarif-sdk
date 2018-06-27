@@ -7,16 +7,16 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class AnalyzeCommandTests : SarifMultitoolTestBase
+    public class ValidateCommandTests : SarifMultitoolTestBase
     {
-        [Fact(DisplayName = nameof(AnalyzeCommand_ReportsJsonSyntaxError))]
-        public void AnalyzeCommand_ReportsJsonSyntaxError()
+        [Fact(DisplayName = nameof(ValidateCommand_ReportsJsonSyntaxError))]
+        public void ValidateCommand_ReportsJsonSyntaxError()
         {
             Verify("SyntaxError.sarif");
         }
 
-        [Fact(DisplayName = nameof(AnalyzeCommand_ReportsDeserializationError))]
-        public void AnalyzeCommand_ReportsDeserializationError()
+        [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError))]
+        public void ValidateCommand_ReportsDeserializationError()
         {
             Verify("DeserializationError.sarif");
         }
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
             string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
 
-            var analyzeOptions = new AnalyzeOptions
+            var validateOptions = new ValidateOptions
             {
                 TargetFileSpecifiers = new[] { testFilePath },
                 OutputFilePath = actualFilePath,
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Quiet = true
             };
 
-            new AnalyzeCommand().Run(analyzeOptions);
+            new ValidateCommand().Run(validateOptions);
 
             string actualLogContents = File.ReadAllText(actualFilePath);
             string expectedLogContents = File.ReadAllText(expectedFilePath);

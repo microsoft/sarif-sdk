@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("validate", HelpText = "Validate a SARIF file against the schema and against additional correctness rules.")]
-    internal class AnalyzeOptions : AnalyzeOptionsBase
+    internal class ValidateOptions : AnalyzeOptionsBase
     {
         [Option(
             'j',
