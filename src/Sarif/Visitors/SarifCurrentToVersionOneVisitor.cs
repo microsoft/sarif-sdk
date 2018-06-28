@@ -36,6 +36,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }
 
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(Location v2Location)
+        {
+            AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
+
+            if (v2Location != null)
+            {
+                annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
+                {
+                    Annotations = v2Location.Annotations?.Select(CreateAnnotation).ToList(),
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    LogicalLocationKey = v2Location.FullyQualifiedLogicalName,
+                    Message = v2Location.Message?.Text,
+                    PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
+                    Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
+                };
+            }
+
+            return annotatedCodeLocation;
+        }
+
+        internal AnnotationVersionOne CreateAnnotation(Region v2Region)
+        {
+            AnnotationVersionOne annotation = null;
+
+            if (v2Region != null)
+            {
+                annotation = new AnnotationVersionOne
+                {
+                    Locations = new List<PhysicalLocationVersionOne>
+                    {
+                        CreatePhysicalLocation(v2Region)
+                    },
+                    Message = v2Region.Message?.Text
+                };
+            }
+
+            return annotation;
+        }
+
         internal ExceptionDataVersionOne CreateExceptionData(ExceptionData v2ExceptionData)
         {
             ExceptionDataVersionOne exceptionData = null;
@@ -233,6 +272,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return invocation;
+        }
+
+        internal LocationVersionOne CreateLocation(Location v2Location)
+        {
+            LocationVersionOne location = null;
+
+            if (v2Location != null)
+            {
+                location = new LocationVersionOne
+                {
+                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    Properties = v2Location.Properties,
+                    ResultFile = CreatePhysicalLocation(v2Location.PhysicalLocation)
+                };
+
+                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName) &&
+                    _currentV2Run.LogicalLocations?.ContainsKey(v2Location.FullyQualifiedLogicalName) == true)
+                {
+                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.FullyQualifiedLogicalName].DecoratedName;
+                }
+            }
+
+            return location;
         }
 
         internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
@@ -621,10 +683,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
                     Id = v2Result.InstanceGuid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
+                    Locations = v2Result.Locations?.Select(CreateLocation).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
+                    RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocation).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
                 };
 
                 if (result.Fixes != null)
@@ -635,6 +700,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (result.Fixes.Count == 0)
                     {
                         result.Fixes = null;
+                    }
+                }
+
+                if (v2Result.AnalysisTarget != null)
+                {
+                    foreach (LocationVersionOne location in result.Locations)
+                    {
+                        location.AnalysisTarget = CreatePhysicalLocation(v2Result.AnalysisTarget);
                     }
                 }
 

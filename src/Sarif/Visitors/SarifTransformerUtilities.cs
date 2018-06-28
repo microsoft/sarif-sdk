@@ -208,6 +208,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
+        public static SuppressionStatesVersionOne CreateSuppressionStatesVersionOne(SuppressionStates v2SuppressionStates)
+        {
+            switch (v2SuppressionStates)
+            {
+                case SuppressionStates.SuppressedExternally:
+                    return SuppressionStatesVersionOne.SuppressedExternally;
+                case SuppressionStates.SuppressedInSource:
+                    return SuppressionStatesVersionOne.SuppressedInSource;
+                default:
+                    return SuppressionStatesVersionOne.None;
+            }
+        }
+
         public static BaselineState CreateBaselineState(BaselineStateVersionOne v1BaselineState)
         {
             switch (v1BaselineState)
