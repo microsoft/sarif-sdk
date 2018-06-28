@@ -1108,9 +1108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 20,
                   ""startColumn"": 69,
-                  ""endColumn"": 74,
-                  ""offset"": 720,
-                  ""length"": 5
+                  ""endColumn"": 74
                 }
               }
             }
@@ -1135,9 +1133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 24,
                   ""startColumn"": 4,
-                  ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34
+                  ""endColumn"": 38
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add"",
@@ -1152,9 +1148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 56,
                   ""startColumn"": 8,
-                  ""endColumn"": 78,
-                  ""offset"": 1124,
-                  ""length"": 22
+                  ""endColumn"": 78
                 }
               },
               ""message"": ""Second location with this violation"",
@@ -1164,10 +1158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""message"": ""Foxes, quick and brown"",
                   ""locations"": [
                     {
-                      ""region"": {
-                        ""offset"": 1345,
-                        ""length"": 22
-                      }
+                      ""region"": {}
                     }
                   ]
                 }
@@ -1193,7 +1184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""decoratedName"":""?add@list@collections@@QAEXH@Z"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""kind"":""namespace""}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""offset"":720,""length"":5,""snippet"":{""text"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""}}}}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""offset"":803,""length"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}},""fullyQualifiedLogicalName"":""collections::list::add""}],""relatedLocations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":56,""startColumn"":8,""endColumn"":78,""offset"":1124,""length"":22,""snippet"":{""text"":""<DIV id=\""test3\""></DIV>""}}},""message"":{""text"":""Second location with this violation""},""annotations"":[{""offset"":1345,""length"":22,""message"":{""text"":""Foxes, quick and brown""}}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""decoratedName"":""?add@list@collections@@QAEXH@Z"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""kind"":""namespace""}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""snippet"":{""text"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""}}}}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}},""fullyQualifiedLogicalName"":""collections::list::add""}],""relatedLocations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":56,""startColumn"":8,""endColumn"":78,""snippet"":{""text"":""<DIV id=\""test3\""></DIV>""}}},""message"":{""text"":""Second location with this violation""},""annotations"":[{""message"":{""text"":""Foxes, quick and brown""}}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
       }
     }
   ]
@@ -1615,9 +1606,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 24,
                   ""startColumn"": 4,
-                  ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34
+                  ""endColumn"": 38
                 }
               }
             }
@@ -1639,9 +1628,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 24,
                   ""startColumn"": 4,
-                  ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34
+                  ""endColumn"": 38
                 }
               }
             }
@@ -1663,9 +1650,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 24,
                   ""startColumn"": 4,
-                  ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34
+                  ""endColumn"": 38
                 }
               }
             }

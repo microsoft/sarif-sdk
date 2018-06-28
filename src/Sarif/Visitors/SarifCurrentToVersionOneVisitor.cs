@@ -354,6 +354,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return physicalLocation;
         }
 
+        internal PhysicalLocationVersionOne CreatePhysicalLocation(FileLocation v2FileLocation)
+        {
+            PhysicalLocationVersionOne physicalLocation = null;
+
+            if (v2FileLocation != null)
+            {
+                physicalLocation = new PhysicalLocationVersionOne
+                {
+                    Uri = v2FileLocation.Uri,
+                    UriBaseId = v2FileLocation.UriBaseId
+                };
+            }
+
+            return physicalLocation;
+        }
+
+        internal PhysicalLocationVersionOne CreatePhysicalLocation(Region v2Region)
+        {
+            PhysicalLocationVersionOne physicalLocation = null;
+
+            if (v2Region != null)
+            {
+                physicalLocation = new PhysicalLocationVersionOne
+                {
+                    Region = CreateRegion(v2Region, null)
+                };
+            }
+
+            return physicalLocation;
+        }
+
         internal RegionVersionOne CreateRegion(Region v2Region, Uri uri)
         {
             RegionVersionOne region = null;
