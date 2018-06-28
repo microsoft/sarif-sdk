@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.DoNotUseFriendlyNameAsRuleId;
 
-        public override IEnumerable<string> MessageStringIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
