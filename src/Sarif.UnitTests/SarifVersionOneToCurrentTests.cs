@@ -1052,6 +1052,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
+      ""files"": {
+        ""file:///home/list.txt"": {
+          ""mimeType"": ""text/plain"",
+          ""length"": 43,
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+          ""hashes"": [
+            {
+              ""algorithm"": ""sha256"",
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592""
+            }
+          ]
+        }
+      },
       ""logicalLocations"": {
         ""collections::list::add"": {
           ""name"": ""add"",
@@ -1104,16 +1117,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""message"": ""\""count\"" was declared here."",
               ""physicalLocation"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                ""uri"": ""file:///home/list.txt"",
                 ""region"": {
-                  ""startLine"": 8,
-                  ""startColumn"": 5
+                  ""startLine"": 1,
+                  ""startColumn"": 5,
+                  ""length"": 4
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
+            },
+            {
+              ""message"": ""\""count\"" was declared here."",
+              ""physicalLocation"": {
+                ""uri"": ""file:///home/list.txt"",
+                ""region"": {
+                  ""offset"": 12,
+                  ""length"": 3
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add""
             }
           ]
-  }
+        }
       ],
       ""rules"": {
         ""C2001"": {
@@ -1138,6 +1163,21 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
+      },
+      ""files"": {
+        ""file:///home/list.txt"": {
+          ""length"": 43,
+          ""mimeType"": ""text/plain"",
+          ""contents"": {
+            ""text"": ""The quick brown fox jumps over the lazy dog""
+          },
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        }
       },
       ""logicalLocations"": {
         ""collections::list::add"": {
@@ -1192,12 +1232,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""physicalLocation"": {
                 ""fileLocation"": {
-                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                  ""uri"": ""file:///home/list.txt""
                 },
                 ""region"": {
-                  ""startLine"": 8,
+                  ""startLine"": 1,
                   ""startColumn"": 5,
-                  ""endColumn"": 5
+                  ""charLength"": 4,
+                  ""byteLength"": 4
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+              ""message"": {
+                ""text"": ""\""count\"" was declared here.""
+              }
+            },
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/list.txt""
+                },
+                ""region"": {
+                  ""charOffset"": 12,
+                  ""byteOffset"": 12,
+                  ""byteLength"": 3
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add"",
@@ -1227,7 +1284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""name"":""collections"",""kind"":""namespace""}},""results"":[{""ruleId"":""C2001"",""level"":5,""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""ptr""]},""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""relatedLocations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":8,""startColumn"":5}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""}],""suppressionStates"":2,""baselineState"":1}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""fullDescription"":""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""}}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""files"":{""file:///home/list.txt"":{""length"":43,""mimeType"":""text/plain"",""contents"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":23}]}},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""name"":""collections"",""kind"":""namespace""}},""results"":[{""ruleId"":""C2001"",""level"":5,""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""ptr""]},""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""relatedLocations"":[{""physicalLocation"":{""uri"":""file:///home/list.txt"",""region"":{""startLine"":1,""startColumn"":5,""length"":4}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""},{""physicalLocation"":{""uri"":""file:///home/list.txt"",""region"":{""offset"":12,""length"":3}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""}],""suppressionStates"":2,""baselineState"":1}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""fullDescription"":""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""}}}}
       }
     }
   ]

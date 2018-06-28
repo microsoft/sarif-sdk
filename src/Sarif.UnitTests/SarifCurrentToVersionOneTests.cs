@@ -1544,7 +1544,6 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""physicalLocation"": {
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
-              ""startColumn"": 1,
               ""offset"": 16
             }
           },
@@ -1556,8 +1555,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 2,
-              ""startColumn"": 4,
-              ""offset"": 18
+              ""startColumn"": 4
             }
           },
           ""message"": ""startColumn/Line same as charOffset""
@@ -1568,8 +1566,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 2,
-              ""startColumn"": 1,
-              ""offset"": 12
+              ""startColumn"": 1
             }
           },
           ""message"": ""startColumn/Line same as charOffset""
@@ -1580,8 +1577,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 1,
-              ""startColumn"": 2,
-              ""endColumn"": 4
+              ""startColumn"": 2
             }
           },
           ""message"": ""startLine and startColumn only""
@@ -1604,7 +1600,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""region"": {
               ""startLine"": 2,
               ""startColumn"": 1,
-              ""endLine"": 3
+              ""endLine"": 3,
+              ""endColumn"": 24
             }
           },
           ""message"": ""One whole line""

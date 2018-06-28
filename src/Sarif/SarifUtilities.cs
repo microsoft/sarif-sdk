@@ -176,6 +176,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
 
             string s = new String(chars);
+            return GetByteLength(s, encoding);
+        }
+
+        public static int GetByteLength(string s, Encoding encoding)
+        {
+            s = s ?? throw new ArgumentNullException(nameof(s));
+            encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+            
             byte[] bytes = encoding.GetBytes(s);
             return bytes.Length;
         }

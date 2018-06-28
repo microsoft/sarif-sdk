@@ -3,7 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
@@ -16,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun = null;
+        private RunVersionOne _currentV1Run = null;
         private int _codeFlowLocationNestingLevel;
         private int _codeFlowLocationStepAdjustment = 0;
 
@@ -630,25 +634,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocation
                 {
                     FileLocation = CreateFileLocation(v1PhysicalLocation),
-                    Region = CreateRegion(v1PhysicalLocation.Region)
+                    Region = CreateRegion(v1PhysicalLocation)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal Region CreateRegion(RegionVersionOne v1Region)
+        internal Region CreateRegion(PhysicalLocationVersionOne v1PhysicalLocation)
         {
             Region region = null;
 
-            if (v1Region != null)
+            if (v1PhysicalLocation?.Region != null)
             {
-                region = CreateRegion(v1Region.StartColumn,
-                                      v1Region.StartLine,
-                                      v1Region.EndColumn,
-                                      v1Region.EndLine,
-                                      v1Region.Length,
-                                      v1Region.Offset);
+                RegionVersionOne v1Region = v1PhysicalLocation.Region;
+
+                region = new Region
+                {
+                    ByteLength = v1Region.Length,
+                    ByteOffset = v1Region.Offset,
+                    EndColumn = v1Region.EndColumn,
+                    EndLine = v1Region.EndLine,
+                    StartColumn = v1Region.StartColumn,
+                    StartLine = v1Region.StartLine
+                };
+
+                bool startIsTextBased = v1Region.StartLine > 0;
+                bool endIsTextBased = v1Region.EndLine > 0 || v1Region.EndColumn > 0;
+
+                if (startIsTextBased && endIsTextBased && v1Region.EndColumn == 0)
+                {
+                    region.EndColumn = v1Region.StartColumn;
+                }
+                else if (startIsTextBased)
+                {
+                    region.CharLength = GetRegionCharLength(v1Region, v1PhysicalLocation.Uri);
+                }
+                else
+                {
+                    region.CharOffset = GetRegionCharOffset(v1Region, v1PhysicalLocation.Uri);
+                }
             }
 
             return region;
@@ -663,7 +688,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
-                region = CreateRegion(v1PhysicalLocation.Region);
+                region = CreateRegion(v1PhysicalLocation);
                 region.Message = CreateMessage(message);
             }
 
@@ -680,20 +705,224 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     ByteLength = length,
                     ByteOffset = offset,
-                    EndColumn = endColumn,
+                    EndColumn = endColumn > 0 ? endColumn : startColumn,
                     EndLine = endLine,
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
-
-                if (endColumn == 0 && length == 0)
-                {
-                    // It's an insertion point, transform to v2 spec
-                    region.EndColumn = startColumn;
-                }
             }
 
             return region;
+        }
+
+        public int GetRegionCharLength(RegionVersionOne v1Region, Uri uri)
+        {
+            int result = 0;
+
+            TextReader reader = null;
+            Stream stream = null;
+
+            try
+            {
+                // Get a TextReader so we can read line by line
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+
+                if (reader != null)
+                {
+                    // Read each line up to the startLine and copy them into a StringBuilder
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 1; i < v1Region.StartLine; sb.AppendLine(reader.ReadLine()), i++) { }
+
+                    // Read the startLine and append up to the startColumn
+                    string line = reader.ReadLine();
+                    sb.Append(line.Substring(0, v1Region.StartColumn));
+
+                    // Calculate the byte size of the content and close the reader
+                    int byteOffset = SarifUtilities.GetByteLength(sb.ToString(), encoding);
+                    reader.Close();
+
+                    // Get a stream so we can do byte operations
+                    stream = GetContentStream(uri);
+
+                    if (stream != null)
+                    {
+                        // Seek to the start of the region
+                        stream.Seek(byteOffset, SeekOrigin.Begin);
+
+                        // Read the region's bytes
+                        byte[] bytes = new byte[v1Region.Length];
+                        stream.Read(bytes, 0, bytes.Length);
+
+                        // Calculate the character length of the region
+                        string s = encoding.GetString(bytes);
+                        result = s.Length;
+                    }
+                }
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+
+                if (stream != null)
+                {
+                    stream.Dispose();
+                }
+            }
+
+            return result;
+        }
+
+        public int GetRegionCharOffset(RegionVersionOne v1Region, Uri uri)
+        {
+            int result = 0;
+
+            TextReader reader = null;
+            Stream stream = null;
+
+            try
+            {
+                // Get a reader so the encoding might be detected by the StreamReader ctor
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+
+                if (reader != null)
+                {
+                    // Close the reader
+                    reader.Close();
+
+                    // Get a stream so we can do byte operations
+                    stream = GetContentStream(uri);
+
+                    if (stream != null)
+                    {
+                        // Read the bytes up to the region offset
+                        byte[] bytes = new byte[v1Region.Offset];
+                        stream.Read(bytes, 0, bytes.Length);
+
+                        // Calculate the character length of the offset
+                        string s = encoding.GetString(bytes);
+                        result = s.Length;
+                    }
+                }
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+
+                if (stream != null)
+                {
+                    stream.Dispose();
+                }
+            }
+
+            return result;
+        }
+
+        public Stream GetContentStream(Uri uri)
+        {
+            Stream stream = null;
+            var failureReason = new StringBuilder();
+
+            if (uri != null && _currentV1Run.Files != null)
+            {
+                FileDataVersionOne fileData;
+                if (_currentV1Run.Files.TryGetValue(uri.OriginalString, out fileData))
+                {
+                    try
+                    {
+                        if (fileData.Contents != null && Utilities.TextMimeTypes.Contains(fileData.MimeType))
+                        {
+                            // Embedded text content
+                            stream = new MemoryStream(Convert.FromBase64String(fileData.Contents));
+                        }
+                        else if (uri.IsAbsoluteUri &&
+                                 uri.Scheme == Uri.UriSchemeFile &&
+                                 File.Exists(uri.LocalPath))
+                        {
+                            // External source file
+                            stream = new FileStream(uri.LocalPath, FileMode.Open);
+                        }
+                    }
+                    catch (FileNotFoundException) { }
+                    catch (IOException) { }
+                    catch (SecurityException) { }
+                }
+            }
+
+            if (stream == null)
+            {
+                failureReason.AppendLine($"File '{uri.LocalPath}' could not be found, or access was denied");
+            }
+
+            if (failureReason.Length > 0)
+            {
+                // If we get here, we were unable to determine region character offset, so we have to warn the caller
+                // TODO: add a warning to the list
+            }
+
+            return stream;
+        }
+
+        public TextReader GetFileTextReader(Uri uri, out Encoding encoding)
+        {
+            TextReader reader = null;
+            encoding = null;
+            var failureReason = new StringBuilder();
+
+            if (uri != null && _currentV1Run.Files != null)
+            {
+                FileDataVersionOne fileData;
+                if (_currentV1Run.Files.TryGetValue(uri.OriginalString, out fileData))
+                {
+                    try
+                    {
+                        if (fileData.Contents != null && Utilities.TextMimeTypes.Contains(fileData.MimeType))
+                        {
+                            // Embedded text content
+                            string content = SarifUtilities.DecodeBase64String(fileData.Contents);
+                            reader = new StringReader(content);
+
+                            // Embedded text shall be UTF-8 encoded
+                            encoding = Encoding.UTF8;
+                        }
+                        else if (uri.IsAbsoluteUri &&
+                                 uri.Scheme == Uri.UriSchemeFile &&
+                                 File.Exists(uri.LocalPath))
+                        {
+                            // External source file
+                            reader = new StreamReader(uri.LocalPath, true);
+                            encoding = (reader as StreamReader).CurrentEncoding;
+                        }
+                    }
+                    catch (FileNotFoundException) { }
+                    catch (IOException) { }
+                    
+                    if (encoding == null)
+                    {
+                        failureReason.AppendLine($"Encoding could not be determined or is not supported for file '{uri.LocalPath}'");
+                    }
+                }
+            }
+
+            if (reader == null)
+            {
+                failureReason.AppendLine($"File '{uri.LocalPath}' could not be found, or access was denied");
+            }
+
+            if (failureReason.Length > 0)
+            {
+                // If we get here, we were unable to determine region character offset, so we have to warn the caller
+                // TODO: add a warning to the list
+            }
+
+            return reader;
         }
 
         internal Result CreateResult(ResultVersionOne v1Result)
@@ -862,6 +1091,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
+                    _currentV1Run = v1Run;
+
                     run = new Run()
                     {
                         Architecture = v1Run.Architecture,

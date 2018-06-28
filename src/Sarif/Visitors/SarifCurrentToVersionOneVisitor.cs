@@ -296,116 +296,195 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RegionVersionOne region = null;
 
-            if (v2Region != null && (v2Region.StartColumn > 0 ||
-                                     v2Region.StartLine > 0 ||
-                                     v2Region.EndColumn > 0 ||
-                                     v2Region.EndLine > 0 ||
-                                     v2Region.ByteLength > 0 ||
-                                     v2Region.ByteOffset > 0 ||
-                                     v2Region.CharLength > 0 ||
-                                     v2Region.CharOffset > 0))
+            if (v2Region != null)
             {
-                region = new RegionVersionOne
+                region = new RegionVersionOne();
+
+                if (v2Region.StartLine > 0 ||
+                    v2Region.EndLine > 0 ||
+                    v2Region.StartColumn > 0 ||
+                    v2Region.EndColumn > 0 ||
+                    v2Region.CharOffset > 0 ||
+                    v2Region.CharLength > 0)
                 {
-                    Length = v2Region.ByteLength,
-                    Offset = v2Region.ByteOffset,
-                    EndColumn = v2Region.EndColumn,
-                    EndLine = v2Region.EndLine,
-                    StartColumn = v2Region.StartColumn > 0 ? v2Region.StartColumn : 1,
-                    StartLine = v2Region.StartLine
-                };
-
-                if ((v2Region.CharLength > 0 || v2Region.CharOffset > 0) ||
-                    (v2Region.StartLine > 0 && v2Region.StartColumn > 0 && v2Region.EndColumn == 0))
-                {
-                    // We will need the source file content to determine values needed for the v1 region
-
-                    string failureReason = null;
-                    string localPath = uri?.LocalPath ?? "(null file path)";
-                    TextReader reader = null;
-
-                    try
+                    if (v2Region.StartLine > 0)
                     {
-                        Encoding encoding;
-                        reader = GetFileTextReader(uri, out encoding);
+                        // The start of the region is described by line/column.
+                        region.StartLine = v2Region.StartLine;
+                        region.StartColumn = v2Region.StartColumn > 0
+                            ? v2Region.StartColumn
+                            : 1;
+                    }
+                    else
+                    {
+                        // The start of the region is described by character offset
 
-                        if (reader == null)
+                        if (v2Region.CharOffset == 0)
                         {
-                            failureReason = $"File '{localPath}' could not be found, or access was denied";
-                        }
-                        else if (encoding == null)
-                        {
-                            failureReason = $"Encoding could not be determined or is not supported for file '{localPath}'";
+                            region.Offset = 0;
                         }
                         else
                         {
-                            if (v2Region.CharLength > 0 || v2Region.CharOffset > 0)
-                            {
-                                // We need to determine byte length & offset
-
-                                // Read the first <charOffset> characters
-                                char[] buffer = new char[v2Region.CharOffset];
-                                int count = reader.Read(buffer, 0, buffer.Length);
-
-                                if (count == v2Region.CharOffset)
-                                {
-                                    region.Offset = SarifUtilities.GetByteLength(buffer, encoding);
-
-                                    // Read the next <charLength> characters
-                                    buffer = new char[v2Region.CharLength];
-                                    count = reader.Read(buffer, 0, buffer.Length);
-
-                                    if (count == v2Region.CharLength)
-                                    {
-                                        region.Length = SarifUtilities.GetByteLength(buffer, encoding);
-                                    }
-                                    else
-                                    {
-                                        failureReason = $"Attempted to read {v2Region.CharLength} characters, but only read {count} from file '{localPath}'";
-                                    }
-                                }
-                                else
-                                {
-                                    failureReason = $"Attempted to read {v2Region.CharOffset} characters, but only read {count} from file '{localPath}'";
-                                }
-                            }
-                            else if (v2Region.StartLine > 0 && v2Region.StartColumn > 0 && v2Region.EndColumn == 0)
-                            {
-                                // It's not an insertion point, so we need to find the line ending to meet v1 spec
-
-                                // Read down to the line preceding the line where the region begins
-                                for (int i = 0; i < v2Region.StartLine - 1; reader.ReadLine(), i++) { }
-
-                                // Read the line where the region begins
-                                string sourceLine = reader.ReadLine();
-
-                                region.EndColumn = sourceLine.Length;
-                            }
+                            // Try to get the byte offset using the file encoding and contents
+                            region.Offset = GetRegionByteOffset(v2Region, uri);
                         }
                     }
-                    finally
+
+                    if (v2Region.CharLength > 0)
                     {
-                        if (reader != null)
+                        // The end of the region is described by character length
+                        // Try to get the byte length using the file encoding and contents
+                        region.Length = GetRegionByteLength(v2Region, uri);
+                    }
+                    else if (v2Region.EndLine > 0)
+                    {
+                        region.EndLine = v2Region.EndLine;
+
+                        if (v2Region.EndColumn > 0)
                         {
-                            reader.Dispose();
+                            region.EndColumn = v2Region.EndColumn;
+                        }
+                        else
+                        {
+                            // Try to get the end column using the file encoding and contents
+                            region.EndColumn = GetRegionEndColumn(v2Region, uri);
                         }
                     }
-
-                    if (failureReason != null)
+                    else if (v2Region.EndColumn > 0)
                     {
-                        // If we get here, we were unable to determine byte length/offset, so we have to warn the caller
-                        // TODO: add a warning to the list
+                        region.EndColumn = v2Region.EndColumn;
                     }
+                    else
+                    {
+                        // THIS IS A PROBLEM. IF ALL THE "END" PROPERTIES ARE MISSING,
+                        // IT MEANS "THE REST OF THE StartLine". BUT IF CHARLENGTH IS
+                        // PRESENT BUT 0, IT MEANS "INSERTION POINT". AND WE CAN'T TELL
+                        // THE DIFFERENCE.
+                    }
+                }
+                else
+                {
+                    // There are no text-related properties. Therefore either the region is
+                    // described entirely by binary-related properties, or the region is an
+                    // insertion point at the start of the file.
+                    region.Length = v2Region.ByteLength;
+                    region.Offset = v2Region.ByteOffset;
                 }
             }
 
             return region;
         }
 
+        internal int GetRegionByteOffset(Region v2Region, Uri uri)
+        {
+            int result = 0;
+            TextReader reader = null;
+
+            try
+            {
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+
+                if (reader != null)
+                {
+                    char[] buffer = new char[v2Region.CharOffset];
+
+                    // Read everything up to charOffset
+                    if (reader.ReadBlock(buffer, 0, buffer.Length) > 0)
+                    {
+                        result = encoding.GetByteCount(buffer, 0, buffer.Length);
+                    }
+                }
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
+
+            return result;
+        }
+
+        internal int GetRegionByteLength(Region v2Region, Uri uri)
+        {
+            int result = 0;
+            TextReader reader = null;
+
+            try
+            {
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+
+                if (v2Region.StartLine > 0) // Use line and column 
+                {                    
+                    string sourceLine = null;
+
+                    // Read down to the line before startLine
+                    for (int i = 1; i < v2Region.StartLine; sourceLine = reader.ReadLine(), i++) { }
+
+                    // Read to startColumn
+                    char[] buffer = new char[v2Region.StartColumn];
+                    reader.Read(buffer, 0, buffer.Length);
+
+                    // Read the next charLength characters
+                    buffer = new char[v2Region.CharLength];
+                    reader.Read(buffer, 0, buffer.Length);
+
+                    result = encoding.GetByteCount(buffer);
+                }
+                else // Use charOffset
+                {
+                    // Read the next charLength characters
+                    char[] buffer = new char[v2Region.CharOffset];
+                    reader.Read(buffer, 0, buffer.Length);
+
+                    result = encoding.GetByteCount(buffer);
+                }
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
+
+            return result;
+        }
+
+        public int GetRegionEndColumn(Region v2Region, Uri uri)
+        {
+            int result = 0;
+            TextReader reader = null;
+
+            try
+            {
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+                string sourceLine = null;
+
+                // Read down to the line before endLine
+                for (int i = 1; i < v2Region.EndLine; sourceLine = reader.ReadLine(), i++) { }
+                result = sourceLine.Length;
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
+
+            return result;
+        }
+
         public TextReader GetFileTextReader(Uri uri, out Encoding encoding)
         {
             TextReader reader = null;
             encoding = null;
+            var failureReason = new StringBuilder();
 
             if (uri != null && _currentV2Run.Files != null)
             {
@@ -444,9 +523,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                 reader = new StreamReader(uri.LocalPath, encoding);
                             }
                         }
+                        catch (FileNotFoundException) { }
                         catch (IOException) { }
                     }
+                    else
+                    {
+                        failureReason.AppendLine($"Encoding could not be determined or is not supported for file '{uri.LocalPath}'");
+                    }
                 }
+            }
+
+            if (reader == null)
+            {
+                failureReason.AppendLine($"File '{uri.LocalPath}' could not be found, or access was denied");
+            }
+
+            if (failureReason.Length > 0)
+            {
+                // If we get here, we were unable to determine the result, so we have to warn the caller
+                // TODO: add a warning to the list
             }
 
             return reader;

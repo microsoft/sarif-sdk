@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     region.ByteOffset > 0 ||
                     region.StartColumn == 0)
                 {
-                    throw new NotImplementedException();
+                    return string.Empty;
                 }
 
                 if (region.StartLine == 0)
