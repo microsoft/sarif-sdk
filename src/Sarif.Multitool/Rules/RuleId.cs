@@ -5,17 +5,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public static class RuleId
     {
-        public const string DoNotUseFriendlyNameAsRuleId = "SARIF001";
-        public const string UseAbsolutePathsForNestedFileUriFragments = "SARIF002";
-        public const string UrisMustBeValid = "SARIF003";
-        public const string HashAlgorithmsMustBeUnique = "SARIF006";
-        public const string EndTimeMustBeAfterStartTime = "SARIF007";
-        public const string MessagesShouldEndWithPeriod = "SARIF008";
-        public const string StepValuesMustFormOneBasedSequence = "SARIF009";
-        public const string StepMustAppearOnlyInCodeFlowLocations = "SARIF010";
-        public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SARIF011";
-        public const string EndLineMustNotBeLessThanStartLine = "SARIF012";
-        public const string EndColumnMustNotBeLessThanStartColumn = "SARIF013";
-        public const string UriBaseIdRequiresRelativeUri = "SARIF014";
+        public const string DoNotUseFriendlyNameAsRuleId = "SARIF1001";
+        public const string UseAbsolutePathsForNestedFileUriFragments = "SARIF1002";
+        public const string UrisMustBeValid = "SARIF1003";
+        public const string HashAlgorithmsMustBeUnique = "SARIF1006";
+        public const string EndTimeMustBeAfterStartTime = "SARIF1007";
+        public const string MessagesShouldEndWithPeriod = "SARIF1008";
+        public const string StepValuesMustFormOneBasedSequence = "SARIF1009";
+        public const string StepMustAppearOnlyInCodeFlowLocations = "SARIF1010";
+        public const string ImportanceMustAppearOnlyInCodeFlowLocations = "SARIF1011";
+        public const string EndLineMustNotBeLessThanStartLine = "SARIF1012";
+        public const string EndColumnMustNotBeLessThanStartColumn = "SARIF1013";
+        public const string UriBaseIdRequiresRelativeUri = "SARIF1014";
     }
 }

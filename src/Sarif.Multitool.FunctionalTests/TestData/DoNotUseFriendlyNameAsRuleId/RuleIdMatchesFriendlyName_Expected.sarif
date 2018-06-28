@@ -17,7 +17,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF001",
+          "ruleId": "SARIF1001",
           "level": "warning",
           "message": {
             "arguments": [
@@ -43,8 +43,8 @@
       ],
       "resources": {
         "rules": {
-          "SARIF001": {
-            "id": "SARIF001",
+          "SARIF1001": {
+            "id": "SARIF1001",
             "name": {
               "text": "DoNotUseFriendlyNameAsRuleId"
             },
@@ -52,7 +52,7 @@
               "text": "Do not use the same string for a rule's id and name properties. The id property ..."
             },
             "fullDescription": {
-              "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
+              "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF1001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
             },
             "messageStrings": {},
             "richMessageStrings": {},
