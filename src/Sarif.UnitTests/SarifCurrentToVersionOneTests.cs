@@ -1703,7 +1703,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""id"": ""RegionTest1"",
               ""message"": {
-                ""text"": ""From charOffset to end""
+                ""text"": ""Ambiguous region end with no start values""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
@@ -1850,10 +1850,12 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""physicalLocation"": {
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
+              ""endLine"": 2,
+              ""endColumn"": 3,
               ""offset"": 16
             }
           },
-          ""message"": ""From charOffset to end""
+          ""message"": ""Ambiguous region end with no start values""
         },
         {
           ""id"": ""RegionTest2"",
@@ -1861,7 +1863,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 2,
-              ""startColumn"": 4
+              ""startColumn"": 4,
+              ""endLine"": 2,
+              ""endColumn"": 4
             }
           },
           ""message"": ""startColumn/Line same as charOffset""
@@ -1872,7 +1876,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 2,
-              ""startColumn"": 1
+              ""startColumn"": 1,
+              ""endLine"": 2,
+              ""endColumn"": 1
             }
           },
           ""message"": ""startColumn/Line same as charOffset""
@@ -1883,7 +1889,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/base/driver.cs"",
             ""region"": {
               ""startLine"": 1,
-              ""startColumn"": 2
+              ""startColumn"": 2,
+              ""endLine"": 1,
+              ""endColumn"": 2
             }
           },
           ""message"": ""startLine and startColumn only""
@@ -1894,7 +1902,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/ui/client.cs"",
             ""region"": {
               ""startLine"": 2,
-              ""startColumn"": 1
+              ""startColumn"": 1,
+              ""endLine"": 2,
+              ""endColumn"": 1
             }
           },
           ""message"": ""startLine only""
@@ -1914,7 +1924,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""RegionTest1"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""charOffset"":8}},""message"":{""text"":""From charOffset to end""}},{""id"":""RegionTest2"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":4,""charOffset"":9}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest3"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":1,""charOffset"":6}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest4"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":1,""startColumn"":2}},""message"":{""text"":""startLine and startColumn only""}},{""id"":""RegionTest5"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2}},""message"":{""text"":""startLine only""}},{""id"":""RegionTest6"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2,""endLine"":3,""message"":{""text"":""This region includes all of line 2, excluding the trailing newline sequence""}}},""message"":{""text"":""One whole line""}}]}],""files"":{""file:///src/base/driver.cs"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""contents"":{""binary"":""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""},""encoding"":""unicode""},""file:///src/ui/client.cs"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""}}},""results"":[]}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""RegionTest1"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""charOffset"":8}},""message"":{""text"":""Ambiguous region end with no start values""}},{""id"":""RegionTest2"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":4,""charOffset"":9}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest3"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":1,""charOffset"":6}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest4"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":1,""startColumn"":2}},""message"":{""text"":""startLine and startColumn only""}},{""id"":""RegionTest5"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2}},""message"":{""text"":""startLine only""}},{""id"":""RegionTest6"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2,""endLine"":3,""message"":{""text"":""This region includes all of line 2, excluding the trailing newline sequence""}}},""message"":{""text"":""One whole line""}}]}],""files"":{""file:///src/base/driver.cs"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""contents"":{""binary"":""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""},""encoding"":""unicode""},""file:///src/ui/client.cs"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""}}},""results"":[]}
       }
     }
   ]

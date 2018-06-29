@@ -402,7 +402,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     if (v2Region.StartLine > 0)
                     {
-                        // The start of the region is described by line/column.
+                        // The start of the region is described by line/column
                         region.StartLine = v2Region.StartLine;
                         region.StartColumn = v2Region.StartColumn > 0
                             ? v2Region.StartColumn
@@ -453,6 +453,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         // IT MEANS "THE REST OF THE StartLine". BUT IF CHARLENGTH IS
                         // PRESENT BUT 0, IT MEANS "INSERTION POINT". AND WE CAN'T TELL
                         // THE DIFFERENCE.
+                        // TODO: Issue #932
+
+                        // Assume it's an insertion point
+                        if (v2Region.StartLine > 0)
+                        {
+                            region.EndLine = region.StartLine;
+                            region.EndColumn = region.StartColumn;
+                        }
+                        else
+                        {
+                            int endLine, endColumn;
+                            GetRegionStart(v2Region, uri, out endLine, out endColumn);
+
+                            region.EndLine = endLine;
+                            region.EndColumn = endColumn;
+                        }
                     }
                 }
                 else
@@ -468,7 +484,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        internal int GetRegionByteOffset(Region v2Region, Uri uri)
+        private void GetRegionStart(Region v2Region, Uri uri, out int startLine, out int startColumn)
+        {
+            startLine = 0;
+            startColumn = 0;
+            TextReader reader = null;
+
+            try
+            {
+                Encoding encoding;
+                reader = GetFileTextReader(uri, out encoding);
+
+                // Read charOffset characters
+                char[] buffer = new char[v2Region.CharOffset];
+                reader.Read(buffer, 0, buffer.Length);
+
+                string text = new string(buffer);
+                string[] parts = text.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                startLine = parts.Length;
+                startColumn = parts.Last().Length + 1;
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
+        }
+
+        private int GetRegionByteOffset(Region v2Region, Uri uri)
         {
             int result = 0;
             TextReader reader = null;
@@ -500,7 +545,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal int GetRegionByteLength(Region v2Region, Uri uri)
+        private int GetRegionByteLength(Region v2Region, Uri uri)
         {
             int result = 0;
             TextReader reader = null;
@@ -547,7 +592,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        public int GetRegionEndColumn(Region v2Region, Uri uri)
+        private int GetRegionEndColumn(Region v2Region, Uri uri)
         {
             int result = 0;
             TextReader reader = null;
@@ -573,7 +618,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        public TextReader GetFileTextReader(Uri uri, out Encoding encoding)
+        private TextReader GetFileTextReader(Uri uri, out Encoding encoding)
         {
             TextReader reader = null;
             encoding = null;
