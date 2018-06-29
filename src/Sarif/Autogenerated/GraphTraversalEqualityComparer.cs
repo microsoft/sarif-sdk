@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
-            {
-                return false;
-            }
-
             if (left.GraphId != right.GraphId)
             {
                 return false;
@@ -104,11 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Id != null)
-                {
-                    result = (result * 31) + obj.Id.GetHashCode();
-                }
-
                 if (obj.GraphId != null)
                 {
                     result = (result * 31) + obj.GraphId.GetHashCode();

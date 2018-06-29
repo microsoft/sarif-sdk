@@ -51,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public object FinalState { get; set; }
 
         /// <summary>
+        /// The number of edge traversals necessary to return from a nested graph.
+        /// </summary>
+        [DataMember(Name = "stepOverEdgeCount", IsRequired = false, EmitDefaultValue = false)]
+        public int StepOverEdgeCount { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the edge traversal.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -75,12 +81,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="finalState">
         /// An initialization value for the <see cref="P: FinalState" /> property.
         /// </param>
+        /// <param name="stepOverEdgeCount">
+        /// An initialization value for the <see cref="P: StepOverEdgeCount" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public EdgeTraversal(string edgeId, Message message, object finalState, IDictionary<string, SerializedPropertyInfo> properties)
+        public EdgeTraversal(string edgeId, Message message, object finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(edgeId, message, finalState, properties);
+            Init(edgeId, message, finalState, stepOverEdgeCount, properties);
         }
 
         /// <summary>
@@ -99,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.EdgeId, other.Message, other.FinalState, other.Properties);
+            Init(other.EdgeId, other.Message, other.FinalState, other.StepOverEdgeCount, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -120,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new EdgeTraversal(this);
         }
 
-        private void Init(string edgeId, Message message, object finalState, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string edgeId, Message message, object finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             EdgeId = edgeId;
             if (message != null)
@@ -129,6 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             FinalState = finalState;
+            StepOverEdgeCount = stepOverEdgeCount;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

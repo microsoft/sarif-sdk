@@ -33,12 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A string that uniquely identifies this graph traversal with its containing result.
-        /// </summary>
-        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
-
-        /// <summary>
         /// A string that uniquely identifies that graph being traversed.
         /// </summary>
         [DataMember(Name = "graphId", IsRequired = true)]
@@ -78,9 +72,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphTraversal" /> class from the supplied values.
         /// </summary>
-        /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
-        /// </param>
         /// <param name="graphId">
         /// An initialization value for the <see cref="P: GraphId" /> property.
         /// </param>
@@ -96,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public GraphTraversal(string id, string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        public GraphTraversal(string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, graphId, description, initialState, edgeTraversals, properties);
+            Init(graphId, description, initialState, edgeTraversals, properties);
         }
 
         /// <summary>
@@ -117,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.GraphId, other.Description, other.InitialState, other.EdgeTraversals, other.Properties);
+            Init(other.GraphId, other.Description, other.InitialState, other.EdgeTraversals, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,9 +129,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(string id, string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Id = id;
             GraphId = graphId;
             if (description != null)
             {

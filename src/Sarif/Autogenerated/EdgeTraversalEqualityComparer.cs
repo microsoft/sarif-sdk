@@ -43,6 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.StepOverEdgeCount != right.StepOverEdgeCount)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -93,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FinalState.GetHashCode();
                 }
 
+                result = (result * 31) + obj.StepOverEdgeCount.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

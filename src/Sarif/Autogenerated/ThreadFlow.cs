@@ -42,10 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// An array of 'codeFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
+        /// An array of 'threadFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
-        public IList<CodeFlowLocation> Locations { get; set; }
+        public IList<ThreadFlowLocation> Locations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the code flow.
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public ThreadFlow(string id, Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlow(string id, Message message, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, message, locations, properties);
         }
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlow(this);
         }
 
-        private void Init(string id, Message message, IEnumerable<CodeFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message message, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (message != null)
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (locations != null)
             {
-                var destination_0 = new List<CodeFlowLocation>();
+                var destination_0 = new List<ThreadFlowLocation>();
                 foreach (var value_0 in locations)
                 {
                     if (value_0 == null)
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new CodeFlowLocation(value_0));
+                        destination_0.Add(new ThreadFlowLocation(value_0));
                     }
                 }
 

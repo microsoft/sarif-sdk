@@ -238,6 +238,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ColumnKind != right.ColumnKind)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -427,6 +432,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.DefaultFileEncoding != null)
                 {
                     result = (result * 31) + obj.DefaultFileEncoding.GetHashCode();
+                }
+
+                if (obj.ColumnKind != null)
+                {
+                    result = (result * 31) + obj.ColumnKind.GetHashCode();
                 }
 
                 if (obj.Properties != null)

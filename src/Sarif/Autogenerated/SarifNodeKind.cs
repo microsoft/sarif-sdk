@@ -28,9 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         CodeFlow,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="CodeFlowLocation" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlowLocation" />.
         /// </summary>
-        CodeFlowLocation,
+        ThreadFlowLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Conversion" />.
         /// </summary>

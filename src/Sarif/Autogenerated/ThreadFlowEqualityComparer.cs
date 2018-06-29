@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Locations.Count; ++index_0)
                 {
-                    if (!CodeFlowLocation.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.Locations[index_0], right.Locations[index_0]))
                     {
                         return false;
                     }
