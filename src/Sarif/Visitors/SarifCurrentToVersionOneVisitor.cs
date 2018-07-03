@@ -63,14 +63,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v2CodeFlowLocation != null)
             {
-                annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
-                {
-                    Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2CodeFlowLocation.Importance),
-                    Module = v2CodeFlowLocation.Module,
-                    Properties = v2CodeFlowLocation.Properties,
-                    State = v2CodeFlowLocation.State,
-                    Step = v2CodeFlowLocation.Step
-                };
+                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2CodeFlowLocation.Location);
+                annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
+
+                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2CodeFlowLocation.Importance);
+                annotatedCodeLocation.Module = v2CodeFlowLocation.Module;
+                annotatedCodeLocation.Properties = v2CodeFlowLocation.Properties;
+                annotatedCodeLocation.State = v2CodeFlowLocation.State;
+                annotatedCodeLocation.Step = v2CodeFlowLocation.Step;
             }
 
             return annotatedCodeLocation;
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (ThreadFlow tf in v2CodeFlow.ThreadFlows)
                     {
-                        // Transform the CFLs in this TF and add them to codeFlow.Locations
+                        (codeFlow.Locations as List<AnnotatedCodeLocationVersionOne>).AddRange(CreateAnnotatedCodeLocation(tf));
                     }
                 }
             }

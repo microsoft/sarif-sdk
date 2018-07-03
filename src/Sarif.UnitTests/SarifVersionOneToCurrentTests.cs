@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -75,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -113,6 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -168,6 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -220,6 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -289,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -383,6 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -523,6 +530,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -613,6 +621,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -750,6 +759,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -825,6 +835,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1045,6 +1056,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1296,6 +1308,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1624,6 +1637,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
