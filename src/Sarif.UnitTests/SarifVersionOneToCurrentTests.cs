@@ -1237,7 +1237,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ""region"": {
                   ""startLine"": 1,
                   ""startColumn"": 5,
-                  ""charLength"": 4,
                   ""byteLength"": 4
                 }
               },
@@ -1252,7 +1251,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///home/list.txt""
                 },
                 ""region"": {
-                  ""charOffset"": 12,
                   ""byteOffset"": 12,
                   ""byteLength"": 3
                 }
