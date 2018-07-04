@@ -412,16 +412,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     else
                     {
                         // The start of the region is described by character offset
-
-                        if (v2Region.CharOffset == 0)
-                        {
-                            region.Offset = 0;
-                        }
-                        else
-                        {
-                            // Try to get the byte offset using the file encoding and contents
-                            region.Offset = ConvertCharOffsetToByteOffset(v2Region.CharOffset, uri);
-                        }
+                        // Try to get the byte offset using the file encoding and contents
+                        region.Offset = ConvertCharOffsetToByteOffset(v2Region.CharOffset, uri);
                     }
 
                     if (v2Region.CharLength > 0)
@@ -440,7 +432,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
                         else
                         {
-                            // Try to get the end column using the file encoding and contents
+                            // In v2, if endColumn is missing, then the region extends to the end
+                            // of the line (exclusive of any newline sequence). Use the file contents
+                            // and encoding to determine how many columns are in the end line.
                             region.EndColumn = GetRegionEndColumn(v2Region, uri);
                         }
                     }
@@ -506,16 +500,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     if (v2Region.StartLine > 0) // Use line and column 
                     {
-                        string sourceLine = null;
+                        string sourceLine = string.Empty;
 
                         // Read down to startLine (null return means EOF)
                         for (int i = 1; i <= v2Region.StartLine && sourceLine != null; sourceLine = reader.ReadLine(), i++) { }
 
-                        if (sourceLine != null && sourceLine.Length <= v2Region.StartColumn)
+                        if (sourceLine != null)
                         {
-                            // Since we read past startColumn, we need to back up using the base stream
-                            Stream stream = reader.BaseStream;
-                            stream.Position -= v2Region.StartColumn - 1;
+                            if (sourceLine.Length > v2Region.StartColumn)
+                            {
+                                // Since we read past startColumn, we need to back up using the base stream
+                                Stream stream = reader.BaseStream;
+                                stream.Position -= encoding.GetByteCount(sourceLine.Substring(v2Region.StartColumn - 1));
+                            }
 
                             // Read the next charLength characters
                             char[] buffer = new char[v2Region.CharLength];
@@ -551,14 +548,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 if (reader != null)
                 {
-                    string sourceLine = null;
+                    string sourceLine = string.Empty;
 
                     // Read down to endLine (null return means EOF)
                     for (int i = 1; i <= v2Region.EndLine && sourceLine != null; sourceLine = reader.ReadLine(), i++) { }
 
-                    if (sourceLine != null && sourceLine.Length < v2Region.EndColumn)
+                    if (sourceLine != null)
                     {
-                        endColumn = sourceLine.Length;
+                        endColumn = sourceLine.Length >= v2Region.EndColumn
+                            ? v2Region.EndColumn
+                            : sourceLine.Length + 1;
                     }
                 }
             }
@@ -577,50 +576,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 FileData fileData;
                 if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
                 {
-                    if (fileData.Contents != null && (fileData.Contents.Text != null || fileData.Contents.Binary != null))
-                    {
-                        // We need the encoding because the content might have been transposed to UTF-8
-                        string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
-                        encoding = GetFileEncoding(encodingName);
+                    // We need the encoding because the content might have been transcoded to UTF-8
+                    string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
+                    encoding = GetFileEncoding(encodingName);
 
-                        if (encoding != null)
+                    if (encoding != null)
+                    {
+                        if (fileData.Contents != null && fileData.Contents.Binary != null)
+                        {
+                            // Embedded binary file content
+
+                            byte[] content = Convert.FromBase64String(fileData.Contents.Binary);
+                            stream = new MemoryStream(content);
+                        }
+                        else if (fileData.Contents.Text != null)
                         {
                             // Embedded text file content
 
-                            byte[] content = !string.IsNullOrWhiteSpace(fileData.Contents.Text) ?
-                                encoding.GetBytes(fileData.Contents.Text) :
-                                Convert.FromBase64String(fileData.Contents.Binary);
+                            byte[] content = encoding.GetBytes(fileData.Contents.Text);
                             stream = new MemoryStream(content);
                         }
-                        else
+                        else if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile && File.Exists(uri.LocalPath))
                         {
-                            failureReason = $"Encoding for embedded file '{uri.OriginalString}' could not be determined";
-                        }
-                    }
-                    else if (uri.IsAbsoluteUri &&
-                             uri.Scheme == Uri.UriSchemeFile &&
-                             File.Exists(uri.LocalPath))
-                    {
-                        // External source file
+                            // External source file
 
-                        try
-                        {
-                            stream = new FileStream(uri.LocalPath, FileMode.Open);
-                        }
-                        catch (FileNotFoundException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
-                        }
-                        catch (IOException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
-                        }
-                        catch (SecurityException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                            try
+                            {
+                                stream = new FileStream(uri.LocalPath, FileMode.Open);
+                            }
+                            catch (FileNotFoundException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
+                            }
+                            catch (IOException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
+                            }
+                            catch (SecurityException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                            }
                         }
                     }
-                    
+                    else
+                    {
+                        failureReason = $"Encoding for file '{uri.OriginalString}' could not be determined";
+                    }
                 }
             }
 
