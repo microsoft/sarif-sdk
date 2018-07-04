@@ -718,18 +718,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionCharLength(RegionVersionOne v1Region, Uri uri)
         {
             int charLength = 0;
-            Encoding encoding;
             
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri))
             {
                 if (reader != null)
                 {
-                    // Read each line up to the startLine and copy them into a StringBuilder
+                    // Read each line preceding the startLine and copy them into a StringBuilder
                     StringBuilder sb = new StringBuilder();
                     string sourceLine = null;
                     for (int i = 1; i < v1Region.StartLine; sourceLine = reader.ReadLine(), i++)
                     {
-                        if (sourceLine != null)
+                        if (sourceLine != null) // null return means EOF
                         {
                             sb.AppendLine(sourceLine);
                         }
@@ -740,13 +739,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         // Read the startLine and append up to the startColumn
                         sourceLine = reader.ReadLine();
 
-                        if (sourceLine != null && sourceLine.Length < v1Region.StartColumn)
-                        {
-                            sb.Append(sourceLine.Substring(0, v1Region.StartColumn));
+                        int startColumn = v1Region.StartColumn > 0
+                                            ? v1Region.StartColumn
+                                            : 1;
 
-                            // Calculate the byte size of the content and close the reader
-                            int byteOffset = SarifUtilities.GetByteLength(sb.ToString(), encoding);
-                            reader.Close();
+                        if (sourceLine != null && sourceLine.Length > startColumn)
+                        {
+                            sb.AppendLine(sourceLine.Substring(0, startColumn - 1));
+
+                            // Calculate the byte size of the content
+                            int byteOffset = reader.CurrentEncoding.GetByteCount(sb.ToString());
 
                             // Get the stream so we can do byte operations
                             Stream stream = reader.BaseStream;
@@ -759,7 +761,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             stream.Read(bytes, 0, bytes.Length);
 
                             // Calculate the character length of the region
-                            string s = encoding.GetString(bytes);
+                            string s = reader.CurrentEncoding.GetString(bytes);
                             charLength = s.Length;
                         }
                     }
@@ -772,16 +774,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionCharOffset(RegionVersionOne v1Region, Uri uri)
         {
             int charOffset = 0;
-            Encoding encoding;
-
-            // Get a reader so the encoding might be detected by the StreamReader ctor
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            
+            using (StreamReader reader = GetFileStreamReader(uri))
             {
                 if (reader != null)
                 {
-                    // Close the reader
-                    reader.Close();
-
                     // Get the stream so we can do byte operations
                     Stream stream = reader.BaseStream;
 
@@ -789,8 +786,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     byte[] bytes = new byte[v1Region.Offset];
                     stream.Read(bytes, 0, bytes.Length);
 
-                    // Calculate the character length of the offset
-                    string s = encoding.GetString(bytes);
+                    // Calculate the character offset length
+                    string s = reader.CurrentEncoding.GetString(bytes);
                     charOffset = s.Length;
                 }
             }
@@ -813,9 +810,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         // Embedded text content
                         stream = new MemoryStream(Convert.FromBase64String(fileData.Contents));
                     }
-                    else if (uri.IsAbsoluteUri &&
-                             uri.Scheme == Uri.UriSchemeFile &&
-                             File.Exists(uri.LocalPath))
+                    else if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile && File.Exists(uri.LocalPath))
                     {
                         try
                         {
@@ -834,8 +829,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
                         }
-                    }
-                   
+                    }                   
                 }
             }
 
@@ -853,16 +847,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stream;
         }
 
-        private StreamReader GetFileStreamReader(Uri uri, out Encoding encoding)
+        private StreamReader GetFileStreamReader(Uri uri)
         {
             StreamReader reader = null;
-            encoding = null;
 
             Stream contentStream = GetContentStream(uri);
             if (contentStream != null)
             {
                 reader = new StreamReader(contentStream);
-                encoding = reader.CurrentEncoding;
             }
 
             return reader;
