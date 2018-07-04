@@ -511,6 +511,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 // Since we read past startColumn, we need to back up using the base stream
                                 Stream stream = reader.BaseStream;
+                                int startColumn = v2Region.StartColumn > 0
+                                                    ? v2Region.StartColumn
+                                                    : 1;
                                 stream.Position -= encoding.GetByteCount(sourceLine.Substring(v2Region.StartColumn - 1));
                             }
 
@@ -582,14 +585,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (encoding != null)
                     {
-                        if (fileData.Contents != null && fileData.Contents.Binary != null)
+                        if (fileData.Contents?.Binary != null)
                         {
                             // Embedded binary file content
 
                             byte[] content = Convert.FromBase64String(fileData.Contents.Binary);
                             stream = new MemoryStream(content);
                         }
-                        else if (fileData.Contents.Text != null)
+                        else if (fileData.Contents?.Text != null)
                         {
                             // Embedded text file content
 
@@ -645,14 +648,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             encoding = null;
 
             Stream contentStream = GetContentStream(uri, out encoding);
-            if (contentStream != null)
+            if (contentStream != null && encoding != null)
             {
-                // If we found embedded content, encoding was specified on the file object
-                // If the content is in an extenal file, we let the StreamReader detect the encoding
-                reader = encoding != null ?
-                    new StreamReader(contentStream, encoding, false) :
-                    new StreamReader(contentStream);
-                encoding = encoding ?? reader.CurrentEncoding;
+                reader = new StreamReader(contentStream, encoding, detectEncodingFromByteOrderMarks: false);
             }
 
             return reader;
