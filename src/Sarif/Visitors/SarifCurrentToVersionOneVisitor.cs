@@ -507,14 +507,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                         if (sourceLine != null)
                         {
-                            if (sourceLine.Length > v2Region.StartColumn)
+                            int startColumn = v2Region.StartColumn > 0
+                                                ? v2Region.StartColumn
+                                                : 1;
+
+                            if (sourceLine.Length > startColumn)
                             {
                                 // Since we read past startColumn, we need to back up using the base stream
                                 Stream stream = reader.BaseStream;
-                                int startColumn = v2Region.StartColumn > 0
-                                                    ? v2Region.StartColumn
-                                                    : 1;
-                                stream.Position -= encoding.GetByteCount(sourceLine.Substring(v2Region.StartColumn - 1));
+                                stream.Position -= encoding.GetByteCount(sourceLine.Substring(startColumn - 1));
                             }
 
                             // Read the next charLength characters
@@ -645,7 +646,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private StreamReader GetFileStreamReader(Uri uri, out Encoding encoding)
         {
             StreamReader reader = null;
-            encoding = null;
 
             Stream contentStream = GetContentStream(uri, out encoding);
             if (contentStream != null && encoding != null)
