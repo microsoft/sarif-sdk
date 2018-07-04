@@ -78,33 +78,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal IList<AnnotatedCodeLocationVersionOne> CreateAnnotatedCodeLocation(ThreadFlow v2ThreadFlow)
         {
-            List<AnnotatedCodeLocationVersionOne> result = null;
+            List<AnnotatedCodeLocationVersionOne> annotatedCodeLocationList = null;
 
             if (v2ThreadFlow?.Locations?.Count > 0)
             {
-                result = v2ThreadFlow.Locations.Select(CreateAnnotatedCodeLocation).ToList();
+                annotatedCodeLocationList = v2ThreadFlow.Locations.Select(CreateAnnotatedCodeLocation).ToList();
 
-                if (result.Count == v2ThreadFlow.Locations.Count)
+                if (annotatedCodeLocationList.Count == v2ThreadFlow.Locations.Count)
                 {
-                    for (int i = 0; i < result.Count; i++)
+                    for (int i = 0; i < annotatedCodeLocationList.Count - 1; i++)
                     {
-                        if (i == result.Count - 1 || v2ThreadFlow.Locations[i].NestingLevel == v2ThreadFlow.Locations[i + 1].NestingLevel)
+                        if (v2ThreadFlow.Locations[i].NestingLevel > v2ThreadFlow.Locations[i + 1].NestingLevel)
                         {
-                            result[i].Kind = AnnotatedCodeLocationKindVersionOne.Continuation;
-                        }
-                        else if (v2ThreadFlow.Locations[i].NestingLevel > v2ThreadFlow.Locations[i + 1].NestingLevel)
-                        {
-                            result[i].Kind = AnnotatedCodeLocationKindVersionOne.CallReturn;
+                            annotatedCodeLocationList[i].Kind = AnnotatedCodeLocationKindVersionOne.CallReturn;
                         }
                         else if (v2ThreadFlow.Locations[i].NestingLevel < v2ThreadFlow.Locations[i + 1].NestingLevel)
                         {
-                            result[i].Kind = AnnotatedCodeLocationKindVersionOne.Call;
+                            annotatedCodeLocationList[i].Kind = AnnotatedCodeLocationKindVersionOne.Call;
                         }
                     }
                 }
             }
 
-            return result;
+            return annotatedCodeLocationList;
         }
 
         internal AnnotationVersionOne CreateAnnotation(Region v2Region)
@@ -804,6 +800,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = new ResultVersionOne
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
+                    CodeFlows = v2Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
                     Id = v2Result.InstanceGuid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),

@@ -1674,7 +1674,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""message"": ""Path from declaration to usage"",
               ""locations"": [
                 {
-                  ""kind"": ""declaration"",
+                  ""kind"": ""call"",
                   ""importance"": ""essential"",
                   ""message"": ""Variable \""ptr\"" declared."",
                   ""snippet"": ""int *ptr;"",
@@ -1728,7 +1728,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                   ],
                   ""step"": 1,
-                  ""kind"": ""assignment"",
+                  ""kind"": ""callReturn"",
                   ""importance"": ""unimportant"",
                   ""snippet"": ""offset = 0;"",
                   ""physicalLocation"": {
@@ -1743,7 +1743,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
                 {
                   ""step"": 2,
-                  ""kind"": ""callReturn"",
+                  ""kind"": ""continuation"",
                   ""importance"": ""essential"",
                   ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
                   ""snippet"": ""add_core(ptr, offset, val)"",
@@ -1876,6 +1876,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ]
                       },
                       ""module"": ""platform"",
+                      ""nestingLevel"": 1,
                       ""importance"": ""unimportant""
                     },
                     {
@@ -1911,7 +1912,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""ptr\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Variable \""ptr\"" declared."",""kind"":7,""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":1,""snippet"":""int *ptr;""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""kind"":2,""importance"":2,""snippet"":""offset = 0;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",""kind"":5,""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":1,""snippet"":""add_core(ptr, offset, val)""}]}]}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""ptr\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Variable \""ptr\"" declared."",""kind"":4,""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":1,""snippet"":""int *ptr;""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""kind"":5,""importance"":2,""snippet"":""offset = 0;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",""kind"":6,""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":1,""snippet"":""add_core(ptr, offset, val)""}]}]}]}
       }
     }
   ]
