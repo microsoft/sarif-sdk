@@ -47,10 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if ((loggingOptions.Includes(LoggingOptions.PersistTextFileContents)  &&
-                     SarifWriters.MimeType.IsTextualMimeType(mimeType)) ||
-                    (loggingOptions.Includes(LoggingOptions.PersistBinaryContents) &&
-                     SarifWriters.MimeType.IsBinaryMimeType(mimeType)))
+                if (loggingOptions.Includes(LoggingOptions.PersistBinaryContents) &&
+                    SarifWriters.MimeType.IsBinaryMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
