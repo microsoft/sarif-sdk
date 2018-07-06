@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using SarifWriters = Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -47,7 +47,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
+                if ((loggingOptions.Includes(LoggingOptions.PersistTextFileContents)  &&
+                     SarifWriters.MimeType.IsTextualMimeType(mimeType)) ||
+                    (loggingOptions.Includes(LoggingOptions.PersistBinaryContents) &&
+                     SarifWriters.MimeType.IsBinaryMimeType(mimeType)))
+                {
+                    fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
+                }
+
+                if (loggingOptions.Includes(LoggingOptions.PersistTextFileContents) &&
+                    SarifWriters.MimeType.IsTextualMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
@@ -85,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var fileContent = new FileContent();
             byte[] fileContents = fileSystem.ReadAllBytes(filePath);
 
-            if (mimeType == SarifWriters.MimeType.Binary || inputFileEncoding == null)
+            if (SarifWriters.MimeType.IsBinaryMimeType(mimeType) || inputFileEncoding == null)
             {
                 fileContent.Binary = Convert.ToBase64String(fileContents);
             }

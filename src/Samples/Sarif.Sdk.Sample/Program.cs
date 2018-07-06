@@ -210,7 +210,7 @@ namespace Sarif.Sdk.Sample
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.PersistFileContents | // <-- embed source file content directly in the log file -- great for portability of the log!
+                    loggingOptions: LoggingOptions.PersistTextFileContents | // <-- embed source file content directly in the log file -- great for portability of the log!
                                     LoggingOptions.ComputeFileHashes |
                                     LoggingOptions.PrettyPrint, // <-- use PrettyPrint to generate readable (multi-line, indented) JSON
                     prereleaseInfo: null,

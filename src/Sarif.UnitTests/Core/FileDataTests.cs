@@ -57,24 +57,55 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Fact]
-        public void FileData_PersistFileContentsBinary()
+        [Theory]
+        // Unknown files are regarded as binary
+        [InlineData(".unknown", LoggingOptions.PersistBinaryContents, true)]
+        [InlineData(".unknown", LoggingOptions.PersistTextFileContents, false)]
+        [InlineData(".exe", LoggingOptions.PersistBinaryContents | LoggingOptions.PersistTextFileContents, true)]
+        [InlineData(".cs",  LoggingOptions.PersistBinaryContents | LoggingOptions.PersistTextFileContents, true)]
+        [InlineData(".jar", LoggingOptions.PersistBinaryContents, true)]
+        [InlineData(".jar", LoggingOptions.PersistTextFileContents, false)]
+        [InlineData(".cs", LoggingOptions.PersistBinaryContents, false)]
+        [InlineData(".cs", LoggingOptions.PersistTextFileContents, true)]
+        [InlineData(".h", ~LoggingOptions.PersistBinaryContents, true)]
+        [InlineData(".docx", ~LoggingOptions.PersistBinaryContents, false)]
+        [InlineData(".dll", ~LoggingOptions.PersistTextFileContents, true)]
+        [InlineData(".cpp", ~LoggingOptions.PersistTextFileContents, false)]
+        public void FileData_PersistBinaryAndTextFileContents(
+            string fileExtension,
+            LoggingOptions loggingOptions,
+            bool shouldBePersisted)
         {
-            string filePath = Path.GetTempFileName();
+            string filePath = Path.GetTempFileName() + fileExtension;
             string fileContents = Guid.NewGuid().ToString();
             Uri uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                fileData.FileLocation.Should().Be(null);
-                fileData.MimeType.Should().Be(MimeType.Binary);
-                fileData.Hashes.Should().BeNull();
+                FileData fileData = FileData.Create(uri, loggingOptions);
+                fileData.FileLocation.Should().BeNull();
+
+                if (loggingOptions.Includes(LoggingOptions.ComputeFileHashes))
+                {
+                    fileData.Hashes.Should().NotBeNull();
+                }
+                else
+                {
+                    fileData.Hashes.Should().BeNull();
+                }
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
-                fileData.Contents.Binary.Should().Be(encodedFileContents);
-                fileData.Contents.Text.Should().BeNull();
+
+                if (shouldBePersisted)
+                {
+                    fileData.Contents.Binary.Should().Be(encodedFileContents);
+                    fileData.Contents.Text.Should().BeNull();
+                }
+                else
+                {
+                    fileData.Contents.Should().BeNull();
+                }
             }
             finally
             {
@@ -83,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_PersistFileContentsUtf8()
+        public void FileData_PersistTextFileContentsBigEndianUnicode()
         {
-            Encoding encoding = Encoding.UTF8;
+            Encoding encoding = Encoding.BigEndianUnicode;
             string filePath = Path.GetTempFileName() + ".cs";
             string textValue = "अचम्भा";
             byte[] fileContents = encoding.GetBytes(textValue);
@@ -95,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: encoding);
+                FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents, mimeType: null, encoding: encoding);
                 fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
@@ -116,11 +147,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // persistence, the logger will not raise an exception
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
-            FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+            FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents);
             fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
-            fileData.Contents.Binary.Should().Be(String.Empty);
+            fileData.Contents.Should().BeNull();
         }
 
         [Fact]
@@ -135,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // This raises an IOException, which is swallowed by FileData.Create
                 using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
-                    FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+                    FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents);
                     fileData.FileLocation.Should().Be(null);
                     fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
@@ -222,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             FileData fileData = FileData.Create(
                 uri, 
-                LoggingOptions.PersistFileContents,
+                LoggingOptions.PersistTextFileContents,
                 mimeType: null,
                 encoding: null,
                 fileSystem: fileSystem);
@@ -249,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void Validate(FileData fileData, LoggingOptions loggingOptions)
         {
-            if (loggingOptions.Includes(LoggingOptions.PersistFileContents))
+            if (loggingOptions.Includes(LoggingOptions.PersistTextFileContents))
             {
                 fileData.Contents.Should().NotBeNull();
             }

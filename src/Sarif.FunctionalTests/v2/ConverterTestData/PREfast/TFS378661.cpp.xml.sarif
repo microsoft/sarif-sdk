@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "DQovLyBkZWNsYXJhdGlvbiBrZXlldmVudCBmb3IgNjM4NS82DQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0Kdm9pZCBXcml0ZXNBcnJheSgNCglfT3V0X3dyaXRlc18oNSkgbG9uZyAqIHNlcQ0KCSkNCnsNCglzZXFbNV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheVJhbmdlKA0KCV9PdXRfd3JpdGVzXyhzaXplKSBsb25nICogc2VxLA0KCV9Jbl9yYW5nZV8oNCw0KSBpbnQgc2l6ZSkNCnsNCglzZXFbc2l6ZV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUxvb3AoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaW50IGk7DQoJZm9yIChpPTA7IGk8IHNpemU7IGkrKykNCgl7DQoJCXNlcVtpXSA9IDQ0Ow0KCX0NCglzZXFbaV0gPSA0NDsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUNvbXBhcmUoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaWYgKHNpemUgPT0gNCkNCgl7DQoJCXNlcVswXSA9IDQ0Ow0KCX0NCglzZXFbc2l6ZV0gPSA0NDsNCn0NCg0KDQo="
+          },
+          "hashes": [
+            {
+              "value": "54BD421DB50956469A9AF8A92F3EF864",
+              "algorithm": "md5"
+            },
+            {
+              "value": "21D82C6D39C90C8A13EC0130EF50433F02D83E0A",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "2A83E3B138696BC725541A38417AB0B80D02C21FB272174806A7420CFEB34EAA",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
