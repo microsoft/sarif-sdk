@@ -35,6 +35,16 @@ echo Unrecognized option "%1" && goto :ExitFailed
 CALL :Clean %FullClean%
 
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
+SET NuGetConfigFile=%~dp0src\NuGet.Config
+SET NuGetPackageDir=src\packages
+
+::Restore nuget packages for projects that we don't build with dotnet core.
+echo Restoring NuGet packages for Sarif.Viewer.VisualStudio...
+%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+if "%ERRORLEVEL%" NEQ "0" (
+    echo NuGet restore failed for project Sarif.Viewer.VisualStudio.
+    goto ExitFailed
+)
 
 :: Generate the SARIF object model classes from the SARIF JSON schema.
 msbuild /verbosity:minimal /target:BuildAndInjectObjectModel src\Sarif\Sarif.csproj /fileloggerparameters:Verbosity=detailed;LogFile=CodeGen.log
@@ -43,12 +53,9 @@ if "%ERRORLEVEL%" NEQ "0" (
     goto ExitFailed
 )
 
+msbuild /verbosity:minimal /target:Rebuild /property:Configuration=%Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
 if "%ERRORLEVEL%" NEQ "0" (
-    goto ExitFailed
-)
-
-dotnet build --no-incremental --configuration %Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
-if "%ERRORLEVEL%" NEQ "0" (
+    echo %SolutionFile%: Build failed.
     goto ExitFailed
 )
 

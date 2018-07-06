@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.FunctionalTests", "Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.FunctionalTests", "Sarif.Multitool.FunctionalTests\Sarif.Multitool.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.Viewer.VisualStudio", "Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj", "{689AF24B-33F0-44E9-AA2E-FACA775736A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -166,6 +168,18 @@ Global
 		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x64.Build.0 = Release|Any CPU
 		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x86.ActiveCfg = Release|Any CPU
 		{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}.Release|x86.Build.0 = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|x64.Build.0 = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|x64.Build.0 = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{689AF24B-33F0-44E9-AA2E-FACA775736A8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
