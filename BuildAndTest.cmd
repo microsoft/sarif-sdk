@@ -33,11 +33,11 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
 
-@REM Remove existing build data
-CALL :Clean %FullClean%
+:: Remove existing build data
+call :Clean %FullClean%
 
-CALL BeforeBuild.cmd
-CALL SetBuildEnvVars.cmd
+call BeforeBuild.cmd
+call SetBuildEnvVars.cmd
 
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
@@ -48,13 +48,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 )
 
 if "%NoTest%" EQU "false" (
-    for %%i in (%CrossPlatformTestProjects%) do (
-        dotnet test --no-build --no-restore src\%%i\%%i.csproj
-        if "%ERRORLEVEL%" NEQ "0" (
-            echo %%i: tests failed.
-            goto ExitFailed
-        )
-    )
+    call RunTests.cmd
 )
 
 echo SUCCESS -- so far!
