@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -21,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private const string V1_0_0 = "1.0.0";
         private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
+        private const string V2_0_0 = "2.0.0";
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -40,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
+                case V2_0_0: return SarifVersion.TwoZeroZero;
             }
 
             return SarifVersion.Unknown;
@@ -51,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
+                case SarifVersion.TwoZeroZero: { return V2_0_0; }
             }
             return "unknown";
         }
@@ -120,6 +124,49 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Retrieves a formatted message that includes exception type details, e.g.
             // System.InvalidOperationException: Operation is not valid due to the current state of the object.
             return exception.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None)[0];
+        }
+
+        public static void AddOrUpdateDictionaryEntry<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue val)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                dictionary[key] = val;
+            }
+            else
+            {
+                dictionary.Add(key, val);
+            }
+        }
+
+        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<CodeFlowLocation> locations = null)
+        {
+            return new CodeFlow
+            {
+                ThreadFlows = new List<ThreadFlow>()
+                {
+                    new ThreadFlow
+                    {
+                        Locations = new List<CodeFlowLocation>(locations ?? new CodeFlowLocation[]{ })
+                    }
+                }
+            };
+        }
+
+        public static string GetUtf8Base64String(string s)
+        {
+            return GetBase64String(s, Encoding.UTF8);
+        }
+
+        public static string GetBase64String(string s, Encoding encoding)
+        {
+            byte[] bytes = encoding.GetBytes(s);
+            return Convert.ToBase64String(bytes);
+        }
+
+        public static string DecodeBase64Utf8String(string s)
+        {
+            byte[] bytes = Convert.FromBase64String(s);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }

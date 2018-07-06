@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -26,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
                 };
 
-                if (convertOptions.PersistFileContents)
+                if (convertOptions.PersistTextFileContents)
                 {
-                    loggingOptions |= LoggingOptions.PersistFileContents;
+                    loggingOptions |= LoggingOptions.PersistTextFileContents;
                 }
 
                 if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
@@ -37,15 +36,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 new ToolFormatConverter().ConvertToStandardFormat(
-                    convertOptions.ToolFormat,
-                    convertOptions.InputFilePath,
-                    convertOptions.OutputFilePath,
-                    loggingOptions,
-                    convertOptions.PluginAssemblyPath);
+                                                convertOptions.ToolFormat,
+                                                convertOptions.InputFilePath,
+                                                convertOptions.OutputFilePath,
+                                                loggingOptions,
+                                                convertOptions.PluginAssemblyPath);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex);
                 return 1;
             }
 

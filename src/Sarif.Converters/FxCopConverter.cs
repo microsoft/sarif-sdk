@@ -58,9 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
             if (fileDictionary != null && fileDictionary.Any())
             {
@@ -82,9 +85,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result();
 
             string uniqueId = context.GetUniqueId();
+
             if (!String.IsNullOrWhiteSpace(uniqueId))
             {
-                result.ToolFingerprintContribution = uniqueId;
+                if (result.PartialFingerprints == null)
+                {
+                    result.PartialFingerprints = new Dictionary<string, string>();
+                }
+
+                SarifUtilities.AddOrUpdateDictionaryEntry(result.PartialFingerprints, "UniqueId", uniqueId);
             }
 
             string status = context.Status;
@@ -99,36 +108,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = context.Message;
+            result.Message = !string.IsNullOrWhiteSpace(context.Message) ? new Message { Text = context.Message } : null;
             var location = new Location();
 
-            if (!String.IsNullOrEmpty(context.Target))
-            {
-                location.AnalysisTarget = new PhysicalLocation
-                {
-                    Uri = new Uri(context.Target, UriKind.RelativeOrAbsolute)
-                };
+            string sourceFile = GetFilePath(context);
+            string targetFile = context.Target;
 
+            // If both source and target have values and they're different, set analysis target
+            if (!string.IsNullOrWhiteSpace(sourceFile) &&
+                !string.IsNullOrWhiteSpace(targetFile) &&
+                !sourceFile.Equals(targetFile))
+            {
+                result.AnalysisTarget = new FileLocation()
+                {
+                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
+                };
+            }
+            else
+            {
+                // One or the other or both is null, or they're different
+                sourceFile = string.IsNullOrWhiteSpace(sourceFile) ? targetFile : sourceFile;
             }
 
-            string sourceFile = GetFilePath(context);
-            if (!String.IsNullOrWhiteSpace(sourceFile))
+            // If we have a value, set physical location
+            if (!string.IsNullOrWhiteSpace(sourceFile))
             {
-                location.ResultFile = new PhysicalLocation
+                location.PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute)
+                    },
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateSignature(context);
-
-            string logicalLocationKey = CreateLogicalLocation(context);
-
-            if (logicalLocationKey != location.FullyQualifiedLogicalName)
-            {
-                location.LogicalLocationKey = logicalLocationKey;
-            }
+            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context);
 
             result.Locations = new List<Location> { location };
 
@@ -142,11 +157,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // "Error" and "Warning") as a property. For names that differ
                 // (such as "CriticalWarning" and "Information"), we will also 
                 // include the FxCop-specific values in the property bag.
-                TryAddProperty(result, context.Level, "Level");
+                AddProperty(result, context.Level, "Level");
             }
 
-            TryAddProperty(result, context.Category, "Category");
-            TryAddProperty(result, context.FixCategory, "FixCategory");
+            AddProperty(result, context.Category, "Category");
+            AddProperty(result, context.FixCategory, "FixCategory");
 
             return result;
         }
@@ -201,30 +216,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return ResultLevel.Default;
         }
 
-        private static string CreateSignature(FxCopLogReader.Context context)
-        {
-            string[] parts = new string[] { context.Resource, context.Namespace, context.Type, context.Member };
-            var updated = parts
-                    .Where(part => !String.IsNullOrEmpty(part))
-                    .Select(part => part.TrimStart('#'));
-
-            string joinedParts = String.Join(".", updated);
-
-            if (String.IsNullOrEmpty(joinedParts))
-            {
-                return context.Module;
-            }
-
-            if (!String.IsNullOrEmpty(context.Module))
-            {
-                return context.Module + "!" + joinedParts;
-            }
-            else
-            {
-                return joinedParts;
-            }
-        }
-
         private static string GetFilePath(FxCopLogReader.Context context)
         {
             if (context.Path == null)
@@ -242,46 +233,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string CreateLogicalLocation(FxCopLogReader.Context context)
+        private string CreateFullyQualifiedLogicalName(FxCopLogReader.Context context)
         {
             string parentLogicalLocationKey = null;
-            string delimiter = null;
+            string delimiter = string.Empty;
 
             if (!string.IsNullOrEmpty(context.Module))
             {
-                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Module, LogicalLocationKind.Module);
+                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Module, LogicalLocationKind.Module, delimiter);
                 delimiter = "!";
             }
 
             if (!string.IsNullOrEmpty(context.Resource))
             {
-                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Resource, LogicalLocationKind.Resource, delimiter);
+                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Resource, LogicalLocationKind.Resource, delimiter);
                 delimiter = ".";
             }
 
-
             if (!string.IsNullOrEmpty(context.Namespace))
             {
-                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Namespace, LogicalLocationKind.Namespace, delimiter);
+                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Namespace, LogicalLocationKind.Namespace, delimiter);
                 delimiter = ".";
             }
 
             if (!string.IsNullOrEmpty(context.Type))
             {
-                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, context.Type, LogicalLocationKind.Type, delimiter);
+                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Type, LogicalLocationKind.Type, delimiter);
                 delimiter = ".";
             }
 
             if (!string.IsNullOrEmpty(context.Member))
             {
                 string member = context.Member != null ? context.Member.Trim('#') : null;
-                parentLogicalLocationKey = TryAddLogicalLocation(parentLogicalLocationKey, member, LogicalLocationKind.Member, delimiter);
+                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, member, LogicalLocationKind.Member, delimiter);
             }
 
             return parentLogicalLocationKey;
         }
 
-        private string TryAddLogicalLocation(string parentKey, string value, string kind, string delimiter = ".")
+        private string AddLogicalLocation(string parentKey, string value, string kind, string delimiter = ".")
         {
             var logicalLocation = new LogicalLocation
             {
@@ -293,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return AddLogicalLocation(logicalLocation, delimiter);
         }
 
-        private static void TryAddProperty(Result result, string value, string key)
+        private static void AddProperty(Result result, string value, string key)
         {
             if (!String.IsNullOrWhiteSpace(value))
             {

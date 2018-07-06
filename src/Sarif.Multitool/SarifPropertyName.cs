@@ -22,11 +22,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Invocation = "invocation";
         public const string Locations = "locations";
         public const string Message = "message";
-        public const string MessageFormats = "messageFormats";
+        public const string MessageStrings = "messageStrings";
         public const string PhysicalLocation = "physicalLocation";
         public const string Region = "region";
         public const string RelatedLocations = "relatedLocations";
-        public const string ResultFile = "resultFile";
         public const string Results = "results";
         public const string Rules = "rules";
         public const string Runs = "runs";

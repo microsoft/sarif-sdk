@@ -2,15 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
-using System.Security.Permissions;
 using System.Runtime.InteropServices;
+using System.Security.Permissions;
+using Microsoft.Sarif.Viewer.ErrorList;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-
 using IOleServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-using Microsoft.Sarif.Viewer.ErrorList;
-using System.Collections.Generic;
 
 namespace Microsoft.Sarif.Viewer
 {

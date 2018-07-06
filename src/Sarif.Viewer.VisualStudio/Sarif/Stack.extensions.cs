@@ -3,12 +3,6 @@
 
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.Sarif.Viewer.Sarif
 {
@@ -21,7 +15,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 return null;
             }
 
-            StackCollection model = new StackCollection(stack.Message);
+            StackCollection model = new StackCollection(stack.Message.Text);
 
             if (stack.Frames != null)
             {

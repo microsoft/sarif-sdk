@@ -1,0 +1,379 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "Ly8gTWFrZSBhIGJyYW5jaCBpcnJlbGV2YW50IGlmIGFuIGVycm9yIG9jY3VycyBvbiBib3RoIHNpZGVzDQoNCmludCBJcnJlbGV2YW50QnJhbmNoXzYwMTEoYm9vbCBmbGFnLCBpbnQgaW5wdXQpDQp7DQoJaW50ICpzb3VyY2UxID0gMCwgKnNvdXJjZTIgPSAwOw0KDQoJaWYgKGZsYWcpIHsNCgkJc291cmNlMiA9ICZpbnB1dDsNCgl9DQoNCglpbnQgKnRhcmdldCA9IHNvdXJjZTE7DQoJcmV0dXJuICp0YXJnZXQ7DQp9DQoNCi8vIFRoaXMgc2hvdWxkIHdvcmsgZXZlbiBpZiB0aGVyZSBhcmUgbXVsdGlwbGUgZGVmZWN0cyANCi8vIGludGVyYWN0aW5nIHdpdGggdGhlIGJyYW5jaA0KDQp2b2lkIEM2Mzg1X01heWJlUmVsZXZhbnRCcmFuY2goaW50IGZsYWcpDQp7DQoJaW50IGRhdGFbMTBdOw0KCWludCBpbmRleCA9IDEwOw0KDQoJaWYgKGZsYWc8MTApIHsNCgkJaW5kZXggPSA5Ow0KCX0NCg0KCWludCBrID0gZGF0YVtpbmRleF07DQp9DQoNCg=="
+          },
+          "hashes": [
+            {
+              "value": "0379CDBC52A47CB11D09CF414DF56BD9",
+              "algorithm": "md5"
+            },
+            {
+              "value": "7E24379672A36D18E7FE6B823C2E5F843DE07C91",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "42B5EBC75430B14892B08E1F8F4CA0BB2AC34185317092AD0301C7CA7BFE9A90",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "IrrelevantBranch_6011": {
+          "decoratedName": "?IrrelevantBranch_6011@@YAH_NH@Z"
+        },
+        "C6385_MaybeRelevantBranch": {
+          "decoratedName": "?C6385_MaybeRelevantBranch@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'target'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "IrrelevantBranch_6011",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 7,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 2
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6001",
+          "message": {
+            "text": "Using uninitialized memory 'data'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
+              "properties": {
+                "funcline": "18"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 27,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "3",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'data':  the readable size is '40' bytes, but '44' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                },
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
+              "properties": {
+                "funcline": "18"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 10
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp"
+                          },
+                          "region": {
+                            "startLine": 27,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

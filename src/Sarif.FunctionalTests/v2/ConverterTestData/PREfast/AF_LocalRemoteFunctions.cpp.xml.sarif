@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "I2luY2x1ZGUgIkFGX0xvY2FsUmVtb3RlRnVuY3Rpb25zLmgiDQoNCnZvaWQgTG9jYWxGdW5jdGlvbihpbnQqIHgpOw0KDQp2b2lkIExvY2FsRnVuY3Rpb24oaW50KiB4LCBpbnQqIHkpOw0KDQppbnQgVXNlTG9jYWxGdW5jdGlvbihpbnQgKiBwKQ0Kew0KCWlmIChwID09IDApDQoJCWludCB4ID0gNTsNCglMb2NhbEZ1bmN0aW9uKHApOw0KICAgIFJlbW90ZUZ1bmN0aW9uKHAsIHApOw0KCXJldHVybiAqcDsNCn0NCg=="
+          },
+          "hashes": [
+            {
+              "value": "D980197597DBE41EC87A4C8F3B0BABAC",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B839BCCF6D22587861AD26D0D9983FF60FACE00B",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "1A670FDC7E510E624E95EFDF7402E9FC7864C8F5BED735036A008388A8FF9146",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "UseLocalFunction": {
+          "decoratedName": "?UseLocalFunction@@YAHPEAH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'p'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 2
+                }
+              },
+              "fullyQualifiedLogicalName": "UseLocalFunction",
+              "properties": {
+                "funcline": "7"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                          },
+                          "region": {
+                            "startLine": 9,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                          },
+                          "region": {
+                            "startLine": 10,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 15
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "3"
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 2
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "4"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

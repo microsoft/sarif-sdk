@@ -54,9 +54,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
+
             if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
 
             output.OpenResults();
@@ -66,32 +70,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ProcessSdvDefectStream(Stream input)
         {
-            var result = new Result();
-
-            result.Locations = new List<Location>();
-       
-            result.CodeFlows = new[]
+            var result = new Result
             {
-                new CodeFlow
+                Locations = new List<Location>(),
+                CodeFlows = new []
                 {
-                    Locations = new List<AnnotatedCodeLocation>()
+                    SarifUtilities.CreateSingleThreadedCodeFlow()
                 }
             };
 
             using (var reader = new StreamReader(input))
             {
+                int nestingLevel = 0;
                 string line;
 
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
-                    ProcessLine(line, result);
+                    ProcessLine(line, ref nestingLevel, result);
                 }
             }
 
             return result;
         }
 
-        private void ProcessLine(string logFileLine, Result result)
+        private void ProcessLine(string logFileLine, ref int nestingLevel, Result result)
         {
             var codeFlow = result.CodeFlows[0];
 
@@ -144,33 +146,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     sdvKind = tokens[KIND2];
                 }
 
-                AnnotatedCodeLocationKind kind = ConvertToAnnotatedCodeLocationKind(sdvKind.Trim());
+                sdvKind = sdvKind.Trim();
 
-                var annotatedCodeLocation = new AnnotatedCodeLocation
+                var codeFlowLocation = new CodeFlowLocation
                 {
-                    Kind = kind,
-                    Step = step,
-                    Importance = AnnotatedCodeLocationImportance.Unimportant,
-                    PhysicalLocation = (uri != null) ? new PhysicalLocation
+                    Step = step + 1,
+                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Location = new Location
                     {
-                        Uri = uri,
+                        Message = new Message()
+                    }
+                };
+
+                if (uri != null)
+                {
+                    codeFlowLocation.Location.PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = uri
+                        },
                         Region = new Region
                         {
                             StartLine = line
                         }
-                    } : null,    
-                };
+                    };
+                }
 
-                if (kind == AnnotatedCodeLocationKind.Call)
+                if (sdvKind == "Call")
                 {
-                    string extraMsg = tokens[KIND1] + " " + tokens[CALLER] + " " + tokens[CALLEE];
+                    string extraMsg = $"{tokens[KIND1]} {tokens[CALLER]} {tokens[CALLEE]}";
 
                     string caller, callee;
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
-                        annotatedCodeLocation.FullyQualifiedLogicalName = caller;
-                        annotatedCodeLocation.Target = callee;
+                        codeFlowLocation.Location.FullyQualifiedLogicalName = caller;
+                        codeFlowLocation.Location.Message.Text = callee;
+                        codeFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
                     }
                     else
@@ -178,25 +191,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Debug.Assert(false);
                     }
 
+                    codeFlowLocation.NestingLevel = nestingLevel++;
+
                     if (uri == null)
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Unimportant;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Unimportant;
                     }
                     else if (IsHarnessOrRulesFiles(uriText))
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Important;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Important;
                     }
                     else
                     {
-                        annotatedCodeLocation.Importance = AnnotatedCodeLocationImportance.Essential;
+                        codeFlowLocation.Importance = CodeFlowLocationImportance.Essential;
                     }
-
                 }
-
-                if (kind == AnnotatedCodeLocationKind.CallReturn)
+                else if (sdvKind == "Return")
                 {
                     Debug.Assert(_callers.Count > 0);
-                    annotatedCodeLocation.FullyQualifiedLogicalName = _callers.Pop();
+
+                    codeFlowLocation.NestingLevel = nestingLevel--;
+                    codeFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
+                }
+                else
+                {
+                    codeFlowLocation.NestingLevel = nestingLevel;
+                    codeFlowLocation.Location.Message.Text = sdvKind;
                 }
 
                 string separatorText = "^====Auto=====";
@@ -207,24 +227,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (stateTokens.Length == 2)
                     {
-                        annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
-                        annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[1]);
+                        codeFlowLocation.SetProperty("currentDataValues", stateTokens[0]);
+                        codeFlowLocation.SetProperty("permanentDataValues", stateTokens[1]);
                     }
                     else
                     {
                         Debug.Assert(stateTokens.Length == 1);
                         if (stateTokens[0].StartsWith(separatorText))
                         {
-                            annotatedCodeLocation.SetProperty("permanentDataValues", stateTokens[0]);
+                            codeFlowLocation.SetProperty("permanentDataValues", stateTokens[0]);
                         }
                         else
                         {
-                            annotatedCodeLocation.SetProperty("currentDataValues", stateTokens[0]);
+                            codeFlowLocation.SetProperty("currentDataValues", stateTokens[0]);
                         }
                     }
                 }
 
-                codeFlow.Locations.Add(annotatedCodeLocation);
+                codeFlow.ThreadFlows[0].Locations.Add(codeFlowLocation);
             }
             else
             {
@@ -236,12 +256,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Level = ConvertToResultLevel(levelText);
 
                 // Everything on the line following defect level comprises the message
-                result.Message = logFileLine.Substring(levelText.Length).Trim();
+                result.Message = new Message { Text = logFileLine.Substring(levelText.Length).Trim() };
 
                 // SDV currently produces 'pass' notifications when 
                 // the final line is prefixed with 'Error'. We'll examine
                 // the message text to detect this condition
-                if (result.Message.Contains("is satisfied"))
+                if (result.Message.Text.Contains("is satisfied"))
                 {
                     result.Level = ResultLevel.Pass;
                 }
@@ -249,15 +269,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // Finally, populate this result location with the
                 // last observed location in the code flow.
 
-                IList<AnnotatedCodeLocation> locations = result.CodeFlows[0].Locations;
+                IList<CodeFlowLocation> locations = result.CodeFlows[0].ThreadFlows[0].Locations;
 
                 for (int i = locations.Count - 1; i >= 0; --i)
                 {
-                    if (locations[i].PhysicalLocation != null)
+                    if (locations[i].Location?.PhysicalLocation != null)
                     {
                         result.Locations.Add(new Location
                         {
-                            ResultFile = locations[i].PhysicalLocation
+                            PhysicalLocation = locations[i].Location.PhysicalLocation
                         });
                         break;
                     }
@@ -285,21 +305,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return true;
             }
             return false;
-        }
-
-        private static AnnotatedCodeLocationKind ConvertToAnnotatedCodeLocationKind(string sdvKind)
-        {
-            switch (sdvKind)
-            {
-                case "Assignment": return AnnotatedCodeLocationKind.Assignment;
-                case "Call": return AnnotatedCodeLocationKind.Call;
-                case "Conditional": return AnnotatedCodeLocationKind.Branch;
-                case "Continuation": return AnnotatedCodeLocationKind.Continuation;
-                case "Return": return AnnotatedCodeLocationKind.CallReturn;
-            }
-
-            Debug.Assert(false);
-            return AnnotatedCodeLocationKind.Unknown;
         }
 
         private static ResultLevel ConvertToResultLevel(string sdvLevel)

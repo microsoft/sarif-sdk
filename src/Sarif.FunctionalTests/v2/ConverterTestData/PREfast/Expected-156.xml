@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>15</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(void *)(&amp; a)'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 100 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 500 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function mycpy requires that {parameter 1} is of length &gt;= _Old_({parameter 3}) bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)(&amp; a); {parameter 3} is 500
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(byteCount(_Old_({parameter 3}))) at c:\somepath\test156.cpp(6)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Overflow using expression '(void *)(&amp; a[0])' at line 16
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>SimpleBadCalls</FUNCTION><DECORATED>?SimpleBadCalls@@YAXPAX@Z</DECORATED><FUNCLINE>8</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>8</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>10</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>11</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>11</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>13</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>14</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>15</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>15</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Read overflow using expression '(const void *)(&amp; b)'
+PREFAST_NEWLINE
+Buffer accessed is b
+PREFAST_NEWLINE
+Buffer is of length 6 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 500 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function mycpy requires that {parameter 2} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 2} is (const void *)(&amp; b); {parameter 3} is 500
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\somepath\test156.cpp(6)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Read overflow using expression '(const void *)(&amp; b)' at line 16
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>SimpleBadCalls</FUNCTION><DECORATED>?SimpleBadCalls@@YAXPAX@Z</DECORATED><FUNCLINE>8</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>8</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>10</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>11</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>11</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>13</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>14</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>15</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>29</LINE><COLUMN>24</COLUMN></SFA><DEFECTCODE>26037</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer accessed is _MyStruct::DevicePath
+PREFAST_NEWLINE
+Annotation on function MadePAGAndBad requires that &amp; data-&gt;DevicePath is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\test156.cpp(27)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>MadePAGAndBad</FUNCTION><DECORATED>?MadePAGAndBad@@YAXPAU_MyStruct@@@Z</DECORATED><FUNCLINE>27</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>27</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>29</LINE><COLUMN>24</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>44</LINE><COLUMN>24</COLUMN></SFA><DEFECTCODE>26037</DEFECTCODE><DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer accessed is _MyStruct::DevicePath
+PREFAST_NEWLINE
+Annotation on function NeverMadePAGAndBad requires that data-&gt;DevicePath is null terminated
+PREFAST_NEWLINE
+[Field annotation SAL_nullTerminated at c:\somepath\test156.cpp(42)]
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>NeverMadePAGAndBad</FUNCTION><DECORATED>?NeverMadePAGAndBad@@YAXPAU_MyStruct@@@Z</DECORATED><FUNCLINE>42</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>42</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>44</LINE><COLUMN>24</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>66</LINE><COLUMN>24</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+Annotation on function EnsureIndexingWorksBad requires that (data-&gt;DevicePath)[0] is == 1
+PREFAST_NEWLINE
+[Annotation SAL_relop("==", 1) at c:\somepath\test156.cpp(64)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(data-&gt;_MyStruct::DevicePath)[0] = 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>EnsureIndexingWorksBad</FUNCTION><DECORATED>?EnsureIndexingWorksBad@@YAXPAU_MyStruct@@@Z</DECORATED><FUNCLINE>64</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>64</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>66</LINE><COLUMN>24</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>99</LINE><COLUMN>24</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'valueName'
+PREFAST_NEWLINE
+Buffer result.malloc created during call to malloc on line 94
+PREFAST_NEWLINE
+Buffer is of length 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 94]
+PREFAST_NEWLINE
+Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function AcceptsUnicodeString requires that (&amp; {parameter 1})-&gt;Buffer is of length &gt;= {parameter 1}.Length bytes
+PREFAST_NEWLINE
+  where (&amp; {parameter 1})-&gt;Buffer is valueName; {parameter 1} is valueName
+PREFAST_NEWLINE
+[Field annotation SAL_readableTo(byteCount({parameter 1}.Length)) at c:\somepath\test156.cpp(75)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer valueName._UNICODE_STRING::Buffer is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+valueName._UNICODE_STRING::Length = 20
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>BadUnicodeStringCall</FUNCTION><DECORATED>?BadUnicodeStringCall@@YAXU_UNICODE_STRING@@@Z</DECORATED><FUNCLINE>92</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>92</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>94</LINE><COLUMN>46</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>94</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>95</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>96</LINE><COLUMN>28</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test156.cpp</FILENAME><LINE>99</LINE><COLUMN>24</COLUMN></SFA></PATH></DEFECT></DEFECTS>

@@ -15,18 +15,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class FormatForVisualStudioTests
     {
         private const string TestRuleId = "TST0001";
-        private const string TestFormatId = "testFormatSpecifier";
+        private const string TestMessageStringId = "testMessageStringId";
         private const string TestAnalysisTarget = @"C:\dir\file";
 
         private static readonly Rule TestRule = new Rule
         {
             Id = TestRuleId,
-            Name = "ThisIsATest",
-            ShortDescription = "short description",
-            FullDescription = "full description",
-            MessageFormats = new Dictionary<string, string>
+            Name = new Message { Text = "ThisIsATest" },
+            ShortDescription = new Message { Text = "short description" },
+            FullDescription = new Message { Text = "full description" },
+            MessageStrings = new Dictionary<string, string>
             {
-                [TestFormatId] = "First: {0}, Second: {1}"
+                [TestMessageStringId] = "First: {0}, Second: {1}"
             }
         };
 
@@ -206,16 +206,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     new Location
                     {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(path, UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(path, UriKind.RelativeOrAbsolute)
+                            },
                             Region = region
                         }
                     }
                 },
-                FormattedRuleMessage = new FormattedRuleMessage
+                RuleMessageId = TestMessageStringId,
+                Message = new Message
                 {
-                    FormatId = TestFormatId,
                     Arguments = new List<string>
                     {
                         "42",

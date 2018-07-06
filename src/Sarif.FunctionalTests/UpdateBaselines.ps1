@@ -2,7 +2,7 @@
     [string]$ToolName
 )
 
-$utility = "$PSScriptRoot\..\..\bld\bin\Sarif.Multitool\AnyCPU_Release\Sarif.Multitool.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Release\net452\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
 {
@@ -27,8 +27,18 @@ function Build-Baselines($toolName)
       $sourceExtension = "csv"
     }
 
+    if ($ToolName -eq "Pylint")
+    {
+      $sourceExtension = "json"
+    }
+
+    if ($ToolName -eq "TSLint")
+    {
+      $sourceExtension = "json"
+    }
+
     Write-Host "Building baselines for $toolName..."
-    $toolDirectory = Join-Path "$PSScriptRoot\ConverterTestData" $toolName
+    $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
     Get-ChildItem $toolDirectory -Filter $sourceExtension | ForEach-Object {
         Write-Host "    $_ -> $_.sarif"
@@ -38,19 +48,19 @@ function Build-Baselines($toolName)
 		
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-        & Write-Host "$utility convert --input ""$input"" --tool $toolName --output ""$outputTemp"" "
-        &$utility convert --input "$input" --tool $toolName --output "$outputTemp" --pretty --persist-file-contents
+        & Write-Host "$utility convert ""$input"" --tool $toolName --output ""$outputTemp"" -p --persist-text-contents"
+        &$utility convert "$input" --tool $toolName --output "$outputTemp" -p --persist-text-contents
 
-        # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source
-		# SARIF does not contain the optional 'files' member of the 'run' object.
-        Write-Host "$utility rewrite --input ""$outputTemp"" --output ""$outputTemp"" --pretty --persist-file-contents --hashes --force"
-        &$utility rewrite --input ""$outputTemp"" --output ""$outputTemp"" --pretty --persist-file-contents --hashes --force
+        # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source      
+        # SARIF emitted by the compiler does not contain the optional 'files' member of the 'run' object.
+        Write-Host "$utility rewrite ""$outputTemp"" --output ""$outputTemp"" -p --persist-text-contents --hashes --force"
+        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" -p --persist-text-contents --hashes --force
 
         Move-Item $outputTemp $output -Force
     }
 }
 
-$allTools = (Get-ChildItem "$PSScriptRoot\ConverterTestData" -Directory | ForEach-Object { $_.Name })
+$allTools = (Get-ChildItem "$PSScriptRoot\v2\ConverterTestData" -Directory | ForEach-Object { $_.Name })
 if ($ToolName -and ($allTools -inotcontains $ToolName)) {
     Throw "Unrecognized tool name $ToolName"
 }

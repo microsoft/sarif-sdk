@@ -4,13 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-
 using Newtonsoft.Json;
-using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -29,9 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets,
             LoggingOptions loggingOptions,
             IEnumerable<string> invocationTokensToRedact,
-            IEnumerable<string> invocationPropertiesToLog)
+            IEnumerable<string> invocationPropertiesToLog,
+            string defaultFileEncoding = null)
         {
-            var run = new Run();
+            var run = new Run
+            {
+                Invocations = new List<Invocation>(),
+                DefaultFileEncoding = defaultFileEncoding
+            };
 
             if (analysisTargets != null)
             {
@@ -49,28 +53,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            run.Invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
+            var invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
             if (invocationTokensToRedact != null)
             {
-                run.Invocation.CommandLine = Redact(run.Invocation.CommandLine, invocationTokensToRedact);
-                run.Invocation.Machine = Redact(run.Invocation.Machine, invocationTokensToRedact);
-                run.Invocation.Account = Redact(run.Invocation.Account, invocationTokensToRedact);
-                run.Invocation.WorkingDirectory = Redact(run.Invocation.WorkingDirectory, invocationTokensToRedact);
+                invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
+                invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
+                invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
+                invocation.WorkingDirectory = Redact(invocation.WorkingDirectory, invocationTokensToRedact);
 
-                if (run.Invocation.EnvironmentVariables != null)
+                if (invocation.EnvironmentVariables != null)
                 {
-                    string[] keys = run.Invocation.EnvironmentVariables.Keys.ToArray();
+                    string[] keys = invocation.EnvironmentVariables.Keys.ToArray();
 
                     foreach (string key in keys)
                     {
-                        string value = run.Invocation.EnvironmentVariables[key];
-                        run.Invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
+                        string value = invocation.EnvironmentVariables[key];
+                        invocation.EnvironmentVariables[key] = Redact(value, invocationTokensToRedact);
                     }
                 }
             }
+
+            run.Invocations.Add(invocation);
             return run;
         }
 
@@ -93,7 +99,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> analysisTargets = null,
             string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null)
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions,
                   tool,
@@ -110,18 +117,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool targetsAreTextFiles = true,
             string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
-            IEnumerable<string> invocationPropertiesToLog = null) : this(textWriter, loggingOptions)
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null) : this(textWriter, loggingOptions)
         {
             _run = run ?? CreateRun(
                             analysisTargets,
                             loggingOptions,
                             invocationTokensToRedact,
-                            invocationPropertiesToLog);
+                            invocationPropertiesToLog,
+                            defaultFileEncoding);
+
 
 
             tool = tool ?? Tool.CreateFromAssemblyData();
             SetSarifLoggerVersion(tool);
-            _issueLogJsonWriter.WriteTool(tool);
+
+            _run.Tool = tool;
+            _issueLogJsonWriter.Initialize(_run);
+
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -161,9 +174,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool OverwriteExistingOutputFile { get { return _loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile); } }
 
-        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
+        public bool PersistBinaryContents { get { return _loggingOptions.Includes(LoggingOptions.PersistBinaryContents); } }
 
-        public bool PersistFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistFileContents); } }
+        public bool PersistTextFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistTextFileContents); } }
+
+        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
 
         public bool PrettyPrint { get { return _loggingOptions.Includes(LoggingOptions.PrettyPrint); } }
 
@@ -177,21 +192,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run != null && _run.ConfigurationNotifications != null)
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTime != new DateTime())
                 {
-                    _issueLogJsonWriter.WriteConfigurationNotifications(_run.ConfigurationNotifications);
-                }
-
-                if (_run != null && _run.ToolNotifications != null)
-                {
-                    _issueLogJsonWriter.WriteToolNotifications(_run.ToolNotifications);
-                }
-
-                if (_run != null &&
-                    _run.Invocation != null &&
-                    _run.Invocation.StartTime != new DateTime())
-                {
-                    _run.Invocation.EndTime = DateTime.UtcNow;
+                    _run.Invocations[0].EndTime = DateTime.UtcNow;
                 }
 
                 // Note: we write out the backing rules
@@ -202,14 +205,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _issueLogJsonWriter.WriteRules(_rules);
                 }
 
-                if (_run != null && _run.Files != null)
+                if (_run?.Files != null)
                 {
                     _issueLogJsonWriter.WriteFiles(_run.Files);
                 }
 
-                if (_run != null && _run.Invocation != null)
+                if (_run?.Invocations != null)
                 {
-                    _issueLogJsonWriter.WriteInvocation(invocation: _run.Invocation);
+                    _issueLogJsonWriter.WriteInvocations(invocations: _run.Invocations);
+                }
+
+                if (_run?.Properties != null)
+                {
+                    _issueLogJsonWriter.WriteRunProperties(_run.Properties);
                 }
 
                 _issueLogJsonWriter.Dispose();
@@ -230,12 +238,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void AnalysisStarted()
         {
             _issueLogJsonWriter.OpenResults();
-            _run.Invocation = Invocation.Create();
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
         {
-            _run.Invocation.EndTime = DateTime.UtcNow;
+            if (_run.Invocations != null && _run.Invocations.Count > 0)
+            {
+                _run.Invocations[0].EndTime = DateTime.UtcNow;
+            }
         }
 
         public void Log(IRule rule, Result result)
@@ -265,10 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            if (rule != null)
-            {
-                Rules[result.RuleKey ?? result.RuleId] = rule;
-            }
+            Rules[result.RuleId] = rule;
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
@@ -276,23 +283,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private void CaptureFilesInResult(Result result)
         {
+            if (result.AnalysisTarget != null)
+            {
+                CaptureFile(result.AnalysisTarget.Uri);
+            }
+
             if (result.Locations != null)
             {
                 foreach (Location location in result.Locations)
                 {
-                    if (location.AnalysisTarget != null)
+                    if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.AnalysisTarget.Uri);
-                    }
-
-                    if (location.ResultFile != null)
-                    {
-                        CaptureFile(location.ResultFile.Uri);
+                        CaptureFile(location.PhysicalLocation.FileLocation?.Uri);
                     }
                 }
             }
 
-            CaptureAnnotatedCodeLocations(result.RelatedLocations);
+            if (result.RelatedLocations != null)
+            {
+                foreach (Location relatedLocation in result.RelatedLocations)
+                {
+                    if (relatedLocation.PhysicalLocation != null)
+                    {
+                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation?.Uri);
+                    }
+                }
+            }
 
             if (result.Stacks != null)
             {
@@ -300,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Uri);
+                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation?.Uri);
                     }
                 }
             }
@@ -309,7 +325,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (CodeFlow codeFlow in result.CodeFlows)
                 {
-                    CaptureAnnotatedCodeLocations(codeFlow.Locations);
+                    foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
+                    {
+                        CaptureCodeFlowLocations(threadFlow.Locations);
+                    }
                 }
             }
 
@@ -321,22 +340,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (FileChange fileChange in fix.FileChanges)
                         {
-                            CaptureFile(fileChange.Uri);
+                            CaptureFile(fileChange.FileLocation.Uri);
                         }
                     }
                 }
             }
         }
 
-        private void CaptureAnnotatedCodeLocations(IList<AnnotatedCodeLocation> locations)
+        private void CaptureCodeFlowLocations(IList<CodeFlowLocation> locations)
         {
             if (locations == null) { return; }
 
-            foreach (AnnotatedCodeLocation acl in locations)
+            foreach (CodeFlowLocation cfl in locations)
             {
-                if (acl.PhysicalLocation != null)
+                if (cfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(acl.PhysicalLocation.Uri);
+                    CaptureFile(cfl.Location.PhysicalLocation.FileLocation?.Uri);
                 }
             }
         }
@@ -354,7 +373,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions);
+            Encoding encoding = null;
+
+            try
+            {
+                encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+            }
+            catch (ArgumentException) { } // Unrecognized or null encoding name
+
+            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions, null, encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -378,15 +405,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             LogToolNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation { Uri = context.TargetUri },
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = context.TargetUri
+                        }
+                    },
                     Id = Notes.Msg001AnalyzingTarget,
-                    Message = message,
+                    Message = new Message { Text = message },
                     Level = NotificationLevel.Note,
                     Time = DateTime.UtcNow,
                 });
         }
 
-        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string formatId, params string[] arguments)
+        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -398,11 +431,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Rules[context.Rule.Id] = context.Rule;
             }
 
-            formatId = RuleUtilities.NormalizeFormatId(context.Rule.Id, formatId);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, formatId, arguments);
+            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string formatId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
@@ -413,9 +446,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             result.RuleId = ruleId;
 
-            result.FormattedRuleMessage = new FormattedRuleMessage()
+            result.Message = new Message()
             {
-                FormatId = formatId,
+                MessageId = ruleMessageId,
                 Arguments = arguments
             };
 
@@ -425,12 +458,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 result.Locations = new List<Location> {
                     new Sarif.Location {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(targetPath),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(targetPath)
+                            },
                             Region = region
                         }
-               }};
+                    }
+                };
             }
 
             _issueLogJsonWriter.WriteResult(result);
@@ -442,6 +479,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case ResultLevel.Note:
                 case ResultLevel.Pass:
+                case ResultLevel.Open:
                 case ResultLevel.NotApplicable:
                 {
                     if (!Verbose)
@@ -468,14 +506,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void LogToolNotification(Notification notification)
         {
-            _run.ToolNotifications = _run.ToolNotifications ?? new List<Notification>();
-            _run.ToolNotifications.Add(notification);
+            if (_run.Invocations.Count == 0)
+            {
+                _run.Invocations.Add(new Invocation());
+            }
+
+            _run.Invocations[0].ToolNotifications = _run.Invocations[0].ToolNotifications ?? new List<Notification>();
+            _run.Invocations[0].ToolNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
         {
-            _run.ConfigurationNotifications = _run.ConfigurationNotifications ?? new List<Notification>();
-            _run.ConfigurationNotifications.Add(notification);
+            if (_run.Invocations.Count == 0)
+            {
+                _run.Invocations.Add(new Invocation());
+            }
+
+            _run.Invocations[0].ConfigurationNotifications = _run.Invocations[0].ConfigurationNotifications ?? new List<Notification>();
+            _run.Invocations[0].ConfigurationNotifications.Add(notification);
         }
     }
 }

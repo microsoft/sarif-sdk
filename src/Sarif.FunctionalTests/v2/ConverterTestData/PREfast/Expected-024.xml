@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test024.cpp</FILENAME><LINE>6</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26007</DEFECTCODE><DESCRIPTION>Possibly incorrect single element annotation on buffer
+PREFAST_NEWLINE
+Overflow using expression '(arr)[2]'
+PREFAST_NEWLINE
+Buffer arr is a parameter to this function declared on line 4
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length offset(arr)`4 + 8 bytes [from annotation valid(elementCount(1)) at c:\somepath\test024.cpp(4)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 8
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer arr is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAXAAY01H@Z</DECORATED><FUNCLINE>4</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test024.cpp</FILENAME><LINE>4</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test024.cpp</FILENAME><LINE>6</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT></DEFECTS>

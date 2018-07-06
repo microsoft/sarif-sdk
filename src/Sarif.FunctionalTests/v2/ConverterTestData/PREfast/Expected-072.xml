@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>41</LINE><COLUMN>16</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential overflow of null terminated buffer using expression 'buf[index + 2]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer buf is a parameter to this function declared on line 36
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(buf)`38 + 2 bytes [length of zero terminated string] OR
+PREFAST_NEWLINE
+  offset(buf)`36 + 40 bytes [from annotation SAL_writableTo(elementCount(20)) at c:\somepath\test072.cpp(36)]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*result.find`39a + 4
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+index = result.find`39a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`36 == 0
+PREFAST_NEWLINE
+nullpos(buf)`38 &lt;= 19
+PREFAST_NEWLINE
+nullpos(buf)`38 &gt;= 1
+PREFAST_NEWLINE
+nullpos(buf)`38 &gt;= result.find`39a + 1
+PREFAST_NEWLINE
+result.find`39a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*nullpos(buf)`38 &lt;= 2*result.find`39a + 3
+PREFAST_NEWLINE
+result.find`39a &gt;= 18
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>f</FUNCTION><DECORATED>?f@@YAXPAG0@Z</DECORATED><FUNCLINE>36</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>36</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>38</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>39</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>39</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>39</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>40</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>41</LINE><COLUMN>16</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>46</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26016</DEFECTCODE><DESCRIPTION>Read overflow of null terminated buffer using expression 's[result.wcslen + 1]'
+PREFAST_NEWLINE
+Buffer s is a parameter to this function declared on line 44
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(s)`44 + 2 bytes [length of zero terminated string] OR
+PREFAST_NEWLINE
+  offset(s)`44 + 2*result.wcslen`46a + 2 bytes [from annotation _In_(elementCount(return + 1)) on function wcslen called at line 46]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*result.wcslen`46a + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+result.wcslen = result.wcslen`46a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`44 == 0
+PREFAST_NEWLINE
+result.wcslen`46a == nullpos(s)`44
+PREFAST_NEWLINE
+nullpos(s)`44 &gt;= 0
+PREFAST_NEWLINE
+result.wcslen`46a &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAHPBG@Z</DECORATED><FUNCLINE>44</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>44</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>46</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>46</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>51</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26016</DEFECTCODE><DESCRIPTION>Read overflow of null terminated buffer using expression 's[result.mywcslen + 1]'
+PREFAST_NEWLINE
+Buffer s is a parameter to this function declared on line 49
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(s)`49 + 2 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2*result.mywcslen`51a + 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer s is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+result.mywcslen = result.mywcslen`51a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(s)`49 == 0
+PREFAST_NEWLINE
+result.mywcslen`51a == nullpos(s)`49
+PREFAST_NEWLINE
+nullpos(s)`49 &gt;= 0
+PREFAST_NEWLINE
+result.mywcslen`51a &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>bar</FUNCTION><DECORATED>?bar@@YAHPBG@Z</DECORATED><FUNCLINE>49</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>49</LINE><COLUMN>4</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>51</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test072.cpp</FILENAME><LINE>51</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

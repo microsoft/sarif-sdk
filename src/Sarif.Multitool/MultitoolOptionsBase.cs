@@ -26,10 +26,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
             HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
         public bool ComputeFileHashes { get; set; }
 
+        [Option(
+            't', // persist 't'ext
+            "persist-text-contents",
+            HelpText = "Persist a base64-encoded representation of all referenced textual files to the log.")]
+        public bool PersistTextFileContents { get; set; }
 
         [Option(
-            "persist-file-contents",
-            HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
-        public bool PersistFileContents { get; set; }
+            // Lack of shortcut for this one is by design, as the need
+            // to persist this data is unusual and could lead to insecurities.
+            // It is therefore helpful for the command to be very readable
+            // in all usages.
+            "persist-binary-contents",
+            HelpText = "Persist a base64-encoded representation of all referenced files that are presumed to be non-textual to the log.")]
+        public bool PersistBinaryContents { get; set; }
     }
 }

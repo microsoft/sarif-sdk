@@ -127,13 +127,19 @@
   </ItemGroup>
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>
-      <ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\ConverterTestData\**\*.sarif" />
-      <DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\DirectProducerTestData\**\*.sarif" />
-      <SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\SpecExamples\**\*.sarif" />
+      <v1ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v1\ConverterTestData\**\*.sarif" />
+      <v1DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v1\DirectProducerTestData\**\*.sarif" />
+      <v1SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\v1\SpecExamples\**\*.sarif" />
+      <v2ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v2\ConverterTestData\**\*.sarif" />
+      <v2DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v2\DirectProducerTestData\**\*.sarif" />
+      <v2SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\**\*.sarif" />
     </ItemGroup>
-    <Copy SourceFiles="@(ConverterTestData)" DestinationFolder="$(OutDir)ConverterTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(DirectProducerTestData)" DestinationFolder="$(OutDir)DirectProducerTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(SpecExamples)" DestinationFolder="$(OutDir)SpecExamples\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v1ConverterTestData)" DestinationFolder="$(OutDir)v1\ConverterTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v1DirectProducerTestData)" DestinationFolder="$(OutDir)v1\DirectProducerTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v1SpecExamples)" DestinationFolder="$(OutDir)v1\SpecExamples\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2ConverterTestData)" DestinationFolder="$(OutDir)v2\ConverterTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2DirectProducerTestData)" DestinationFolder="$(OutDir)v2\DirectProducerTestData\%(RecursiveDir)" />
+    <Copy SourceFiles="@(v2SpecExamples)" DestinationFolder="$(OutDir)v2\SpecExamples\%(RecursiveDir)" />
     <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutDir)" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

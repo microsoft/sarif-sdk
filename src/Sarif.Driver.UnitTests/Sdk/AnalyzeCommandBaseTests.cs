@@ -396,7 +396,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(path, Guid.NewGuid().ToString());
 
-            try {
+            try
+            {
                 var options = new TestAnalyzeOptions()
                 {
                     TargetFileSpecifiers = new string[] { GetThisTestAssemblyFilePath() },
@@ -410,10 +411,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     RuntimeConditions.None,
                     expectedExitReason: ExitReason.None,
                     analyzeOptions: options);
+
+                if (File.Exists(path)) { File.Delete(path); }
             }
             finally
             {
-                if (File.Exists(path)) { File.Delete(path); }
             }
         }
 
@@ -638,7 +640,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 string location = GetThisTestAssemblyFilePath();
 
                 Run run = AnalyzeFile(
-                    location, 
+                    location,
                     configFileName: path,
                     runtimeConditions: RuntimeConditions.RuleWasExplicitlyDisabled | RuntimeConditions.NoRulesLoaded,
                     expectedReturnCode: TestAnalyzeCommand.FAILURE);
@@ -659,11 +661,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 // Three notifications. One for each disabled rule. And an error
                 // notification that all rules have been disabled
-                configurationNotificationCount.Should().Be(3);
-                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
-                run.ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(2);
+                configurationNotificationCount.Should().Be(4);
 
-                run.ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(2);
+                run.Invocations.Should().NotBeNull();
+                run.Invocations.Count.Should().Be(1);
+
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
+
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
 
                 toolNotificationCount.Should().Be(0);
             }

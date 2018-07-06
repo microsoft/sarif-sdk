@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result testResult = new Result()
             {
                 RuleId = "ruleName.test.value",
-                Message = "failure.test.value",
+                Message = new Message { Text = "failure.test.value" },
                 Level = ResultLevel.Warning
             };
 
@@ -99,12 +99,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
-                Uri = new Uri("name.test.value", UriKind.Relative),
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri("name.test.value", UriKind.Relative)
+                },
                 Region = region
             };
             Location location = new Location()
             {
-                AnalysisTarget = physLoc
+                PhysicalLocation = physLoc
             };
 
             testResult.Locations = new List<Location>()
@@ -114,9 +117,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Replacement replacement = new Replacement()
             {
-                Offset = 10,
-                DeletedLength = 5,
-                InsertedBytes = Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value"))
+                DeletedRegion = new Region
+                {
+                    Length = 5,
+                    Offset = 10
+                },
+                InsertedContent = new FileContent
+                {
+                    Text = "fix.innerText.test.value"
+                }
             };
 
             testResult.Fixes = new List<Fix>()
@@ -127,7 +136,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         new FileChange()
                         {
-                            Uri = new Uri("name.test.value", UriKind.Relative),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("name.test.value", UriKind.Relative)
+                            },
                             Replacements = new List<Replacement>()
                             {
                                 replacement
@@ -161,8 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             MemoryStream stream = new MemoryStream(data);
 
             var mockWriter = new Mock<IResultLogWriter>();
-            mockWriter.Setup(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()));
-            mockWriter.Setup(writer => writer.WriteTool(It.IsAny<Tool>()));
+            mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));
             mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()));
             mockWriter.Setup(writer => writer.OpenResults());
             mockWriter.Setup(writer => writer.CloseResults());
@@ -172,8 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             converter.Convert(stream, mockWriter.Object, LoggingOptions.None);
 
-            mockWriter.Verify(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteTool(It.IsAny<Tool>()), Times.Once);
+            mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()), Times.Once);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);

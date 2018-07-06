@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>16</LINE><COLUMN>14</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(void *)ptr'
+PREFAST_NEWLINE
+Buffer ptr is a parameter to this function declared on line 6
+PREFAST_NEWLINE
+Buffer is of length offset(ptr)`6 + 10 bytes [from annotation SAL_writableTo(elementCount(10)) at c:\somepath\test127.cpp(6)]
+PREFAST_NEWLINE
+Accessing 15 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function memset requires that {parameter 1} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 1} is (void *)ptr; {parameter 3} is 15
+PREFAST_NEWLINE
+[Annotation _Out_(byteCount({parameter 3}))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer ptr is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>VariableWorker</FUNCTION><DECORATED>?VariableWorker@@YAXHPAD@Z</DECORATED><FUNCLINE>6</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>6</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>14</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>16</LINE><COLUMN>14</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>31</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; myArray'
+PREFAST_NEWLINE
+Buffer accessed is myArray
+PREFAST_NEWLINE
+Buffer is of length 15 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function VariableWorker requires that {parameter 2} is of length &gt;= 20 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 2} is &amp; myArray
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(20)) at c:\somepath\test127.cpp(6)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad1</FUNCTION><DECORATED>?Bad1@@YAXXZ</DECORATED><FUNCLINE>28</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>28</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>30</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>31</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>37</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; myArray'
+PREFAST_NEWLINE
+Buffer accessed is myArray
+PREFAST_NEWLINE
+Buffer is of length 15 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing 20 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function VariableWorker requires that {parameter 2} is of length &gt;= 20 elements (1 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 2} is &amp; myArray
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(20)) at c:\somepath\test127.cpp(6)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+cmd = 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad2</FUNCTION><DECORATED>?Bad2@@YAXH@Z</DECORATED><FUNCLINE>34</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>34</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>36</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>37</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>60</LINE><COLUMN>21</COLUMN></SFA><DEFECTCODE>26019</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'buff50[size]'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is buff50
+PREFAST_NEWLINE
+Buffer is of length 50 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing the byte at byte offset size`47
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+size = size`47
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+size`47 &lt;= 99
+PREFAST_NEWLINE
+size`47 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+size`47 &gt;= 50
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>RangeWhen1</FUNCTION><DECORATED>?RangeWhen1@@YAXHI@Z</DECORATED><FUNCLINE>47</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>47</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>54</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>55</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>57</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>59</LINE><COLUMN>22</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>60</LINE><COLUMN>21</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>80</LINE><COLUMN>24</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential overflow using expression 'buff[result.RangeWhen2]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: result.RangeWhen2`80a is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is buff
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [size of variable]
+PREFAST_NEWLINE
+Accessing the byte at byte offset result.RangeWhen2`80a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.RangeWhen2 = result.RangeWhen2`80a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+result.RangeWhen2`79a == 0
+PREFAST_NEWLINE
+result.RangeWhen2`80a &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+result.RangeWhen2`80a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad3</FUNCTION><DECORATED>?Bad3@@YAXXZ</DECORATED><FUNCLINE>76</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>76</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>78</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>79</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>79</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>80</LINE><COLUMN>19</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>80</LINE><COLUMN>24</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>121</LINE><COLUMN>15</COLUMN></SFA><DEFECTCODE>26018</DEFECTCODE><DESCRIPTION>Potential read overflow of null terminated buffer using expression '* (lpszHdrs ++)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer lpszHdrs is a parameter to this function declared on line 104
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(lpszHdrs)`104 + 2 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2 bytes starting at byte offset 2
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer lpszHdrs is at offset 4 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+cchLength`104 == 4294967295
+PREFAST_NEWLINE
+offset(lpszHdrs)`104 == 0
+PREFAST_NEWLINE
+{loop iterations}'120 == 0
+PREFAST_NEWLINE
+nullpos(lpszHdrs)`104 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(lpszHdrs)`104 == 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>WinHttpTestINT</FUNCTION><DECORATED>?WinHttpTestINT@@YAXPBGH@Z</DECORATED><FUNCLINE>104</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>104</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>111</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>111</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>112</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>112</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>113</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>120</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>120</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>120</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>121</LINE><COLUMN>15</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>120</LINE><COLUMN>33</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>120</LINE><COLUMN>26</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>121</LINE><COLUMN>15</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>130</LINE><COLUMN>10</COLUMN></SFA><DEFECTCODE>26003</DEFECTCODE><DESCRIPTION>Writing to buffer 'dest' of unspecified length.  Please annotate.
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+If we assume that the buffer has single element in length, then the checker would report:
+PREFAST_NEWLINE
+Potential overflow using expression 'dest'
+PREFAST_NEWLINE
+Buffer dest is a parameter to this function declared on line 128
+PREFAST_NEWLINE
+Buffer is of length 2 bytes [assumed because the buffer is unannotated]
+PREFAST_NEWLINE
+Accessing 2*nullpos(src)`128 + 2 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function wcscpy requires that {parameter 1} is of length &gt;= _String_length_({parameter 2}) + 1 elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is dest; {parameter 2} is src
+PREFAST_NEWLINE
+[Annotation _Out_(elementCount(_String_length_({parameter 2}) + 1))]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer dest is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+Pointer src is at offset 0 bytes from the start of src
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(dest)`128 == 0
+PREFAST_NEWLINE
+nullpos(src)`128 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*nullpos(src)`128 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>myWcsCpy</FUNCTION><DECORATED>?myWcsCpy@@YAXPAGPBG@Z</DECORATED><FUNCLINE>128</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>128</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>130</LINE><COLUMN>10</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>144</LINE><COLUMN>20</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Read overflow of null terminated buffer using expression '(LPCWSTR)(&amp; localString)'
+PREFAST_NEWLINE
+Buffer accessed is localString
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable] OR
+PREFAST_NEWLINE
+  nullpos(localString)`138 + 1 elements (2 bytes/element) [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 4294967196 elements (2 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function WinHttpTestDWORD requires that {parameter 1} is of length &gt;= {parameter 2} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is (LPCWSTR)(&amp; localString); {parameter 2} is 4294967196
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount({parameter 2})) at c:\somepath\test127.cpp(83)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+nullpos(localString)`138 &lt;= 100
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>CallWinHttpDWORD</FUNCTION><DECORATED>?CallWinHttpDWORD@@YAXPBG@Z</DECORATED><FUNCLINE>133</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>133</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>137</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>138</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>140</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>142</LINE><COLUMN>20</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>144</LINE><COLUMN>20</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>158</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26014</DEFECTCODE><DESCRIPTION>Potential read overflow of null terminated buffer using expression '(WCHAR *)(&amp; localString)'
+PREFAST_NEWLINE
+This is likely to be due to incorrect or insufficient validation of the buffer access
+PREFAST_NEWLINE
+Buffer accessed is localString
+PREFAST_NEWLINE
+Buffer is of length 100 elements (2 bytes/element) [size of variable] OR
+PREFAST_NEWLINE
+  nullpos(localString)`152 + 1 elements (2 bytes/element) [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 101 elements (2 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function WinHttpTestINT requires that {parameter 1} is of length &gt;= {parameter 2} elements (2 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is (WCHAR *)(&amp; localString); {parameter 2} is 101
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(elementCount({parameter 2})) at c:\somepath\test127.cpp(104)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+nullpos(localString)`152 &lt;= 100
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+nullpos(localString)`152 &lt;= 99
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>CallWinHttpINT</FUNCTION><DECORATED>?CallWinHttpINT@@YAXPBG@Z</DECORATED><FUNCLINE>147</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>147</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>151</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>152</LINE><COLUMN>12</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>154</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>156</LINE><COLUMN>18</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test127.cpp</FILENAME><LINE>158</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT></DEFECTS>

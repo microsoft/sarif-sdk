@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test091.cpp</FILENAME><LINE>25</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26061</DEFECTCODE><DESCRIPTION>Range postcondition violation
+PREFAST_NEWLINE
+Annotation on function RtlEncodeUtf16LE requires that (&amp; result.RtlEncodeUtf16LE)-&gt;NewCursorValue &gt;= begin &amp;&amp; (&amp; result.RtlEncodeUtf16LE)-&gt;NewCursorValue &lt;= end
+PREFAST_NEWLINE
+[Annotation SAL_satisfies((&amp; result.RtlEncodeUtf16LE)-&gt;NewCursorValue &gt;= begin &amp;&amp; (&amp; result.RtlEncodeUtf16LE)-&gt;NewCursorValue &lt;= end) at c:\somepath\test091.cpp(21)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer begin is at offset offset(begin)`21 bytes from the start of begin
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>RtlEncodeUtf16LE</FUNCTION><DECORATED>?RtlEncodeUtf16LE@@YA?AURTL_UCSCHAR_ENCODER_RETURN_VALUE@@EPAE0@Z</DECORATED><FUNCLINE>21</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test091.cpp</FILENAME><LINE>21</LINE><COLUMN>33</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test091.cpp</FILENAME><LINE>23</LINE><COLUMN>37</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test091.cpp</FILENAME><LINE>24</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test091.cpp</FILENAME><LINE>25</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT></DEFECTS>

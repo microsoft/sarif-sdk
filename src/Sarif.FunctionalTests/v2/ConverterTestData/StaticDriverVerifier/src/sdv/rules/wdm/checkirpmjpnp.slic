@@ -1,0 +1,40 @@
+/*++
+
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Rule Name:
+
+    CheckIrpMjPnp
+
+Domain:
+
+    wdm
+
+Rule ID:
+
+    Not Applicable
+
+Description:
+
+    The property is satisfied if the driver defines a IRP_MJ_PNP routine.
+
+Help Link:
+
+    http://go.microsoft.com/fwlink/?LinkId=507476
+
+--*/
+
+
+#include "slic_base.h"
+		 
+[sdv_CheckIrpMjPnp].exit
+{
+  if($return)
+  {
+      abort "The property is satisfied as the driver defines a IRP_MJ_PNP routine.";
+  }
+  else 
+  {
+      halt;
+  }
+}

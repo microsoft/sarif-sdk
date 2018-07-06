@@ -13,18 +13,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (x.Uri != y.Uri)
+                if (x.Location?.PhysicalLocation?.FileLocation?.Uri != y.Location?.PhysicalLocation?.FileLocation?.Uri)
                 {
                     return false;
                 }
-                if (x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
-                {
-                    return false;
-                }
+
                 if (x.Module != y.Module)
                 {
                     return false;
                 }
+
                 if (!ListComparisonHelpers.CompareListsOrdered(x.Parameters, y.Parameters))
                 {
                     return false;
@@ -35,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(StackFrame obj)
         {
-            if (ReferenceEquals(obj, null))
+            if (ReferenceEquals(obj, null) || obj.Location?.PhysicalLocation?.FileLocation?.Uri == null || obj.Module == null)
             {
                 return 0;
             }
@@ -43,9 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ obj.Uri.GetNullCheckedHashCode();
-
-                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
+                hs = hs ^ obj.Location.PhysicalLocation.FileLocation.Uri.GetNullCheckedHashCode();
 
                 hs = hs ^ obj.Module.GetNullCheckedHashCode();
 

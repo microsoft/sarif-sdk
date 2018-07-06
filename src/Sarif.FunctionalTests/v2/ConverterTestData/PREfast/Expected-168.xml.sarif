@@ -1,0 +1,261 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///c:/somepath/test168.cpp": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "logicalLocations": {
+        "TestSetToNull": {
+          "decoratedName": "?TestSetToNull@@YAXXZ"
+        },
+        "TestSetToZero": {
+          "decoratedName": "?TestSetToZero@@YAXXZ"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "26000",
+          "message": {
+            "text": "Overflow using expression 'a[10]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test168.cpp"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "TestSetToNull",
+              "properties": {
+                "funcline": "9"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 9,
+                            "startColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 11,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "startColumn": 11
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 14,
+                            "startColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 17,
+                            "startColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "26000",
+          "message": {
+            "text": "Overflow using expression 'a[10]'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing the element (4 bytes/element) at element offset 10\n"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/somepath/test168.cpp"
+                },
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 11
+                }
+              },
+              "fullyQualifiedLogicalName": "TestSetToZero",
+              "properties": {
+                "funcline": "20"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "startColumn": 6
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 23,
+                            "startColumn": 11
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 25,
+                            "startColumn": 14
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 26,
+                            "startColumn": 9
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/somepath/test168.cpp"
+                          },
+                          "region": {
+                            "startLine": 28,
+                            "startColumn": 11
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

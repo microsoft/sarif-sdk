@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Clang"
+      },
+      "files": {
+        "jquant1.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Division by zero",
+          "message": {
+            "text": "Division by zero"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jquant1.c"
+                },
+                "region": {
+                  "startLine": 254,
+                  "startColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "output_value",
+            "issueHash": "6"
+          }
+        }
+      ]
+    }
+  ]
+}

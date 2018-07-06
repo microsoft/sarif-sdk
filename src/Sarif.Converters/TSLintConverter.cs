@@ -26,8 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output = output ?? throw new ArgumentNullException(nameof(output));
 
-            output.Initialize(id: null, automationId: null);
-
             TSLintLog tsLintLog = logReader.ReadLog(input);
 
             Tool tool = new Tool
@@ -35,7 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "TSLint"
             };
 
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             var results = new List<Result>();
             foreach(TSLintLogEntry entry in tsLintLog)
@@ -63,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result()
             {
                 RuleId = entry.RuleName,
-                Message = entry.Failure
+                Message = new Message { Text = entry.Failure }
             };
 
             switch (entry.RuleSeverity)
@@ -97,10 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
-            PhysicalLocation analysisTarget = new PhysicalLocation(uri: analysisTargetUri, uriBaseId: null, region: region);
+            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null), region: region, contextRegion: null);
             Location location = new Location()
             {
-                AnalysisTarget = analysisTarget
+                PhysicalLocation = physicalLocation
             };
 
             result.Locations = new List<Location>()
@@ -114,19 +117,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (TSLintLogFix fix in entry.Fixes)
                 {
-                    Replacement replacement = new Replacement()
+                    Replacement replacement = new Replacement();
+
+                    replacement.DeletedRegion = new Region
                     {
-                        Offset = fix.InnerStart,
-                        DeletedLength = fix.InnerLength,
+                        Length = fix.InnerLength,
+                        Offset = fix.InnerStart
                     };
 
-                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
-                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
+                    if (!string.IsNullOrEmpty(fix.InnerText))
+                    {
+                        replacement.InsertedContent = new FileContent
+                        {
+                            Text = fix.InnerText
+                        };
+                    }
 
                     replacements.Add(replacement);
                 }
 
-                FileChange sarifFileChange = new FileChange(uri: analysisTargetUri, uriBaseId: null, replacements: replacements);
+                FileChange sarifFileChange = new FileChange(fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null), replacements: replacements);
 
                 Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange });
                 result.Fixes = new List<Fix> { sarifFix };

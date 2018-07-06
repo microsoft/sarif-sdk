@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>45</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '(d.pData)[d.i]'
+PREFAST_NEWLINE
+Buffer data is a parameter to this function declared on line 37
+PREFAST_NEWLINE
+Buffer is of length offset(data)`37 + 4*n`37 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\somepath\test121.cpp(37)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*n`37
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer data is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+d.Data::i = n`37
+PREFAST_NEWLINE
+d.Data::pData = data
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(data)`37 == 0
+PREFAST_NEWLINE
+n`37 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad1</FUNCTION><DECORATED>?Bad1@@YAXPAHH@Z</DECORATED><FUNCLINE>37</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>37</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>39</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>39</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>39</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>39</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>41</LINE><COLUMN>10</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>44</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>45</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>64</LINE><COLUMN>4</COLUMN></SFA><DEFECTCODE>26040</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer accessed is `Bad2'::`2'::buffer
+PREFAST_NEWLINE
+Buffer is of length 2 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 10 elements (4 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function Bad2 requires that result.Bad2 is of length &gt;= 10 elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(10)) at c:\somepath\test121.cpp(59)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+result.Bad2 = &amp;`Bad2'::`2'::buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad2</FUNCTION><DECORATED>?Bad2@@YAPAHXZ</DECORATED><FUNCLINE>59</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>59</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>23</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>62</LINE><COLUMN>13</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>64</LINE><COLUMN>4</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>96</LINE><COLUMN>44</COLUMN></SFA><DEFECTCODE>26017</DEFECTCODE><DESCRIPTION>Potential overflow using expression '(dc.data_.elems_)[dc.data_.numElems_ - 1]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: dc.DataClass::data_.SizedData::numElems_`93 is not constrained by (result.getData-&gt;SizedData::numElems_)`92
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer dc.DataClass::data_.SizedData::elems_ created during call to DataGetter::getData on line 92
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __out annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (result.getData-&gt;SizedData::numElems_)`92 bytes [from field annotation SAL_writableTo(elementCount(return-&gt;numElems_)) at c:\somepath\test121.cpp(71) on function DataGetter::getData called at line 92]
+PREFAST_NEWLINE
+Accessing the byte at byte offset dc.DataClass::data_.SizedData::numElems_`93 - 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer dc.DataClass::data_.SizedData::elems_ is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+dc.DataClass::data_.SizedData::numElems_ = dc.DataClass::data_.SizedData::numElems_`93
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(result.getData-&gt;SizedData::numElems_)`92 &gt;= 1
+PREFAST_NEWLINE
+dc.DataClass::data_.SizedData::numElems_`93 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+dc.DataClass::data_.SizedData::numElems_`93 &gt;= (result.getData-&gt;SizedData::numElems_)`92 + 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential read overflow using expression '(dc.data_.elems_)[dc.data_.numElems_]' at line 97
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>Bad3</FUNCTION><DECORATED>?Bad3@@YADPAUDataGetter@@@Z</DECORATED><FUNCLINE>90</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>90</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>92</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>92</LINE><COLUMN>24</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>93</LINE><COLUMN>16</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test121.cpp</FILENAME><LINE>96</LINE><COLUMN>44</COLUMN></SFA></PATH></DEFECT></DEFECTS>

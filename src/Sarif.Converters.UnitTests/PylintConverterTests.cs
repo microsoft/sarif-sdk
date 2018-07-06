@@ -56,15 +56,18 @@ namespace Sarif.Converters.UnitTests
             return new Result()
             {
                 RuleId = "C0412(testSymbol)",
-                Message = "testMessage",
+                Message = new Message { Text = "testMessage" },
                 Level = ResultLevel.Warning,
                 Locations = new List<Location>
                 {
                     new Location
                     {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri("test.py", UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("test.py", UriKind.RelativeOrAbsolute)
+                            },
                             Region = new Region
                             {
                                 StartLine = 1,
@@ -93,8 +96,7 @@ namespace Sarif.Converters.UnitTests
             MemoryStream stream = new MemoryStream(data);
 
             var mockWriter = new Mock<IResultLogWriter>();
-            mockWriter.Setup(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()));
-            mockWriter.Setup(writer => writer.WriteTool(It.IsAny<Tool>()));
+            mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));
             mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()));
             mockWriter.Setup(writer => writer.OpenResults());
             mockWriter.Setup(writer => writer.CloseResults());
@@ -104,8 +106,7 @@ namespace Sarif.Converters.UnitTests
 
             converter.Convert(stream, mockWriter.Object, Microsoft.CodeAnalysis.Sarif.Writers.LoggingOptions.None);
 
-            mockWriter.Verify(writer => writer.Initialize(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteTool(It.IsAny<Tool>()), Times.Once);
+            mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()), Times.Once);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java</file>
+    <line>42</line>
+    <module>app</module>
+    <package>microsoft.androidstudioformatexample</package>
+    <entry_point TYPE="method" FQNAME="microsoft.androidstudioformatexample.MainActivity java.lang.String ForCanBeForeachExample()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'for' loop replaceable with 'foreach'</problem_class>
+    <description>&lt;code&gt;for&lt;/code&gt; loop replaceable with 'foreach' #loc</description>
+  </problem>
+</problems>
+

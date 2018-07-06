@@ -81,14 +81,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                RuleMessageId = "nonExistentMessageId"
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
-                {
-                }
+                Resources = new CodeAnalysis.Sarif.Resources() { }
             };
 
             var item = MakeErrorListItem(run, result);
@@ -97,23 +95,26 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageFormats_ContainsBlankMessage()
+        public void SarifErrorListItem_WhenResultRefersToRuleWithNoMessageStrings_ContainsBlankMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                RuleMessageId = "nonExistentMessageId"
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }
@@ -130,21 +131,24 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("nonExistentFormatId", arguments: new string[0])
+                RuleMessageId = "nonExistentFormatId"
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001",
-                            MessageFormats = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "realFormatId", "The message" }
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "realFormatId", "The message" }
+                                }
                             }
                         }
                     }
@@ -157,26 +161,36 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         }
 
         [Fact]
-        public void SarifErrorListItem_WhenResultRefersToExistingMessageFormat_ContainsExpectedMessage()
+        public void SarifErrorListItem_WhenResultRefersToExistingMessageString_ContainsExpectedMessage()
         {
             var result = new Result
             {
                 RuleId = "TST0001",
-                FormattedRuleMessage = new FormattedRuleMessage("greeting", new[] { "Mary" })
+                RuleMessageId = "greeting", 
+                Message = new Message()
+                {
+                    Arguments = new string[]
+                    {
+                        "Mary"
+                    }
+                }
             };
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001",
-                            MessageFormats = new Dictionary<string, string>
+                            "TST0001",
+                            new Rule
                             {
-                                { "greeting", "Hello, {0}!" }
+                                Id = "TST0001",
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    { "greeting", "Hello, {0}!" }
+                                }
                             }
                         }
                     }
@@ -201,10 +215,20 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         {
                             new FileChange
                             {
-                                Uri = new Uri("path/to/file.html", UriKind.Relative),
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri("path/to/file.html", UriKind.Relative)
+                                },
                                 Replacements = new[]
                                 {
-                                    new Replacement(0, 0, string.Empty)
+                                    new Replacement()
+                                    {
+                                        DeletedRegion = new Region
+                                        {
+                                            Length = 5,
+                                            Offset = 10
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -227,13 +251,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001-1",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001-1",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }
@@ -254,9 +281,12 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
-                    // No metadata for rule TST0001.
+                    Rules = new Dictionary<string, Rule>
+                    {
+                        // No metadata for rule TST0001.
+                    }
                 }
             };
 
@@ -277,13 +307,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 
             var run = new Run
             {
-                Rules = new Dictionary<string, Rule>
+                Resources = new CodeAnalysis.Sarif.Resources()
                 {
+                    Rules = new Dictionary<string, Rule>
                     {
-                        "TST0001",
-                        new Rule
                         {
-                            Id = "TST0001"
+                            "TST0001",
+                            new Rule
+                            {
+                                Id = "TST0001"
+                            }
                         }
                     }
                 }

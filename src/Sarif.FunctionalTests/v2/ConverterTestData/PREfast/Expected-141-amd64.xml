@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test141.cpp</FILENAME>
+      <LINE>55</LINE>
+      <COLUMN>21</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression '&amp; pObj1'
+PREFAST_NEWLINE
+Buffer result.malloc created during call to malloc on line 52
+PREFAST_NEWLINE
+Buffer is of length 20 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function malloc called at line 52]
+PREFAST_NEWLINE
+Accessing 28 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function MyClass&lt;_MYSTRUCT * __ptr64&gt;::MyFunc requires that * {parameter 2} is of length &gt;= (* {parameter 2})-&gt;Length + 8 bytes
+PREFAST_NEWLINE
+  where * {parameter 2} is &amp; pObj1; {parameter 2} is &amp; pObj1
+PREFAST_NEWLINE
+[Type annotation SAL_writableTo(byteCount((* {parameter 2})-&gt;Length + 8)) at c:\somepath\test141.cpp(18)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(pObj1-&gt;_MYSTRUCT::Length) = 20
+PREFAST_NEWLINE
+Pointer pObj1 is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>ErrorTestFunc</FUNCTION>
+    <DECORATED>?ErrorTestFunc@@YAXXZ</DECORATED>
+    <FUNCLINE>47</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>18</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>53</LINE>
+        <COLUMN>18</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>21</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test141.cpp</FILENAME>
+      <LINE>87</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression 'cp[size]'
+PREFAST_NEWLINE
+Buffer cp created during call to MyClass2&lt;char&gt;::RefParams on line 85
+PREFAST_NEWLINE
+Buffer is of length size`85a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\somepath\test141.cpp(63) on function MyClass2&lt;char&gt;::RefParams called at line 85]
+PREFAST_NEWLINE
+Accessing the byte at byte offset size`85a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer cp is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+size = size`85a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(cp)`85a == 0
+PREFAST_NEWLINE
+size`85a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>UseRefParamsFromMyClass2</FUNCTION>
+    <DECORATED>?UseRefParamsFromMyClass2@@YAXXZ</DECORATED>
+    <FUNCLINE>79</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>79</LINE>
+        <COLUMN>29</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>81</LINE>
+        <COLUMN>19</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>82</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>83</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>85</LINE>
+        <COLUMN>25</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>86</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>87</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test141.cpp</FILENAME>
+      <LINE>106</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>26000</DEFECTCODE>
+    <DESCRIPTION>Overflow using expression 'cp[size]'
+PREFAST_NEWLINE
+Buffer cp created during call to RefParamsNoTemplate on line 104
+PREFAST_NEWLINE
+Buffer is of length size`104a bytes [from annotation SAL_writableTo(elementCount(* {parameter 1})) at c:\somepath\test141.cpp(90) on function RefParamsNoTemplate called at line 104]
+PREFAST_NEWLINE
+Accessing the byte at byte offset size`104a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer cp is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+size = size`104a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(cp)`104a == 0
+PREFAST_NEWLINE
+size`104a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>UseRefParamsNoTemplate</FUNCTION>
+    <DECORATED>?UseRefParamsNoTemplate@@YAXXZ</DECORATED>
+    <FUNCLINE>99</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>99</LINE>
+        <COLUMN>27</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>101</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>102</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>104</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>105</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test141.cpp</FILENAME>
+        <LINE>106</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

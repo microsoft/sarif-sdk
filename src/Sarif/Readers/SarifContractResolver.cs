@@ -28,19 +28,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(SarifVersion))
                 contract.Converter = SarifVersionConverter.Instance;
 
-            else if (objectType == typeof(AnnotatedCodeLocationKind))
-                contract.Converter = EnumConverter.Instance;
-
-            else if (objectType == typeof(AnnotatedCodeLocationImportance))
+            else if (objectType == typeof(CodeFlowLocationImportance))
                 contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(ResultLevel))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(NotificationLevel))
+            else if (objectType == typeof(RuleConfigurationDefaultLevel))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(AlgorithmKind))
+            else if (objectType == typeof(NotificationLevel))
                 contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(BaselineState))
@@ -49,10 +46,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(SuppressionStates))
                 contract.Converter = FlagsEnumConverter.Instance;
 
+            else if (objectType == typeof(FileRoles))
+                contract.Converter = FlagsEnumConverter.Instance;
+
             else if (objectType == typeof(Dictionary<string, IRule>))
                 contract.Converter = RuleDictionaryConverter.Instance;
 
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))
+                contract.Converter = PropertyBagConverter.Instance;
+
+            else if (objectType == typeof(Dictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;
 
             return contract;

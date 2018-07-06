@@ -367,20 +367,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedResult = new Result
             {
                 RuleId = "CA0000",
-                Message = "hello!",
-                ToolFingerprintContribution = "1#test",
+                Message = new Message { Text = "hello!" },
                 SuppressionStates = SuppressionStates.SuppressedInSource,
+                PartialFingerprints = new Dictionary<string, string>(),
+                AnalysisTarget = new FileLocation
+                {
+                    Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
+                },
                 Locations = new List<Location>
                 {
                     new Location
                     {
-                        AnalysisTarget = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                        },
-                        ResultFile = new PhysicalLocation
-                        {
-                            Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute)
+                            },
                             Region = new Region { StartLine = 13 }
                         },
                         FullyQualifiedLogicalName = expectedLogicalLocation,
@@ -388,6 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
+            expectedResult.PartialFingerprints.Add("UniqueId", "1#test");
             expectedResult.SetProperty("Level", "error");
             expectedResult.SetProperty("Category", "FakeCategory");
             expectedResult.SetProperty("FixCategory", "Breaking");
@@ -395,7 +399,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "mybinary.dll", new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    "mybinary.dll", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!mynamespace",
@@ -432,26 +436,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", null, null, null, null, null, null);
 
-            var expectedLogicalLocation = "mynamespace.mytype.mymember(string)";
-
-            var expectedLocations = new[]
-            {
-                new Location
-                {
-                    AnalysisTarget = new PhysicalLocation
-                    {
-                        Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                    },
-
-                    FullyQualifiedLogicalName = expectedLogicalLocation
-                }
-            };
-
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
                     "mynamespace",
-                    new LogicalLocation { ParentKey = null, Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
+                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Namespace }
                 },
                 {
                     "mynamespace.mytype",
@@ -484,34 +473,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", "test", null, null, @"source", "myfile.cs", 13);
 
-            var expectedLogicalLocation = "myresource.resx";
-
-            var expectedLocations = new[]
-            {
-                new Location
-                {
-                    AnalysisTarget = new PhysicalLocation
-                    {
-                        Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
-                    },
-                    ResultFile = new PhysicalLocation
-                    {
-                            Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute),
-                            Region = new Region { StartLine = 13 }
-                    },
-                    FullyQualifiedLogicalName = expectedLogicalLocation,
-                }
-            };
-
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
                     "mybinary.dll",
-                    new LogicalLocation { ParentKey = null, Name = "mybinary.dll", Kind = LogicalLocationKind.Module }
+                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     "mybinary.dll!myresource.resx",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx",Kind = LogicalLocationKind.Resource }
+                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx", Kind = LogicalLocationKind.Resource }
                 },
             };
 

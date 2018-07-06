@@ -94,9 +94,9 @@
                     </DockPanel>
                 </DockPanel>
             </Border>
-            <TextBlock Grid.Row="2"
-                       Text="{Binding Message}"
-                       Style="{StaticResource HeaderMessageTextStyle}"/>
+            <controls:BindableTextBlock Grid.Row="2"
+                                        InlineList="{Binding MessageInlines}"
+                                        Style="{StaticResource HeaderMessageTextStyle}"/>
         </Grid>
         
         <!-- These are the tabs which display the result information. -->

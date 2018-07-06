@@ -42,8 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         private const string EmptyResult = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
+  ""version"": ""2.0.0"",
   ""runs"": [
     {
       ""tool"": {
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uut = new AndroidStudioProblem(builder);
 
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
-            Assert.Equal("hungry EVIL zombies", result.Message);
+            Assert.Equal("hungry EVIL zombies", result.Message.Text);
         }
 
         [Fact]
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new AndroidStudioConverter().ConvertProblemToSarifResult(uut);
             Assert.Equal(@"hungry EVIL zombies
 Possible resolution: comment
-Possible resolution: delete", result.Message);
+Possible resolution: delete", result.Message.Text);
         }
 
         [Fact]
@@ -197,7 +197,7 @@ Possible resolution: delete", result.Message);
             builder.EntryPointType = "file";
             builder.EntryPointName = "bad_file.java";
             Location loc = GetLocationInfoForBuilder(builder).Location;
-            loc.ResultFile.Uri.ToString().Should().Be("expected_file.java");
+            loc.PhysicalLocation.FileLocation.Uri.ToString().Should().Be("expected_file.java");
         }
 
         [Fact]
@@ -208,7 +208,7 @@ Possible resolution: delete", result.Message);
             builder.EntryPointType = "file";
             builder.EntryPointName = "expected_file.java";
             Location loc = GetLocationInfoForBuilder(builder).Location;
-            loc.ResultFile.Should().BeNull();
+            loc.PhysicalLocation.Should().BeNull();
         }
 
         [Fact]
@@ -228,7 +228,7 @@ Possible resolution: delete", result.Message);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "my_fancy_binary", new LogicalLocation { ParentKey = null, Name = "my_fancy_binary", Kind = LogicalLocationKind.Module }
+                    "my_fancy_binary", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 },
                 {
                     @"my_fancy_binary\my_method",
@@ -266,7 +266,7 @@ Possible resolution: delete", result.Message);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "my_method", new LogicalLocation { ParentKey = null, Name = "my_method", Kind = LogicalLocationKind.Member }
+                    "my_method", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Member }
                 },
            };
 
@@ -300,7 +300,7 @@ Possible resolution: delete", result.Message);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Package }
                 },
                 {
                     @"FancyPackageName\my_method", new LogicalLocation { ParentKey = "FancyPackageName", Name = "my_method", Kind = LogicalLocationKind.Member }
@@ -336,7 +336,7 @@ Possible resolution: delete", result.Message);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "FancyPackageName", new LogicalLocation { ParentKey = null, Name = "FancyPackageName", Kind = LogicalLocationKind.Package }
+                    "FancyPackageName", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Package }
                 }
            };
 
@@ -363,9 +363,12 @@ Possible resolution: delete", result.Message);
 
             var expectedLocation = new Location
             {
-                ResultFile = new PhysicalLocation
+                PhysicalLocation = new PhysicalLocation
                 {
-                    Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute),
+                    FileLocation = new FileLocation
+                    {
+                        Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute)
+                    },
                 },
                 FullyQualifiedLogicalName = "LastResortModule"
             };
@@ -373,7 +376,7 @@ Possible resolution: delete", result.Message);
             var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
             {
                 {
-                    "LastResortModule", new LogicalLocation { ParentKey = null, Name = "LastResortModule", Kind = LogicalLocationKind.Module }
+                    "LastResortModule", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
                 }
            };
 
@@ -395,7 +398,7 @@ Possible resolution: delete", result.Message);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.File = "file://$PROJECT_DIR$/mydir/myfile.xml";
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
-            locationInfo.Location.ResultFile.Uri.ToString().Should().Be("mydir/myfile.xml");
+            locationInfo.Location.PhysicalLocation.FileLocation.Uri.ToString().Should().Be("mydir/myfile.xml");
         }
 
         [Fact]
@@ -404,7 +407,7 @@ Possible resolution: delete", result.Message);
             var builder = AndroidStudioProblemTests.GetDefaultProblemBuilder();
             builder.Line = 42;
             LocationInfo locationInfo = GetLocationInfoForBuilder(builder);
-            locationInfo.Location.ResultFile.Region.StartLine.Should().Be(42);
+            locationInfo.Location.PhysicalLocation.Region.StartLine.Should().Be(42);
         }
 
         private struct LocationInfo

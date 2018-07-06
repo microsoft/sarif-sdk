@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using SarifWriters = Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
-            encoding = encoding ?? Encoding.UTF8;
 
             var fileData = new FileData()
             {
@@ -47,56 +46,64 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 string filePath = uri.LocalPath;
-                bool encodeAsUtf8 = (fileData.MimeType != SarifWriters.MimeType.Binary);
 
-                if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
+                if ((loggingOptions.Includes(LoggingOptions.PersistTextFileContents)  &&
+                     SarifWriters.MimeType.IsTextualMimeType(mimeType)) ||
+                    (loggingOptions.Includes(LoggingOptions.PersistBinaryContents) &&
+                     SarifWriters.MimeType.IsBinaryMimeType(mimeType)))
                 {
-                    fileData.Contents = EncodeFileContents(fileSystem, filePath, mimeType, encoding);
+                    fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
+                }
+
+                if (loggingOptions.Includes(LoggingOptions.PersistTextFileContents) &&
+                    SarifWriters.MimeType.IsTextualMimeType(mimeType))
+                {
+                    fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
                 if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
                     fileData.Hashes = new List<Hash>
+                    {
+                        new Hash()
                         {
-                            new Hash()
-                            {
-                                Value = hashes.MD5,
-                                Algorithm = AlgorithmKind.MD5,
-                            },
-                            new Hash()
-                            {
-                                Value = hashes.Sha1,
-                                Algorithm = AlgorithmKind.Sha1,
-                            },
-                            new Hash()
-                            {
-                                Value = hashes.Sha256,
-                                Algorithm = AlgorithmKind.Sha256,
-                            },
-                        };
+                            Value = hashes.MD5,
+                            Algorithm = "md5",
+                        },
+                        new Hash()
+                        {
+                            Value = hashes.Sha1,
+                            Algorithm = "sha-1",
+                        },
+                        new Hash()
+                        {
+                            Value = hashes.Sha256,
+                            Algorithm = "sha-256",
+                        },
+                    };
                 }
-
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 
             return fileData;
         }
 
-        private static string EncodeFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
+        private static FileContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
         {
-            byte[] fileContents;
+            var fileContent = new FileContent();
+            byte[] fileContents = fileSystem.ReadAllBytes(filePath);
 
-            if (mimeType != SarifWriters.MimeType.Binary)
+            if (SarifWriters.MimeType.IsBinaryMimeType(mimeType) || inputFileEncoding == null)
             {
-                fileContents = Encoding.UTF8.GetBytes(fileSystem.ReadAllText(filePath, inputFileEncoding));
+                fileContent.Binary = Convert.ToBase64String(fileContents);
             }
             else
             {
-                fileContents = fileSystem.ReadAllBytes(filePath);
+                fileContent.Text = inputFileEncoding.GetString(fileContents);
             }
 
-            return Convert.ToBase64String(fileContents);
+            return fileContent;
         }
     }
 }

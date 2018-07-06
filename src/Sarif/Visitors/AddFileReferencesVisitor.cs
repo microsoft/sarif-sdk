@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -22,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _files = _files ?? new Dictionary<string, FileData>();
 
-            string uriText = node.Uri.ToString();
+            string uriText = Uri.EscapeUriString(node.FileLocation.Uri.ToString());
 
             // If the file already exists, we will not insert one as we want to 
             // preserve mime-type, hash details, and other information that 

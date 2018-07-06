@@ -35,14 +35,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             StackFrame stackFrame = new StackFrame
             {
                 Module = assembly?.GetName().Name,
-                FullyQualifiedLogicalName = fullyQualifiedName
+                Location = new Location
+                {
+                    FullyQualifiedLogicalName = fullyQualifiedName
+                }
             };
 
             if (fileName != null)
             {
-                stackFrame.Uri = new Uri(fileName);
-                stackFrame.Line = dotNetStackFrame.GetFileLineNumber();
-                stackFrame.Column = dotNetStackFrame.GetFileColumnNumber();
+                stackFrame.Location = new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            Uri = new Uri(fileName)
+                        },
+                        Region = new Region
+                        {
+                            StartLine = dotNetStackFrame.GetFileLineNumber(),
+                            StartColumn = dotNetStackFrame.GetFileColumnNumber()
+                        }
+                    }
+                };
             }
 
             if (ilOffset != -1)
@@ -60,14 +75,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override string ToString()
         {
-            string result = AT + this.FullyQualifiedLogicalName;
+            string result = AT + this.Location?.FullyQualifiedLogicalName;
 
-            if (this.Uri != null)
+            if (this.Location?.PhysicalLocation?.FileLocation?.Uri != null)
             {
-                string lineNumber = this.Line.ToString(CultureInfo.InvariantCulture);
-                string fileName = this.Uri.LocalPath;
+                string fileName = this.Location.PhysicalLocation.FileLocation.Uri.LocalPath;
+                result += IN + fileName;
 
-                result += IN + fileName + LINE + " " + lineNumber;
+                if (this.Location?.PhysicalLocation?.Region != null)
+                {
+                    string lineNumber = this.Location.PhysicalLocation.Region.StartLine.ToString(CultureInfo.InvariantCulture);
+                    result += LINE + " " + lineNumber;
+                }
             }
 
             return result;

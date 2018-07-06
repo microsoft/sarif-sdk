@@ -31,8 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Pylint"
             };
 
-            output.Initialize(id: null, automationId: null);
-            output.WriteTool(tool);
+            var run = new Run()
+            {
+                Tool = tool
+            };
+
+            output.Initialize(run);
 
             var results = new List<Result>();
 
@@ -61,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result
             {
                 RuleId = $"{defect.MessageId}({defect.Symbol})",
-                Message = defect.Message
+                Message = new Message { Text = defect.Message }
             };
 
             switch (defect.Type)
@@ -87,11 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileUri = new Uri($"{defect.FilePath}", UriKind.RelativeOrAbsolute);
-            var physicalLocation = new PhysicalLocation(uri: fileUri, uriBaseId: null, region: region);
+            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: fileUri, uriBaseId: null), region: region, contextRegion: null);
 
             var location = new Location
             {
-                AnalysisTarget = physicalLocation
+                PhysicalLocation = physicalLocation
             };
 
             result.Locations = new List<Location>

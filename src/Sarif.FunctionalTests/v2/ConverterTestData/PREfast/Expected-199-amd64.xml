@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>74</LINE>
+      <COLUMN>40</COLUMN>
+    </SFA>
+    <DEFECTCODE>26026</DEFECTCODE>
+    <DESCRIPTION>Cast cannot be proven safe: "(PFIXED_SENSE_DATA)SenseInfoBuffer" Accessing 16 bytes starting at byte offset 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer SenseInfoBuffer is at offset offset(SenseInfoBuffer)`62 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>ScsiGetTotalSenseByteCountIndicated</FUNCTION>
+    <DECORATED>?ScsiGetTotalSenseByteCountIndicated@@YAXPEAXE@Z</DECORATED>
+    <FUNCLINE>62</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>41</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>69</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>74</LINE>
+        <COLUMN>22</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>74</LINE>
+        <COLUMN>40</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>151</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>26018</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow of null terminated buffer using expression '(const void *)pchRead'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: offset(result.GetText715)`146a is not constrained by nullpos(result.GetText715'146)`146
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer result.GetText715 created during call to GetText715 on line 146
+PREFAST_NEWLINE
+Buffer is of length 2*nullpos(result.GetText715'146)`146 + 2 bytes [length of zero terminated string]
+PREFAST_NEWLINE
+Accessing 2*cchValid`146a bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function CopyMemory requires that {parameter 2} is of length &gt;= {parameter 3} bytes
+PREFAST_NEWLINE
+  where {parameter 2} is (const void *)pchRead; {parameter 3} is (size_t)cchValid * 2
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount({parameter 3})) at c:\somepath\test199.cpp(14)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer pchRead is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+cchValid = cchValid`146a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(result.GetText715)`146a == 0
+PREFAST_NEWLINE
+cch`144 == cch`140
+PREFAST_NEWLINE
+cchValid`146a &lt;= cch`144
+PREFAST_NEWLINE
+cchValid`146a &gt;= 1
+PREFAST_NEWLINE
+cch`140 &gt;= 1
+PREFAST_NEWLINE
+cch`144 &gt;= 1
+PREFAST_NEWLINE
+nullpos(result.GetText715'146)`146 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+2*cchValid`146a &gt;= 2*nullpos(result.GetText715'146)`146 + 3
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f715</FUNCTION>
+    <DECORATED>?f715@@YAXJPEAG@Z</DECORATED>
+    <FUNCLINE>140</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>140</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>142</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>143</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>144</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>147</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>150</LINE>
+        <COLUMN>15</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>150</LINE>
+        <COLUMN>31</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>151</LINE>
+        <COLUMN>13</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>148</LINE>
+      <COLUMN>3</COLUMN>
+    </SFA>
+    <DEFECTCODE>26036</DEFECTCODE>
+    <DESCRIPTION>Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+Buffer pch is a parameter to this function declared on line 140
+PREFAST_NEWLINE
+Annotation on function f715 requires that pch is null terminated
+PREFAST_NEWLINE
+[Annotation SAL_nullTerminated at c:\somepath\mywin.h(51)]
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f715</FUNCTION>
+    <DECORATED>?f715@@YAXJPEAG@Z</DECORATED>
+    <FUNCLINE>140</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>140</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>142</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>143</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>144</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>22</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>146</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>147</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>148</LINE>
+        <COLUMN>3</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>163</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26017</DEFECTCODE>
+    <DESCRIPTION>Potential read overflow using expression 'Indices[i]'
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: i`158 is not constrained by any constant
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer accessed is Indices
+PREFAST_NEWLINE
+Buffer is of length 7 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset i`158
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+i = i`158
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+i`158 &gt;= 0
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+i`158 &gt;= 7
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f819</FUNCTION>
+    <DECORATED>?f819@@YAII@Z</DECORATED>
+    <FUNCLINE>158</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>158</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>162</LINE>
+        <COLUMN>23</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>162</LINE>
+        <COLUMN>35</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>163</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>188</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26030</DEFECTCODE>
+    <DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer (st1-&gt;Struct869::m_data) is a parameter to this function declared on line 185
+PREFAST_NEWLINE
+Buffer lengths are from an assumed __inout annotation on the parameter
+PREFAST_NEWLINE
+Buffer is of length (st1-&gt;Struct869::m_size)`185 bytes [from field annotation SAL_writableTo(byteCount(st1-&gt;m_size)) at c:\somepath\test199.cpp(169)]
+PREFAST_NEWLINE
+Accessing (st1-&gt;Struct869::m_size)`185 + 1 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Assumed __inout annotation on function f869c requires that st1-&gt;m_data is of length &gt;= st1-&gt;m_size bytes
+PREFAST_NEWLINE
+[Field annotation SAL_writableTo(byteCount(st1-&gt;m_size)) at c:\somepath\test199.cpp(169)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(st1-&gt;Struct869::m_size) = (st1-&gt;Struct869::m_size)`185 + 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+(st1-&gt;Struct869::m_size)`185 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f869c</FUNCTION>
+    <DECORATED>?f869c@@YAXAEAUStruct869@@@Z</DECORATED>
+    <FUNCLINE>185</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>185</LINE>
+        <COLUMN>10</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>188</LINE>
+        <COLUMN>14</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>272</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26045</DEFECTCODE>
+    <DESCRIPTION>Potential postcondition violation that could result in overflow
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer access is apparently unbounded by the buffer size.  
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+In particular: (*requiredSize)`273 is not constrained by dataSize`265
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Buffer data is a parameter to this function declared on line 265
+PREFAST_NEWLINE
+Buffer is of length offset(data)`265 + dataSize`265 bytes [from annotation SAL_readableTo(byteCount(dataSize)) at c:\somepath\test199.cpp(265)]
+PREFAST_NEWLINE
+Accessing (*requiredSize)`273 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function f926 requires that data is of length &gt;= * requiredSize bytes
+PREFAST_NEWLINE
+[Annotation SAL_readableTo(byteCount(* requiredSize)) at c:\somepath\test199.cpp(265)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*requiredSize) = (*requiredSize)`273
+PREFAST_NEWLINE
+Pointer data is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(data)`265 == 0
+PREFAST_NEWLINE
+dataSize`265 &gt;= 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Overrun access occurs when
+PREFAST_NEWLINE
+(*requiredSize)`273 &gt;= dataSize`265 + 1
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f926</FUNCTION>
+    <DECORATED>?f926@@YA_NPEAU_MyStruct926@@JPEAJ@Z</DECORATED>
+    <FUNCLINE>265</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>265</LINE>
+        <COLUMN>9</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>271</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>272</LINE>
+        <COLUMN>4</COLUMN>
+        <KEYEVENT>
+          <ID></ID>
+          <KIND></KIND>
+          <IMPORTANCE></IMPORTANCE>
+          <MESSAGE></MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\somepath\</FILEPATH>
+      <FILENAME>test199.cpp</FILENAME>
+      <LINE>272</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26006</DEFECTCODE>
+    <DESCRIPTION>Possibly incorrect single element annotation on string buffer
+PREFAST_NEWLINE
+Possible postcondition violation due to failure to null terminate string
+PREFAST_NEWLINE
+The function has a __success annotation that is satisfied
+PREFAST_NEWLINE
+Buffer (data-&gt;_MyStruct926::DevicePath) is a parameter to this function declared on line 265
+PREFAST_NEWLINE
+Buffer is of length 1 bytes [from field annotation SAL_readableTo(elementCount(1)) at c:\somepath\test199.cpp(265)]
+PREFAST_NEWLINE
+Annotation on function f926 requires that data-&gt;DevicePath is null terminated
+PREFAST_NEWLINE
+[Field annotation SAL_nullTerminated at c:\somepath\test199.cpp(265)]
+PREFAST_NEWLINE
+</DESCRIPTION>
+    <FUNCTION>f926</FUNCTION>
+    <DECORATED>?f926@@YA_NPEAU_MyStruct926@@JPEAJ@Z</DECORATED>
+    <FUNCLINE>265</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>265</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>271</LINE>
+        <COLUMN>24</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\somepath\</FILEPATH>
+        <FILENAME>test199.cpp</FILENAME>
+        <LINE>272</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

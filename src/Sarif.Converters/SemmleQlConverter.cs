@@ -75,9 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "Semmle QL"
             };
 
-            output.Initialize(id: null, automationId: null);
+            var run = new Run()
+            {
+                Tool = tool
+            };
 
-            output.WriteTool(tool);
+            output.Initialize(run);
 
 			output.WriteFiles(fileDictionary);
 
@@ -104,7 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         results.Add(ParseResult(row));
                     }
                 }
-
             }
 
             return results.ToArray();
@@ -114,20 +116,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string rawMessage = fields[(int)FieldIndex.Message];
             string normalizedMessage;
-            IList<AnnotatedCodeLocation> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
+            IList<Location> relatedLocations = NormalizeRawMessage(rawMessage, out normalizedMessage);
 
             Region region = MakeRegion(fields);
             var result = new Result
             {
-                Message = normalizedMessage,
+                Message = new Message { Text = normalizedMessage },
                 Locations = new Location[]
                 {
                     new Location
                     {
-                        ResultFile = new PhysicalLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
-                            UriBaseId = "$srcroot",
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
+                                UriBaseId = "$srcroot"
+                            },
                             Region = region
                         }
                     }
@@ -144,22 +149,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private IList<AnnotatedCodeLocation> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
+        private IList<Location> NormalizeRawMessage(string rawMessage, out string normalizedMessage)
         {
             // The rawMessage contains embedded related locations. We need to extract the related locations and reformat the rawMessage embedded links wrapped in [brackets].
             // Example rawMessage
-            //     po (coming from [["hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
-            // Example normalizedMessage
-            //     po (coming from [hbm]) may not have been checked for validity before call to vSync.
+            //     po (coming from [["hbm"|"relative://code/.../file1.cxx:176:4882:3"],["hbm"|"relative://code/.../file2.c:1873:50899:3"],["hbm"|"relative://code/.../file2.c:5783:154466:3"]]) may not have been checked for validity before call to vSync.
+            // Example normalizedMessage, where 'id' is the related location id to link to
+            //   Note: the first link in the message links to the first related location in the list, the second link to the second, etc.
+            //     po (coming from [hbm](id)) may not have been checked for validity before call to vSync.
             // Example relatedLocations
-            //     relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3
-            //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3
-            //     relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3
-            List<AnnotatedCodeLocation> relatedLocations = null;
-            normalizedMessage = String.Empty;
+            //     relative://code/.../file1.cxx:176:4882:3
+            //     relative://code/.../file2.c:1873:50899:3
+            //     relative://code/.../file2.c:5783:154466:3
+            List<Location> relatedLocations = null;
 
             var sb = new StringBuilder();
 
+            int count = 0;
+            int linkIndex = 0;
             int index = rawMessage.IndexOf("[[");
             while (index > -1)
             {
@@ -170,13 +177,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 index = rawMessage.IndexOf("]]");
 
                 // embeddedLinksText contains the text for one set of embedded links except for the leading '[[' and trailing ']]'
-                // "hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"],["hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"
+                // "hbm"|"relative:/code/.../file1.cxx:176:4882:3"],["hbm"|"relative://code/.../file2.c:1873:50899:3"],["hbm"|"relative://code/.../file2.c:5783:154466:3"
                 string embeddedLinksText = rawMessage.Substring(0, index - 1);
 
                 // embeddedLinks splits the set of embedded links into invividual links
-                // 1.  "hbm"|"relative://windows/Core/ntgdi/gre/brushapi.cxx:176:4882:3"
-                // 2.  "hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:1873:50899:3"
-                // 3.  "hbm"|"relative://windows/Core/ntgdi/gre/windows/ntgdi.c:5783:154466:3"
+                // 1.  "hbm"|"relative://code/.../file1.cxx:176:4882:3"
+                // 2.  "hbm"|"relative://code/.../file2.c:1873:50899:3"
+                // 3.  "hbm"|"relative://code/.../file2.c:5783:154466:3"
 
                 string[] embeddedLinks = embeddedLinksText.Split(new string[] { "],[" }, StringSplitOptions.None);
 
@@ -190,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string location = tokens[2];
                     string[] locationTokens = location.Split(':');
 
-                    relatedLocations = relatedLocations ?? new List<AnnotatedCodeLocation>();
+                    relatedLocations = relatedLocations ?? new List<Location>();
                     PhysicalLocation physicalLocation;
 
                     if (locationTokens[0].Equals("file", StringComparison.OrdinalIgnoreCase))
@@ -199,7 +206,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute),
+                            Id = ++count,
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute)
+                            },
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[3]),
@@ -212,8 +223,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         physicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
-                            UriBaseId = "$srcroot",
+                            Id = ++count,
+                            FileLocation = new FileLocation
+                            {
+                                Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
+                                UriBaseId = "$srcroot"
+                            },
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[2]),
@@ -223,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         };
                     }
 
-                    var relatedLocation = new AnnotatedCodeLocation
+                    var relatedLocation = new Location
                     {
                         PhysicalLocation = physicalLocation
                     };
@@ -231,8 +246,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     relatedLocations.Add(relatedLocation);
                 }
 
-                // Re-add the text portion of the link in brackets.
-                sb.Append($"[{embeddedLinksText}]"); 
+                // Re-add the text portion of the link in brackets with the location id in parens, e.g. [link text](id)
+                sb.Append($"[{embeddedLinksText}]({relatedLocations[linkIndex++].PhysicalLocation.Id})");
 
                 rawMessage = rawMessage.Substring(index + "]]".Length);
                 index = rawMessage.IndexOf("[[");
@@ -347,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Id = id,
                 Time = DateTime.Now,
                 Level = level,
-                Message = messageWithLineNumber
+                Message = new Message { Text = messageWithLineNumber }
             });
         }
 

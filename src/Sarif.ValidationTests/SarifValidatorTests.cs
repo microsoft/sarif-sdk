@@ -47,9 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly string[] s_testFileDirectories = new string[]
         {
-            "DirectProducerTestData",
-            "ConverterTestData",
-            "SpecExamples"
+            //@"v2\DirectProducerTestData",
+            @"v2\ConverterTestData",
+            @"v2\SpecExamples"
         };
 
         private static IEnumerable<object[]> s_testCases;

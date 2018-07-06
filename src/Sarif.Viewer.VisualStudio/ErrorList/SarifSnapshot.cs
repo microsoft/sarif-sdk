@@ -3,17 +3,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using EnvDTE;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
-using XamlDoc = System.Windows.Documents;
 
 namespace Microsoft.Sarif.Viewer.ErrorList
 {
@@ -23,7 +23,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
     internal class SarifSnapshot : TableEntriesSnapshotBase, IWpfTableEntriesSnapshot
     {
         private readonly List<SarifErrorListItem> _errors;
-        private static string s_embeddedLinkRegexPattern = "\\[(.+?)\\]";
 
         internal SarifSnapshot(string filePath, IEnumerable<SarifErrorListItem> errors)
         {
@@ -33,8 +32,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
         }
 
         public override int Count { get; }
-
-        public IList<SarifErrorListItem> Errors { get; }
 
         public string FilePath { get; }
 
@@ -53,38 +50,12 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             {
                 if (columnName == StandardTableKeyNames2.TextInlines)
                 {
-                    if (_errors[index].Tool.Name.StartsWith("Semmle")) // Semmle logs can have tool name == "Semmle" or "Semmle QL"
+                    string message = _errors[index].Message;
+                    List<Inline> inlines = SdkUIUtilities.GetMessageInlines(message, index, ErrorListInlineLink_Click);
+
+                    if (inlines.Count > 0)
                     {
-                        // It's a Semmle result, so we will look for [embedded link] substrings
-                        string message = _errors[index].Message;
-                        var inlines = new List<Inline>();
-
-                        MatchCollection matches = Regex.Matches(message, s_embeddedLinkRegexPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-                        if (matches.Count > 0) // If there are no [embedded links], we do nothing and the FullText case below will provide plain text content
-                        {
-                            int start = 0;
-                            int i = 0;
-                            foreach (Match match in matches)
-                            {
-                                inlines.Add(new XamlDoc.Run(message.Substring(start, match.Index - start)));
-
-                                var link = new Hyperlink();
-                                link.Tag = new Tuple<int, int>(index, i);
-                                link.Click += ErrorListInlineLink_Click;
-                                link.Inlines.Add(new XamlDoc.Run($"{match.Value.Trim('[', ']')}"));
-
-                                inlines.Add(link);
-
-                                start = match.Index + match.Length;
-                                if (++i == matches.Count)
-                                {
-                                    inlines.Add(new XamlDoc.Run(message.Substring(start)));
-                                }
-                            }
-
-                            content = inlines;
-                        }
+                        content = inlines;
                     }
                 }
                 else if (columnName == StandardTableKeyNames.DocumentName)
@@ -110,13 +81,13 @@ namespace Microsoft.Sarif.Viewer.ErrorList
                 }
                 else if (columnName == StandardTableKeyNames.Text)
                 {
-                    content = _errors[index].ShortMessage;
+                    content = SdkUIUtilities.UnescapeBrackets(_errors[index].ShortMessage);
                 }
                 else if (columnName == StandardTableKeyNames.FullText)
                 {
                     if (!string.IsNullOrEmpty(_errors[index].Message) && _errors[index].Message.Trim() != _errors[index].ShortMessage.Trim())
                     {
-                        content = _errors[index].Message;
+                        content = SdkUIUtilities.UnescapeBrackets(_errors[index].Message);
                     }
                 }
                 else if (columnName == StandardTableKeyNames.ErrorSeverity)
@@ -188,26 +159,30 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
             if (hyperLink != null)
             {
-                Tuple<int, int> indices = hyperLink.Tag as Tuple<int, int>;
+                Tuple<int, int> data = hyperLink.Tag as Tuple<int, int>;
+                // data.Item1 = index of SarifErrorListItem
+                // data.Item2 = id of related location to link
 
-                SarifErrorListItem sarifResult = _errors[indices.Item1];
+                SarifErrorListItem sarifResult = _errors[Convert.ToInt32(data.Item1)];
 
-                // Set the current sarif error in the manager so we track code locations.
-                CodeAnalysisResultManager.Instance.CurrentSarifError = sarifResult;
+                CodeFlowLocationModel location = sarifResult.RelatedLocations.Where(l => l.Id == data.Item2).FirstOrDefault();
 
-                if (sarifResult.HasDetails)
+                if (location != null)
                 {
-                    // Setting the DataContext to be null first forces the TabControl to select the appropriate tab.
-                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
-                    SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
-                }
-                else
-                {
-                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
-                }
+                    // Set the current sarif error in the manager so we track code locations.
+                    CodeAnalysisResultManager.Instance.CurrentSarifResult = sarifResult;
 
-                sarifResult.RelatedLocations[indices.Item2].NavigateTo(false);
-                sarifResult.RelatedLocations[indices.Item2].ApplyDefaultSourceFileHighlighting();
+                    SarifViewerPackage.SarifToolWindow.Control.DataContext = null;
+
+                    if (sarifResult.HasDetails)
+                    {
+                        // Setting the DataContext to null (above) forces the TabControl to select the appropriate tab.
+                        SarifViewerPackage.SarifToolWindow.Control.DataContext = sarifResult;
+                    }
+
+                    location.NavigateTo(false);
+                    location.ApplyDefaultSourceFileHighlighting();
+                }
             }
         }
 

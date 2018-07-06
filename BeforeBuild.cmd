@@ -12,14 +12,14 @@ md bld\bin\nuget
 %~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
 
 if "%ERRORLEVEL%" NEQ "0" (
-echo NuGet restore failed.
+echo NuGet restore failed for project Sarif.Viewer.VisualStudio.
 goto ExitFailed
 )
 
 %~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio.UnitTests\Sarif.Viewer.VisualStudio.UnitTests.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
 
 if "%ERRORLEVEL%" NEQ "0" (
-echo NuGet restore failed.
+echo NuGet restore failed for project Sarif.Viewer.VisualStudioUnitTests.
 goto ExitFailed
 )
 

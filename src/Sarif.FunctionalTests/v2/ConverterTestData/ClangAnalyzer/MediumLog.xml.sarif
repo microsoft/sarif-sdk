@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Clang"
+      },
+      "files": {
+        "jcmarker.c": {
+          "mimeType": "text/x-cpp"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Dereference of null pointer",
+          "message": {
+            "text": "Access to field 'sent_table' results in a dereference of a null pointer (loaded from variable 'htbl')"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "jcmarker.c"
+                },
+                "region": {
+                  "startLine": 200,
+                  "startColumn": 9
+                }
+              }
+            }
+          ],
+          "properties": {
+            "category": "Logic error",
+            "issue_context_kind": "function",
+            "issueContext": "emit_dht",
+            "issueHash": "14"
+          }
+        }
+      ]
+    }
+  ]
+}

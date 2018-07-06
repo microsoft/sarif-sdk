@@ -32,11 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             analyzeOptions = new TestAnalyzeOptions()
             {
-                PersistFileContents = true
+                PersistTextFileContents = true
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PersistFileContents);
+            loggingOptions.Should().Be(LoggingOptions.PersistTextFileContents);
 
             analyzeOptions = new TestAnalyzeOptions()
             {

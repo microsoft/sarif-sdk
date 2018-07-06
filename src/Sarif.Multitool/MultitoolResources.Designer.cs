@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool {
+namespace Microsoft.CodeAnalysis.Sarif {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class MultitoolResources {
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.Multitool.MultitoolResources", typeof(MultitoolResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.MultitoolResources", typeof(MultitoolResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -75,6 +75,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         internal static string ErrorIllegalContextReuse {
             get {
                 return ResourceManager.GetString("ErrorIllegalContextReuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Target version must be 1 or 2.
+        /// </summary>
+        internal static string ErrorInvalidTransformTargetVersion {
+            get {
+                return ResourceManager.GetString("ErrorInvalidTransformTargetVersion", resourceCulture);
             }
         }
     }

@@ -7,13 +7,16 @@
         <ResourceDictionary Source="pack://application:,,,/Microsoft.Sarif.Viewer;component/Themes/DefaultStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="MainGridStyle" TargetType="Grid">
+    <Style x:Key="MainPanelStyle" TargetType="DockPanel">
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style x:Key="RuleGridStyle" TargetType="Grid">
         <Setter Property="DockPanel.Dock" Value="Top"/>
-        <Setter Property="Margin" Value="5"/>
     </Style>
 
     <Style x:Key="RuleTitlePanelStyle" TargetType="DockPanel">
-        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
     </Style>
 
     <Style x:Key="RuleIdTextStyle" BasedOn="{StaticResource PropertyKey}" TargetType="TextBlock">
@@ -40,12 +43,15 @@
         <Setter Property="Margin" Value="15"/>
     </Style>
 
-    <Style x:Key="ToolMetadataGridStyle" TargetType="Grid">
-        <Setter Property="DockPanel.Dock" Value="Top"/>
-        <Setter Property="Margin" Value="5,0"/>
+    <Style x:Key="ToolAndInvocationPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Vertical"/>
     </Style>
 
-    <Style x:Key="ToolMetadataPanel" TargetType="DockPanel">
+    <Style x:Key="InvocationMetadataGridStyle" TargetType="Grid">
+        <Setter Property="DockPanel.Dock" Value="Top"/>
+    </Style>
+
+    <Style x:Key="ToolMetadataPanelStyle" TargetType="DockPanel">
         <Setter Property="Margin" Value="0,0,0,10"/>
     </Style>
 
@@ -71,7 +77,7 @@
         <Setter Property="DockPanel.Dock" Value="Top"/>
         <Setter Property="FontSize" Value="11.5"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Margin" Value="5,25,0,20"/>
+        <Setter Property="Margin" Value="0,25,0,20"/>
     </Style>
 
 </ResourceDictionary>

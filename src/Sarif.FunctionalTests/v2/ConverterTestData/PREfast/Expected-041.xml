@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>28</LINE><COLUMN>31</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[2084]'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 26
+PREFAST_NEWLINE
+Buffer is of length offset(p)`26 + 2084 bytes [from annotation SAL_writableTo(elementCount(2084)) at c:\somepath\test041.cpp(26)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset 2084
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>baz</FUNCTION><DECORATED>?baz@@YAXPAD@Z</DECORATED><FUNCLINE>26</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>26</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>28</LINE><COLUMN>31</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>50</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[n]'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 48
+PREFAST_NEWLINE
+Buffer is of length offset(p)`48 + (*n)`48 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\somepath\test041.cpp(48)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (*n)`48
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*n) = (*n)`48
+PREFAST_NEWLINE
+Pointer n is at offset 0 bytes from the start of n
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`48 == 0
+PREFAST_NEWLINE
+(*n)`48 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ref1</FUNCTION><DECORATED>?ref1@@YAXPADAAH@Z</DECORATED><FUNCLINE>48</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>48</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>50</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>55</LINE><COLUMN>11</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[n + 1]'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 53
+PREFAST_NEWLINE
+Buffer is of length offset(p)`53 + (*n)`53 + 1 bytes [from annotation SAL_writableTo(elementCount(n + 1)) at c:\somepath\test041.cpp(53)]
+PREFAST_NEWLINE
+Accessing the byte at byte offset (*n)`53 + 1
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*n) = (*n)`53
+PREFAST_NEWLINE
+Pointer n is at offset 0 bytes from the start of n
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`53 == 0
+PREFAST_NEWLINE
+(*n)`53 &gt;= 0
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ref2</FUNCTION><DECORATED>?ref2@@YAXPADAAH@Z</DECORATED><FUNCLINE>53</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>53</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>55</LINE><COLUMN>11</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>70</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26030</DEFECTCODE><DESCRIPTION>Postcondition violation that could result in overflow
+PREFAST_NEWLINE
+Buffer result.new[] created during call to operator new[] on line 70
+PREFAST_NEWLINE
+Buffer is of length 4*(*(*n))`70 - 4 bytes [from annotation _Post_writable_byte_size_(byteCount({parameter 1})) on function operator new[] called at line 70]
+PREFAST_NEWLINE
+Accessing 4*(*(*n))`70 bytes starting at byte offset 0
+PREFAST_NEWLINE
+Annotation on function ref5 requires that buff is of length &gt;= * (n) elements (4 bytes/element)
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount(* (n))) at c:\somepath\test041.cpp(68)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+(*(*n)) = (*(*n))`70
+PREFAST_NEWLINE
+Pointer (*buff) is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(result.new[])`70a == 0
+PREFAST_NEWLINE
+(*(*n))`70 &gt;= 2
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>ref5</FUNCTION><DECORATED>?ref5@@YAXAAPAH0@Z</DECORATED><FUNCLINE>68</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>68</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>70</LINE><COLUMN>11</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>70</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>78</LINE><COLUMN>7</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; a'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 11 elements (4 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function icall requires that {parameter 1} is of length &gt;= {parameter 2} elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; a; {parameter 2} is 11
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\somepath\test041.cpp(73)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>g</FUNCTION><DECORATED>?g@@YAXP6APAXPAHH@Z@Z</DECORATED><FUNCLINE>75</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>75</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>77</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>78</LINE><COLUMN>7</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>109</LINE><COLUMN>12</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression '&amp; a'
+PREFAST_NEWLINE
+Buffer accessed is a
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of variable]
+PREFAST_NEWLINE
+Accessing 11 elements (4 bytes/element) starting at element offset 0
+PREFAST_NEWLINE
+Annotation on function driverFn requires that {parameter 1} is of length &gt;= {parameter 2} elements (4 bytes/element)
+PREFAST_NEWLINE
+  where {parameter 1} is &amp; a; {parameter 2} is 11
+PREFAST_NEWLINE
+[Annotation SAL_writableTo(elementCount({parameter 2})) at c:\somepath\test041.cpp(101)]
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>callDriver</FUNCTION><DECORATED>?callDriver@@YAXXZ</DECORATED><FUNCLINE>106</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>106</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>108</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>109</LINE><COLUMN>12</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>120</LINE><COLUMN>9</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'p[n]'
+PREFAST_NEWLINE
+Buffer p is a parameter to this function declared on line 118
+PREFAST_NEWLINE
+Buffer is of length offset(p)`118 + 4*n`118 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\somepath\test041.cpp(101)]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*n`118
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer p is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+n = n`118
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(p)`118 == 0
+PREFAST_NEWLINE
+n`118 &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>driverFn1</FUNCTION><DECORATED>?driverFn1@@YAXPAHH@Z</DECORATED><FUNCLINE>118</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>118</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>120</LINE><COLUMN>9</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>209</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'buf[len]'
+PREFAST_NEWLINE
+Buffer buf created during call to ref3 on line 205
+PREFAST_NEWLINE
+Buffer is of length 4*len`205a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\somepath\test041.cpp(58) on function ref3 called at line 205]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*len`205a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+len = len`205a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`205a == 0
+PREFAST_NEWLINE
+len`205a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>191</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>191</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>193</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>194</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>195</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>197</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>198</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>200</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>201</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>203</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>204</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>205</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>206</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>208</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>209</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>217</LINE><COLUMN>17</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'buf[len]'
+PREFAST_NEWLINE
+Buffer buf created during call to ref4 on line 213
+PREFAST_NEWLINE
+Buffer is of length 4*len`213a bytes [from annotation SAL_writableTo(elementCount(* {parameter 2})) at c:\somepath\test041.cpp(63) on function ref4 called at line 213]
+PREFAST_NEWLINE
+Accessing 4 bytes starting at byte offset 4*len`213a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+Values of variables:
+PREFAST_NEWLINE
+Pointer buf is at offset 0 bytes from the start of the buffer
+PREFAST_NEWLINE
+len = len`213a
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+where
+PREFAST_NEWLINE
+offset(buf)`213a == 0
+PREFAST_NEWLINE
+len`213a &gt;= 1
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>main</FUNCTION><DECORATED>main</DECORATED><FUNCLINE>191</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>191</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>193</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>194</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>195</LINE><COLUMN>7</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>197</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>198</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>200</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>201</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>203</LINE><COLUMN>9</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>204</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>205</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>206</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>208</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>209</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>212</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>213</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>214</LINE><COLUMN>8</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>216</LINE><COLUMN>21</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test041.cpp</FILENAME><LINE>217</LINE><COLUMN>17</COLUMN></SFA></PATH></DEFECT></DEFECTS>

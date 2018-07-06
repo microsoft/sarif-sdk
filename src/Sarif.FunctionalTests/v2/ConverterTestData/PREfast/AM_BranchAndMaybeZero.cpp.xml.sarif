@@ -1,0 +1,311 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "Ly8gTWVyZ2UgYnJhbmNoIGtleSBldmVudHMgYW5kIG1heWJlemVybyBrZXkgZXZlbnRzDQoNCnZvaWQgQ29tcGFyZVRvWmVybyhpbnQgKiBpbnB1dCkNCnsNCglpbnQgKiBwID0gaW5wdXQ7DQoJaWYgKDAgPT0gcCkNCgkJaW50IHggPSA1Ow0KCWludCB5ID0gKnA7DQp9DQoNCnZvaWQgQ29tcGFyZVRvWmVyb1BhcmFtKGludCAqIGlucHV0KQ0Kew0KCWlmIChpbnB1dCAhPSAwKQ0KCQlpbnQgeCA9IDU7DQoJaW50IHkgPSAqaW5wdXQ7DQp9DQoNCi8vIEZyb20gYSBoYXJkIHRvIHVuZGVyc3RhbmQgYnVnOg0Kdm9pZCBDb21wbGV4Q29tcGFyZVRvWmVybyhpbnQgKiBpbnB1dCkNCnsNCglpbnQgKiBwID0gaW5wdXQ7DQoJaWYgKCZwWzBdKQ0KCQlpbnQgeCA9IDU7DQoJaW50IHkgPSAqcDsNCn0NCg=="
+          },
+          "hashes": [
+            {
+              "value": "480A9C38ADA1EC4531B286B1CEE414D5",
+              "algorithm": "md5"
+            },
+            {
+              "value": "CFE5E95254F380C24E9DD230E5C195192D20F86E",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "0FF4D066B06031F8A236FB566A2C5D1CA3CAB58A2E037A44F6E98F526707E87F",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "CompareToZero": {
+          "decoratedName": "?CompareToZero@@YAXPEAH@Z"
+        },
+        "CompareToZeroParam": {
+          "decoratedName": "?CompareToZeroParam@@YAXPEAH@Z"
+        },
+        "ComplexCompareToZero": {
+          "decoratedName": "?ComplexCompareToZero@@YAXPEAH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'p'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "CompareToZero",
+              "properties": {
+                "funcline": "3"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 7,
+                            "startColumn": 7
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 8,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'input'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "CompareToZeroParam",
+              "properties": {
+                "funcline": "11"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 13,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        },
+        {
+          "ruleId": "6011",
+          "message": {
+            "text": "Dereferencing NULL pointer 'p'. "
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 6
+                }
+              },
+              "fullyQualifiedLogicalName": "ComplexCompareToZero",
+              "properties": {
+                "funcline": "19"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 21,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 22,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp"
+                          },
+                          "region": {
+                            "startLine": 24,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

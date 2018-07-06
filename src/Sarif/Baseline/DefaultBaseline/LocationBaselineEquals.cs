@@ -13,19 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                // Target and Result file should match.
-                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
+                // Result files should match.
+                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.PhysicalLocation, y.PhysicalLocation))
                 {
                     return false;
                 }
 
-                if (!PhysicalLocationBaselineEquals.Instance.Equals(x.ResultFile, y.ResultFile))
-                {
-                    return false;
-                }
-
-                // Code locations (decorated name/fully qualified logical name) should match.
-                if (x.DecoratedName != y.DecoratedName || x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
+                // Code locations (fully qualified logical name) should match.
+                if (x.FullyQualifiedLogicalName != y.FullyQualifiedLogicalName)
                 {
                     return false;
                 }
@@ -43,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             {
                 int hs = 0;
 
-                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.AnalysisTarget) ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.ResultFile);
+                hs = hs ^ PhysicalLocationBaselineEquals.Instance.GetHashCode(obj.PhysicalLocation);
 
-                hs = hs ^ obj.DecoratedName.GetNullCheckedHashCode() ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
+                hs = hs ^ obj.FullyQualifiedLogicalName.GetNullCheckedHashCode();
 
                 return hs;
             }

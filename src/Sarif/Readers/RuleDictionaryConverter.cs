@@ -47,11 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 rule = new Rule
                 {
-                    DefaultLevel = iRule.DefaultLevel,
+                    Configuration = iRule.Configuration,
                     FullDescription = iRule.FullDescription,
-                    HelpUri = iRule.HelpUri,
+                    HelpLocation = iRule.HelpLocation,
                     Id = iRule.Id,
-                    MessageFormats = iRule.MessageFormats,
+                    MessageStrings = iRule.MessageStrings,
+                    RichMessageStrings = iRule.RichMessageStrings,
                     Name = iRule.Name,
                     ShortDescription = iRule.ShortDescription,
                 };

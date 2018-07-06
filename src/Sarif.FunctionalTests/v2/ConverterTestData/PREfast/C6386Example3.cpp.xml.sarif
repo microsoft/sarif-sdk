@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis"
+      },
+      "files": {
+        "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp": {
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "dm9pZCBDNjM4Nl9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzRdOw0KICAgZm9yKGk7IGkgPCA0OyBpKyspDQogICB7DQogICAgICBhW2ldID0gJ2EnOw0KICAgfQ0KICAgICAgYVtpXSA9ICdcMCc7DQp9DQo="
+          },
+          "hashes": [
+            {
+              "value": "A5DBB1B172BD8FC74C817CB4CA60FCF6",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3A9EFC1D1C06DB184060F9D0FAFB7B329EA3649A",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "C204551191A2CF82CC9EA2482ED36A395A438A828411D6CEF3385BAD46F12C8B",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "C6386_Example": {
+          "decoratedName": "?C6386_Example@@YAXH@Z"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "6386",
+          "message": {
+            "text": "Buffer overrun while writing to 'a':  the writable size is '4' bytes, but 'i' bytes might be written."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "C6386_Example",
+              "properties": {
+                "funcline": "1"
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp"
+                          },
+                          "region": {
+                            "startLine": 3,
+                            "startColumn": 9
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "1"
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp"
+                          },
+                          "region": {
+                            "startLine": 8,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "essential",
+                      "properties": {
+                        "keyEventId": "2"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "probability": "1",
+            "rank": "4",
+            "ruleCategory": "mspft"
+          }
+        }
+      ]
+    }
+  ]
+}

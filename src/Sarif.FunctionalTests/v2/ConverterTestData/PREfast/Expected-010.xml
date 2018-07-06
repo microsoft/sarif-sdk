@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DEFECTS><DEFECT><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test010.cpp</FILENAME><LINE>14</LINE><COLUMN>18</COLUMN></SFA><DEFECTCODE>26000</DEFECTCODE><DESCRIPTION>Overflow using expression 'ww.buffer[12]'
+PREFAST_NEWLINE
+Buffer accessed is windowoid::buffer
+PREFAST_NEWLINE
+Buffer is of length 10 elements (4 bytes/element) [size of field]
+PREFAST_NEWLINE
+Accessing the element (4 bytes/element) at element offset 12
+PREFAST_NEWLINE
+
+PREFAST_NEWLINE
+There are other instances of this error:
+PREFAST_NEWLINE
+Potential overflow using expression '(void *)(&amp; ww.buffer)' at line 15
+PREFAST_NEWLINE
+Overflow using expression '(void *)(&amp; ww.buffer + 2)' at line 16
+PREFAST_NEWLINE
+</DESCRIPTION><FUNCTION>foo</FUNCTION><DECORATED>?foo@@YAXH@Z</DECORATED><FUNCLINE>10</FUNCLINE><PATH><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test010.cpp</FILENAME><LINE>10</LINE><COLUMN>5</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test010.cpp</FILENAME><LINE>12</LINE><COLUMN>14</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test010.cpp</FILENAME><LINE>13</LINE><COLUMN>17</COLUMN></SFA><SFA><FILEPATH>c:\somepath\</FILEPATH><FILENAME>test010.cpp</FILENAME><LINE>14</LINE><COLUMN>18</COLUMN></SFA></PATH></DEFECT></DEFECTS>
