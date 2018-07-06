@@ -9,6 +9,7 @@ set Configuration=Release
 set SolutionFile=src\Everything.sln
 set FullClean=false
 set NoTest=false
+set ThisFileDir=%~dp0
 
 :NextArg
 if "%1" == "" goto :EndArgs
@@ -31,16 +32,32 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
 
+set CrossPlatformProductProjects=Sarif Sarif.Converters Sarif.Driver Sarif.Multitool
+set CrossPlatformTestProjects=Sarif.UnitTests Sarif.Converters.UnitTests Sarif.Driver.UnitTests Sarif.ValidationTests Sarif.FunctionalTests Sarif.Multitool.FunctionalTests
+set CrossPlatformProjects=%CrossPlatformProductProjects% %CrossPlatformTestProjects%
+
 @REM Remove existing build data
 CALL :Clean %FullClean%
 
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
-SET NuGetConfigFile=%~dp0src\NuGet.Config
-SET NuGetPackageDir=src\packages
+SET NuGetConfigFile=%ThisFileDir%src\NuGet.Config
+SET NuGetPackageDir=%ThisFileDir%src\packages
+
+:: We have to restore the projects one by one, rather than restoring the entire solution,
+:: because the solution includes projects that are not .NET SDK projects.
+for %%i IN (%CrossPlatformProjects%) DO (
+    echo Restoring NuGet packages for %%i...
+    dotnet restore src\%%i\%%i.csproj --configfile %NuGetConfigFile% --verbosity quiet
+        if "%ERRORLEVEL%" NEQ "0" (
+            echo NuGet restore failed for project %%i.
+            goto ExitFailed
+    )
+)
+
 
 ::Restore nuget packages for projects that we don't build with dotnet core.
 echo Restoring NuGet packages for Sarif.Viewer.VisualStudio...
-%~dp0.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%"
+%ThisFileDir%.nuget\NuGet.exe restore src\Sarif.Viewer.VisualStudio\Sarif.Viewer.VisualStudio.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%" -Verbosity normal
 if "%ERRORLEVEL%" NEQ "0" (
     echo NuGet restore failed for project Sarif.Viewer.VisualStudio.
     goto ExitFailed
@@ -60,7 +77,7 @@ if "%ERRORLEVEL%" NEQ "0" (
 )
 
 if "%NoTest%" EQU "false" (
-    for %%i in (Sarif.UnitTests, Sarif.Converters.UnitTests, Sarif.Driver.UnitTests, Sarif.ValidationTests, Sarif.FunctionalTests, Sarif.Multitool.FunctionalTests) do (
+    for %%i in (%CrossPlatformTestProjects%) do (
         dotnet test --no-build --no-restore src\%%i\%%i.csproj
         if "%ERRORLEVEL%" NEQ "0" (
             echo %%i: tests failed.
