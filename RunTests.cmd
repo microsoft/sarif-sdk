@@ -33,10 +33,11 @@ for %%p in (%CrossPlatformTestProjects%) do (
         echo Running tests for %%p: %%f
         pushd %ThisFileDirectory%bld\bin\%%p\AnyCPU_%Configuration%\%%f
         if "%%f" EQU "netcoreapp2.0" (
-            rem Hack: Without this line, the netcoreapp2.0 tests fail, on AppVeyor only,
-            rem with the message:
+            rem Hack: Unless we copy these files, the netcoreapp2.0 tests fail,
+            rem on AppVeyor only, with the message:
             rem System.InvalidOperationException: Could not find/load any of the following assemblies: xunit.execution.dotnet.dll
             copy %ThisFileDirectory%src\packages\xunit.extensibility.execution\2.3.1\lib\netstandard1.1\xunit.execution.dotnet.dll
+            copy %ThisFileDirectory%src\packages\xunit.extensibility.core\2.3.1\lib\netstandard1.1\xunit.core.dll
 
             dotnet %TestRunnerRootPath%netcoreapp2.0\xunit.console.dll %%p.dll %ReporterOption%
         ) ELSE (
