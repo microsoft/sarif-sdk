@@ -20,6 +20,11 @@
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
+
+    <!-- The line causes the assemblies in a project's referenced dNuGet packages to be
+         copied to the output directory. It is respected when building for .NET core.
+      -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Label="Signing">
