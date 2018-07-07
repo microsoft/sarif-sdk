@@ -21,10 +21,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
 
-    <!-- The line causes the assemblies in a project's referenced dNuGet packages to be
+    <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. It is respected when building for .NET core.
+         We only need to do this for test projects. If we don't, the .NET Core tests
+         fail (on AppVeyor only, for some reason).
       -->
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CopyLocalLockFileAssemblies Condition="'$(IsTestProject)' == 'true'">true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Label="Signing">
