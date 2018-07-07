@@ -9,6 +9,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 set Configuration=Release
 set SolutionFile=src\Everything.sln
 set FullClean=false
+set NoClean=false
+set NoBuild=false
 set NoTest=false
 set ThisFileDir=%~dp0
 
@@ -26,6 +28,12 @@ if "%1" == "/sln" (
 if "%1" == "/fullclean" (
     set FullClean=true&& shift && goto :NextArg
 )
+if "%1" == "/noclean" (
+    set NoClean=true&& shift && goto :NextArg
+)
+if "%1" == "/nobuild" (
+    set NoBuild=true&& shift && goto :NextArg
+)
 if "%1" == "/notest" (
     set NoTest=true&& shift && goto :NextArg
 )
@@ -33,22 +41,26 @@ echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
 
-:: Remove existing build data
-call :Clean %FullClean%
+if "%NoClean%" EQU "false" (
+    :: Remove existing build data
+    call :Clean %FullClean%
+)
 
 call BeforeBuild.cmd
 call SetBuildEnvVars.cmd
 
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
-msbuild /verbosity:minimal /target:Rebuild /property:Configuration=%Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
-if "%ERRORLEVEL%" NEQ "0" (
-    echo %SolutionFile%: Build failed.
-    goto ExitFailed
+if "%NoBuild%" EQU "false" (
+    msbuild /verbosity:minimal /target:Rebuild /property:Configuration=%Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
+    if "%ERRORLEVEL%" NEQ "0" (
+        echo %SolutionFile%: Build failed.
+        goto ExitFailed
+    )
 )
 
 if "%NoTest%" EQU "false" (
-    call RunTests.cmd
+    call RunTests.cmd /config %Configuration%
 )
 
 echo SUCCESS -- so far!

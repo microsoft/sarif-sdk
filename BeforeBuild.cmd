@@ -20,7 +20,7 @@ set NuGetPackageDir=%ThisFileDir%src\packages
 :: because the solution includes projects that are not .NET SDK projects.
 for %%i IN (%CrossPlatformProjects%) DO (
     echo Restoring NuGet packages for %%i...
-    dotnet restore src\%%i\%%i.csproj --configfile %NuGetConfigFile% --verbosity quiet
+    dotnet restore src\%%i\%%i.csproj --configfile %NuGetConfigFile% --packages %NuGetPackageDir% --verbosity quiet
         if "%ERRORLEVEL%" NEQ "0" (
             echo NuGet restore failed for project %%i.
             goto ExitFailed

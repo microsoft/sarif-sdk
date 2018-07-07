@@ -7,16 +7,46 @@
 @ECHO off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
+set ReporterOption=
+set ThisFileDirectory=%~dp0
+
+:NextArg
+if "%1" == "" goto :EndArgs
+if "%1" == "/appveyor" (
+    set ReporterOption=-appveyor&& shift && goto :NextArg
+)
+if "%1" == "/config" (
+    if not "%2" == "Debug" if not "%2" == "Release" echo error: /config must be either Debug or Release && goto :ExitFailed
+    set Configuration=%2&& shift && shift && goto :NextArg
+)
+echo Unrecognized option "%1" && goto :ExitFailed
+
+:EndArgs
+
 call SetBuildEnvVars.cmd
 
-for %%i in (%CrossPlatformTestProjects%) do (
-    echo Running tests in %%i...
-    dotnet test --no-build --no-restore src\%%i\%%i.csproj
-    if "%ERRORLEVEL%" NEQ "0" (
-        echo %%i: tests failed.
-        goto ExitFailed
+set Frameworks=netcoreapp2.0 net461
+set TestRunnerRootPath=%ThisFileDirectory%src\packages\xunit.runner.console\2.3.1\tools\
+
+for %%p in (%CrossPlatformTestProjects%) do (
+    for %%f in (%Frameworks%) do (
+        echo Running tests for %%p: %%f
+        pushd %ThisFileDirectory%bld\bin\%%p\AnyCPU_%Configuration%\%%f
+        if "%%f" EQU "netcoreapp2.0" (
+            dotnet %TestRunnerRootPath%netcoreapp2.0\xunit.console.dll %%p.dll %ReporterOption%
+        ) ELSE (
+            %TestRunnerRootPath%net452\xunit.console.exe %%p.dll %ReporterOption%
+        )
+        if "%ERRORLEVEL%" NEQ "0" (
+            popd
+            echo %%i: tests failed.
+            goto ExitFailed
+        )
+        popd
     )
 )
+
+goto Exit
 
 :ExitFailed
 @echo Tests did not complete successfully.

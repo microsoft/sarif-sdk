@@ -28,7 +28,7 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - RunTests.cmd
+  - cmd: RunTests.cmd /config Release /appveyor
 
 test: off
 
