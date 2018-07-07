@@ -3,11 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Label="AssemblyAttributes">
     <AssemblyTitle>SARIF Multitool</AssemblyTitle>
     <Description>Command line tool to perform transformations of input files to SARIF.</Description>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />

@@ -10,7 +10,7 @@
     <AssemblyTitle>SARIF Validation Tests</AssemblyTitle>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.cross-platform.props))\build.cross-platform.props" />
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.0" />

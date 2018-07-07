@@ -6,7 +6,11 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Library Functional Tests</AssemblyTitle>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.0" />

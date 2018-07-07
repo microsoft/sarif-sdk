@@ -8,6 +8,8 @@
     <PackageReference Include="FluentAssertions" Version="5.4.0" />
   </ItemGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
+
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
@@ -28,7 +30,5 @@
       <LastGenOutput>TestUtilityResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
 </Project>

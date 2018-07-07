@@ -5,22 +5,15 @@
     <TargetFrameworks>$(TargetFrameworks);net461</TargetFrameworks>
   </PropertyGroup>
 
+  <Import Project="$(MSBuildThisFileDirectory)\build.common.props" />
+
   <PropertyGroup Label="AssemblyAttributes">
     <Company Condition=" '$(Company)' == '' ">Microsoft Corporation</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">Copyright (c) Microsoft. All Rights Reserved.</Copyright>
-    <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix>alpha.2</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
-    <RootNamespace>Microsoft.CodeAnalysis.$(MSBuildProjectName)</RootNamespace>
-    <OutputSubDir>$(Platform)_$(Configuration)</OutputSubDir>
-    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(OutputSubDir)\</IntermediateOutputPath>
-    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
-
     <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. It is respected when building for .NET core.
          We only need to do this for test projects. If we don't, the .NET Core tests

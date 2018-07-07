@@ -11,7 +11,7 @@
     <Description>Unit tests for the framework for creating a command line analysis tool which produces the SARIF format.</Description>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
 
   <Target Name="CopyFunctionalTestsData" AfterTargets="Build">
     <ItemGroup>

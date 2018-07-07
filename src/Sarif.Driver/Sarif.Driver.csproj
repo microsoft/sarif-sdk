@@ -9,7 +9,7 @@
     <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
