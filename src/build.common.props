@@ -19,4 +19,20 @@
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
   </PropertyGroup>
+
+  <PropertyGroup Label="Signing">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
+    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
+    </ItemGroup>
+  </Target>
 </Project>

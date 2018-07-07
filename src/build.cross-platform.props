@@ -5,7 +5,7 @@
     <TargetFrameworks>$(TargetFrameworks);net461</TargetFrameworks>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)\build.common.props" />
+  <Import Project="$(MSBuildThisFileDirectory)build.common.props" />
 
   <PropertyGroup Label="AssemblyAttributes">
     <Company Condition=" '$(Company)' == '' ">Microsoft Corporation</Company>
@@ -22,27 +22,11 @@
     <CopyLocalLockFileAssemblies Condition="'$(IsTestProject)' == 'true'">true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
-  <PropertyGroup Label="Signing">
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
   <PropertyGroup Label="Package">
     <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
     <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
-  </ItemGroup>
-
-  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
-    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
-    <ItemGroup>
-      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
-    </ItemGroup>
-  </Target>
 
 </Project>
