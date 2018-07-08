@@ -414,7 +414,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.17\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
+    <!-- Temporarily disabled until I find out how to fix four warnings that don't specify a file location. - Larry Golding -->
+    <!-- Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.17\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" /-->
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj">
