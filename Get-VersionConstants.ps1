@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-Extract the version number from build.cross-platform.props.
+Extract the version number from build.props.
 #>
 
 $ErrorActionPreference = "Stop"
 
-$buildPropsPath = "$PSScriptRoot\src\build.cross-platform.props"
+$buildPropsPath = "$PSScriptRoot\src\build.props"
 $namespace = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
 $assemblyAttributesXPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='AssemblyAttributes']"
 

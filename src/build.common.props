@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+This file defines properties that are needed in all project files, regardless of
+whether they use the VS 2017 project system or the old project system.
+ -->
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <!--
-    The .NET Core project system uses these properties to set the assembly version
-    attributes. But the script New-VersionConstantsFile.ps1 also uses them to
-    synthesize the file VersionConstants.cs, which is included in all builds
-    regardless of whether they are cross-platform. That's why we define these
-    properties here rather than in build.cross-platform.props.
-    -->
-    <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix>alpha.2</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">

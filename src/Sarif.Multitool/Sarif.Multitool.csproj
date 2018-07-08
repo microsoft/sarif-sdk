@@ -10,7 +10,7 @@
     <Description>Command line tool to perform transformations of input files to SARIF.</Description>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />

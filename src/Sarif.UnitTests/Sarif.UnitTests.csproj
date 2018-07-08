@@ -11,7 +11,7 @@
     <Description>Unit tests for the SARIF library</Description>
   </PropertyGroup>
 
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.cross-platform.props))\build.cross-platform.props" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.0" />
