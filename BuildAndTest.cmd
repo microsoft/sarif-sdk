@@ -1,10 +1,10 @@
 @ECHO off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-:: Uncomment this line to update nuget.exe
-:: Doing so can break SLN build (which uses nuget.exe to
-:: create a nuget package for the SARIF SDK) so must opt-in
-:: %~dp0.nuget\NuGet.exe update -self
+rem Uncomment this line to update nuget.exe
+rem Doing so can break SLN build (which uses nuget.exe to
+rem create a nuget package for the SARIF SDK) so must opt-in
+rem %~dp0.nuget\NuGet.exe update -self
 
 set Configuration=Release
 set SolutionFile=src\Everything.sln
@@ -12,6 +12,7 @@ set FullClean=false
 set NoClean=false
 set NoBuild=false
 set NoTest=false
+set NoPublish=false
 set ThisFileDir=%~dp0
 
 :NextArg
@@ -32,17 +33,21 @@ if "%1" == "/noclean" (
     set NoClean=true&& shift && goto :NextArg
 )
 if "%1" == "/nobuild" (
-    set NoBuild=true&& shift && goto :NextArg
+    REM If we're not going to build, we'd better not clean.
+    set NoBuild=true&& set NoClean=true&& shift && goto :NextArg
 )
 if "%1" == "/notest" (
     set NoTest=true&& shift && goto :NextArg
+)
+if "%1" == "/nopublish" (
+    set NoPublish=true&& shift && goto :NextArg
 )
 echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
 
 if "%NoClean%" EQU "false" (
-    :: Remove existing build data
+    rem Remove existing build data
     call :Clean %FullClean%
 )
 
@@ -63,34 +68,23 @@ if "%NoTest%" EQU "false" (
     call RunTests.cmd /config %Configuration%
 )
 
+if "%NoPublish%" EQU "false" (
+    call :PublishApplication Sarif.Multitool net461
+    call :PublishApplication Sarif.Multitool netcoreapp2.0
+)
+
 echo SUCCESS -- so far!
 echo TODO -- Finish modifying the rest of this script.
 goto Exit
 
-call :CreatePublishPackage Sarif.Multitool net452
-call :CreatePublishPackage Sarif.Multitool netcoreapp2.0
-call :CreatePublishPackage Sarif.Multitool netstandard2.0
-
-::Build all NuGet packages
+rem Build all NuGet packages
 echo BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Version% || goto :ExitFailed
 
-::Create layout directory of assemblies that need to be signed
+rem Create layout directory of assemblies that need to be signed
 call CreateLayoutDirectory.cmd .\bld\bin\ %Configuration% %Platform%
 
-@REM Run all multitargeting xunit tests
-call :RunMultitargetingTests Sarif Unit                 || goto :ExitFailed
-call :RunMultitargetingTests Sarif Functional           || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Converters Unit      || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Driver Unit          || goto :ExitFailed
-call :RunMultitargetingTests Sarif.Multitool Functional || goto :ExitFailed
-
-::Run all non-multitargeting unit tests
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.ValidationTests\AnyCPU_%Configuration%\Sarif.ValidationTests.dll
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
+rem Run all non-multitargeting unit tests
 src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
 if "%ERRORLEVEL%" NEQ "0" (
 goto ExitFailed
@@ -127,18 +121,11 @@ IF "%FullClean%" EQU "true" (
 ECHO Done.
 EXIT /B %ERRORLEVEL%
 
-:CreatePublishPackage
+:PublishApplication
 set Project=%1
 set Framework=%2
-dotnet publish %~dp0src\%Project%\%Project%.csproj --no-restore -c %Configuration% -f %Framework%
-Exit /B %ERRORLEVEL%
-
-:RunMultitargetingTests
-set TestProject=%1
-set TestType=%2
-pushd .\src\%TestProject%.%TestType%Tests && dotnet xunit --fx-version 2.0.0 -nobuild -configuration %Configuration%
-popd
-if "%ERRORLEVEL%" NEQ "0" (echo %TestProject% %TestType% tests execution FAILED.)
+echo Publishing %1 for %2...
+dotnet publish %~dp0src\%Project%\%Project%.csproj --no-restore --configuration %Configuration% --framework %Framework%
 Exit /B %ERRORLEVEL%
 
 :ExitFailed
