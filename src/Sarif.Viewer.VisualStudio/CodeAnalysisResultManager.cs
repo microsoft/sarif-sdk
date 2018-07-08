@@ -96,6 +96,8 @@ namespace Microsoft.Sarif.Viewer
             }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (!SarifViewerPackage.IsUnitTesting)
                 {
                     // Since we have a new set of Results in the Error List, clear all source code highlighting.
@@ -543,6 +545,8 @@ namespace Microsoft.Sarif.Viewer
 
         public int OnBeforeDocumentWindowShow(uint docCookie, int fFirstShow, IVsWindowFrame pFrame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             AttachToDocumentChanges(docCookie, pFrame);
             return S_OK;
         }
@@ -625,6 +629,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         private void AttachToDocumentChanges(uint docCookie, IVsWindowFrame pFrame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             string documentName = GetDocumentName(docCookie, pFrame);
 
             if (!string.IsNullOrEmpty(documentName))

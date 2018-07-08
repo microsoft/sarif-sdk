@@ -42,6 +42,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public void Dispose()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             Dispose(true);
         }
 

@@ -4,6 +4,7 @@
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
 using Microsoft.VisualStudio.Utilities;
@@ -91,6 +92,8 @@ namespace Microsoft.Sarif.Viewer.ErrorList
             /// </summary>
             public override void PreprocessNavigate(ITableEntryHandle entryHandle, TableEntryNavigateEventArgs e)
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 SarifErrorListItem sarifResult;
 
                 if (!TryGetSarifResult(entryHandle, out sarifResult))

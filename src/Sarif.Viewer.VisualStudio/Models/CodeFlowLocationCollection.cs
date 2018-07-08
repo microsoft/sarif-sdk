@@ -3,6 +3,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -42,6 +43,8 @@ namespace Microsoft.Sarif.Viewer.Models
             }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 _selectedItem = value;
 
                 this.SelectionChanged(value);
@@ -52,6 +55,8 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_selectedCommand == null)
                 {
                     _selectedCommand = new DelegateCommand<CodeFlowLocationModel>(l => SelectionChanged(l));
@@ -67,6 +72,8 @@ namespace Microsoft.Sarif.Viewer.Models
 
         private void SelectionChanged(CodeFlowLocationModel selectedItem)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             selectedItem.NavigateTo();
             selectedItem.ApplySelectionSourceFileHighlighting();
         }

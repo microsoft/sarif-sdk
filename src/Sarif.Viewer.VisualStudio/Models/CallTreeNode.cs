@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -135,6 +136,8 @@ namespace Microsoft.Sarif.Viewer.Models
         /// <param name="e"></param>
         private void RegionSelected(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Select this item in the CallTree to bring the source and call tree in sync.
             if (CallTree != null && this.Visibility == Visibility.Visible)
             {

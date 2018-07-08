@@ -64,6 +64,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal IVsWindowFrame NavigateTo(bool usePreviewPane)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Fall back to the file and line number
 
             if (!File.Exists(this.FullFilePath))
@@ -225,6 +227,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public void AttachToDocument(string documentName, long docCookie, IVsWindowFrame frame)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // For these cases, this event has nothing to do with this item
             if (CanAttachToDocument(documentName, docCookie, frame))
             {
@@ -261,6 +265,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         private void AttachToDocumentWorker(IVsWindowFrame frame, long docCookie)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var sourceLocation = this.GetSourceLocation();
             int line = sourceLocation.StartLine;
 

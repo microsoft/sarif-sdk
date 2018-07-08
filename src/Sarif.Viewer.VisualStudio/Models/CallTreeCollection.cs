@@ -3,6 +3,7 @@
 
 using System.Collections.ObjectModel;
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -25,6 +26,8 @@ namespace Microsoft.Sarif.Viewer.Models
             }
             set
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_verbosity != value)
                 {
                     _verbosity = value;
@@ -93,6 +96,8 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (_intelligentExpandCommand == null)
                 {
                     _intelligentExpandCommand = new DelegateCommand(() =>
@@ -127,6 +132,8 @@ namespace Microsoft.Sarif.Viewer.Models
 
         internal void IntelligentExpand()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (CallTree callTree in this)
             {
                 CallTreeNode selectedItem = callTree.SelectedItem;
@@ -147,6 +154,8 @@ namespace Microsoft.Sarif.Viewer.Models
 
         internal void SelectVisibleNode()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             foreach (CallTree callTree in this)
             {
                 if (callTree.SelectedItem != null && callTree.SelectedItem.Visibility != System.Windows.Visibility.Visible)

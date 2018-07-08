@@ -97,6 +97,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         protected override void Initialize()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             OpenLogFileCommands.Initialize(this);
             base.Initialize();
 

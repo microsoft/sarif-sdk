@@ -532,6 +532,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static IVsHierarchy GetSelectedProjectHierarchy(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             EnvDTE.Project project = provider != null ? GetSelectedProject(provider) : null;
             return project != null ? GetHierarchyFromProject(project, provider) : null;
         }
@@ -564,6 +566,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static bool UsingRascalPro(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             return GetAppidSetting(provider, s_appIdUsesIsolatedCLR);
         }
 
@@ -603,6 +607,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults")]
         internal static IVsWindowFrame OpenDocument(IServiceProvider provider, string file, bool usePreviewPane)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (string.IsNullOrEmpty(file))
             {
                 // No place to go
@@ -919,6 +925,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static string[] GetRuleSetDirectories(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_ruleSetDirectories == null)
             {
                 // We will have more of these if we implement a Tools.Options dialog for rule set paths
@@ -933,6 +941,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static string GetBuiltInRuleSetDirectory(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_builtInRuleSetDirectory == null)
             {
                 s_builtInRuleSetDirectory = Path.Combine(GetStaticAnalysisToolsDirectory(provider), @"Rule Sets");
@@ -946,6 +956,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         internal static string GetPlugInFileDirectory(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (s_plugInsDirectory == null)
             {
                 s_plugInsDirectory = Path.Combine(GetStaticAnalysisToolsDirectory(provider), @"PlugIns");
@@ -996,6 +1008,8 @@ namespace Microsoft.Sarif.Viewer
         [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase")]
         private static List<string> GetAllRuleSetFiles(IServiceProvider provider)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             List<string> ruleSetFiles = new List<string>();
             List<string> fileNames = new List<string>();
 

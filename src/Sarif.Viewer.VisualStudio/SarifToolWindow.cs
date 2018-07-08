@@ -92,6 +92,8 @@ namespace Microsoft.Sarif.Viewer
         /// <param name="items"></param>
         public void UpdateSelectionList(params object[] items)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             _selectionContainer = new SelectionContainer(true, false);
             _selectionContainer.SelectableObjects = items;
             _selectionContainer.SelectedObjects = items;
@@ -103,6 +105,8 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public void ResetSelection()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             UpdateSelectionList(Control?.DataContext);
         }
     }
