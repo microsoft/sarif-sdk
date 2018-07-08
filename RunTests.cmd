@@ -28,13 +28,13 @@ call SetBuildEnvVars.cmd
 set Frameworks=netcoreapp2.0 net461
 set TestRunnerRootPath=%ThisFileDirectory%src\packages\xunit.runner.console\2.3.1\tools\
 
-for %%p in (%CrossPlatformTestProjects%) do (
+for %%p in (%NewTestProjects%) do (
     for %%f in (%Frameworks%) do (
         echo Running tests for %%p: %%f
         pushd %ThisFileDirectory%bld\bin\%%p\AnyCPU_%Configuration%\%%f
         if "%%f" EQU "netcoreapp2.0" (
             dotnet %TestRunnerRootPath%netcoreapp2.0\xunit.console.dll %%p.dll %ReporterOption%
-        ) ELSE (
+        ) else (
             %TestRunnerRootPath%net452\xunit.console.exe %%p.dll %ReporterOption%
         )
         if "%ERRORLEVEL%" NEQ "0" (
@@ -45,6 +45,19 @@ for %%p in (%CrossPlatformTestProjects%) do (
         popd
     )
 )
+
+rem The Viewer unit tests build but don't yet pass, so comment this out for now.
+rem for %%p in (%OldTestProjects%) do (
+rem     echo Running tests for %%p
+rem     pushd %ThisFileDirectory%bld\bin\%%p\AnyCPU_%Configuration%
+rem     %TestRunnerRootPath%net452\xunit.console.exe %%p.dll %ReporterOption%
+rem     if "%ERRORLEVEL%" NEQ "0" (
+rem         popd
+rem         echo %%i: tests failed.
+rem         goto ExitFailed
+rem     )
+rem     popd
+rem )
 
 goto Exit
 

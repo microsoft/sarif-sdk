@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  This file defines properties that are needed in project files that use the
-  VS 2017 project system. It is called "build.props" rather than something like
-  "build.new-project-system.props" because almost every project in this repo
-  does use the VS 2017 project system.
+  Projects that use the new VS 2017 project system import this file. Projects that
+  use the old (pre-VS 2017) project system import "build.old-project.props" instead.
+  This file gets the simple name "build.props" rather than being called
+  "build.new-project.props" because almost every project in this repo uses the
+  VS 2017 project system.
   -->
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 

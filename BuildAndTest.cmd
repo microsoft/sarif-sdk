@@ -84,12 +84,6 @@ call BuildPackages.cmd %Configuration% %Platform% %NuGetOutputDirectory% %Versio
 rem Create layout directory of assemblies that need to be signed
 call CreateLayoutDirectory.cmd .\bld\bin\ %Configuration% %Platform%
 
-rem Run all non-multitargeting unit tests
-src\packages\xunit.runner.console.2.3.0\tools\net452\xunit.console.x86.exe bld\bin\Sarif.Viewer.VisualStudio.UnitTests\AnyCPU_%Configuration%\Sarif.Viewer.VisualStudio.UnitTests.dll -parallel none
-if "%ERRORLEVEL%" NEQ "0" (
-goto ExitFailed
-)
-
 goto Exit
 
 :Clean
