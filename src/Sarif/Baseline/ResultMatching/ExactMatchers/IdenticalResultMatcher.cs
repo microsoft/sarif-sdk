@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         public class IdenticalResultEqualityComparer : IEqualityComparer<Result>
         {
             public static readonly IdenticalResultEqualityComparer Instance = new IdenticalResultEqualityComparer();
-
+            
             public bool Equals(Result x, Result y)
             {
                 return ResultEqualityComparer.Instance.Equals(CreateMaskedResult(x), CreateMaskedResult(y));
@@ -72,10 +72,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 masked.Id = null;
                 masked.SuppressionStates = SuppressionStates.None;
                 masked.BaselineState = BaselineState.None;
+                if(masked.Properties != null && masked.Properties.ContainsKey(ResultMatchingBaseliner.ResultMatchingResultPropertyName))
+                {
+                    masked.Properties.Remove(ResultMatchingBaseliner.ResultMatchingResultPropertyName);
+                    if(masked.Properties.Count == 0)
+                    {
+                        masked.Properties = null;
+                    }
+                }
                 return masked;
             }
-
         }
-
     }
 }

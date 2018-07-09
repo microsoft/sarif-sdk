@@ -205,5 +205,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
             matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
+
+        [Fact]
+        public void IdenticalResultMatcher_MatchesResults_DifferingOnResultMatchingProperties_Multiple()
+        {
+            MatchingResult resultAA = new MatchingResult()
+            {
+                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+            };
+
+            Result changedResultA = resultAA.Result.DeepClone();
+            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.BaselineState = BaselineState.Existing;
+            changedResultA.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
+
+            MatchingResult resultBA = new MatchingResult()
+            {
+                Result = changedResultA
+            };
+
+            MatchingResult resultAB = new MatchingResult()
+            {
+                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+            };
+
+            Result changedResultB = resultAB.Result.DeepClone();
+            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.BaselineState = BaselineState.New;
+
+            changedResultB.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property1", "value1" } });
+            MatchingResult resultBB = new MatchingResult()
+            {
+                Result = changedResultB
+            };
+
+
+            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
+
+            matchedResults.Should().HaveCount(2);
+            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
+        }
     }
 }
