@@ -1149,14 +1149,26 @@
           "minimum": 1
         },
 
-        "offset": {
-          "description": "The zero-based offset from the beginning of the file of the first byte or character in the region.",
+        "charOffset": {
+          "description": "The zero-based offset from the beginning of the file of the first character in the region.",
           "type": "integer",
           "minimum": 0
         },
 
-        "length": {
-          "description": "The length of the region in bytes or characters.",
+        "charLength": {
+          "description": "The length of the region in characters.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "byteOffset": {
+          "description": "The zero-based offset from the beginning of the file of the first byte in the region.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "byteLength": {
+          "description": "The length of the region in bytes.",
           "type": "integer",
           "minimum": 0
         },

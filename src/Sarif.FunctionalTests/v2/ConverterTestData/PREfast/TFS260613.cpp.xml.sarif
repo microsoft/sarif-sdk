@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs260613.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "DQovLyBLZXkgRXZlbnRzIGZvciAic2l6ZW9mKGludCkiIA0KDQppbnQgQ29tcGxleE1pc21hdGNoMSgpDQp7DQogICAgaW50IHNvdXJjZSBbXSA9IHsxLCAyLCAzLCA0LCA1LCA2LCA3fTsNCiAgICBpbnQgKiBwID0gc291cmNlOw0KDQogICAgaW50IG9mZnNldCA9IHNpemVvZihpbnQpOw0KICAgIHAgKz0gb2Zmc2V0Ow0KDQogICAgcmV0dXJuICpwOw0KfQ0KDQppbnQgQ29tcGxleE1pc21hdGNoMigpDQp7DQogICAgaW50IHNvdXJjZSBbXSA9IHsxLCAyLCAzLCA0LCA1LCA2LCA3fTsNCiAgICBpbnQgKiBwID0gc291cmNlOw0KDQogICAgcCArPSBzaXplb2YoaW50KTsNCg0KICAgIHJldHVybiAqcDsNCn0NCg=="
+          },
+          "hashes": [
+            {
+              "value": "8E74F71F7EFEFB024218588416E52E4D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "BA57BDA422BE1B3AE6819A370E6FBDC68AAB76CE",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "5F9F3DC7E5BBCAA200AFE733234D5E88FED1ABFCC6AAF4AAF6DF28961AABE7D5",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {

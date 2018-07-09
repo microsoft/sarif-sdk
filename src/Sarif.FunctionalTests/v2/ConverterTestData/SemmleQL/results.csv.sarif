@@ -208,8 +208,8 @@
                 },
                 "region": {
                   "startLine": 170,
-                  "offset": 6561,
-                  "length": 16
+                  "byteOffset": 6561,
+                  "byteLength": 16
                 }
               }
             }
@@ -244,8 +244,8 @@
                 },
                 "region": {
                   "startLine": 169,
-                  "offset": 6517,
-                  "length": 16
+                  "byteOffset": 6517,
+                  "byteLength": 16
                 }
               }
             }
@@ -360,8 +360,8 @@
                 },
                 "region": {
                   "startLine": 406,
-                  "offset": 15061,
-                  "length": 31
+                  "byteOffset": 15061,
+                  "byteLength": 31
                 }
               }
             }
@@ -784,8 +784,8 @@
                 },
                 "region": {
                   "startLine": 100,
-                  "offset": 4192,
-                  "length": 7
+                  "byteOffset": 4192,
+                  "byteLength": 7
                 }
               }
             }
@@ -821,8 +821,8 @@
                 },
                 "region": {
                   "startLine": 145,
-                  "offset": 4336,
-                  "length": 8
+                  "byteOffset": 4336,
+                  "byteLength": 8
                 }
               }
             }
@@ -858,8 +858,8 @@
                 },
                 "region": {
                   "startLine": 86,
-                  "offset": 3021,
-                  "length": 10
+                  "byteOffset": 3021,
+                  "byteLength": 10
                 }
               }
             }
@@ -895,8 +895,8 @@
                 },
                 "region": {
                   "startLine": 158,
-                  "offset": 4876,
-                  "length": 4
+                  "byteOffset": 4876,
+                  "byteLength": 4
                 }
               }
             }
@@ -932,8 +932,8 @@
                 },
                 "region": {
                   "startLine": 107,
-                  "offset": 3626,
-                  "length": 10
+                  "byteOffset": 3626,
+                  "byteLength": 10
                 }
               }
             }
@@ -969,8 +969,8 @@
                 },
                 "region": {
                   "startLine": 153,
-                  "offset": 4515,
-                  "length": 8
+                  "byteOffset": 4515,
+                  "byteLength": 8
                 }
               }
             }
@@ -1006,8 +1006,8 @@
                 },
                 "region": {
                   "startLine": 208,
-                  "offset": 6333,
-                  "length": 5
+                  "byteOffset": 6333,
+                  "byteLength": 5
                 }
               }
             }
@@ -1043,8 +1043,8 @@
                 },
                 "region": {
                   "startLine": 221,
-                  "offset": 6647,
-                  "length": 5
+                  "byteOffset": 6647,
+                  "byteLength": 5
                 }
               }
             }
@@ -1080,8 +1080,8 @@
                 },
                 "region": {
                   "startLine": 102,
-                  "offset": 3336,
-                  "length": 5
+                  "byteOffset": 3336,
+                  "byteLength": 5
                 }
               }
             }
@@ -1117,8 +1117,8 @@
                 },
                 "region": {
                   "startLine": 115,
-                  "offset": 3650,
-                  "length": 5
+                  "byteOffset": 3650,
+                  "byteLength": 5
                 }
               }
             }
@@ -1154,8 +1154,8 @@
                 },
                 "region": {
                   "startLine": 141,
-                  "offset": 4390,
-                  "length": 4
+                  "byteOffset": 4390,
+                  "byteLength": 4
                 }
               }
             }
@@ -1191,8 +1191,8 @@
                 },
                 "region": {
                   "startLine": 187,
-                  "offset": 5773,
-                  "length": 4
+                  "byteOffset": 5773,
+                  "byteLength": 4
                 }
               }
             }
@@ -1228,8 +1228,8 @@
                 },
                 "region": {
                   "startLine": 170,
-                  "offset": 5297,
-                  "length": 4
+                  "byteOffset": 5297,
+                  "byteLength": 4
                 }
               }
             }
@@ -1918,8 +1918,8 @@
                 },
                 "region": {
                   "startLine": 1521,
-                  "offset": 59539,
-                  "length": 13
+                  "byteOffset": 59539,
+                  "byteLength": 13
                 }
               }
             }
@@ -1955,8 +1955,8 @@
                 },
                 "region": {
                   "startLine": 1541,
-                  "offset": 60543,
-                  "length": 13
+                  "byteOffset": 60543,
+                  "byteLength": 13
                 }
               }
             }
@@ -1992,8 +1992,8 @@
                 },
                 "region": {
                   "startLine": 1859,
-                  "offset": 73538,
-                  "length": 5
+                  "byteOffset": 73538,
+                  "byteLength": 5
                 }
               }
             }
@@ -2029,8 +2029,8 @@
                 },
                 "region": {
                   "startLine": 1898,
-                  "offset": 75031,
-                  "length": 5
+                  "byteOffset": 75031,
+                  "byteLength": 5
                 }
               }
             }
@@ -2066,8 +2066,8 @@
                 },
                 "region": {
                   "startLine": 1922,
-                  "offset": 76152,
-                  "length": 5
+                  "byteOffset": 76152,
+                  "byteLength": 5
                 }
               }
             }
@@ -2103,8 +2103,8 @@
                 },
                 "region": {
                   "startLine": 515,
-                  "offset": 18000,
-                  "length": 12
+                  "byteOffset": 18000,
+                  "byteLength": 12
                 }
               }
             }

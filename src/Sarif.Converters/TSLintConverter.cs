@@ -92,11 +92,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 EndLine = entry.EndPosition.Line + 1,
                 EndColumn = entry.EndPosition.Character + 1,
 
-                Offset = entry.StartPosition.Position
+                ByteOffset = entry.StartPosition.Position
             };
 
             int length = entry.EndPosition.Position - entry.StartPosition.Position + 1;
-            region.Length = length > 0 ? length : 0;
+            region.ByteLength = length > 0 ? length : 0;
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
@@ -121,8 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     replacement.DeletedRegion = new Region
                     {
-                        Length = fix.InnerLength,
-                        Offset = fix.InnerStart
+                        ByteLength = fix.InnerLength,
+                        ByteOffset = fix.InnerStart
                     };
 
                     if (!string.IsNullOrEmpty(fix.InnerText))

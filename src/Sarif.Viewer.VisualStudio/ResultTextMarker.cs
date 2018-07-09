@@ -108,7 +108,7 @@ namespace Microsoft.Sarif.Viewer
         {
             Region sourceLocation = new Region()
             {
-                Offset = m_region.Offset,
+                ByteOffset = m_region.ByteOffset,
                 StartColumn = m_region.StartColumn,
                 EndColumn = m_region.EndColumn,
                 StartLine = m_region.StartLine,

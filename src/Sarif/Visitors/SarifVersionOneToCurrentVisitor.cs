@@ -3,7 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
@@ -16,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun = null;
+        private RunVersionOne _currentV1Run = null;
         private int _codeFlowLocationNestingLevel;
         private int _codeFlowLocationStepAdjustment = 0;
 
@@ -167,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
                     {
-                        fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
+                        fileData.Contents.Text = SarifUtilities.DecodeBase64String(v1FileData.Contents);
                     }
                     else
                     {
@@ -570,8 +574,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 replacement.DeletedRegion = new Region
                 {
-                    Length = v1Replacement.DeletedLength,
-                    Offset = v1Replacement.Offset
+                    ByteLength = v1Replacement.DeletedLength,
+                    ByteOffset = v1Replacement.Offset
                 };
             }
 
@@ -630,25 +634,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocation
                 {
                     FileLocation = CreateFileLocation(v1PhysicalLocation),
-                    Region = CreateRegion(v1PhysicalLocation.Region)
+                    Region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal Region CreateRegion(RegionVersionOne v1Region)
+        internal Region CreateRegion(RegionVersionOne v1Region, Uri uri)
         {
             Region region = null;
 
             if (v1Region != null)
             {
-                region = CreateRegion(v1Region.StartColumn,
-                                      v1Region.StartLine,
-                                      v1Region.EndColumn,
-                                      v1Region.EndLine,
-                                      v1Region.Length,
-                                      v1Region.Offset);
+                region = new Region
+                {
+                    ByteLength = v1Region.Length,
+                    ByteOffset = v1Region.Offset,
+                    EndColumn = v1Region.EndColumn,
+                    EndLine = v1Region.EndLine,
+                    StartColumn = v1Region.StartColumn,
+                    StartLine = v1Region.StartLine
+                };
+
+                bool startIsTextBased = v1Region.StartLine > 0;
+                bool endIsTextBased = v1Region.EndLine > 0 || v1Region.EndColumn > 0;
+
+                if (startIsTextBased && endIsTextBased && v1Region.EndColumn == 0)
+                {
+                    region.EndColumn = v1Region.StartColumn;
+                }
             }
 
             return region;
@@ -663,7 +678,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
-                region = CreateRegion(v1PhysicalLocation.Region);
+                region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri);
                 region.Message = CreateMessage(message);
             }
 
@@ -678,10 +693,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 region = new Region
                 {
-                    EndColumn = endColumn,
+                    ByteLength = length,
+                    ByteOffset = offset,
+                    EndColumn = endColumn > 0 ? endColumn : startColumn,
                     EndLine = endLine,
-                    Length = length,
-                    Offset = offset,
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
@@ -856,6 +871,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
+                    _currentV1Run = v1Run;
+
                     run = new Run()
                     {
                         Architecture = v1Run.Architecture,

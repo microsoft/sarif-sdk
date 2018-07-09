@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                 string filePath = uri.LocalPath;
                 bool encodeAsUtf8 = (fileData.MimeType != SarifWriters.MimeType.Binary);
 
-                if (loggingOptions.Includes(Writers.LoggingOptions.PersistFileContents))
+                if (loggingOptions.Includes(Writers.LoggingOptions.PersistTextFileContents))
                 {
                     fileData.Contents = EncodeFileContents(fileSystem, filePath, mimeType, encoding);
                 }

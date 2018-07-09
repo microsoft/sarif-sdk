@@ -16,7 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             if (analyzeOptions.PrettyPrint) { loggingOptions |= LoggingOptions.PrettyPrint; }
             if (analyzeOptions.LogEnvironment) { loggingOptions |= LoggingOptions.PersistEnvironment; }
             if (analyzeOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
-            if (analyzeOptions.PersistFileContents) { loggingOptions |= LoggingOptions.PersistFileContents; }
+            if (analyzeOptions.PersistBinaryContents) { loggingOptions |= LoggingOptions.PersistBinaryContents; }
+            if (analyzeOptions.PersistTextFileContents) { loggingOptions |= LoggingOptions.PersistTextFileContents; }
 
             return loggingOptions;
         }

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
@@ -24,16 +25,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return MimeType.Directory;
             }
 
-            foreach (ImmutableArray<string> tableEntry in s_extensionTable)
+            foreach (ImmutableArray<ImmutableArray<string>> extensionsTable in GetExtensionsTables())
             {
-                // Each entry in the table is of the form [ mimeType, ext1, ext2, ... extN ]
-                for (int idx = 1; idx < tableEntry.Length; ++idx)
+                foreach (ImmutableArray<string> tableEntry in extensionsTable)
                 {
-                    if (HasExtension(path, tableEntry[idx]))
+                    // Each entry in the table is of the form [ mimeType, ext1, ext2, ... extN ]
+                    for (int idx = 1; idx < tableEntry.Length; ++idx)
                     {
-                        return tableEntry[0];
+                        if (HasExtension(path, tableEntry[idx]))
+                        {
+                            return tableEntry[0];
+                        }
                     }
-
                 }
             }
             return MimeType.Binary;
@@ -58,6 +61,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return DetermineFromFileExtension(fileName);
+        }
+
+        public static bool IsTextualMimeType(string mimeType)
+        {
+            s_textualMimeTypes = s_textualMimeTypes ?? InitializeMimeTypesSet(s_textualExtensionsTable);
+
+            // In order for a mime type to be regarded as textual, we require an explicit 
+            // reference to it in this set. All unrecognized mime types are regarded as 
+            // binary, in order to provoke the most conservative SDK behaviors around 
+            // retrieving code snippets, etc.
+            return s_textualMimeTypes.Contains(mimeType);
+        }
+
+        public static bool IsBinaryMimeType(string mimeType)
+        {
+            s_textualMimeTypes = s_textualMimeTypes ?? InitializeMimeTypesSet(s_textualExtensionsTable);
+
+            // In order for a mime type to be regarded as textual, we require an explicit 
+            // reference to it in this set. All unrecognized mime types are regarded as 
+            // binary, in order to provoke the most conservative SDK behaviors around 
+            // retrieving code snippets, etc.
+            return !s_textualMimeTypes.Contains(mimeType);
         }
 
         /// <summary>The MIME type to use when no better MIME type is known.</summary>
@@ -97,8 +122,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return fileName.EndsWith(extension, StringComparison.OrdinalIgnoreCase);
         }
 
+        private static IEnumerable<ImmutableArray<ImmutableArray<string>>> GetExtensionsTables()
+        {
+            yield return s_textualExtensionsTable;
+            yield return s_binaryExtensionsTable;
+        }
 
-        private static readonly ImmutableArray<ImmutableArray<string>> s_extensionTable = ImmutableArray.Create(
+        private static ImmutableHashSet<string> InitializeMimeTypesSet(ImmutableArray<ImmutableArray<string>> extensionsTable)
+        {
+            var builder = ImmutableHashSet.CreateBuilder<string>();
+            foreach (ImmutableArray<string> tableEntry in extensionsTable)
+            {
+                builder.Add(tableEntry[0]);
+            }
+            return builder.ToImmutableHashSet<string>();
+        }
+
+        private static ImmutableHashSet<string> s_textualMimeTypes;
+
+        private static readonly ImmutableArray<ImmutableArray<string>> s_textualExtensionsTable = ImmutableArray.Create(
             ImmutableArray.Create("text/x-bat", "bat", "cmd"),
             ImmutableArray.Create(MimeType.Cpp, "c", "cpp", "h", "hpp", "cxx", /*SDV rule file*/ "slic"),
             ImmutableArray.Create(MimeType.CSharp, "cs"),
@@ -109,7 +151,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/html", "htm", "html"),
             ImmutableArray.Create("text/x-ini", "ini", "gitconfig", "yml"),
             ImmutableArray.Create("text/x-jade", "jade"),
-            ImmutableArray.Create(MimeType.Java, "java", "jav"),
             ImmutableArray.Create(MimeType.JavaProperties, "properties"),
             ImmutableArray.Create("text/javascript", "js"),
             ImmutableArray.Create("application/json", "json"),
@@ -127,15 +168,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/x-sql", "sql", "tsql"),
             ImmutableArray.Create("text/typescript", "ts"),
             ImmutableArray.Create("text/x-vb", "vb"),
-            ImmutableArray.Create("text/xml", "xml", "ascx", "aspx", "csproj", "xaml", "dtd", "xsd", "vcxproj", "vbproj", "wixproj", "jsproj", "proj", "targets", "props", "config"),
-            ImmutableArray.Create("application/zip", "zip"),
-            ImmutableArray.Create("application/vns.ms-appx", "appx"),
-            ImmutableArray.Create("application/vnd.ms-word.document", "docx"),
-            ImmutableArray.Create("application/vnd.ms-word.template", "dotx"),
-            ImmutableArray.Create("application/vnd.ms-excel", "xlsx"),
-            ImmutableArray.Create("application/vnd.ms-powerpoint", "pptx"),
-            ImmutableArray.Create("application/vnd.ms-cab-compressed", "cab"),
-            ImmutableArray.Create("application/vnd.ms-xpsdocument", "xps")
+            ImmutableArray.Create("text/xml", "xml", "ascx", "aspx", "csproj", "xaml", "dtd", "xsd", "vcxproj", "vbproj", "wixproj", "jsproj", "proj", "targets", "props", "config")
             );
+
+        private static readonly ImmutableArray<ImmutableArray<string>> s_binaryExtensionsTable = ImmutableArray.Create(
+             ImmutableArray.Create(MimeType.Java, "java", "jav"),
+             ImmutableArray.Create("application/java-archive", "jar"),             
+             ImmutableArray.Create("application/zip", "zip"),
+             ImmutableArray.Create("application/vns.ms-appx", "appx"),
+             ImmutableArray.Create("application/vnd.ms-word.document", "docx"),
+             ImmutableArray.Create("application/vnd.ms-word.template", "dotx"),
+             ImmutableArray.Create("application/vnd.ms-excel", "xlsx"),
+             ImmutableArray.Create("application/vnd.ms-powerpoint", "pptx"),
+             ImmutableArray.Create("application/vnd.ms-cab-compressed", "cab"),
+             ImmutableArray.Create("application/vnd.ms-xpsdocument", "xps")
+             );
     }
 }
