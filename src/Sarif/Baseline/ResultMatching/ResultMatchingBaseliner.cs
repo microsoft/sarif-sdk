@@ -14,6 +14,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     /// </summary>
     class ResultMatchingBaseliner : IResultMatchingBaseliner
     {
+        public const string ResultMatchingResultPropertyName = "ResultMatching";
+
+
         public ResultMatchingBaseliner(IEnumerable<IResultMatcher> exactResultMatchers,
             IEnumerable<IResultMatcher> heuristicMatchers)
         {
