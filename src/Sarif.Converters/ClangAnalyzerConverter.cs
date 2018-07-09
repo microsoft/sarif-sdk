@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="input">CLang log file stream.</param>
         /// <param name="output">Result log writer.</param>
         /// <param name="loggingOptions">Logging options that configure output.</param>
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             // ToDo remove this comment after all issues are resolved.
             // Rodney is tasked with bringing Clang analyzer results into the SARIF fold.
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Name = "Clang"
                 };
 
-                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
                 Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
 

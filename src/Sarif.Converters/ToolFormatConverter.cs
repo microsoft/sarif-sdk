@@ -37,7 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             string inputFileName,
             string outputFileName,
-            LoggingOptions loggingOptions = LoggingOptions.None,
+            LoggingOptions logginOptions = LoggingOptions.None,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
@@ -48,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }
 
-            if (!loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
+            if (!logginOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
             {
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
@@ -60,14 +61,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {
-                if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
+                if (logginOptions.Includes(LoggingOptions.PrettyPrint))
                 {
                     outputJson.Formatting = Formatting.Indented;
                 }
 
                 using (var output = new ResultLogJsonWriter(outputJson))
                 {
-                    ConvertToStandardFormat(toolFormat, input, output, loggingOptions, pluginAssemblyPath);
+                    ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
                 }
             }
         }
@@ -85,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream,
-            LoggingOptions loggingOptions = LoggingOptions.None,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
@@ -96,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
-                converter.Convert(inputStream, outputStream, loggingOptions);
+                converter.Convert(inputStream, outputStream, dataToInsert);
             }
             else
             {

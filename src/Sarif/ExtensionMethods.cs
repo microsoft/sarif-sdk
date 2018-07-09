@@ -14,6 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static bool Includes(this OptionallyEmittedData optionallyEmittedData, OptionallyEmittedData otherOptionallyEmittedData)
+        {
+            return (optionallyEmittedData & otherOptionallyEmittedData) == otherOptionallyEmittedData;
+        }
+
         public static bool Includes(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
         {
             return (loggingOptions & otherLoggingOptions) == otherLoggingOptions;

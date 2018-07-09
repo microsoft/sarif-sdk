@@ -14,21 +14,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void ClangAnalyzerConverter_Convert_NullInput()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void ClangAnalyzerConverter_Convert_NullOutput()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void ClangAnalyzerConverter_Convert_NullLogTest()
         {
             ClangAnalyzerConverter converter = new ClangAnalyzerConverter();
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None));
         }
 
         private const string empty = @"{

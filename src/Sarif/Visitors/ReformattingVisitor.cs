@@ -8,20 +8,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class ReformattingVisitor : SarifRewritingVisitor
     {
-        private LoggingOptions _loggingOptions;
+        private OptionallyEmittedData _dataToInsert;
         
-        public ReformattingVisitor(LoggingOptions loggingOptions)
+        public ReformattingVisitor(OptionallyEmittedData dataToInsert)
         {
-            _loggingOptions = loggingOptions;
+            _dataToInsert = dataToInsert;
         }
 
         public override Run VisitRun(Run node)
         {
             if (node != null)
             {
-                bool scrapeFileReferences = _loggingOptions.Includes(LoggingOptions.ComputeFileHashes)     ||
-                                            _loggingOptions.Includes(LoggingOptions.PersistBinaryContents) ||
-                                            _loggingOptions.Includes(LoggingOptions.PersistTextFileContents);
+                bool scrapeFileReferences = _dataToInsert.Includes(OptionallyEmittedData.Hashes)      ||
+                                            _dataToInsert.Includes(OptionallyEmittedData.TextFiles)   ||
+                                            _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
                 if (scrapeFileReferences)
                 {
@@ -57,15 +57,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             bool workToDo = false;
 
-            workToDo |= node.Hashes == null   && _loggingOptions.Includes(LoggingOptions.ComputeFileHashes);
-            workToDo |= node.Contents == null && _loggingOptions.Includes(LoggingOptions.PersistBinaryContents);
-            workToDo |= node.Contents == null && _loggingOptions.Includes(LoggingOptions.PersistTextFileContents);
+            workToDo |= node.Hashes == null   && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
+            workToDo |= node.Contents == null && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= node.Contents == null && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
                 // TODO: we should convert node.Encoding to a .NET equivalent and pass it here
                 // https://github.com/Microsoft/sarif-sdk/issues/934
-                node = FileData.Create(uri, _loggingOptions, node.MimeType, encoding: null);
+                node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: null);
             }
 
             return base.VisitFileData(node);

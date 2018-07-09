@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static FileData Create(
             Uri uri, 
-            SarifWriters.LoggingOptions loggingOptions, 
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None, 
             string mimeType = null, 
             Encoding encoding = null,
             IFileSystem fileSystem = null)
@@ -47,19 +47,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if (loggingOptions.Includes(LoggingOptions.PersistBinaryContents) &&
+                if (dataToInsert.Includes(OptionallyEmittedData.BinaryFiles) &&
                     SarifWriters.MimeType.IsBinaryMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (loggingOptions.Includes(LoggingOptions.PersistTextFileContents) &&
+                if (dataToInsert.Includes(OptionallyEmittedData.TextFiles) &&
                     SarifWriters.MimeType.IsTextualMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (loggingOptions.Includes(Writers.LoggingOptions.ComputeFileHashes))
+                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
                     fileData.Hashes = new List<Hash>

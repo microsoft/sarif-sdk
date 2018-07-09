@@ -26,19 +26,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void AndroidStudioConverter_Convert_Nulls()
         {
-            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void AndroidStudioConverter_Convert_NullInput()
         {
-            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, new ResultLogObjectWriter(), LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None));
         }
 
         [Fact]
         public void AndroidStudioConverter_Convert_NullOutput()
         {
-            Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
         private const string EmptyResult = @"{
