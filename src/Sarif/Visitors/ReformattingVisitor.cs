@@ -19,8 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (node != null)
             {
-                bool scrapeFileReferences = _loggingOptions.Includes(LoggingOptions.ComputeFileHashes) ||
-                                            _loggingOptions.Includes(LoggingOptions.PersistFileContents);
+                bool scrapeFileReferences = _loggingOptions.Includes(LoggingOptions.ComputeFileHashes)     ||
+                                            _loggingOptions.Includes(LoggingOptions.PersistBinaryContents) ||
+                                            _loggingOptions.Includes(LoggingOptions.PersistTextFileContents);
 
                 if (scrapeFileReferences)
                 {
@@ -56,12 +57,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             bool workToDo = false;
 
-            workToDo |= node.Hashes == null && _loggingOptions.Includes(LoggingOptions.ComputeFileHashes);
-            workToDo |= node.Contents == null && _loggingOptions.Includes(LoggingOptions.PersistFileContents);
+            workToDo |= node.Hashes == null   && _loggingOptions.Includes(LoggingOptions.ComputeFileHashes);
+            workToDo |= node.Contents == null && _loggingOptions.Includes(LoggingOptions.PersistBinaryContents);
+            workToDo |= node.Contents == null && _loggingOptions.Includes(LoggingOptions.PersistTextFileContents);
 
             if (workToDo)
             {
-                node = FileData.Create(uri, _loggingOptions, node.MimeType);
+                // TODO: we should convert node.Encoding to a .NET equivalent and pass it here
+                // https://github.com/Microsoft/sarif-sdk/issues/934
+                node = FileData.Create(uri, _loggingOptions, node.MimeType, encoding: null);
             }
 
             return base.VisitFileData(node);

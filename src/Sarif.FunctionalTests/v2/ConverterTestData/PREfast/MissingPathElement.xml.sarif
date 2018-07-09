@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_indexalias.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "Ly8gVHJhY2sgImludGVyZXN0aW5nIiB2YXJpYWJsZXMgYW5kIGRldGVjdCB3aGVuIHRoZXkgYXJlIGFsaWFzZWQuDQoNCnZvaWQgQzYzODVfSW5kZXhBbGlhcyhpbnQgaW5wdXRJbmRleCkNCnsNCglpbnQgKiBjb250ZW50U3RvcmVzID0gbmV3IGludCBbMl07DQoNCgljb250ZW50U3RvcmVzWzBdID0gMDsNCg0KCWNvbnRlbnRTdG9yZXNbMV0gPSAxOw0KDQoJd2hpbGUgKGlucHV0SW5kZXggPiAxKQ0KCXsNCgkJaW50IGluZGV4ID0gaW5wdXRJbmRleDsNCg0KCQljb250ZW50U3RvcmVzWzBdID0gY29udGVudFN0b3Jlc1tpbmRleF07DQoJfQ0KDQoJZGVsZXRlIFtdIGNvbnRlbnRTdG9yZXM7DQp9DQo="
+          },
+          "hashes": [
+            {
+              "value": "4B20EA20C0F04EF7473C090B9D234C1C",
+              "algorithm": "md5"
+            },
+            {
+              "value": "6727693E48A1C8ED14251D17BC8A16D162DF879C",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "B4B0A1F7894E935F34F0DE81407DF9676C4A894FBCB0AD2BF635BB09F430B5C4",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {

@@ -13,7 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             LoggingOptions loggingOptions = LoggingOptions.None;
 
             if (multitoolOptions.ComputeFileHashes) { loggingOptions |= LoggingOptions.ComputeFileHashes; }
-            if (multitoolOptions.PersistFileContents) { loggingOptions |= LoggingOptions.PersistFileContents; }
+            if (multitoolOptions.PersistBinaryContents) { loggingOptions |= LoggingOptions.PersistBinaryContents; }
+            if (multitoolOptions.PersistTextFileContents) { loggingOptions |= LoggingOptions.PersistTextFileContents; }
 
             return loggingOptions;
         }

@@ -634,21 +634,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocation
                 {
                     FileLocation = CreateFileLocation(v1PhysicalLocation),
-                    Region = CreateRegion(v1PhysicalLocation)
+                    Region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal Region CreateRegion(PhysicalLocationVersionOne v1PhysicalLocation)
+        internal Region CreateRegion(RegionVersionOne v1Region, Uri uri)
         {
             Region region = null;
 
-            if (v1PhysicalLocation?.Region != null)
+            if (v1Region != null)
             {
-                RegionVersionOne v1Region = v1PhysicalLocation.Region;
-
                 region = new Region
                 {
                     ByteLength = v1Region.Length,
@@ -666,14 +664,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     region.EndColumn = v1Region.StartColumn;
                 }
-                else if (startIsTextBased)
-                {
-                    region.CharLength = GetRegionCharLength(v1Region, v1PhysicalLocation.Uri);
-                }
-                else if (endIsTextBased)
-                {
-                    region.CharOffset = GetRegionCharOffset(v1Region, v1PhysicalLocation.Uri);
-                }
             }
 
             return region;
@@ -688,7 +678,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
-                region = CreateRegion(v1PhysicalLocation);
+                region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri);
                 region.Message = CreateMessage(message);
             }
 
@@ -713,159 +703,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return region;
-        }
-
-        private int GetRegionCharLength(RegionVersionOne v1Region, Uri uri)
-        {
-            int charLength = 0;
-            Encoding encoding;
-            
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
-            {
-                if (reader != null)
-                {
-                    // Read each line up to the startLine and copy them into a StringBuilder
-                    StringBuilder sb = new StringBuilder();
-                    string sourceLine = null;
-                    for (int i = 1; i < v1Region.StartLine; sourceLine = reader.ReadLine(), i++)
-                    {
-                        if (sourceLine != null)
-                        {
-                            sb.AppendLine(sourceLine);
-                        }
-                    }
-
-                    if (sourceLine != null)
-                    {
-                        // Read the startLine and append up to the startColumn
-                        sourceLine = reader.ReadLine();
-
-                        if (sourceLine != null && sourceLine.Length < v1Region.StartColumn)
-                        {
-                            sb.Append(sourceLine.Substring(0, v1Region.StartColumn));
-
-                            // Calculate the byte size of the content and close the reader
-                            int byteOffset = SarifUtilities.GetByteLength(sb.ToString(), encoding);
-                            reader.Close();
-
-                            // Get the stream so we can do byte operations
-                            Stream stream = reader.BaseStream;
-
-                            // Seek to the start of the region
-                            stream.Seek(byteOffset, SeekOrigin.Begin);
-
-                            // Read the region's bytes
-                            byte[] bytes = new byte[v1Region.Length];
-                            stream.Read(bytes, 0, bytes.Length);
-
-                            // Calculate the character length of the region
-                            string s = encoding.GetString(bytes);
-                            charLength = s.Length;
-                        }
-                    }
-                }
-            }
-
-            return charLength;
-        }
-
-        private int GetRegionCharOffset(RegionVersionOne v1Region, Uri uri)
-        {
-            int charOffset = 0;
-            Encoding encoding;
-
-            // Get a reader so the encoding might be detected by the StreamReader ctor
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
-            {
-                if (reader != null)
-                {
-                    // Close the reader
-                    reader.Close();
-
-                    // Get the stream so we can do byte operations
-                    Stream stream = reader.BaseStream;
-
-                    // Read the bytes up to the region offset
-                    byte[] bytes = new byte[v1Region.Offset];
-                    stream.Read(bytes, 0, bytes.Length);
-
-                    // Calculate the character length of the offset
-                    string s = encoding.GetString(bytes);
-                    charOffset = s.Length;
-                }
-            }
-
-            return charOffset;
-        }
-
-        private Stream GetContentStream(Uri uri)
-        {
-            Stream stream = null;
-            string failureReason = null;
-
-            if (uri != null && _currentV1Run.Files != null)
-            {
-                FileDataVersionOne fileData;
-                if (_currentV1Run.Files.TryGetValue(uri.OriginalString, out fileData))
-                {
-                    if (fileData.Contents != null && Utilities.TextMimeTypes.Contains(fileData.MimeType))
-                    {
-                        // Embedded text content
-                        stream = new MemoryStream(Convert.FromBase64String(fileData.Contents));
-                    }
-                    else if (uri.IsAbsoluteUri &&
-                             uri.Scheme == Uri.UriSchemeFile &&
-                             File.Exists(uri.LocalPath))
-                    {
-                        try
-                        {
-                            // External source file
-                            stream = new FileStream(uri.LocalPath, FileMode.Open);
-                        }
-                        catch (FileNotFoundException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
-                        }
-                        catch (IOException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
-                        }
-                        catch (SecurityException ex)
-                        {
-                            failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
-                        }
-                    }
-                   
-                }
-            }
-
-            if (stream == null && failureReason == null)
-            {
-                failureReason = $"File '{uri.LocalPath}' could not be opened";
-            }
-
-            if (failureReason != null)
-            {
-                // If we get here, we were unable to determine region character offset, so we have to warn the caller
-                // TODO: add a warning to the list
-            }
-
-            return stream;
-        }
-
-        private StreamReader GetFileStreamReader(Uri uri, out Encoding encoding)
-        {
-            StreamReader reader = null;
-            encoding = null;
-
-            Stream contentStream = GetContentStream(uri);
-            if (contentStream != null)
-            {
-                reader = new StreamReader(contentStream);
-                encoding = reader.CurrentEncoding;
-            }
-
-            return reader;
         }
 
         internal Result CreateResult(ResultVersionOne v1Result)
