@@ -174,9 +174,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool OverwriteExistingOutputFile { get { return _loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile); } }
 
-        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
+        public bool PersistBinaryContents { get { return _loggingOptions.Includes(LoggingOptions.PersistBinaryContents); } }
 
-        public bool PersistFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistFileContents); } }
+        public bool PersistTextFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistTextFileContents); } }
+
+        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
 
         public bool PrettyPrint { get { return _loggingOptions.Includes(LoggingOptions.PrettyPrint); } }
 

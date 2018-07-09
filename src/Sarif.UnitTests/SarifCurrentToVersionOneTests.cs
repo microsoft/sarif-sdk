@@ -968,8 +968,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 20,
                   ""startColumn"": 69,
                   ""endColumn"": 74,
-                  ""offset"": 720,
-                  ""length"": 5,
+                  ""byteOffset"": 720,
+                  ""byteLength"": 5,
                   ""snippet"": {
                     ""text"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
                   }
@@ -1000,8 +1000,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1016,8 +1016,8 @@ namespace Microsoft.CodeAnalysis.Sarif
               },
               ""annotations"": [
                 {
-                  ""offset"": 1345,
-                  ""length"": 22,
+                  ""byteOffset"": 1345,
+                  ""byteLength"": 22,
                   ""message"": {
                     ""text"": ""Foxes, quick and brown""
                   }
@@ -1031,8 +1031,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 56,
                   ""startColumn"": 8,
                   ""endColumn"": 78,
-                  ""offset"": 1124,
-                  ""length"": 22,
+                  ""byteOffset"": 1124,
+                  ""byteLength"": 22,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test3\""></DIV>""
                   }
@@ -1158,7 +1158,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""message"": ""Foxes, quick and brown"",
                   ""locations"": [
                     {
-                      ""region"": {}
+                      ""region"": {
+                        ""offset"": 1345,
+                        ""length"": 22
+                      }
                     }
                   ]
                 }
@@ -1184,7 +1187,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""decoratedName"":""?add@list@collections@@QAEXH@Z"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""kind"":""namespace""}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""snippet"":{""text"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""}}}}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}},""fullyQualifiedLogicalName"":""collections::list::add""}],""relatedLocations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":56,""startColumn"":8,""endColumn"":78,""snippet"":{""text"":""<DIV id=\""test3\""></DIV>""}}},""message"":{""text"":""Second location with this violation""},""annotations"":[{""message"":{""text"":""Foxes, quick and brown""}}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""decoratedName"":""?add@list@collections@@QAEXH@Z"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""kind"":""namespace""}},""results"":[{""ruleId"":""WEB1079"",""message"":{""arguments"":[""shape""]},""ruleMessageId"":""default"",""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":20,""startColumn"":69,""endColumn"":74,""byteOffset"":720,""byteLength"":5,""snippet"":{""text"":""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""}}}}]},{""ruleId"":""WEB1066"",""message"":{""arguments"":[""DIV""]},""ruleMessageId"":""default"",""analysisTarget"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":24,""startColumn"":4,""endColumn"":38,""byteOffset"":803,""byteLength"":34,""snippet"":{""text"":""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""}}},""fullyQualifiedLogicalName"":""collections::list::add""}],""relatedLocations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""http://localhost:34420/HtmlFixes.html""},""region"":{""startLine"":56,""startColumn"":8,""endColumn"":78,""byteOffset"":1124,""byteLength"":22,""snippet"":{""text"":""<DIV id=\""test3\""></DIV>""}}},""message"":{""text"":""Second location with this violation""},""annotations"":[{""byteOffset"":1345,""byteLength"":22,""message"":{""text"":""Foxes, quick and brown""}}]}]}],""resources"":{""rules"":{""WEB1079.AttributeValueIsNotQuoted"":{""id"":""WEB1079"",""shortDescription"":{""text"":""The attribute value is not quoted.""},""messageStrings"":{""default"":""The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes.""}},""WEB1066.TagNameIsNotLowercase"":{""id"":""WEB1066"",""shortDescription"":{""text"":""The tag name is not lowercase.""},""messageStrings"":{""default"":""Convert the name of the <{0}> tag to lowercase.""}}}}}
       }
     }
   ]
@@ -1703,7 +1706,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""id"": ""RegionTest1"",
               ""message"": {
-                ""text"": ""From charOffset to end""
+                ""text"": ""Ambiguous region end with no start values""
               },
               ""physicalLocation"": {
                 ""fileLocation"": {
@@ -1724,8 +1727,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///src/base/driver.cs""
                 },
                 ""region"": {
-                  ""startColumn"": 4,
                   ""startLine"": 2,
+                  ""startColumn"": 4,
                   ""charOffset"": 9
                 }
               }
@@ -1740,8 +1743,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///src/base/driver.cs""
                 },
                 ""region"": {
-                  ""startColumn"": 1,
                   ""startLine"": 2,
+                  ""startColumn"": 1,
                   ""charOffset"": 6
                 }
               }
@@ -1756,8 +1759,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///src/base/driver.cs""
                 },
                 ""region"": {
-                  ""startColumn"": 2,
-                  ""startLine"": 1
+                  ""startLine"": 1,
+                  ""startColumn"": 2
                 }
               }
             },
@@ -1785,11 +1788,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""uri"": ""file:///src/ui/client.cs""
                 },
                 ""region"": {
-                  ""endLine"": 3,
                   ""startLine"": 2,
+                  ""endLine"": 3,
                   ""message"": {
                     ""text"": ""This region includes all of line 2, excluding the trailing newline sequence""
                   }
+                }
+              }
+            },
+            {
+              ""id"": ""RegionTest7"",
+              ""message"": {
+                ""text"": ""Unicode text property""
+              },
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///src/ui/unicodeText.cs""
+                },
+                ""region"": {
+                  ""charOffset"": 8,
+                  ""charLength"": 3
                 }
               }
             }
@@ -1811,6 +1829,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""uri"": ""file:///src/ui/client.cs""
           },
           ""mimeType"": ""text/x-csharp"",
+          ""contents"": {
+            ""text"": ""The quick brown fox\r\njumps over the laazy dog""
+          }
+        },
+        ""file:///src/ui/unicodeText.cs"": {
+          ""fileLocation"": {
+            ""uri"": ""file:///src/ui/unicodeText.cs""
+          },
+          ""mimeType"": ""text/x-csharp"",
+          ""encoding"": ""unicode"",
           ""contents"": {
             ""text"": ""The quick brown fox\r\njumps over the laazy dog""
           }
@@ -1841,6 +1869,11 @@ namespace Microsoft.CodeAnalysis.Sarif
           ""uri"": ""file:///src/ui/client.cs"",
           ""mimeType"": ""text/x-csharp"",
           ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveA0KanVtcHMgb3ZlciB0aGUgbGFhenkgZG9n""
+        },
+        ""file:///src/ui/unicodeText.cs"": {
+          ""uri"": ""file:///src/ui/unicodeText.cs"",
+          ""mimeType"": ""text/x-csharp"",
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveA0KanVtcHMgb3ZlciB0aGUgbGFhenkgZG9n""
         }
       },
       ""results"": [],
@@ -1853,7 +1886,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""offset"": 16
             }
           },
-          ""message"": ""From charOffset to end""
+          ""message"": ""Ambiguous region end with no start values""
         },
         {
           ""id"": ""RegionTest2"",
@@ -1906,15 +1939,25 @@ namespace Microsoft.CodeAnalysis.Sarif
             ""region"": {
               ""startLine"": 2,
               ""startColumn"": 1,
-              ""endLine"": 3,
-              ""endColumn"": 24
+              ""endLine"": 3
             }
           },
           ""message"": ""One whole line""
+        },
+        {
+          ""id"": ""RegionTest7"",
+          ""physicalLocation"": {
+            ""uri"": ""file:///src/ui/unicodeText.cs"",
+            ""region"": {
+              ""offset"": 16,
+              ""length"": 6
+            }
+          },
+          ""message"": ""Unicode text property""
         }
       ],
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""RegionTest1"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""charOffset"":8}},""message"":{""text"":""From charOffset to end""}},{""id"":""RegionTest2"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":4,""charOffset"":9}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest3"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":1,""charOffset"":6}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest4"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":1,""startColumn"":2}},""message"":{""text"":""startLine and startColumn only""}},{""id"":""RegionTest5"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2}},""message"":{""text"":""startLine only""}},{""id"":""RegionTest6"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2,""endLine"":3,""message"":{""text"":""This region includes all of line 2, excluding the trailing newline sequence""}}},""message"":{""text"":""One whole line""}}]}],""files"":{""file:///src/base/driver.cs"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""contents"":{""binary"":""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""},""encoding"":""unicode""},""file:///src/ui/client.cs"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""}}},""results"":[]}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""toolNotifications"":[{""id"":""RegionTest1"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""charOffset"":8}},""message"":{""text"":""Ambiguous region end with no start values""}},{""id"":""RegionTest2"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":4,""charOffset"":9}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest3"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":2,""startColumn"":1,""charOffset"":6}},""message"":{""text"":""startColumn/Line same as charOffset""}},{""id"":""RegionTest4"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""region"":{""startLine"":1,""startColumn"":2}},""message"":{""text"":""startLine and startColumn only""}},{""id"":""RegionTest5"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2}},""message"":{""text"":""startLine only""}},{""id"":""RegionTest6"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""region"":{""startLine"":2,""endLine"":3,""message"":{""text"":""This region includes all of line 2, excluding the trailing newline sequence""}}},""message"":{""text"":""One whole line""}},{""id"":""RegionTest7"",""physicalLocation"":{""fileLocation"":{""uri"":""file:///src/ui/unicodeText.cs""},""region"":{""charOffset"":8,""charLength"":3}},""message"":{""text"":""Unicode text property""}}]}],""files"":{""file:///src/base/driver.cs"":{""fileLocation"":{""uri"":""file:///src/base/driver.cs""},""contents"":{""binary"":""YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA==""},""encoding"":""unicode""},""file:///src/ui/client.cs"":{""fileLocation"":{""uri"":""file:///src/ui/client.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""}},""file:///src/ui/unicodeText.cs"":{""fileLocation"":{""uri"":""file:///src/ui/unicodeText.cs""},""mimeType"":""text/x-csharp"",""contents"":{""text"":""The quick brown fox\r\njumps over the laazy dog""},""encoding"":""unicode""}},""results"":[]}
       }
     }
   ]

@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
                 };
 
-                if (convertOptions.PersistFileContents)
+                if (convertOptions.PersistTextFileContents)
                 {
-                    loggingOptions |= LoggingOptions.PersistFileContents;
+                    loggingOptions |= LoggingOptions.PersistTextFileContents;
                 }
 
                 if (string.IsNullOrEmpty(convertOptions.OutputFilePath))

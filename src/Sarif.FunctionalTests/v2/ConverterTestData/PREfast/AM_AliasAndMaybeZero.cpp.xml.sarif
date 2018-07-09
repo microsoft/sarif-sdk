@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "dm9pZCBNZXJnZUFsaWFzQW5kWmVybyAoKQ0Kew0KICAgIGludCAqIHNvdXJjZSA9IDA7DQoNCiAgICBpbnQgKiB5ID0gc291cmNlOw0KDQogICAgaW50IHJlc3VsdCA9ICp5Ow0KfQ0K"
+          },
+          "hashes": [
+            {
+              "value": "DE1501CE9EA9ED1CAAC5B3DFF2BE450F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "5F5C9BB0823412014E41A42169C360AA8D022B12",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "001CE18E8D320270A377511F5DFD0E177A9A08E0DC8E5AB7FF25C021CA981256",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
