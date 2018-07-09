@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="..\..\fcib\$(TargetFramework)\*.dll" />
+    <Reference Include="..\..\refs\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
   <Target Name="CopyTestData" AfterTargets="Build">
