@@ -12,5 +12,5 @@ set NewProjects=%NewProductProjects% %NewTestProjects%
 
 rem Projects built with the old project system.
 set OldProductProjects=Sarif.Viewer.VisualStudio
-set OldTestProjects=Sarif.Viewer.VisualStudio.UnitTests
+rem set OldTestProjects=Sarif.Viewer.VisualStudio.UnitTests
 set OldProjects=%OldProductProjects% %OldTestProjects%
