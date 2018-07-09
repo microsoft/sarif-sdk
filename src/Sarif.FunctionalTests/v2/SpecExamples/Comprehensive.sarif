@@ -194,8 +194,8 @@
                   "startColumn": 9,
                   "endLine": 15,
                   "endColumn": 10,
-                  "length": 1,
-                  "offset": 254
+                  "byteLength": 1,
+                  "byteOffset": 254
                 }
               },
               "fullyQualifiedLogicalName": "collections::list:add"
@@ -376,7 +376,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
-                        "offset": 109
+                        "byteOffset": 109
                       },
                       "insertedContent": {
                         "binary": "PSBudWxs"

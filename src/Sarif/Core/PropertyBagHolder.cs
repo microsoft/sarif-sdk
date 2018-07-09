@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -117,9 +118,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             else
             {
-                serializedValue = isString
-                    ? JsonConvert.ToString(value)
-                    : JsonConvert.SerializeObject(value);
+                if (isString)
+                {
+                    serializedValue = JsonConvert.ToString(value);
+                }
+                else
+                {
+                    // Use the appropriate serializer settings
+                    JsonSerializerSettings settings = null;
+
+                    if (propertyName.StartsWith("sarifv2/"))
+                    {
+                        settings = SarifTransformerUtilities.JsonSettingsV2Compact;
+                    }
+                    else if (propertyName.StartsWith("sarifv1/"))
+                    {
+                        settings = SarifTransformerUtilities.JsonSettingsV1Compact;
+                    }
+
+                    serializedValue = JsonConvert.SerializeObject(value, settings);
+                }
             }
              
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);

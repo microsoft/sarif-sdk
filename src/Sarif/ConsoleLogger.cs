@@ -186,10 +186,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region != null)
             {
                 // TODO 
-                if (region.Offset > 0 ||
+                if (region.CharOffset > 0 ||
+                    region.ByteOffset > 0 ||
                     region.StartColumn == 0)
                 {
-                    throw new NotImplementedException();
+                    return string.Empty;
                 }
 
                 if (region.StartLine == 0)

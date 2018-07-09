@@ -41,7 +41,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                 FileName = "file.ext",
                 Region = new Region
                 {
-                    Offset = 20
+                    ByteOffset = 20
                 }
             };
 
@@ -225,8 +225,8 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                     {
                                         DeletedRegion = new Region
                                         {
-                                            Length = 5,
-                                            Offset = 10
+                                            ByteLength = 5,
+                                            ByteOffset = 10
                                         }
                                     }
                                 }
