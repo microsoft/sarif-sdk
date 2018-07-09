@@ -9,7 +9,6 @@ using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.Sarif.Viewer.Sarif;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using XamlDoc = System.Windows.Documents;
@@ -263,8 +262,6 @@ namespace Microsoft.Sarif.Viewer
             }
             set
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 _selectedTab = value;
 
                 // If a new tab is selected, remove all the the markers for the
@@ -498,8 +495,6 @@ namespace Microsoft.Sarif.Viewer
 
         internal void AttachToDocument(string documentName, long docCookie, IVsWindowFrame pFrame)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
 
             foreach (CodeFlowLocationModel location in Locations)

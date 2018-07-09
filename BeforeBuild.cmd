@@ -31,7 +31,7 @@ for %%i in (%NewProjects%) do (
 rem Restore nuget packages for projects that don't use the VS 2017 project system.
 for %%i in (%OldProjects%) do (
     echo Restoring NuGet packages for %%i...
-    %ThisFileDir%.nuget\NuGet.exe restore src\%%i\%%i.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%" -Verbosity normal
+    %ThisFileDir%.nuget\NuGet.exe restore src\%%i\%%i.csproj -ConfigFile "%NuGetConfigFile%" -OutputDirectory "%NuGetPackageDir%" -Verbosity quiet
     if "%ERRORLEVEL%" NEQ "0" (
         echo NuGet restore failed for project %%i.
         goto ExitFailed

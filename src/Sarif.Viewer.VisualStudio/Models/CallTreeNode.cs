@@ -136,8 +136,6 @@ namespace Microsoft.Sarif.Viewer.Models
         /// <param name="e"></param>
         private void RegionSelected(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             // Select this item in the CallTree to bring the source and call tree in sync.
             if (CallTree != null && this.Visibility == Visibility.Visible)
             {

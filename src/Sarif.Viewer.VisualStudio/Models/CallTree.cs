@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
@@ -53,8 +52,6 @@ namespace Microsoft.Sarif.Viewer.Models
             }
             set
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (_selectedItem != value)
                 {
                     // Remove the existing highlighting.
@@ -295,8 +292,6 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (_selectPreviousCommand == null)
                 {
                     _selectPreviousCommand = new DelegateCommand<TreeView>(treeView =>
@@ -316,8 +311,6 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (_selectNextCommand == null)
                 {
                     _selectNextCommand = new DelegateCommand<TreeView>(treeView =>

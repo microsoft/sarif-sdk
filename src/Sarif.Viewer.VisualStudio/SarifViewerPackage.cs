@@ -76,8 +76,6 @@ namespace Microsoft.Sarif.Viewer
             where S : class
             where T : class
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 return (T)this.GetService(typeof(S));
@@ -97,8 +95,6 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         protected override void Initialize()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             OpenLogFileCommands.Initialize(this);
             base.Initialize();
 

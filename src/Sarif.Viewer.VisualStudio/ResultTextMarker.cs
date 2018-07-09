@@ -7,7 +7,6 @@ using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Tags;
 using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
@@ -64,8 +63,6 @@ namespace Microsoft.Sarif.Viewer
 
         internal IVsWindowFrame NavigateTo(bool usePreviewPane)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             // Fall back to the file and line number
 
             if (!File.Exists(this.FullFilePath))
@@ -227,8 +224,6 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         public void AttachToDocument(string documentName, long docCookie, IVsWindowFrame frame)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             // For these cases, this event has nothing to do with this item
             if (CanAttachToDocument(documentName, docCookie, frame))
             {
@@ -238,8 +233,6 @@ namespace Microsoft.Sarif.Viewer
 
         private IVsTextView GetTextViewFromFrame(IVsWindowFrame frame)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             // Get the document view from the window frame, then get the text view
             object docView;
             int hr = frame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView);
@@ -265,8 +258,6 @@ namespace Microsoft.Sarif.Viewer
         /// </summary>
         private void AttachToDocumentWorker(IVsWindowFrame frame, long docCookie)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             var sourceLocation = this.GetSourceLocation();
             int line = sourceLocation.StartLine;
 

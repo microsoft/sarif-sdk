@@ -11,7 +11,6 @@ using EnvDTE;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 using Microsoft.VisualStudio.Imaging.Interop;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
@@ -156,8 +155,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private void ErrorListInlineLink_Click(object sender, RoutedEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             Hyperlink hyperLink = sender as Hyperlink;
 
             if (hyperLink != null)
