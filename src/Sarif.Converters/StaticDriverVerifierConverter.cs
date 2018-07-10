@@ -30,8 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">Stream of a Static Driver Verifier log</param>
         /// <param name="output">SARIF json stream of the converted Static Driver Verifier log</param>
-        /// <param name="loggingOptions">Logging options that configure output.</param>
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             if (input == null)
             {
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "StaticDriverVerifier",
             };
 
-            var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(null, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             var run = new Run()

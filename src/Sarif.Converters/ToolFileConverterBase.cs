@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             LogicalLocationsDictionary = new Dictionary<string, LogicalLocation>();
         }
 
-        public abstract void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions);
+        public abstract void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert);
 
         // internal as well as protected it can be exercised by unit tests.
         protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }

@@ -25,8 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog combinedLog = allRuns.Merge();
 
                 // Reformat the SARIF log if we need to.
-                LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
-                SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
+                OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
+
+                SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(combinedLog);
 
                 // Write output to file.
                 string outputName = Path.Combine(mergeOptions.OutputFolderPath, GetOutputFileName(mergeOptions));

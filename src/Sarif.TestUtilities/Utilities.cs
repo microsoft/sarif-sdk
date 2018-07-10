@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     using (var outputWriter = new ResultLogJsonWriter(json))
                     {
-                        converter.Convert(input, outputWriter, LoggingOptions.None);
+                        converter.Convert(input, outputWriter, OptionallyEmittedData.None);
                     }
 
                     return output.ToString();
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var result = new ResultLogObjectWriter();
             using (var input = new MemoryStream(inputData))
             {
-                converter.Convert(input, result, LoggingOptions.None);
+                converter.Convert(input, result, OptionallyEmittedData.None);
             }
 
             return result;
