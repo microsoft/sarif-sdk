@@ -347,11 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         LoggingOptions loggingOptions;
                         loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
-                        OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
-                        if (analyzeOptions.DataToInsert != null)
-                        {
-                            Array.ForEach(analyzeOptions.DataToInsert, data => dataToInsert |= data);
-                        }
+                        OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
 
                         // This code is required in order to support the obsoleted ComputeFileHashes argument
                         // on the analyze command-line;
