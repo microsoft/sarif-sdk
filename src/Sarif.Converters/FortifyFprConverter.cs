@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream in Fortify FPR format.</param>
         /// <param name="output">Stream in SARIF format.</param>
-        /// <param name="dataToInsert">Logging options that configure output.</param>
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             if (input == null)

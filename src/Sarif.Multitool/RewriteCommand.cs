@@ -19,11 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 
                 SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
-                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
-                if (rewriteOptions.DataToInsert != null)
-                {
-                    Array.ForEach(rewriteOptions.DataToInsert, data => dataToInsert |= data);
-                }
+                OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
 
                 SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(actualLog);
                 

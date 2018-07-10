@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Hashes = 0x1,
 
         // File that are deemed to be textual via examination of their extension.
-        // Text files are useful to embed in SARIF log files to support investigating
+        // Text files are useful to embed in SARIF log files to support investigation
         // of individual results.
         TextFiles = 0x2,
 
@@ -34,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         // analysis result as well as a small amount of the code that surrounds it. A 
         // surrounding code snippet is useful to provide additional context on an issue as 
         // well as to serve as a partial fingerprint in result matching scenarios.
-        SurroundingCodeSnippets = 0x10,
+        ContextCodeSnippets = 0x10,
 
         // Some SARIF data, such as timestamps that denote the start and end of analysis,
-        // are not determinitic run-over-run. In order to support cahcing mechanisms of 
+        // are not determinitic run-over-run. In order to support caching mechanisms of 
         // modern build systems, it is helpful to be able to reliably remove this
         // non-deterministic data in some scenarios
         NondeterministicProperties = 0x20,

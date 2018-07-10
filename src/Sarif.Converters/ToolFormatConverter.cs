@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             string inputFileName,
             string outputFileName,
-            LoggingOptions logginOptions = LoggingOptions.None,
+            LoggingOptions loggingOptions = LoggingOptions.None,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }
 
-            if (!logginOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
+            if (!loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
             {
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {
-                if (logginOptions.Includes(LoggingOptions.PrettyPrint))
+                if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
                 {
                     outputJson.Formatting = Formatting.Indented;
                 }
