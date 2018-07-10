@@ -38,8 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Some SARIF data, such as timestamps that denote the start and end of analysis,
         // are not determinitic run-over-run. In order to support caching mechanisms of 
-        // modern build systems, it is helpful to be able to reliably remove this
-        // non-deterministic data in some scenarios
+        // modern build systems, it is sometimes helpful to be able to reliably remove this
+        // non-deterministic data.
         NondeterministicProperties = 0x20,
 
         // Environment variables can exfiltrate sensitive information from environments
