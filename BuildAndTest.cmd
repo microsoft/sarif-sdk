@@ -13,6 +13,7 @@ set NoClean=false
 set NoBuild=false
 set NoTest=false
 set NoPublish=false
+set BuildTarget=rebuild
 set ThisFileDir=%~dp0
 
 :NextArg
@@ -42,6 +43,9 @@ if "%1" == "/notest" (
 if "%1" == "/nopublish" (
     set NoPublish=true&& shift && goto :NextArg
 )
+if "%1" == "/incremental" (
+    set BuildTarget=build&&set NoClean=true&& shift && goto :NextArg
+)
 echo Unrecognized option "%1" && goto :ExitFailed
 
 :EndArgs
@@ -57,7 +61,7 @@ call SetBuildEnvVars.cmd
 set NuGetOutputDirectory=..\..\bld\bin\nuget\
 
 if "%NoBuild%" EQU "false" (
-    msbuild /verbosity:minimal /target:Rebuild /property:Configuration=%Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
+    msbuild /verbosity:minimal /target:%BuildTarget% /property:Configuration=%Configuration% /fileloggerparameters:Verbosity=detailed %SolutionFile%
     if "%ERRORLEVEL%" NEQ "0" (
         echo %SolutionFile%: Build failed.
         goto ExitFailed

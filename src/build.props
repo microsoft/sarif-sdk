@@ -10,6 +10,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>$(TargetFrameworks);net461</TargetFrameworks>
+    <RootNamespace>Microsoft.CodeAnalysis.$(MSBuildProjectName)</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)build.common.props" />

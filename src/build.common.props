@@ -8,7 +8,6 @@ whether they use the VS 2017 project system or the old project system.
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
-    <RootNamespace>Microsoft.CodeAnalysis.$(MSBuildProjectName)</RootNamespace>
     <OutputSubDir>$(Platform)_$(Configuration)</OutputSubDir>
     <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(OutputSubDir)\</IntermediateOutputPath>
     <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
