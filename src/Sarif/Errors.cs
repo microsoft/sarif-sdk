@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = context.TargetUri
+                            Uri = context.TargetUri.OriginalString
                         },
                     },
                     Id = ERR997_MissingRuleConfiguration,
@@ -473,7 +473,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     FileLocation = new FileLocation
                     {
-                        Uri = uri
+                        Uri = uri.OriginalString
                     },
                 }
                 : null;

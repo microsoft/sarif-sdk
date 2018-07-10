@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 
@@ -19,13 +20,16 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (fileChange.Replacements != null)
             {
-                model.FilePath = fileChange.FileLocation.Uri.IsAbsoluteUri ?
-                    fileChange.FileLocation.Uri.AbsoluteUri :
-                    fileChange.FileLocation.Uri.OriginalString;
+                Uri uri = SarifUtilities.CreateUri(fileChange.FileLocation.Uri);
 
-                foreach (Replacement replacement in fileChange.Replacements)
+                if (uri != null)
                 {
-                    model.Replacements.Add(replacement.ToReplacementModel());
+                    model.FilePath = uri.IsAbsoluteUri ? uri.AbsoluteUri : uri.OriginalString;
+
+                    foreach (Replacement replacement in fileChange.Replacements)
+                    {
+                        model.Replacements.Add(replacement.ToReplacementModel());
+                    }
                 }
             }
 

@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri("name.test.value", UriKind.Relative)
+                    Uri = "name.test.value"
                 },
                 Region = region
             };
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri("name.test.value", UriKind.Relative)
+                                Uri = "name.test.value"
                             },
                             Replacements = new List<Replacement>()
                             {

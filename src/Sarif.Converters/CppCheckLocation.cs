@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri(this.File, UriKind.RelativeOrAbsolute)
+                    Uri = UriHelper.MakeValidUri(this.File)
                 },
                 Region = Extensions.CreateRegion(this.Line)
             };

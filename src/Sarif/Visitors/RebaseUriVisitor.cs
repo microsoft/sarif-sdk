@@ -52,10 +52,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             
             if (string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId))
             {
-                if (newNode.FileLocation.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.FileLocation.Uri))
+                Uri uri = SarifUtilities.CreateUri(newNode.FileLocation.Uri);
+
+                if (uri?.IsAbsoluteUri == true && _baseUri.IsBaseOf(uri))
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
-                    newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
+                    newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(uri).ToString();
                 }
             }
 
@@ -122,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     // Ensure the filedata reflects the correct base URI details.
                     if (data?.FileLocation != null)
                     {
-                        data.FileLocation.Uri = newUri;
+                        data.FileLocation.Uri = newUri.ToString();
                         data.FileLocation.UriBaseId = _baseName;
 
                         if (data.ParentKey != null)

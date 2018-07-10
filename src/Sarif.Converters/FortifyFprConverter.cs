@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Notification> _toolNotifications;
         private Dictionary<string, FileData> _fileDictionary;
         private Dictionary<string, IRule> _ruleDictionary;
-        private Dictionary<CodeFlowLocation, string> _cflToSnippetIdDictionary;
+        private Dictionary<ThreadFlowLocation, string> _cflToSnippetIdDictionary;
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
         private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
 
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications = new List<Notification>();
             _fileDictionary = new Dictionary<string, FileData>();
             _ruleDictionary = new Dictionary<string, IRule>();
-            _cflToSnippetIdDictionary = new Dictionary<CodeFlowLocation, string>();
+            _cflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
         }
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ParseFprFile(input);
             AddMessagesToResults();
             AddSnippetsToResults();
-            AddSnippetsToCodeFlowLocations();
+            AddSnippetsToThreadFlowLocations();
 
             var run = new Run()
             {
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
                     PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
 
-                    var cfl = new CodeFlowLocation
+                    var cfl = new ThreadFlowLocation
                     {
                         Step = ++step,
                         Location = new Location
@@ -427,7 +427,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri(path, UriKind.Relative)
+                    Uri = path
                 },
                 Region = new Region
                 {
@@ -611,7 +611,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void AddSnippetsToCodeFlowLocations()
+        private void AddSnippetsToThreadFlowLocations()
         {
             foreach (Result result in _results)
             {
@@ -621,14 +621,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         if (codeFlow.ThreadFlows[0].Locations != null)
                         {
-                            foreach (CodeFlowLocation cfl in codeFlow.ThreadFlows[0].Locations)
+                            foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
                                 string snippetId, snippetText;
-                                if (_cflToSnippetIdDictionary.TryGetValue(cfl, out snippetId) &&
+                                if (_cflToSnippetIdDictionary.TryGetValue(tfl, out snippetId) &&
                                     _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
-                                    cfl.Location?.PhysicalLocation?.Region != null)
+                                    tfl.Location?.PhysicalLocation?.Region != null)
                                 {
-                                    cfl.Location.PhysicalLocation.Region.Snippet = new FileContent
+                                    tfl.Location.PhysicalLocation.Region.Snippet = new FileContent
                                     {
                                         Text = snippetText
                                     };

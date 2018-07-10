@@ -65,8 +65,8 @@
     <Compile Include="Models\CallTreeCollection.cs" />
     <Compile Include="Models\CallTree.cs" />
     <Compile Include="Models\CallTreeNode.cs" />
-    <Compile Include="Models\CodeFlowLocationCollection.cs" />
-    <Compile Include="Models\CodeFlowLocationModel.cs" />
+    <Compile Include="Models\ThreadFlowLocationCollection.cs" />
+    <Compile Include="Models\ThreadFlowLocationModel.cs" />
     <Compile Include="Models\FileDetailsModel.cs" />
     <Compile Include="Models\FixOffsetList.cs" />
     <Compile Include="Models\InvocationModel.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="Sarif\IPropertyBagHolder.extensions.cs" />
     <Compile Include="Models\RuleModel.cs" />
     <Compile Include="Models\ToolModel.cs" />
-    <Compile Include="Sarif\CodeFlowLocation.extensions.cs" />
+    <Compile Include="Sarif\ThreadFlowLocation.extensions.cs" />
     <Compile Include="Sarif\Region.extensions.cs" />
     <Compile Include="Sarif\ResultLevel.extensions.cs" />
     <Compile Include="Sarif\Result.extensions.cs" />

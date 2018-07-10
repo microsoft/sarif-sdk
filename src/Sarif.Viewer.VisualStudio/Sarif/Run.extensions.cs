@@ -60,7 +60,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                     Uri helpUri = null;
                     if (RuleMetadata[ruleId]["url"] != null)
                     {
-                        helpUri = new Uri(RuleMetadata[ruleId]["url"].Value<string>());
+                        helpUri = SarifUtilities.CreateUri(RuleMetadata[ruleId]["url"].Value<string>());
                     }
 
                     if (ruleName != null || helpUri != null)
@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                             configuration: null,
                             messageStrings: null,
                             richMessageStrings: null,
-                            helpLocation: new FileLocation { Uri = helpUri },
+                            helpUri: helpUri,
                             help: null, // PREfast rules don't need a "help" property; they all have online documentation.
                             properties: null);
                     }

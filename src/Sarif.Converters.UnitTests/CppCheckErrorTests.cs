@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                            Uri = "foo.cpp"
                         },
                         Region = new Region { StartLine = 1234 }
                     }
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                                Uri = "bar.cpp"
                             },
                             Region = new Region { StartLine = 5678 }
                         }
@@ -88,35 +88,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal(1, result.CodeFlows.Count);
             result.CodeFlows.First().ThreadFlows.First().Locations.SequenceEqual(new[]
                 {
-                    new CodeFlowLocation {
+                    new ThreadFlowLocation {
                         Location = new Location
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                                    Uri = "foo.cpp"
                                 },
                                 Region = new Region { StartLine = 1234 },
                             }
                         },
-                        Importance = CodeFlowLocationImportance.Essential
+                        Importance = ThreadFlowLocationImportance.Essential
                     },
-                    new CodeFlowLocation {
+                    new ThreadFlowLocation {
                         Location = new Location
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
                                 FileLocation = new FileLocation
                                 { 
-                                    Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                                    Uri = "bar.cpp"
                                 },
                                 Region = new Region { StartLine = 5678 }
                             }
                         },
-                        Importance = CodeFlowLocationImportance.Essential
+                        Importance = ThreadFlowLocationImportance.Essential
                     }
-                }, CodeFlowLocation.ValueComparer).Should().BeTrue();
+                }, ThreadFlowLocation.ValueComparer).Should().BeTrue();
         }
 
         [Fact]

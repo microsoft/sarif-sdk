@@ -358,7 +358,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(CodeFlowLocationImportance importance)
+        internal void SetVerbosity(ThreadFlowLocationImportance importance)
         {
             if (TopLevelNodes != null)
             {

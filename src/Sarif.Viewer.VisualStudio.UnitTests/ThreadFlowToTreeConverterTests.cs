@@ -9,14 +9,14 @@ using Xunit;
 
 namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
 {
-    public class CodeFlowToTreeConverterTests
+    public class ThreadFlowToTreeConverterTests
     {
         [Fact]
         public void CanConvertCodeFlowToTree()
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
                     Location = new Location
@@ -27,7 +27,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Call
                     Location = new Location
@@ -38,11 +38,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 2, // CallReturn
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Call
                     Location = new Location
@@ -53,11 +53,11 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 2, // CallReturn
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Call
                     Location = new Location
@@ -68,15 +68,15 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 2, // CallReturn
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // CallReturn
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
                     Location = new Location
@@ -87,7 +87,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // CallReturn,
                 }
@@ -129,7 +129,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
                     Location = new Location
@@ -140,23 +140,23 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // CallReturn
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
                     Location = new Location
@@ -167,15 +167,15 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                         }
                     }
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // CallReturn
                 },
@@ -211,15 +211,15 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Declaration
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Declaration
                 },

@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                            Uri = "foo.cpp"
                         },
                         Region = new Region { StartLine = 42 }
                     }));

@@ -93,9 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Note that we can potentially emit many messages from a single result
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
+            Uri uri = SarifUtilities.CreateUri(physicalLocation?.FileLocation?.Uri);
+
             WriteToConsole(
                 result.Level,
-                physicalLocation?.FileLocation?.Uri,
+                uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);

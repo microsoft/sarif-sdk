@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
         {
             if (!object.ReferenceEquals(x, y))
             {
-                if (!ListComparisonHelpers.CompareListsOrdered(x.Locations, y.Locations, CodeFlowLocationBaselineEquals.DefaultInstance))
+                if (!ListComparisonHelpers.CompareListsOrdered(x.Locations, y.Locations, ThreadFlowLocationBaselineEquals.DefaultInstance))
                 {
                     return false;
                 }

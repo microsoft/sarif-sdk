@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
+                                Uri = UriHelper.MakeValidUri(GetString(fields, FieldIndex.RelativePath)),
                                 UriBaseId = "$srcroot"
                             },
                             Region = region
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Id = ++count,
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute)
+                                Uri = UriHelper.MakeValidUri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}")
                             },
                             Region = new Region
                             {
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Id = ++count,
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
+                                Uri = UriHelper.MakeValidUri(locationTokens[1].Substring(1)),
                                 UriBaseId = "$srcroot"
                             },
                             Region = new Region

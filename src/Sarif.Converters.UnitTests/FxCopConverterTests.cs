@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 PartialFingerprints = new Dictionary<string, string>(),
                 AnalysisTarget = new FileLocation
                 {
-                    Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
+                    Uri = "mybinary.dll"
                 },
                 Locations = new List<Location>
                 {
@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute)
+                                Uri = "source\\myfile.cs"
                             },
                             Region = new Region { StartLine = 13 }
                         },

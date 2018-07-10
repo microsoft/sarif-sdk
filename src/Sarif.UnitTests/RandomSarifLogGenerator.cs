@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Run run = new Run() { Resources = new Resources() };
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
-            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).Select(a => new Uri(a)).ToList();
+            List<string> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).ToList();
 
             run.Tool = new Tool() { Name = "Test", Version = "1.0", };
             run.Resources.Rules = GenerateRules(ruleIds);
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount)
+        public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<string> filePaths, int resultCount)
         {
             List<Result> results = new List<Result>();
             for (int i = 0; i < resultCount; i++)
@@ -114,13 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IDictionary<string, FileData> GenerateFiles(List<Uri> filePaths)
+        public static IDictionary<string, FileData> GenerateFiles(List<string> filePaths)
         {
             Dictionary<string, FileData> dictionary = new Dictionary<string, FileData>();
             foreach (var path in filePaths)
             {
                 dictionary.Add(
-                    path.ToString(), 
+                    path, 
                     new FileData()
                     {
                         FileLocation = new FileLocation

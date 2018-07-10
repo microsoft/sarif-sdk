@@ -512,7 +512,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         public void CallTree_SetVerbosity_Essential()
         {
             CallTree tree = CreateCallTree();
-            tree.SetVerbosity(CodeFlowLocationImportance.Essential);
+            tree.SetVerbosity(ThreadFlowLocationImportance.Essential);
 
             tree.TopLevelNodes[0].Visibility.Should().Be(Visibility.Visible);
             tree.TopLevelNodes[0].Children[0].Visibility.Should().Be(Visibility.Collapsed);
@@ -526,7 +526,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         public void CallTree_SetVerbosity_Important()
         {
             CallTree tree = CreateCallTree();
-            tree.SetVerbosity(CodeFlowLocationImportance.Important);
+            tree.SetVerbosity(ThreadFlowLocationImportance.Important);
 
             tree.TopLevelNodes[0].Visibility.Should().Be(Visibility.Visible);
             tree.TopLevelNodes[0].Children[0].Visibility.Should().Be(Visibility.Visible);
@@ -540,7 +540,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         public void CallTree_SetVerbosity_Unimportant()
         {
             CallTree tree = CreateCallTree();
-            tree.SetVerbosity(CodeFlowLocationImportance.Unimportant);
+            tree.SetVerbosity(ThreadFlowLocationImportance.Unimportant);
 
             tree.TopLevelNodes[0].Visibility.Should().Be(Visibility.Visible);
             tree.TopLevelNodes[0].Children[0].Visibility.Should().Be(Visibility.Visible);
@@ -554,35 +554,35 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Important,
+                    Importance = ThreadFlowLocationImportance.Important,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Essential,
+                    Importance = ThreadFlowLocationImportance.Essential,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0,
-                    Importance = CodeFlowLocationImportance.Essential,
+                    Importance = ThreadFlowLocationImportance.Essential,
                 }
             });
 

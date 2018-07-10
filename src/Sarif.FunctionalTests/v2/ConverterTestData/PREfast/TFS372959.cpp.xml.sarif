@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQovLyBLZXkgRXZlbnRzIGluIHRoZSBwcmVzZW5jZSBvZiBjbGFzcyBtZW1iZXIgYWxpYXMNCi8vIExvb2sgZm9yICd0aGlzLT5zb3VyY2UnIHdoaWNoIGNvbnRhaW5zIHRoZSBzaXplb2YgaW5mb3JtYXRpb24sIG5vdCBqdXN0ICdzb3VyY2UnDQoNCmNsYXNzIE1pc3NlZDYzMDUNCnsNCglpbnQgajsNCglpbnQgTWlzc2VkQWxpYXMod2NoYXJfdCAqIHApDQoJew0KCQlpbnQgaSA9IDY7DQoJCWogPSBzaXplb2YocCk7DQoNCgkJaSA9IGo7DQoNCgkJcCArPSBpOyAvL0V4cGVjdCA2MzA1DQoNCgkJcmV0dXJuIGk7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzMih3Y2hhcl90ICogcCkNCgl7DQoJCWogPSA2Ow0KCQlpbnQgaSA9IHNpemVvZihwKTsNCg0KCQlqID0gaTsNCg0KCQlwICs9IGo7IC8vRXhwZWN0IDYzMDUNCg0KCQlyZXR1cm4gajsNCgl9DQoNCglpbnQgTWlzc2VkQWxpYXNQbHVzQXNzaWduKHdjaGFyX3QgKiBwKQ0KCXsNCgkJaW50IGkgPSA2Ow0KCQlqID0gc2l6ZW9mKHApOw0KDQoJCWkgKz0gajsNCg0KCQlwICs9IGk7IC8vRXhwZWN0IDYzMDUNCg0KCQlyZXR1cm4gaTsNCgl9DQoNCglpbnQgTWlzc2VkQWxpYXNQbHVzQXNzaWduMih3Y2hhcl90ICogcCkNCgl7DQoJCWogPSA2Ow0KCQlpbnQgaSA9IHNpemVvZihwKTsNCg0KCQlqICs9IGk7DQoNCgkJcCArPSBqOyAvL0V4cGVjdCA2MzA1DQoNCgkJcmV0dXJuIGo7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzX0xvY2FsSXNDb3JyZWN0KHdjaGFyX3QgKiBwKQ0KCXsNCgkJaW50IGkgPSA2Ow0KCQlpbnQgajIgPSBzaXplb2YocCk7DQoNCgkJaSA9IGoyOw0KDQoJCXAgKz0gaTsgLy9FeHBlY3QgNjMwNQ0KDQoJCXJldHVybiBpOw0KCX0NCg0KCWludCBNaXNzZWRBbGlhc1BsdXNBc3NpZ25fTG9jYWxJc0NvcnJlY3Qod2NoYXJfdCAqIHApDQoJew0KCQlpbnQgaSA9IDY7DQoJCWludCBqMiA9IHNpemVvZihwKTsNCg0KCQlpICs9IGoyOw0KDQoJCXAgKz0gaTsgLy9FeHBlY3QgNjMwNQ0KDQoJCXJldHVybiBpOw0KCX0NCg0KLy8gLS0NCg0KCWludCBjYjsNCglpbnQgU2l6ZU9mTWlzc2VkRm9yTWVtYmVyIChpbnQgKnApDQoJew0KCQlpbnQgaSA9IDA7DQoJCWNiID0gc2l6ZW9mKGludCk7DQoNCgkJcCs9Y2I7IC8vRXhwZWN0IDYzMDUNCgkJcmV0dXJuIGk7DQoJfQ0KDQoJaW50IFNpemVPZk1pc3NlZEZvck1lbWJlcl9Mb2NhbElzQ29ycmVjdCAoaW50ICpwKQ0KCXsNCgkJaW50IGkgPSAwOw0KCQlpbnQgY2IyID0gc2l6ZW9mKGludCk7DQoNCgkJcCs9Y2IyOyAvL0V4cGVjdCA2MzA1DQoJCXJldHVybiBpOw0KCX0NCg0KfTsNCg0K"
-          },
-          "hashes": [
-            {
-              "value": "FED2BB79418114B615E3C6A5AC6BD76E",
-              "algorithm": "md5"
-            },
-            {
-              "value": "ACE3ADAC0EBFA2DB1FAE99BBD3E3244131BB81F4",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "2C3E25B87EAD234EE43EAAB32618C5A232BE9BCC6017A9AE69DE8A66466C16C8",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {

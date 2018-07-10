@@ -484,9 +484,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""enabled"": true,
               ""defaultLevel"": ""error""
             },
-            ""helpLocation"": {
-              ""uri"": ""http://www.domain.com/rules/c2002.html""
-            }
+            ""helpUri"": ""http://www.domain.com/rules/c2002.html""
           },
           ""C2003"": {
             ""id"": ""C2003"",

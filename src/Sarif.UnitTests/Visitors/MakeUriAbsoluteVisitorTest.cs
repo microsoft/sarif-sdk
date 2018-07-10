@@ -16,13 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run run = new Run();
             run.Files = new Dictionary<string, FileData>()
             {
-                { "src/file1.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file1.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey=null } },
-                { "src/file2.dll", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file2.dll", UriKind.Relative), UriBaseId="%TEST2%" }, ParentKey=null } },
-                { "src/archive.zip", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey=null } },
-                { "src/archive.zip#file3.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file3.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
-                { "src/archive.zip#archive2.gz", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
-                { "src/archive.zip#archive2.gz/file4.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz/file4.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip#archive2.gz" } },
-                { "src/archive.zip#file5.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file5.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/file1.cs", new FileData() { FileLocation=new FileLocation{ Uri="src/file1.cs", UriBaseId="%TEST1%" }, ParentKey=null } },
+                { "src/file2.dll", new FileData() { FileLocation=new FileLocation{ Uri="src/file2.dll", UriBaseId="%TEST2%" }, ParentKey=null } },
+                { "src/archive.zip", new FileData() { FileLocation=new FileLocation{ Uri="src/archive.zip", UriBaseId="%TEST1%" }, ParentKey=null } },
+                { "src/archive.zip#file3.cs", new FileData() { FileLocation=new FileLocation{ Uri="src/archive.zip#file3.cs", UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/archive.zip#archive2.gz", new FileData() { FileLocation=new FileLocation{ Uri="src/archive.zip#archive2.gz", UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/archive.zip#archive2.gz/file4.cs", new FileData() { FileLocation=new FileLocation{ Uri="src/archive.zip#archive2.gz/file4.cs", UriBaseId="%TEST1%" }, ParentKey="src/archive.zip#archive2.gz" } },
+                { "src/archive.zip#file5.cs", new FileData() { FileLocation=new FileLocation{ Uri="src/archive.zip#file5.cs", UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
             };
 
             if (uriBaseIdMapping != null)
@@ -37,35 +37,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void MakeUriAbsoluteVisitor_VisitPhysicalLocation_SetsAbsoluteURI()
         {
-            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = "%TEST%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = "%TEST%", Uri = "src/file.cs" } };
             AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().BeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("C:/github/sarif/src/file.cs"));
+            newLocation.FileLocation.Uri.Should().Be("file:///C:/github/sarif/src/file.cs");
         }
 
         [Fact]
         public void MakeUriAbsoluteVisitor_VisitPhysicalLocation_DoesNotSetUriIfNotInDictionary()
         {
 
-            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = "%TEST2%", Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = "%TEST2%", Uri = "src/file.cs" } };
             AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().NotBeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
+            newLocation.FileLocation.Uri.Should().Be("src/file.cs");
         }
 
         [Fact]
         public void MakeUriAbsoluteVisitor_VisitPhysicalLocation_DoesNotSetUriIfBaseIsNotSet()
         {
-            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = null, Uri = new Uri("src/file.cs", UriKind.Relative) } };
+            PhysicalLocation location = new PhysicalLocation() { FileLocation = new FileLocation { UriBaseId = null, Uri = "src/file.cs" } };
             AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().BeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
+            newLocation.FileLocation.Uri.Should().Be("src/file.cs");
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (var key in newRun.Files.Keys)
             {
-                newRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(new Uri(key));
+                newRun.Files[key].FileLocation.Uri.Should().Be(key);
                 newRun.Files[key].FileLocation.UriBaseId.Should().BeNull();
                 if (!string.IsNullOrEmpty(newRun.Files[key].ParentKey))
                 {

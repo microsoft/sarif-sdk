@@ -27,8 +27,8 @@ namespace Microsoft.Sarif.Viewer
 
         internal SarifErrorListItem()
         {
-            Locations = new CodeFlowLocationCollection(string.Empty);
-            RelatedLocations = new CodeFlowLocationCollection(string.Empty);
+            Locations = new ThreadFlowLocationCollection(string.Empty);
+            RelatedLocations = new ThreadFlowLocationCollection(string.Empty);
             CallTrees = new CallTreeCollection();
             Stacks = new ObservableCollection<StackCollection>();
             Fixes = new ObservableCollection<FixModel>();
@@ -71,7 +71,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Location location in result.Locations)
                 {
-                    Locations.Add(location.ToCodeFlowLocationModel());
+                    Locations.Add(location.ToThreadFlowLocationModel());
                 }
             }
 
@@ -79,7 +79,7 @@ namespace Microsoft.Sarif.Viewer
             {
                 foreach (Location location in result.RelatedLocations)
                 {
-                    RelatedLocations.Add(location.ToCodeFlowLocationModel());
+                    RelatedLocations.Add(location.ToThreadFlowLocationModel());
                 }
             }
 
@@ -119,10 +119,10 @@ namespace Microsoft.Sarif.Viewer
             Message = notification.Message.Text;
             ShortMessage = notification.Message.Text;
             LogFilePath = logFilePath;
-            FileName = notification.PhysicalLocation?.FileLocation?.Uri.LocalPath ?? run.Tool.FullName;
+            FileName = notification.PhysicalLocation?.FileLocation?.Uri ?? run.Tool.FullName;
             ProjectName = projectNameCache.GetName(FileName);
 
-            Locations.Add(new CodeFlowLocationModel() { FilePath = FileName });
+            Locations.Add(new ThreadFlowLocationModel() { FilePath = FileName });
 
             Tool = run.Tool.ToToolModel();
             Rule = rule.ToRuleModel(ruleId);
@@ -274,10 +274,10 @@ namespace Microsoft.Sarif.Viewer
         }
 
         [Browsable(false)]
-        public CodeFlowLocationCollection Locations { get; }
+        public ThreadFlowLocationCollection Locations { get; }
 
         [Browsable(false)]
-        public CodeFlowLocationCollection RelatedLocations { get; }
+        public ThreadFlowLocationCollection RelatedLocations { get; }
 
         [Browsable(false)]
         public CallTreeCollection CallTrees { get; }
@@ -333,12 +333,12 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.RemoveHighlightMarker();
 
-            foreach (CodeFlowLocationModel location in Locations)
+            foreach (ThreadFlowLocationModel location in Locations)
             {
                 location.LineMarker?.RemoveHighlightMarker();
             }
 
-            foreach (CodeFlowLocationModel location in RelatedLocations)
+            foreach (ThreadFlowLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.RemoveHighlightMarker();
             }
@@ -420,7 +420,7 @@ namespace Microsoft.Sarif.Viewer
                 FileName = remappedPath;
             }
 
-            foreach (CodeFlowLocationModel location in Locations)
+            foreach (ThreadFlowLocationModel location in Locations)
             {
                 if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
                 {
@@ -428,7 +428,7 @@ namespace Microsoft.Sarif.Viewer
                 }
             }
 
-            foreach (CodeFlowLocationModel location in RelatedLocations)
+            foreach (ThreadFlowLocationModel location in RelatedLocations)
             {
                 if (location.FilePath.Equals(originalPath, StringComparison.OrdinalIgnoreCase))
                 {
@@ -497,12 +497,12 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
 
-            foreach (CodeFlowLocationModel location in Locations)
+            foreach (ThreadFlowLocationModel location in Locations)
             {
                 location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
 
-            foreach (CodeFlowLocationModel location in RelatedLocations)
+            foreach (ThreadFlowLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.AttachToDocument(documentName, docCookie, pFrame);
             }
@@ -546,12 +546,12 @@ namespace Microsoft.Sarif.Viewer
         {
             LineMarker?.DetachFromDocument(docCookie);
 
-            foreach (CodeFlowLocationModel location in Locations)
+            foreach (ThreadFlowLocationModel location in Locations)
             {
                 location.LineMarker?.DetachFromDocument(docCookie);
             }
 
-            foreach (CodeFlowLocationModel location in RelatedLocations)
+            foreach (ThreadFlowLocationModel location in RelatedLocations)
             {
                 location.LineMarker?.DetachFromDocument(docCookie);
             }

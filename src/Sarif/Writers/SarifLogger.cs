@@ -327,7 +327,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                     {
-                        CaptureCodeFlowLocations(threadFlow.Locations);
+                        CaptureThreadFlowLocations(threadFlow.Locations);
                     }
                 }
             }
@@ -347,26 +347,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureCodeFlowLocations(IList<CodeFlowLocation> locations)
+        private void CaptureThreadFlowLocations(IList<ThreadFlowLocation> locations)
         {
             if (locations == null) { return; }
 
-            foreach (CodeFlowLocation cfl in locations)
+            foreach (ThreadFlowLocation tfl in locations)
             {
-                if (cfl.Location?.PhysicalLocation != null)
+                if (tfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(cfl.Location.PhysicalLocation.FileLocation?.Uri);
+                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation?.Uri);
                 }
             }
         }
 
-        private void CaptureFile(Uri uri)
+        private void CaptureFile(string uri)
         { 
             if (uri == null) { return; }
 
             _run.Files = _run.Files ?? new Dictionary<string, FileData>();
 
-            string fileDataKey = UriHelper.MakeValidUri(uri.OriginalString);
+            string fileDataKey = UriHelper.MakeValidUri(uri);
             if (_run.Files.ContainsKey(fileDataKey))
             {
                 // Already populated
@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             catch (ArgumentException) { } // Unrecognized or null encoding name
 
-            _run.Files[fileDataKey] = FileData.Create(uri, _loggingOptions, null, encoding);
+            _run.Files[fileDataKey] = FileData.Create(new Uri(uri, UriKind.RelativeOrAbsolute), _loggingOptions, null, encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -409,7 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = context.TargetUri
+                            Uri = context.TargetUri.OriginalString
                         }
                     },
                     Id = Notes.Msg001AnalyzingTarget,
@@ -462,7 +462,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri(targetPath)
+                                Uri = targetPath
                             },
                             Region = region
                         }

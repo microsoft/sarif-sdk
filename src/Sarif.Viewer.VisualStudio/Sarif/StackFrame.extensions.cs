@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. 
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
+using System;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 
@@ -21,7 +22,8 @@ namespace Microsoft.Sarif.Viewer.Sarif
             PhysicalLocation physicalLocation = stackFrame.Location?.PhysicalLocation;
             if (physicalLocation?.FileLocation != null)
             {
-                model.FilePath = physicalLocation.FileLocation.Uri.ToPath();
+                Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
+                model.FilePath = uri.ToPath();
                 Region region = physicalLocation.Region;
                 if (region != null)
                 {

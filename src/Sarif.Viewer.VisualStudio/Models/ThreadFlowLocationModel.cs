@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
-    public class CodeFlowLocationModel : CodeLocationObject
+    public class ThreadFlowLocationModel : CodeLocationObject
     {
         private string _message;
         private string _logicalLocation;

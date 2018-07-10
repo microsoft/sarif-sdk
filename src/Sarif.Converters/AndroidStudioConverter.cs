@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
                 }
-                location.PhysicalLocation.FileLocation.Uri = uri;
+                location.PhysicalLocation.FileLocation.Uri = uri.ToString();
             }
 
             result.Locations = new List<Location> { location };

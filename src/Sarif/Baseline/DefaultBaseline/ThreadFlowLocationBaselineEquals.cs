@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
-    internal class CodeFlowLocationBaselineEquals : IEqualityComparer<CodeFlowLocation>
+    internal class ThreadFlowLocationBaselineEquals : IEqualityComparer<ThreadFlowLocation>
     {
-        internal static readonly CodeFlowLocationBaselineEquals DefaultInstance = new CodeFlowLocationBaselineEquals();
+        internal static readonly ThreadFlowLocationBaselineEquals DefaultInstance = new ThreadFlowLocationBaselineEquals();
         
-        public bool Equals(CodeFlowLocation x, CodeFlowLocation y)
+        public bool Equals(ThreadFlowLocation x, ThreadFlowLocation y)
         {
             if (!object.ReferenceEquals(x, y))
             {
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             return true;
         }
 
-        public int GetHashCode(CodeFlowLocation obj)
+        public int GetHashCode(ThreadFlowLocation obj)
         {
             if (ReferenceEquals(obj, null))
             {

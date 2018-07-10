@@ -217,7 +217,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = new Uri("path/to/file.html", UriKind.Relative)
+                                    Uri = "path/to/file.html"
                                 },
                                 Replacements = new[]
                                 {

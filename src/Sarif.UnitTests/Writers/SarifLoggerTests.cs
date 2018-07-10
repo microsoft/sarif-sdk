@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var result = new Result()
                     {
                         RuleId = ruleId,
-                        AnalysisTarget = new FileLocation { Uri = new Uri(@"file:///file0.cpp") },
+                        AnalysisTarget = new FileLocation { Uri = @"file:///file0.cpp" },
                         Locations = new[]
                         {
                             new Location
@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     FileLocation = new FileLocation
                                     {
-                                        Uri = new Uri(@"file:///file1.cpp")
+                                        Uri = @"file:///file1.cpp"
                                     }
                                 }
                             },
@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                    {
                                     FileLocation = new FileLocation
                                     {
-                                        Uri = new Uri(@"file:///file2.cpp")
+                                        Uri = @"file:///file2.cpp"
                                     }
                                    }
                                 }
@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                 {
                                     FileLocation = new FileLocation
                                     {
-                                        Uri = new Uri(@"file:///file3.cpp")
+                                        Uri = @"file:///file3.cpp"
                                     }
                                 }
                             }
@@ -426,7 +426,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                             {
                                                 FileLocation = new FileLocation
                                                 {
-                                                    Uri = new Uri(@"file:///file4.cpp")
+                                                    Uri = @"file:///file4.cpp"
                                                 }
                                             }
                                         }
@@ -444,7 +444,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     {
                                         Locations = new[]
                                         {
-                                            new CodeFlowLocation
+                                            new ThreadFlowLocation
                                             {
                                                 Location = new Location
                                                 {
@@ -452,7 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                     {
                                                         FileLocation = new FileLocation
                                                         {
-                                                            Uri = new Uri(@"file:///file5.cpp")
+                                                            Uri = @"file:///file5.cpp"
                                                         }
                                                     }
                                                 }
@@ -501,13 +501,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = @"file:///file0.cpp" } }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = @"file:///file0.cpp" } }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 

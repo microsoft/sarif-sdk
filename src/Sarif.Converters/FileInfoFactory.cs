@@ -48,9 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.Stacks != null)
                 {
-                    foreach (IList<CodeFlowLocation> stack in result.Stacks)
+                    foreach (IList<ThreadFlowLocation> stack in result.Stacks)
                     {
-                        foreach (CodeFlowLocation stackFrame in stack)
+                        foreach (ThreadFlowLocation stackFrame in stack)
                         {
                             AddFile(stackFrame.Location.PhysicalLocation);
                         }
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                         {
-                            foreach (CodeFlowLocation codeLocation in threadFlow.Locations)
+                            foreach (ThreadFlowLocation codeLocation in threadFlow.Locations)
                             {
                                 if (codeLocation.Location?.PhysicalLocation != null)
                                 {
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return;
             }
 
-            Uri uri = physicalLocation.FileLocation.Uri;
+            Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
             string key = UriHelper.MakeValidUri(uri.OriginalString);
             string filePath = key;
 

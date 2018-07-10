@@ -24,7 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (_currentUriMappings != null && !string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId) && _currentUriMappings.ContainsKey(newNode.FileLocation.UriBaseId))
             {
                 Uri baseUri = _currentUriMappings[newNode.FileLocation.UriBaseId];
-                newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);
+                Uri fileUri = SarifUtilities.CreateUri(newNode.FileLocation.Uri);
+                newNode.FileLocation.Uri = CombineUris(baseUri, fileUri).ToString();
                 newNode.FileLocation.UriBaseId = null;
             }
 
@@ -78,7 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     // Rewrite the filedata's URI
                     baseUri = _currentUriMappings[newNode.FileLocation.UriBaseId];
-                    newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);                    
+                    Uri fileUri = SarifUtilities.CreateUri(newNode.FileLocation.Uri);
+                    newNode.FileLocation.Uri = CombineUris(baseUri, fileUri).ToString();                    
 
                     Uri parentUri;
                     // If the parent uri is relative, we should rewrite it as well.

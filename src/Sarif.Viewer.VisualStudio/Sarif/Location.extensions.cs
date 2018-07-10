@@ -9,9 +9,9 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class LocationExtensions
     {
-        public static CodeFlowLocationModel ToCodeFlowLocationModel(this Location location)
+        public static ThreadFlowLocationModel ToThreadFlowLocationModel(this Location location)
         {
-            var model = new CodeFlowLocationModel();
+            var model = new ThreadFlowLocationModel();
             PhysicalLocation physicalLocation = location.PhysicalLocation;
 
             if (physicalLocation?.FileLocation != null)
@@ -19,7 +19,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 model.Id = physicalLocation.Id;
                 model.Region = physicalLocation.Region;
 
-                Uri uri = physicalLocation.FileLocation.Uri;
+                Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
 
                 if (uri != null)
                 {

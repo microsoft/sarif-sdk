@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<CodeFlowLocation> locations = null)
+        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<ThreadFlowLocation> locations = null)
         {
             return new CodeFlow
             {
@@ -146,10 +146,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new ThreadFlow
                     {
-                        Locations = new List<CodeFlowLocation>(locations ?? new CodeFlowLocation[]{ })
+                        Locations = new List<ThreadFlowLocation>(locations ?? new ThreadFlowLocation[]{ })
                     }
                 }
             };
+        }
+
+        public static Uri CreateUri(string uriString)
+        {
+            Uri uri;
+            Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out uri);
+            return uri;
         }
 
         public static string GetUtf8Base64String(string s)
