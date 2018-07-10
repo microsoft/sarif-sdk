@@ -3,8 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using Xunit;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 {

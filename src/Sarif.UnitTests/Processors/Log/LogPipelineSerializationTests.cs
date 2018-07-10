@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             SarifLogPipeline deserialized = JsonConvert.DeserializeObject<SarifLogPipeline>(result);
             
-            deserialized.ShouldBeEquivalentTo(preserialized);
+            deserialized.Should().BeEquivalentTo(preserialized);
         }
     }
 }

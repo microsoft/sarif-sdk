@@ -1,6 +1,6 @@
 $targetFrameworks = @(
     #@{ Name = "netcoreapp2.0"; NetCoreCompatible = $True },
-    @{ Name = "net452"; NetCoreCompatible = $False }
+    @{ Name = "net461"; NetCoreCompatible = $False }
 )
 
 $testProjects = @(
@@ -9,8 +9,8 @@ $testProjects = @(
     @{ Name = "Sarif.Driver.UnitTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.FunctionalTests"; IsMultiTargeting = $True },
     @{ Name = "Sarif.Multitool.FunctionalTests"; IsMultiTargeting = $True },
-    @{ Name = "Sarif.ValidationTests"; IsMultiTargeting = $False },
-    @{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False; Parallel = "-parallel none" }
+    @{ Name = "Sarif.ValidationTests"; IsMultiTargeting = $False }
+    #@{ Name = "Sarif.Viewer.VisualStudio.UnitTests"; IsMultiTargeting = $False; Parallel = "-parallel none" }
 )
 
 Foreach ($project in $testProjects)
