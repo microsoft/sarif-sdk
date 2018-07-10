@@ -22,7 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return 1;
                 }
 
-                LoggingOptions loggingOptions = transformOptions.ConvertToLoggingOptions();
+                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
+                Array.ForEach(transformOptions.DataToInsert, data => dataToInsert |= data);
+
+                // NOTE: we don't actually utilize the dataToInsert command-line data yet...
+
                 string fileName = CommandUtilities.GetTransformedOutputFileName(transformOptions);
 
                 var formatting = transformOptions.PrettyPrint

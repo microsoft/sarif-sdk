@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         // particular converter.
         private class LogicalLocationTestConverter : ToolFileConverterBase
         {
-            public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+            public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
                 throw new NotImplementedException();
             }

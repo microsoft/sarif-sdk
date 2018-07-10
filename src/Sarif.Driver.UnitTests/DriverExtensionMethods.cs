@@ -14,37 +14,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public void ConvertAnalyzeOptionsToLoggingOptions()
         {
             LoggingOptions loggingOptions;
-            var analyzeOptions = new TestAnalyzeOptions()
-            {
-                ComputeFileHashes = true
-            };
 
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.ComputeFileHashes);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                LogEnvironment = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PersistEnvironment);
-
-            analyzeOptions = new TestAnalyzeOptions()
-            {
-                PersistTextFileContents = true
-            };
-
-            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
-            loggingOptions.Should().Be(LoggingOptions.PersistTextFileContents);
-
-            analyzeOptions = new TestAnalyzeOptions()
+            TestAnalyzeOptions analyzeOptions = new TestAnalyzeOptions()
             {
                 Verbose = true
             };
 
             loggingOptions = analyzeOptions.ConvertToLoggingOptions();
             loggingOptions.Should().Be(LoggingOptions.Verbose);
+
+             analyzeOptions = new TestAnalyzeOptions()
+            {
+                PrettyPrint = true
+            };
+
+            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions.Should().Be(LoggingOptions.PrettyPrint);
+
+            analyzeOptions = new TestAnalyzeOptions()
+            {
+                Force = true
+            };
+
+            loggingOptions = analyzeOptions.ConvertToLoggingOptions();
+            loggingOptions.Should().Be(LoggingOptions.OverwriteExistingOutputFile);
         }
     }
 }

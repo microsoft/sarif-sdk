@@ -38,6 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string inputFileName,
             string outputFileName,
             LoggingOptions loggingOptions = LoggingOptions.None,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 using (var output = new ResultLogJsonWriter(outputJson))
                 {
-                    ConvertToStandardFormat(toolFormat, input, output, loggingOptions, pluginAssemblyPath);
+                    ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
                 }
             }
         }
@@ -85,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string toolFormat,
             Stream inputStream,
             IResultLogWriter outputStream,
-            LoggingOptions loggingOptions = LoggingOptions.None,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             string pluginAssemblyPath = null)
         {
             if (inputStream == null) { throw new ArgumentNullException(nameof(inputStream)); }
@@ -96,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ToolFileConverterBase converter = factory.CreateConverter(toolFormat);
             if (converter != null)
             {
-                converter.Convert(inputStream, outputStream, loggingOptions);
+                converter.Convert(inputStream, outputStream, dataToInsert);
             }
             else
             {
