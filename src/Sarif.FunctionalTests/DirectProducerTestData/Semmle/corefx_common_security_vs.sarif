@@ -1,0 +1,1152 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Semmle",
+        "version": "1.15.2"
+      },
+      "files": {
+        "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/AesBCryptModes.cs": {
+          "mimeType": "text/x-csharp",
+          "contents": "Ly8gTGljZW5zZWQgdG8gdGhlIC5ORVQgRm91bmRhdGlvbiB1bmRlciBvbmUgb3IgbW9yZSBhZ3JlZW1lbnRzLg0KLy8gVGhlIC5ORVQgRm91bmRhdGlvbiBsaWNlbnNlcyB0aGlzIGZpbGUgdG8geW91IHVuZGVyIHRoZSBNSVQgbGljZW5zZS4NCi8vIFNlZSB0aGUgTElDRU5TRSBmaWxlIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQoNCnVzaW5nIFN5c3RlbTsNCnVzaW5nIFN5c3RlbS5TZWN1cml0eS5DcnlwdG9ncmFwaHk7DQp1c2luZyBJbnRlcm5hbC5OYXRpdmVDcnlwdG87DQoNCm5hbWVzcGFjZSBJbnRlcm5hbC5DcnlwdG9ncmFwaHkNCnsNCiAgICBpbnRlcm5hbCBzdGF0aWMgY2xhc3MgQWVzQkNyeXB0TW9kZXMNCiAgICB7DQogICAgICAgIHByaXZhdGUgc3RhdGljIHJlYWRvbmx5IFNhZmVBbGdvcml0aG1IYW5kbGUgc19oQWxnQ2JjID0gT3BlbkFlc0FsZ29yaXRobShDbmcuQkNSWVBUX0NIQUlOX01PREVfQ0JDKTsNCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgcmVhZG9ubHkgU2FmZUFsZ29yaXRobUhhbmRsZSBzX2hBbGdFY2IgPSBPcGVuQWVzQWxnb3JpdGhtKENuZy5CQ1JZUFRfQ0hBSU5fTU9ERV9FQ0IpOw0KDQogICAgICAgIGludGVybmFsIHN0YXRpYyBTYWZlQWxnb3JpdGhtSGFuZGxlIEdldFNoYXJlZEhhbmRsZShDaXBoZXJNb2RlIGNpcGhlck1vZGUpDQogICAgICAgIHsNCiAgICAgICAgICAgIC8vIFdpbmRvd3MgOCBhZGRlZCBzdXBwb3J0IHRvIHNldCB0aGUgQ2lwaGVyTW9kZSB2YWx1ZSBvbiBhIGtleSwNCiAgICAgICAgICAgIC8vIGJ1dCBXaW5kb3dzIDcgcmVxdWlyZXMgdGhhdCBpdCBiZSBzZXQgb24gdGhlIGFsZ29yaXRobSBiZWZvcmUga2V5IGNyZWF0aW9uLg0KICAgICAgICAgICAgc3dpdGNoIChjaXBoZXJNb2RlKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIGNhc2UgQ2lwaGVyTW9kZS5DQkM6DQogICAgICAgICAgICAgICAgICAgIHJldHVybiBzX2hBbGdDYmM7DQogICAgICAgICAgICAgICAgY2FzZSBDaXBoZXJNb2RlLkVDQjoNCiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHNfaEFsZ0VjYjsNCiAgICAgICAgICAgICAgICBkZWZhdWx0Og0KICAgICAgICAgICAgICAgICAgICB0aHJvdyBuZXcgTm90U3VwcG9ydGVkRXhjZXB0aW9uKCk7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCg0KICAgICAgICBwcml2YXRlIHN0YXRpYyBTYWZlQWxnb3JpdGhtSGFuZGxlIE9wZW5BZXNBbGdvcml0aG0oc3RyaW5nIGNpcGhlck1vZGUpDQogICAgICAgIHsNCiAgICAgICAgICAgIFNhZmVBbGdvcml0aG1IYW5kbGUgaEFsZyA9IENuZy5CQ3J5cHRPcGVuQWxnb3JpdGhtUHJvdmlkZXIoQ25nLkJDUllQVF9BRVNfQUxHT1JJVEhNLCBudWxsLCBDbmcuT3BlbkFsZ29yaXRobVByb3ZpZGVyRmxhZ3MuTk9ORSk7DQogICAgICAgICAgICBoQWxnLlNldENpcGhlck1vZGUoY2lwaGVyTW9kZSk7DQoNCiAgICAgICAgICAgIHJldHVybiBoQWxnOw0KICAgICAgICB9DQogICAgfQ0KfQ0K"
+        },
+        "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/DESBCryptModes.cs": {
+          "mimeType": "text/x-csharp",
+          "contents": "Ly8gTGljZW5zZWQgdG8gdGhlIC5ORVQgRm91bmRhdGlvbiB1bmRlciBvbmUgb3IgbW9yZSBhZ3JlZW1lbnRzLg0KLy8gVGhlIC5ORVQgRm91bmRhdGlvbiBsaWNlbnNlcyB0aGlzIGZpbGUgdG8geW91IHVuZGVyIHRoZSBNSVQgbGljZW5zZS4NCi8vIFNlZSB0aGUgTElDRU5TRSBmaWxlIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQoNCnVzaW5nIFN5c3RlbTsNCnVzaW5nIFN5c3RlbS5TZWN1cml0eS5DcnlwdG9ncmFwaHk7DQp1c2luZyBJbnRlcm5hbC5OYXRpdmVDcnlwdG87DQoNCm5hbWVzcGFjZSBJbnRlcm5hbC5DcnlwdG9ncmFwaHkNCnsNCiAgICBpbnRlcm5hbCBzdGF0aWMgY2xhc3MgRGVzQkNyeXB0TW9kZXMNCiAgICB7DQogICAgICAgIHByaXZhdGUgc3RhdGljIHJlYWRvbmx5IFNhZmVBbGdvcml0aG1IYW5kbGUgc19oQWxnQ2JjID0gT3BlbkRlc0FsZ29yaXRobShDbmcuQkNSWVBUX0NIQUlOX01PREVfQ0JDKTsNCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgcmVhZG9ubHkgU2FmZUFsZ29yaXRobUhhbmRsZSBzX2hBbGdFY2IgPSBPcGVuRGVzQWxnb3JpdGhtKENuZy5CQ1JZUFRfQ0hBSU5fTU9ERV9FQ0IpOw0KDQogICAgICAgIGludGVybmFsIHN0YXRpYyBTYWZlQWxnb3JpdGhtSGFuZGxlIEdldFNoYXJlZEhhbmRsZShDaXBoZXJNb2RlIGNpcGhlck1vZGUpDQogICAgICAgIHsNCiAgICAgICAgICAgIC8vIFdpbmRvd3MgOCBhZGRlZCBzdXBwb3J0IHRvIHNldCB0aGUgQ2lwaGVyTW9kZSB2YWx1ZSBvbiBhIGtleSwNCiAgICAgICAgICAgIC8vIGJ1dCBXaW5kb3dzIDcgcmVxdWlyZXMgdGhhdCBpdCBiZSBzZXQgb24gdGhlIGFsZ29yaXRobSBiZWZvcmUga2V5IGNyZWF0aW9uLg0KICAgICAgICAgICAgc3dpdGNoIChjaXBoZXJNb2RlKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIGNhc2UgQ2lwaGVyTW9kZS5DQkM6DQogICAgICAgICAgICAgICAgICAgIHJldHVybiBzX2hBbGdDYmM7DQogICAgICAgICAgICAgICAgY2FzZSBDaXBoZXJNb2RlLkVDQjoNCiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHNfaEFsZ0VjYjsNCiAgICAgICAgICAgICAgICBkZWZhdWx0Og0KICAgICAgICAgICAgICAgICAgICB0aHJvdyBuZXcgTm90U3VwcG9ydGVkRXhjZXB0aW9uKCk7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCg0KICAgICAgICBwcml2YXRlIHN0YXRpYyBTYWZlQWxnb3JpdGhtSGFuZGxlIE9wZW5EZXNBbGdvcml0aG0oc3RyaW5nIGNpcGhlck1vZGUpDQogICAgICAgIHsNCiAgICAgICAgICAgIFNhZmVBbGdvcml0aG1IYW5kbGUgaEFsZyA9IENuZy5CQ3J5cHRPcGVuQWxnb3JpdGhtUHJvdmlkZXIoQ25nLkJDUllQVF9ERVNfQUxHT1JJVEhNLCBudWxsLCBDbmcuT3BlbkFsZ29yaXRobVByb3ZpZGVyRmxhZ3MuTk9ORSk7DQogICAgICAgICAgICBoQWxnLlNldENpcGhlck1vZGUoY2lwaGVyTW9kZSk7DQoNCiAgICAgICAgICAgIHJldHVybiBoQWxnOw0KICAgICAgICB9DQogICAgfQ0KfQ0K"
+        },
+        "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/RC2BCryptModes.cs": {
+          "mimeType": "text/x-csharp",
+          "contents": "Ly8gTGljZW5zZWQgdG8gdGhlIC5ORVQgRm91bmRhdGlvbiB1bmRlciBvbmUgb3IgbW9yZSBhZ3JlZW1lbnRzLg0KLy8gVGhlIC5ORVQgRm91bmRhdGlvbiBsaWNlbnNlcyB0aGlzIGZpbGUgdG8geW91IHVuZGVyIHRoZSBNSVQgbGljZW5zZS4NCi8vIFNlZSB0aGUgTElDRU5TRSBmaWxlIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQoNCnVzaW5nIFN5c3RlbTsNCnVzaW5nIFN5c3RlbS5TZWN1cml0eS5DcnlwdG9ncmFwaHk7DQp1c2luZyBJbnRlcm5hbC5OYXRpdmVDcnlwdG87DQoNCm5hbWVzcGFjZSBJbnRlcm5hbC5DcnlwdG9ncmFwaHkNCnsNCiAgICBpbnRlcm5hbCBzdGF0aWMgY2xhc3MgUkMyQkNyeXB0TW9kZXMNCiAgICB7DQogICAgICAgIGludGVybmFsIHN0YXRpYyBTYWZlQWxnb3JpdGhtSGFuZGxlIEdldEhhbmRsZShDaXBoZXJNb2RlIGNpcGhlck1vZGUsIGludCBlZmZlY3RpdmVLZXlMZW5ndGgpDQogICAgICAgIHsNCiAgICAgICAgICAgIC8vIFdpbmRvd3MgOCBhZGRlZCBzdXBwb3J0IHRvIHNldCBDaXBoZXJNb2RlIGFuZCBFZmZlY3RpdmVLZXlMZW5ndGggb24gYSBrZXksDQogICAgICAgICAgICAvLyBidXQgV2luZG93cyA3IHJlcXVpcmVzIHRoYXQgdGhleSBiZSBzZXQgb24gdGhlIGFsZ29yaXRobSBiZWZvcmUga2V5IGNyZWF0aW9uLg0KICAgICAgICAgICAgLy8gVW5saWtlIHRoZSBvdGhlciBTeW1tZXRyaWNBbGdvcml0aG0gdHlwZXMgdGhhdCBjYWNoZSB0aGUgYWxnb3JpdGhtIGJhc2VkIG9uIENpcGhlck1vZGUsDQogICAgICAgICAgICAvLyBSQzIgY3JlYXRlcyBhIG5ldyBhbGdvcml0aG0gZWFjaCB0aW1lIHNpbmNlIGl0IG11c3Qgc2V0IEVmZmVjdGl2ZUtleUxlbmd0aC4NCiAgICAgICAgICAgIHN3aXRjaCAoY2lwaGVyTW9kZSkNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICBjYXNlIENpcGhlck1vZGUuQ0JDOg0KICAgICAgICAgICAgICAgICAgICByZXR1cm4gT3BlblJDMkFsZ29yaXRobShDbmcuQkNSWVBUX0NIQUlOX01PREVfQ0JDLCBlZmZlY3RpdmVLZXlMZW5ndGgpOw0KICAgICAgICAgICAgICAgIGNhc2UgQ2lwaGVyTW9kZS5FQ0I6DQogICAgICAgICAgICAgICAgICAgIHJldHVybiBPcGVuUkMyQWxnb3JpdGhtKENuZy5CQ1JZUFRfQ0hBSU5fTU9ERV9FQ0IsIGVmZmVjdGl2ZUtleUxlbmd0aCk7DQogICAgICAgICAgICAgICAgZGVmYXVsdDoNCiAgICAgICAgICAgICAgICAgICAgdGhyb3cgbmV3IE5vdFN1cHBvcnRlZEV4Y2VwdGlvbigpOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQoNCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgU2FmZUFsZ29yaXRobUhhbmRsZSBPcGVuUkMyQWxnb3JpdGhtKHN0cmluZyBjaXBoZXJNb2RlLCBpbnQgZWZmZWN0aXZlS2V5TGVuZ3RoKQ0KICAgICAgICB7DQogICAgICAgICAgICBTYWZlQWxnb3JpdGhtSGFuZGxlIGhBbGcgPSBDbmcuQkNyeXB0T3BlbkFsZ29yaXRobVByb3ZpZGVyKENuZy5CQ1JZUFRfUkMyX0FMR09SSVRITSwgbnVsbCwgQ25nLk9wZW5BbGdvcml0aG1Qcm92aWRlckZsYWdzLk5PTkUpOw0KICAgICAgICAgICAgaEFsZy5TZXRDaXBoZXJNb2RlKGNpcGhlck1vZGUpOw0KDQogICAgICAgICAgICBpZiAoZWZmZWN0aXZlS2V5TGVuZ3RoICE9IDApDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgQ25nLlNldEVmZmVjdGl2ZUtleUxlbmd0aChoQWxnLCBlZmZlY3RpdmVLZXlMZW5ndGgpOw0KICAgICAgICAgICAgfQ0KDQogICAgICAgICAgICByZXR1cm4gaEFsZzsNCiAgICAgICAgfQ0KICAgIH0NCn0NCg=="
+        },
+        "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/TripleDesBCryptModes.cs": {
+          "mimeType": "text/x-csharp",
+          "contents": "Ly8gTGljZW5zZWQgdG8gdGhlIC5ORVQgRm91bmRhdGlvbiB1bmRlciBvbmUgb3IgbW9yZSBhZ3JlZW1lbnRzLg0KLy8gVGhlIC5ORVQgRm91bmRhdGlvbiBsaWNlbnNlcyB0aGlzIGZpbGUgdG8geW91IHVuZGVyIHRoZSBNSVQgbGljZW5zZS4NCi8vIFNlZSB0aGUgTElDRU5TRSBmaWxlIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQoNCnVzaW5nIFN5c3RlbTsNCnVzaW5nIFN5c3RlbS5TZWN1cml0eS5DcnlwdG9ncmFwaHk7DQp1c2luZyBJbnRlcm5hbC5OYXRpdmVDcnlwdG87DQoNCm5hbWVzcGFjZSBJbnRlcm5hbC5DcnlwdG9ncmFwaHkNCnsNCiAgICBpbnRlcm5hbCBzdGF0aWMgY2xhc3MgVHJpcGxlRGVzQkNyeXB0TW9kZXMNCiAgICB7DQogICAgICAgIFtTeXN0ZW0uRGlhZ25vc3RpY3MuQ29kZUFuYWx5c2lzLlN1cHByZXNzTWVzc2FnZSgiTWljcm9zb2Z0LlNlY3VyaXR5IiwgIkNBNTM1MCIpXSAvLyBXZSBhcmUgcHJvdmlkaW5nIHRoZSBpbXBsZW1lbnRhdGlvbiBmb3IgM0RFUyBub3QgY29uc3VtaW5nIGl0DQogICAgICAgIHByaXZhdGUgc3RhdGljIHJlYWRvbmx5IFNhZmVBbGdvcml0aG1IYW5kbGUgc19oQWxnQ2JjID0gT3BlbjNEZXNBbGdvcml0aG0oQ25nLkJDUllQVF9DSEFJTl9NT0RFX0NCQyk7DQogICAgICAgIFtTeXN0ZW0uRGlhZ25vc3RpY3MuQ29kZUFuYWx5c2lzLlN1cHByZXNzTWVzc2FnZSgiTWljcm9zb2Z0LlNlY3VyaXR5IiwgIkNBNTM1MCIpXSAvLyBXZSBhcmUgcHJvdmlkaW5nIHRoZSBpbXBsZW1lbnRhdGlvbiBmb3IgM0RFUyBub3QgY29uc3VtaW5nIGl0DQogICAgICAgIHByaXZhdGUgc3RhdGljIHJlYWRvbmx5IFNhZmVBbGdvcml0aG1IYW5kbGUgc19oQWxnRWNiID0gT3BlbjNEZXNBbGdvcml0aG0oQ25nLkJDUllQVF9DSEFJTl9NT0RFX0VDQik7DQoNCiAgICAgICAgaW50ZXJuYWwgc3RhdGljIFNhZmVBbGdvcml0aG1IYW5kbGUgR2V0U2hhcmVkSGFuZGxlKENpcGhlck1vZGUgY2lwaGVyTW9kZSkNCiAgICAgICAgew0KICAgICAgICAgICAgLy8gV2luZG93cyA4IGFkZGVkIHN1cHBvcnQgdG8gc2V0IHRoZSBDaXBoZXJNb2RlIHZhbHVlIG9uIGEga2V5LA0KICAgICAgICAgICAgLy8gYnV0IFdpbmRvd3MgNyByZXF1aXJlcyB0aGF0IGl0IGJlIHNldCBvbiB0aGUgYWxnb3JpdGhtIGJlZm9yZSBrZXkgY3JlYXRpb24uDQogICAgICAgICAgICBzd2l0Y2ggKGNpcGhlck1vZGUpDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgY2FzZSBDaXBoZXJNb2RlLkNCQzoNCiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHNfaEFsZ0NiYzsNCiAgICAgICAgICAgICAgICBjYXNlIENpcGhlck1vZGUuRUNCOg0KICAgICAgICAgICAgICAgICAgICByZXR1cm4gc19oQWxnRWNiOw0KICAgICAgICAgICAgICAgIGRlZmF1bHQ6DQogICAgICAgICAgICAgICAgICAgIHRocm93IG5ldyBOb3RTdXBwb3J0ZWRFeGNlcHRpb24oKTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KDQogICAgICAgIHByaXZhdGUgc3RhdGljIFNhZmVBbGdvcml0aG1IYW5kbGUgT3BlbjNEZXNBbGdvcml0aG0oc3RyaW5nIGNpcGhlck1vZGUpDQogICAgICAgIHsNCiAgICAgICAgICAgIFNhZmVBbGdvcml0aG1IYW5kbGUgaEFsZyA9IENuZy5CQ3J5cHRPcGVuQWxnb3JpdGhtUHJvdmlkZXIoQ25nLkJDUllQVF8zREVTX0FMR09SSVRITSwgbnVsbCwgQ25nLk9wZW5BbGdvcml0aG1Qcm92aWRlckZsYWdzLk5PTkUpOw0KICAgICAgICAgICAgaEFsZy5TZXRDaXBoZXJNb2RlKGNpcGhlck1vZGUpOw0KDQogICAgICAgICAgICByZXR1cm4gaEFsZzsNCiAgICAgICAgfQ0KICAgIH0NCn0NCg=="
+        },
+        "file:///C:/corefx/src/Common/src/Interop/OSX/System.Security.Cryptography.Native.Apple/Interop.SecKeyRef.Export.cs": {
+          "mimeType": "text/x-csharp",
+          "contents": "Ly8gTGljZW5zZWQgdG8gdGhlIC5ORVQgRm91bmRhdGlvbiB1bmRlciBvbmUgb3IgbW9yZSBhZ3JlZW1lbnRzLg0KLy8gVGhlIC5ORVQgRm91bmRhdGlvbiBsaWNlbnNlcyB0aGlzIGZpbGUgdG8geW91IHVuZGVyIHRoZSBNSVQgbGljZW5zZS4NCi8vIFNlZSB0aGUgTElDRU5TRSBmaWxlIGluIHRoZSBwcm9qZWN0IHJvb3QgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQoNCnVzaW5nIFN5c3RlbTsNCnVzaW5nIFN5c3RlbS5EaWFnbm9zdGljczsNCnVzaW5nIFN5c3RlbS5SdW50aW1lLkludGVyb3BTZXJ2aWNlczsNCnVzaW5nIFN5c3RlbS5TZWN1cml0eS5DcnlwdG9ncmFwaHk7DQp1c2luZyBTeXN0ZW0uU2VjdXJpdHkuQ3J5cHRvZ3JhcGh5LkFwcGxlOw0KdXNpbmcgTWljcm9zb2Z0LldpbjMyLlNhZmVIYW5kbGVzOw0KDQppbnRlcm5hbCBzdGF0aWMgcGFydGlhbCBjbGFzcyBJbnRlcm9wDQp7DQogICAgaW50ZXJuYWwgc3RhdGljIHBhcnRpYWwgY2xhc3MgQXBwbGVDcnlwdG8NCiAgICB7DQogICAgICAgIHByaXZhdGUgY29uc3Qgc3RyaW5nIE9pZFBiZXMyID0gIjEuMi44NDAuMTEzNTQ5LjEuNS4xMyI7DQogICAgICAgIHByaXZhdGUgY29uc3Qgc3RyaW5nIE9pZFBia2RmMiA9ICIxLjIuODQwLjExMzU0OS4xLjUuMTIiOw0KICAgICAgICBwcml2YXRlIGNvbnN0IHN0cmluZyBPaWRTaGExID0gIjEuMy4xNC4zLjIuMjYiOw0KICAgICAgICBwcml2YXRlIGNvbnN0IHN0cmluZyBPaWRUcmlwbGVEZXNDYmMgPSAiMS4yLjg0MC4xMTM1NDkuMy43IjsNCg0KICAgICAgICBwcml2YXRlIHN0YXRpYyByZWFkb25seSBTYWZlQ3JlYXRlSGFuZGxlIHNfbnVsbEV4cG9ydFN0cmluZyA9IG5ldyBTYWZlQ3JlYXRlSGFuZGxlKCk7DQoNCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgcmVhZG9ubHkgU2FmZUNyZWF0ZUhhbmRsZSBzX2VtcHR5RXhwb3J0U3RyaW5nID0NCiAgICAgICAgICAgIENvcmVGb3VuZGF0aW9uLkNGU3RyaW5nQ3JlYXRlV2l0aENTdHJpbmcoIiIpOw0KDQogICAgICAgIFtEbGxJbXBvcnQoTGlicmFyaWVzLkFwcGxlQ3J5cHRvTmF0aXZlKV0NCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgZXh0ZXJuIGludCBBcHBsZUNyeXB0b05hdGl2ZV9TZWNLZXlFeHBvcnQoDQogICAgICAgICAgICBTYWZlU2VjS2V5UmVmSGFuZGxlIGtleSwNCiAgICAgICAgICAgIGludCBleHBvcnRQcml2YXRlLA0KICAgICAgICAgICAgU2FmZUNyZWF0ZUhhbmRsZSBjZkV4cG9ydFBhc3NwaHJhc2UsDQogICAgICAgICAgICBvdXQgU2FmZUNGRGF0YUhhbmRsZSBjZkRhdGFPdXQsDQogICAgICAgICAgICBvdXQgaW50IHBPU1N0YXR1cyk7DQoNCiAgICAgICAgaW50ZXJuYWwgc3RhdGljIERlclNlcXVlbmNlUmVhZGVyIFNlY0tleUV4cG9ydCgNCiAgICAgICAgICAgIFNhZmVTZWNLZXlSZWZIYW5kbGUga2V5LA0KICAgICAgICAgICAgYm9vbCBleHBvcnRQcml2YXRlKQ0KICAgICAgICB7DQogICAgICAgICAgICAvLyBBcHBsZSByZXF1aXJlcyBhbGwgcHJpdmF0ZSBrZXlzIHRvIGJlIGV4cG9ydGVkIGVuY3J5cHRlZCwgYnV0IHNpbmNlIHdlJ3JlIHRyeWluZyB0byBleHBvcnQNCiAgICAgICAgICAgIC8vIGFzIHBhcnNlZCBzdHJ1Y3R1cmVzIHdlIHdpbGwgbmVlZCB0byBkZWNyeXB0IGl0IGZvciB0aGUgdXNlci4NCiAgICAgICAgICAgIGNvbnN0IHN0cmluZyBFeHBvcnRQYXNzd29yZCA9ICJEb3RuZXRFeHBvcnRQYXNzcGhyYXNlIjsNCg0KICAgICAgICAgICAgU2FmZUNyZWF0ZUhhbmRsZSBleHBvcnRQYXNzd29yZCA9IGV4cG9ydFByaXZhdGUNCiAgICAgICAgICAgICAgICA/IENvcmVGb3VuZGF0aW9uLkNGU3RyaW5nQ3JlYXRlV2l0aENTdHJpbmcoRXhwb3J0UGFzc3dvcmQpDQogICAgICAgICAgICAgICAgOiBzX251bGxFeHBvcnRTdHJpbmc7DQoNCiAgICAgICAgICAgIGludCByZXQ7DQogICAgICAgICAgICBTYWZlQ0ZEYXRhSGFuZGxlIGNmRGF0YTsNCiAgICAgICAgICAgIGludCBvc1N0YXR1czsNCg0KICAgICAgICAgICAgdHJ5DQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgcmV0ID0gQXBwbGVDcnlwdG9OYXRpdmVfU2VjS2V5RXhwb3J0KA0KICAgICAgICAgICAgICAgICAgICBrZXksDQogICAgICAgICAgICAgICAgICAgIGV4cG9ydFByaXZhdGUgPyAxIDogMCwNCiAgICAgICAgICAgICAgICAgICAgZXhwb3J0UGFzc3dvcmQsDQogICAgICAgICAgICAgICAgICAgIG91dCBjZkRhdGEsDQogICAgICAgICAgICAgICAgICAgIG91dCBvc1N0YXR1cyk7DQogICAgICAgICAgICB9DQogICAgICAgICAgICBmaW5hbGx5DQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgaWYgKGV4cG9ydFBhc3N3b3JkICE9IHNfbnVsbEV4cG9ydFN0cmluZykNCiAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgICAgIGV4cG9ydFBhc3N3b3JkLkRpc3Bvc2UoKTsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQoNCiAgICAgICAgICAgIGJ5dGVbXSBleHBvcnRlZERhdGE7DQoNCiAgICAgICAgICAgIHVzaW5nIChjZkRhdGEpDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgaWYgKHJldCA9PSAwKQ0KICAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICAgdGhyb3cgQ3JlYXRlRXhjZXB0aW9uRm9yT1NTdGF0dXMob3NTdGF0dXMpOw0KICAgICAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgICAgIGlmIChyZXQgIT0gMSkNCiAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgICAgIERlYnVnLkZhaWwoJCJBcHBsZUNyeXB0b05hdGl2ZV9TZWNLZXlFeHBvcnQgcmV0dXJuZWQge3JldH0iKTsNCiAgICAgICAgICAgICAgICAgICAgdGhyb3cgbmV3IENyeXB0b2dyYXBoaWNFeGNlcHRpb24oKTsNCiAgICAgICAgICAgICAgICB9DQoNCiAgICAgICAgICAgICAgICBleHBvcnRlZERhdGEgPSBDb3JlRm91bmRhdGlvbi5DRkdldERhdGEoY2ZEYXRhKTsNCiAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgRGVyU2VxdWVuY2VSZWFkZXIgcmVhZGVyID0gbmV3IERlclNlcXVlbmNlUmVhZGVyKGV4cG9ydGVkRGF0YSk7DQoNCiAgICAgICAgICAgIGlmICghZXhwb3J0UHJpdmF0ZSkNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICByZXR1cm4gcmVhZGVyOw0KICAgICAgICAgICAgfQ0KDQogICAgICAgICAgICBieXRlIHRhZyA9IHJlYWRlci5QZWVrVGFnKCk7DQoNCiAgICAgICAgICAgIC8vIFBLQ1MjOCBkZWZpbmVzIHR3byBzdHJ1Y3R1cmVzLCBQcml2YXRlS2V5SW5mbywgd2hpY2ggc3RhcnRzIHdpdGggYW4gaW50ZWdlciwNCiAgICAgICAgICAgIC8vIGFuZCBFbmNyeXB0ZWRQcml2YXRlS2V5LCB3aGljaCBzdGFydHMgd2l0aCBhbiBlbmNyeXB0aW9uIGFsZ29yaXRobSAoREVSIHNlcXVlbmNlKS4NCiAgICAgICAgICAgIGlmICh0YWcgPT0gKGJ5dGUpRGVyU2VxdWVuY2VSZWFkZXIuRGVyVGFnLkludGVnZXIpDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgcmV0dXJuIHJlYWRlcjsNCiAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgY29uc3QgYnl0ZSBDb25zdHJ1Y3RlZFNlcXVlbmNlID0NCiAgICAgICAgICAgICAgICBEZXJTZXF1ZW5jZVJlYWRlci5Db25zdHJ1Y3RlZEZsYWcgfCAoYnl0ZSlEZXJTZXF1ZW5jZVJlYWRlci5EZXJUYWcuU2VxdWVuY2U7DQoNCiAgICAgICAgICAgIGlmICh0YWcgPT0gQ29uc3RydWN0ZWRTZXF1ZW5jZSkNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICByZXR1cm4gUmVhZEVuY3J5cHRlZFBrY3M4QmxvYihFeHBvcnRQYXNzd29yZCwgcmVhZGVyKTsNCiAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgRGVidWcuRmFpbCgkIkRhdGEgd2FzIG5laXRoZXIgUHJpdmF0ZUtleSBvciBFbmNyeXB0ZWRQcml2YXRlS2V5OiB7dGFnOlgyfSIpOw0KICAgICAgICAgICAgdGhyb3cgbmV3IENyeXB0b2dyYXBoaWNFeGNlcHRpb24oKTsNCiAgICAgICAgfQ0KDQogICAgICAgIFtTeXN0ZW0uRGlhZ25vc3RpY3MuQ29kZUFuYWx5c2lzLlN1cHByZXNzTWVzc2FnZSgiTWljcm9zb2Z0LlNlY3VyaXR5IiwgIkNBNTM1MCIsIEp1c3RpZmljYXRpb24gPSAiM0RFUyBpZGVudGlmaWVkIGZyb20gcGF5bG9hZCBieSBPSUQiKV0NCiAgICAgICAgcHJpdmF0ZSBzdGF0aWMgRGVyU2VxdWVuY2VSZWFkZXIgUmVhZEVuY3J5cHRlZFBrY3M4QmxvYihzdHJpbmcgcGFzc3BocmFzZSwgRGVyU2VxdWVuY2VSZWFkZXIgcmVhZGVyKQ0KICAgICAgICB7DQogICAgICAgICAgICAvLyBFbmNyeXB0ZWRQcml2YXRlS2V5SW5mbzo6PSBTRVFVRU5DRSB7DQogICAgICAgICAgICAvLyAgICBlbmNyeXB0aW9uQWxnb3JpdGhtIEVuY3J5cHRpb25BbGdvcml0aG1JZGVudGlmaWVyLA0KICAgICAgICAgICAgLy8gICAgZW5jcnlwdGVkRGF0YSAgICAgICAgRW5jcnlwdGVkRGF0YSB9DQogICAgICAgICAgICAvLw0KICAgICAgICAgICAgLy8gRW5jcnlwdGlvbkFsZ29yaXRobUlkZW50aWZpZXIgOjo9IEFsZ29yaXRobUlkZW50aWZpZXINCiAgICAgICAgICAgIC8vDQogICAgICAgICAgICAvLyBFbmNyeXB0ZWREYXRhIDo6PSBPQ1RFVCBTVFJJTkcNCiAgICAgICAgICAgIERlclNlcXVlbmNlUmVhZGVyIGFsZ29yaXRobUlkZW50aWZpZXIgPSByZWFkZXIuUmVhZFNlcXVlbmNlKCk7DQogICAgICAgICAgICBzdHJpbmcgYWxnb3JpdGhtT2lkID0gYWxnb3JpdGhtSWRlbnRpZmllci5SZWFkT2lkQXNTdHJpbmcoKTsNCg0KICAgICAgICAgICAgLy8gUEJFUzIgKFBhc3N3b3JkLUJhc2VkIEVuY3J5cHRpb24gU2NoZW1lIDIpDQogICAgICAgICAgICBpZiAoYWxnb3JpdGhtT2lkICE9IE9pZFBiZXMyKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIERlYnVnLkZhaWwoJCJFeHBlY3RlZCBQQkVTMiAoe09pZFBiZXMyfSksIGdvdCB7YWxnb3JpdGhtT2lkfSIpOw0KICAgICAgICAgICAgICAgIHRocm93IG5ldyBDcnlwdG9ncmFwaGljRXhjZXB0aW9uKCk7DQogICAgICAgICAgICB9DQoNCiAgICAgICAgICAgIC8vIFBCRVMyLXBhcmFtcyA6Oj0gU0VRVUVOQ0Ugew0KICAgICAgICAgICAgLy8gICAga2V5RGVyaXZhdGlvbkZ1bmMgQWxnb3JpdGhtSWRlbnRpZmllciB7IHsgUEJFUzIgLSBLREZzfSB9LA0KICAgICAgICAgICAgLy8gICAgZW5jcnlwdGlvblNjaGVtZSBBbGdvcml0aG1JZGVudGlmaWVyIHsgeyBQQkVTMiAtIEVuY3N9IH0NCiAgICAgICAgICAgIC8vIH0NCg0KICAgICAgICAgICAgRGVyU2VxdWVuY2VSZWFkZXIgcGJlczJQYXJhbXMgPSBhbGdvcml0aG1JZGVudGlmaWVyLlJlYWRTZXF1ZW5jZSgpOw0KICAgICAgICAgICAgYWxnb3JpdGhtSWRlbnRpZmllciA9IHBiZXMyUGFyYW1zLlJlYWRTZXF1ZW5jZSgpOw0KDQogICAgICAgICAgICBzdHJpbmcga2RmT2lkID0gYWxnb3JpdGhtSWRlbnRpZmllci5SZWFkT2lkQXNTdHJpbmcoKTsNCg0KICAgICAgICAgICAgLy8gUEJLREYyIChQYXNzd29yZC1CYXNlZCBLZXkgRGVyaXZhdGlvbiBGdW5jdGlvbiAyKQ0KICAgICAgICAgICAgaWYgKGtkZk9pZCAhPSBPaWRQYmtkZjIpDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgRGVidWcuRmFpbCgkIkV4cGVjdGVkIFBCS0RGMiAoe09pZFBia2RmMn0pLCBnb3Qge2tkZk9pZH0iKTsNCiAgICAgICAgICAgICAgICB0aHJvdyBuZXcgQ3J5cHRvZ3JhcGhpY0V4Y2VwdGlvbigpOw0KICAgICAgICAgICAgfQ0KDQogICAgICAgICAgICAvLyBQQktERjItcGFyYW1zIDo6PSBTRVFVRU5DRSB7DQogICAgICAgICAgICAvLyAgIHNhbHQgQ0hPSUNFIHsNCiAgICAgICAgICAgIC8vICAgICBzcGVjaWZpZWQgT0NURVQgU1RSSU5HLA0KICAgICAgICAgICAgLy8gICAgIG90aGVyU291cmNlIEFsZ29yaXRobUlkZW50aWZpZXIgeyB7IFBCS0RGMiAtIFNhbHRTb3VyY2VzfSB9DQogICAgICAgICAgICAvLyAgIH0sDQogICAgICAgICAgICAvLyAgIGl0ZXJhdGlvbkNvdW50IElOVEVHRVIgKDEuLk1BWCksDQogICAgICAgICAgICAvLyAgIGtleUxlbmd0aCBJTlRFR0VSKDEuLk1BWCkgT1BUSU9OQUwsDQogICAgICAgICAgICAvLyAgIHByZiBBbGdvcml0aG1JZGVudGlmaWVyIHsgeyBQQktERjIgLSBQUkZzfSB9ICBERUZBVUxUIGFsZ2lkIC0gaG1hY1dpdGhTSEExDQogICAgICAgICAgICAvLyB9DQogICAgICAgICAgICBEZXJTZXF1ZW5jZVJlYWRlciBwYmtkZjJQYXJhbXMgPSBhbGdvcml0aG1JZGVudGlmaWVyLlJlYWRTZXF1ZW5jZSgpOw0KDQogICAgICAgICAgICBieXRlW10gc2FsdCA9IHBia2RmMlBhcmFtcy5SZWFkT2N0ZXRTdHJpbmcoKTsNCiAgICAgICAgICAgIGludCBpdGVyQ291bnQgPSBwYmtkZjJQYXJhbXMuUmVhZEludGVnZXIoKTsNCiAgICAgICAgICAgIGludCBrZXlTaXplID0gLTE7DQoNCiAgICAgICAgICAgIGlmIChwYmtkZjJQYXJhbXMuSGFzRGF0YSAmJiBwYmtkZjJQYXJhbXMuUGVla1RhZygpID09IChieXRlKURlclNlcXVlbmNlUmVhZGVyLkRlclRhZy5JbnRlZ2VyKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIGtleVNpemUgPSBwYmtkZjJQYXJhbXMuUmVhZEludGVnZXIoKTsNCiAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgaWYgKHBia2RmMlBhcmFtcy5IYXNEYXRhKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIHN0cmluZyBwcmZPaWQgPSBwYmtkZjJQYXJhbXMuUmVhZE9pZEFzU3RyaW5nKCk7DQoNCiAgICAgICAgICAgICAgICAvLyBTSEEtMSBpcyB0aGUgb25seSBoYXNoIGFsZ29yaXRobSBvdXIgUEJLREYyIHN1cHBvcnRzLg0KICAgICAgICAgICAgICAgIGlmIChwcmZPaWQgIT0gT2lkU2hhMSkNCiAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgICAgIERlYnVnLkZhaWwoJCJFeHBlY3RlZCBTSEExICh7T2lkU2hhMX0pLCBnb3Qge3ByZk9pZH0iKTsNCiAgICAgICAgICAgICAgICAgICAgdGhyb3cgbmV3IENyeXB0b2dyYXBoaWNFeGNlcHRpb24oKTsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQoNCiAgICAgICAgICAgIERlclNlcXVlbmNlUmVhZGVyIGVuY3J5cHRpb25TY2hlbWUgPSBwYmVzMlBhcmFtcy5SZWFkU2VxdWVuY2UoKTsNCiAgICAgICAgICAgIHN0cmluZyBjaXBoZXJPaWQgPSBlbmNyeXB0aW9uU2NoZW1lLlJlYWRPaWRBc1N0cmluZygpOw0KDQogICAgICAgICAgICAvLyBERVMtRURFMy1DQkMgKFRyaXBsZURFUyBpbiBDQkMgbW9kZSkNCiAgICAgICAgICAgIGlmIChjaXBoZXJPaWQgIT0gT2lkVHJpcGxlRGVzQ2JjKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIERlYnVnLkZhaWwoJCJFeHBlY3RlZCBERVMtRURFMy1DQkMgKHtPaWRUcmlwbGVEZXNDYmN9KSwgZ290IHtjaXBoZXJPaWR9Iik7DQogICAgICAgICAgICAgICAgdGhyb3cgbmV3IENyeXB0b2dyYXBoaWNFeGNlcHRpb24oKTsNCiAgICAgICAgICAgIH0NCg0KICAgICAgICAgICAgYnl0ZVtdIGRlY3J5cHRlZDsNCg0KICAgICAgICAgICAgdXNpbmcgKFRyaXBsZURFUyBkZXMzID0gVHJpcGxlREVTLkNyZWF0ZSgpKQ0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIGlmIChrZXlTaXplID09IC0xKQ0KICAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICAgZm9yZWFjaCAoS2V5U2l6ZXMga2V5U2l6ZXMgaW4gZGVzMy5MZWdhbEtleVNpemVzKQ0KICAgICAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgICAgICAgICBrZXlTaXplID0gTWF0aC5NYXgoa2V5U2l6ZSwga2V5U2l6ZXMuTWF4U2l6ZSk7DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQoNCiAgICAgICAgICAgICAgICBieXRlW10gaXYgPSBlbmNyeXB0aW9uU2NoZW1lLlJlYWRPY3RldFN0cmluZygpOw0KDQogICAgICAgICAgICAgICAgdXNpbmcgKFJmYzI4OThEZXJpdmVCeXRlcyBwYmtkZjIgPSBuZXcgUmZjMjg5OERlcml2ZUJ5dGVzKHBhc3NwaHJhc2UsIHNhbHQsIGl0ZXJDb3VudCkpDQogICAgICAgICAgICAgICAgdXNpbmcgKElDcnlwdG9UcmFuc2Zvcm0gZGVjcnlwdG9yID0gZGVzMy5DcmVhdGVEZWNyeXB0b3IocGJrZGYyLkdldEJ5dGVzKGtleVNpemUgLyA4KSwgaXYpKQ0KICAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICAgYnl0ZVtdIGVuY3J5cHRlZCA9IHJlYWRlci5SZWFkT2N0ZXRTdHJpbmcoKTsNCiAgICAgICAgICAgICAgICAgICAgZGVjcnlwdGVkID0gZGVjcnlwdG9yLlRyYW5zZm9ybUZpbmFsQmxvY2soZW5jcnlwdGVkLCAwLCBlbmNyeXB0ZWQuTGVuZ3RoKTsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQoNCiAgICAgICAgICAgIERlclNlcXVlbmNlUmVhZGVyIHBrY3M4UmVhZGVyID0gbmV3IERlclNlcXVlbmNlUmVhZGVyKGRlY3J5cHRlZCk7DQogICAgICAgICAgICByZXR1cm4gcGtjczhSZWFkZXI7DQogICAgICAgIH0NCiAgICB9DQp9DQo="
+        }
+      },
+      "results": [
+        {
+          "ruleId": "cs/ecb-encryption",
+          "level": "warning",
+          "message": "The ECB (Electronic Code Book) encryption mode is vulnerable to replay attacks.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/AesBCryptModes.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 5,
+                  "length": 14
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "cs/ecb-encryption",
+          "level": "warning",
+          "message": "The ECB (Electronic Code Book) encryption mode is vulnerable to replay attacks.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/DESBCryptModes.cs",
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 5,
+                  "length": 14
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "cs/ecb-encryption",
+          "level": "warning",
+          "message": "The ECB (Electronic Code Book) encryption mode is vulnerable to replay attacks.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/RC2BCryptModes.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 5,
+                  "length": 14
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "cs/ecb-encryption",
+          "level": "warning",
+          "message": "The ECB (Electronic Code Book) encryption mode is vulnerable to replay attacks.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/Windows/BCrypt/TripleDesBCryptModes.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 5,
+                  "length": 14
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "cs/hardcoded-credentials",
+          "level": "warning",
+          "message": "The hard-coded value \"DotnetExportPassphrase\" flows to the [password] parameter in [object creation of type Rfc2898DeriveBytes].",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/OSX/System.Security.Cryptography.Native.Apple/Interop.SecKeyRef.Export.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 30,
+                  "length": 24
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/OSX/System.Security.Cryptography.Native.Apple/Interop.SecKeyRef.Export.cs",
+                "region": {
+                  "startLine": 206,
+                  "startColumn": 58,
+                  "length": 10
+                }
+              },
+              "message": "password"
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/corefx/src/Common/src/Interop/OSX/System.Security.Cryptography.Native.Apple/Interop.SecKeyRef.Export.cs",
+                "region": {
+                  "startLine": 206,
+                  "startColumn": 35,
+                  "length": 51
+                }
+              },
+              "message": "object creation of type Rfc2898DeriveBytes"
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "cs/ldap-injection": {
+          "id": "cs/ldap-injection",
+          "name": "cs/ldap-injection",
+          "shortDescription": "LDAP query built from user-controlled sources",
+          "fullDescription": "Building an LDAP query from user-controlled sources is vulnerable to insertion of malicious LDAP code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-090"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "LDAP query built from user-controlled sources",
+            "description": "Building an LDAP query from user-controlled sources is vulnerable to insertion of malicious LDAP code by the user.",
+            "id": "cs/ldap-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-090/LDAPInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/xml/xpath-injection": {
+          "id": "cs/xml/xpath-injection",
+          "name": "cs/xml/xpath-injection",
+          "shortDescription": "XPath injection",
+          "fullDescription": "Building an XPath expression from user-controlled sources is vulnerable to insertion of malicious code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-643"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "XPath injection",
+            "description": "Building an XPath expression from user-controlled sources is vulnerable to insertion of malicious code by the user.",
+            "id": "cs/xml/xpath-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-643/XPathInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/command-line-injection": {
+          "id": "cs/command-line-injection",
+          "name": "cs/command-line-injection",
+          "shortDescription": "Uncontrolled command line",
+          "fullDescription": "Using externally controlled strings in a command line may allow a malicious user to change the meaning of the command.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "correctness",
+  "security",
+  "external/cwe/cwe-078",
+  "external/cwe/cwe-088"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Uncontrolled command line",
+            "description": "Using externally controlled strings in a command line may allow a malicious user to change the meaning of the command.",
+            "id": "cs/command-line-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-078/CommandInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/directory-browse-enabled": {
+          "id": "cs/web/directory-browse-enabled",
+          "name": "cs/web/directory-browse-enabled",
+          "shortDescription": "ASP.NET config file enables directory browsing",
+          "fullDescription": "Directory browsing should not be enabled in production as it can leak sensitive information.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-548"
+],
+            "kind": "problem",
+            "precision": "very-high",
+            "name": "ASP.NET config file enables directory browsing",
+            "description": "Directory browsing should not be enabled in production as it can leak sensitive information.",
+            "id": "cs/web/directory-browse-enabled",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-548/ASPNetDirectoryListing.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/web/unvalidated-url-redirection": {
+          "id": "cs/web/unvalidated-url-redirection",
+          "name": "cs/web/unvalidated-url-redirection",
+          "shortDescription": "URL redirection from remote source",
+          "fullDescription": "URL redirection based on unvalidated user input may cause redirection to malicious web sites.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-601"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "URL redirection from remote source",
+            "description": "URL redirection based on unvalidated user input may cause redirection to malicious web sites.",
+            "id": "cs/web/unvalidated-url-redirection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-601/UrlRedirect.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/path-injection": {
+          "id": "cs/path-injection",
+          "name": "cs/path-injection",
+          "shortDescription": "Uncontrolled data used in path expression",
+          "fullDescription": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-022",
+  "external/cwe/cwe-023",
+  "external/cwe/cwe-036",
+  "external/cwe/cwe-073",
+  "external/cwe/cwe-099"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Uncontrolled data used in path expression",
+            "description": "Accessing paths influenced by users can allow an attacker to access unexpected resources.",
+            "id": "cs/path-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-022/TaintedPath.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/user-controlled-bypass": {
+          "id": "cs/user-controlled-bypass",
+          "name": "cs/user-controlled-bypass",
+          "shortDescription": "User-controlled bypass of sensitive method",
+          "fullDescription": "User-controlled bypassing of sensitive methods may allow attackers to avoid passing through authentication systems.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-807",
+  "external/cwe/cwe-247",
+  "external/cwe/cwe-350"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "User-controlled bypass of sensitive method",
+            "description": "User-controlled bypassing of sensitive methods may allow attackers to avoid passing through authentication systems.",
+            "id": "cs/user-controlled-bypass",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-807/ConditionalBypass.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/sensitive-data-transmission": {
+          "id": "cs/sensitive-data-transmission",
+          "name": "cs/sensitive-data-transmission",
+          "shortDescription": "Information exposure through transmitted data",
+          "fullDescription": "Transmitting sensitive information to the user is a potential security risk.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-201"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Information exposure through transmitted data",
+            "description": "Transmitting sensitive information to the user is a potential security risk.",
+            "id": "cs/sensitive-data-transmission",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-201/ExposureInTransmittedData.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/inappropriate-encoding": {
+          "id": "cs/inappropriate-encoding",
+          "name": "cs/inappropriate-encoding",
+          "shortDescription": "Inappropriate encoding",
+          "fullDescription": "Using an inappropriate encoding may give unintended results and may pose a security risk.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-838"
+],
+            "kind": "problem",
+            "precision": "low",
+            "name": "Inappropriate encoding",
+            "description": "Using an inappropriate encoding may give unintended results and may pose a security risk.",
+            "id": "cs/inappropriate-encoding",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-838/InappropriateEncoding.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/hardcoded-credentials": {
+          "id": "cs/hardcoded-credentials",
+          "name": "cs/hardcoded-credentials",
+          "shortDescription": "Hard-coded credentials",
+          "fullDescription": "Credentials are hard coded in the source code of the application.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-259",
+  "external/cwe/cwe-321",
+  "external/cwe/cwe-798"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Hard-coded credentials",
+            "description": "Credentials are hard coded in the source code of the application.",
+            "id": "cs/hardcoded-credentials",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-798/HardcodedCredentials.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/insecure-randomness": {
+          "id": "cs/insecure-randomness",
+          "name": "cs/insecure-randomness",
+          "shortDescription": "Insecure randomness",
+          "fullDescription": "Using a cryptographically weak pseudo-random number generator to generate a security sensitive value may allow an attacker to predict what sensitive value will be generated.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-338"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Insecure randomness",
+            "description": "Using a cryptographically weak pseudo-random number generator to generate a security sensitive value may allow an attacker to predict what sensitive value will be generated.",
+            "id": "cs/insecure-randomness",
+            "query-path": "/semmlecode-csharp-queries/Security Features/InsecureRandomness.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/empty-password-in-configuration": {
+          "id": "cs/empty-password-in-configuration",
+          "name": "cs/empty-password-in-configuration",
+          "shortDescription": "Empty password in configuration file",
+          "fullDescription": "Finds empty passwords in configuration files.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-258",
+  "external/cwe/cwe-862"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Empty password in configuration file",
+            "description": "Finds empty passwords in configuration files.",
+            "id": "cs/empty-password-in-configuration",
+            "query-path": "/semmlecode-csharp-queries/Configuration/EmptyPasswordInConfigurationFile.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/information-exposure-through-exception": {
+          "id": "cs/information-exposure-through-exception",
+          "name": "cs/information-exposure-through-exception",
+          "shortDescription": "Information exposure through an exception",
+          "fullDescription": "Leaking information about an exception, such as messages and stack traces, to an external user can expose implementation details that are useful to an attacker for developing a subsequent exploit.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-209",
+  "external/cwe/cwe-497"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Information exposure through an exception",
+            "description": "Leaking information about an exception, such as messages and stack traces, to an external user can expose implementation details that are useful to an attacker for developing a subsequent exploit.",
+            "id": "cs/information-exposure-through-exception",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-209/ExceptionInformationExposure.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/missing-token-validation": {
+          "id": "cs/web/missing-token-validation",
+          "name": "cs/web/missing-token-validation",
+          "shortDescription": "Missing cross-site request forgery token validation",
+          "fullDescription": "Handling a POST request without verifying that the request came from the user allows a malicious attacker to submit a request on behalf of the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-352"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Missing cross-site request forgery token validation",
+            "description": "Handling a POST request without verifying that the request came from the user allows a malicious attacker to submit a request on behalf of the user.",
+            "id": "cs/web/missing-token-validation",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-352/MissingAntiForgeryTokenValidation.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/second-order-sql-injection": {
+          "id": "cs/second-order-sql-injection",
+          "name": "cs/second-order-sql-injection",
+          "shortDescription": "SQL query built from stored user-controlled sources",
+          "fullDescription": "Building a SQL query from stored user-controlled sources is vulnerable to insertion of malicious SQL code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-089"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "SQL query built from stored user-controlled sources",
+            "description": "Building a SQL query from stored user-controlled sources is vulnerable to insertion of malicious SQL code by the user.",
+            "id": "cs/second-order-sql-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-089/SecondOrderSqlInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/unsynchronized-static-access": {
+          "id": "cs/unsynchronized-static-access",
+          "name": "cs/unsynchronized-static-access",
+          "shortDescription": "Unsynchronized access to static collection member in non-static context",
+          "fullDescription": "If an unsynchronized access to a static collection member occurs during an addition or resizing operation, an infinite loop can occur.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "concurrency",
+  "external/cwe/cwe-362",
+  "external/cwe/cwe-567"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Unsynchronized access to static collection member in non-static context",
+            "description": "If an unsynchronized access to a static collection member occurs during an addition or resizing operation, an infinite loop can occur.",
+            "id": "cs/unsynchronized-static-access",
+            "query-path": "/semmlecode-csharp-queries/Concurrency/UnsynchronizedStaticAccess.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/insufficient-key-size": {
+          "id": "cs/insufficient-key-size",
+          "name": "cs/insufficient-key-size",
+          "shortDescription": "Weak encryption: Insufficient key size",
+          "fullDescription": "Finds uses of encryption algorithms with too small a key size",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-327"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Weak encryption: Insufficient key size",
+            "description": "Finds uses of encryption algorithms with too small a key size",
+            "id": "cs/insufficient-key-size",
+            "query-path": "/semmlecode-csharp-queries/Security Features/InsufficientKeySize.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/stored-command-line-injection": {
+          "id": "cs/stored-command-line-injection",
+          "name": "cs/stored-command-line-injection",
+          "shortDescription": "Uncontrolled command line from stored user input",
+          "fullDescription": "Using externally controlled strings in a command line may allow a malicious user to change the meaning of the command.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "correctness",
+  "security",
+  "external/cwe/cwe-078",
+  "external/cwe/cwe-088"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Uncontrolled command line from stored user input",
+            "description": "Using externally controlled strings in a command line may allow a malicious user to change the meaning of the command.",
+            "id": "cs/stored-command-line-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-078/StoredCommandInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/ecb-encryption": {
+          "id": "cs/ecb-encryption",
+          "name": "cs/ecb-encryption",
+          "shortDescription": "Encryption using ECB",
+          "fullDescription": "Highlights uses of the encryption mode 'CipherMode.ECB'. This mode should normally not be used because it is vulnerable to replay attacks.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-327"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Encryption using ECB",
+            "description": "Highlights uses of the encryption mode \u0027CipherMode.ECB\u0027. This mode should normally not be used because it is vulnerable to replay attacks.",
+            "id": "cs/ecb-encryption",
+            "query-path": "/semmlecode-csharp-queries/Security Features/Encryption using ECB.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/inadequate-rsa-padding": {
+          "id": "cs/inadequate-rsa-padding",
+          "name": "cs/inadequate-rsa-padding",
+          "shortDescription": "Weak encryption: inadequate RSA padding",
+          "fullDescription": "Finds uses of RSA encryption with inadequate padding.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-327",
+  "external/cwe/cwe-780"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Weak encryption: inadequate RSA padding",
+            "description": "Finds uses of RSA encryption with inadequate padding.",
+            "id": "cs/inadequate-rsa-padding",
+            "query-path": "/semmlecode-csharp-queries/Security Features/InadequateRSAPadding.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/cleartext-storage-of-sensitive-information": {
+          "id": "cs/cleartext-storage-of-sensitive-information",
+          "name": "cs/cleartext-storage-of-sensitive-information",
+          "shortDescription": "Clear text storage of sensitive information",
+          "fullDescription": "Sensitive information stored without encryption or hashing can expose it to an attacker.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-312",
+  "external/cwe/cwe-315",
+  "external/cwe/cwe-359"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Clear text storage of sensitive information",
+            "description": "Sensitive information stored without encryption or hashing can expose it to an attacker.",
+            "id": "cs/cleartext-storage-of-sensitive-information",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-312/CleartextStorage.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/missing-global-error-handler": {
+          "id": "cs/web/missing-global-error-handler",
+          "name": "cs/web/missing-global-error-handler",
+          "shortDescription": "Missing global error handler",
+          "fullDescription": "ASP.NET applications should not set the 'customError' mode to \"off\" without providing a global error handler, otherwise they may leak exception information.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-12",
+  "external/cwe/cwe-248"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Missing global error handler",
+            "description": "ASP.NET applications should not set the \u0027customError\u0027 mode to \"off\" without providing a global error handler, otherwise they may leak exception information.",
+            "id": "cs/web/missing-global-error-handler",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-248/MissingASPNETGlobalErrorHandler.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/session-reuse": {
+          "id": "cs/session-reuse",
+          "name": "cs/session-reuse",
+          "shortDescription": "Failure to abandon session",
+          "fullDescription": "Reusing an existing session as a different user could allow an attacker to access someone else's account by using their session.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-384"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Failure to abandon session",
+            "description": "Reusing an existing session as a different user could allow an attacker to access someone else\u0027s account by using their session.",
+            "id": "cs/session-reuse",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-384/AbandonSession.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/password-in-configuration": {
+          "id": "cs/password-in-configuration",
+          "name": "cs/password-in-configuration",
+          "shortDescription": "Password in configuration file",
+          "fullDescription": "Finds passwords in configuration files.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-13",
+  "external/cwe/cwe-256",
+  "external/cwe/cwe-313"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Password in configuration file",
+            "description": "Finds passwords in configuration files.",
+            "id": "cs/password-in-configuration",
+            "query-path": "/semmlecode-csharp-queries/Configuration/PasswordInConfigurationFile.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/xml/missing-validation": {
+          "id": "cs/xml/missing-validation",
+          "name": "cs/xml/missing-validation",
+          "shortDescription": "Missing XML validation",
+          "fullDescription": "User input should not be processed as XML without validating it against a known schema.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-112"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Missing XML validation",
+            "description": "User input should not be processed as XML without validating it against a known schema.",
+            "id": "cs/xml/missing-validation",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-112/MissingXMLValidation.ql",
+            "problem.severity": "recommendation"
+          }
+        },
+        "cs/web/broad-cookie-domain": {
+          "id": "cs/web/broad-cookie-domain",
+          "name": "cs/web/broad-cookie-domain",
+          "shortDescription": "Cookie security: overly broad domain",
+          "fullDescription": "Finds cookies with an overly broad domain.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-287"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Cookie security: overly broad domain",
+            "description": "Finds cookies with an overly broad domain.",
+            "id": "cs/web/broad-cookie-domain",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CookieWithOverlyBroadDomain.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/web/persistent-cookie": {
+          "id": "cs/web/persistent-cookie",
+          "name": "cs/web/persistent-cookie",
+          "shortDescription": "Cookie security: persistent cookie",
+          "fullDescription": "Persistent cookies are vulnerable to attacks.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-539"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Cookie security: persistent cookie",
+            "description": "Persistent cookies are vulnerable to attacks.",
+            "id": "cs/web/persistent-cookie",
+            "query-path": "/semmlecode-csharp-queries/Security Features/PersistentCookie.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/insecure-xml-read": {
+          "id": "cs/insecure-xml-read",
+          "name": "cs/insecure-xml-read",
+          "shortDescription": "XML is read insecurely",
+          "fullDescription": "XML may include dangerous external references, which should be restricted using a secure resolver or disabling DTD processing.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-611",
+  "external/cwe/cwe-827",
+  "external/cwe/cwe-776"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "XML is read insecurely",
+            "description": "XML may include dangerous external references, which should be restricted using a secure resolver or disabling DTD processing.",
+            "id": "cs/insecure-xml-read",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-611/UseXmlSecureResolver.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/web/xss": {
+          "id": "cs/web/xss",
+          "name": "cs/web/xss",
+          "shortDescription": "Cross-site scripting",
+          "fullDescription": "Writing user input directly to a web page allows for a cross-site scripting vulnerability.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-079",
+  "external/cwe/cwe-116"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Cross-site scripting",
+            "description": "Writing user input directly to a web page allows for a cross-site scripting vulnerability.",
+            "id": "cs/web/xss",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-079/XSS.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/xml/stored-xpath-injection": {
+          "id": "cs/xml/stored-xpath-injection",
+          "name": "cs/xml/stored-xpath-injection",
+          "shortDescription": "Stored XPath injection",
+          "fullDescription": "Building an XPath expression from stored data which may have been provided by the user is vulnerable to insertion of malicious code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-643"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Stored XPath injection",
+            "description": "Building an XPath expression from stored data which may have been provided by the user is vulnerable to insertion of malicious code by the user.",
+            "id": "cs/xml/stored-xpath-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-643/StoredXPathInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/stored-xss": {
+          "id": "cs/web/stored-xss",
+          "name": "cs/web/stored-xss",
+          "shortDescription": "Stored cross-site scripting",
+          "fullDescription": "Writing input from the database directly to a web page indicates a cross-site scripting vulnerability if the data was originally user-provided.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-079",
+  "external/cwe/cwe-116"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Stored cross-site scripting",
+            "description": "Writing input from the database directly to a web page indicates a cross-site scripting vulnerability if the data was originally user-provided.",
+            "id": "cs/web/stored-xss",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-079/StoredXSS.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/resource-injection": {
+          "id": "cs/resource-injection",
+          "name": "cs/resource-injection",
+          "shortDescription": "Resource injection",
+          "fullDescription": "Building a resource descriptor from untrusted user input is vulnerable to a malicious user providing an unintended resource.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-099"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Resource injection",
+            "description": "Building a resource descriptor from untrusted user input is vulnerable to a malicious user providing an unintended resource.",
+            "id": "cs/resource-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-099/ResourceInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/debug-binary": {
+          "id": "cs/web/debug-binary",
+          "name": "cs/web/debug-binary",
+          "shortDescription": "Creating an ASP.NET debug binary may reveal sensitive information",
+          "fullDescription": "ASP.NET projects should not produce debug binaries when deploying to production as debug builds provide additional information useful to a malicious attacker.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "maintainability",
+  "frameworks/asp.net",
+  "external/cwe/cwe-11"
+],
+            "kind": "problem",
+            "precision": "very-high",
+            "name": "Creating an ASP.NET debug binary may reveal sensitive information",
+            "description": "ASP.NET projects should not produce debug binaries when deploying to production as debug builds provide additional information useful to a malicious attacker.",
+            "id": "cs/web/debug-binary",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-011/ASPNetDebug.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/stored-ldap-injection": {
+          "id": "cs/stored-ldap-injection",
+          "name": "cs/stored-ldap-injection",
+          "shortDescription": "LDAP query built from stored user-controlled sources",
+          "fullDescription": "Building an LDAP query from stored user-controlled sources is vulnerable to insertion of malicious LDAP code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-090"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "LDAP query built from stored user-controlled sources",
+            "description": "Building an LDAP query from stored user-controlled sources is vulnerable to insertion of malicious LDAP code by the user.",
+            "id": "cs/stored-ldap-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-090/StoredLDAPInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/code-injection": {
+          "id": "cs/code-injection",
+          "name": "cs/code-injection",
+          "shortDescription": "Improper control of generation of code",
+          "fullDescription": "Treating externally controlled strings as code can allow an attacker to execute malicious code.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-094",
+  "external/cwe/cwe-095",
+  "external/cwe/cwe-096"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Improper control of generation of code",
+            "description": "Treating externally controlled strings as code can allow an attacker to execute malicious code.",
+            "id": "cs/code-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-094/CodeInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/unvalidated-local-pointer-arithmetic": {
+          "id": "cs/unvalidated-local-pointer-arithmetic",
+          "name": "cs/unvalidated-local-pointer-arithmetic",
+          "shortDescription": "Unvalidated local pointer arithmetic",
+          "fullDescription": "Using the result of a virtual method call in pointer arithmetic without validation is dangerous because the method may be overridden by a subtype to return any value.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-119",
+  "external/cwe/cwe-120",
+  "external/cwe/cwe-122",
+  "external/cwe/cwe-788"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Unvalidated local pointer arithmetic",
+            "description": "Using the result of a virtual method call in pointer arithmetic without validation is dangerous because the method may be overridden by a subtype to return any value.",
+            "id": "cs/unvalidated-local-pointer-arithmetic",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-119/LocalUnvalidatedArithmetic.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/web/missing-x-frame-options": {
+          "id": "cs/web/missing-x-frame-options",
+          "name": "cs/web/missing-x-frame-options",
+          "shortDescription": "Missing X-Frame-Options HTTP header",
+          "fullDescription": "If the 'X-Frame-Options' setting is not provided, a malicious user may be able to overlay their own UI on top of the site by using an iframe.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-451",
+  "external/cwe/cwe-829"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Missing X-Frame-Options HTTP header",
+            "description": "If the \u0027X-Frame-Options\u0027 setting is not provided, a malicious user may be able to overlay their own UI on top of the site by using an iframe.",
+            "id": "cs/web/missing-x-frame-options",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-451/MissingXFrameOptions.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/hardcoded-connection-string-credentials": {
+          "id": "cs/hardcoded-connection-string-credentials",
+          "name": "cs/hardcoded-connection-string-credentials",
+          "shortDescription": "Hard-coded connection string with credentials",
+          "fullDescription": "Credentials are hard-coded in a connection string in the source code of the application.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-259",
+  "external/cwe/cwe-321",
+  "external/cwe/cwe-798"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Hard-coded connection string with credentials",
+            "description": "Credentials are hard-coded in a connection string in the source code of the application.",
+            "id": "cs/hardcoded-connection-string-credentials",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-798/HardcodedConnectionString.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/broad-cookie-path": {
+          "id": "cs/web/broad-cookie-path",
+          "name": "cs/web/broad-cookie-path",
+          "shortDescription": "Cookie security: overly broad path",
+          "fullDescription": "Finds cookies with an overly broad path.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-287"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Cookie security: overly broad path",
+            "description": "Finds cookies with an overly broad path.",
+            "id": "cs/web/broad-cookie-path",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CookieWithOverlyBroadPath.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/weak-encryption": {
+          "id": "cs/weak-encryption",
+          "name": "cs/weak-encryption",
+          "shortDescription": "Weak encryption",
+          "fullDescription": "Finds uses of encryption algorithms that are weak and obsolete",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-327"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Weak encryption",
+            "description": "Finds uses of encryption algorithms that are weak and obsolete",
+            "id": "cs/weak-encryption",
+            "query-path": "/semmlecode-csharp-queries/Security Features/WeakEncryption.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/web/disabled-header-checking": {
+          "id": "cs/web/disabled-header-checking",
+          "name": "cs/web/disabled-header-checking",
+          "shortDescription": "Header checking disabled",
+          "fullDescription": "Finds places where header checking is disabled.",
+          "defaultLevel": "warning",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-113"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "Header checking disabled",
+            "description": "Finds places where header checking is disabled.",
+            "id": "cs/web/disabled-header-checking",
+            "query-path": "/semmlecode-csharp-queries/Security Features/HeaderCheckingDisabled.ql",
+            "problem.severity": "warning"
+          }
+        },
+        "cs/log-forging": {
+          "id": "cs/log-forging",
+          "name": "cs/log-forging",
+          "shortDescription": "Log entries created from user input",
+          "fullDescription": "Building log entries from user-controlled sources is vulnerable to insertion of forged log entries by a malicious user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-117"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Log entries created from user input",
+            "description": "Building log entries from user-controlled sources is vulnerable to insertion of forged log entries by a malicious user.",
+            "id": "cs/log-forging",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-117/LogForging.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/web/requiressl-not-set": {
+          "id": "cs/web/requiressl-not-set",
+          "name": "cs/web/requiressl-not-set",
+          "shortDescription": "'requireSSL' attribute is not set to true",
+          "fullDescription": "Omitting the 'requireSSL' attribute allows data to be transmitted insecurely using HTTP. Always set 'requireSSL' to 'true' to ensure that HTTPS is used at all times.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-319",
+  "external/cwe/cwe-614"
+],
+            "kind": "problem",
+            "precision": "high",
+            "name": "\u0027requireSSL\u0027 attribute is not set to true",
+            "description": "Omitting the \u0027requireSSL\u0027 attribute allows data to be transmitted insecurely using HTTP. Always set \u0027requireSSL\u0027 to \u0027true\u0027 to ensure that HTTPS is used at all times.",
+            "id": "cs/web/requiressl-not-set",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-614/RequireSSL.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/regex-injection": {
+          "id": "cs/regex-injection",
+          "name": "cs/regex-injection",
+          "shortDescription": "Regular expression injection",
+          "fullDescription": "User input should not be used in regular expressions without first being escaped, otherwise a malicious user may be able to provide a regex that could require exponential time on certain inputs.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-730",
+  "external/cwe/cwe-400"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Regular expression injection",
+            "description": "User input should not be used in regular expressions without first being escaped, otherwise a malicious user may be able to provide a regex that could require exponential time on certain inputs.",
+            "id": "cs/regex-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-730/RegexInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/xml/insecure-dtd-handling": {
+          "id": "cs/xml/insecure-dtd-handling",
+          "name": "cs/xml/insecure-dtd-handling",
+          "shortDescription": "Untrusted XML is read insecurely",
+          "fullDescription": "Untrusted XML is read with an insecure resolver and DTD processing enabled.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-611",
+  "external/cwe/cwe-827",
+  "external/cwe/cwe-776"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Untrusted XML is read insecurely",
+            "description": "Untrusted XML is read with an insecure resolver and DTD processing enabled.",
+            "id": "cs/xml/insecure-dtd-handling",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-611/UntrustedDataInsecureXml.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/sql-injection": {
+          "id": "cs/sql-injection",
+          "name": "cs/sql-injection",
+          "shortDescription": "SQL query built from user-controlled sources",
+          "fullDescription": "Building a SQL query from user-controlled sources is vulnerable to insertion of malicious SQL code by the user.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-089"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "SQL query built from user-controlled sources",
+            "description": "Building a SQL query from user-controlled sources is vulnerable to insertion of malicious SQL code by the user.",
+            "id": "cs/sql-injection",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-089/SqlInjection.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/redos": {
+          "id": "cs/redos",
+          "name": "cs/redos",
+          "shortDescription": "Denial of Service from comparison of user input against expensive regex",
+          "fullDescription": "User input should not be matched against a regular expression that could require exponential time on certain input.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-730",
+  "external/cwe/cwe-400"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Denial of Service from comparison of user input against expensive regex",
+            "description": "User input should not be matched against a regular expression that could require exponential time on certain input.",
+            "id": "cs/redos",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-730/ReDoS.ql",
+            "problem.severity": "error"
+          }
+        },
+        "cs/exposure-of-sensitive-information": {
+          "id": "cs/exposure-of-sensitive-information",
+          "name": "cs/exposure-of-sensitive-information",
+          "shortDescription": "Exposure of private information",
+          "fullDescription": "If private information is written to an external location, it may be accessible by unauthorized persons.",
+          "defaultLevel": "error",
+          "properties": {
+            "tags": [
+  "security",
+  "external/cwe/cwe-359"
+],
+            "kind": "problem",
+            "precision": "medium",
+            "name": "Exposure of private information",
+            "description": "If private information is written to an external location, it may be accessible by unauthorized persons.",
+            "id": "cs/exposure-of-sensitive-information",
+            "query-path": "/semmlecode-csharp-queries/Security Features/CWE-359/ExposureOfPrivateInformation.ql",
+            "problem.severity": "error"
+          }
+        }
+      },
+      "properties": {
+        "originalUriBaseIds": {
+  "%SRCROOT%": "file:///C:/corefx/src/Common/src/"
+}
+      }
+    }
+  ]
+}

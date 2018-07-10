@@ -159,10 +159,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var mockWriter = new Mock<IResultLogWriter>();
 
-            Action action = () => converter.Convert(null, mockWriter.Object, LoggingOptions.None);
+            Action action = () => converter.Convert(null, mockWriter.Object, OptionallyEmittedData.None);
             action.ShouldThrow<ArgumentNullException>();
 
-            action = () => converter.Convert(new MemoryStream(), null, LoggingOptions.None);
+            action = () => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None);
             action.ShouldThrow<ArgumentNullException>();
         }
 
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var converter = new TSLintConverter();
 
-            converter.Convert(stream, mockWriter.Object, LoggingOptions.None);
+            converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()), Times.Once);

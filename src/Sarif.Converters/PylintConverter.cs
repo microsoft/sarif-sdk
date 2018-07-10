@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             logReader = new PylintLogReader();
         }
 
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             if (fileDictionary?.Any() == true)

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
@@ -18,9 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 
                 SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
-                LoggingOptions loggingOptions = rewriteOptions.ConvertToLoggingOptions();
+                OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
 
-                SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(actualLog);
+                SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(actualLog);
                 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 

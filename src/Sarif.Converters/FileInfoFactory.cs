@@ -9,15 +9,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FileInfoFactory
     {
-        private readonly LoggingOptions _loggingOptions;
+        private readonly OptionallyEmittedData _dataToInsert;
         private readonly Func<string, string> _mimeTypeClassifier;
         private readonly Dictionary<string, FileData> _fileInfoDictionary;
 
-        internal FileInfoFactory(Func<string, string> mimeTypeClassifier, LoggingOptions loggingOptions)
+        internal FileInfoFactory(Func<string, string> mimeTypeClassifier, OptionallyEmittedData dataToInsert)
         {
             _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
             _fileInfoDictionary = new Dictionary<string, FileData>();
-            _loggingOptions = loggingOptions;
+            _dataToInsert = dataToInsert;
         }
 
         internal Dictionary<string, FileData> Create(IEnumerable<Result> results)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             FileData fileData = FileData.Create(
                 uri,
-                _loggingOptions,
+                _dataToInsert,
                 _mimeTypeClassifier(filePath));
 
 

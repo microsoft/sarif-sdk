@@ -19,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private TextWriter _textWriter;
         private LoggingOptions _loggingOptions;
         private JsonTextWriter _jsonTextWriter;
+        private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
 
@@ -26,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
-            LoggingOptions loggingOptions,
+            OptionallyEmittedData dataToInsert,
             IEnumerable<string> invocationTokensToRedact,
             IEnumerable<string> invocationPropertiesToLog,
             string defaultFileEncoding = null)
@@ -47,13 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     var fileData = FileData.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
-                        loggingOptions);
+                        dataToInsert);
 
                     run.Files.Add(fileDataKey, fileData);
                 }
             }
 
-            var invocation = Invocation.Create(loggingOptions.Includes(LoggingOptions.PersistEnvironment), invocationPropertiesToLog);
+            var invocation = Invocation.Create(dataToInsert.Includes(OptionallyEmittedData.EnvironmentVariables), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -92,8 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         public SarifLogger(
-            string outputFilePath, 
+            string outputFilePath,
             LoggingOptions loggingOptions = DefaultLoggingOptions,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
@@ -103,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string defaultFileEncoding = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
                   loggingOptions,
+                  dataToInsert,
                   tool,
                   run)
         {
@@ -111,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public SarifLogger(
             TextWriter textWriter,
             LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
@@ -122,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             _run = run ?? CreateRun(
                             analysisTargets,
-                            loggingOptions,
+                            dataToInsert,
                             invocationTokensToRedact,
                             invocationPropertiesToLog,
                             defaultFileEncoding);
@@ -133,6 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SetSarifLoggerVersion(tool);
 
             _run.Tool = tool;
+            _dataToInsert = dataToInsert;
             _issueLogJsonWriter.Initialize(_run);
 
         }
@@ -170,15 +175,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public bool ComputeFileHashes { get { return _loggingOptions.Includes(LoggingOptions.ComputeFileHashes); } }
+        public bool ComputeFileHashes { get { return _dataToInsert.Includes(OptionallyEmittedData.Hashes); } }
+
+        public bool PersistBinaryContents { get { return _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles); } }
+
+        public bool PersistTextFileContents { get { return _dataToInsert.Includes(OptionallyEmittedData.TextFiles); } }
+
+        public bool PersistEnvironment { get { return _dataToInsert.Includes(OptionallyEmittedData.EnvironmentVariables); } }
 
         public bool OverwriteExistingOutputFile { get { return _loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile); } }
-
-        public bool PersistBinaryContents { get { return _loggingOptions.Includes(LoggingOptions.PersistBinaryContents); } }
-
-        public bool PersistTextFileContents { get { return _loggingOptions.Includes(LoggingOptions.PersistTextFileContents); } }
-
-        public bool PersistEnvironment { get { return _loggingOptions.Includes(LoggingOptions.PersistEnvironment); } }
 
         public bool PrettyPrint { get { return _loggingOptions.Includes(LoggingOptions.PrettyPrint); } }
 
@@ -381,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             catch (ArgumentException) { } // Unrecognized or null encoding name
 
-            _run.Files[fileDataKey] = FileData.Create(new Uri(uri, UriKind.RelativeOrAbsolute), _loggingOptions, null, encoding);
+            _run.Files[fileDataKey] = FileData.Create(new Uri(uri, UriKind.RelativeOrAbsolute), _dataToInsert, null, encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
