@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -14,12 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
-        public static OptionallyEmittedData ToFlags(this OptionallyEmittedData[] optionallyEmittedData)
+        public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
         {
             OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
             if (optionallyEmittedData != null)
             {
-                Array.ForEach(optionallyEmittedData, data => convertedToFlags |= data);
+                Array.ForEach(optionallyEmittedData.ToArray(), data => convertedToFlags |= data);
             }
 
             return convertedToFlags;

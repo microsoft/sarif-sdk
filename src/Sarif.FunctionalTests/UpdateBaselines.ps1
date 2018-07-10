@@ -48,13 +48,13 @@ function Build-Baselines($toolName)
 		
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-        & Write-Host "$utility convert ""$input"" --tool $toolName --output ""$outputTemp"" --pretty-print --persist-text-contents"
-        &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print --persist-text-contents
+        & Write-Host "$utility convert ""$input"" --tool $toolName --output ""$outputTemp"" --pretty-print --insert TextFiles"
+        &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print --insert TextFiles
 
         # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source      
         # SARIF emitted by the compiler does not contain the optional 'files' member of the 'run' object.
-        Write-Host "$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --persist-text-contents --hashes --force"
-        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --persist-text-contents --hashes --force
+        Write-Host "$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert ""TextFiles;Hashes"" --force"
+        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes" --force
 
         Move-Item $outputTemp $output -Force
     }
