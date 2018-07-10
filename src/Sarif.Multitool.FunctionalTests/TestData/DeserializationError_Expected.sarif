@@ -17,7 +17,7 @@
       },
       "results": [
         {
-          "ruleId": "JS1002",
+          "ruleId": "JSON1002",
           "level": "error",
           "message": {
             "arguments": [
@@ -46,8 +46,8 @@
       ],
       "resources": {
         "rules": {
-          "JS1002": {
-            "id":"JS1002",
+          "JSON1002": {
+            "id":"JSON1002",
             "name": {
               "text": "RequiredPropertyMissing"
             },

@@ -17,7 +17,7 @@
       },
       "results": [
         {
-          "ruleId": "JS0001",
+          "ruleId": "JSON0001",
           "level": "error",
           "message": {
             "arguments": [
@@ -43,8 +43,8 @@
       ],
       "resources": {
         "rules": {
-          "JS0001": {
-            "id": "JS0001",
+          "JSON0001": {
+            "id": "JSON0001",
             "name": {
               "text": "SyntaxError"
             },

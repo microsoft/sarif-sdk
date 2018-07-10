@@ -49,7 +49,7 @@ for %%p in (%NewTestProjects%) do (
 for %%p in (%OldTestProjects%) do (
     echo Running tests for %%p
     pushd %ThisFileDirectory%bld\bin\%%p\AnyCPU_%Configuration%
-    %TestRunnerRootPath%net452\xunit.console.exe %%p.dll %ReporterOption%
+    %TestRunnerRootPath%net452\xunit.console.exe %%p.dll %ReporterOption% -parallel none
     if "%ERRORLEVEL%" NEQ "0" (
         popd
         echo %%i: tests failed.
