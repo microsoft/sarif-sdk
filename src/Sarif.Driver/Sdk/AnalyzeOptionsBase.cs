@@ -101,6 +101,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
             "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, CodeSnippets, SurroundingCodeSnippets " +
             "and NondeterministicProperties.")]
-        public OptionallyEmittedData[] DataToInsert { get; internal set; }
+        public IEnumerable<OptionallyEmittedData> DataToInsert { get; internal set; }
     }
 }
