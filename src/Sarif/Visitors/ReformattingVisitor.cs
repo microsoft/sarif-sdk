@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -48,9 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
         {
-            Uri uri;
-
-            if (!Uri.TryCreate(key, UriKind.RelativeOrAbsolute, out uri))
+            if (!Uri.TryCreate(key, UriKind.RelativeOrAbsolute, out Uri uri))
             {
                 return node;
             }
@@ -58,8 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             bool workToDo = false;
 
             workToDo |= node.Hashes == null   && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= node.Contents == null && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
-            workToDo |= node.Contents == null && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+            workToDo |= node.Contents?.Binary == null && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= node.Contents?.Binary == null && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
