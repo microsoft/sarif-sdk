@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
     /// <summary>
-    /// 
+    /// A set of two results that have been matched by a matching algorithm.
     /// </summary>
     public class MatchedResults
     {
@@ -16,8 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public MatchingResult CurrentResult;
 
         public IResultMatcher MatchingAlgorithm;
-
-
+        
         public Result CalculateNewBaselineResult()
         {
             Result result = null;
