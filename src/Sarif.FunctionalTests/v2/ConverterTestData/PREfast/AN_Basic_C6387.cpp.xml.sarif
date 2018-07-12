@@ -60,7 +60,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "RequiresNotNull(data);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387",
@@ -83,7 +86,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int * data = 0;"
+                            }
                           }
                         }
                       },
@@ -101,7 +107,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -118,7 +127,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -151,7 +163,10 @@
                 },
                 "region": {
                   "startLine": 22,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "RequiresNotNull(data);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_Opt",
@@ -174,7 +189,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "void BasicC6387_Opt(_In_opt_ int * data)"
+                            }
                           }
                         }
                       },
@@ -192,7 +210,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -209,7 +230,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -242,7 +266,10 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "RequiresNotNull(data);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_PostNull",
@@ -265,7 +292,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int * data = MayReturnNull();"
+                            }
                           }
                         }
                       },
@@ -283,7 +313,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -300,7 +333,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "RequiresNotNull(data);"
+                            }
                           }
                         }
                       },
@@ -333,7 +369,10 @@
                 },
                 "region": {
                   "startLine": 38,
-                  "startColumn": 23
+                  "startColumn": 23,
+                  "snippet": {
+                    "text": "RequiresNotNullOut(data);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_Out",
@@ -356,7 +395,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int * data = 0;"
+                            }
                           }
                         }
                       },
@@ -374,7 +416,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "RequiresNotNullOut(data);"
+                            }
                           }
                         }
                       },
@@ -391,7 +436,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "RequiresNotNullOut(data);"
+                            }
                           }
                         }
                       },
@@ -424,7 +472,10 @@
                 },
                 "region": {
                   "startLine": 43,
-                  "startColumn": 27
+                  "startColumn": 27,
+                  "snippet": {
+                    "text": "void BasicC6387_OutNotNull(_Outptr_ int ** pOut)"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_OutNotNull",
@@ -447,7 +498,10 @@
                           },
                           "region": {
                             "startLine": 45,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int * data = 0;"
+                            }
                           }
                         }
                       },
@@ -462,7 +516,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "*pOut = data;"
+                            }
                           }
                         }
                       },
@@ -480,7 +537,10 @@
                           },
                           "region": {
                             "startLine": 48,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "}"
+                            }
                           }
                         }
                       },
@@ -495,7 +555,10 @@
                           },
                           "region": {
                             "startLine": 43,
-                            "startColumn": 27
+                            "startColumn": 27,
+                            "snippet": {
+                              "text": "void BasicC6387_OutNotNull(_Outptr_ int ** pOut)"
+                            }
                           }
                         }
                       },

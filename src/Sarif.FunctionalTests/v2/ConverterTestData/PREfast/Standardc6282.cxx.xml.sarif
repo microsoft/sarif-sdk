@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "while (i = 5)\t//@@@Expects:6282"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "f_d",

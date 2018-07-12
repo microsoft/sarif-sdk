@@ -51,7 +51,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "int y = data[n];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInNewArray",
@@ -74,7 +77,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int n = 5;"
+                            }
                           }
                         }
                       },
@@ -92,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -110,7 +119,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "data[0] = 42;"
+                            }
                           }
                         }
                       },
@@ -125,7 +137,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)"
+                            }
                           }
                         }
                       },
@@ -142,7 +157,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int y = data[n];"
+                            }
                           }
                         }
                       },
@@ -175,7 +193,10 @@
                 },
                 "region": {
                   "startLine": 42,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "int y = data[n];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInConstructor",
@@ -198,7 +219,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int n = 5;"
+                            }
                           }
                         }
                       },
@@ -216,7 +240,10 @@
                           },
                           "region": {
                             "startLine": 37,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -234,7 +261,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "data[0] = 43;"
+                            }
                           }
                         }
                       },
@@ -249,7 +279,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "SampleClass * widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'"
+                            }
                           }
                         }
                       },
@@ -266,7 +299,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int y = data[n];"
+                            }
                           }
                         }
                       },

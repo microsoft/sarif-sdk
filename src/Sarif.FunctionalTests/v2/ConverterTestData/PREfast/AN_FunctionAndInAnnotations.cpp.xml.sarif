@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 18
+                  "startColumn": 18,
+                  "snippet": {
+                    "text": "UseValues(&source);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CallUseValues",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int source;"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "if (flag)"
+                            }
                           }
                         }
                       },
@@ -106,7 +115,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "UseValues(&source);"
+                            }
                           }
                         }
                       },
@@ -123,7 +135,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "UseValues(&source);"
+                            }
                           }
                         }
                       },

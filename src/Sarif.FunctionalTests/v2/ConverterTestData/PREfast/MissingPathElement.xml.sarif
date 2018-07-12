@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "contentStores[0] = contentStores[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_IndexAlias",

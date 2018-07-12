@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 14,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "int k = data[maxSize];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_IrrelevantLoop",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int data[10];"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int maxSize = 10;"
+                            }
                           }
                         }
                       },
@@ -107,7 +116,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -122,7 +134,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -137,7 +152,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "data[i] = i;"
+                            }
                           }
                         }
                       },
@@ -152,7 +170,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 28
+                            "startColumn": 28,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -167,7 +188,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -182,7 +206,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "data[i] = i;"
+                            }
                           }
                         }
                       },
@@ -197,7 +224,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 28
+                            "startColumn": 28,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -212,7 +242,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -227,7 +260,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int k = data[maxSize];"
+                            }
                           }
                         }
                       },

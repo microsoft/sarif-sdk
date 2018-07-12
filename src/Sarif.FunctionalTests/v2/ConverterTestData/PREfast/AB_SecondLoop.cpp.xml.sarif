@@ -54,7 +54,10 @@
                 },
                 "region": {
                   "startLine": 18,
-                  "startColumn": 8
+                  "startColumn": 8,
+                  "snippet": {
+                    "text": "int target = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoop",
@@ -77,7 +80,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -95,7 +101,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = false;"
+                            }
                           }
                         }
                       },
@@ -110,7 +119,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<3; i++)"
+                            }
                           }
                         }
                       },
@@ -125,7 +137,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<3; i++)"
+                            }
                           }
                         }
                       },
@@ -142,7 +157,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -159,7 +177,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
                           }
                         }
                       },
@@ -174,7 +195,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 22
+                            "startColumn": 22,
+                            "snippet": {
+                              "text": "for (int i=0; i<3; i++)"
+                            }
                           }
                         }
                       },
@@ -189,7 +213,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<3; i++)"
+                            }
                           }
                         }
                       },
@@ -206,7 +233,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -223,7 +253,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int target = *source;"
+                            }
                           }
                         }
                       },
@@ -256,7 +289,10 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 8
+                  "startColumn": 8,
+                  "snippet": {
+                    "text": "int target = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopWithParam",
@@ -279,7 +315,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -297,7 +336,10 @@
                           },
                           "region": {
                             "startLine": 26,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = false;"
+                            }
                           }
                         }
                       },
@@ -312,7 +354,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -327,7 +372,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -344,7 +392,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -361,7 +412,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
                           }
                         }
                       },
@@ -376,7 +430,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -391,7 +448,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -408,7 +468,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -425,7 +488,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int target = *source;"
+                            }
                           }
                         }
                       },
@@ -458,7 +524,10 @@
                 },
                 "region": {
                   "startLine": 52,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "int j = x[param];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
@@ -481,7 +550,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -496,7 +568,10 @@
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = false;"
+                            }
                           }
                         }
                       },
@@ -511,7 +586,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -529,7 +607,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -544,7 +625,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -559,7 +643,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -576,7 +663,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -593,7 +683,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
                           }
                         }
                       },
@@ -608,7 +701,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -623,7 +719,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -640,7 +739,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -657,7 +759,10 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int target = *source;"
+                            }
                           }
                         }
                       },
@@ -672,7 +777,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -687,7 +795,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -704,7 +815,10 @@
                           },
                           "region": {
                             "startLine": 52,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int j = x[param];"
+                            }
                           }
                         }
                       },
@@ -737,7 +851,10 @@
                 },
                 "region": {
                   "startLine": 53,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "int k = y[param+1];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
@@ -760,7 +877,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -775,7 +895,10 @@
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = false;"
+                            }
                           }
                         }
                       },
@@ -790,7 +913,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -805,7 +931,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -823,7 +952,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -838,7 +970,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -855,7 +990,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -872,7 +1010,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
                           }
                         }
                       },
@@ -887,7 +1028,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -902,7 +1046,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -919,7 +1066,10 @@
                           },
                           "region": {
                             "startLine": 52,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int j = x[param];"
+                            }
                           }
                         }
                       },
@@ -934,7 +1084,10 @@
                           },
                           "region": {
                             "startLine": 53,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int k = y[param+1];"
+                            }
                           }
                         }
                       },
@@ -967,7 +1120,10 @@
                 },
                 "region": {
                   "startLine": 49,
-                  "startColumn": 8
+                  "startColumn": 8,
+                  "snippet": {
+                    "text": "int target = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_OnlyOnSecondLoopPlusRollbackDefect",
@@ -990,7 +1146,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -1008,7 +1167,10 @@
                           },
                           "region": {
                             "startLine": 41,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = false;"
+                            }
                           }
                         }
                       },
@@ -1023,7 +1185,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -1038,7 +1203,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -1053,7 +1221,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -1068,7 +1239,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -1085,7 +1259,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -1102,7 +1279,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
                           }
                         }
                       },
@@ -1117,7 +1297,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -1132,7 +1315,10 @@
                           },
                           "region": {
                             "startLine": 44,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "for (int i=0; i<param; i++)"
+                            }
                           }
                         }
                       },
@@ -1149,7 +1335,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (!flag)"
+                            }
                           }
                         }
                       },
@@ -1166,7 +1355,10 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int target = *source;"
+                            }
                           }
                         }
                       },

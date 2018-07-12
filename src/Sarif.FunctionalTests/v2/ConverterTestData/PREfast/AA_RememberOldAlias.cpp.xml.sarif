@@ -51,7 +51,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -74,7 +77,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int data[10];"
+                            }
                           }
                         }
                       },
@@ -92,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int index = 9;"
+                            }
                           }
                         }
                       },
@@ -107,7 +116,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -122,7 +134,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "b = 10;"
+                            }
                           }
                         }
                       },
@@ -137,7 +152,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -170,7 +188,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -193,7 +214,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int data[10];"
+                            }
                           }
                         }
                       },
@@ -211,7 +235,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int index = 9;"
+                            }
                           }
                         }
                       },
@@ -226,7 +253,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -241,7 +271,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "b = 10;"
+                            }
                           }
                         }
                       },
@@ -259,7 +292,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -292,7 +328,10 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "*result = *c;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RememberOldAlias",
@@ -315,7 +354,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * a = 0;"
+                            }
                           }
                         }
                       },
@@ -333,7 +375,10 @@
                           },
                           "region": {
                             "startLine": 19,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * b = &x;"
+                            }
                           }
                         }
                       },
@@ -348,7 +393,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int * c = &y;"
+                            }
                           }
                         }
                       },
@@ -363,7 +411,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "bool flag = true;"
+                            }
                           }
                         }
                       },
@@ -378,7 +429,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "for (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -393,7 +447,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "for (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -410,7 +467,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (flag) {"
+                            }
                           }
                         }
                       },
@@ -427,7 +487,10 @@
                           },
                           "region": {
                             "startLine": 26,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "b = a; // care about this alias ('b' is interesting)"
+                            }
                           }
                         }
                       },
@@ -445,7 +508,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "c = b;"
+                            }
                           }
                         }
                       },
@@ -463,7 +529,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag = false;"
+                            }
                           }
                         }
                       },
@@ -478,7 +547,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "for (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -493,7 +565,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "for (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -510,7 +585,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if (flag) {"
+                            }
                           }
                         }
                       },
@@ -527,7 +605,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "a = &x;"
+                            }
                           }
                         }
                       },
@@ -542,7 +623,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "b = &y;"
+                            }
                           }
                         }
                       },
@@ -557,7 +641,10 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "*result = *c;"
+                            }
                           }
                         }
                       },

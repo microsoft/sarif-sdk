@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 4,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "void Out6101(_Out_ int * target, bool flag)"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Out6101",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "void Out6101(_Out_ int * target, bool flag)"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "if (flag)"
+                            }
                           }
                         }
                       },
@@ -106,7 +115,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "}"
+                            }
                           }
                         }
                       },
@@ -121,7 +133,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "void Out6101(_Out_ int * target, bool flag)"
+                            }
                           }
                         }
                       },

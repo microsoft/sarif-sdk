@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 14
+                  "startColumn": 14,
+                  "snippet": {
+                    "text": "a[i-1] = j;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6386_Example2",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int a[20];"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "int j = 1;"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "if (i <= 21)"
+                            }
                           }
                         }
                       },
@@ -121,7 +133,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "a[i-1] = j;"
+                            }
                           }
                         }
                       },

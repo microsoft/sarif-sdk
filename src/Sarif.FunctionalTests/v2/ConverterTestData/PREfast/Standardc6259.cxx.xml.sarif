@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 22,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "case 4:\t//@@@Expects:6259"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "f_d",

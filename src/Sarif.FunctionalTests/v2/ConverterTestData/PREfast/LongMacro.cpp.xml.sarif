@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "return simpleVar;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001MacroExpansion_Example",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int simpleVar;"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "if ( SUCCEEDED(hrLongVar) )"
+                            }
                           }
                         }
                       },
@@ -106,7 +115,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "return simpleVar;"
+                            }
                           }
                         }
                       },

@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int data[10];"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "if (b == 10);"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -137,7 +149,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -160,7 +175,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "int data[10];"
+                            }
                           }
                         }
                       },
@@ -178,7 +196,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "if (b == 10);"
+                            }
                           }
                         }
                       },
@@ -195,7 +216,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "*result = data[b];"
+                            }
                           }
                         }
                       },
