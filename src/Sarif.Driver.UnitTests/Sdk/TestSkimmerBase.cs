@@ -1,8 +1,11 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.Resources;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
 {
     // This class overrides all the abstract members of SkimmerBase. As a result,
     // when we want to write a set of tests that implement only a limited number

@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;

@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF002",
+          "ruleId": "SARIF10002",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SARIF002": {
-          "id": "SARIF002",
+        "SARIF10002": {
+          "id": "SARIF10002",
           "name": "UseAbsolutePathsForNestedFileUriFragments",
           "shortDescription": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path.",
           "fullDescription": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example \"file:///C:/bin/MyApp.zip#/images/grape.jpg\".",

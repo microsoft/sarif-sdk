@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string commandLine = Environment.CommandLine;
                 string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console"))
+                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console") || lowerCaseCommandLine.Contains("testhost.x86.exe"))
                 {
                     int index = commandLine.LastIndexOf("\\");
                     string argumentToRedact = commandLine.Substring(0, index + 1);
@@ -83,11 +83,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                         tokensToRedact = new string[] {  pathToExe };
                     }
                 }
-                else
+                else if (commandLine.Contains("/agentKey"))
                 {
                     string argumentToRedact = commandLine.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
                     argumentToRedact = argumentToRedact.Split(' ')[0];
                     tokensToRedact = new string[] { argumentToRedact };
+                }
+                else
+                {
+                    Assert.False(true, pathToExe + " " + commandLine);
                 }
 
                 using (var sarifLogger = new SarifLogger(
@@ -247,9 +251,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
             run.AutomationLogicalId.Should().Be(automationLogicalId);
             run.Architecture.Should().Be(architecture);
-            run.Conversion.Tool.ShouldBeEquivalentTo(DefaultTool);
-            //run.VersionControlProvenance[0].Timestamp.ShouldBeEquivalentTo(utcNow);
-            run.VersionControlProvenance[0].Uri.ShouldBeEquivalentTo(versionControlUri);
+            run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
+            //run.VersionControlProvenance[0].Timestamp.Should().BeEquivalentTo(utcNow);
+            run.VersionControlProvenance[0].Uri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
             run.RichMessageMimeType.Should().Be(richMessageMimeType);

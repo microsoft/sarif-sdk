@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             TSLintLogReader logReader = new TSLintLogReader();
 
             Action action = () => logReader.ReadLog(default(Stream));
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

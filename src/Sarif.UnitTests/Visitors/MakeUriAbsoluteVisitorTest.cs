@@ -115,12 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var oldRun = GenerateRunForTest(uriMapping);
             // Validate.
 
-            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
             foreach(var key in newRun.Files.Keys)
             {
-                oldRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.Uri);
-                oldRun.Files[key].FileLocation.UriBaseId.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
-                oldRun.Files[key].ParentKey.ShouldBeEquivalentTo(newRun.Files[key].ParentKey);
+                oldRun.Files[key].FileLocation.Uri.Should().BeEquivalentTo(newRun.Files[key].FileLocation.Uri);
+                oldRun.Files[key].FileLocation.UriBaseId.Should().BeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
+                oldRun.Files[key].ParentKey.Should().BeEquivalentTo(newRun.Files[key].ParentKey);
             }
         }
 
@@ -137,12 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // Validate.
             var oldRun = GenerateRunForTest(null);
 
-            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
             foreach (var key in newRun.Files.Keys)
             {
-                oldRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.Uri);
-                oldRun.Files[key].FileLocation.UriBaseId.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
-                oldRun.Files[key].ParentKey.ShouldBeEquivalentTo(newRun.Files[key].ParentKey);
+                oldRun.Files[key].FileLocation.Uri.Should().BeEquivalentTo(newRun.Files[key].FileLocation.Uri);
+                oldRun.Files[key].FileLocation.UriBaseId.Should().BeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
+                oldRun.Files[key].ParentKey.Should().BeEquivalentTo(newRun.Files[key].ParentKey);
             }
         }
 

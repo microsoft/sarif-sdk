@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Newtonsoft.Json;
 using Xunit;
 

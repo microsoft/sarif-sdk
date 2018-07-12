@@ -39,12 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (!string.IsNullOrEmpty(expectedDifference))
             {
-                newLocation.FileLocation.UriBaseId.ShouldBeEquivalentTo(rootName, "We should set the root name for these.");
+                newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, "We should set the root name for these.");
                 newLocation.FileLocation.Uri.Should().Be(baseUri.MakeRelativeUri(locationUri).ToString(), "Base URI should be relative if the expected difference is there.");
                 newLocation.FileLocation.Uri.Should().Be(expectedDifference, "We expect this difference.");
             } else
             {
-                newLocation.ShouldBeEquivalentTo(location, "When we have no expected difference, we expect the location to not be changed by the rebase operation.");
+                newLocation.Should().BeEquivalentTo(location, "When we have no expected difference, we expect the location to not be changed by the rebase operation.");
             }
         }
 
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
-            rebaseUriVisitor.VisitPhysicalLocation(location).ShouldBeEquivalentTo(location, "We should not rebase a URI multiple times.");
+            rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, "We should not rebase a URI multiple times.");
         }
         
         [Fact]
@@ -109,9 +109,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Dictionary<string, Uri> baseUriDictionary = RebaseUriVisitor.DeserializePropertyDictionary(newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName]);
 
             baseUriDictionary.Should().ContainKey(srcRoot);
-            baseUriDictionary[srcRoot].ShouldBeEquivalentTo(srcRootUri);
+            baseUriDictionary[srcRoot].Should().BeEquivalentTo(srcRootUri);
             baseUriDictionary.Should().ContainKey(bldRoot);
-            baseUriDictionary[bldRoot].ShouldBeEquivalentTo(bldRootUri);
+            baseUriDictionary[bldRoot].Should().BeEquivalentTo(bldRootUri);
         }
 
         [Fact]
@@ -133,10 +133,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Dictionary<string, Uri> baseUriDictionary = RebaseUriVisitor.DeserializePropertyDictionary(newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName]);
 
             baseUriDictionary.Should().ContainKey("SRCROOT");
-            baseUriDictionary["SRCROOT"].ShouldBeEquivalentTo(new Uri(@"C:\src\root"));
+            baseUriDictionary["SRCROOT"].Should().BeEquivalentTo(new Uri(@"C:\src\root"));
 
             newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix);
-            newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].ShouldBeEquivalentTo(oldData);
+            newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].Should().BeEquivalentTo(oldData);
         }
 
         [Fact]
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
             
             // Random sarif log generator uses "C:\src\" as the root.
-            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
          }
 
         [Fact]

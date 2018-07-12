@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 using System.Xml;

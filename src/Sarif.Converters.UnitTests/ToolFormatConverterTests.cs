@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string directory = Environment.CurrentDirectory;
             Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, input, directory);
 
-            action.ShouldThrow<ArgumentException>();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string file = Path.GetTempFileName();
             Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, file);
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string file = Path.GetTempFileName();
             Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, file, null);
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var output = new ResultLogObjectWriter();
             Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, null, output);
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, stream, null);
 
-                action.ShouldThrow<ArgumentNullException>();
+                action.Should().Throw<ArgumentNullException>();
             }
         }
 
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Action action = () => _converter.ConvertToStandardFormat("UnknownTool", input, output);
 
-                action.ShouldThrow<ArgumentException>();
+                action.Should().Throw<ArgumentException>();
             }
         }
 
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string doesNotExist = Guid.NewGuid().ToString();
             Action action = () =>_converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, doesNotExist, file, LoggingOptions.OverwriteExistingOutputFile);
 
-            action.ShouldThrow<FileNotFoundException>();
+            action.Should().Throw<FileNotFoundException>();
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string exists = this.GetType().Assembly.Location;
             Action action = () => _converter.ConvertToStandardFormat(ToolFormat.AndroidStudio, exists, exists);
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.Should().Throw<InvalidOperationException>();
         }
 
         [Fact]
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     PluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(PluginAssemblyPath));
             }
         }
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     PluginAssemblyPath);
 
                 // The attempt to convert the file should throw the same exception.
-                action.ShouldThrow<BadImageFormatException>().WithMessage(Message);
+                action.Should().Throw<BadImageFormatException>().WithMessage(Message);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
             }
         }
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex =>
                         ex.Message.Contains(pluginAssemblyPath)
                         && ex.Message.Contains(ToolName));
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
             }
         }
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
             }
         }
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
             }
         }
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldThrow<ArgumentException>()
+                action.Should().Throw<ArgumentException>()
                     .Where(ex => ex.Message.Contains(ToolName));
             }
         }
@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldNotThrow();
+                action.Should().NotThrow();
             }
         }
 
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     OptionallyEmittedData.None,
                     pluginAssemblyPath);
 
-                action.ShouldNotThrow();
+                action.Should().NotThrow();
             }
         }
 

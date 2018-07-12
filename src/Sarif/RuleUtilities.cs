@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(arguments));
             }
 
-            ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
+            ruleMessageId = NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
 
             Result result = new Result
             {
