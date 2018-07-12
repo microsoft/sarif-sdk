@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
