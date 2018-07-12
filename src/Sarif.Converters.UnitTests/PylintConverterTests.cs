@@ -9,7 +9,6 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Xunit;
 
