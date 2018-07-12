@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -11,6 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     /// </summary>
     public class MatchedResults
     {
+        private const string MatchResultMetadata_RunKeyName = "Run";
+        private const string MatchResultMetadata_FoundDateName = "FoundDate";
+
         public MatchingResult BaselineResult;
 
         public MatchingResult CurrentResult;
@@ -25,23 +29,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, string> OriginalResultMatchingProperties = null;
             if (BaselineResult != null && CurrentResult != null)
             {
+                // Result exists.
                 result = CurrentResult.Result.DeepClone();
                 result.Id = BaselineResult.Result.Id;
                 result.SuppressionStates = BaselineResult.Result.SuppressionStates;
                 result.BaselineState = BaselineState.Existing;
 
-                if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+                if (!CurrentResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
                 {
                     OriginalResultMatchingProperties = new Dictionary<string, string>();
                 }
 
                 if (CurrentResult.OriginalRun.Id != null)
                 {
-                    ResultMatchingProperties.Add("Run", CurrentResult.OriginalRun.Id);
+                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id);
+                }
+
+                // Potentially temporary.
+                if (BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> BaselineResultMatchingProperties))
+                {
+                    if (BaselineResultMatchingProperties.ContainsKey(MatchedResults.MatchResultMetadata_FoundDateName))
+                    {
+                        ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, BaselineResultMatchingProperties[MatchedResults.MatchResultMetadata_FoundDateName]);
+                    }
                 }
             }
             else if (BaselineResult == null && CurrentResult != null)
             {
+                // Result is New.
                 result = CurrentResult.Result.DeepClone();
                 result.Id = Guid.NewGuid().ToString();
                 result.BaselineState = BaselineState.New;
@@ -53,11 +68,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (CurrentResult.OriginalRun.Id != null)
                 {
-                    ResultMatchingProperties.Add("Run", CurrentResult.OriginalRun.Id);
+                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id);
                 }
+                
+                // Potentially temporary.
+                if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
+                {
+                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime.ToString());
+                }
+                
             }
             else if (BaselineResult != null && CurrentResult == null)
             {
+                // Result is absent.
                 result = BaselineResult.Result.DeepClone();
                 result.BaselineState = BaselineState.Absent;
 
@@ -68,9 +91,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (BaselineResult.OriginalRun.Id != null)
                 {
-                    ResultMatchingProperties.Add("Run", BaselineResult.OriginalRun.Id);
+                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, BaselineResult.OriginalRun.Id);
                 }
 
+                // Potentially temporary.
+                if (BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> BaselineResultMatchingProperties))
+                {
+                    if (BaselineResultMatchingProperties.ContainsKey(MatchedResults.MatchResultMetadata_FoundDateName))
+                    {
+                        ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, BaselineResultMatchingProperties[MatchedResults.MatchResultMetadata_FoundDateName]);
+                    }
+                }
             }
             else
             {
