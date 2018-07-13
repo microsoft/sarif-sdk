@@ -81,7 +81,10 @@
                 },
                 "region": {
                   "startLine": 11,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded",
@@ -104,7 +107,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -122,7 +128,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tif (SUCCEEDED(hr))"
+                            }
                           }
                         }
                       },
@@ -139,7 +148,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -172,7 +184,10 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded2",
@@ -195,7 +210,10 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -213,7 +231,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "\tif (SUCCEEDED(hr) && b)"
+                            }
                           }
                         }
                       },
@@ -230,7 +251,10 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -263,7 +287,10 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded3",
@@ -286,7 +313,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -304,7 +334,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 27
+                            "startColumn": 27,
+                            "snippet": {
+                              "text": "\tif ((SUCCEEDED(hr) || b) && c)"
+                            }
                           }
                         }
                       },
@@ -321,7 +354,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -354,7 +390,10 @@
                 },
                 "region": {
                   "startLine": 42,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded4",
@@ -377,7 +416,10 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -395,7 +437,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tif ((!SUCCEEDED(_hResult)))"
+                            }
                           }
                         }
                       },
@@ -412,7 +457,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -445,7 +493,10 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed",
@@ -468,7 +519,10 @@
                           },
                           "region": {
                             "startLine": 48,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -486,7 +540,10 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tif (FAILED(hr))"
+                            }
                           }
                         }
                       },
@@ -503,7 +560,10 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -536,7 +596,10 @@
                 },
                 "region": {
                   "startLine": 64,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed2",
@@ -559,7 +622,10 @@
                           },
                           "region": {
                             "startLine": 57,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -577,7 +643,10 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 22
+                            "startColumn": 22,
+                            "snippet": {
+                              "text": "\tif (FAILED(hr) && b || SUCCEEDED(hr))"
+                            }
                           }
                         }
                       },
@@ -594,7 +663,10 @@
                           },
                           "region": {
                             "startLine": 64,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -627,7 +699,10 @@
                 },
                 "region": {
                   "startLine": 73,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed3",
@@ -650,7 +725,10 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -668,7 +746,10 @@
                           },
                           "region": {
                             "startLine": 71,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "\tif ((FAILED(Hr_2) || b) && c)"
+                            }
                           }
                         }
                       },
@@ -685,7 +766,10 @@
                           },
                           "region": {
                             "startLine": 73,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -718,7 +802,10 @@
                 },
                 "region": {
                   "startLine": 82,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed4",
@@ -741,7 +828,10 @@
                           },
                           "region": {
                             "startLine": 79,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -759,7 +849,10 @@
                           },
                           "region": {
                             "startLine": 80,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tif ((!FAILED(hr)))"
+                            }
                           }
                         }
                       },
@@ -776,7 +869,10 @@
                           },
                           "region": {
                             "startLine": 82,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -809,7 +905,10 @@
                 },
                 "region": {
                   "startLine": 91,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSFalse",
@@ -832,7 +931,10 @@
                           },
                           "region": {
                             "startLine": 88,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -850,7 +952,10 @@
                           },
                           "region": {
                             "startLine": 89,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\tif (hr == S_FALSE)"
+                            }
                           }
                         }
                       },
@@ -867,7 +972,10 @@
                           },
                           "region": {
                             "startLine": 91,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -900,7 +1008,10 @@
                 },
                 "region": {
                   "startLine": 100,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSFalse2",
@@ -923,7 +1034,10 @@
                           },
                           "region": {
                             "startLine": 97,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -941,7 +1055,10 @@
                           },
                           "region": {
                             "startLine": 98,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (b && (c || S_FALSE == hr))"
+                            }
                           }
                         }
                       },
@@ -958,7 +1075,10 @@
                           },
                           "region": {
                             "startLine": 100,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -991,7 +1111,10 @@
                 },
                 "region": {
                   "startLine": 109,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSOk",
@@ -1014,7 +1137,10 @@
                           },
                           "region": {
                             "startLine": 106,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -1032,7 +1158,10 @@
                           },
                           "region": {
                             "startLine": 107,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\tif (S_OK == hr)"
+                            }
                           }
                         }
                       },
@@ -1049,7 +1178,10 @@
                           },
                           "region": {
                             "startLine": 109,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },
@@ -1082,7 +1214,10 @@
                 },
                 "region": {
                   "startLine": 118,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\t\t*data = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSOk2",
@@ -1105,7 +1240,10 @@
                           },
                           "region": {
                             "startLine": 115,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tlong * data = 0;"
+                            }
                           }
                         }
                       },
@@ -1123,7 +1261,10 @@
                           },
                           "region": {
                             "startLine": 116,
-                            "startColumn": 21
+                            "startColumn": 21,
+                            "snippet": {
+                              "text": "\tif ((S_FALSE+S_OK) == hr)"
+                            }
                           }
                         }
                       },
@@ -1140,7 +1281,10 @@
                           },
                           "region": {
                             "startLine": 118,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t*data = 42;"
+                            }
                           }
                         }
                       },

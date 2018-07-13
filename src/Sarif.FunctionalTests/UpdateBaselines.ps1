@@ -2,7 +2,7 @@
     [string]$ToolName
 )
 
-$utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Release\net452\Sarif.Multitool.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\Sarif.Multitool\AnyCPU_Release\net461\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
 {
@@ -48,13 +48,11 @@ function Build-Baselines($toolName)
 		
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
-        & Write-Host "$utility convert ""$input"" --tool $toolName --output ""$outputTemp"" --pretty-print --insert TextFiles"
-        &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print --insert TextFiles
+        &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print
 
         # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source      
         # SARIF emitted by the compiler does not contain the optional 'files' member of the 'run' object.
-        Write-Host "$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert ""TextFiles;Hashes"" --force"
-        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes" --force
+        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes;CodeSnippets" --force
 
         Move-Item $outputTemp $output -Force
     }

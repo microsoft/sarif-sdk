@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
@@ -18,6 +19,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         //      [lineOffsetStarts(n), lineOffsetStarts(n+1))
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
+
+        internal static char[] s_newLineChars = 
+        {
+            '\n',
+            '\r',
+            '\u2028', // Unicode line separate
+            '\u2029'  // Unicode paragraph separator
+        };
+
+        private static ImmutableHashSet<char> s_newLineCharSet = ImmutableHashSet.Create(s_newLineChars);
 
         /// <summary>Initializes a new instance of the <see cref="NewLineIndex"/> class indexing the
         /// specified string.</summary>
@@ -35,17 +46,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Detect \r, \n, \u2028, \u2029, but NOT \r\n
                 // (\r\n gets taken care of on the following loop
                 // iteration and is detected as \n there)
-                if (c == '\n' ||
-                    (c == '\r' && (charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n')) ||
-                    c == '\u2028' ||     // Unicode line separator
-                    c == '\u2029'        // Unicode paragraph separator
-                    )
+                if (s_newLineCharSet.Contains(c))
                 {
-                    result.Add(charCount + 1);
+                    if (c != '\r' || (charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n'))
+                    {
+                        result.Add(charCount + 1);
+                    }
+
+                    _lineOffsetStarts = result.ToImmutable();
                 }
             }
-
-            _lineOffsetStarts = result.ToImmutable();
         }
 
         /// <summary>Gets a <see cref="LineInfo"/> for the line at the specified index.</summary>

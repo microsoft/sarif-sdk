@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn *p;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "UseLocalFunction",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (p == 0)"
+                            }
                           }
                         }
                       },
@@ -88,7 +94,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint x = 5;"
+                            }
                           }
                         }
                       },
@@ -103,7 +112,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 15
+                            "startColumn": 15,
+                            "snippet": {
+                              "text": "\tLocalFunction(p);"
+                            }
                           }
                         }
                       },
@@ -120,7 +132,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "    RemoteFunction(p, p);"
+                            }
                           }
                         }
                       },
@@ -137,7 +152,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn *p;"
+                            }
                           }
                         }
                       },

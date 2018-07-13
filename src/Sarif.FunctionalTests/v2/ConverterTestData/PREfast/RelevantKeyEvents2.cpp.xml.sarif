@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 18
+                  "startColumn": 18,
+                  "snippet": {
+                    "text": "    pNode->pPrev = 0;  //28182"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fun",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "    if (pNodeFree == 0)"
+                            }
                           }
                         }
                       },
@@ -88,7 +94,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "        list *pNode = masterList;"
+                            }
                           }
                         }
                       },
@@ -103,7 +112,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "        for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
+                            }
                           }
                         }
                       },
@@ -118,7 +130,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 38
+                            "startColumn": 38,
+                            "snippet": {
+                              "text": "        for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
+                            }
                           }
                         }
                       },
@@ -135,7 +150,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    list* pNode = pNodeFree;"
+                            }
                           }
                         }
                       },
@@ -153,7 +171,10 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "    pNode->pPrev = 0;  //28182"
+                            }
                           }
                         }
                       },
