@@ -50,7 +50,7 @@
                   "startLine": 9,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "return i;"
+                    "text": "   return i; "
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int i;"
+                              "text": "   int i;"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "if ( b && c)"
+                              "text": "   if ( b && c)"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 9,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "return i;"
+                              "text": "   return i; "
                             }
                           }
                         }

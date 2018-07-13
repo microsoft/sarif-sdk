@@ -53,7 +53,7 @@
                   "startLine": 12,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return *target;"
+                    "text": "\treturn *target;"
                   }
                 }
               },
@@ -79,7 +79,7 @@
                             "startLine": 5,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int *source1 = 0, *source2 = 0;"
+                              "text": "\tint *source1 = 0, *source2 = 0;"
                             }
                           }
                         }
@@ -100,7 +100,7 @@
                             "startLine": 5,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "int *source1 = 0, *source2 = 0;"
+                              "text": "\tint *source1 = 0, *source2 = 0;"
                             }
                           }
                         }
@@ -118,7 +118,7 @@
                             "startLine": 7,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "if (flag) {"
+                              "text": "\tif (flag) {"
                             }
                           }
                         }
@@ -136,7 +136,7 @@
                             "startLine": 11,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int *target = source1;"
+                              "text": "\tint *target = source1;"
                             }
                           }
                         }
@@ -157,7 +157,7 @@
                             "startLine": 12,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return *target;"
+                              "text": "\treturn *target;"
                             }
                           }
                         }
@@ -193,7 +193,7 @@
                   "startLine": 27,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int k = data[index];"
+                    "text": "\tint k = data[index];"
                   }
                 }
               },
@@ -219,7 +219,7 @@
                             "startLine": 20,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -240,7 +240,7 @@
                             "startLine": 21,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int index = 10;"
+                              "text": "\tint index = 10;"
                             }
                           }
                         }
@@ -258,7 +258,7 @@
                             "startLine": 23,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "if (flag<10) {"
+                              "text": "\tif (flag<10) {"
                             }
                           }
                         }
@@ -276,7 +276,7 @@
                             "startLine": 27,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int k = data[index];"
+                              "text": "\tint k = data[index];"
                             }
                           }
                         }
@@ -312,7 +312,7 @@
                   "startLine": 27,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int k = data[index];"
+                    "text": "\tint k = data[index];"
                   }
                 }
               },
@@ -338,7 +338,7 @@
                             "startLine": 20,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -359,7 +359,7 @@
                             "startLine": 21,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int index = 10;"
+                              "text": "\tint index = 10;"
                             }
                           }
                         }
@@ -380,7 +380,7 @@
                             "startLine": 23,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "if (flag<10) {"
+                              "text": "\tif (flag<10) {"
                             }
                           }
                         }
@@ -400,7 +400,7 @@
                             "startLine": 27,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int k = data[index];"
+                              "text": "\tint k = data[index];"
                             }
                           }
                         }

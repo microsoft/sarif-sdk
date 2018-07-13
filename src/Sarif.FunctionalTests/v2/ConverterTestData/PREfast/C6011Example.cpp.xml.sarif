@@ -50,7 +50,7 @@
                   "startLine": 6,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "*p = '\\0';"
+                    "text": "\t*p = '\\0';\t\t\t\t\t\t\t\t"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 5,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "char *p = ( char * ) malloc( 10 );"
+                              "text": "\tchar *p = ( char * ) malloc( 10 );\t\t"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 6,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "*p = '\\0';"
+                              "text": "\t*p = '\\0';\t\t\t\t\t\t\t\t"
                             }
                           }
                         }

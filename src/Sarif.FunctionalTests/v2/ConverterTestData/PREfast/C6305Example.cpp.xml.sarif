@@ -50,7 +50,7 @@
                   "startLine": 6,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p+=cb; //Expect 6305"
+                    "text": "   p+=cb; //Expect 6305"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int i = 0;"
+                              "text": "   int i = 0;"
                             }
                           }
                         }
@@ -94,7 +94,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int cb = sizeof(int);"
+                              "text": "   int cb = sizeof(int);"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 6,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p+=cb; //Expect 6305"
+                              "text": "   p+=cb; //Expect 6305"
                             }
                           }
                         }

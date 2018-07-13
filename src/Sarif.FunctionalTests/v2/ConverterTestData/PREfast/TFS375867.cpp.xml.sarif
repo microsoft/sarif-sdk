@@ -83,7 +83,7 @@
                   "startLine": 11,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -109,7 +109,7 @@
                             "startLine": 8,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -130,7 +130,7 @@
                             "startLine": 9,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "if (SUCCEEDED(hr))"
+                              "text": "\tif (SUCCEEDED(hr))"
                             }
                           }
                         }
@@ -150,7 +150,7 @@
                             "startLine": 11,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -186,7 +186,7 @@
                   "startLine": 24,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -212,7 +212,7 @@
                             "startLine": 17,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -233,7 +233,7 @@
                             "startLine": 18,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "if (SUCCEEDED(hr) && b)"
+                              "text": "\tif (SUCCEEDED(hr) && b)"
                             }
                           }
                         }
@@ -253,7 +253,7 @@
                             "startLine": 24,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -289,7 +289,7 @@
                   "startLine": 33,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -315,7 +315,7 @@
                             "startLine": 30,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -336,7 +336,7 @@
                             "startLine": 31,
                             "startColumn": 27,
                             "snippet": {
-                              "text": "if ((SUCCEEDED(hr) || b) && c)"
+                              "text": "\tif ((SUCCEEDED(hr) || b) && c)"
                             }
                           }
                         }
@@ -356,7 +356,7 @@
                             "startLine": 33,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -392,7 +392,7 @@
                   "startLine": 42,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -418,7 +418,7 @@
                             "startLine": 39,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -439,7 +439,7 @@
                             "startLine": 40,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if ((!SUCCEEDED(_hResult)))"
+                              "text": "\tif ((!SUCCEEDED(_hResult)))"
                             }
                           }
                         }
@@ -459,7 +459,7 @@
                             "startLine": 42,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -495,7 +495,7 @@
                   "startLine": 51,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -521,7 +521,7 @@
                             "startLine": 48,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -542,7 +542,7 @@
                             "startLine": 49,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "if (FAILED(hr))"
+                              "text": "\tif (FAILED(hr))"
                             }
                           }
                         }
@@ -562,7 +562,7 @@
                             "startLine": 51,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -598,7 +598,7 @@
                   "startLine": 64,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -624,7 +624,7 @@
                             "startLine": 57,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -645,7 +645,7 @@
                             "startLine": 58,
                             "startColumn": 22,
                             "snippet": {
-                              "text": "if (FAILED(hr) && b || SUCCEEDED(hr))"
+                              "text": "\tif (FAILED(hr) && b || SUCCEEDED(hr))"
                             }
                           }
                         }
@@ -665,7 +665,7 @@
                             "startLine": 64,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -701,7 +701,7 @@
                   "startLine": 73,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -727,7 +727,7 @@
                             "startLine": 70,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -748,7 +748,7 @@
                             "startLine": 71,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "if ((FAILED(Hr_2) || b) && c)"
+                              "text": "\tif ((FAILED(Hr_2) || b) && c)"
                             }
                           }
                         }
@@ -768,7 +768,7 @@
                             "startLine": 73,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -804,7 +804,7 @@
                   "startLine": 82,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -830,7 +830,7 @@
                             "startLine": 79,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -851,7 +851,7 @@
                             "startLine": 80,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if ((!FAILED(hr)))"
+                              "text": "\tif ((!FAILED(hr)))"
                             }
                           }
                         }
@@ -871,7 +871,7 @@
                             "startLine": 82,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -907,7 +907,7 @@
                   "startLine": 91,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -933,7 +933,7 @@
                             "startLine": 88,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -954,7 +954,7 @@
                             "startLine": 89,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "if (hr == S_FALSE)"
+                              "text": "\tif (hr == S_FALSE)"
                             }
                           }
                         }
@@ -974,7 +974,7 @@
                             "startLine": 91,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -1010,7 +1010,7 @@
                   "startLine": 100,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -1036,7 +1036,7 @@
                             "startLine": 97,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -1057,7 +1057,7 @@
                             "startLine": 98,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (b && (c || S_FALSE == hr))"
+                              "text": "\tif (b && (c || S_FALSE == hr))"
                             }
                           }
                         }
@@ -1077,7 +1077,7 @@
                             "startLine": 100,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -1113,7 +1113,7 @@
                   "startLine": 109,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -1139,7 +1139,7 @@
                             "startLine": 106,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -1160,7 +1160,7 @@
                             "startLine": 107,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "if (S_OK == hr)"
+                              "text": "\tif (S_OK == hr)"
                             }
                           }
                         }
@@ -1180,7 +1180,7 @@
                             "startLine": 109,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }
@@ -1216,7 +1216,7 @@
                   "startLine": 118,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "*data = 42;"
+                    "text": "\t\t*data = 42;"
                   }
                 }
               },
@@ -1242,7 +1242,7 @@
                             "startLine": 115,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "long * data = 0;"
+                              "text": "\tlong * data = 0;"
                             }
                           }
                         }
@@ -1263,7 +1263,7 @@
                             "startLine": 116,
                             "startColumn": 21,
                             "snippet": {
-                              "text": "if ((S_FALSE+S_OK) == hr)"
+                              "text": "\tif ((S_FALSE+S_OK) == hr)"
                             }
                           }
                         }
@@ -1283,7 +1283,7 @@
                             "startLine": 118,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "*data = 42;"
+                              "text": "\t\t*data = 42;"
                             }
                           }
                         }

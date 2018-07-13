@@ -56,7 +56,7 @@
                   "startLine": 18,
                   "startColumn": 8,
                   "snippet": {
-                    "text": "int target = *source;"
+                    "text": "\t\t\tint target = *source;"
                   }
                 }
               },
@@ -82,7 +82,7 @@
                             "startLine": 10,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "\tint * source = 0;"
                             }
                           }
                         }
@@ -103,7 +103,7 @@
                             "startLine": 11,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = false;"
+                              "text": "\tbool flag = false;"
                             }
                           }
                         }
@@ -121,7 +121,7 @@
                             "startLine": 13,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i<3; i++)"
+                              "text": "\tfor (int i=0; i<3; i++)"
                             }
                           }
                         }
@@ -139,7 +139,7 @@
                             "startLine": 13,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<3; i++)"
+                              "text": "\tfor (int i=0; i<3; i++)"
                             }
                           }
                         }
@@ -159,7 +159,7 @@
                             "startLine": 15,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -179,7 +179,7 @@
                             "startLine": 16,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = true;"
+                              "text": "\t\t\tflag = true;"
                             }
                           }
                         }
@@ -197,7 +197,7 @@
                             "startLine": 13,
                             "startColumn": 22,
                             "snippet": {
-                              "text": "for (int i=0; i<3; i++)"
+                              "text": "\tfor (int i=0; i<3; i++)"
                             }
                           }
                         }
@@ -215,7 +215,7 @@
                             "startLine": 13,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<3; i++)"
+                              "text": "\tfor (int i=0; i<3; i++)"
                             }
                           }
                         }
@@ -235,7 +235,7 @@
                             "startLine": 15,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -255,7 +255,7 @@
                             "startLine": 18,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int target = *source;"
+                              "text": "\t\t\tint target = *source;"
                             }
                           }
                         }
@@ -291,7 +291,7 @@
                   "startLine": 33,
                   "startColumn": 8,
                   "snippet": {
-                    "text": "int target = *source;"
+                    "text": "\t\t\tint target = *source;"
                   }
                 }
               },
@@ -317,7 +317,7 @@
                             "startLine": 25,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "\tint * source = 0;"
                             }
                           }
                         }
@@ -338,7 +338,7 @@
                             "startLine": 26,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = false;"
+                              "text": "\tbool flag = false;"
                             }
                           }
                         }
@@ -356,7 +356,7 @@
                             "startLine": 28,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -374,7 +374,7 @@
                             "startLine": 28,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -394,7 +394,7 @@
                             "startLine": 30,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -414,7 +414,7 @@
                             "startLine": 31,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = true;"
+                              "text": "\t\t\tflag = true;"
                             }
                           }
                         }
@@ -432,7 +432,7 @@
                             "startLine": 28,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -450,7 +450,7 @@
                             "startLine": 28,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -470,7 +470,7 @@
                             "startLine": 30,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -490,7 +490,7 @@
                             "startLine": 33,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int target = *source;"
+                              "text": "\t\t\tint target = *source;"
                             }
                           }
                         }
@@ -526,7 +526,7 @@
                   "startLine": 52,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "int j = x[param];"
+                    "text": "    int j = x[param];"
                   }
                 }
               },
@@ -552,7 +552,7 @@
                             "startLine": 40,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "\tint * source = 0;"
                             }
                           }
                         }
@@ -570,7 +570,7 @@
                             "startLine": 41,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = false;"
+                              "text": "\tbool flag = false;"
                             }
                           }
                         }
@@ -588,7 +588,7 @@
                             "startLine": 42,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -609,7 +609,7 @@
                             "startLine": 42,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -627,7 +627,7 @@
                             "startLine": 44,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -645,7 +645,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -665,7 +665,7 @@
                             "startLine": 46,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -685,7 +685,7 @@
                             "startLine": 47,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = true;"
+                              "text": "\t\t\tflag = true;"
                             }
                           }
                         }
@@ -703,7 +703,7 @@
                             "startLine": 44,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -721,7 +721,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -741,7 +741,7 @@
                             "startLine": 46,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -761,7 +761,7 @@
                             "startLine": 49,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int target = *source;"
+                              "text": "\t\t\tint target = *source;"
                             }
                           }
                         }
@@ -779,7 +779,7 @@
                             "startLine": 44,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -797,7 +797,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -817,7 +817,7 @@
                             "startLine": 52,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int j = x[param];"
+                              "text": "    int j = x[param];"
                             }
                           }
                         }
@@ -853,7 +853,7 @@
                   "startLine": 53,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "int k = y[param+1];"
+                    "text": "    int k = y[param+1];"
                   }
                 }
               },
@@ -879,7 +879,7 @@
                             "startLine": 40,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "\tint * source = 0;"
                             }
                           }
                         }
@@ -897,7 +897,7 @@
                             "startLine": 41,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = false;"
+                              "text": "\tbool flag = false;"
                             }
                           }
                         }
@@ -915,7 +915,7 @@
                             "startLine": 42,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -933,7 +933,7 @@
                             "startLine": 42,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -954,7 +954,7 @@
                             "startLine": 44,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -972,7 +972,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -992,7 +992,7 @@
                             "startLine": 46,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -1012,7 +1012,7 @@
                             "startLine": 47,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = true;"
+                              "text": "\t\t\tflag = true;"
                             }
                           }
                         }
@@ -1030,7 +1030,7 @@
                             "startLine": 44,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1048,7 +1048,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1068,7 +1068,7 @@
                             "startLine": 52,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int j = x[param];"
+                              "text": "    int j = x[param];"
                             }
                           }
                         }
@@ -1086,7 +1086,7 @@
                             "startLine": 53,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int k = y[param+1];"
+                              "text": "    int k = y[param+1];"
                             }
                           }
                         }
@@ -1122,7 +1122,7 @@
                   "startLine": 49,
                   "startColumn": 8,
                   "snippet": {
-                    "text": "int target = *source;"
+                    "text": "\t\t\tint target = *source;"
                   }
                 }
               },
@@ -1148,7 +1148,7 @@
                             "startLine": 40,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "\tint * source = 0;"
                             }
                           }
                         }
@@ -1169,7 +1169,7 @@
                             "startLine": 41,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = false;"
+                              "text": "\tbool flag = false;"
                             }
                           }
                         }
@@ -1187,7 +1187,7 @@
                             "startLine": 42,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -1205,7 +1205,7 @@
                             "startLine": 42,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "int x[2] = {0,1}, y[2] = {1,2};"
+                              "text": "    int x[2] = {0,1}, y[2] = {1,2};"
                             }
                           }
                         }
@@ -1223,7 +1223,7 @@
                             "startLine": 44,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1241,7 +1241,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1261,7 +1261,7 @@
                             "startLine": 46,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -1281,7 +1281,7 @@
                             "startLine": 47,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = true;"
+                              "text": "\t\t\tflag = true;"
                             }
                           }
                         }
@@ -1299,7 +1299,7 @@
                             "startLine": 44,
                             "startColumn": 26,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1317,7 +1317,7 @@
                             "startLine": 44,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "for (int i=0; i<param; i++)"
+                              "text": "\tfor (int i=0; i<param; i++)"
                             }
                           }
                         }
@@ -1337,7 +1337,7 @@
                             "startLine": 46,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (!flag)"
+                              "text": "\t\tif (!flag)"
                             }
                           }
                         }
@@ -1357,7 +1357,7 @@
                             "startLine": 49,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int target = *source;"
+                              "text": "\t\t\tint target = *source;"
                             }
                           }
                         }

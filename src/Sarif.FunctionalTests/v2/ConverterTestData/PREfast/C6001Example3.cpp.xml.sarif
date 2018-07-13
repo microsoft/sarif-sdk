@@ -50,7 +50,7 @@
                   "startLine": 11,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int j = i+1;"
+                    "text": "\tint j = i+1;\t\t"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i;"
+                              "text": "\tint i;\t\t\t\t"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "goto labelb;"
+                              "text": "\tgoto labelb;\t\t"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 8,
                             "startColumn": 1,
                             "snippet": {
-                              "text": "labelb:"
+                              "text": "labelb:\t\t\t\t\t"
                             }
                           }
                         }
@@ -135,7 +135,7 @@
                             "startLine": 9,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "goto labela;"
+                              "text": "\tgoto labela;"
                             }
                           }
                         }
@@ -155,7 +155,7 @@
                             "startLine": 6,
                             "startColumn": 1,
                             "snippet": {
-                              "text": "labela:"
+                              "text": "labela:\t\t\t\t\t"
                             }
                           }
                         }
@@ -173,7 +173,7 @@
                             "startLine": 7,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "goto labelc;"
+                              "text": "\tgoto labelc;"
                             }
                           }
                         }
@@ -193,7 +193,7 @@
                             "startLine": 10,
                             "startColumn": 1,
                             "snippet": {
-                              "text": "labelc:"
+                              "text": "labelc:\t\t\t\t\t"
                             }
                           }
                         }
@@ -211,7 +211,7 @@
                             "startLine": 11,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int j = i+1;"
+                              "text": "\tint j = i+1;\t\t"
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 8,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "k = a[i];"
+                    "text": "      k = a[i];"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "char a[5];"
+                              "text": "   char a[5];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 4,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 4,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -133,7 +133,7 @@
                             "startLine": 4,
                             "startColumn": 33,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -151,7 +151,7 @@
                             "startLine": 4,
                             "startColumn": 24,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -169,7 +169,7 @@
                             "startLine": 4,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -187,7 +187,7 @@
                             "startLine": 4,
                             "startColumn": 33,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -205,7 +205,7 @@
                             "startLine": 4,
                             "startColumn": 24,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -223,7 +223,7 @@
                             "startLine": 4,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "for (int j=0; j<5; j++) a[j] = 5;"
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
                             }
                           }
                         }
@@ -241,7 +241,7 @@
                             "startLine": 5,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "char k;"
+                              "text": "   char k;"
                             }
                           }
                         }
@@ -259,7 +259,7 @@
                             "startLine": 6,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "if (i <= 5)"
+                              "text": "   if (i <= 5)"
                             }
                           }
                         }
@@ -279,7 +279,7 @@
                             "startLine": 8,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "k = a[i];"
+                              "text": "      k = a[i];"
                             }
                           }
                         }

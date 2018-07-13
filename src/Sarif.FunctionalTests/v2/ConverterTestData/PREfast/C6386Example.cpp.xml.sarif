@@ -50,7 +50,7 @@
                   "startLine": 9,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "a[j] = '\\0';"
+                    "text": "      a[j] = '\\0';"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "char a[4];"
+                              "text": "   char a[4];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int j = 4;"
+                              "text": "   int j = 4;"
                             }
                           }
                         }
@@ -118,7 +118,7 @@
                             "startLine": 5,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "if( j < 4)"
+                              "text": "   if( j < 4)"
                             }
                           }
                         }
@@ -138,7 +138,7 @@
                             "startLine": 9,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "a[j] = '\\0';"
+                              "text": "      a[j] = '\\0';"
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 8,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "a[i] = '\\0';"
+                    "text": "      a[i] = '\\0';"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "char a[4];"
+                              "text": "   char a[4];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "for(i; i < 4; i++)"
+                              "text": "   for(i; i < 4; i++)"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 4,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "for(i; i < 4; i++)"
+                              "text": "   for(i; i < 4; i++)"
                             }
                           }
                         }
@@ -133,7 +133,7 @@
                             "startLine": 8,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "a[i] = '\\0';"
+                              "text": "      a[i] = '\\0';"
                             }
                           }
                         }

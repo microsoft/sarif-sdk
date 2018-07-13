@@ -53,7 +53,7 @@
                   "startLine": 13,
                   "startColumn": 14,
                   "snippet": {
-                    "text": "RequiresZ(x);"
+                    "text": "    RequiresZ(x);"
                   }
                 }
               },
@@ -79,7 +79,7 @@
                             "startLine": 11,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "DoesNotZ(x);"
+                              "text": "    DoesNotZ(x);"
                             }
                           }
                         }
@@ -100,7 +100,7 @@
                             "startLine": 13,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "RequiresZ(x);"
+                              "text": "    RequiresZ(x);"
                             }
                           }
                         }
@@ -120,7 +120,7 @@
                             "startLine": 13,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "RequiresZ(x);"
+                              "text": "    RequiresZ(x);"
                             }
                           }
                         }
@@ -156,7 +156,7 @@
                   "startLine": 21,
                   "startColumn": 14,
                   "snippet": {
-                    "text": "RequiresZ(a);"
+                    "text": "    RequiresZ(a);"
                   }
                 }
               },
@@ -182,7 +182,7 @@
                             "startLine": 19,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "char a[5] = {'a'};"
+                              "text": "    char a[5] = {'a'};"
                             }
                           }
                         }
@@ -203,7 +203,7 @@
                             "startLine": 21,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "RequiresZ(a);"
+                              "text": "    RequiresZ(a);"
                             }
                           }
                         }
@@ -223,7 +223,7 @@
                             "startLine": 21,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "RequiresZ(a);"
+                              "text": "    RequiresZ(a);"
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 11,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "buff[i]= 0;  //6200"
+                    "text": "\t\t\tbuff[i]= 0;  //6200"
                   }
                 }
               },

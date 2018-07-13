@@ -50,7 +50,7 @@
                   "startLine": 15,
                   "startColumn": 20,
                   "snippet": {
-                    "text": "contentStores[0] = contentStores[index];"
+                    "text": "\t\tcontentStores[0] = contentStores[index];"
                   }
                 }
               },

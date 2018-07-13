@@ -53,7 +53,7 @@
                   "startLine": 16,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int y = data[n];"
+                    "text": "\tint y = data[n];"
                   }
                 }
               },
@@ -79,7 +79,7 @@
                             "startLine": 10,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int n = 5;"
+                              "text": "\tint n = 5;"
                             }
                           }
                         }
@@ -100,7 +100,7 @@
                             "startLine": 11,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * data = new int[n];"
+                              "text": "\tint * data = new int[n];"
                             }
                           }
                         }
@@ -121,7 +121,7 @@
                             "startLine": 12,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "data[0] = 42;"
+                              "text": "\tdata[0] = 42;"
                             }
                           }
                         }
@@ -139,7 +139,7 @@
                             "startLine": 14,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)"
+                              "text": "\tint * data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)"
                             }
                           }
                         }
@@ -159,7 +159,7 @@
                             "startLine": 16,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int y = data[n];"
+                              "text": "\tint y = data[n];"
                             }
                           }
                         }
@@ -195,7 +195,7 @@
                   "startLine": 42,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int y = data[n];"
+                    "text": "\tint y = data[n];"
                   }
                 }
               },
@@ -221,7 +221,7 @@
                             "startLine": 36,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int n = 5;"
+                              "text": "\tint n = 5;"
                             }
                           }
                         }
@@ -242,7 +242,7 @@
                             "startLine": 37,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * data = new int[n];"
+                              "text": "\tint * data = new int[n];"
                             }
                           }
                         }
@@ -263,7 +263,7 @@
                             "startLine": 38,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "data[0] = 43;"
+                              "text": "\tdata[0] = 43;"
                             }
                           }
                         }
@@ -281,7 +281,7 @@
                             "startLine": 40,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "SampleClass * widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'"
+                              "text": "\tSampleClass * widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'"
                             }
                           }
                         }
@@ -301,7 +301,7 @@
                             "startLine": 42,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int y = data[n];"
+                              "text": "\tint y = data[n];"
                             }
                           }
                         }

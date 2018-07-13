@@ -53,7 +53,7 @@
                   "startLine": 13,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "*result = data[b];"
+                    "text": "\t*result = data[b];"
                   }
                 }
               },
@@ -79,7 +79,7 @@
                             "startLine": 7,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -100,7 +100,7 @@
                             "startLine": 9,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int index = 9;"
+                              "text": "\tint index = 9;"
                             }
                           }
                         }
@@ -118,7 +118,7 @@
                             "startLine": 10,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int b = index; // don't care about this alias ('b' not interesting)"
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)"
                             }
                           }
                         }
@@ -136,7 +136,7 @@
                             "startLine": 11,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "b = 10;"
+                              "text": "\tb = 10;"
                             }
                           }
                         }
@@ -154,7 +154,7 @@
                             "startLine": 13,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "*result = data[b];"
+                              "text": "\t*result = data[b];"
                             }
                           }
                         }
@@ -190,7 +190,7 @@
                   "startLine": 13,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "*result = data[b];"
+                    "text": "\t*result = data[b];"
                   }
                 }
               },
@@ -216,7 +216,7 @@
                             "startLine": 7,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -237,7 +237,7 @@
                             "startLine": 9,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int index = 9;"
+                              "text": "\tint index = 9;"
                             }
                           }
                         }
@@ -255,7 +255,7 @@
                             "startLine": 10,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int b = index; // don't care about this alias ('b' not interesting)"
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)"
                             }
                           }
                         }
@@ -273,7 +273,7 @@
                             "startLine": 11,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "b = 10;"
+                              "text": "\tb = 10;"
                             }
                           }
                         }
@@ -294,7 +294,7 @@
                             "startLine": 13,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "*result = data[b];"
+                              "text": "\t*result = data[b];"
                             }
                           }
                         }
@@ -330,7 +330,7 @@
                   "startLine": 32,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "*result = *c;"
+                    "text": "\t\t\t*result = *c;"
                   }
                 }
               },
@@ -356,7 +356,7 @@
                             "startLine": 18,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * a = 0;"
+                              "text": "\tint * a = 0;"
                             }
                           }
                         }
@@ -377,7 +377,7 @@
                             "startLine": 19,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * b = &x;"
+                              "text": "\tint * b = &x;"
                             }
                           }
                         }
@@ -395,7 +395,7 @@
                             "startLine": 20,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * c = &y;"
+                              "text": "\tint * c = &y;"
                             }
                           }
                         }
@@ -413,7 +413,7 @@
                             "startLine": 21,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "bool flag = true;"
+                              "text": "\tbool flag = true;"
                             }
                           }
                         }
@@ -431,7 +431,7 @@
                             "startLine": 23,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "for (int i=0; i < 2; i++)"
+                              "text": "\tfor (int i=0; i < 2; i++)"
                             }
                           }
                         }
@@ -449,7 +449,7 @@
                             "startLine": 23,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "for (int i=0; i < 2; i++)"
+                              "text": "\tfor (int i=0; i < 2; i++)"
                             }
                           }
                         }
@@ -469,7 +469,7 @@
                             "startLine": 25,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (flag) {"
+                              "text": "\t\tif (flag) {"
                             }
                           }
                         }
@@ -489,7 +489,7 @@
                             "startLine": 26,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "b = a; // care about this alias ('b' is interesting)"
+                              "text": "\t\t\tb = a; // care about this alias ('b' is interesting)"
                             }
                           }
                         }
@@ -510,7 +510,7 @@
                             "startLine": 27,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "c = b;"
+                              "text": "\t\t\tc = b;"
                             }
                           }
                         }
@@ -531,7 +531,7 @@
                             "startLine": 28,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "flag = false;"
+                              "text": "\t\t\tflag = false;"
                             }
                           }
                         }
@@ -549,7 +549,7 @@
                             "startLine": 23,
                             "startColumn": 24,
                             "snippet": {
-                              "text": "for (int i=0; i < 2; i++)"
+                              "text": "\tfor (int i=0; i < 2; i++)"
                             }
                           }
                         }
@@ -567,7 +567,7 @@
                             "startLine": 23,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "for (int i=0; i < 2; i++)"
+                              "text": "\tfor (int i=0; i < 2; i++)"
                             }
                           }
                         }
@@ -587,7 +587,7 @@
                             "startLine": 25,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (flag) {"
+                              "text": "\t\tif (flag) {"
                             }
                           }
                         }
@@ -607,7 +607,7 @@
                             "startLine": 30,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "a = &x;"
+                              "text": "\t\t\ta = &x;"
                             }
                           }
                         }
@@ -625,7 +625,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "b = &y;"
+                              "text": "\t\t\tb = &y;"
                             }
                           }
                         }
@@ -643,7 +643,7 @@
                             "startLine": 32,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "*result = *c;"
+                              "text": "\t\t\t*result = *c;"
                             }
                           }
                         }

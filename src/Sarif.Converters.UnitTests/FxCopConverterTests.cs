@@ -5,9 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FluentAssertions;
-using Xunit;
 using System.Xml;
+using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

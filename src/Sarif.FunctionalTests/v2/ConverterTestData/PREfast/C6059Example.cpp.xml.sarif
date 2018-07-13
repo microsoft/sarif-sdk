@@ -50,7 +50,7 @@
                   "startLine": 10,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                    "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 6,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "char a[35];"
+                              "text": "  char a[35];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 7,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "char b[10] = {'a','b','c','d','\\0'};"
+                              "text": "  char b[10] = {'a','b','c','d','\\0'};"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 9,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "strcpy(a, b);"
+                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t"
                             }
                           }
                         }
@@ -135,7 +135,7 @@
                             "startLine": 10,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                              "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
                             }
                           }
                         }
@@ -155,7 +155,7 @@
                             "startLine": 10,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                              "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
                             }
                           }
                         }

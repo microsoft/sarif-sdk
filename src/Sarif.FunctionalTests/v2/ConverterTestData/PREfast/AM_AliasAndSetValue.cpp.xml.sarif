@@ -50,7 +50,7 @@
                   "startLine": 9,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "*result = TwoElementArray[index];"
+                    "text": "\t*result = TwoElementArray[index];"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int TwoElementArray[] = {1,2};"
+                              "text": "    int TwoElementArray[] = {1,2};"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (b == 10);"
+                              "text": "\tif (b == 10);"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 7,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int index = b;"
+                              "text": "    int index = b;"
                             }
                           }
                         }
@@ -138,7 +138,7 @@
                             "startLine": 9,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "*result = TwoElementArray[index];"
+                              "text": "\t*result = TwoElementArray[index];"
                             }
                           }
                         }

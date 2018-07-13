@@ -53,7 +53,7 @@
                   "startLine": 10,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "p += offset;"
+                    "text": "    p += offset;"
                   }
                 }
               },
@@ -79,7 +79,7 @@
                             "startLine": 6,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 7,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * p = source;"
+                              "text": "    int * p = source;"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 9,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int offset = sizeof(int);"
+                              "text": "    int offset = sizeof(int);"
                             }
                           }
                         }
@@ -136,7 +136,7 @@
                             "startLine": 10,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "p += offset;"
+                              "text": "    p += offset;"
                             }
                           }
                         }
@@ -172,7 +172,7 @@
                   "startLine": 20,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "p += sizeof(int);"
+                    "text": "    p += sizeof(int);"
                   }
                 }
               },
@@ -198,7 +198,7 @@
                             "startLine": 17,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
                             }
                           }
                         }
@@ -216,7 +216,7 @@
                             "startLine": 18,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * p = source;"
+                              "text": "    int * p = source;"
                             }
                           }
                         }
@@ -234,7 +234,7 @@
                             "startLine": 20,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "p += sizeof(int);"
+                              "text": "    p += sizeof(int);"
                             }
                           }
                         }

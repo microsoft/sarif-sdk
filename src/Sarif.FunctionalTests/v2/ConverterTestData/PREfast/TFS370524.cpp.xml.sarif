@@ -59,7 +59,7 @@
                   "startLine": 13,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "int x = *source;"
+                    "text": "\t\tint x = *source;"
                   }
                 }
               },
@@ -85,7 +85,7 @@
                             "startLine": 11,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "bool assert = source != 0 ? false : true; // Expects: 'source' may be NULL"
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL"
                             }
                           }
                         }
@@ -103,7 +103,7 @@
                             "startLine": 12,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int * target = source;"
+                              "text": "\t\tint * target = source;"
                             }
                           }
                         }
@@ -124,7 +124,7 @@
                             "startLine": 13,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int x = *source;"
+                              "text": "\t\tint x = *source;"
                             }
                           }
                         }
@@ -160,7 +160,7 @@
                   "startLine": 23,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "int x = *target;"
+                    "text": "\t\tint x = *target;"
                   }
                 }
               },
@@ -186,7 +186,7 @@
                             "startLine": 21,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "bool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL"
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL"
                             }
                           }
                         }
@@ -204,7 +204,7 @@
                             "startLine": 22,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int * target = source;"
+                              "text": "\t\tint * target = source;"
                             }
                           }
                         }
@@ -225,7 +225,7 @@
                             "startLine": 23,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int x = *target;"
+                              "text": "\t\tint x = *target;"
                             }
                           }
                         }
@@ -261,7 +261,7 @@
                   "startLine": 33,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "int x = *source;"
+                    "text": "\t\tint x = *source;"
                   }
                 }
               },
@@ -287,7 +287,7 @@
                             "startLine": 31,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "bool assert = target != 0 ? false : true; // Expects: 'target' may be NULL"
+                              "text": "\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL"
                             }
                           }
                         }
@@ -308,7 +308,7 @@
                             "startLine": 32,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "source = target;"
+                              "text": "\t\tsource = target;"
                             }
                           }
                         }
@@ -326,7 +326,7 @@
                             "startLine": 33,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int x = *source;"
+                              "text": "\t\tint x = *source;"
                             }
                           }
                         }

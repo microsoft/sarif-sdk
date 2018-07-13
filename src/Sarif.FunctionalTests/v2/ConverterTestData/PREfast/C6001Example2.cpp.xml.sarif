@@ -50,7 +50,7 @@
                   "startLine": 17,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "return i;"
+                    "text": "   return i;"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int x=6;"
+                              "text": "   int x=6;\t\t\t\t"
                             }
                           }
                         }
@@ -94,7 +94,7 @@
                             "startLine": 5,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int i;"
+                              "text": "   int i;\t\t\t\t"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 6,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "if ( c ) {"
+                              "text": "   if ( c ) {\t\t\t\t "
                             }
                           }
                         }
@@ -135,7 +135,7 @@
                             "startLine": 7,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "x=5;"
+                              "text": "\t   x=5;\t\t\t"
                             }
                           }
                         }
@@ -153,7 +153,7 @@
                             "startLine": 8,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "if ( b )"
+                              "text": "\t   if ( b )"
                             }
                           }
                         }
@@ -173,7 +173,7 @@
                             "startLine": 12,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "x=7;"
+                              "text": "\t\t   x=7;"
                             }
                           }
                         }
@@ -191,7 +191,7 @@
                             "startLine": 17,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "return i;"
+                              "text": "   return i;"
                             }
                           }
                         }

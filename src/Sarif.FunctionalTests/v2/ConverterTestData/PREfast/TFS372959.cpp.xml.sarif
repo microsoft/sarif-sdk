@@ -79,7 +79,7 @@
                   "startLine": 15,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += i; //Expect 6305"
+                    "text": "\t\tp += i; //Expect 6305"
                   }
                 }
               },
@@ -105,7 +105,7 @@
                             "startLine": 10,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "\t\tint i = 6;"
                             }
                           }
                         }
@@ -123,7 +123,7 @@
                             "startLine": 11,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j = sizeof(p);"
+                              "text": "\t\tj = sizeof(p);"
                             }
                           }
                         }
@@ -141,7 +141,7 @@
                             "startLine": 13,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "i = j;"
+                              "text": "\t\ti = j;"
                             }
                           }
                         }
@@ -162,7 +162,7 @@
                             "startLine": 15,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += i; //Expect 6305"
+                              "text": "\t\tp += i; //Expect 6305"
                             }
                           }
                         }
@@ -198,7 +198,7 @@
                   "startLine": 27,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += j; //Expect 6305"
+                    "text": "\t\tp += j; //Expect 6305"
                   }
                 }
               },
@@ -224,7 +224,7 @@
                             "startLine": 22,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j = 6;"
+                              "text": "\t\tj = 6;"
                             }
                           }
                         }
@@ -242,7 +242,7 @@
                             "startLine": 23,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = sizeof(p);"
+                              "text": "\t\tint i = sizeof(p);"
                             }
                           }
                         }
@@ -260,7 +260,7 @@
                             "startLine": 25,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j = i;"
+                              "text": "\t\tj = i;"
                             }
                           }
                         }
@@ -281,7 +281,7 @@
                             "startLine": 27,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += j; //Expect 6305"
+                              "text": "\t\tp += j; //Expect 6305"
                             }
                           }
                         }
@@ -317,7 +317,7 @@
                   "startLine": 39,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += i; //Expect 6305"
+                    "text": "\t\tp += i; //Expect 6305"
                   }
                 }
               },
@@ -343,7 +343,7 @@
                             "startLine": 34,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "\t\tint i = 6;"
                             }
                           }
                         }
@@ -361,7 +361,7 @@
                             "startLine": 35,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j = sizeof(p);"
+                              "text": "\t\tj = sizeof(p);"
                             }
                           }
                         }
@@ -379,7 +379,7 @@
                             "startLine": 37,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "i += j;"
+                              "text": "\t\ti += j;"
                             }
                           }
                         }
@@ -400,7 +400,7 @@
                             "startLine": 39,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += i; //Expect 6305"
+                              "text": "\t\tp += i; //Expect 6305"
                             }
                           }
                         }
@@ -436,7 +436,7 @@
                   "startLine": 51,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += j; //Expect 6305"
+                    "text": "\t\tp += j; //Expect 6305"
                   }
                 }
               },
@@ -462,7 +462,7 @@
                             "startLine": 46,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j = 6;"
+                              "text": "\t\tj = 6;"
                             }
                           }
                         }
@@ -480,7 +480,7 @@
                             "startLine": 47,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = sizeof(p);"
+                              "text": "\t\tint i = sizeof(p);"
                             }
                           }
                         }
@@ -498,7 +498,7 @@
                             "startLine": 49,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "j += i;"
+                              "text": "\t\tj += i;"
                             }
                           }
                         }
@@ -519,7 +519,7 @@
                             "startLine": 51,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += j; //Expect 6305"
+                              "text": "\t\tp += j; //Expect 6305"
                             }
                           }
                         }
@@ -555,7 +555,7 @@
                   "startLine": 63,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += i; //Expect 6305"
+                    "text": "\t\tp += i; //Expect 6305"
                   }
                 }
               },
@@ -581,7 +581,7 @@
                             "startLine": 58,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "\t\tint i = 6;"
                             }
                           }
                         }
@@ -599,7 +599,7 @@
                             "startLine": 59,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int j2 = sizeof(p);"
+                              "text": "\t\tint j2 = sizeof(p);"
                             }
                           }
                         }
@@ -620,7 +620,7 @@
                             "startLine": 61,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "i = j2;"
+                              "text": "\t\ti = j2;"
                             }
                           }
                         }
@@ -641,7 +641,7 @@
                             "startLine": 63,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += i; //Expect 6305"
+                              "text": "\t\tp += i; //Expect 6305"
                             }
                           }
                         }
@@ -677,7 +677,7 @@
                   "startLine": 75,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "p += i; //Expect 6305"
+                    "text": "\t\tp += i; //Expect 6305"
                   }
                 }
               },
@@ -703,7 +703,7 @@
                             "startLine": 70,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "\t\tint i = 6;"
                             }
                           }
                         }
@@ -721,7 +721,7 @@
                             "startLine": 71,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int j2 = sizeof(p);"
+                              "text": "\t\tint j2 = sizeof(p);"
                             }
                           }
                         }
@@ -742,7 +742,7 @@
                             "startLine": 73,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "i += j2;"
+                              "text": "\t\ti += j2;"
                             }
                           }
                         }
@@ -763,7 +763,7 @@
                             "startLine": 75,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "p += i; //Expect 6305"
+                              "text": "\t\tp += i; //Expect 6305"
                             }
                           }
                         }
@@ -799,7 +799,7 @@
                   "startLine": 88,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "p+=cb; //Expect 6305"
+                    "text": "\t\tp+=cb; //Expect 6305"
                   }
                 }
               },
@@ -825,7 +825,7 @@
                             "startLine": 85,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 0;"
+                              "text": "\t\tint i = 0;"
                             }
                           }
                         }
@@ -843,7 +843,7 @@
                             "startLine": 86,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "cb = sizeof(int);"
+                              "text": "\t\tcb = sizeof(int);"
                             }
                           }
                         }
@@ -864,7 +864,7 @@
                             "startLine": 88,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "p+=cb; //Expect 6305"
+                              "text": "\t\tp+=cb; //Expect 6305"
                             }
                           }
                         }
@@ -900,7 +900,7 @@
                   "startLine": 97,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "p+=cb2; //Expect 6305"
+                    "text": "\t\tp+=cb2; //Expect 6305"
                   }
                 }
               },
@@ -926,7 +926,7 @@
                             "startLine": 94,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int i = 0;"
+                              "text": "\t\tint i = 0;"
                             }
                           }
                         }
@@ -944,7 +944,7 @@
                             "startLine": 95,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int cb2 = sizeof(int);"
+                              "text": "\t\tint cb2 = sizeof(int);"
                             }
                           }
                         }
@@ -965,7 +965,7 @@
                             "startLine": 97,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "p+=cb2; //Expect 6305"
+                              "text": "\t\tp+=cb2; //Expect 6305"
                             }
                           }
                         }

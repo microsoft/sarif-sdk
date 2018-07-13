@@ -50,7 +50,7 @@
                   "startLine": 10,
                   "startColumn": 18,
                   "snippet": {
-                    "text": "UseValues(&source);"
+                    "text": "        UseValues(&source);"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 8,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int source;"
+                              "text": "    int source;"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 9,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "if (flag)"
+                              "text": "    if (flag)"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 10,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "UseValues(&source);"
+                              "text": "        UseValues(&source);"
                             }
                           }
                         }
@@ -137,7 +137,7 @@
                             "startLine": 10,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "UseValues(&source);"
+                              "text": "        UseValues(&source);"
                             }
                           }
                         }

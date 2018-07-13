@@ -50,7 +50,7 @@
                   "startLine": 7,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "b[i] = a[i];"
+                    "text": "\t   b[i] = a[i];\t\t\t"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int a[20];"
+                              "text": "   int a[20];\t\t\t\t"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int b[21];"
+                              "text": "   int b[21];"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 6,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "for (; i <= 20; i++) {"
+                              "text": "   for (; i <= 20; i++) {\t"
                             }
                           }
                         }
@@ -135,7 +135,7 @@
                             "startLine": 7,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "b[i] = a[i];"
+                              "text": "\t   b[i] = a[i];\t\t\t"
                             }
                           }
                         }

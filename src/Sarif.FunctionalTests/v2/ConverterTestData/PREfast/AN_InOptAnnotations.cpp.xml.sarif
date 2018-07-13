@@ -50,7 +50,7 @@
                   "startLine": 7,
                   "startColumn": 13,
                   "snippet": {
-                    "text": "int result = *source;"
+                    "text": "        int result = *source;"
                   }
                 }
               },
@@ -97,7 +97,7 @@
                             "startLine": 6,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "if (flag)"
+                              "text": "    if (flag)"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 7,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "int result = *source;"
+                              "text": "        int result = *source;"
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 22,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "case 4:\t//@@@Expects:6259"
+                    "text": "        case 4:\t//@@@Expects:6259"
                   }
                 }
               },

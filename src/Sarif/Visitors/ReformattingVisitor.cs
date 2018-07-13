@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class ReformattingVisitor : SarifRewritingVisitor
     {
+        internal IFileSystem s_fileSystem = new FileSystem();
+
         private OptionallyEmittedData _dataToInsert;
         private Dictionary<Uri, string> _uriToFileTextMap;
         
@@ -88,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // exist on disk, there is work to do
             if (node.FileLocation.Uri.IsAbsoluteUri &&
                 node.FileLocation.Uri.LocalPath != null &&
-                File.Exists(node.FileLocation.Uri.LocalPath))
+                s_fileSystem.FileExists(node.FileLocation.Uri.LocalPath))
             {
                 Region region = node.Region;
                 string fileText = GetFileText(node.FileLocation.Uri);
@@ -136,14 +138,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 // Not at end of file. Get the offset from the
                 // line after this one, then compute length from there.
+                // Line length here will include any line break characters
+                // at the end of this file.
                 lineInfo = lineIndex.GetLineInfoForLine(startLine + 1);
                 lineLength = lineInfo.StartOffset - lineOffset;
             }
 
             // Grab the line text, except for any trailing line break characters
-            region.Snippet.Text = fileText.Substring(lineOffset, lineLength).Trim();
-        }
-        
+            region.Snippet.Text = fileText.Substring(lineOffset, lineLength).TrimEnd(NewLineIndex.s_newLineChars);
+        }        
 
         private string GetFileText(Uri uri)
         {
@@ -151,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             
             if (!_uriToFileTextMap.TryGetValue(uri, out string fileText))
             {
-                fileText = _uriToFileTextMap[uri] = File.ReadAllText(uri.LocalPath);
+                fileText = _uriToFileTextMap[uri] = s_fileSystem.ReadAllText(uri.LocalPath);
             }
             return fileText;
         }

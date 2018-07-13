@@ -97,7 +97,7 @@
                             "startLine": 6,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "if (flag)"
+                              "text": "    if (flag)"
                             }
                           }
                         }

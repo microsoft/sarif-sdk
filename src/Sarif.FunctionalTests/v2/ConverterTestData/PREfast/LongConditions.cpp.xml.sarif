@@ -56,7 +56,7 @@
                   "startLine": 16,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return simpleVar;"
+                    "text": "\treturn simpleVar;"
                   }
                 }
               },
@@ -82,7 +82,7 @@
                             "startLine": 7,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int simpleVar;"
+                              "text": "\tint simpleVar;"
                             }
                           }
                         }
@@ -103,7 +103,7 @@
                             "startLine": 10,
                             "startColumn": 54,
                             "snippet": {
-                              "text": "( isInitializzedd && !isActivated && isDefined ) ||"
+                              "text": "\t\t  ( isInitializzedd && !isActivated && isDefined ) ||"
                             }
                           }
                         }
@@ -123,7 +123,7 @@
                             "startLine": 16,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return simpleVar;"
+                              "text": "\treturn simpleVar;"
                             }
                           }
                         }
@@ -159,7 +159,7 @@
                   "startLine": 28,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return simpleVar;"
+                    "text": "\treturn simpleVar;"
                   }
                 }
               },
@@ -185,7 +185,7 @@
                             "startLine": 21,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int simpleVar;"
+                              "text": "\tint simpleVar;"
                             }
                           }
                         }
@@ -206,7 +206,7 @@
                             "startLine": 23,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if ( !isInitializzedd )"
+                              "text": "\tif ( !isInitializzedd )"
                             }
                           }
                         }
@@ -226,7 +226,7 @@
                             "startLine": 28,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return simpleVar;"
+                              "text": "\treturn simpleVar;"
                             }
                           }
                         }
@@ -262,7 +262,7 @@
                   "startLine": 40,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return simpleVar;"
+                    "text": "\treturn simpleVar;"
                   }
                 }
               },
@@ -288,7 +288,7 @@
                             "startLine": 33,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int simpleVar;"
+                              "text": "\tint simpleVar;"
                             }
                           }
                         }
@@ -309,7 +309,7 @@
                             "startLine": 35,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if ( !isDefined )"
+                              "text": "\tif ( !isDefined )"
                             }
                           }
                         }
@@ -329,7 +329,7 @@
                             "startLine": 40,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return simpleVar;"
+                              "text": "\treturn simpleVar;"
                             }
                           }
                         }

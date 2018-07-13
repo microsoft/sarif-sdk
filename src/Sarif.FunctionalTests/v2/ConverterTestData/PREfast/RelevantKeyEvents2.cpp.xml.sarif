@@ -50,7 +50,7 @@
                   "startLine": 24,
                   "startColumn": 18,
                   "snippet": {
-                    "text": "pNode->pPrev = 0;  //28182"
+                    "text": "    pNode->pPrev = 0;  //28182"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 12,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "if (pNodeFree == 0)"
+                              "text": "    if (pNodeFree == 0)"
                             }
                           }
                         }
@@ -96,7 +96,7 @@
                             "startLine": 14,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "list *pNode = masterList;"
+                              "text": "        list *pNode = masterList;"
                             }
                           }
                         }
@@ -114,7 +114,7 @@
                             "startLine": 16,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
+                              "text": "        for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
                             }
                           }
                         }
@@ -132,7 +132,7 @@
                             "startLine": 16,
                             "startColumn": 38,
                             "snippet": {
-                              "text": "for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
+                              "text": "        for (int i = nBlockSize-1; i >= 0; i--, pNode--)"
                             }
                           }
                         }
@@ -152,7 +152,7 @@
                             "startLine": 23,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "list* pNode = pNodeFree;"
+                              "text": "    list* pNode = pNodeFree;"
                             }
                           }
                         }
@@ -173,7 +173,7 @@
                             "startLine": 24,
                             "startColumn": 18,
                             "snippet": {
-                              "text": "pNode->pPrev = 0;  //28182"
+                              "text": "    pNode->pPrev = 0;  //28182"
                             }
                           }
                         }

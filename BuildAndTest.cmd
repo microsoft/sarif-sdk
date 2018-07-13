@@ -70,6 +70,11 @@ if "%NoBuild%" EQU "false" (
 
 if "%NoTest%" EQU "false" (
     call RunTests.cmd /config %Configuration%
+
+    if "%ERRORLEVEL%" NEQ "0" (
+        echo %SolutionFile%: Testing failed.
+        goto ExitFailed
+    )
 )
 
 if "%NoPublish%" EQU "false" (

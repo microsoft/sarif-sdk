@@ -76,7 +76,7 @@
                             "startLine": 9,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "wcscpy_s(buffer,sizeof(buffer),pSource);"
+                              "text": "  wcscpy_s(buffer,sizeof(buffer),pSource);"
                             }
                           }
                         }

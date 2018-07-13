@@ -50,7 +50,7 @@
                   "startLine": 9,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "j = a[i];"
+                    "text": "      j = a[i];\t\t\t"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int a[20];"
+                              "text": "   int a[20];\t\t\t\t"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int j;"
+                              "text": "   int j;"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 6,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "i=20;"
+                              "text": "   i=20;"
                             }
                           }
                         }
@@ -136,7 +136,7 @@
                             "startLine": 7,
                             "startColumn": 15,
                             "snippet": {
-                              "text": "if (i >= 0 && i <= 20)"
+                              "text": "   if (i >= 0 && i <= 20)\t"
                             }
                           }
                         }
@@ -156,7 +156,7 @@
                             "startLine": 9,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "j = a[i];"
+                              "text": "      j = a[i];\t\t\t"
                             }
                           }
                         }

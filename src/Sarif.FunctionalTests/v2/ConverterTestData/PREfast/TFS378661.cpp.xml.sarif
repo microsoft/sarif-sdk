@@ -59,7 +59,7 @@
                   "startLine": 10,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "seq[5] = 42;"
+                    "text": "\tseq[5] = 42;"
                   }
                 }
               },
@@ -106,7 +106,7 @@
                             "startLine": 10,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "seq[5] = 42;"
+                              "text": "\tseq[5] = 42;"
                             }
                           }
                         }
@@ -142,7 +142,7 @@
                   "startLine": 17,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "seq[size] = 42;"
+                    "text": "\tseq[size] = 42;"
                   }
                 }
               },
@@ -189,7 +189,7 @@
                             "startLine": 17,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "seq[size] = 42;"
+                              "text": "\tseq[size] = 42;"
                             }
                           }
                         }
@@ -225,7 +225,7 @@
                   "startLine": 29,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "seq[i] = 44;"
+                    "text": "\tseq[i] = 44;"
                   }
                 }
               },
@@ -272,7 +272,7 @@
                             "startLine": 24,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i;"
+                              "text": "\tint i;"
                             }
                           }
                         }
@@ -290,7 +290,7 @@
                             "startLine": 25,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "for (i=0; i< size; i++)"
+                              "text": "\tfor (i=0; i< size; i++)"
                             }
                           }
                         }
@@ -308,7 +308,7 @@
                             "startLine": 25,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "for (i=0; i< size; i++)"
+                              "text": "\tfor (i=0; i< size; i++)"
                             }
                           }
                         }
@@ -328,7 +328,7 @@
                             "startLine": 27,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "seq[i] = 44;"
+                              "text": "\t\tseq[i] = 44;"
                             }
                           }
                         }
@@ -346,7 +346,7 @@
                             "startLine": 25,
                             "startColumn": 22,
                             "snippet": {
-                              "text": "for (i=0; i< size; i++)"
+                              "text": "\tfor (i=0; i< size; i++)"
                             }
                           }
                         }
@@ -367,7 +367,7 @@
                             "startLine": 25,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "for (i=0; i< size; i++)"
+                              "text": "\tfor (i=0; i< size; i++)"
                             }
                           }
                         }
@@ -387,7 +387,7 @@
                             "startLine": 29,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "seq[i] = 44;"
+                              "text": "\tseq[i] = 44;"
                             }
                           }
                         }
@@ -423,7 +423,7 @@
                   "startLine": 40,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "seq[size] = 44;"
+                    "text": "\tseq[size] = 44;"
                   }
                 }
               },
@@ -470,7 +470,7 @@
                             "startLine": 36,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "if (size == 4)"
+                              "text": "\tif (size == 4)"
                             }
                           }
                         }
@@ -490,7 +490,7 @@
                             "startLine": 38,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "seq[0] = 44;"
+                              "text": "\t\tseq[0] = 44;"
                             }
                           }
                         }
@@ -508,7 +508,7 @@
                             "startLine": 40,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "seq[size] = 44;"
+                              "text": "\tseq[size] = 44;"
                             }
                           }
                         }

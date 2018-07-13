@@ -50,7 +50,7 @@
                   "startLine": 16,
                   "startColumn": 23,
                   "snippet": {
-                    "text": "pNode->pPrev = 0;"
+                    "text": "         pNode->pPrev = 0;  "
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 13,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "if (pNodeFree == 0)"
+                              "text": "    if (pNodeFree == 0)"
                             }
                           }
                         }
@@ -96,7 +96,7 @@
                             "startLine": 15,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "list* pNode = pNodeFree;"
+                              "text": "\t\t list* pNode = pNodeFree;"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 16,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "pNode->pPrev = 0;"
+                              "text": "         pNode->pPrev = 0;  "
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 13,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return *p;"
+                    "text": "\treturn *p;"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 9,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (p == 0)"
+                              "text": "\tif (p == 0)"
                             }
                           }
                         }
@@ -96,7 +96,7 @@
                             "startLine": 10,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int x = 5;"
+                              "text": "\t\tint x = 5;"
                             }
                           }
                         }
@@ -114,7 +114,7 @@
                             "startLine": 11,
                             "startColumn": 15,
                             "snippet": {
-                              "text": "LocalFunction(p);"
+                              "text": "\tLocalFunction(p);"
                             }
                           }
                         }
@@ -134,7 +134,7 @@
                             "startLine": 12,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "RemoteFunction(p, p);"
+                              "text": "    RemoteFunction(p, p);"
                             }
                           }
                         }
@@ -154,7 +154,7 @@
                             "startLine": 13,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return *p;"
+                              "text": "\treturn *p;"
                             }
                           }
                         }

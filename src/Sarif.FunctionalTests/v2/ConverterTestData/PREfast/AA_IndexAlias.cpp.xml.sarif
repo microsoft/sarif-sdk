@@ -50,7 +50,7 @@
                   "startLine": 15,
                   "startColumn": 20,
                   "snippet": {
-                    "text": "contentStores[0] = contentStores[index];"
+                    "text": "\t\tcontentStores[0] = contentStores[index];"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 5,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * contentStores = new int [2];"
+                              "text": "\tint * contentStores = new int [2];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 7,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "contentStores[0] = 0;"
+                              "text": "\tcontentStores[0] = 0;"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 9,
                             "startColumn": 19,
                             "snippet": {
-                              "text": "contentStores[1] = 1;"
+                              "text": "\tcontentStores[1] = 1;"
                             }
                           }
                         }
@@ -133,7 +133,7 @@
                             "startLine": 11,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "while (inputIndex > 1)"
+                              "text": "\twhile (inputIndex > 1)"
                             }
                           }
                         }
@@ -153,7 +153,7 @@
                             "startLine": 13,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int index = inputIndex;"
+                              "text": "\t\tint index = inputIndex;"
                             }
                           }
                         }
@@ -174,7 +174,7 @@
                             "startLine": 15,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "contentStores[0] = contentStores[index];"
+                              "text": "\t\tcontentStores[0] = contentStores[index];"
                             }
                           }
                         }

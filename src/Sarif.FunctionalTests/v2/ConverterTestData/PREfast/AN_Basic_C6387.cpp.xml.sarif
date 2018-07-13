@@ -62,7 +62,7 @@
                   "startLine": 16,
                   "startColumn": 20,
                   "snippet": {
-                    "text": "RequiresNotNull(data);"
+                    "text": "    RequiresNotNull(data);"
                   }
                 }
               },
@@ -88,7 +88,7 @@
                             "startLine": 14,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * data = 0;"
+                              "text": "    int * data = 0;"
                             }
                           }
                         }
@@ -109,7 +109,7 @@
                             "startLine": 16,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -129,7 +129,7 @@
                             "startLine": 16,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -165,7 +165,7 @@
                   "startLine": 22,
                   "startColumn": 20,
                   "snippet": {
-                    "text": "RequiresNotNull(data);"
+                    "text": "    RequiresNotNull(data);"
                   }
                 }
               },
@@ -212,7 +212,7 @@
                             "startLine": 22,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -232,7 +232,7 @@
                             "startLine": 22,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -268,7 +268,7 @@
                   "startLine": 30,
                   "startColumn": 20,
                   "snippet": {
-                    "text": "RequiresNotNull(data);"
+                    "text": "    RequiresNotNull(data);"
                   }
                 }
               },
@@ -294,7 +294,7 @@
                             "startLine": 28,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * data = MayReturnNull();"
+                              "text": "    int * data = MayReturnNull();"
                             }
                           }
                         }
@@ -315,7 +315,7 @@
                             "startLine": 30,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -335,7 +335,7 @@
                             "startLine": 30,
                             "startColumn": 20,
                             "snippet": {
-                              "text": "RequiresNotNull(data);"
+                              "text": "    RequiresNotNull(data);"
                             }
                           }
                         }
@@ -371,7 +371,7 @@
                   "startLine": 38,
                   "startColumn": 23,
                   "snippet": {
-                    "text": "RequiresNotNullOut(data);"
+                    "text": "    RequiresNotNullOut(data);"
                   }
                 }
               },
@@ -397,7 +397,7 @@
                             "startLine": 36,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * data = 0;"
+                              "text": "    int * data = 0;"
                             }
                           }
                         }
@@ -418,7 +418,7 @@
                             "startLine": 38,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "RequiresNotNullOut(data);"
+                              "text": "    RequiresNotNullOut(data);"
                             }
                           }
                         }
@@ -438,7 +438,7 @@
                             "startLine": 38,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "RequiresNotNullOut(data);"
+                              "text": "    RequiresNotNullOut(data);"
                             }
                           }
                         }
@@ -500,7 +500,7 @@
                             "startLine": 45,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * data = 0;"
+                              "text": "    int * data = 0;"
                             }
                           }
                         }
@@ -518,7 +518,7 @@
                             "startLine": 47,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "*pOut = data;"
+                              "text": "    *pOut = data;"
                             }
                           }
                         }

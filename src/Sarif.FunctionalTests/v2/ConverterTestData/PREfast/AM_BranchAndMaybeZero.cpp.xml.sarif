@@ -56,7 +56,7 @@
                   "startLine": 8,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int y = *p;"
+                    "text": "\tint y = *p;"
                   }
                 }
               },
@@ -82,7 +82,7 @@
                             "startLine": 5,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * p = input;"
+                              "text": "\tint * p = input;"
                             }
                           }
                         }
@@ -100,7 +100,7 @@
                             "startLine": 6,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (0 == p)"
+                              "text": "\tif (0 == p)"
                             }
                           }
                         }
@@ -120,7 +120,7 @@
                             "startLine": 7,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int x = 5;"
+                              "text": "\t\tint x = 5;"
                             }
                           }
                         }
@@ -138,7 +138,7 @@
                             "startLine": 8,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int y = *p;"
+                              "text": "\tint y = *p;"
                             }
                           }
                         }
@@ -174,7 +174,7 @@
                   "startLine": 15,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int y = *input;"
+                    "text": "\tint y = *input;"
                   }
                 }
               },
@@ -200,7 +200,7 @@
                             "startLine": 13,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "if (input != 0)"
+                              "text": "\tif (input != 0)"
                             }
                           }
                         }
@@ -220,7 +220,7 @@
                             "startLine": 15,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int y = *input;"
+                              "text": "\tint y = *input;"
                             }
                           }
                         }
@@ -256,7 +256,7 @@
                   "startLine": 24,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int y = *p;"
+                    "text": "\tint y = *p;"
                   }
                 }
               },
@@ -282,7 +282,7 @@
                             "startLine": 21,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int * p = input;"
+                              "text": "\tint * p = input;"
                             }
                           }
                         }
@@ -300,7 +300,7 @@
                             "startLine": 22,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "if (&p[0])"
+                              "text": "\tif (&p[0])"
                             }
                           }
                         }
@@ -320,7 +320,7 @@
                             "startLine": 24,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int y = *p;"
+                              "text": "\tint y = *p;"
                             }
                           }
                         }

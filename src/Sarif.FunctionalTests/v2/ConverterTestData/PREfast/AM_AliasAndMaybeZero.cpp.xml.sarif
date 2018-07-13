@@ -50,7 +50,7 @@
                   "startLine": 7,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "int result = *y;"
+                    "text": "    int result = *y;"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 3,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * source = 0;"
+                              "text": "    int * source = 0;"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 5,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * y = source;"
+                              "text": "    int * y = source;"
                             }
                           }
                         }
@@ -118,7 +118,7 @@
                             "startLine": 7,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int result = *y;"
+                              "text": "    int result = *y;"
                             }
                           }
                         }

@@ -50,7 +50,7 @@
                   "startLine": 8,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "*result = data[b];"
+                    "text": "\t*result = data[b];"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 4,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 6,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (b == 10);"
+                              "text": "\tif (b == 10);"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 8,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "*result = data[b];"
+                              "text": "\t*result = data[b];"
                             }
                           }
                         }
@@ -151,7 +151,7 @@
                   "startLine": 8,
                   "startColumn": 10,
                   "snippet": {
-                    "text": "*result = data[b];"
+                    "text": "\t*result = data[b];"
                   }
                 }
               },
@@ -177,7 +177,7 @@
                             "startLine": 4,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[10];"
+                              "text": "\tint data[10];"
                             }
                           }
                         }
@@ -198,7 +198,7 @@
                             "startLine": 6,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "if (b == 10);"
+                              "text": "\tif (b == 10);"
                             }
                           }
                         }
@@ -218,7 +218,7 @@
                             "startLine": 8,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "*result = data[b];"
+                              "text": "\t*result = data[b];"
                             }
                           }
                         }

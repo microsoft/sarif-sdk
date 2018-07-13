@@ -68,7 +68,7 @@
                   "startLine": 12,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "p +=inc;"
+                    "text": "\t  p +=inc;"
                   }
                 }
               },
@@ -115,7 +115,7 @@
                             "startLine": 10,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "int cb = 1;"
+                              "text": "  int cb = 1;"
                             }
                           }
                         }
@@ -133,7 +133,7 @@
                             "startLine": 11,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if (b)"
+                              "text": "  if (b)"
                             }
                           }
                         }
@@ -153,7 +153,7 @@
                             "startLine": 12,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "p +=inc;"
+                              "text": "\t  p +=inc;"
                             }
                           }
                         }
@@ -189,7 +189,7 @@
                   "startLine": 24,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "j = j + wcslen(p);"
+                    "text": "    j = j + wcslen(p);"
                   }
                 }
               },
@@ -215,7 +215,7 @@
                             "startLine": 20,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "    int i = 6;"
                             }
                           }
                         }
@@ -233,7 +233,7 @@
                             "startLine": 22,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int j = sizeof(p);"
+                              "text": "    int j = sizeof(p);"
                             }
                           }
                         }
@@ -254,7 +254,7 @@
                             "startLine": 24,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "j = j + wcslen(p);"
+                              "text": "    j = j + wcslen(p);"
                             }
                           }
                         }
@@ -290,7 +290,7 @@
                   "startLine": 38,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "i = wcslen(p) + i;"
+                    "text": "\ti = wcslen(p) + i;"
                   }
                 }
               },
@@ -316,7 +316,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
                             }
                           }
                         }
@@ -334,7 +334,7 @@
                             "startLine": 33,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -352,7 +352,7 @@
                             "startLine": 34,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int j = i;"
+                              "text": "\tint j = i;"
                             }
                           }
                         }
@@ -370,7 +370,7 @@
                             "startLine": 35,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i += wcslen(p);"
+                              "text": "\ti += wcslen(p);"
                             }
                           }
                         }
@@ -388,7 +388,7 @@
                             "startLine": 36,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i -= wcslen(p);"
+                              "text": "\ti -= wcslen(p);"
                             }
                           }
                         }
@@ -409,7 +409,7 @@
                             "startLine": 38,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) + i;"
+                              "text": "\ti = wcslen(p) + i;"
                             }
                           }
                         }
@@ -445,7 +445,7 @@
                   "startLine": 35,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "i += wcslen(p);"
+                    "text": "\ti += wcslen(p);"
                   }
                 }
               },
@@ -471,7 +471,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
                             }
                           }
                         }
@@ -489,7 +489,7 @@
                             "startLine": 33,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -510,7 +510,7 @@
                             "startLine": 34,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int j = i;"
+                              "text": "\tint j = i;"
                             }
                           }
                         }
@@ -528,7 +528,7 @@
                             "startLine": 35,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i += wcslen(p);"
+                              "text": "\ti += wcslen(p);"
                             }
                           }
                         }
@@ -564,7 +564,7 @@
                   "startLine": 36,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "i -= wcslen(p);"
+                    "text": "\ti -= wcslen(p);"
                   }
                 }
               },
@@ -590,7 +590,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
                             }
                           }
                         }
@@ -608,7 +608,7 @@
                             "startLine": 33,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -626,7 +626,7 @@
                             "startLine": 34,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int j = i;"
+                              "text": "\tint j = i;"
                             }
                           }
                         }
@@ -644,7 +644,7 @@
                             "startLine": 35,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i += wcslen(p);"
+                              "text": "\ti += wcslen(p);"
                             }
                           }
                         }
@@ -665,7 +665,7 @@
                             "startLine": 36,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i -= wcslen(p);"
+                              "text": "\ti -= wcslen(p);"
                             }
                           }
                         }
@@ -701,7 +701,7 @@
                   "startLine": 33,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "i = wcslen(p) - i;"
+                    "text": "\ti = wcslen(p) - i;"
                   }
                 }
               },
@@ -727,7 +727,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
                             }
                           }
                         }
@@ -748,7 +748,7 @@
                             "startLine": 33,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -784,7 +784,7 @@
                   "startLine": 39,
                   "startColumn": 4,
                   "snippet": {
-                    "text": "i = wcslen(p) - i;"
+                    "text": "\ti = wcslen(p) - i;"
                   }
                 }
               },
@@ -810,7 +810,7 @@
                             "startLine": 31,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
                             }
                           }
                         }
@@ -828,7 +828,7 @@
                             "startLine": 33,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -846,7 +846,7 @@
                             "startLine": 34,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int j = i;"
+                              "text": "\tint j = i;"
                             }
                           }
                         }
@@ -864,7 +864,7 @@
                             "startLine": 35,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i += wcslen(p);"
+                              "text": "\ti += wcslen(p);"
                             }
                           }
                         }
@@ -882,7 +882,7 @@
                             "startLine": 36,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i -= wcslen(p);"
+                              "text": "\ti -= wcslen(p);"
                             }
                           }
                         }
@@ -900,7 +900,7 @@
                             "startLine": 38,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) + i;"
+                              "text": "\ti = wcslen(p) + i;"
                             }
                           }
                         }
@@ -921,7 +921,7 @@
                             "startLine": 39,
                             "startColumn": 4,
                             "snippet": {
-                              "text": "i = wcslen(p) - i;"
+                              "text": "\ti = wcslen(p) - i;"
                             }
                           }
                         }
@@ -957,7 +957,7 @@
                   "startLine": 51,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "int k = i + wcslen(p);"
+                    "text": "    int k = i + wcslen(p);"
                   }
                 }
               },
@@ -983,7 +983,7 @@
                             "startLine": 46,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int i = 6;"
+                              "text": "    int i = 6;"
                             }
                           }
                         }
@@ -1001,7 +1001,7 @@
                             "startLine": 47,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int j = sizeof(p);"
+                              "text": "    int j = sizeof(p);"
                             }
                           }
                         }
@@ -1022,7 +1022,7 @@
                             "startLine": 49,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "i += j;"
+                              "text": "    i += j;"
                             }
                           }
                         }
@@ -1043,7 +1043,7 @@
                             "startLine": 51,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int k = i + wcslen(p);"
+                              "text": "    int k = i + wcslen(p);"
                             }
                           }
                         }
@@ -1079,7 +1079,7 @@
                   "startLine": 61,
                   "startColumn": 7,
                   "snippet": {
-                    "text": "p += sizeof(int);"
+                    "text": "    p += sizeof(int);"
                   }
                 }
               },
@@ -1105,7 +1105,7 @@
                             "startLine": 58,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
                             }
                           }
                         }
@@ -1123,7 +1123,7 @@
                             "startLine": 59,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "int * p = source;"
+                              "text": "    int * p = source;"
                             }
                           }
                         }
@@ -1141,7 +1141,7 @@
                             "startLine": 61,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "p += sizeof(int);"
+                              "text": "    p += sizeof(int);"
                             }
                           }
                         }
@@ -1177,7 +1177,7 @@
                   "startLine": 70,
                   "startColumn": 5,
                   "snippet": {
-                    "text": "pI += sizeof(int);"
+                    "text": "\tpI += sizeof(int);"
                   }
                 }
               },
@@ -1203,7 +1203,7 @@
                             "startLine": 68,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int i = 0;"
+                              "text": "\tint i = 0;"
                             }
                           }
                         }
@@ -1221,7 +1221,7 @@
                             "startLine": 69,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "int* pI = &i;"
+                              "text": "\tint* pI = &i;"
                             }
                           }
                         }
@@ -1239,7 +1239,7 @@
                             "startLine": 70,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "pI += sizeof(int);"
+                              "text": "\tpI += sizeof(int);"
                             }
                           }
                         }
@@ -1275,7 +1275,7 @@
                   "startLine": 77,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "p += cb + 2;"
+                    "text": "   p += cb + 2;"
                   }
                 }
               },
@@ -1301,7 +1301,7 @@
                             "startLine": 75,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "int cb = sizeof(int);"
+                              "text": "   int cb = sizeof(int);"
                             }
                           }
                         }
@@ -1322,7 +1322,7 @@
                             "startLine": 77,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "p += cb + 2;"
+                              "text": "   p += cb + 2;"
                             }
                           }
                         }

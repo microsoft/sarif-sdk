@@ -50,7 +50,7 @@
                   "startLine": 12,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "return simpleVar;"
+                    "text": "\treturn simpleVar;"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 5,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int simpleVar;"
+                              "text": "\tint simpleVar;"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 7,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "if ( SUCCEEDED(hrLongVar) )"
+                              "text": "\tif ( SUCCEEDED(hrLongVar) )"
                             }
                           }
                         }
@@ -117,7 +117,7 @@
                             "startLine": 12,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "return simpleVar;"
+                              "text": "\treturn simpleVar;"
                             }
                           }
                         }

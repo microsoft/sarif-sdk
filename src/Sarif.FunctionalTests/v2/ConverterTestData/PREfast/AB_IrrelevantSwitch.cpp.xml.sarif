@@ -50,7 +50,7 @@
                   "startLine": 30,
                   "startColumn": 6,
                   "snippet": {
-                    "text": "int k = data[index];"
+                    "text": "\tint k = data[index];"
                   }
                 }
               },
@@ -76,7 +76,7 @@
                             "startLine": 11,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int data[2];"
+                              "text": "\tint data[2];"
                             }
                           }
                         }
@@ -97,7 +97,7 @@
                             "startLine": 12,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "data[0] = 1; data[1] = 2;"
+                              "text": "\tdata[0] = 1; data[1] = 2;"
                             }
                           }
                         }
@@ -115,7 +115,7 @@
                             "startLine": 12,
                             "startColumn": 23,
                             "snippet": {
-                              "text": "data[0] = 1; data[1] = 2;"
+                              "text": "\tdata[0] = 1; data[1] = 2;"
                             }
                           }
                         }
@@ -133,7 +133,7 @@
                             "startLine": 14,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int index = 2;"
+                              "text": "\tint index = 2;"
                             }
                           }
                         }
@@ -154,7 +154,7 @@
                             "startLine": 16,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "switch(flag)"
+                              "text": "\tswitch(flag)"
                             }
                           }
                         }
@@ -174,7 +174,7 @@
                             "startLine": 18,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "case 1:"
+                              "text": "\tcase 1:"
                             }
                           }
                         }
@@ -192,7 +192,7 @@
                             "startLine": 30,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "int k = data[index];"
+                              "text": "\tint k = data[index];"
                             }
                           }
                         }
