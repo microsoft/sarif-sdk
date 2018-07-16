@@ -60,7 +60,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                     Uri helpUri = null;
                     if (RuleMetadata[ruleId]["url"] != null)
                     {
-                        helpUri = SarifUtilities.CreateUri(RuleMetadata[ruleId]["url"].Value<string>());
+                        helpUri = new Uri(RuleMetadata[ruleId]["url"].Value<string>());
                     }
 
                     if (ruleName != null || helpUri != null)

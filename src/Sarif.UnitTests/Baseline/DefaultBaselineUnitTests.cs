@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, DefaultBaseline.ResultBaselineEquals.DefaultInstance, random.Next(100) + 5);
             Run next = baseline.DeepClone();
-            next.Results.Add(RandomSarifLogGenerator.GenerateFakeResults(random, new List<string>() { "NEWTESTRESULT" }, new List<string>() { @"c:\test\testfile" }, 1).First());
+            next.Results.Add(RandomSarifLogGenerator.GenerateFakeResults(random, new List<string>() { "NEWTESTRESULT" }, new List<Uri>() { new Uri(@"c:\test\testfile") }, 1).First());
 
             Run result = defaultBaseliner.CreateBaselinedRun(baseline, next);
 

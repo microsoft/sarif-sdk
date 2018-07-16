@@ -427,7 +427,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = path
+                    Uri = new Uri(path, UriKind.Relative)
                 },
                 Region = new Region
                 {

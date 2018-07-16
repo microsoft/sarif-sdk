@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // If we find a numeric value as the first token,
                 // this is a general step.
 
-                string uri = null;
+                Uri uri = null;
                 string uriText = tokens[URI].Trim('"');
 
                 if (!uriText.Equals("?", StringComparison.Ordinal))
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         uriText = Path.GetFullPath(uriText);
                     }
-                    uri = UriHelper.MakeValidUri(uriText);
+                    uri = new Uri(uriText, UriKind.RelativeOrAbsolute);
                 }
 
                 // We assume a valid line here. This code will throw if not.

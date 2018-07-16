@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     FileLocation = new FileLocation
                     {
-                        Uri = "file:///C:/src/a.cs"
+                        Uri = new Uri("file:///C:/src/a.cs")
                     },
                     Region = new Region
                     {
@@ -280,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             {
                                                 FileLocation = new FileLocation
                                                 {
-                                                    Uri = "file:///C:/src/a.cs"
+                                                    Uri = new Uri("file:///C:/src/a.cs")
                                                 },
                                                 Region = new Region
                                                 {
@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             {
                                                 FileLocation = new FileLocation
                                                 {
-                                                    Uri = "file:///C:/src/a.cs"
+                                                    Uri = new Uri("file:///C:/src/a.cs")
                                                 },
                                                 Region = new Region
                                                 {

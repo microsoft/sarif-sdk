@@ -41,7 +41,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
                     if (value.Location.PhysicalLocation.FileLocation?.Uri != null)
                     {
-                        FilePath = value.Location.PhysicalLocation.FileLocation.Uri;
+                        FilePath = value.Location.PhysicalLocation.FileLocation.Uri.ToPath();
                     }
                 }
                 else
@@ -226,11 +226,11 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                string sourceUrl = Location?.Location?.PhysicalLocation?.FileLocation?.Uri;
+                Uri sourceUrl = Location?.Location?.PhysicalLocation?.FileLocation?.Uri;
 
                 if (sourceUrl != null)
                 {
-                    return Path.GetFileName(sourceUrl);
+                    return Path.GetFileName(sourceUrl.LocalPath);
                 }
 
                 return null;

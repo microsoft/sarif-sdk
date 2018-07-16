@@ -152,13 +152,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
         }
 
-        public static Uri CreateUri(string uriString)
-        {
-            Uri uri;
-            Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out uri);
-            return uri;
-        }
-
         public static string GetUtf8Base64String(string s)
         {
             return GetBase64String(s, Encoding.UTF8);

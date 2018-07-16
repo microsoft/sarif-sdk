@@ -23,17 +23,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _files = _files ?? new Dictionary<string, FileData>();
 
-            //string uri = node.FileLocation.Uri;
-            string uri = UriHelper.MakeValidUri(node.FileLocation.Uri);
+            string uriText = Uri.EscapeUriString(node.FileLocation.Uri.ToString());
 
             // If the file already exists, we will not insert one as we want to 
             // preserve mime-type, hash details, and other information that 
             // may already be present
-            if (!_files.ContainsKey(uri))
+            if (!_files.ContainsKey(uriText))
             {
-                string mimeType = Writers.MimeType.DetermineFromFileExtension(uri);
+                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
 
-                _files[uri] = new FileData()
+                _files[uriText] = new FileData()
                 {
                     MimeType = mimeType
                 };

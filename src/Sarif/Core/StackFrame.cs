@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = fileName
+                            Uri = new Uri(fileName)
                         },
                         Region = new Region
                         {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (this.Location?.PhysicalLocation?.FileLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.FileLocation.Uri;
+                string fileName = this.Location.PhysicalLocation.FileLocation.Uri.LocalPath;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)

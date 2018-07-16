@@ -22,8 +22,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
             PhysicalLocation physicalLocation = stackFrame.Location?.PhysicalLocation;
             if (physicalLocation?.FileLocation != null)
             {
-                Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
-                model.FilePath = uri.ToPath();
+                model.FilePath = physicalLocation.FileLocation.Uri.ToPath();
                 Region region = physicalLocation.Region;
                 if (region != null)
                 {

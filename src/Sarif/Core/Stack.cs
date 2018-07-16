@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = fileName
+                                Uri = new Uri(fileName)
                             },
                             Region = new Region
                             {

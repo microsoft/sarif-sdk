@@ -119,7 +119,7 @@ namespace Microsoft.Sarif.Viewer
             Message = notification.Message.Text;
             ShortMessage = notification.Message.Text;
             LogFilePath = logFilePath;
-            FileName = notification.PhysicalLocation?.FileLocation?.Uri ?? run.Tool.FullName;
+            FileName = notification.PhysicalLocation?.FileLocation?.Uri.LocalPath ?? run.Tool.FullName;
             ProjectName = projectNameCache.GetName(FileName);
 
             Locations.Add(new ThreadFlowLocationModel() { FilePath = FileName });

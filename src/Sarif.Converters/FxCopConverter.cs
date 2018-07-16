@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.AnalysisTarget = new FileLocation()
                 {
-                    Uri = UriHelper.MakeValidUri(targetFile)
+                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
                 };
             }
             else
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     FileLocation = new FileLocation
                     {
-                        Uri = UriHelper.MakeValidUri(sourceFile)
+                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute)
                     },
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };

@@ -162,7 +162,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
                                 AnalysisTarget = new
                                 FileLocation
                                 {
-                                    Uri = @"file:///item.cpp"
+                                    Uri = new Uri(@"file:///item.cpp")
                                 },
                                 RuleId = "C0001",
                                 Message = new Message { Text = "Error 1" },

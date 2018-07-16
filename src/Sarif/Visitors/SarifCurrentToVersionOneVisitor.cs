@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fileChange = new FileChangeVersionOne
                     {
                         Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encoding)).ToList(),
-                        Uri = SarifUtilities.CreateUri(v2FileChange.FileLocation.Uri),
+                        Uri = v2FileChange.FileLocation.Uri,
                         UriBaseId = v2FileChange.FileLocation?.UriBaseId
                     };
                 }
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileChange;
         }
 
-        private string GetFileEncodingName(string uri)
+        private string GetFileEncodingName(Uri uri)
         {
             string encodingName = null;
             IDictionary<string, FileData> filesDictionary = _currentV2Run.Files;
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             FileData fileData;
             if (uri != null &&
                 filesDictionary != null &&
-                filesDictionary.TryGetValue(uri, out fileData))
+                filesDictionary.TryGetValue(uri.OriginalString, out fileData))
             {
                 encodingName = fileData.Encoding;
             }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Offset = v2FileData.Offset,
                     ParentKey = v2FileData.ParentKey,
                     Properties = v2FileData.Properties,
-                    Uri = SarifUtilities.CreateUri(v2FileData.FileLocation?.Uri),
+                    Uri = v2FileData.FileLocation?.Uri,
                     UriBaseId = v2FileData.FileLocation?.UriBaseId
                 };
 
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CommandLine = v2Invocation.CommandLine,
                     EndTime = v2Invocation.EndTime,
                     EnvironmentVariables = v2Invocation.EnvironmentVariables,
-                    FileName = v2Invocation.ExecutableLocation?.Uri,
+                    FileName = v2Invocation.ExecutableLocation?.Uri.OriginalString,
                     Machine = v2Invocation.Machine,
                     ProcessId = v2Invocation.ProcessId,
                     Properties = v2Invocation.Properties,
@@ -347,7 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocationVersionOne
                 {
                     Region = CreateRegion(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
-                    Uri = SarifUtilities.CreateUri(v2PhysicalLocation.FileLocation.Uri),
+                    Uri = v2PhysicalLocation.FileLocation.Uri,
                     UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
                 };
             }
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Uri = SarifUtilities.CreateUri(v2FileLocation.Uri),
+                    Uri = v2FileLocation.Uri,
                     UriBaseId = v2FileLocation.UriBaseId
                 };
             }
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return physicalLocation;
         }
 
-        internal RegionVersionOne CreateRegion(Region v2Region, string uri)
+        internal RegionVersionOne CreateRegion(Region v2Region, Uri uri)
         {
             RegionVersionOne region = null;
 
@@ -467,7 +467,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
-        private int ConvertCharOffsetToByteOffset(int charOffset, string uri)
+        private int ConvertCharOffsetToByteOffset(int charOffset, Uri uri)
         {
             int byteOffset = 0;
             Encoding encoding;
@@ -489,7 +489,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return byteOffset;
         }
 
-        private int GetRegionByteLength(Region v2Region, string uri)
+        private int GetRegionByteLength(Region v2Region, Uri uri)
         {
             int byteLength = 0;
             Encoding encoding;
@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return byteLength;
         }
 
-        private int GetRegionEndColumn(Region v2Region, string uri)
+        private int GetRegionEndColumn(Region v2Region, Uri uri)
         {
             int endColumn = 0;
             Encoding encoding;
@@ -569,17 +569,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return endColumn;
         }
 
-        private Stream GetContentStream(string uri, out Encoding encoding)
+        private Stream GetContentStream(Uri uri, out Encoding encoding)
         {
             Stream stream = null;
-            Uri fileUri = SarifUtilities.CreateUri(uri);
             encoding = null;
             string failureReason = null;
 
             if (uri != null && _currentV2Run.Files != null)
             {
                 FileData fileData;
-                if (_currentV2Run.Files.TryGetValue(uri, out fileData))
+                if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
                 {
                     // We need the encoding because the content might have been transcoded to UTF-8
                     string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
@@ -601,31 +600,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             byte[] content = encoding.GetBytes(fileData.Contents.Text);
                             stream = new MemoryStream(content);
                         }
-                        else if (fileUri.IsAbsoluteUri && fileUri.Scheme == Uri.UriSchemeFile && File.Exists(fileUri.LocalPath))
+                        else if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile && File.Exists(uri.LocalPath))
                         {
                             // External source file
 
                             try
                             {
-                                stream = new FileStream(fileUri.LocalPath, FileMode.Open);
+                                stream = new FileStream(uri.LocalPath, FileMode.Open);
                             }
                             catch (FileNotFoundException ex)
                             {
-                                failureReason = $"File '{fileUri.LocalPath}' could not be found: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
                             }
                             catch (IOException ex)
                             {
-                                failureReason = $"File '{fileUri.LocalPath}' could not be read: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
                             }
                             catch (SecurityException ex)
                             {
-                                failureReason = $"File '{fileUri.LocalPath}' could not be accessed: {ex.ToString()}";
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
                             }
                         }
                     }
                     else
                     {
-                        failureReason = $"Encoding for file '{fileUri.OriginalString}' could not be determined";
+                        failureReason = $"Encoding for file '{uri.OriginalString}' could not be determined";
                     }
                 }
             }
@@ -644,7 +643,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stream;
         }
 
-        private StreamReader GetFileStreamReader(string uri, out Encoding encoding)
+        private StreamReader GetFileStreamReader(Uri uri, out Encoding encoding)
         {
             StreamReader reader = null;
 
@@ -703,7 +702,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
-                    string key = fileLocation.Uri;
+                    string key = fileLocation.Uri.OriginalString;
                     string fileContent = null;
                     FileData responseFile;
 
@@ -925,7 +924,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         stackFrame.Column = physicalLocation.Region?.StartColumn ?? 0;
                         stackFrame.Line = physicalLocation.Region?.StartLine ?? 0;
-                        stackFrame.Uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
+                        stackFrame.Uri = physicalLocation.FileLocation?.Uri;
                         stackFrame.UriBaseId = physicalLocation.FileLocation?.UriBaseId;
                     }
                 }

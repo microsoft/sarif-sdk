@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = fileName
+                                    Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region()
                                 {

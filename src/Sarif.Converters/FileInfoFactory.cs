@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return;
             }
 
-            Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
+            Uri uri = physicalLocation.FileLocation.Uri;
             string key = UriHelper.MakeValidUri(uri.OriginalString);
             string filePath = key;
 

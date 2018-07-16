@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = "foo.cpp"
+                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
                         },
                         Region = new Region { StartLine = 1234 }
                     }
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = "bar.cpp"
+                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
                             },
                             Region = new Region { StartLine = 5678 }
                         }
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = "foo.cpp"
+                                    Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region { StartLine = 1234 },
                             }
@@ -108,8 +108,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             PhysicalLocation = new PhysicalLocation
                             {
                                 FileLocation = new FileLocation
-                                { 
-                                    Uri = "bar.cpp"
+                                {
+                                    Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region { StartLine = 5678 }
                             }

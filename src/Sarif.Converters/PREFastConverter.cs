@@ -82,8 +82,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 StartLine = defect.SFA.Line
             };
 
-            string resultFilePath = UriHelper.MakeValidUri(Path.Combine(defect.SFA.FilePath, defect.SFA.FileName));
-            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: resultFilePath, uriBaseId: null), region: region, contextRegion: null);
+            var resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
+            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: resultsFileUri, uriBaseId: null), region: region, contextRegion: null);
             var location = new Location()
             {
                 PhysicalLocation = physicalLocation,
@@ -159,8 +159,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     StartLine = sfa.Line
                 };
 
-                string filePath = UriHelper.MakeValidUri(Path.Combine(sfa.FilePath, sfa.FileName));
-                var fileLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: filePath, uriBaseId: null), region: region, contextRegion: null);
+                var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
+                var fileLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: uri, uriBaseId: null), region: region, contextRegion: null);
                 var threadFlowLocation = new ThreadFlowLocation
                 {
                     Location = new Location

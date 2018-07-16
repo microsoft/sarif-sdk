@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileData.FileLocation = new FileLocation
                     {
-                        Uri = v1FileData.Uri.OriginalString,
+                        Uri = v1FileData.Uri,
                         UriBaseId = v1FileData.UriBaseId
                     };
                 }
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileLocation = new FileLocation
                 {
-                    Uri = uri.OriginalString,
+                    Uri = uri,
                     UriBaseId = uriBaseId
                 };
             }
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     invocation.ExecutableLocation = new FileLocation
                     {
-                        Uri = v1Invocation.FileName
+                        Uri = new Uri(v1Invocation.FileName, UriKind.RelativeOrAbsolute)
                     };
                 }
             }
@@ -591,7 +591,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     var fileLocation = new FileLocation
                     {
-                        Uri = key
+                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                     };
                     fileLocations.Add(fileLocation);
 

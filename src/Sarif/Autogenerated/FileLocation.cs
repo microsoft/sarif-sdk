@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the location of a file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     public partial class FileLocation : ISarifNode
     {
         public static IEqualityComparer<FileLocation> ValueComparer => FileLocationEqualityComparer.Instance;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string containing a valid relative or absolute URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
-        public string Uri { get; set; }
+        public Uri Uri { get; set; }
 
         /// <summary>
         /// A string which indirectly specifies the absolute URI with respect to which a relative URI in the "uri" property is interpreted.
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uriBaseId">
         /// An initialization value for the <see cref="P: UriBaseId" /> property.
         /// </param>
-        public FileLocation(string uri, string uriBaseId)
+        public FileLocation(Uri uri, string uriBaseId)
         {
             Init(uri, uriBaseId);
         }
@@ -101,9 +101,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileLocation(this);
         }
 
-        private void Init(string uri, string uriBaseId)
+        private void Init(Uri uri, string uriBaseId)
         {
-            Uri = uri;
+            if (uri != null)
+            {
+                Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+            }
+
             UriBaseId = uriBaseId;
         }
     }

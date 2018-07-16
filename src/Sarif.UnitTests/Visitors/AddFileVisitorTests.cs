@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = filePath
+                                    Uri = new Uri(filePath)
                                 }
                             }
                         }

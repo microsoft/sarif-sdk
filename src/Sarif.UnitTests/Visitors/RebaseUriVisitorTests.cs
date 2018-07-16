@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = locationUriStr
+                    Uri = locationUri
                 }
             };
             RebaseUriVisitor visitor = new RebaseUriVisitor(rootName, baseUri);
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (!string.IsNullOrEmpty(expectedDifference))
             {
                 newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, "We should set the root name for these.");
-                newLocation.FileLocation.Uri.Should().Be(baseUri.MakeRelativeUri(locationUri).ToString(), "Base URI should be relative if the expected difference is there.");
+                newLocation.FileLocation.Uri.Should().Be(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
                 newLocation.FileLocation.Uri.Should().Be(expectedDifference, "We expect this difference.");
             } else
             {
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = @"C:\bld\src\test.dll",
+                    Uri = new Uri(@"C:\bld\src\test.dll"),
                     UriBaseId = "BLDROOT"
                 }
             };
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri.OriginalString }, ParentKey = parentKey};
+            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey};
             Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };
 
             string srcroot = "SRCROOT";
@@ -188,9 +188,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Files.Should().ContainKey("blah.zip#/stuff.doc");
             var newFileData = run.Files["blah.zip#/stuff.doc"];
 
-            Uri newFileUri = SarifUtilities.CreateUri(newFileData.FileLocation.Uri);
-            newFileUri.IsAbsoluteUri.Should().BeFalse();
-            newFileUri.Should().NotBeSameAs(fileUri);
+            newFileData.FileLocation.Uri.IsAbsoluteUri.Should().BeFalse();
+            newFileData.FileLocation.Uri.Should().NotBeSameAs(fileUri);
             newFileData.FileLocation.UriBaseId.Should().Be(srcroot);
             newFileData.ParentKey.Should().NotBeSameAs(parentKey);
         }
@@ -198,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [Fact]
         public void RebaseUriVisitor_VisitFileData_DoesNotPatchUriAndParentWhenNotAppropriate()
         {
-            string fileUri = @"file://C:/src/root/blah.zip#/stuff.doc";
+            Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
             FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey };
             Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } } };

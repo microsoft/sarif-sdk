@@ -365,13 +365,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureFile(string uri)
+        private void CaptureFile(Uri uri)
         { 
             if (uri == null) { return; }
 
             _run.Files = _run.Files ?? new Dictionary<string, FileData>();
 
-            string fileDataKey = UriHelper.MakeValidUri(uri);
+            string fileDataKey = UriHelper.MakeValidUri(uri.OriginalString);
             if (_run.Files.ContainsKey(fileDataKey))
             {
                 // Already populated
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             catch (ArgumentException) { } // Unrecognized or null encoding name
 
-            _run.Files[fileDataKey] = FileData.Create(new Uri(uri, UriKind.RelativeOrAbsolute), _dataToInsert, null, encoding);
+            _run.Files[fileDataKey] = FileData.Create(uri, _dataToInsert, null, encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -414,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = context.TargetUri.OriginalString
+                            Uri = context.TargetUri
                         }
                     },
                     Id = Notes.Msg001AnalyzingTarget,
@@ -467,7 +467,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = targetPath
+                                Uri = new Uri(targetPath)
                             },
                             Region = region
                         }

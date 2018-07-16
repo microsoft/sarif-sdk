@@ -368,7 +368,7 @@ Possible resolution: delete", result.Message.Text);
                 {
                     FileLocation = new FileLocation
                     {
-                        Uri = "File Goes Here"
+                        Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute)
                     },
                 },
                 FullyQualifiedLogicalName = "LastResortModule"

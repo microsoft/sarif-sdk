@@ -19,7 +19,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 model.Id = physicalLocation.Id;
                 model.Region = physicalLocation.Region;
 
-                Uri uri = SarifUtilities.CreateUri(physicalLocation.FileLocation.Uri);
+                Uri uri = physicalLocation.FileLocation.Uri;
 
                 if (uri != null)
                 {

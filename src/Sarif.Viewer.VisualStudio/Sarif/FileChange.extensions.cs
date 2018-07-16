@@ -20,16 +20,13 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             if (fileChange.Replacements != null)
             {
-                Uri uri = SarifUtilities.CreateUri(fileChange.FileLocation.Uri);
+                model.FilePath = fileChange.FileLocation.Uri.IsAbsoluteUri ?
+                    fileChange.FileLocation.Uri.AbsoluteUri :
+                    fileChange.FileLocation.Uri.OriginalString;
 
-                if (uri != null)
+                foreach (Replacement replacement in fileChange.Replacements)
                 {
-                    model.FilePath = uri.IsAbsoluteUri ? uri.AbsoluteUri : uri.OriginalString;
-
-                    foreach (Replacement replacement in fileChange.Replacements)
-                    {
-                        model.Replacements.Add(replacement.ToReplacementModel());
-                    }
+                    model.Replacements.Add(replacement.ToReplacementModel());
                 }
             }
 

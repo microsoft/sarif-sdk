@@ -66,7 +66,7 @@ namespace Sarif.Converters.UnitTests
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = "test.py"
+                                Uri = new Uri("test.py", UriKind.RelativeOrAbsolute)
                             },
                             Region = new Region
                             {

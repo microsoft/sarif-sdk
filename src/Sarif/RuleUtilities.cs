@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = targetPath
+                                Uri = new Uri(targetPath)
                             },
                             Region = region
                         }

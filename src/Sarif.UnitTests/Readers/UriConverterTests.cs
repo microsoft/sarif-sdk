@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = UriHelper.MakeValidUri(inputUri)
+                                    Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
                                 }
                             }
                         }

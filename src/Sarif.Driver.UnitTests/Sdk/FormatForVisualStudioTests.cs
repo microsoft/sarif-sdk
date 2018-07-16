@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = path
+                                Uri = new Uri(path, UriKind.RelativeOrAbsolute)
                             },
                             Region = region
                         }

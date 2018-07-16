@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = context.TargetUri.ToString()
+                            Uri = context.TargetUri
                         }
                     },
                     Id = Wrn997_InvalidTarget,
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = context.TargetUri?.ToString()
+                            Uri = context.TargetUri
                         }
                     },
                     Id = Wrn998_UnsupportedPlatform,

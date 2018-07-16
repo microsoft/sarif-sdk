@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (invocation.ShouldLog(nameof(ExecutableLocation)))
             {
                 Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-                invocation.ExecutableLocation.Uri = assembly.Location;
+                invocation.ExecutableLocation.Uri = new Uri(assembly.Location);
             }
 
             return invocation;
