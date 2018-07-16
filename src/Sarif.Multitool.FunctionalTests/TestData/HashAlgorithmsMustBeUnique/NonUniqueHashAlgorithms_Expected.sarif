@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF006",
+          "ruleId": "SARIF1006",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -53,8 +53,8 @@
         }
       ],
       "rules": {
-        "SARIF006": {
-          "id": "SARIF006",
+        "SARIF1006": {
+          "id": "SARIF1006",
           "name": "HashAlgorithmsMustBeUnique",
           "shortDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property.",
           "fullDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property. ",

@@ -67,8 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Resources.Rules;
-            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Resources.Rules;
+            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Resources?.Rules;
+            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Resources?.Rules;
 
             SelectiveCompare(actualRules, expectedRules);
         }

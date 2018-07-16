@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF003",
+          "ruleId": "SARIF1003",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -54,8 +54,8 @@
         }
       ],
       "rules": {
-        "SARIF003": {
-          "id": "SARIF003",
+        "SARIF1003": {
+          "id": "SARIF1003",
           "name": "UrisMustBeValid",
           "shortDescription": "Specify a valid URI reference for every URI-valued property.",
           "fullDescription": "Specify a valid URI reference for every URI-valued property.",

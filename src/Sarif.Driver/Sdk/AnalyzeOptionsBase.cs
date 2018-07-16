@@ -94,18 +94,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public bool RichReturnCode { get; set; }
 
         [Option(
-            't', // persist 't'ext
-            "persist-text-contents",
-            HelpText = "Persist a base64-encoded representation of all referenced textual files to the log.")]
-        public bool PersistTextFileContents { get; set; }
-
-        [Option(
-            // Lack of shortcut for this one is by design, as the need
-            // to persist this data is unusual and could lead to insecurities.
-            // It is therefore helpful for the command to be very readable
-            // in all usages.
-            "persist-binary-contents",
-            HelpText = "Persist a base64-encoded representation of all referenced files that are presumed to be non-textual to the log.")]
-        public bool PersistBinaryContents { get; set; }
+            "insert",
+            Separator = ';',
+            HelpText =
+            "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
+            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, CodeSnippets, SurroundingCodeSnippets " +
+            "and NondeterministicProperties.")]
+        public IEnumerable<OptionallyEmittedData> DataToInsert { get; internal set; }
     }
 }

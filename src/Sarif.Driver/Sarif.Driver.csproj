@@ -1,38 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
-  
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; netstandard2.0; net452;</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ProjectGuid>c06f0cf1-3505-4715-b6da-047ec86c4308</ProjectGuid>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Driver</RootNamespace>
-  </PropertyGroup>
-  
-  <!--NuGet Packages-->
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.Composition" Version="1.1.0" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.3.1" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
-  </ItemGroup>
 
-  <!--NuGet Config-->
   <PropertyGroup>
-    <PackageId>Sarif.Driver</PackageId>
-    <Title>Microsoft SARIF Driver Framework (includes SARIF SDK)</Title>
-    <Authors>Microsoft Corporation</Authors>
-    <Description>SARIF-based classes and utilities for building static analysis drivers. Includes the SARIF SDK.</Description>
-    <PackageReleaseNotes>Version $(Version) of the .NET SARIF SDK (for SARIF v1.0.0)</PackageReleaseNotes>
-    <Copyright>Copyright Microsoft 2015</Copyright>
-    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
-    <PackageTags>command line driver utilities static analysis sarif framework utils driver.utilities</PackageTags>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
-  
+
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Driver Framework</AssemblyTitle>
+    <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="System.Composition" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

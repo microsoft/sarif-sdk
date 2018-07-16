@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "foo",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "  char a[35];"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "  char b[10] = {'a','b','c','d','\\0'};"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -121,7 +133,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                            }
                           }
                         }
                       },
@@ -138,7 +153,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                            }
                           }
                         }
                       },

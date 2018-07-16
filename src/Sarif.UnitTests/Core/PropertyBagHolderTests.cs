@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Action action = () => inputObject.GetProperty(PropertyName);
 
-            action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
+            action.Should().Throw<InvalidOperationException>().WithMessage($"*{PropertyName}*");
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Action action = () => inputObject.GetProperty<int>(PropertyName);
 
-            action.ShouldThrow<InvalidOperationException>().WithMessage($"*{PropertyName}*");
+            action.Should().Throw<InvalidOperationException>().WithMessage($"*{PropertyName}*");
         }
 
         [Fact]

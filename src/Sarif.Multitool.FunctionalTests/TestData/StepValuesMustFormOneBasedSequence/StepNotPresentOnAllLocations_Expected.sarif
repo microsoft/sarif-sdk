@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF009",
+          "ruleId": "SARIF1009",
           "level": "error",
           "formattedRuleMessage": {
             "formatId": "StepNotPresentOnAllLocations",
@@ -52,8 +52,8 @@
         }
       ],
       "rules": {
-        "SARIF009": {
-          "id": "SARIF009",
+        "SARIF1009": {
+          "id": "SARIF1009",
           "name": "StepMustIncreaseByOneFromOne",
           "shortDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
           "fullDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",

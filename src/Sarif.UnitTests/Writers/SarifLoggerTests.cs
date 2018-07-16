@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string commandLine = Environment.CommandLine;
                 string lowerCaseCommandLine = commandLine.ToLower();
 
-                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console"))
+                if (lowerCaseCommandLine.Contains("testhost.dll") || lowerCaseCommandLine.Contains("\\xunit.console") || lowerCaseCommandLine.Contains("testhost.x86.exe"))
                 {
                     int index = commandLine.LastIndexOf("\\");
                     string argumentToRedact = commandLine.Substring(0, index + 1);
@@ -83,11 +83,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                         tokensToRedact = new string[] {  pathToExe };
                     }
                 }
-                else
+                else if (commandLine.Contains("/agentKey"))
                 {
                     string argumentToRedact = commandLine.Split(new string[] { @"/agentKey" }, StringSplitOptions.None)[1].Trim();
                     argumentToRedact = argumentToRedact.Split(' ')[0];
                     tokensToRedact = new string[] { argumentToRedact };
+                }
+                else
+                {
+                    Assert.False(true, pathToExe + " " + commandLine);
                 }
 
                 using (var sarifLogger = new SarifLogger(
@@ -247,9 +251,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
             run.AutomationLogicalId.Should().Be(automationLogicalId);
             run.Architecture.Should().Be(architecture);
-            run.Conversion.Tool.ShouldBeEquivalentTo(DefaultTool);
-            //run.VersionControlProvenance[0].Timestamp.ShouldBeEquivalentTo(utcNow);
-            run.VersionControlProvenance[0].Uri.ShouldBeEquivalentTo(versionControlUri);
+            run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
+            //run.VersionControlProvenance[0].Timestamp.Should().BeEquivalentTo(utcNow);
+            run.VersionControlProvenance[0].Uri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
             run.RichMessageMimeType.Should().Be(richMessageMimeType);
@@ -271,7 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { file },
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -318,7 +322,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: new string[] { file },
-                    loggingOptions: LoggingOptions.PersistTextFileContents,
+                    dataToInsert: OptionallyEmittedData.TextFiles,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
@@ -358,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -494,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -539,7 +543,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
@@ -581,7 +585,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
@@ -627,7 +631,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.ComputeFileHashes,
+                    dataToInsert: OptionallyEmittedData.Hashes,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
@@ -727,99 +731,35 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case LoggingOptions.None:
                 {
-                    logger.ComputeFileHashes.Should().BeFalse();
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
-                    break;
-                }
-                case LoggingOptions.ComputeFileHashes:
-                {
-                    logger.ComputeFileHashes.Should().BeTrue();
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.OverwriteExistingOutputFile:
                 {
-                    logger.ComputeFileHashes.Should().BeFalse();
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
-                    break;
-                }
-                case LoggingOptions.PersistBinaryContents:
-                {
-                    logger.ComputeFileHashes.Should().BeFalse();
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeTrue();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
-                    break;
-                }
-                case LoggingOptions.PersistEnvironment:
-                {
-                    logger.ComputeFileHashes.Should().BeFalse();
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeTrue();
-                    logger.PersistTextFileContents.Should().BeFalse();
-                    logger.PrettyPrint.Should().BeFalse();
-                    logger.Verbose.Should().BeFalse();
-                    break;
-                }
-                case LoggingOptions.PersistTextFileContents:
-                {
-                    logger.ComputeFileHashes.Should().BeFalse();
-                    logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeTrue();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.PrettyPrint:
                 {
-                    logger.ComputeFileHashes.Should().BeFalse();
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeTrue();
                     logger.Verbose.Should().BeFalse();
                     break;
                 }
                 case LoggingOptions.Verbose:
                 {
-                    logger.ComputeFileHashes.Should().BeFalse();
                     logger.OverwriteExistingOutputFile.Should().BeFalse();
-                    logger.PersistBinaryContents.Should().BeFalse();
-                    logger.PersistEnvironment.Should().BeFalse();
-                    logger.PersistTextFileContents.Should().BeFalse();
                     logger.PrettyPrint.Should().BeFalse();
                     logger.Verbose.Should().BeTrue();
                     break;
                 }
                 case LoggingOptions.All:
                 {
-                    logger.ComputeFileHashes.Should().BeTrue();
                     logger.OverwriteExistingOutputFile.Should().BeTrue();
-                    logger.PersistBinaryContents.Should().BeTrue();
-                    logger.PersistEnvironment.Should().BeTrue();
-                    logger.PersistTextFileContents.Should().BeTrue();
                     logger.PrettyPrint.Should().BeTrue();
                     logger.Verbose.Should().BeTrue();
                     break;

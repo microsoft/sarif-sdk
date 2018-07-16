@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
 
             SarifLog combinedLog = logs.Merge();
 
-            combinedLog.Runs.Count.ShouldBeEquivalentTo(secondLogSet.Select(l => l.Runs == null ? 0 : l.Runs.Count).Sum());
+            combinedLog.Runs.Count.Should().Be(secondLogSet.Select(l => l.Runs == null ? 0 : l.Runs.Count).Sum());
         }
 
         [Fact]

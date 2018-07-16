@@ -76,8 +76,6 @@ namespace Microsoft.Sarif.Viewer
             where S : class
             where T : class
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
             try
             {
                 return (T)this.GetService(typeof(S));

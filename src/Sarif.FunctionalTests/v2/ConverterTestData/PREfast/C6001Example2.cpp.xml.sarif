@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 17,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "   return i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example2",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int x=6;\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -86,7 +92,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int i;\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "   if ( c ) {\t\t\t\t "
+                            }
                           }
                         }
                       },
@@ -121,7 +133,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t   x=5;\t\t\t"
+                            }
                           }
                         }
                       },
@@ -136,7 +151,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t   if ( b )"
+                            }
                           }
                         }
                       },
@@ -153,7 +171,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\t   x=7;"
+                            }
                           }
                         }
                       },
@@ -168,7 +189,10 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "   return i;"
+                            }
                           }
                         }
                       },

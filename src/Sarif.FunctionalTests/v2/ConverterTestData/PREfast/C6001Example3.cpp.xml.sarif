@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 11,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint j = i+1;\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example3",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i;\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labelb;\t\t"
+                            }
                           }
                         }
                       },
@@ -106,7 +115,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labelb:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -121,7 +133,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labela;"
+                            }
                           }
                         }
                       },
@@ -138,7 +153,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labela:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -153,7 +171,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labelc;"
+                            }
                           }
                         }
                       },
@@ -170,7 +191,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labelc:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -185,7 +209,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i+1;\t\t"
+                            }
                           }
                         }
                       },

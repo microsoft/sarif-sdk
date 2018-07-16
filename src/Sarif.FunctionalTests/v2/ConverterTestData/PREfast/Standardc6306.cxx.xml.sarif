@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "    printf(\"%d\", v); //@@@Expects:6306; 6273"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",
@@ -71,7 +74,10 @@
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "    printf(\"%d\", v); //@@@Expects:6306; 6273"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",

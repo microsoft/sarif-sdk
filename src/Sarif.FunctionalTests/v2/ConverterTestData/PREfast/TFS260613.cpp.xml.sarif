@@ -51,7 +51,10 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "    p += offset;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch1",
@@ -74,7 +77,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int * p = source;"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int offset = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -122,7 +134,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "    p += offset;"
+                            }
                           }
                         }
                       },
@@ -155,7 +170,10 @@
                 },
                 "region": {
                   "startLine": 20,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "    p += sizeof(int);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch2",
@@ -178,7 +196,10 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                            }
                           }
                         }
                       },
@@ -193,7 +214,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int * p = source;"
+                            }
                           }
                         }
                       },
@@ -208,7 +232,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "    p += sizeof(int);"
+                            }
                           }
                         }
                       },

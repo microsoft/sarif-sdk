@@ -48,7 +48,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "      a[i] = '\\0';"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6386_Example",
@@ -71,7 +74,10 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "   char a[4];"
+                            }
                           }
                         }
                       },
@@ -89,7 +95,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   for(i; i < 4; i++)"
+                            }
                           }
                         }
                       },
@@ -104,7 +113,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "   for(i; i < 4; i++)"
+                            }
                           }
                         }
                       },
@@ -119,7 +131,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "      a[i] = '\\0';"
+                            }
                           }
                         }
                       },

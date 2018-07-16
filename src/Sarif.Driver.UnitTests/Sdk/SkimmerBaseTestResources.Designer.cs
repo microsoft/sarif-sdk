@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
+namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.Driver.Sdk.SkimmerBaseTestResources", typeof(SkimmerBaseTestResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk.SkimmerBaseTestResources", typeof(SkimmerBaseTestResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

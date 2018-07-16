@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_Create_NullUri()
         {
-            Action action = () => { FileData.Create(null, LoggingOptions.None); };
+            Action action = () => { FileData.Create(null, OptionallyEmittedData.None); };
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.ComputeFileHashes);
+                FileData fileData = FileData.Create(uri, OptionallyEmittedData.Hashes);
                 fileData.FileLocation.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.MimeType.Should().Be(MimeType.Binary);
@@ -59,21 +59,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [Theory]
         // Unknown files are regarded as binary
-        [InlineData(".unknown", LoggingOptions.PersistBinaryContents, true)]
-        [InlineData(".unknown", LoggingOptions.PersistTextFileContents, false)]
-        [InlineData(".exe", LoggingOptions.PersistBinaryContents | LoggingOptions.PersistTextFileContents, true)]
-        [InlineData(".cs",  LoggingOptions.PersistBinaryContents | LoggingOptions.PersistTextFileContents, true)]
-        [InlineData(".jar", LoggingOptions.PersistBinaryContents, true)]
-        [InlineData(".jar", LoggingOptions.PersistTextFileContents, false)]
-        [InlineData(".cs", LoggingOptions.PersistBinaryContents, false)]
-        [InlineData(".cs", LoggingOptions.PersistTextFileContents, true)]
-        [InlineData(".h", ~LoggingOptions.PersistBinaryContents, true)]
-        [InlineData(".docx", ~LoggingOptions.PersistBinaryContents, false)]
-        [InlineData(".dll", ~LoggingOptions.PersistTextFileContents, true)]
-        [InlineData(".cpp", ~LoggingOptions.PersistTextFileContents, false)]
+        [InlineData(".unknown", OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".unknown", OptionallyEmittedData.TextFiles, false)]
+        [InlineData(".exe", OptionallyEmittedData.BinaryFiles | OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".cs", OptionallyEmittedData.BinaryFiles | OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".jar", OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".jar", OptionallyEmittedData.TextFiles, false)]
+        [InlineData(".cs", OptionallyEmittedData.BinaryFiles, false)]
+        [InlineData(".cs", OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".h", ~OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".docx", ~OptionallyEmittedData.BinaryFiles, false)]
+        [InlineData(".dll", ~OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".cpp", ~OptionallyEmittedData.TextFiles, false)]
         public void FileData_PersistBinaryAndTextFileContents(
             string fileExtension,
-            LoggingOptions loggingOptions,
+            OptionallyEmittedData dataToInsert,
             bool shouldBePersisted)
         {
             string filePath = Path.GetTempFileName() + fileExtension;
@@ -83,10 +83,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, loggingOptions);
+                FileData fileData = FileData.Create(uri, dataToInsert);
                 fileData.FileLocation.Should().BeNull();
 
-                if (loggingOptions.Includes(LoggingOptions.ComputeFileHashes))
+                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
                 {
                     fileData.Hashes.Should().NotBeNull();
                 }
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents, mimeType: null, encoding: encoding);
+                FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles, mimeType: null, encoding: encoding);
                 fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // persistence, the logger will not raise an exception
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
-            FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents);
+            FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // This raises an IOException, which is swallowed by FileData.Create
                 using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
-                    FileData fileData = FileData.Create(uri, LoggingOptions.PersistTextFileContents);
+                    FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.FileLocation.Should().Be(null);
                     fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_SerializeSingleFileRole()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.AnalysisTarget;
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact(Skip = "Broken codegen for Flags enums")]
         public void FileData_SerializeMultipleFileRoles()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -252,15 +252,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             IFileSystem fileSystem = SetUnauthorizedAccessExceptionMock();
 
             FileData fileData = FileData.Create(
-                uri, 
-                LoggingOptions.PersistTextFileContents,
+                uri,
+                OptionallyEmittedData.TextFiles,
                 mimeType: null,
                 encoding: null,
                 fileSystem: fileSystem);
 
             // We pass none here as the occurrence of UnauthorizedAccessException 
             // should result in non-population of any file contents.
-            Validate(fileData, LoggingOptions.None);
+            Validate(fileData, OptionallyEmittedData.None);
         }
 
         private static IFileSystem SetUnauthorizedAccessExceptionMock()
@@ -278,9 +278,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return mock;
         }
 
-        private static void Validate(FileData fileData, LoggingOptions loggingOptions)
+        private static void Validate(FileData fileData, OptionallyEmittedData dataToInsert)
         {
-            if (loggingOptions.Includes(LoggingOptions.PersistTextFileContents))
+            if (dataToInsert.Includes(OptionallyEmittedData.TextFiles))
             {
                 fileData.Contents.Should().NotBeNull();
             }

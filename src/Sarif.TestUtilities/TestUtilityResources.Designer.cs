@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif {
+namespace Microsoft.CodeAnalysis.Sarif.TestUtilities {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TestUtilityResources {
+    public class TestUtilityResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.TestUtilityResources", typeof(TestUtilityResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.TestUtilities.TestUtilityResources", typeof(TestUtilityResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         /// <summary>
         ///   Looks up a localized string similar to Expected value is either not equal to, or has different line endings than the actual..
         /// </summary>
-        internal static string BeCrossPlatformEquivalentError {
+        public static string BeCrossPlatformEquivalentError {
             get {
                 return ResourceManager.GetString("BeCrossPlatformEquivalentError", resourceCulture);
             }

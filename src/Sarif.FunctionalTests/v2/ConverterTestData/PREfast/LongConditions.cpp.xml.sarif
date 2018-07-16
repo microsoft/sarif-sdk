@@ -54,7 +54,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn simpleVar;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition_Example",
@@ -77,7 +80,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint simpleVar;"
+                            }
                           }
                         }
                       },
@@ -95,7 +101,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 54
+                            "startColumn": 54,
+                            "snippet": {
+                              "text": "\t\t  ( isInitializzedd && !isActivated && isDefined ) ||"
+                            }
                           }
                         }
                       },
@@ -112,7 +121,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn simpleVar;"
+                            }
                           }
                         }
                       },
@@ -145,7 +157,10 @@
                 },
                 "region": {
                   "startLine": 28,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn simpleVar;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition15_Example",
@@ -168,7 +183,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint simpleVar;"
+                            }
                           }
                         }
                       },
@@ -186,7 +204,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tif ( !isInitializzedd )"
+                            }
                           }
                         }
                       },
@@ -203,7 +224,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn simpleVar;"
+                            }
                           }
                         }
                       },
@@ -236,7 +260,10 @@
                 },
                 "region": {
                   "startLine": 40,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn simpleVar;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition14_Example",
@@ -259,7 +286,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint simpleVar;"
+                            }
                           }
                         }
                       },
@@ -277,7 +307,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tif ( !isDefined )"
+                            }
                           }
                         }
                       },
@@ -294,7 +327,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn simpleVar;"
+                            }
                           }
                         }
                       },

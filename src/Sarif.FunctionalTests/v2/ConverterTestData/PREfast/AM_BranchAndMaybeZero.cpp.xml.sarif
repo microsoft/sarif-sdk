@@ -54,7 +54,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint y = *p;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZero",
@@ -77,7 +80,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * p = input;"
+                            }
                           }
                         }
                       },
@@ -92,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (0 == p)"
+                            }
                           }
                         }
                       },
@@ -109,7 +118,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint x = 5;"
+                            }
                           }
                         }
                       },
@@ -124,7 +136,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint y = *p;"
+                            }
                           }
                         }
                       },
@@ -157,7 +172,10 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint y = *input;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZeroParam",
@@ -180,7 +198,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "\tif (input != 0)"
+                            }
                           }
                         }
                       },
@@ -197,7 +218,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint y = *input;"
+                            }
                           }
                         }
                       },
@@ -230,7 +254,10 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint y = *p;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ComplexCompareToZero",
@@ -253,7 +280,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * p = input;"
+                            }
                           }
                         }
                       },
@@ -268,7 +298,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tif (&p[0])"
+                            }
                           }
                         }
                       },
@@ -285,7 +318,10 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint y = *p;"
+                            }
                           }
                         }
                       },

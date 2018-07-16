@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -20,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             logReader = new TSLintLogReader();
         }
         
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
 
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
             
             if (fileDictionary?.Any() == true)
