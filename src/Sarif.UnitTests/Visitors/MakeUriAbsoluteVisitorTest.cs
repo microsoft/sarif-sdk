@@ -16,13 +16,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run run = new Run();
             run.Files = new Dictionary<string, FileData>()
             {
-                { "src/file1.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file1.cs", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey=null } },
-                { "src/file2.dll", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file2.dll", UriKind.Relative),UriBaseId="%TEST2%" }, ParentKey=null } },
-                { "src/archive.zip", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey=null } },
-                { "src/archive.zip#file3.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file3.cs", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
-                { "src/archive.zip#archive2.gz", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
-                { "src/archive.zip#archive2.gz/file4.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz/file4.cs", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey="src/archive.zip#archive2.gz" } },
-                { "src/archive.zip#file5.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file5.cs", UriKind.Relative),UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/file1.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file1.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey=null } },
+                { "src/file2.dll", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file2.dll", UriKind.Relative), UriBaseId="%TEST2%" }, ParentKey=null } },
+                { "src/archive.zip", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey=null } },
+                { "src/archive.zip#file3.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file3.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/archive.zip#archive2.gz", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
+                { "src/archive.zip#archive2.gz/file4.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#archive2.gz/file4.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip#archive2.gz" } },
+                { "src/archive.zip#file5.cs", new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip#file5.cs", UriKind.Relative), UriBaseId="%TEST1%" }, ParentKey="src/archive.zip" } },
             };
 
             if (uriBaseIdMapping != null)

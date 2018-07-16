@@ -40,8 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (!string.IsNullOrEmpty(expectedDifference))
             {
                 newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, "We should set the root name for these.");
-                newLocation.FileLocation.Uri.Should().Be(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
-                newLocation.FileLocation.Uri.Should().Be(expectedDifference, "We expect this difference.");
+                newLocation.FileLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
+                newLocation.FileLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference, "We expect this difference.");
             } else
             {
                 newLocation.Should().BeEquivalentTo(location, "When we have no expected difference, we expect the location to not be changed by the rebase operation.");

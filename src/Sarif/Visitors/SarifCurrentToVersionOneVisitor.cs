@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fileChange = new FileChangeVersionOne
                     {
                         Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encoding)).ToList(),
-                        Uri = v2FileChange.FileLocation.Uri,
+                        Uri = v2FileChange.FileLocation?.Uri,
                         UriBaseId = v2FileChange.FileLocation?.UriBaseId
                     };
                 }
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CommandLine = v2Invocation.CommandLine,
                     EndTime = v2Invocation.EndTime,
                     EnvironmentVariables = v2Invocation.EnvironmentVariables,
-                    FileName = v2Invocation.ExecutableLocation?.Uri.OriginalString,
+                    FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
                     ProcessId = v2Invocation.ProcessId,
                     Properties = v2Invocation.Properties,
@@ -347,7 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocationVersionOne
                 {
                     Region = CreateRegion(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
-                    Uri = v2PhysicalLocation.FileLocation.Uri,
+                    Uri = v2PhysicalLocation.FileLocation?.Uri,
                     UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
                 };
             }
@@ -631,7 +631,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (stream == null && failureReason == null)
             {
-                failureReason = $"File '{uri}' could not be opened";
+                failureReason = $"File '{uri.LocalPath}' could not be opened";
             }
 
             if (failureReason != null)
