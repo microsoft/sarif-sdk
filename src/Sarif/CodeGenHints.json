@@ -1,5 +1,5 @@
 {
-  "codeFlowLocation": [
+  "threadFlowLocation": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -9,12 +9,12 @@
       }
     }
   ],
-  "CodeFlowLocation.Importance": [
+  "ThreadFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "CodeFlowLocationImportance",
-        "description": "Values specifying the importance of an \"codeFlowLocation\" within the \"codeFlow\" in which it occurs"
+        "typeName": "ThreadFlowLocationImportance",
+        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],

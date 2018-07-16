@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Run run = new Run() { Resources = new Resources() };
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
-            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20)+1).Select(a => new Uri(a)).ToList();
+            List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
 
             run.Tool = new Tool() { Name = "Test", Version = "1.0", };
             run.Resources.Rules = GenerateRules(ruleIds);

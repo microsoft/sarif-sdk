@@ -332,7 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                     {
-                        CaptureCodeFlowLocations(threadFlow.Locations);
+                        CaptureThreadFlowLocations(threadFlow.Locations);
                     }
                 }
             }
@@ -352,15 +352,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureCodeFlowLocations(IList<CodeFlowLocation> locations)
+        private void CaptureThreadFlowLocations(IList<ThreadFlowLocation> locations)
         {
             if (locations == null) { return; }
 
-            foreach (CodeFlowLocation cfl in locations)
+            foreach (ThreadFlowLocation tfl in locations)
             {
-                if (cfl.Location?.PhysicalLocation != null)
+                if (tfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(cfl.Location.PhysicalLocation.FileLocation?.Uri);
+                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation?.Uri);
                 }
             }
         }

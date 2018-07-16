@@ -19,7 +19,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation
+                Location = new ThreadFlowLocation
                 {
                     Location = new Location
                     {
@@ -48,7 +48,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation
+                Location = new ThreadFlowLocation
                 {
                     Location = new Location
                     {
@@ -75,7 +75,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation
+                Location = new ThreadFlowLocation
                 {
                     Location = new Location
                     {
@@ -101,7 +101,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation
+                Location = new ThreadFlowLocation
                 {
                     Location = new Location
                     {
@@ -135,7 +135,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
 
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation
+                Location = new ThreadFlowLocation
                 {
                     Location = new Location
                     {

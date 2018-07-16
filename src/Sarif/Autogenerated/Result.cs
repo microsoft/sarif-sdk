@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     public partial class Result : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Result> ValueComparer => ResultEqualityComparer.Instance;
@@ -75,6 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string InstanceGuid { get; set; }
 
         /// <summary>
+        /// A stable, unique identifier for the equivalence class of logically identical results to which this result belongs, in the form of a GUID.
+        /// </summary>
+        [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string CorrelationGuid { get; set; }
+
+        /// <summary>
         /// A set of strings that contribute to the stable, unique identity of the result.
         /// </summary>
         [DataMember(Name = "partialFingerprints", IsRequired = false, EmitDefaultValue = false)]
@@ -133,8 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The URI of the work item associated with this result
         /// </summary>
-        [DataMember(Name = "workItemLocation", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation WorkItemLocation { get; set; }
+        [DataMember(Name = "workItemUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri WorkItemUri { get; set; }
 
         /// <summary>
         /// An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.
@@ -185,6 +191,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="instanceGuid">
         /// An initialization value for the <see cref="P: InstanceGuid" /> property.
         /// </param>
+        /// <param name="correlationGuid">
+        /// An initialization value for the <see cref="P: CorrelationGuid" /> property.
+        /// </param>
         /// <param name="partialFingerprints">
         /// An initialization value for the <see cref="P: PartialFingerprints" /> property.
         /// </param>
@@ -215,8 +224,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="attachments">
         /// An initialization value for the <see cref="P: Attachments" /> property.
         /// </param>
-        /// <param name="workItemLocation">
-        /// An initialization value for the <see cref="P: WorkItemLocation" /> property.
+        /// <param name="workItemUri">
+        /// An initialization value for the <see cref="P: WorkItemUri" /> property.
         /// </param>
         /// <param name="conversionProvenance">
         /// An initialization value for the <see cref="P: ConversionProvenance" /> property.
@@ -227,9 +236,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, Uri workItemUri, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, level, message, ruleMessageId, analysisTarget, locations, instanceGuid, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, workItemLocation, conversionProvenance, fixes, properties);
+            Init(ruleId, level, message, ruleMessageId, analysisTarget, locations, instanceGuid, correlationGuid, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, workItemUri, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -248,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.WorkItemLocation, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.Level, other.Message, other.RuleMessageId, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.CorrelationGuid, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.WorkItemUri, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -269,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, FileLocation workItemLocation, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, ResultLevel level, Message message, string ruleMessageId, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, Uri workItemUri, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             Level = level;
@@ -303,6 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             InstanceGuid = instanceGuid;
+            CorrelationGuid = correlationGuid;
             if (partialFingerprints != null)
             {
                 PartialFingerprints = new Dictionary<string, string>(partialFingerprints);
@@ -423,9 +433,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Attachments = destination_6;
             }
 
-            if (workItemLocation != null)
+            if (workItemUri != null)
             {
-                WorkItemLocation = new FileLocation(workItemLocation);
+                WorkItemUri = new Uri(workItemUri.OriginalString, workItemUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             if (conversionProvenance != null)

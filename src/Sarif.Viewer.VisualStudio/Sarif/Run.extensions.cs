@@ -73,7 +73,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                             configuration: null,
                             messageStrings: null,
                             richMessageStrings: null,
-                            helpLocation: new FileLocation { Uri = helpUri },
+                            helpUri: helpUri,
                             help: null, // PREfast rules don't need a "help" property; they all have online documentation.
                             properties: null);
                     }

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A file relevant to a tool invocation or to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     public partial class Attachment : ISarifNode
     {
         public static IEqualityComparer<Attachment> ValueComparer => AttachmentEqualityComparer.Instance;

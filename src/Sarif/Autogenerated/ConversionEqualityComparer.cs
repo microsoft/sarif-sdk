@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Conversion for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     internal sealed class ConversionEqualityComparer : IEqualityComparer<Conversion>
     {
         internal static readonly ConversionEqualityComparer Instance = new ConversionEqualityComparer();

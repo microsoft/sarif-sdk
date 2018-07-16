@@ -142,65 +142,65 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Important,
+                    Importance = ThreadFlowLocationImportance.Important,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Essential,
+                    Importance = ThreadFlowLocationImportance.Essential,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Return
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0,
-                    Importance = CodeFlowLocationImportance.Essential,
+                    Importance = ThreadFlowLocationImportance.Essential,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Important,
+                    Importance = ThreadFlowLocationImportance.Important,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1, // Return
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0, // Call
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1,
-                    Importance = CodeFlowLocationImportance.Unimportant,
+                    Importance = ThreadFlowLocationImportance.Unimportant,
                 }
             });
 
