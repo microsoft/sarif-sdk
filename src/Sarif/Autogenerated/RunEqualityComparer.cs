@@ -434,11 +434,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.DefaultFileEncoding.GetHashCode();
                 }
 
-                if (obj.ColumnKind != null)
-                {
-                    result = (result * 31) + obj.ColumnKind.GetHashCode();
-                }
-
+                result = (result * 31) + obj.ColumnKind.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

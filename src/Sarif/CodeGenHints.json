@@ -346,6 +346,20 @@
       }
     }
   ],
+  "Run.ColumnKind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ColumnKind",
+        "description": "A value that specifies the unit in which the tool measures columns.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "utf16CodeUnits",
+          "unicodeCodePoints"
+        ]
+      }
+    }
+  ],
   "Run.Files": [
     {
       "kind": "DictionaryHint"
