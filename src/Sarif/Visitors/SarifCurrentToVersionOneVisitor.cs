@@ -57,20 +57,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return annotatedCodeLocation;
         }
 
-        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(CodeFlowLocation v2CodeFlowLocation)
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(ThreadFlowLocation v2ThreadFlowLocation)
         {
             AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
 
-            if (v2CodeFlowLocation != null)
+            if (v2ThreadFlowLocation != null)
             {
-                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2CodeFlowLocation.Location);
+                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2ThreadFlowLocation.Location);
                 annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
 
-                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2CodeFlowLocation.Importance);
-                annotatedCodeLocation.Module = v2CodeFlowLocation.Module;
-                annotatedCodeLocation.Properties = v2CodeFlowLocation.Properties;
-                annotatedCodeLocation.State = v2CodeFlowLocation.State;
-                annotatedCodeLocation.Step = v2CodeFlowLocation.Step;
+                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
+                annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
+                annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
+                annotatedCodeLocation.State = v2ThreadFlowLocation.State;
+                annotatedCodeLocation.Step = v2ThreadFlowLocation.Step;
             }
 
             return annotatedCodeLocation;
