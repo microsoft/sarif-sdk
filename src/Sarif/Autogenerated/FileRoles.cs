@@ -10,21 +10,21 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Values specifying the roles played by the file in the analysis.
     /// </summary>
     [Flags]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     public enum FileRoles
     {
         None,
-        AnalysisTarget,
-        Attachment,
-        ResponseFile,
-        ResultFile,
-        StandardStream,
-        TraceFile,
-        UnmodifiedFile,
-        ModifiedFile,
-        AddedFile,
-        DeletedFile,
-        RenamedFile,
-        GeneratedFile
+        AnalysisTarget = 1,
+        Attachment = 2,
+        ResponseFile = 4,
+        ResultFile = 8,
+        StandardStream = 16,
+        TraceFile = 32,
+        UnmodifiedFile = 64,
+        ModifiedFile = 128,
+        AddedFile = 256,
+        DeletedFile = 512,
+        RenamedFile = 1024,
+        GeneratedFile = 2048
     }
 }

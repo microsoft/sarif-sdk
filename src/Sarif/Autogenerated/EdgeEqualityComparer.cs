@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Edge for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     internal sealed class EdgeEqualityComparer : IEqualityComparer<Edge>
     {
         internal static readonly EdgeEqualityComparer Instance = new EdgeEqualityComparer();

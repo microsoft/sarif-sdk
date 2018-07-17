@@ -17,27 +17,27 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 1
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0
                 },
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0
                 }
@@ -77,7 +77,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.UnitTests
         {
             var codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow(new[]
             {
-                new CodeFlowLocation
+                new ThreadFlowLocation
                 {
                     NestingLevel = 0
                 }

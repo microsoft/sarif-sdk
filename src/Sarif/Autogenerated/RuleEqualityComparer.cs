@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Rule for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     internal sealed class RuleEqualityComparer : IEqualityComparer<Rule>
     {
         internal static readonly RuleEqualityComparer Instance = new RuleEqualityComparer();
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.HelpLocation, right.HelpLocation))
+            if (left.HelpUri != right.HelpUri)
             {
                 return false;
             }
@@ -199,9 +199,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Configuration.ValueGetHashCode();
                 }
 
-                if (obj.HelpLocation != null)
+                if (obj.HelpUri != null)
                 {
-                    result = (result * 31) + obj.HelpLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.HelpUri.GetHashCode();
                 }
 
                 if (obj.Help != null)

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -75,6 +75,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.InstanceGuid != right.InstanceGuid)
+            {
+                return false;
+            }
+
+            if (left.CorrelationGuid != right.CorrelationGuid)
             {
                 return false;
             }
@@ -259,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.WorkItemLocation, right.WorkItemLocation))
+            if (left.WorkItemUri != right.WorkItemUri)
             {
                 return false;
             }
@@ -379,6 +384,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.InstanceGuid.GetHashCode();
                 }
 
+                if (obj.CorrelationGuid != null)
+                {
+                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
+                }
+
                 if (obj.PartialFingerprints != null)
                 {
                     // Use xor for dictionaries to be order-independent.
@@ -485,9 +495,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.WorkItemLocation != null)
+                if (obj.WorkItemUri != null)
                 {
-                    result = (result * 31) + obj.WorkItemLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.WorkItemUri.GetHashCode();
                 }
 
                 if (obj.ConversionProvenance != null)

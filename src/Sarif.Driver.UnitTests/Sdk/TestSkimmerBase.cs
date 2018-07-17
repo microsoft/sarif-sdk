@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     // members that we don't care about.
     public abstract class TestSkimmerBase : SkimmerBase<TestAnalysisContext>
     {
-        public override FileLocation HelpLocation => throw new NotImplementedException();
+        public override Uri HelpUri => throw new NotImplementedException();
 
         public override Message Help => throw new NotImplementedException();
 
