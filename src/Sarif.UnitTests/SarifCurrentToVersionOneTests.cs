@@ -1974,20 +1974,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add"",
-          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-        }
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
           ""message"": {
-            ""text"": ""Variable \""ptr\"" declared.""
+            ""text"": ""Variable \""str\"" declared.""
           },
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
@@ -2002,14 +1995,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""byteLength"": 27,
+                  ""endColumn"": 23,
+                  ""byteLength"": 22,
                   ""snippet"": {
-                    ""text"": ""add_core(ptr, offset, val);""
+                    ""text"": ""string str = GetFoo();""
                   }
                 }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add""
+              }
             }
           ],
           ""codeFlows"": [
@@ -2030,13 +2022,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""int *ptr;""
+                              ""text"": ""string str = GetFoo();""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
-                          ""text"": ""Variable \""ptr\"" declared.""
+                          ""text"": ""Variable \""str\"" declared.""
                         }
                       },
                       ""module"": ""platform"",
@@ -2053,11 +2044,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""offset = 0;""
+                              ""text"": ""return null;""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""message"": {
+                          ""text"": ""Method \""GetFoo\"" returns null.""
+                        },
                         ""annotations"": [
                           {
                             ""startLine"": 40,
@@ -2074,7 +2067,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ]
                       },
                       ""module"": ""platform"",
-                      ""importance"": ""unimportant""
+                      ""nestingLevel"": 1
                     },
                     {
                       ""step"": 3,
@@ -2086,13 +2079,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 25,
                             ""snippet"": {
-                              ""text"": ""add_core(ptr, offset, val)""
+                              ""text"": ""int length = str.Length;""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
-                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
+                          ""text"": ""Property or method used on uninitialized variable \""str\"".""
                         }
                       },
                       ""module"": ""platform"",
@@ -2119,18 +2111,12 @@ namespace Microsoft.CodeAnalysis.Sarif
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add""
-        }
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
-          ""message"": ""Variable \""ptr\"" declared."",
+          ""message"": ""Variable \""str\"" declared."",
           ""locations"": [
             {
               ""analysisTarget"": {
@@ -2142,14 +2128,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28
+                  ""endColumn"": 23
                 }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add"",
-              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
+              }
             }
           ],
-          ""snippet"": ""add_core(ptr, offset, val);"",
+          ""snippet"": ""string str = GetFoo();"",
           ""codeFlows"": [
             {
               ""message"": ""Path from declaration to usage"",
@@ -2163,13 +2147,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startColumn"": 1
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""logicalLocationKey"": ""collections::list::add"",
                   ""module"": ""platform"",
-                  ""message"": ""Variable \""ptr\"" declared."",
+                  ""message"": ""Variable \""str\"" declared."",
                   ""kind"": ""call"",
                   ""importance"": ""essential"",
-                  ""snippet"": ""int *ptr;""
+                  ""snippet"": ""string str = GetFoo();""
                 },
                 {
                   ""step"": 2,
@@ -2180,12 +2162,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startColumn"": 1
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""logicalLocationKey"": ""collections::list::add"",
                   ""module"": ""platform"",
+                  ""message"": ""Method \""GetFoo\"" returns null."",
                   ""kind"": ""callReturn"",
-                  ""importance"": ""unimportant"",
-                  ""snippet"": ""offset = 0;"",
+                  ""snippet"": ""return null;"",
                   ""annotations"": [
                     {
                       ""message"": ""This is a test annotation"",
@@ -2220,15 +2200,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startColumn"": 1
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""logicalLocationKey"": ""collections::list::add"",
                   ""module"": ""platform"",
-                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
+                  ""message"": ""Property or method used on uninitialized variable \""str\""."",
                   ""state"": {
                     ""Foo"": ""bar""
                   },
                   ""importance"": ""essential"",
-                  ""snippet"": ""add_core(ptr, offset, val)""
+                  ""snippet"": ""int length = str.Length;""
                 }
               ]
             }
@@ -2236,7 +2214,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}},""results"":[{""ruleId"":""C2001"",""message"":{""text"":""Variable \""ptr\"" declared.""},""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""byteLength"":27,""snippet"":{""text"":""add_core(ptr, offset, val);""}}},""fullyQualifiedLogicalName"":""collections::list::add""}],""codeFlows"":[{""message"":{""text"":""Path from declaration to usage""},""threadFlows"":[{""locations"":[{""step"":1,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":15,""snippet"":{""text"":""int *ptr;""}}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":{""text"":""Variable \""ptr\"" declared.""}},""module"":""platform"",""importance"":""essential""},{""step"":2,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":15,""snippet"":{""text"":""offset = 0;""}}},""fullyQualifiedLogicalName"":""collections::list::add"",""annotations"":[{""startLine"":40,""message"":{""text"":""This is a test annotation""}},{""startLine"":240,""message"":{""text"":""This is a second test annotation""}}]},""module"":""platform"",""nestingLevel"":1,""importance"":""unimportant""},{""step"":3,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":25,""snippet"":{""text"":""add_core(ptr, offset, val)""}}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":{""text"":""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""}},""module"":""platform"",""state"":{""Foo"":""bar""},""importance"":""essential""}]}]}]}]}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""C2001"",""message"":{""text"":""Variable \""str\"" declared.""},""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""locations"":[{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":23,""byteLength"":22,""snippet"":{""text"":""string str = GetFoo();""}}}}],""codeFlows"":[{""message"":{""text"":""Path from declaration to usage""},""threadFlows"":[{""locations"":[{""step"":1,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":15,""snippet"":{""text"":""string str = GetFoo();""}}},""message"":{""text"":""Variable \""str\"" declared.""}},""module"":""platform"",""importance"":""essential""},{""step"":2,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":15,""snippet"":{""text"":""return null;""}}},""message"":{""text"":""Method \""GetFoo\"" returns null.""},""annotations"":[{""startLine"":40,""message"":{""text"":""This is a test annotation""}},{""startLine"":240,""message"":{""text"":""This is a second test annotation""}}]},""module"":""platform"",""nestingLevel"":1},{""step"":3,""location"":{""physicalLocation"":{""fileLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h""},""region"":{""startLine"":25,""snippet"":{""text"":""int length = str.Length;""}}},""message"":{""text"":""Property or method used on uninitialized variable \""str\"".""}},""module"":""platform"",""state"":{""Foo"":""bar""},""importance"":""essential""}]}]}]}]}
       }
     }
   ]
