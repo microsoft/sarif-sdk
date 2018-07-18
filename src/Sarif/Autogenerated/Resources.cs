@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Container for items that require localization.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Resources : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Resources> ValueComparer => ResourcesEqualityComparer.Instance;

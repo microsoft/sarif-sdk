@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Graph for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class GraphEqualityComparer : IEqualityComparer<Graph>
     {
         internal static readonly GraphEqualityComparer Instance = new GraphEqualityComparer();

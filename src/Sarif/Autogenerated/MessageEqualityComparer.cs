@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Message for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class MessageEqualityComparer : IEqualityComparer<Message>
     {
         internal static readonly MessageEqualityComparer Instance = new MessageEqualityComparer();
