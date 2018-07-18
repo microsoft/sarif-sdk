@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about a rule that can be configured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.55.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class RuleConfiguration : ISarifNode
     {
         public static IEqualityComparer<RuleConfiguration> ValueComparer => RuleConfigurationEqualityComparer.Instance;
