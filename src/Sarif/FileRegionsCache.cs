@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal IFileSystem _fileSystem;
 
-        private Run _run;
+        private readonly Run _run;
 
         public FileRegionsCache(Run run)
         {

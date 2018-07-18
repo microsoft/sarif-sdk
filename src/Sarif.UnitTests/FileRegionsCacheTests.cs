@@ -13,16 +13,32 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         //                                 01234 5 6789012 3 45678901 2 345679012
         private const string s_testText = "line1\r\n line2\r\n  line3\r\n   line4";
 
-        private static ReadOnlyCollection<Tuple<string, Region, Region>> s_testCases =
-            new ReadOnlyCollection<Tuple<string, Region, Region>>(new Tuple<string, Region, Region>[]
+        private class TestCaseData
+        {
+            public TestCaseData(string snippet, Region inputRegion, Region outputRegion)
+            {
+                ExpectedSnippet = snippet;
+                InputRegion = inputRegion;
+                OutputRegion = outputRegion;
+            }
+
+            public string ExpectedSnippet { get; set; }
+            public Region InputRegion { get; set; }
+            public Region OutputRegion { get; set; }
+        }
+
+        private readonly static Region s_line1_NoNewlines =
+            new Region() { StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 6, CharOffset = 0, CharLength = 5 };
+
+        private static ReadOnlyCollection<TestCaseData> s_testCases =
+            new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
             {
                 // Regions specified only by start line
-                new Tuple<string, Region, Region>(
-                    "line1",
-                    new Region() { StartLine = 1 }, 
-                    new Region() { StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 5, CharOffset = 0, CharLength = 5 })
+                new TestCaseData(
+                    snippet: "line1",
+                    inputRegion: new Region() { StartLine = 1 },
+                    outputRegion: s_line1_NoNewlines)
             });
-
 
         [Fact]
         public void FileRegionsCache_PopulatesRegionsFromAbsoluteFileUri()
@@ -48,11 +64,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static void ExecuteTests(FileRegionsCache fileRegionsCache, PhysicalLocation physicalLocation)
         {
-            foreach (Tuple<string, Region, Region> testCase in s_testCases)
+            foreach (TestCaseData testCase in s_testCases)
             {
-                string snippet = testCase.Item1;
-                Region inputRegion = testCase.Item2;
-                Region expectedRegion = testCase.Item3;
+                string snippet = testCase.ExpectedSnippet;
+                Region inputRegion = testCase.InputRegion;
+                Region expectedRegion = testCase.OutputRegion;
 
                 physicalLocation.Region = inputRegion;
 
