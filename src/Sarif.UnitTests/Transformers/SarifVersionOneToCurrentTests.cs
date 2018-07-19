@@ -1,16 +1,41 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
+using System.IO;
+using System.Reflection;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 {
     public class SarifVersionOneToCurrentTests
     {
+        private static readonly Assembly ThisAssembly;
+        private static readonly string OutputFolderPath;
+        private const string TestLogResourceNameRoot = "Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers.TestLogs";
+
+        static SarifVersionOneToCurrentTests()
+        {
+            ThisAssembly = Assembly.GetExecutingAssembly();
+            OutputFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(ThisAssembly.Location)).FullName, "UnitTestOutput");
+
+            if (!Directory.Exists(OutputFolderPath))
+            {
+                Directory.CreateDirectory(OutputFolderPath);
+            }
+            else
+            {
+                string[] files = Directory.GetFiles(OutputFolderPath);
+                foreach (string path in files)
+                {
+                    File.Delete(path);
+                }
+            }
+        }
+
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
             return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, SarifTransformerUtilities.JsonSettingsV1);
@@ -32,11 +57,53 @@ namespace Microsoft.CodeAnalysis.Sarif
             v2LogText.Should().Be(v2LogExpectedText);
         }
 
+        private static void VerifyVersionOneToCurrentTransformationFromResourceFile(string v1InputResourceFileName, string v2ExpectedResourceFileName)
+        {
+            string v1LogText = GetResourceFileText($"v1.{v1InputResourceFileName}");
+            string v2ExpectedLogText = GetResourceFileText($"v2.{v2ExpectedResourceFileName}");
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+            string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+
+            if (v2ExpectedLogText.Length != v2ActualLogText.Length || v2ExpectedLogText != v2ActualLogText)
+            {
+                // Write the expected and actual log text to disk
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceFileName, "expected"), v2ExpectedLogText);
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceFileName, "actual"), v2ActualLogText);
+            }
+
+            v2ActualLogText.Should().Be(v2ExpectedLogText);
+        }
+
+        private static string GetOutputFilePath(string resourceName, string differentiator)
+        {
+            string fileName = string.Format("{0}.{1}.sarif",
+                                                Path.GetFileNameWithoutExtension(resourceName),
+                                                differentiator);
+            return Path.Combine(OutputFolderPath, fileName);
+        }
+
+        private static string GetResourceFileText(string resourceName)
+        {
+            string text = null;
+
+            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    text = reader.ReadToEnd();
+                }
+            }
+
+            return text;
+        }
+
         [Fact]
         public void SarifTransformerTests_ToCurrent_RestoreFromPropertyBag()
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -75,6 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -113,6 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -168,6 +237,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -220,6 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -289,6 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -383,6 +455,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -521,6 +594,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -611,6 +685,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -748,6 +823,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -823,6 +899,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1043,6 +1120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1294,6 +1372,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1620,288 +1699,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
         {
-            const string V1LogText =
-@"{
-  ""version"": ""1.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""results"": [
-        {
-          ""ruleId"": ""C2001"",
-          ""message"": ""Variable \""ptr\"" declared."",
-          ""snippet"": ""add_core(ptr, offset, val);"",
-          ""locations"": [
-            {
-              ""analysisTarget"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
-              },
-              ""resultFile"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                ""region"": {
-                  ""startLine"": 1,
-                  ""startColumn"": 1,
-                  ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""length"": 27
-                }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add"",
-              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-            }
-          ],
-          ""codeFlows"": [
-            {
-              ""message"": ""Path from declaration to usage"",
-              ""locations"": [
-                {
-                  ""kind"": ""declaration"",
-                  ""importance"": ""essential"",
-                  ""message"": ""Variable \""ptr\"" declared."",
-                  ""snippet"": ""int *ptr;"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 15
-                    }
-                  },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""module"": ""platform"",
-                  ""threadId"": 52,
-                  ""taintKind"": ""sink"",
-                  ""target"": ""foo::bar"",
-                  ""targetKey"": ""collections::list::add"",
-                  ""values"": [
-                    ""id"",
-                    ""name"",
-                    ""param3""
-                  ]
-                },
-                {
-                  ""annotations"": [
-                    {
-                      ""message"": ""This is a test annotation"",
-                      ""locations"": [
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                          ""region"": {
-                            ""startLine"": 40
-                          }
-                        },
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                          ""region"": {
-                            ""startLine"": 240
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      ""message"": ""This is a second test annotation"",
-                      ""locations"": [
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/foo.cpp"",
-                          ""region"": {
-                            ""startLine"": 128
-                          }
-                        }
-                      ]
-                    }
-                  ],
-                  ""step"": 1,
-                  ""kind"": ""assignment"",
-                  ""importance"": ""unimportant"",
-                  ""snippet"": ""offset = 0;"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 15
-                    }
-                  },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""module"": ""platform"",
-                  ""threadId"": 52
-                },
-                {
-                  ""step"": 2,
-                  ""kind"": ""callReturn"",
-                  ""importance"": ""essential"",
-                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
-                  ""snippet"": ""add_core(ptr, offset, val)"",
-                  ""state"": {
-                    ""Foo"": ""bar""
-                  },
-                  ""target"": ""collections::list::add_core"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 25
-                    }
-                  },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                  ""module"": ""platform"",
-                  ""threadId"": 52
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}";
-
-            const string V2LogExpectedText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add"",
-          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-        }
-      },
-      ""results"": [
-        {
-          ""ruleId"": ""C2001"",
-          ""message"": {
-            ""text"": ""Variable \""ptr\"" declared.""
-          },
-          ""analysisTarget"": {
-            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
-          },
-          ""locations"": [
-            {
-              ""physicalLocation"": {
-                ""fileLocation"": {
-                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                },
-                ""region"": {
-                  ""startLine"": 1,
-                  ""startColumn"": 1,
-                  ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""byteLength"": 27,
-                  ""snippet"": {
-                    ""text"": ""add_core(ptr, offset, val);""
-                  }
-                }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add""
-            }
-          ],
-          ""codeFlows"": [
-            {
-              ""message"": {
-                ""text"": ""Path from declaration to usage""
-              },
-              ""threadFlows"": [
-                {
-                  ""locations"": [
-                    {
-                      ""step"": 1,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 15,
-                            ""snippet"": {
-                              ""text"": ""int *ptr;""
-                            }
-                          }
-                        },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                        ""message"": {
-                          ""text"": ""Variable \""ptr\"" declared.""
-                        }
-                      },
-                      ""module"": ""platform"",
-                      ""importance"": ""essential""
-                    },
-                    {
-                      ""step"": 2,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 15,
-                            ""snippet"": {
-                              ""text"": ""offset = 0;""
-                            }
-                          }
-                        },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                        ""annotations"": [
-                          {
-                            ""startLine"": 40,
-                            ""message"": {
-                              ""text"": ""This is a test annotation""
-                            }
-                          },
-                          {
-                            ""startLine"": 240,
-                            ""message"": {
-                              ""text"": ""This is a test annotation""
-                            }
-                          }
-                        ]
-                      },
-                      ""module"": ""platform"",
-                      ""importance"": ""unimportant""
-                    },
-                    {
-                      ""step"": 3,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 25,
-                            ""snippet"": {
-                              ""text"": ""add_core(ptr, offset, val)""
-                            }
-                          }
-                        },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                        ""message"": {
-                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
-                        }
-                      },
-                      ""module"": ""platform"",
-                      ""state"": {
-                        ""Foo"": ""bar""
-                      },
-                      ""importance"": ""essential""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""ptr\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Variable \""ptr\"" declared."",""kind"":""declaration"",""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":""essential"",""snippet"":""int *ptr;""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""kind"":""assignment"",""importance"":""unimportant"",""snippet"":""offset = 0;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",""kind"":""callReturn"",""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":""essential"",""snippet"":""add_core(ptr, offset, val)""}]}]}]}
-      }
-    }
-  ]
-}";
-
-            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
+            VerifyVersionOneToCurrentTransformationFromResourceFile(v1InputResourceFileName: "CodeFlows.sarif",
+                                                                    v2ExpectedResourceFileName: "CodeFlows.sarif");
         }
     }
 }
