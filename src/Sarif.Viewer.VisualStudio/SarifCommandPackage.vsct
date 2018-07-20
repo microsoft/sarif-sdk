@@ -72,67 +72,73 @@
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <CommandFlag>AllowParams</CommandFlag>
         <Strings>
-          <ButtonText>Import  SARIF file...</ButtonText>
+          <ButtonText>Import SARIF file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPREfastFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPREfastFileCommandId" priority="0x0110" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  PREfast XML log file...</ButtonText>
+          <ButtonText>Import PREfast XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFxCopFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFxCopFileCommandId" priority="0x0120" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  FxCop XML log file...</ButtonText>
+          <ButtonText>Import FxCop XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenStaticDriverVerifierFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenStaticDriverVerifierFileCommandId" priority="0x0130" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Static Driver Verifier trace log file...</ButtonText>
+          <ButtonText>Import Static Driver Verifier trace log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFortifyFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFortifyFileCommandId" priority="0x0140" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Fortify XML log file...</ButtonText>
+          <ButtonText>Import Fortify XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenClangFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFortifyFprFileCommandId" priority="0x0150" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Clang XML log file...</ButtonText>
+          <ButtonText>Import Fortify FPR log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenCppCheckFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenClangFileCommandId" priority="0x0160" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  CppCheck XML log file...</ButtonText>
+          <ButtonText>Import Clang XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenAndroidStudioFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenCppCheckFileCommandId" priority="0x0170" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Android Studio XML log file...</ButtonText>
+          <ButtonText>Import CppCheck XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSemmleFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenAndroidStudioFileCommandId" priority="0x0180" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Semmle QL CSV log file...</ButtonText>
+          <ButtonText>Import Android Studio XML log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenTSLintFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenSemmleFileCommandId" priority="0x0190" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  TSLint log file...</ButtonText>
+          <ButtonText>Import Semmle QL CSV log file...</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPylintFileCommandId" priority="0x0100" type="Button">
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenTSLintFileCommandId" priority="0x01A0" type="Button">
         <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
         <Strings>
-          <ButtonText>Import  Pylint log file...</ButtonText>
+          <ButtonText>Import TSLint log file...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenPylintFileCommandId" priority="0x01B0" type="Button">
+        <Parent guid="guidOpenSarifFileCommandPackageCmdSet" id="OpenFileSubMenuGroup" />
+        <Strings>
+          <ButtonText>Import Pylint log file...</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidSarifViewerPackageCmdSet" id="cmdidSarifToolWindowCommand" priority="0x0100" type="Button">
@@ -166,6 +172,7 @@
       <IDSymbol name="OpenStaticDriverVerifierFileCommandId" value="0x0102" />
       <IDSymbol name="OpenFxCopFileCommandId" value="0x0103" />
       <IDSymbol name="OpenFortifyFileCommandId" value="0x0104" />
+      <IDSymbol name="OpenFortifyFprFileCommandId" value="0x010B" />
       <IDSymbol name="OpenCppCheckFileCommandId" value="0x0105" />
       <IDSymbol name="OpenClangFileCommandId" value="0x0106" />
       <IDSymbol name="OpenAndroidStudioFileCommandId" value="0x0107" />

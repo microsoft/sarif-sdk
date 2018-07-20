@@ -606,7 +606,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
                     result.Locations?[0]?.PhysicalLocation?.Region != null)
                 {
-                    result.Locations[0].PhysicalLocation.Region.Snippet.Text = snippetText;
+                    Region region = result.Locations[0].PhysicalLocation.Region;
+                    region.Snippet = region.Snippet ?? new FileContent();
+                    region.Snippet.Text = snippetText;
                 }
             }
         }
