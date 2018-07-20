@@ -20,6 +20,8 @@
     Do not create NuGet packages.
 .PARAMETER NoPublish
     Do not run dotnet publish, which creates a layout directory.
+.PARAMETER NoSigningDirectory
+    Do not create a directory containing the binaries that need to be signed.
 .PARAMETER Install
     Install the VSIX.
 #>
@@ -50,6 +52,9 @@ param(
 
     [switch]
     $NoPublish,
+
+    [switch]
+    $NoSigningDirectory,
 
     [switch]
     $Install
@@ -94,7 +99,7 @@ function Publish-Application($project, $framework) {
 
 function New-NuGetPackageFromProjectFile($project, $version) {
     $projectFile = "$SourceRoot\$project\$project.csproj"
-    
+
     $arguments =
         "pack", $projectFile,
         "--configuration", $Configuration,
@@ -154,6 +159,44 @@ function New-NuGetPackages {
     }
 }
 
+# Create a directory populated with the binaries that need to be signed.
+function New-SigningDirectory {
+    Write-Information "Copying files to signing directory..."
+    $SigningDirectory = "$BinRoot\Signing"
+
+    foreach ($framework in $Frameworks.All) {
+        New-DirectorySafely $SigningDirectory\$framework
+    }
+
+    foreach ($project in $Projects.NewProduct) {
+        $projectBinDirectory = "$BinRoot\$project\${Platform}_$Configuration"
+
+        foreach ($framework in $Frameworks.All) {
+            $sourceDirectory = "$projectBinDirectory\$framework"
+            $destinationDirectory = "$SigningDirectory\$framework"
+
+            if (Test-Path $sourceDirectory) {
+
+                # Everything we copy is a DLL, _except_ that application projects built for
+                # NetFX have a .exe extension.
+                $fileExtension = ".dll"
+                if ($Projects.NewApplication -contains $project -and $Frameworks.NetFx -contains $framework) {
+                    $fileExtension = ".exe"
+                }
+
+                $fileToCopy = "$sourceDirectory\$project$fileExtension"
+                Copy-Item -Force -Path $fileToCopy -Destination $destinationDirectory
+            }
+        }
+    }
+
+    # Copy the viewer. Its name doesn't fit the pattern binary name == project name,
+    # so we copy it by hand.
+    foreach ($framework in $Frameworks.NetFX) {
+        Copy-Item -Force -Path $BinRoot\Sarif.Viewer.VisualStudio\${Platform}_$Configuration\Microsoft.Sarif.Viewer.dll -Destination $SigningDirectory\$framework
+    }
+}
+
 function  Install-SarifExtension {
     $vsixInstallerPaths = Get-ChildItem $BinRoot "*.vsix" -Recurse
     if (-not $vsixInstallerPaths) {
@@ -201,7 +244,7 @@ if (-not $NoTest) {
 
 if (-not $NoPublish) {
     foreach ($project in $Projects.NewApplication) {
-        foreach ($framework in $Frameworks) {
+        foreach ($framework in $Frameworks.Application) {
             Publish-Application $project $framework
         }
     }
@@ -211,9 +254,13 @@ if (-not $NoPackage) {
     New-NuGetPackages
 }
 
+if (-not $NoSigningDirectory) {
+    New-SigningDirectory
+}
+
 if ($Install) {
     Install-SarifExtension
     Set-SarifFileAssociationRegistrySettings
 }
 
-Write-Information "TODO: Create layout directory."
+Write-Information "$ScriptName SUCCEEDED."

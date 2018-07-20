@@ -13,8 +13,17 @@ $InformationPreference = "Continue"
 
 function Remove-DirectorySafely($dir) {
     if (Test-Path $dir) {
-        Write-Verbose "Removing $dir"
+        Write-Verbose "Removing directory $dir..."
         Remove-Item -Force -Recurse $dir
+    }
+}
+
+function New-DirectorySafely($dir) {
+    if (-not (Test-Path $dir)) {
+        Write-Verbose "Creating directory $dir..."
+        New-Item -Type Directory $dir | Out-Null
+    } else {
+        Write-Verbose "Directory $dir already exists."
     }
 }
 
@@ -32,6 +41,7 @@ $BinRoot = "$BuildRoot\bin"
 
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
+    New-DirectorySafely, `
     Remove-DirectorySafely
 
 Export-ModuleMember -Variable `

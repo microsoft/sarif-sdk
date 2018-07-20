@@ -41,7 +41,7 @@ if ($AppVeyor) {
 $TestRunnerRootPath = "$NuGetPackageRoot\xunit.runner.console\2.3.1\tools\"
 
 foreach ($project in $Projects.NewTest) {
-    foreach ($framework in $Frameworks) {
+    foreach ($framework in $Frameworks.Application) {
         Write-Information "Running tests in ${project}: $framework..."
         Push-Location $BinRoot\$project\AnyCPU_$Configuration\$framework
         $dll = "$project" + ".dll"
