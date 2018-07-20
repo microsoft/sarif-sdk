@@ -24,4 +24,19 @@ function Exit-WithFailureMessage($scriptName, $message) {
     exit 1
 }
 
-Export-ModuleMember -Function Exit-WithFailureMessage, Remove-DirectorySafely
+$RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
+$SourceRoot = "$RepoRoot\src"
+$NuGetPackageRoot = "$SourceRoot\packages"
+$BuildRoot = "$RepoRoot\bld"
+$BinRoot = "$BuildRoot\bin"
+
+Export-ModuleMember -Function `
+    Exit-WithFailureMessage, `
+    Remove-DirectorySafely
+
+Export-ModuleMember -Variable `
+    RepoRoot, `
+    SourceRoot, `
+    NuGetPackageRoot, `
+    BuildRoot, `
+    BinRoot

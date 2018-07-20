@@ -1,2 +1,2 @@
 @echo off
-powershell -ExecutionPolicy RemoteSigned -File %~dp0BuildAndTest.ps1 %*
+powershell -ExecutionPolicy RemoteSigned -File %~dp0\scripts\BuildAndTest.ps1 %*

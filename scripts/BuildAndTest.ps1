@@ -64,16 +64,15 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$PSScriptRoot\src\Everything.sln"
+$SolutionFile = "$SourceRoot\Everything.sln"
 $Platform = "AnyCPU"
 $BuildTarget = "Rebuild"
-$BuildDirectory = "$PSScriptRoot\bld"
-$PackageOutputDirectory = "$BuildDirectory\bin\NuGet\$Configuration"
+$PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
 
 function Remove-BuildOutput {
-    Remove-DirectorySafely $BuildDirectory
+    Remove-DirectorySafely $BuildRoot
     foreach ($project in $Projects.New) {
-        $objDir = "$PSScriptRoot\src\$project\obj"
+        $objDir = "$SourceRoot\$project\obj"
         Remove-DirectorySafely $objDir
     }
 }
@@ -90,13 +89,15 @@ function Invoke-Build {
 # This operation is called "publish" because it is performed by "dotnet publish".
 function Publish-Application($project, $framework) {
     Write-Information "Publishing $project for $framework ..."
-    dotnet publish $PSScriptRoot\src\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
+    dotnet publish $SourceRoot\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
 }
 function  Install-SarifExtension {
-    $vsixInstallerPaths = Get-ChildItem $PSScriptRoot "*.vsix" -Recurse
+    $vsixInstallerPaths = Get-ChildItem $BinRoot "*.vsix" -Recurse
     if (-not $vsixInstallerPaths) {
         Exit-WithFailureMessage $ScriptName "Cannot install VSIX: .vsix file was not found."
     }
+
+    Write-Information "Launching VSIX installer..."
     & $vsixInstallerPaths[0].FullName
 }
 
