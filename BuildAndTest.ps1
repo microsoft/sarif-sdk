@@ -85,6 +85,13 @@ function Invoke-Build {
         Exit-WithFailureMessage $ScriptName "Build failed."
     }
 }
+
+# Create a directory containing all files necessary to execute an application.
+# This operation is called "publish" because it is performed by "dotnet publish".
+function Publish-Application($project, $framework) {
+    Write-Information "Publishing $project for $framework ..."
+    dotnet publish $PSScriptRoot\src\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
+}
 function  Install-SarifExtension {
     $vsixInstallerPaths = Get-ChildItem $PSScriptRoot "*.vsix" -Recurse
     if (-not $vsixInstallerPaths) {
@@ -125,6 +132,14 @@ if (-not $NoTest) {
     & $PSScriptRoot\Run-Tests.ps1
     if (-not $?) {
         Exit-WithFailureMessage $ScriptName "RunTests failed."
+    }
+}
+
+if (-not $NoPublish) {
+    foreach ($project in $Projects.NewApplication) {
+        foreach ($framework in $Frameworks) {
+            Publish-Application $project $framework
+        }
     }
 }
 

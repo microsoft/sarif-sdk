@@ -1,20 +1,28 @@
 <#
 .SYNOPSIS
-    Provides a list of SARIF SDK projects.
+    Provides a list of SARIF SDK projects and frameworks.
 .DESCRIPTION
     The Projects module exports an object whose properties contain arrays of the
-    various kinds of projects in the SARIF SDK.
+    various kinds of projects in the SARIF SDK, and the frameworks for which
+    they are built.
 #>
+
+$Frameworks = @("netcoreapp2.0", "net461")
 
 $Projects = @{}
 
 # Projects built with the VS 2017 project system.
-$Projects.NewProduct = @(
+$Projects.NewLibrary = @(
     "Sarif",
     "Sarif.Converters",
-    "Sarif.Driver",
+    "Sarif.Driver"
+)
+
+$Projects.NewApplication = @(
     "Sarif.Multitool"
     )
+
+$Projects.NewProduct = $Projects.NewLibrary + $Projects.NewApplication
 
 $Projects.NewTest = @(
     "Sarif.UnitTests",
@@ -34,4 +42,4 @@ $Projects.Old = $Projects.OldProduct + $Projects.OldTest
 
 $Projects.All = $Projects.New + $Projects.Old
 
-Export-ModuleMember -Variable Projects
+Export-ModuleMember -Variable Projects, Frameworks

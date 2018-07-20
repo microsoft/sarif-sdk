@@ -38,7 +38,6 @@ if ($AppVeyor) {
     $ReporterOption = "-appveyor"
 }
 
-$Frameworks = @("netcoreapp2.0", "net461")
 $TestRunnerRootPath = "$PSScriptRoot\src\packages\xunit.runner.console\2.3.1\tools\"
 
 foreach ($project in $Projects.NewTest) {
