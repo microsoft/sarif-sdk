@@ -91,6 +91,69 @@ function Publish-Application($project, $framework) {
     Write-Information "Publishing $project for $framework ..."
     dotnet publish $SourceRoot\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
 }
+
+function New-NuGetPackageFromProjectFile($project, $version) {
+    $projectFile = "$SourceRoot\$project\$project.csproj"
+    
+    $arguments =
+        "pack", $projectFile,
+        "--configuration", $Configuration,
+        "--no-build", "--no-restore",
+        "--include-source", "--include-symbols",
+        "-p:Platform=$Platform",
+        "--output", $PackageOutputDirectory
+
+    Write-Debug "dotnet $($arguments -join ' ')"
+
+    dotnet $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
+    }
+}
+
+function New-NuGetPackageFromNuspecFile($project, $version, $suffix = "") {
+    $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
+
+    $arguments=
+        "pack", $nuspecFile,
+        "-Symbols",
+        "-Properties", "configuration=$Configuration;version=$version",
+        "-Verbosity", "Quiet",
+        "-BasePath", ".\",
+        "-OutputDirectory", $PackageOutputDirectory
+
+    if ($suffix -ne "") {
+        $arguments += "-Suffix", $Suffix
+    }
+
+    $nugetExePath = "$RepoRoot\.nuget\NuGet.exe"
+
+    Write-Debug "$nuGetExePath $($arguments -join ' ')"
+
+    &$nuGetExePath $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
+    }
+}
+
+function New-NuGetPackages {
+    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1
+    $version = "$versionPrefix-$versionSuffix"
+
+    # We can build the NuGet packages for library projects directly from their
+    # project file.
+    foreach ($project in $Projects.NewLibrary) {
+        New-NuGetPackageFromProjectFile $project $version
+    }
+
+    # Unfortunately, application projects like MultiTool need to include things
+    # that are not specified in the project file, so their packages still require
+    # a .nuspec file.
+    foreach ($project in $Projects.NewApplication) {
+        New-NuGetPackageFromNuSpecFile $project $version
+    }
+}
+
 function  Install-SarifExtension {
     $vsixInstallerPaths = Get-ChildItem $BinRoot "*.vsix" -Recurse
     if (-not $vsixInstallerPaths) {
@@ -144,9 +207,13 @@ if (-not $NoPublish) {
     }
 }
 
+if (-not $NoPackage) {
+    New-NuGetPackages
+}
+
 if ($Install) {
     Install-SarifExtension
     Set-SarifFileAssociationRegistrySettings
 }
 
-Write-Information "TODO: Build NuGet packages and create layout directory."
+Write-Information "TODO: Create layout directory."
