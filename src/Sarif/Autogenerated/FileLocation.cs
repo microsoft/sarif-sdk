@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the location of a file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class FileLocation : ISarifNode
     {
         public static IEqualityComparer<FileLocation> ValueComparer => FileLocationEqualityComparer.Instance;

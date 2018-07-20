@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal(1, result.CodeFlows.Count);
             result.CodeFlows.First().ThreadFlows.First().Locations.SequenceEqual(new[]
                 {
-                    new CodeFlowLocation {
+                    new ThreadFlowLocation {
                         Location = new Location
                         {
                             PhysicalLocation = new PhysicalLocation
@@ -99,23 +99,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 Region = new Region { StartLine = 1234 },
                             }
                         },
-                        Importance = CodeFlowLocationImportance.Essential
+                        Importance = ThreadFlowLocationImportance.Essential
                     },
-                    new CodeFlowLocation {
+                    new ThreadFlowLocation {
                         Location = new Location
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
                                 FileLocation = new FileLocation
-                                { 
+                                {
                                     Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region { StartLine = 5678 }
                             }
                         },
-                        Importance = CodeFlowLocationImportance.Essential
+                        Importance = ThreadFlowLocationImportance.Essential
                     }
-                }, CodeFlowLocation.ValueComparer).Should().BeTrue();
+                }, ThreadFlowLocation.ValueComparer).Should().BeTrue();
         }
 
         [Fact]
