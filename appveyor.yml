@@ -10,7 +10,7 @@ branches:
 
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - ps: BeforeBuild.ps1
+  - ps: .\scripts\BeforeBuild.ps1
 
 platform: Any CPU
 
@@ -28,7 +28,7 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - ps: Run-Tests.ps1 -Configuration Release -AppVeyor
+  - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
 
 test: off
 
