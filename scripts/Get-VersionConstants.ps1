@@ -3,9 +3,13 @@
 Extract the version number from build.props.
 #>
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+$InformationPreference = "Continue"
 
-$buildPropsPath = "$PSScriptRoot\src\build.props"
+Import-Module $PSScriptRoot\ScriptUtilities.psm1 -Force
+
+$buildPropsPath = "$SourceRoot\build.props"
 $namespace = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
 $assemblyAttributesXPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='AssemblyAttributes']"
 
