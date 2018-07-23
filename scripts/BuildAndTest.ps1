@@ -139,6 +139,8 @@ function New-NuGetPackageFromNuspecFile($project, $version, $suffix = "") {
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
     }
+
+    Write-Information "  Successfully created package '$BinRoot\NuGet\$Configuration\$Project.$version.nupkg'."
 }
 
 function New-NuGetPackages {
