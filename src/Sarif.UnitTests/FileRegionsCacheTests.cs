@@ -9,15 +9,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 {
     public class FileRegionsCacheTests
     {
-        //                                 0          10          20         30
-        //                                 01234 5 6789012 3 45678901 2 345679012
-        private const string s_testText = "line1\r\n line2\r\n  line3\r\n   line4";
-
         private class TestCaseData
         {
-            public TestCaseData(string snippet, Region inputRegion, Region outputRegion)
+            public TestCaseData(Region inputRegion, Region outputRegion)
             {
-                ExpectedSnippet = snippet;
                 InputRegion = inputRegion;
                 OutputRegion = outputRegion;
             }
@@ -27,27 +22,248 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             public Region OutputRegion { get; set; }
         }
 
-        private readonly static Region s_line1_NoNewlines =
-            new Region() { StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 6, CharOffset = 0, CharLength = 5 };
+        //                                    0            10         19
+        //                                    0123 4 5678 9 01234 5 6789 
+        private const string SPEC_EXAMPLE = "abcd\r\nefg\r\nhijk\r\nlmn";
 
-        private static ReadOnlyCollection<TestCaseData> s_testCases =
+
+        // Breaking the lines for readability and per-line column details
+        // 
+        // Column: 123 4 5 6
+        // Line 1: abc d\r\n
+        //      2: efg\r\n
+        //      3: hij k\r\n
+        //      4: lmn
+
+        private const string COMPLETE_FILE = SPEC_EXAMPLE;
+
+        private const string LINE3 = "hijk";
+        private const string NEW_LINE = "\n";
+        private const string INSERTION_POINT = "";
+        private const string CARRIAGE_RETURN = "\r";
+        private const string LINE1_NO_NEWLINES = "abcd";
+        private const string INTERIOR_CHARACTERS = "ij";
+        private const string INTERIOR_NEWLINES = "\nefg\r";
+        private const string LINES_2_AND_3 = "nefg\r\nhijk";
+        private const string CARRIAGE_RETURN_NEW_LINE = "\r\n";
+
+        private readonly static Region s_Insertion_Beginning_Of_Binary_File = 
+            new Region() { Snippet = null,
+                           StartLine = 0, EndLine = 0, StartColumn = 0, EndColumn = 0, CharOffset = 0, CharLength = 0 };
+
+        private readonly static Region s_Insertion_Beginning_Of_Text_File = 
+            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+                           StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 0 };
+
+        private readonly static Region s_Insertion_End_Of_File =
+            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+                           StartLine = 4, EndLine = 4, StartColumn = 4, EndColumn = 4, CharOffset = 20, CharLength = 0 };
+
+        private readonly static Region s_Insertion_Between_New_Line_Chars = 
+            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+                           StartLine = 2, EndLine = 2, StartColumn = 5, EndColumn = 5, CharOffset = 10, CharLength = 0 };
+
+        private readonly static Region s_Interior_New_Line = 
+            new Region() { Snippet = new FileContent() { Text = NEW_LINE },
+                           StartLine = 2, EndLine = 3, StartColumn = 5, EndColumn = 1, CharOffset = 10, CharLength = 1 };
+
+        private readonly static Region s_Interior_Carriage_Return = 
+            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN },
+                           StartLine = 2, EndLine = 2, StartColumn = 4, EndColumn = 5, CharOffset = 9, CharLength = 1 };
+
+        // Version 1 of this region defines it by using the insertion point of the following line as the terminus
+        private readonly static Region s_Interior_Carriage_Return_New_Line_V1 = 
+            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
+                           StartLine = 3, EndLine = 4, StartColumn = 5, EndColumn = 1, CharOffset = 15, CharLength = 2 };
+
+        // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
+        private readonly static Region s_Interior_Carriage_Return_New_Line_V2 = 
+            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
+                           StartLine = 3, EndLine = 3, StartColumn = 5, EndColumn = 7, CharOffset = 15, CharLength = 2 };
+
+        // Version 1 of this region defines it by using the insertion point of the following line as the terminus
+        private readonly static Region s_Complete_File_V1 = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+                           StartLine = 1, EndLine = 5, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 20 };
+
+        // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
+        private readonly static Region s_Complete_File_V2 = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+                           StartLine = 1, EndLine = 4, StartColumn = 1, EndColumn = 4, CharOffset = 0, CharLength = 20 };
+
+        private readonly static Region s_Line_3 = 
+            new Region() { Snippet = new FileContent() { Text = LINE3 },
+                           StartLine = 3, EndLine = 3, StartColumn = 1, EndColumn = 5, CharOffset = 11, CharLength = 4 };
+
+        private readonly static Region s_Lines_2_And_3 = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+                           StartLine = 2, EndLine = 3, StartColumn = 1, EndColumn = 5, CharOffset = 5, CharLength = 10 };
+
+        private readonly static Region s_Interior_Characters = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+                           StartLine = 3, EndLine = 3, StartColumn = 2, EndColumn = 4, CharOffset = 12, CharLength = 2 };
+
+        private const string COMPLETE_FILE_NEW_LINES_ONLY = "123\n456\n789\n";
+        private const string FRAGMENT_NEW_LINES_ONLY = "\n456\n789\n";
+
+        private const string COMPLETE_FILE_CARRIAGE_RETURNS_ONLY = "\r\r\r12\r345\r";
+        private const string FRAGMENT_CARRIAGE_RETURNS_ONLY = "2\r345\r";
+
+        private readonly static Region s_Complete_File_New_Lines_Only = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_NEW_LINES_ONLY },
+                           StartLine = 1, EndLine = 4, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 12 };
+
+        private readonly static Region s_Fragment_New_Lines_Only = 
+            new Region() { Snippet = new FileContent() { Text = FRAGMENT_NEW_LINES_ONLY },
+                           StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 3, CharLength = 9 };
+
+        private readonly static Region s_Complete_File_Carriage_Returns_Only = 
+            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_CARRIAGE_RETURNS_ONLY },
+                           StartLine = 1, EndLine = 6, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 10 };
+
+        private readonly static Region s_Fragment_Carriage_Returns_Only = 
+            new Region() { Snippet = new FileContent() { Text = FRAGMENT_CARRIAGE_RETURNS_ONLY },
+                           StartLine = 4, EndLine = 6, StartColumn = 2, EndColumn = 1, CharOffset = 4, CharLength = 6 };
+
+
+        private static ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            {
-                // Regions specified only by start line
-                new TestCaseData(
-                    snippet: "line1",
-                    inputRegion: new Region() { StartLine = 1 },
-                    outputRegion: s_line1_NoNewlines)
+            {                
+                // Insertion point at beginning of binary file
+                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Binary_File,
+                    inputRegion: new Region() { }),
+
+                // Insertion point at beginning of text file, can only
+                // be denoted by use of startLine
+                new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Text_File,
+                    inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1 }), // EndLine implicit
+
+                // Place cursor at end-of-file
+                new TestCaseData(outputRegion : s_Insertion_End_Of_File,
+                    inputRegion: new Region() { CharOffset = 20 }),
+
+                // Insertion point between characters of an interior line break
+                new TestCaseData(outputRegion : s_Insertion_Between_New_Line_Chars,
+                    inputRegion: new Region() { CharOffset = 10 }),
+
+                // Let's make sure that this insertion point is where we think it is,
+                // by grabbing the leading carriage return and trailing new line characters.
+                new TestCaseData(outputRegion : s_Interior_Carriage_Return,
+                    inputRegion: new Region() { CharOffset = 9, CharLength = 1 }),
+
+                new TestCaseData(outputRegion : s_Interior_New_Line,
+                    inputRegion: new Region() { CharOffset = 10, CharLength = 1 }),
+
+                // Now we'll grab the complete new line sequence from a separate interior location
+                new TestCaseData(outputRegion : s_Interior_Carriage_Return_New_Line_V1,
+                    inputRegion: new Region() { CharOffset = 15, CharLength = 2 }),
+
+                new TestCaseData(outputRegion : s_Interior_Carriage_Return_New_Line_V1,
+                    inputRegion: new Region() { StartLine = 3, StartColumn = 5, EndLine = 4, EndColumn = 1 }),
+
+                new TestCaseData(outputRegion : s_Interior_Carriage_Return_New_Line_V2,
+                    inputRegion: new Region() { StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7 }),
+
+                // Complete contents of file
+                new TestCaseData(outputRegion : s_Complete_File_V2,
+                    inputRegion: new Region() { CharLength = 20 }),
+
+                new TestCaseData(outputRegion : s_Complete_File_V2,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4 }),
+
+                new TestCaseData(outputRegion : s_Complete_File_V1,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 5 }),
+
+                // Extract an interior line without new line characters
+                new TestCaseData(outputRegion: s_Line_3,
+                    inputRegion: new Region() {CharOffset = 11, CharLength = 4 }),
+
+                new TestCaseData(outputRegion: s_Line_3,
+                    inputRegion: new Region() {StartLine = 3 })
+            });
+
+        private static ReadOnlyCollection<TestCaseData> s_newLineTestCases =
+            new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
+            { 
+                // 
+                // Sanity check sample with new line characters only
+                new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
+                    inputRegion: new Region() { CharLength = 12 }),
+
+                new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4 }),
+
+                new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
+                    inputRegion: new Region() { CharOffset = 3, CharLength = 9 }),
+
+                new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1 })
+            });
+
+        private static ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
+            new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
+            {                 
+                // 
+                // Sanity check sample with carriage return characters only
+                new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
+                    inputRegion: new Region() { CharLength = 10 }),
+
+                new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1 }),
+
+                new TestCaseData(outputRegion: s_Fragment_Carriage_Returns_Only,
+                    inputRegion: new Region() { CharOffset = 4, CharLength = 6 }),
+
+                new TestCaseData(outputRegion: s_Fragment_Carriage_Returns_Only,
+                    inputRegion: new Region() { StartLine = 4, EndLine = 6, StartColumn = 2, EndColumn = 1 })
             });
 
         [Fact]
-        public void FileRegionsCache_PopulatesRegionsFromAbsoluteFileUri()
-        {            
+        public void FileRegionsCache_PopulatesFromMissingFile()
+        {
+            var run = new Run();
+            var fileRegionsCache = new FileRegionsCache(run);
+
+            Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
+
+            var physicalLocation = new PhysicalLocation()
+            {
+                FileLocation = new FileLocation()
+                {
+                    Uri = uri
+                }
+            };
+
+            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, false).Should().BeNull();
+            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, true).Should().BeNull();
+        }
+
+
+        [Fact]
+        public void FileRegionsCache_PopulatesSpecExampleRegions()
+        {
+            ExecuteTests(SPEC_EXAMPLE, s_specExampleTestCases);
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesNewLineFileRegions()
+        {
+            ExecuteTests(COMPLETE_FILE_NEW_LINES_ONLY, s_newLineTestCases);
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesCarriageReturnFileRegions()
+        {
+            ExecuteTests(COMPLETE_FILE_CARRIAGE_RETURNS_ONLY, s_carriageReturnTestCasess);
+        }
+
+        private static void ExecuteTests(string fileText, ReadOnlyCollection<TestCaseData> testCases)
+        {
             var run = new Run();
             var fileRegionsCache = new FileRegionsCache(run);
 
             Uri uri = new Uri(@"c:\temp\myFile.cpp");
-            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, s_testText);
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, fileText);
 
             fileRegionsCache._fileSystem = mockFileSystem;
 
@@ -59,30 +275,66 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 }
             };
 
-            ExecuteTests(fileRegionsCache, physicalLocation);
+            ExecuteTests(testCases, fileRegionsCache, physicalLocation);
         }
 
-        private static void ExecuteTests(FileRegionsCache fileRegionsCache, PhysicalLocation physicalLocation)
+        private static void ExecuteTests(ReadOnlyCollection<TestCaseData>  testCases, FileRegionsCache fileRegionsCache, PhysicalLocation physicalLocation)
         {
-            foreach (TestCaseData testCase in s_testCases)
+            foreach (TestCaseData testCase in testCases)
             {
-                string snippet = testCase.ExpectedSnippet;
                 Region inputRegion = testCase.InputRegion;
-                Region expectedRegion = testCase.OutputRegion;
+                Region expectedRegion = testCase.OutputRegion.DeepClone();
+                FileContent snippet = expectedRegion.Snippet;
 
                 physicalLocation.Region = inputRegion;
 
+                expectedRegion.Snippet = null;
                 Region actualRegion = fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, populateSnippet: false);
 
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
                 actualRegion.Snippet.Should().BeNull();
 
+                expectedRegion.Snippet = snippet;
                 actualRegion = fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, populateSnippet: true);
 
-                expectedRegion.Snippet = new FileContent() { Text = snippet };
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
-                actualRegion.Snippet.Text.Should().Be(snippet);
+
+                if (snippet == null)
+                {
+                    actualRegion.Snippet.Should().BeNull();
+                }
+                else
+                {
+                    actualRegion.Snippet.Text.Should().Be(snippet.Text);
+                }
             }
+        }
+
+        [Fact]
+        public void FileRegionsCache_PopulatesNullRegion()
+        {
+            var run = new Run();
+            var fileRegionsCache = new FileRegionsCache(run);
+
+            Uri uri = new Uri(@"c:\temp\myFile.cpp");
+            var mockFileSystem = MockFactory.MakeMockFileSystem(uri.LocalPath, SPEC_EXAMPLE);
+
+            fileRegionsCache._fileSystem = mockFileSystem;
+
+            var physicalLocation = new PhysicalLocation()
+            {
+                FileLocation = new FileLocation()
+                {
+                    Uri = uri
+                },
+                Region = null
+            };
+
+            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, false);
+            physicalLocation.Region.Should().BeNull();
+
+            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, true);
+            physicalLocation.Region.Should().BeNull();
         }
     }
 }
