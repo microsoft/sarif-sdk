@@ -30,6 +30,12 @@
     <Reference Include="..\..\refs\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Target Name="CopyTestData" AfterTargets="Build">
     <ItemGroup>
       <v1ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v1\ConverterTestData\**\*.sarif" />
@@ -45,6 +51,5 @@
     <Copy SourceFiles="@(v2ConverterTestData)" DestinationFolder="$(OutputPath)v2\ConverterTestData\%(RecursiveDir)" />
     <Copy SourceFiles="@(v2DirectProducerTestData)" DestinationFolder="$(OutputPath)v2\DirectProducerTestData\%(RecursiveDir)" />
     <Copy SourceFiles="@(v2SpecExamples)" DestinationFolder="$(OutputPath)v2\SpecExamples\%(RecursiveDir)" />
-    <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>
