@@ -51,15 +51,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
+            string runDescription = null;
             var results = new List<Result>();
             using (XmlReader reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())
                 {
-                    while (StringReference.AreEqual(reader.LocalName, _strings.Issue))
+                    if (runDescription == null)
                     {
-                        FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
-                        results.Add(ConvertFortifyIssueToSarifIssue(fortify));
+                        // Find the executive summary <ReportSection> element
+                        if (StringReference.AreEqual(reader.LocalName, _strings.ReportSection) && reader.IsStartElement())
+                        {
+                            reader.Read(); // Move to first child
+
+                            if (reader.ReadElementContentAsString(_strings.Title, String.Empty) == "Executive Summary")
+                            {
+                                reader.Read(); // Move to SubSection element
+                                reader.IgnoreElement(_strings.Title, IgnoreOptions.Required);
+                                reader.IgnoreElement(_strings.Description, IgnoreOptions.Required);
+                                runDescription = reader.ReadElementContentAsString(_strings.Text, String.Empty);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        while (StringReference.AreEqual(reader.LocalName, _strings.Issue))
+                        {
+                            FortifyIssue fortify = FortifyIssue.Parse(reader, _strings);
+                            results.Add(ConvertFortifyIssueToSarifIssue(fortify));
+                        }
                     }
                 }
             }
@@ -74,6 +94,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
+                Description = new Message
+                {
+                    Text = runDescription
+                },
                 Tool = tool
             };
 
