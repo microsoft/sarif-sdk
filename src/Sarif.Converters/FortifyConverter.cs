@@ -53,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string runDescription = null;
             var results = new List<Result>();
+
             using (XmlReader reader = XmlReader.Create(input, settings))
             {
                 while (reader.Read())
@@ -62,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         // Find the executive summary <ReportSection> element
                         if (StringReference.AreEqual(reader.LocalName, _strings.ReportSection) && reader.IsStartElement())
                         {
-                            reader.Read(); // Move to first child
+                            reader.Read(); // Move to Title element
 
                             if (reader.ReadElementContentAsString(_strings.Title, String.Empty) == "Executive Summary")
                             {
