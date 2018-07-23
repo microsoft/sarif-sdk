@@ -3592,10 +3592,4 @@
       <LastGenOutput>startioroutine.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <Target Name="CopyFilesToOutput" AfterTargets="Build">
-    <ItemGroup>
-      <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
-    </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(Platform)_$(Configuration)\$(TargetFramework)\" />
-  </Target>
 </Project>

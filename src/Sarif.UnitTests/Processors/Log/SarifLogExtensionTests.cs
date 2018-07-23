@@ -58,11 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                             run.Files == null ||
                             run.Files.Keys.All(
                                 key => 
-                                    run.Files[key].FileLocation.Uri.ToString() == key 
-                                    && !run.Files[key].FileLocation.Uri.IsAbsoluteUri 
+                                    run.Files[key].FileLocation.Uri.ToString() == key
+                                    && !run.Files[key].FileLocation.Uri.IsAbsoluteUri
                                     && !string.IsNullOrEmpty(run.Files[key].FileLocation.UriBaseId))))
                 .Should().BeTrue();
-
         }
 
         [Fact]

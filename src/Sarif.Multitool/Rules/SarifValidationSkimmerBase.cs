@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
 
-        public override FileLocation HelpLocation => new FileLocation { Uri = _defaultHelpUri };
+        public override Uri HelpUri => _defaultHelpUri;
 
         private readonly Message _emptyHelpMessage = new Message
         {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
-        protected virtual void Analyze(CodeFlowLocation codeFlowLocation, string codeFlowLocationPointer)
+        protected virtual void Analyze(ThreadFlowLocation threadFlowLocation, string codeFlowLocationPointer)
         {
         }
 
@@ -127,14 +127,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(CodeFlowLocation codeFlowLocation, string codeFlowLocationPointer)
+        private void Visit(ThreadFlowLocation threadFlowLocation, string codeFlowLocationPointer)
         {
-            Analyze(codeFlowLocation, codeFlowLocationPointer);
+            Analyze(threadFlowLocation, codeFlowLocationPointer);
 
-            if (codeFlowLocation.Location != null)
+            if (threadFlowLocation.Location != null)
             {
                 string locationPointer = codeFlowLocationPointer.AtProperty(SarifPropertyName.Location);
-                Visit(codeFlowLocation.Location, locationPointer);
+                Visit(threadFlowLocation.Location, locationPointer);
             }
         }
 

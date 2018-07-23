@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     {
                                         Locations = new[]
                                         {
-                                            new CodeFlowLocation
+                                            new ThreadFlowLocation
                                             {
                                                 Location = new Location
                                                 {
