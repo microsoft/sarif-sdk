@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs373273.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQovLyBEb24ndCByZXBvcnQgZnVuY3Rpb24ga2V5IGV2ZW50cyBmb3IgJ25ldycgYW5kICdkZWxldGUnLCBvciBwb3NzaWJseSBhbnkNCi8vIG90aGVyIGZ1bmN0aW9ucyB1bmRlciBwcmVkZWZpbmVkIGMrKyB0eXBlcy4gRm9yIGNsYXNzIG1lbWJlcnMgbG9vayBmb3IgYXBwcm9wcmlhdGUNCi8vIGVPZmZzZXQgYWJzdHJhY3RzDQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0KaW50IEJhZEZ1bmN0aW9uS3Z0SW5OZXdBcnJheSgpDQp7DQoJaW50IG4gPSA1Ow0KCWludCAqIGRhdGEgPSBuZXcgaW50W25dOw0KCWRhdGFbMF0gPSA0MjsNCg0KCWludCAqIGRhdGEyID0gbmV3IGludFtuXTsgLy8gQkFEICduJyBpcyBhbiBJbi9PdXQgYXJndW1lbnQgdG8gJ25ldycgKGRlY2xhcmVkIGF0IGM6XGZ1dHVyZX4xXGZ1dHVyZX4xXHByZWRlZmluZWQgYysrIHR5cGVzIChjb21waWxlciBpbnRlcm5hbCk6MjMpDQoNCglpbnQgeSA9IGRhdGFbbl07DQoNCglkZWxldGUgW10gZGF0YTsNCglkZWxldGUgW10gZGF0YTI7DQoNCglyZXR1cm4geTsNCn0NCg0KY2xhc3MgU2FtcGxlQ2xhc3MNCnsNCglpbnQgbWVtYmVyOw0KcHVibGljOg0KCVNhbXBsZUNsYXNzKF9Jbl8gaW50ICpwYXJhbSkNCgl7DQoJCW1lbWJlciA9ICpwYXJhbTsNCgl9DQp9Ow0KDQppbnQgQmFkRnVuY3Rpb25LdnRJbkNvbnN0cnVjdG9yKCkNCnsNCglpbnQgbiA9IDU7DQoJaW50ICogZGF0YSA9IG5ldyBpbnRbbl07DQoJZGF0YVswXSA9IDQzOw0KDQoJU2FtcGxlQ2xhc3MgKiB3aWRnZXQgPSBuZXcgU2FtcGxlQ2xhc3MoJm4pOyAvLyBCQUQgJ24nIGlzIGFuIElucHV0IGFyZ3VtZW50IHRvICd1bmtub3duIGZ1bmN0aW9uJw0KDQoJaW50IHkgPSBkYXRhW25dOw0KDQoJZGVsZXRlIFtdIGRhdGE7DQoJZGVsZXRlIHdpZGdldDsNCg0KCXJldHVybiB5Ow0KfQ0KDQo="
-          },
-          "hashes": [
-            {
-              "value": "69A1D52E8916255E543EC2A20EB0C7A0",
-              "algorithm": "md5"
-            },
-            {
-              "value": "6B2615D4A6D3CF8480F8816A9DAA61FB231606D2",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "020AAF6341FC48F6A94EFA0C12E1190323F5657850D86F5AAB190E1BA19D1C95",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -51,7 +34,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint y = data[n];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInNewArray",
@@ -74,7 +60,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint n = 5;"
+                            }
                           }
                         }
                       },
@@ -92,7 +81,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -110,7 +102,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tdata[0] = 42;"
+                            }
                           }
                         }
                       },
@@ -125,7 +120,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)"
+                            }
                           }
                         }
                       },
@@ -142,7 +140,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint y = data[n];"
+                            }
                           }
                         }
                       },
@@ -175,7 +176,10 @@
                 },
                 "region": {
                   "startLine": 42,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint y = data[n];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInConstructor",
@@ -198,7 +202,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint n = 5;"
+                            }
                           }
                         }
                       },
@@ -216,7 +223,10 @@
                           },
                           "region": {
                             "startLine": 37,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -234,7 +244,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tdata[0] = 43;"
+                            }
                           }
                         }
                       },
@@ -249,7 +262,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "\tSampleClass * widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'"
+                            }
                           }
                         }
                       },
@@ -266,7 +282,10 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint y = data[n];"
+                            }
                           }
                         }
                       },

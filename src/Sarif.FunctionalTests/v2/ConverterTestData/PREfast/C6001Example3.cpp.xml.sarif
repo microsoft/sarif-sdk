@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSA0MTAwIDQ3MDApDQppbnQgQzYwMDFfRXhhbXBsZTMoIGJvb2wgYiwgYm9vbCBjICkNCnsNCglpbnQgaTsJCQkJDQoJZ290byBsYWJlbGI7CQkNCmxhYmVsYToJCQkJCQ0KCWdvdG8gbGFiZWxjOw0KbGFiZWxiOgkJCQkJDQoJZ290byBsYWJlbGE7DQpsYWJlbGM6CQkJCQkNCglpbnQgaiA9IGkrMTsJCQ0KCXJldHVybiBqOwkJCQ0KfQ=="
-          },
-          "hashes": [
-            {
-              "value": "9FD4F9AC2711411C10C18FC31F77441D",
-              "algorithm": "md5"
-            },
-            {
-              "value": "90E846D17A05E7172086B4CAD27202C8F21AE30F",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "A8EF8FAEA437E0D4A7FBD1DC081A73B04A35FFC7DC207DFDC0B1A98800F58E1A",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 11,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint j = i+1;\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example3",
@@ -71,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i;\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -89,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labelb;\t\t"
+                            }
                           }
                         }
                       },
@@ -106,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labelb:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -121,7 +116,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labela;"
+                            }
                           }
                         }
                       },
@@ -138,7 +136,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labela:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -153,7 +154,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tgoto labelc;"
+                            }
                           }
                         }
                       },
@@ -170,7 +174,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "labelc:\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -185,7 +192,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i+1;\t\t"
+                            }
                           }
                         }
                       },

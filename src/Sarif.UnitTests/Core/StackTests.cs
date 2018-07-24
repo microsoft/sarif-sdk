@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif

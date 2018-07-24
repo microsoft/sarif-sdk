@@ -9,7 +9,6 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Xunit;
 
@@ -86,7 +85,7 @@ namespace Sarif.Converters.UnitTests
             var mockLogWriter = new Mock<IResultLogWriter>();
 
             Action action = () => converter.Convert(null, mockLogWriter.Object, OptionallyEmittedData.None);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -119,7 +118,7 @@ namespace Sarif.Converters.UnitTests
             var converter = new PylintConverter();
 
             Action action = () => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -128,7 +127,7 @@ namespace Sarif.Converters.UnitTests
             var converter = new PylintConverter();
 
             Action action = () => converter.CreateResult(null);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

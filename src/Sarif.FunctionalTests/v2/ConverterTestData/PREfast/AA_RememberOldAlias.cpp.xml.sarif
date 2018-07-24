@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedaliasing/aa_rememberoldalias.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gVGhlIHJlc3VsdCBvZiBhbiBvbGQgYWxpYXNpbmcgb3BlcmF0aW9uIG1heSBiZSBjbG9iYmVyZWQgYnkgYSANCi8vIGxhdGVyIGFzc2lnbm1lbnQuIFJlbWVtYmVyIHRoZSBvbGQgYWxpYXMgYXMgbG9uZyBhcyB0aGUgdmFyaWFibGUNCi8vIGlzICJpbnRlcmVzdGluZyINCg0Kdm9pZCBEb250UmVtZW1iZXJPbGRBbGlhcyhpbnQgKiByZXN1bHQpDQp7DQoJaW50IGRhdGFbMTBdOw0KICAgICAgDQoJaW50IGluZGV4ID0gOTsNCglpbnQgYiA9IGluZGV4OyAvLyBkb24ndCBjYXJlIGFib3V0IHRoaXMgYWxpYXMgKCdiJyBub3QgaW50ZXJlc3RpbmcpDQoJYiA9IDEwOw0KDQoJKnJlc3VsdCA9IGRhdGFbYl07DQp9DQoNCnZvaWQgUmVtZW1iZXJPbGRBbGlhcyhpbnQgeCwgaW50IHksIGludCAqIHJlc3VsdCkNCnsNCglpbnQgKiBhID0gMDsNCglpbnQgKiBiID0gJng7DQoJaW50ICogYyA9ICZ5Ow0KCWJvb2wgZmxhZyA9IHRydWU7DQoNCglmb3IgKGludCBpPTA7IGkgPCAyOyBpKyspDQoJew0KCQlpZiAoZmxhZykgew0KCQkJYiA9IGE7IC8vIGNhcmUgYWJvdXQgdGhpcyBhbGlhcyAoJ2InIGlzIGludGVyZXN0aW5nKQ0KCQkJYyA9IGI7DQoJCQlmbGFnID0gZmFsc2U7DQoJCX0gZWxzZSB7DQoJCQlhID0gJng7DQoJCQliID0gJnk7DQoJCQkqcmVzdWx0ID0gKmM7DQoJCX0NCgl9DQp9DQoNCg=="
-          },
-          "hashes": [
-            {
-              "value": "981B0FE0CE7AA6BE63BDA29346C2BF65",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D284640FBF43B8A21B41D67B11F46F1B40D89C59",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "306AE808815DF2C7526A9EF85D46F59ADD5083825A79172E6CD7A1626FD7DA21",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -51,7 +34,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "\t*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -74,7 +60,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -92,7 +81,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 9;"
+                            }
                           }
                         }
                       },
@@ -107,7 +99,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -122,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\tb = 10;"
+                            }
                           }
                         }
                       },
@@ -137,7 +135,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -170,7 +171,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "\t*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -193,7 +197,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -211,7 +218,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 9;"
+                            }
                           }
                         }
                       },
@@ -226,7 +236,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -241,7 +254,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\tb = 10;"
+                            }
                           }
                         }
                       },
@@ -259,7 +275,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -292,7 +311,10 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "\t\t\t*result = *c;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RememberOldAlias",
@@ -315,7 +337,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * a = 0;"
+                            }
                           }
                         }
                       },
@@ -333,7 +358,10 @@
                           },
                           "region": {
                             "startLine": 19,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * b = &x;"
+                            }
                           }
                         }
                       },
@@ -348,7 +376,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * c = &y;"
+                            }
                           }
                         }
                       },
@@ -363,7 +394,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tbool flag = true;"
+                            }
                           }
                         }
                       },
@@ -378,7 +412,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -393,7 +430,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -410,7 +450,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tif (flag) {"
+                            }
                           }
                         }
                       },
@@ -427,7 +470,10 @@
                           },
                           "region": {
                             "startLine": 26,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t\t\tb = a; // care about this alias ('b' is interesting)"
+                            }
                           }
                         }
                       },
@@ -445,7 +491,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t\t\tc = b;"
+                            }
                           }
                         }
                       },
@@ -463,7 +512,10 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\t\t\tflag = false;"
+                            }
                           }
                         }
                       },
@@ -478,7 +530,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -493,7 +548,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i < 2; i++)"
+                            }
                           }
                         }
                       },
@@ -510,7 +568,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tif (flag) {"
+                            }
                           }
                         }
                       },
@@ -527,7 +588,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t\t\ta = &x;"
+                            }
                           }
                         }
                       },
@@ -542,7 +606,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t\t\tb = &y;"
+                            }
                           }
                         }
                       },
@@ -557,7 +624,10 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "\t\t\t*result = *c;"
+                            }
                           }
                         }
                       },

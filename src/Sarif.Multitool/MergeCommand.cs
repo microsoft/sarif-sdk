@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -25,11 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog combinedLog = allRuns.Merge();
 
                 // Reformat the SARIF log if we need to.
-                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
-                if (mergeOptions.DataToInsert != null)
-                {
-                    Array.ForEach(mergeOptions.DataToInsert, data => dataToInsert |= data);
-                }
+                OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
 
                 SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(combinedLog);
 

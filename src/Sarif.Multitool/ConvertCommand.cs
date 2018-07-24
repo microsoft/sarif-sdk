@@ -15,11 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 LoggingOptions loggingOptions = LoggingOptions.None;
 
-                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
-                if (convertOptions.DataToInsert != null)
-                {
-                    Array.ForEach(convertOptions.DataToInsert, data => dataToInsert |= data);
-                }
+                OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
 
                 if (convertOptions.PrettyPrint)
                 {

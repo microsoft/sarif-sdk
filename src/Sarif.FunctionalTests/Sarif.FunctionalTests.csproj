@@ -1,20 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; net452;</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Library Functional Tests</AssemblyTitle>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="4.19.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
-    <PackageReference Include="xunit" Version="2.3.0" />
-    <PackageReference Include="xunit.runner.console" Version="2.3.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0" />
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.console" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -3588,10 +3592,4 @@
       <LastGenOutput>startioroutine.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <Target Name="CopyFilesToOutput" AfterTargets="Build">
-    <ItemGroup>
-      <FilesToCopy Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" />
-    </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(MsBuildThisFileDirectory)\..\..\bld\bin\$(Platform)_$(Configuration)\$(TargetFramework)\" />
-  </Target>
 </Project>

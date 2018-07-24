@@ -6,7 +6,7 @@ using System.Resources;
 using FluentAssertions;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
+namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
 {
     internal class TestSkimmer : TestSkimmerBase
     {

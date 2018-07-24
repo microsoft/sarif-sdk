@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs372959.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQovLyBLZXkgRXZlbnRzIGluIHRoZSBwcmVzZW5jZSBvZiBjbGFzcyBtZW1iZXIgYWxpYXMNCi8vIExvb2sgZm9yICd0aGlzLT5zb3VyY2UnIHdoaWNoIGNvbnRhaW5zIHRoZSBzaXplb2YgaW5mb3JtYXRpb24sIG5vdCBqdXN0ICdzb3VyY2UnDQoNCmNsYXNzIE1pc3NlZDYzMDUNCnsNCglpbnQgajsNCglpbnQgTWlzc2VkQWxpYXMod2NoYXJfdCAqIHApDQoJew0KCQlpbnQgaSA9IDY7DQoJCWogPSBzaXplb2YocCk7DQoNCgkJaSA9IGo7DQoNCgkJcCArPSBpOyAvL0V4cGVjdCA2MzA1DQoNCgkJcmV0dXJuIGk7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzMih3Y2hhcl90ICogcCkNCgl7DQoJCWogPSA2Ow0KCQlpbnQgaSA9IHNpemVvZihwKTsNCg0KCQlqID0gaTsNCg0KCQlwICs9IGo7IC8vRXhwZWN0IDYzMDUNCg0KCQlyZXR1cm4gajsNCgl9DQoNCglpbnQgTWlzc2VkQWxpYXNQbHVzQXNzaWduKHdjaGFyX3QgKiBwKQ0KCXsNCgkJaW50IGkgPSA2Ow0KCQlqID0gc2l6ZW9mKHApOw0KDQoJCWkgKz0gajsNCg0KCQlwICs9IGk7IC8vRXhwZWN0IDYzMDUNCg0KCQlyZXR1cm4gaTsNCgl9DQoNCglpbnQgTWlzc2VkQWxpYXNQbHVzQXNzaWduMih3Y2hhcl90ICogcCkNCgl7DQoJCWogPSA2Ow0KCQlpbnQgaSA9IHNpemVvZihwKTsNCg0KCQlqICs9IGk7DQoNCgkJcCArPSBqOyAvL0V4cGVjdCA2MzA1DQoNCgkJcmV0dXJuIGo7DQoJfQ0KDQoJaW50IE1pc3NlZEFsaWFzX0xvY2FsSXNDb3JyZWN0KHdjaGFyX3QgKiBwKQ0KCXsNCgkJaW50IGkgPSA2Ow0KCQlpbnQgajIgPSBzaXplb2YocCk7DQoNCgkJaSA9IGoyOw0KDQoJCXAgKz0gaTsgLy9FeHBlY3QgNjMwNQ0KDQoJCXJldHVybiBpOw0KCX0NCg0KCWludCBNaXNzZWRBbGlhc1BsdXNBc3NpZ25fTG9jYWxJc0NvcnJlY3Qod2NoYXJfdCAqIHApDQoJew0KCQlpbnQgaSA9IDY7DQoJCWludCBqMiA9IHNpemVvZihwKTsNCg0KCQlpICs9IGoyOw0KDQoJCXAgKz0gaTsgLy9FeHBlY3QgNjMwNQ0KDQoJCXJldHVybiBpOw0KCX0NCg0KLy8gLS0NCg0KCWludCBjYjsNCglpbnQgU2l6ZU9mTWlzc2VkRm9yTWVtYmVyIChpbnQgKnApDQoJew0KCQlpbnQgaSA9IDA7DQoJCWNiID0gc2l6ZW9mKGludCk7DQoNCgkJcCs9Y2I7IC8vRXhwZWN0IDYzMDUNCgkJcmV0dXJuIGk7DQoJfQ0KDQoJaW50IFNpemVPZk1pc3NlZEZvck1lbWJlcl9Mb2NhbElzQ29ycmVjdCAoaW50ICpwKQ0KCXsNCgkJaW50IGkgPSAwOw0KCQlpbnQgY2IyID0gc2l6ZW9mKGludCk7DQoNCgkJcCs9Y2IyOyAvL0V4cGVjdCA2MzA1DQoJCXJldHVybiBpOw0KCX0NCg0KfTsNCg0K"
-          },
-          "hashes": [
-            {
-              "value": "FED2BB79418114B615E3C6A5AC6BD76E",
-              "algorithm": "md5"
-            },
-            {
-              "value": "ACE3ADAC0EBFA2DB1FAE99BBD3E3244131BB81F4",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "2C3E25B87EAD234EE43EAAB32618C5A232BE9BCC6017A9AE69DE8A66466C16C8",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -77,7 +60,10 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += i; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias",
@@ -100,7 +86,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 6;"
+                            }
                           }
                         }
                       },
@@ -115,7 +104,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -130,7 +122,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\ti = j;"
+                            }
                           }
                         }
                       },
@@ -148,7 +143,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += i; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -181,7 +179,10 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += j; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias2",
@@ -204,7 +205,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj = 6;"
+                            }
                           }
                         }
                       },
@@ -219,7 +223,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -234,7 +241,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj = i;"
+                            }
                           }
                         }
                       },
@@ -252,7 +262,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += j; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -285,7 +298,10 @@
                 },
                 "region": {
                   "startLine": 39,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += i; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign",
@@ -308,7 +324,10 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 6;"
+                            }
                           }
                         }
                       },
@@ -323,7 +342,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -338,7 +360,10 @@
                           },
                           "region": {
                             "startLine": 37,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\ti += j;"
+                            }
                           }
                         }
                       },
@@ -356,7 +381,10 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += i; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -389,7 +417,10 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += j; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign2",
@@ -412,7 +443,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj = 6;"
+                            }
                           }
                         }
                       },
@@ -427,7 +461,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -442,7 +479,10 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tj += i;"
+                            }
                           }
                         }
                       },
@@ -460,7 +500,10 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += j; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -493,7 +536,10 @@
                 },
                 "region": {
                   "startLine": 63,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += i; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias_LocalIsCorrect",
@@ -516,7 +562,10 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 6;"
+                            }
                           }
                         }
                       },
@@ -531,7 +580,10 @@
                           },
                           "region": {
                             "startLine": 59,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint j2 = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -549,7 +601,10 @@
                           },
                           "region": {
                             "startLine": 61,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\ti = j2;"
+                            }
                           }
                         }
                       },
@@ -567,7 +622,10 @@
                           },
                           "region": {
                             "startLine": 63,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += i; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -600,7 +658,10 @@
                 },
                 "region": {
                   "startLine": 75,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t\tp += i; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
@@ -623,7 +684,10 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 6;"
+                            }
                           }
                         }
                       },
@@ -638,7 +702,10 @@
                           },
                           "region": {
                             "startLine": 71,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint j2 = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -656,7 +723,10 @@
                           },
                           "region": {
                             "startLine": 73,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\ti += j2;"
+                            }
                           }
                         }
                       },
@@ -674,7 +744,10 @@
                           },
                           "region": {
                             "startLine": 75,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t\tp += i; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -707,7 +780,10 @@
                 },
                 "region": {
                   "startLine": 88,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\t\tp+=cb; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember",
@@ -730,7 +806,10 @@
                           },
                           "region": {
                             "startLine": 85,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 0;"
+                            }
                           }
                         }
                       },
@@ -745,7 +824,10 @@
                           },
                           "region": {
                             "startLine": 86,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t\tcb = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -763,7 +845,10 @@
                           },
                           "region": {
                             "startLine": 88,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\t\tp+=cb; //Expect 6305"
+                            }
                           }
                         }
                       },
@@ -796,7 +881,10 @@
                 },
                 "region": {
                   "startLine": 97,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\t\tp+=cb2; //Expect 6305"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember_LocalIsCorrect",
@@ -819,7 +907,10 @@
                           },
                           "region": {
                             "startLine": 94,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint i = 0;"
+                            }
                           }
                         }
                       },
@@ -834,7 +925,10 @@
                           },
                           "region": {
                             "startLine": 95,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint cb2 = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -852,7 +946,10 @@
                           },
                           "region": {
                             "startLine": 97,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\t\tp+=cb2; //Expect 6305"
+                            }
                           }
                         }
                       },

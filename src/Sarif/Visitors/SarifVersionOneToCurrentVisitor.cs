@@ -3,10 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
@@ -20,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private Run _currentRun = null;
         private RunVersionOne _currentV1Run = null;
-        private int _codeFlowLocationNestingLevel;
-        private int _codeFlowLocationStepAdjustment = 0;
+        private int _threadFlowLocationNestingLevel;
+        private int _threadFlowLocationStepAdjustment = 0;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -53,57 +50,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v1CodeFlow.Locations != null && v1CodeFlow.Locations.Count > 0)
                 {
-                    _codeFlowLocationNestingLevel = 0;
+                    _threadFlowLocationNestingLevel = 0;
 
                     if (v1CodeFlow.Locations[0].Step == 0)
                     {
                         // If the steps are zero-based, add 1 to comply with the v2 spec
-                        _codeFlowLocationStepAdjustment = 1;
+                        _threadFlowLocationStepAdjustment = 1;
                     }
 
                     codeFlow.ThreadFlows = new List<ThreadFlow>
                     {
                         new ThreadFlow
                         {
-                            Locations = v1CodeFlow.Locations.Select(CreateCodeFlowLocation).ToList()
+                            Locations = v1CodeFlow.Locations.Select(CreateThreadFlowLocation).ToList()
                         }
                     };
 
-                    _codeFlowLocationStepAdjustment = 0;
+                    _threadFlowLocationStepAdjustment = 0;
                 }
             }
 
             return codeFlow;
         }
 
-        internal CodeFlowLocation CreateCodeFlowLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
+        internal ThreadFlowLocation CreateThreadFlowLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
         {
-            CodeFlowLocation codeFlowLocation = null;
+            ThreadFlowLocation threadFlowLocation = null;
 
             if (v1AnnotatedCodeLocation != null)
             {
-                codeFlowLocation = new CodeFlowLocation
+                threadFlowLocation = new ThreadFlowLocation
                 {
-                    Importance = Utilities.CreateCodeFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
+                    Importance = Utilities.CreateThreadFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
                     Location = CreateLocation(v1AnnotatedCodeLocation),
                     Module = v1AnnotatedCodeLocation.Module,
-                    NestingLevel = _codeFlowLocationNestingLevel,
+                    NestingLevel = _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
                     State = v1AnnotatedCodeLocation.State,
-                    Step = v1AnnotatedCodeLocation.Step + _codeFlowLocationStepAdjustment
+                    Step = v1AnnotatedCodeLocation.Step + _threadFlowLocationStepAdjustment
                 };
 
                 if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)
                 {
-                    _codeFlowLocationNestingLevel++;
+                    _threadFlowLocationNestingLevel++;
                 }
                 else if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.CallReturn)
                 {
-                    _codeFlowLocationNestingLevel--;
+                    _threadFlowLocationNestingLevel--;
                 }
             }
 
-            return codeFlowLocation;
+            return threadFlowLocation;
         }
 
         internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
@@ -835,7 +832,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 rule = new Rule
                 {
                     FullDescription = CreateMessage(v1Rule.FullDescription),
-                    HelpLocation = CreateFileLocation(v1Rule.HelpUri, null),
+                    HelpUri = v1Rule.HelpUri,
                     Id = v1Rule.Id,
                     MessageStrings = v1Rule.MessageFormats,
                     Name = CreateMessage(v1Rule.Name),
