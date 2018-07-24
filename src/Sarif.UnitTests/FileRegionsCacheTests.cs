@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             }
 
             public string ExpectedSnippet { get; set; }
-            public Region InputRegion { get; set; }
-            public Region OutputRegion { get; set; }
+            public Region InputRegion { get; }
+            public Region OutputRegion { get; }
         }
 
-        //                                    0            10         19
-        //                                    0123 4 5678 9 01234 5 6789 
+        //                                   0            10         19
+        //                                   0123 4 5678 9 01234 5 6789 
         private const string SPEC_EXAMPLE = "abcd\r\nefg\r\nhijk\r\nlmn";
 
 
@@ -49,59 +49,59 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private readonly static Region s_Insertion_Beginning_Of_Binary_File = 
             new Region() { Snippet = null,
-                           StartLine = 0, EndLine = 0, StartColumn = 0, EndColumn = 0, CharOffset = 0, CharLength = 0 };
+                           StartLine = 0, StartColumn = 0, EndLine = 0, EndColumn = 0, CharOffset = 0, CharLength = 0 };
 
         private readonly static Region s_Insertion_Beginning_Of_Text_File = 
             new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
-                           StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 0 };
+                           StartLine = 1, StartColumn = 1, EndLine = 1, EndColumn = 1, CharOffset = 0, CharLength = 0 };
 
         private readonly static Region s_Insertion_End_Of_File =
             new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
-                           StartLine = 4, EndLine = 4, StartColumn = 4, EndColumn = 4, CharOffset = 20, CharLength = 0 };
+                           StartLine = 4, StartColumn = 4, EndLine = 4, EndColumn = 4, CharOffset = 20, CharLength = 0 };
 
         private readonly static Region s_Insertion_Between_New_Line_Chars = 
             new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
-                           StartLine = 2, EndLine = 2, StartColumn = 5, EndColumn = 5, CharOffset = 10, CharLength = 0 };
+                           StartLine = 2, StartColumn = 5, EndLine = 2, EndColumn = 5, CharOffset = 10, CharLength = 0 };
 
         private readonly static Region s_Interior_New_Line = 
             new Region() { Snippet = new FileContent() { Text = NEW_LINE },
-                           StartLine = 2, EndLine = 3, StartColumn = 5, EndColumn = 1, CharOffset = 10, CharLength = 1 };
+                           StartLine = 2, StartColumn = 5, EndLine = 3, EndColumn = 1, CharOffset = 10, CharLength = 1 };
 
         private readonly static Region s_Interior_Carriage_Return = 
             new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN },
-                           StartLine = 2, EndLine = 2, StartColumn = 4, EndColumn = 5, CharOffset = 9, CharLength = 1 };
+                           StartLine = 2, StartColumn = 4, EndLine = 2, EndColumn = 5, CharOffset = 9, CharLength = 1 };
 
         // Version 1 of this region defines it by using the insertion point of the following line as the terminus
         private readonly static Region s_Interior_Carriage_Return_New_Line_V1 = 
             new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
-                           StartLine = 3, EndLine = 4, StartColumn = 5, EndColumn = 1, CharOffset = 15, CharLength = 2 };
+                           StartLine = 3, StartColumn = 5, EndLine = 4, EndColumn = 1, CharOffset = 15, CharLength = 2 };
 
         // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
         private readonly static Region s_Interior_Carriage_Return_New_Line_V2 = 
             new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
-                           StartLine = 3, EndLine = 3, StartColumn = 5, EndColumn = 7, CharOffset = 15, CharLength = 2 };
+                           StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7, CharOffset = 15, CharLength = 2 };
 
         // Version 1 of this region defines it by using the insertion point of the following line as the terminus
         private readonly static Region s_Complete_File_V1 = 
             new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
-                           StartLine = 1, EndLine = 5, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 20 };
+                           StartLine = 1, StartColumn = 1, EndLine = 5, EndColumn = 1, CharOffset = 0, CharLength = 20 };
 
         // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
         private readonly static Region s_Complete_File_V2 = 
             new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
-                           StartLine = 1, EndLine = 4, StartColumn = 1, EndColumn = 4, CharOffset = 0, CharLength = 20 };
+                           StartLine = 1, StartColumn = 1, EndLine = 4, EndColumn = 4, CharOffset = 0, CharLength = 20 };
 
         private readonly static Region s_Line_3 = 
             new Region() { Snippet = new FileContent() { Text = LINE3 },
-                           StartLine = 3, EndLine = 3, StartColumn = 1, EndColumn = 5, CharOffset = 11, CharLength = 4 };
+                           StartLine = 3, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 11, CharLength = 4 };
 
         private readonly static Region s_Lines_2_And_3 = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
-                           StartLine = 2, EndLine = 3, StartColumn = 1, EndColumn = 5, CharOffset = 5, CharLength = 10 };
+            new Region() { Snippet = new FileContent() { Text = LINES_2_AND_3 },
+                           StartLine = 2, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 5, CharLength = 10 };
 
         private readonly static Region s_Interior_Characters = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
-                           StartLine = 3, EndLine = 3, StartColumn = 2, EndColumn = 4, CharOffset = 12, CharLength = 2 };
+            new Region() { Snippet = new FileContent() { Text = INTERIOR_CHARACTERS },
+                           StartLine = 3, StartColumn = 2, EndLine = 3, EndColumn = 4, CharOffset = 12, CharLength = 2 };
 
         private const string COMPLETE_FILE_NEW_LINES_ONLY = "123\n456\n789\n";
         private const string FRAGMENT_NEW_LINES_ONLY = "\n456\n789\n";
@@ -111,20 +111,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private readonly static Region s_Complete_File_New_Lines_Only = 
             new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_NEW_LINES_ONLY },
-                           StartLine = 1, EndLine = 4, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 12 };
+                           StartLine = 1, StartColumn = 1, EndLine = 4, EndColumn = 1, CharOffset = 0, CharLength = 12 };
 
         private readonly static Region s_Fragment_New_Lines_Only = 
             new Region() { Snippet = new FileContent() { Text = FRAGMENT_NEW_LINES_ONLY },
-                           StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 3, CharLength = 9 };
+                           StartLine = 1, StartColumn = 4, EndLine = 4, EndColumn = 1, CharOffset = 3, CharLength = 9 };
 
         private readonly static Region s_Complete_File_Carriage_Returns_Only = 
             new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_CARRIAGE_RETURNS_ONLY },
-                           StartLine = 1, EndLine = 6, StartColumn = 1, EndColumn = 1, CharOffset = 0, CharLength = 10 };
+                           StartLine = 1, StartColumn = 1, EndLine = 6, EndColumn = 1, CharOffset = 0, CharLength = 10 };
 
         private readonly static Region s_Fragment_Carriage_Returns_Only = 
             new Region() { Snippet = new FileContent() { Text = FRAGMENT_CARRIAGE_RETURNS_ONLY },
-                           StartLine = 4, EndLine = 6, StartColumn = 2, EndColumn = 1, CharOffset = 4, CharLength = 6 };
-
+                           StartLine = 4, StartColumn = 2, EndLine = 6, EndColumn = 1, CharOffset = 4, CharLength = 6 };
 
         private static ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
@@ -136,25 +135,20 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 // Insertion point at beginning of text file, can only
                 // be denoted by use of startLine
                 new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Text_File,
-                    inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1 }), // EndLine implicit
+                    inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1 }),
 
-                // Place cursor at end-of-file
                 new TestCaseData(outputRegion : s_Insertion_End_Of_File,
                     inputRegion: new Region() { CharOffset = 20 }),
 
-                // Insertion point between characters of an interior line break
                 new TestCaseData(outputRegion : s_Insertion_Between_New_Line_Chars,
                     inputRegion: new Region() { CharOffset = 10 }),
 
-                // Let's make sure that this insertion point is where we think it is,
-                // by grabbing the leading carriage return and trailing new line characters.
                 new TestCaseData(outputRegion : s_Interior_Carriage_Return,
                     inputRegion: new Region() { CharOffset = 9, CharLength = 1 }),
 
                 new TestCaseData(outputRegion : s_Interior_New_Line,
                     inputRegion: new Region() { CharOffset = 10, CharLength = 1 }),
 
-                // Now we'll grab the complete new line sequence from a separate interior location
                 new TestCaseData(outputRegion : s_Interior_Carriage_Return_New_Line_V1,
                     inputRegion: new Region() { CharOffset = 15, CharLength = 2 }),
 
@@ -164,7 +158,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 new TestCaseData(outputRegion : s_Interior_Carriage_Return_New_Line_V2,
                     inputRegion: new Region() { StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7 }),
 
-                // Complete contents of file
                 new TestCaseData(outputRegion : s_Complete_File_V2,
                     inputRegion: new Region() { CharLength = 20 }),
 
@@ -174,13 +167,18 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 new TestCaseData(outputRegion : s_Complete_File_V1,
                     inputRegion: new Region() { StartLine = 1, EndLine = 5 }),
 
-                // Extract an interior line without new line characters
                 new TestCaseData(outputRegion: s_Line_3,
                     inputRegion: new Region() {CharOffset = 11, CharLength = 4 }),
 
                 new TestCaseData(outputRegion: s_Line_3,
-                    inputRegion: new Region() {StartLine = 3 })
-            });
+                    inputRegion: new Region() {StartLine = 3 }),
+
+                new TestCaseData(outputRegion: s_Lines_2_And_3,
+                    inputRegion: new Region() {StartLine = 2, EndLine = 3 }),
+
+                new TestCaseData(outputRegion: s_Interior_Characters,
+                    inputRegion: new Region() {CharOffset = 12, CharLength = 2 })
+    });
 
         private static ReadOnlyCollection<TestCaseData> s_newLineTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
@@ -234,8 +232,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 }
             };
 
-            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, false).Should().BeNull();
-            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, true).Should().BeNull();
+            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: false).Should().BeNull();
+            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: true).Should().BeNull();
         }
 
 
@@ -289,13 +287,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 physicalLocation.Region = inputRegion;
 
                 expectedRegion.Snippet = null;
-                Region actualRegion = fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, populateSnippet: false);
+                Region actualRegion = fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: false);
 
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
                 actualRegion.Snippet.Should().BeNull();
 
                 expectedRegion.Snippet = snippet;
-                actualRegion = fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, populateSnippet: true);
+                actualRegion = fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: true);
 
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
 
@@ -330,10 +328,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 Region = null
             };
 
-            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, false);
+            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, false);
             physicalLocation.Region.Should().BeNull();
 
-            fileRegionsCache.PopulatePrimaryRegionProperties(physicalLocation, true);
+            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, true);
             physicalLocation.Region.Should().BeNull();
         }
     }

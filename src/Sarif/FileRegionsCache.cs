@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">The physical location containing the region which should be populated.</param>
         /// <param name="populateSnippet">Specifies whether the physicalLocation.region.snippet property should be populated.</param>
         /// <returns></returns>
-        public Region PopulatePrimaryRegionProperties(PhysicalLocation physicalLocation, bool populateSnippet)
+        public Region PopulateTextRegionProperties(PhysicalLocation physicalLocation, bool populateSnippet)
         {
             Region inputRegion = physicalLocation.Region;
 
@@ -52,10 +52,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             NewLineIndex newLineIndex = GetNewLineIndex(physicalLocation.FileLocation, out string fileText);
-            return PopulatePrimaryRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
+            return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
         }
 
-        private Region PopulatePrimaryRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
+        private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
             // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:
             // 
