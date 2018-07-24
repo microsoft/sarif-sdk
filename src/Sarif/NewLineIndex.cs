@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
+        private int _fileLength;
+
         internal static char[] s_newLineChars = 
         {
             '\n',
@@ -28,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             '\u2029'  // Unicode paragraph separator
         };
 
-        private static ImmutableHashSet<char> s_newLineCharSet = ImmutableHashSet.Create(s_newLineChars);
+        internal static ImmutableHashSet<char> s_newLineCharSet = ImmutableHashSet.Create(s_newLineChars);
 
         /// <summary>Initializes a new instance of the <see cref="NewLineIndex"/> class indexing the
         /// specified string.</summary>
@@ -36,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public NewLineIndex(string textToIndex)
         {
+            _fileLength = textToIndex.Length;
+
             ImmutableArray<int>.Builder result = ImmutableArray.CreateBuilder<int>();
             result.Add(0);
 
@@ -52,10 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         result.Add(charCount + 1);
                     }
-
-                    _lineOffsetStarts = result.ToImmutable();
                 }
             }
+            _lineOffsetStarts = result.ToImmutable();
         }
 
         /// <summary>Gets a <see cref="LineInfo"/> for the line at the specified index.</summary>
@@ -66,9 +69,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>A <see cref="LineInfo"/> for <paramref name="lineNumber"/>.</returns>
         public LineInfo GetLineInfoForLine(int lineNumber)
         {
-            if (lineNumber <= 0 || lineNumber > this.MaximumLineNumber)
+            if (lineNumber <= 0 || lineNumber > (this.MaximumLineNumber + 1))
             {
                 throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.LineNumberWasOutOfRange);
+            }
+
+            if (lineNumber == this.MaximumLineNumber + 1)
+            {
+                return new LineInfo(_fileLength, lineNumber);
             }
 
             return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);
