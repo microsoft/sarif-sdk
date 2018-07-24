@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -57,6 +58,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return annotatedCodeLocation;
         }
 
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(ThreadFlowLocation v2ThreadFlowLocation)
+        {
+            AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
+
+            if (v2ThreadFlowLocation != null)
+            {
+                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2ThreadFlowLocation.Location);
+                annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
+
+                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
+                annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
+                annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
+                annotatedCodeLocation.State = v2ThreadFlowLocation.State;
+                annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
+            }
+
+            return annotatedCodeLocation;
+        }
+
+        internal IList<AnnotatedCodeLocationVersionOne> CreateAnnotatedCodeLocations(ThreadFlow v2ThreadFlow)
+        {
+            List<AnnotatedCodeLocationVersionOne> annotatedCodeLocationList = null;
+
+            if (v2ThreadFlow?.Locations?.Count > 0)
+            {
+                annotatedCodeLocationList = v2ThreadFlow.Locations.Select(CreateAnnotatedCodeLocation).ToList();
+
+                if (annotatedCodeLocationList.Count == v2ThreadFlow.Locations.Count)
+                {
+                    for (int i = 0; i < annotatedCodeLocationList.Count - 1; i++)
+                    {
+                        int threadId;
+
+                        if (int.TryParse(v2ThreadFlow.Id, out threadId))
+                        {
+                            annotatedCodeLocationList[i].ThreadId = threadId;
+                        }
+
+                        if (v2ThreadFlow.Locations[i].NestingLevel > v2ThreadFlow.Locations[i + 1].NestingLevel)
+                        {
+                            annotatedCodeLocationList[i].Kind = AnnotatedCodeLocationKindVersionOne.CallReturn;
+                        }
+                        else if (v2ThreadFlow.Locations[i].NestingLevel < v2ThreadFlow.Locations[i + 1].NestingLevel)
+                        {
+                            annotatedCodeLocationList[i].Kind = AnnotatedCodeLocationKindVersionOne.Call;
+                        }
+                    }
+                }
+                else
+                {
+                    // TODO: add a warning to the list
+                }
+            }
+            else
+            {
+                annotatedCodeLocationList = new List<AnnotatedCodeLocationVersionOne>();
+            }
+
+            return annotatedCodeLocationList;
+        }
+
         internal AnnotationVersionOne CreateAnnotation(Region v2Region)
         {
             AnnotationVersionOne annotation = null;
@@ -74,6 +136,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return annotation;
+        }
+
+        internal CodeFlowVersionOne CreateCodeFlow(CodeFlow v2CodeFlow)
+        {
+            CodeFlowVersionOne codeFlow = null;
+
+            if (v2CodeFlow != null)
+            {
+                codeFlow = new CodeFlowVersionOne
+                {
+                    Message = v2CodeFlow.Message?.Text,
+                    Properties = v2CodeFlow.Properties
+                };
+
+                if (v2CodeFlow.ThreadFlows?.Count > 0)
+                {
+                    var locations = new List<AnnotatedCodeLocationVersionOne>();
+
+                    foreach (ThreadFlow tf in v2CodeFlow.ThreadFlows)
+                    {
+                        locations.AddRange(CreateAnnotatedCodeLocations(tf));
+                    }
+
+                    locations.Sort((l1, l2) => l1.Step.CompareTo(l2.Step));
+                }
+            }
+
+            return codeFlow;
         }
 
         internal ExceptionDataVersionOne CreateExceptionData(ExceptionData v2ExceptionData)
@@ -172,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2FileData.Contents != null)
                 {
-                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                    fileData.Contents = MimeType.IsTextualMimeType(v2FileData.MimeType) ?
                         SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                         v2FileData.Contents.Binary;
                 }
@@ -727,6 +817,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = new ResultVersionOne
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
+                    CodeFlows = v2Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
                     Id = v2Result.InstanceGuid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
