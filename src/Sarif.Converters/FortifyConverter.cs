@@ -163,10 +163,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
 
-                var locations = new List<CodeFlowLocation>()
+                var locations = new List<ThreadFlowLocation>()
                 {
-                    new CodeFlowLocation { Location = new Location { PhysicalLocation = source } },
-                    new CodeFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
+                    new ThreadFlowLocation { Location = new Location { PhysicalLocation = source } },
+                    new ThreadFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
                 };
                 result.CodeFlows = new List<CodeFlow>()
                 {

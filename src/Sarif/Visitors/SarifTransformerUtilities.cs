@@ -250,18 +250,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
+        public static ThreadFlowLocationImportance CreateThreadFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
         {
             switch (v1AnnotatedCodeLocationImportance)
             {
                 case AnnotatedCodeLocationImportanceVersionOne.Essential:
-                    return CodeFlowLocationImportance.Essential;
+                    return ThreadFlowLocationImportance.Essential;
                 case AnnotatedCodeLocationImportanceVersionOne.Important:
-                    return CodeFlowLocationImportance.Important;
+                    return ThreadFlowLocationImportance.Important;
                 case AnnotatedCodeLocationImportanceVersionOne.Unimportant:
-                    return CodeFlowLocationImportance.Unimportant;
+                    return ThreadFlowLocationImportance.Unimportant;
                 default:
-                    return CodeFlowLocationImportance.Important;
+                    return ThreadFlowLocationImportance.Important;
             }
         }
     }

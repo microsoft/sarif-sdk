@@ -802,7 +802,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 rule = new RuleVersionOne
                 {
                     FullDescription = v2Rule.FullDescription?.Text,
-                    HelpUri = v2Rule.HelpLocation?.Uri,
+                    HelpUri = v2Rule.HelpUri,
                     Id = v2Rule.Id,
                     MessageFormats = v2Rule.MessageStrings,
                     Name = v2Rule.Name?.Text,
