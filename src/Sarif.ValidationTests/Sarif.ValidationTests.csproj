@@ -30,21 +30,14 @@
     <Reference Include="..\..\refs\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
-  <Target Name="CopyTestData" AfterTargets="Build">
-    <ItemGroup>
-      <v1ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v1\ConverterTestData\**\*.sarif" />
-      <v1DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v1\DirectProducerTestData\**\*.sarif" />
-      <v1SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\v1\SpecExamples\**\*.sarif" />
-      <v2ConverterTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v2\ConverterTestData\**\*.sarif" />
-      <v2DirectProducerTestData Include="$(SolutionDir)\Sarif.FunctionalTests\v2\DirectProducerTestData\**\*.sarif" />
-      <v2SpecExamples Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\**\*.sarif" />
-    </ItemGroup>
-    <Copy SourceFiles="@(v1ConverterTestData)" DestinationFolder="$(OutputPath)v1\ConverterTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v1DirectProducerTestData)" DestinationFolder="$(OutputPath)v1\DirectProducerTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v1SpecExamples)" DestinationFolder="$(OutputPath)v1\SpecExamples\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2ConverterTestData)" DestinationFolder="$(OutputPath)v2\ConverterTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2DirectProducerTestData)" DestinationFolder="$(OutputPath)v2\DirectProducerTestData\%(RecursiveDir)" />
-    <Copy SourceFiles="@(v2SpecExamples)" DestinationFolder="$(OutputPath)v2\SpecExamples\%(RecursiveDir)" />
-    <Copy SourceFiles="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" DestinationFolder="$(OutputPath)" />
-  </Target>
+  <ItemGroup>
+    <None Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(SolutionDir)\Sarif.FunctionalTests\v1\**\*.sarif"
+          CopyToOutputDirectory="PreserveNewest"
+          LinkBase="v1" />
+    <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\**\*.sarif"
+          CopyToOutputDirectory="PreserveNewest"
+          LinkBase="v2" />
+  </ItemGroup>
 </Project>

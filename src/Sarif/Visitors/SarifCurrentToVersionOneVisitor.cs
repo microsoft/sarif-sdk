@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -52,6 +53,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
                 };
+            }
+
+            return annotatedCodeLocation;
+        }
+
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(ThreadFlowLocation v2ThreadFlowLocation)
+        {
+            AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
+
+            if (v2ThreadFlowLocation != null)
+            {
+                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2ThreadFlowLocation.Location);
+                annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
+
+                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
+                annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
+                annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
+                annotatedCodeLocation.State = v2ThreadFlowLocation.State;
+                annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
             }
 
             return annotatedCodeLocation;
@@ -172,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2FileData.Contents != null)
                 {
-                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                    fileData.Contents = MimeType.IsTextualMimeType(v2FileData.MimeType) ?
                         SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                         v2FileData.Contents.Binary;
                 }
