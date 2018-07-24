@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -88,7 +89,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     for (int i = 0; i < annotatedCodeLocationList.Count - 1; i++)
                     {
-                        annotatedCodeLocationList[i].ThreadId = int.Parse(v2ThreadFlow.Id);
+                        int threadId;
+
+                        if (int.TryParse(v2ThreadFlow.Id, out threadId))
+                        {
+                            annotatedCodeLocationList[i].ThreadId = threadId;
+                        }
 
                         if (v2ThreadFlow.Locations[i].NestingLevel > v2ThreadFlow.Locations[i + 1].NestingLevel)
                         {
@@ -256,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2FileData.Contents != null)
                 {
-                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                    fileData.Contents = MimeType.IsTextualMimeType(v2FileData.MimeType) ?
                         SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                         v2FileData.Contents.Binary;
                 }
