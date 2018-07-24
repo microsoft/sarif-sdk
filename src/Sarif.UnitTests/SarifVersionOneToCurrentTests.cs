@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -75,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -113,6 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -168,6 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -220,6 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -289,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -383,6 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -521,6 +528,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -611,6 +619,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -748,6 +757,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -823,6 +833,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1043,6 +1054,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1294,6 +1306,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1622,18 +1635,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
-          ""message"": ""Variable \""ptr\"" declared."",
-          ""snippet"": ""add_core(ptr, offset, val);"",
+          ""message"": ""Variable \""str\"" declared."",
+          ""snippet"": ""string str = GetFoo();"",
           ""locations"": [
             {
               ""analysisTarget"": {
@@ -1645,11 +1658,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""length"": 27
+                  ""endColumn"": 23,
+                  ""length"": 22
                 }
               },
-              ""fullyQualifiedLogicalName"": ""collections::list::add"",
               ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
             }
           ],
@@ -1658,17 +1670,16 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""message"": ""Path from declaration to usage"",
               ""locations"": [
                 {
-                  ""kind"": ""declaration"",
+                  ""kind"": ""call"",
                   ""importance"": ""essential"",
-                  ""message"": ""Variable \""ptr\"" declared."",
-                  ""snippet"": ""int *ptr;"",
+                  ""message"": ""Variable \""str\"" declared."",
+                  ""snippet"": ""string str = GetFoo();"",
                   ""physicalLocation"": {
                     ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                     ""region"": {
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52,
                   ""taintKind"": ""sink"",
@@ -1712,25 +1723,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                   ],
                   ""step"": 1,
-                  ""kind"": ""assignment"",
-                  ""importance"": ""unimportant"",
-                  ""snippet"": ""offset = 0;"",
+                  ""message"": ""Method \""GetFoo\"" returns null."",
+                  ""kind"": ""callReturn"",
+                  ""importance"": ""important"",
+                  ""snippet"": ""return null;"",
                   ""physicalLocation"": {
                     ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                     ""region"": {
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 },
                 {
                   ""step"": 2,
-                  ""kind"": ""callReturn"",
+                  ""kind"": ""continuation"",
                   ""importance"": ""essential"",
-                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
-                  ""snippet"": ""add_core(ptr, offset, val)"",
+                  ""snippet"": ""int length = str.Length;"",
                   ""state"": {
                     ""Foo"": ""bar""
                   },
@@ -1741,7 +1751,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startLine"": 25
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 }
@@ -1761,20 +1770,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add"",
-          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-        }
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
           ""message"": {
-            ""text"": ""Variable \""ptr\"" declared.""
+            ""text"": ""Variable \""str\"" declared.""
           },
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
@@ -1789,14 +1791,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""byteLength"": 27,
+                  ""endColumn"": 23,
+                  ""byteLength"": 22,
                   ""snippet"": {
-                    ""text"": ""add_core(ptr, offset, val);""
+                    ""text"": ""string str = GetFoo();""
                   }
                 }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add""
+              }
             }
           ],
           ""codeFlows"": [
@@ -1817,13 +1818,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""int *ptr;""
+                              ""text"": ""string str = GetFoo();""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
-                          ""text"": ""Variable \""ptr\"" declared.""
+                          ""text"": ""Variable \""str\"" declared.""
                         }
                       },
                       ""module"": ""platform"",
@@ -1839,11 +1839,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""offset = 0;""
+                              ""text"": ""return null;""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""message"": {
+                          ""text"": ""Method \""GetFoo\"" returns null.""
+                        },
                         ""annotations"": [
                           {
                             ""startLine"": 40,
@@ -1860,7 +1862,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ]
                       },
                       ""module"": ""platform"",
-                      ""importance"": ""unimportant""
+                      ""nestingLevel"": 1
                     },
                     {
                       ""step"": 3,
@@ -1872,13 +1874,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 25,
                             ""snippet"": {
-                              ""text"": ""add_core(ptr, offset, val)""
+                              ""text"": ""int length = str.Length;""
                             }
                           }
-                        },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                        ""message"": {
-                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
                         }
                       },
                       ""module"": ""platform"",
@@ -1895,7 +1893,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""ptr\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Variable \""ptr\"" declared."",""kind"":""declaration"",""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":""essential"",""snippet"":""int *ptr;""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""kind"":""assignment"",""importance"":""unimportant"",""snippet"":""offset = 0;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",""kind"":""callReturn"",""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":""essential"",""snippet"":""add_core(ptr, offset, val)""}]}]}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""str\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":23,""length"":22}},""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""string str = GetFoo();"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Variable \""str\"" declared."",""kind"":""call"",""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":""essential"",""snippet"":""string str = GetFoo();""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Method \""GetFoo\"" returns null."",""kind"":""callReturn"",""snippet"":""return null;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""module"":""platform"",""threadId"":52,""kind"":""continuation"",""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":""essential"",""snippet"":""int length = str.Length;""}]}]}]}
       }
     }
   ]
