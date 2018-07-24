@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">Stream of the Fortify report.</param>
         /// <param name="output">Stream of SARIF json.</param>
-        /// <param name="dataToInsert">Logging options that configure output.</param>
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             if (input == null)
@@ -163,10 +163,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 PhysicalLocation source = ConvertFortifyLocationToPhysicalLocation(fortify.Source);
 
-                var locations = new List<CodeFlowLocation>()
+                var locations = new List<ThreadFlowLocation>()
                 {
-                    new CodeFlowLocation { Location = new Location { PhysicalLocation = source } },
-                    new CodeFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
+                    new ThreadFlowLocation { Location = new Location { PhysicalLocation = source } },
+                    new ThreadFlowLocation { Location = new Location { PhysicalLocation = primaryOrSink } }
                 };
                 result.CodeFlows = new List<CodeFlow>()
                 {

@@ -20,17 +20,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Id = "id";
         public const string Importance = "importance";
         public const string Invocation = "invocation";
+        public const string Invocations = "invocations";
+        public const string Location = "location";
         public const string Locations = "locations";
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string PhysicalLocation = "physicalLocation";
         public const string Region = "region";
         public const string RelatedLocations = "relatedLocations";
+        public const string Resources = "resources";
         public const string Results = "results";
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Stacks = "stacks";
         public const string Step = "step";
+        public const string ThreadFlows = "threadFlows";
         public const string ToolNotifications = "toolNotifications";
         public const string Uri = "uri";
     }

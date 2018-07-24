@@ -27,7 +27,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                     Name = rule.Name?.Text,
                     Category = rule.GetCategory(),
                     Description = rule.FullDescription?.Text,
-                    HelpUri = rule.HelpLocation?.Uri.AbsoluteUri
+                    HelpUri = rule.HelpUri?.AbsoluteUri
                 };
             }
 

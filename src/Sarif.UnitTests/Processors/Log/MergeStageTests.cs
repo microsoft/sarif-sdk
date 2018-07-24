@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             SarifLog processed = Merge.Fold(new List<SarifLog>() { log });
 
-            processed.ShouldBeEquivalentTo(log);
+            processed.Should().BeEquivalentTo(log);
         }
 
         [Theory]

@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project>
+<!--
+This file defines properties that are needed in all project files, regardless of
+whether they use the VS 2017 project system or the old project system.
+ -->
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Prefer32Bit>false</Prefer32Bit>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(Platform)_$(Configuration)\</OutputPath>
-    <PublishDir>$(MsBuildThisFileDirectory)..\bld\bin\$(Platform)_$(Configuration)\Publish\$(TargetFramework)\</PublishDir>
-    <FileAlignment>512</FileAlignment>
-    <RestorePackages>true</RestorePackages>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build">
+    <OutputSubDir>$(Platform)_$(Configuration)</OutputSubDir>
+    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(OutputSubDir)\</IntermediateOutputPath>
+    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
+    <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup>
-    <!-- Full signing does not yet work on Linux.  Turn it off -->
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <!-- Configuration specific properties -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' " Label="Debug build">
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' " Label="Release build">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+  <PropertyGroup Condition="'$(Platform)' == 'x86'" Label="x86 build">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+  <PropertyGroup Condition="'$(Platform)' == 'x64'" Label="x64 build">
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <!-- Default configurations to help VS understand -->
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+
+  <PropertyGroup Label="Signing">
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>$(MsBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
   </ItemGroup>
+
+  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
+    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\scripts\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
+    </ItemGroup>
+  </Target>
 </Project>

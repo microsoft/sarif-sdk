@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using Moq;
 using Xunit;
@@ -160,10 +159,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var mockWriter = new Mock<IResultLogWriter>();
 
             Action action = () => converter.Convert(null, mockWriter.Object, OptionallyEmittedData.None);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
 
             action = () => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -196,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new TSLintConverter();
 
             Action action = () => converter.CreateResult(null);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

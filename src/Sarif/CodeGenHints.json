@@ -1,5 +1,5 @@
 {
-  "codeFlowLocation": [
+  "threadFlowLocation": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -9,12 +9,12 @@
       }
     }
   ],
-  "CodeFlowLocation.Importance": [
+  "ThreadFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "CodeFlowLocationImportance",
-        "description": "Values specifying the importance of an \"codeFlowLocation\" within the \"codeFlow\" in which it occurs"
+        "typeName": "ThreadFlowLocationImportance",
+        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],
@@ -342,6 +342,20 @@
       "arguments": {
         "baseTypeNames": [
           "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Run.ColumnKind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ColumnKind",
+        "description": "A value that specifies the unit in which the tool measures columns.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "utf16CodeUnits",
+          "unicodeCodePoints"
         ]
       }
     }

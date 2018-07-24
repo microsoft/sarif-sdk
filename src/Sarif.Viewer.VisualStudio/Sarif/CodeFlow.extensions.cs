@@ -10,25 +10,25 @@ namespace Microsoft.Sarif.Viewer.Sarif
 {
     static class CodeFlowExtensions
     {
-        public static CodeFlowLocationCollection ToCodeFlowLocationCollection (this CodeFlow codeFlow)
+        public static ThreadFlowLocationCollection ToThreadFlowLocationCollection (this CodeFlow codeFlow)
         {
             if (codeFlow == null)
             {
                 return null;
             }
 
-            var model = new CodeFlowLocationCollection(codeFlow.Message.Text);
+            var model = new ThreadFlowLocationCollection(codeFlow.Message.Text);
 
             if (codeFlow.ThreadFlows?[0]?.Locations != null)
             {
-                foreach (CodeFlowLocation location in codeFlow.ThreadFlows[0].Locations)
+                foreach (ThreadFlowLocation location in codeFlow.ThreadFlows[0].Locations)
                 {
                     // TODO we are not yet properly hardened against locationless
                     // code locations (and what this means is also in flux as
                     // far as SARIF producers). For now we skip these.
                     if (location.Location?.PhysicalLocation == null) { continue; }
 
-                    model.Add(location.ToCodeFlowLocationModel());
+                    model.Add(location.ToThreadFlowLocationModel());
                 }
             }
 

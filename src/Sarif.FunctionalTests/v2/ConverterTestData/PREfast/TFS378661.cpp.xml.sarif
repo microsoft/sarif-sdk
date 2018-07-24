@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQovLyBkZWNsYXJhdGlvbiBrZXlldmVudCBmb3IgNjM4NS82DQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0Kdm9pZCBXcml0ZXNBcnJheSgNCglfT3V0X3dyaXRlc18oNSkgbG9uZyAqIHNlcQ0KCSkNCnsNCglzZXFbNV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheVJhbmdlKA0KCV9PdXRfd3JpdGVzXyhzaXplKSBsb25nICogc2VxLA0KCV9Jbl9yYW5nZV8oNCw0KSBpbnQgc2l6ZSkNCnsNCglzZXFbc2l6ZV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUxvb3AoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaW50IGk7DQoJZm9yIChpPTA7IGk8IHNpemU7IGkrKykNCgl7DQoJCXNlcVtpXSA9IDQ0Ow0KCX0NCglzZXFbaV0gPSA0NDsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUNvbXBhcmUoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaWYgKHNpemUgPT0gNCkNCgl7DQoJCXNlcVswXSA9IDQ0Ow0KCX0NCglzZXFbc2l6ZV0gPSA0NDsNCn0NCg0KDQo="
-          },
-          "hashes": [
-            {
-              "value": "54BD421DB50956469A9AF8A92F3EF864",
-              "algorithm": "md5"
-            },
-            {
-              "value": "21D82C6D39C90C8A13EC0130EF50433F02D83E0A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "2A83E3B138696BC725541A38417AB0B80D02C21FB272174806A7420CFEB34EAA",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -57,7 +40,10 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\tseq[5] = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "WritesArray",
@@ -80,7 +66,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "void WritesArray("
+                            }
                           }
                         }
                       },
@@ -98,7 +87,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\tseq[5] = 42;"
+                            }
                           }
                         }
                       },
@@ -131,7 +123,10 @@
                 },
                 "region": {
                   "startLine": 17,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "\tseq[size] = 42;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayRange",
@@ -154,7 +149,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 22
+                            "startColumn": 22,
+                            "snippet": {
+                              "text": "void WritesArrayRange("
+                            }
                           }
                         }
                       },
@@ -172,7 +170,10 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "\tseq[size] = 42;"
+                            }
                           }
                         }
                       },
@@ -205,7 +206,10 @@
                 },
                 "region": {
                   "startLine": 29,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "\tseq[i] = 44;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayLoop",
@@ -228,7 +232,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 21
+                            "startColumn": 21,
+                            "snippet": {
+                              "text": "void WritesArrayLoop("
+                            }
                           }
                         }
                       },
@@ -246,7 +253,10 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i;"
+                            }
                           }
                         }
                       },
@@ -261,7 +271,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tfor (i=0; i< size; i++)"
+                            }
                           }
                         }
                       },
@@ -276,7 +289,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "\tfor (i=0; i< size; i++)"
+                            }
                           }
                         }
                       },
@@ -293,7 +309,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t\tseq[i] = 44;"
+                            }
                           }
                         }
                       },
@@ -308,7 +327,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 22
+                            "startColumn": 22,
+                            "snippet": {
+                              "text": "\tfor (i=0; i< size; i++)"
+                            }
                           }
                         }
                       },
@@ -326,7 +348,10 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "\tfor (i=0; i< size; i++)"
+                            }
                           }
                         }
                       },
@@ -343,7 +368,10 @@
                           },
                           "region": {
                             "startLine": 29,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\tseq[i] = 44;"
+                            }
                           }
                         }
                       },
@@ -376,7 +404,10 @@
                 },
                 "region": {
                   "startLine": 40,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "\tseq[size] = 44;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "WritesArrayCompare",
@@ -399,7 +430,10 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "void WritesArrayCompare("
+                            }
                           }
                         }
                       },
@@ -417,7 +451,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\tif (size == 4)"
+                            }
                           }
                         }
                       },
@@ -434,7 +471,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t\tseq[0] = 44;"
+                            }
                           }
                         }
                       },
@@ -449,7 +489,10 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "\tseq[size] = 44;"
+                            }
                           }
                         }
                       },

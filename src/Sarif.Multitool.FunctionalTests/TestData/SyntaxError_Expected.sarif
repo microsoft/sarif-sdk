@@ -1,81 +1,91 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "b7cd6b83-2433-4b4e-80c4-d04cc65de2dd",
       "tool": {
-        "name": "Sarif",
-        "fullName": "Sarif 1.5.31.0",
-        "version": "1.5.31.0",
-        "semanticVersion": "1.5.31",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "testhost",
+        "fullName": "testhost 15.0.0.0",
+        "version": "15.0.0.0",
+        "semanticVersion": "15.0.0",
+        "fileVersion": "15.0.0",
+        "sarifLoggerVersion": "0.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
-          "CompanyName": "Microsoft Corporation",
-          "ProductName": "Microsoft SARIF SDK"
+          "ProductName": "Microsoft.TestHost"
         }
       },
       "results": [
         {
-          "ruleId": "JS0001",
+          "ruleId": "JSON0001",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "default",
+          "message": {
             "arguments": [
               "$schema",
-              "Invalid property identifier character: ,. Path '$schema', line 3, position 3."
+              "Invalid property identifier character: ,. Path '$schema', line 3, position 2."
             ]
           },
+          "ruleMessageId": "default",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Debug/TestData/SyntaxError.sarif",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/SyntaxError.sarif"
+                },
                 "region": {
                   "startLine": 3,
-                  "startColumn": 3
+                  "startColumn": 2
                 }
               }
             }
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Debug/TestData/SyntaxError.sarif"
-          },
-          "message": "Analyzing 'SyntaxError.sarif'...",
-          "level": "note",
-          "time": "2016-08-27T13:42:14.981Z"
-        }
-      ],
-      "rules": {
-        "JS0001": {
-          "id": "JS0001",
-          "name": "SyntaxError",
-          "fullDescription": "The schema is not a valid JSON document.",
-          "messageFormats": {
-            "default": "{0}: JSON syntax error: {1}"
-          },
-          "defaultLevel": "error"
+      "resources": {
+        "rules": {
+          "JSON0001": {
+            "id": "JSON0001",
+            "name": {
+              "text": "SyntaxError"
+            },
+            "fullDescription": {
+              "text": "The schema is not a valid JSON document."
+            },
+            "messageStrings": {
+              "default": "at \"{0}\": JSON syntax error: {1}"
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          }
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Debug/TestData/SyntaxError.sarif": {
-          "mimeType": "application/octet-stream"
+        "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/SyntaxError.sarif": {
+          "mimeType": "application/sarif-json"
         }
       },
-      "invocation": {
-        "commandLine": "\"C:\\PROGRAM FILES (X86)\\MICROSOFT VISUAL STUDIO 14.0\\COMMON7\\IDE\\COMMONEXTENSIONS\\MICROSOFT\\TESTWINDOW\\vstest.executionengine.x86.exe\" /parentProcessId 13468 ",
-        "startTime": "2016-08-27T13:42:14.503Z",
-        "endTime": "2016-08-27T13:42:15.495Z",
-        "processId": 13476,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\25c745bf-a38e-4299-bc25-51a57f4bb617\\25c745bf-a38e-4299-bc25-51a57f4bb617\\assembly\\dl3\\54e8f1c0\\00b7775a_e6e9d101\\Sarif.dll",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Debug"
-      }
+      "invocations": [
+        {
+          "startTime": "2018-06-24T19:20:52.625Z",
+          "endTime": "2018-06-24T19:20:53.338Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/SyntaxError.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'SyntaxError.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-06-24T19:20:52.812Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

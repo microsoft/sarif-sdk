@@ -5,7 +5,6 @@ using System;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -22,8 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     return 1;
                 }
 
-                OptionallyEmittedData dataToInsert = OptionallyEmittedData.None;
-                Array.ForEach(transformOptions.DataToInsert, data => dataToInsert |= data);
+                OptionallyEmittedData dataToInsert = transformOptions.DataToInsert.ToFlags();
 
                 // NOTE: we don't actually utilize the dataToInsert command-line data yet...
 

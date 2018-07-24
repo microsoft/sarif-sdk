@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgRGVyZWZlcmVuY2VQYXJhbWV0ZXIoX0luX29wdF8gaW50ICogc291cmNlLCBib29sIGZsYWcpDQp7DQogICAgaWYgKGZsYWcpDQogICAgICAgIGludCByZXN1bHQgPSAqc291cmNlOw0KfQ0KDQo="
-          },
-          "hashes": [
-            {
-              "value": "A8ED0980C0DB55DE647A9CCCC96D0781",
-              "algorithm": "md5"
-            },
-            {
-              "value": "C1E75E1A1820C49A1942B53F76B6811CD879A422",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "0B234444A2C38E3924F54080EBC787626184CEBFAFBA17CADB68AF70F4429584",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "        int result = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DereferenceParameter",
@@ -71,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "void DereferenceParameter(_In_opt_ int * source, bool flag)"
+                            }
                           }
                         }
                       },
@@ -89,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    if (flag)"
+                            }
                           }
                         }
                       },
@@ -106,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "        int result = *source;"
+                            }
                           }
                         }
                       },

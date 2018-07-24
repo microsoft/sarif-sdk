@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A network of nodes and directed edges that describes some aspect of the structure of the code (for example, a call graph).
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Graph : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Graph> ValueComparer => GraphEqualityComparer.Instance;

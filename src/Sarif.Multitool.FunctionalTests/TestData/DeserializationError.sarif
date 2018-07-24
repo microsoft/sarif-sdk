@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
       "tool": {
@@ -8,31 +8,12 @@
       },
       "results": [
         {
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///c:/src/file.c"
-              }
-            }
-          ],
           "stacks": [
             {
-              "frames": [
-                {
-                  "uri": "file:///c:/src/file.c",
-                  "line": 42
-                }
-              ]
             }
           ]
         }
-      ],
-      "rules": {
-        "TST0001": {
-          "id": "TST0001",
-          "helpUri": "http://www.example.com/rules/tst0001.html"
-        }
-      }
+      ]
     }
   ]
 }
