@@ -27,6 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         // useful in order to undersand or validate an analysis result.
         BinaryFiles = 0x4,
 
+        // Some region properties for text regions do not need to be explicitly expressed. A 
+        // region.StartLine value on its own, for example, includes all the remaining text on
+        // that line, excluding new line characters, if no other properties are present. In
+        // addition to the stard/end property pairs, the CharOffset and CharLength properties
+        // can be used to specify a text region. This enum value either comprehensively 
+        // populates all possible region properties or reduces all regions to a minimal form.
+        Regions,
+
         // The text snippet, if one exists, that is associated with a static analysis result.
         CodeSnippets = 0x8,
 

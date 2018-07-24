@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -14,7 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         internal IFileSystem _fileSystem;
 
-        private Run _run;
+        private readonly Run _run;
+        private readonly Dictionary<string, NewLineIndex> _filePathToNewLineIndexMap;
 
         public FileRegionsCache(Run run)
         {
@@ -24,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _run = run;
 
             _fileSystem = new FileSystem();
+            _filePathToNewLineIndexMap = new Dictionary<string, NewLineIndex>(StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -36,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">The physical location containing the region which should be populated.</param>
         /// <param name="populateSnippet">Specifies whether the physicalLocation.region.snippet property should be populated.</param>
         /// <returns></returns>
-        public Region PopulatePrimaryRegionProperties(PhysicalLocation physicalLocation, bool populateSnippet)
+        public Region PopulateTextRegionProperties(PhysicalLocation physicalLocation, bool populateSnippet)
         {
             Region inputRegion = physicalLocation.Region;
 
@@ -47,24 +51,213 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return inputRegion;
             }
 
-            string fileText = GetFileText(physicalLocation.FileLocation);
-            return PopulatePrimaryRegionProperties(fileText, inputRegion, populateSnippet);
+            NewLineIndex newLineIndex = GetNewLineIndex(physicalLocation.FileLocation, out string fileText);
+            return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
         }
 
-        private Region PopulatePrimaryRegionProperties(string fileText, Region inputRegion, bool populateSnippet)
+        private Region PopulateTextRegionProperties(NewLineIndex lineIndex, Region inputRegion, string fileText, bool populateSnippet)
         {
-            if (fileText == null) { return inputRegion; }
+            // A GENERAL NOTE ON THE PROPERTY POPULATION PROCESS:
+            // 
+            // As a rule, if we find some existing data on the region, we will trust it 
+            // and avoid overwriting it. We will take every opportunity, however, to 
+            // validate that the existing information matches what the new line index
+            // computes. Note that we could consider making the new line index more
+            // efficient by deferring its newline computations until they are 
+            // actually requested. If we do so, we could update this code to 
+            // avoid verifying region data in cases where regions are fully 
+            // populated (and we can skip file parsing required to build
+            // the map of new line offsets).
+            Debug.Assert(!inputRegion.IsBinaryRegion);
 
-            Region result = new Region() { StartLine = 1, EndLine = 1, StartColumn = 1, EndColumn = 5, CharOffset = 0, CharLength = 5 };
+            // If we have no input source file, there is no work to do
+            if (lineIndex == null) { return inputRegion; }
 
-            if (populateSnippet) { result.Snippet = new FileContent() { Text = "line1" }; }
+            Region region = inputRegion.DeepClone();
 
-            return result;
+            if (region.StartLine == 0)
+            {
+                // This means we have a region specified entirely via charOffset
+                PopulatePropertiesFromCharOffsetAndLength(lineIndex, region, fileText);
+            }
+            else
+            {
+                PopulatePropertiesFromStartAndEndProperties(lineIndex, region, fileText); 
+            }
+
+            if (populateSnippet)
+            {
+                region.Snippet = region.Snippet ?? new FileContent();
+
+                string snippetText = fileText.Substring(region.CharOffset, region.CharLength);
+                if (region.Snippet.Text == null)
+                {
+                    region.Snippet.Text = snippetText;
+                }
+                Debug.Assert(region.Snippet.Text == snippetText);
+            }
+
+            return region;
         }
 
-        private string GetFileText(FileLocation fileLocation)
+        private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, string fileText)
         {
-            return _fileSystem.ReadAllText(fileLocation.Uri.LocalPath);
+            Debug.Assert(!region.IsBinaryRegion);
+            Debug.Assert(region.StartLine == 0);
+            Debug.Assert(region.CharLength > 0 || region.CharOffset > 0);
+
+            int startLine, startColumn, endLine, endColumn;
+
+            // Retrieve start and end line and column information from the new line index
+            OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.CharOffset);
+            startLine = offsetInfo.LineNumber;
+            startColumn = offsetInfo.ColumnNumber;
+
+            offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.CharOffset + region.CharLength);
+            endLine = offsetInfo.LineNumber;
+
+            // The computation above points one past our actual region, because endColumn
+            // is exclusive of the region. This allows for length to easily be computed
+            // for single line regions: region.EndColumn - region.StartColumn
+            endColumn = offsetInfo.ColumnNumber;
+
+            // Only set values if they aren't already specified
+            if (region.StartLine == 0) { region.StartLine = startLine; }
+            if (region.StartColumn == 0) { region.StartColumn = startColumn; }
+            if (region.EndLine == 0) { region.EndLine = endLine; }
+            if (region.EndColumn == 0) { region.EndColumn = endColumn; }
+
+            // Validate cases where new line index disagrees with explicit values
+            Debug.Assert(region.StartLine == startLine);
+            Debug.Assert(region.StartColumn == startColumn);
+            Debug.Assert(region.EndLine == endLine);
+            Debug.Assert(region.EndColumn == endColumn);
+        }
+
+        private void PopulatePropertiesFromStartAndEndProperties(NewLineIndex lineIndex, Region region, string fileText)
+        {
+            Debug.Assert(region.StartLine > 0);
+
+            // Note: execution order of these helpers is important, as some 
+            // calls assume that certain preceding helpers have executed,
+            // with the result that certain properties are populated
+
+            // Populated at this point: StartLine
+            PopulateEndLine(lineIndex, region);
+
+            // Populated at this point: StartLine, EndLine
+            PopulateStartColumn(region);
+
+            // Populated at this point: StartLine, EndLine, StartColumn
+            PopulateEndColumn(lineIndex, region, fileText);
+
+            // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
+            PopulateCharOffset(lineIndex, region, fileText);           
+
+            // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
+            PopulateCharLength(lineIndex, region);
+
+            // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset, CharLength
+            Debug.Assert(region.StartLine > 0);
+            Debug.Assert(region.EndLine > 0);
+            Debug.Assert((region.CharOffset + region.CharLength) <= fileText.Length);
+            Debug.Assert(region.StartColumn > 0);
+            Debug.Assert(region.CharLength > 0 || (region.StartColumn == region.EndColumn && region.StartLine == region.EndLine));
+            Debug.Assert(region.EndColumn > 0);
+        }
+
+        private static void PopulateEndLine(NewLineIndex lineIndex, Region region)
+        {
+            // Populated at this point: StartLine
+            Debug.Assert(region.StartLine > 0);
+
+            region.EndLine = region.EndLine == 0 ? region.StartLine : region.EndLine;
+        }
+
+        private static void PopulateStartColumn(Region region)
+        {
+            // Populated at this point: StartLine, EndLine
+            Debug.Assert(region.StartLine > 0);
+            Debug.Assert(region.EndLine > 0);
+
+            region.StartColumn = region.StartColumn == 0 ? 1 : region.StartColumn;
+        }
+
+
+        private void PopulateEndColumn(NewLineIndex lineIndex, Region region, string fileText)
+        {
+            // Populated at this point: StartLine, EndLine, StartColumn
+            Debug.Assert(region.StartLine > 0);
+            Debug.Assert(region.StartColumn > 0);
+            Debug.Assert(region.EndLine > 0);
+
+            if (region.EndColumn == 0)
+            {
+                // No explicit end column. Increment from end line through
+                // the end of the line, excluding new line characters
+                LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
+                int endColumnOffset = lineInfo.StartOffset;
+
+                while (endColumnOffset < fileText.Length &&
+                       !NewLineIndex.s_newLineCharSet.Contains(fileText[endColumnOffset]))
+                {
+                    endColumnOffset++;
+                }
+
+                // End columns are 1-indexed
+                region.EndColumn = endColumnOffset - lineInfo.StartOffset + 1;
+            }
+        }
+
+        private static void PopulateCharOffset(NewLineIndex lineIndex, Region region, string fileText)
+        {
+            // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
+            Debug.Assert(region.StartLine > 0);
+            Debug.Assert(region.EndLine > 0);
+            Debug.Assert(region.StartColumn > 0);
+            Debug.Assert(region.EndColumn > 0);
+
+            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.StartLine);
+
+            // Now we have the offset of the starting line. Populate region.CharOffset.
+            int offset = lineInfo.StartOffset;
+            offset += region.StartColumn - 1;
+
+            if (region.CharOffset == 0)
+            {
+                region.CharOffset = offset;
+            }
+            Debug.Assert(region.CharOffset == offset);
+        }
+
+        private void PopulateCharLength(NewLineIndex lineIndex, Region region)
+        {
+            // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
+            Debug.Assert(region.StartLine > 0);
+            Debug.Assert(region.EndLine > 0);
+            Debug.Assert(region.StartColumn > 0);
+            Debug.Assert(region.EndColumn > 0);
+            Debug.Assert(region.CharOffset > 0 || (region.StartLine == 1 && region.StartColumn == 1));
+
+            LineInfo lineInfo = lineIndex.GetLineInfoForLine(region.EndLine);
+            int charLength = lineInfo.StartOffset;
+            charLength -= region.CharOffset;
+            charLength += region.EndColumn - 1;
+
+            if (region.CharLength == 0)
+            {
+                region.CharLength = charLength;
+            }
+            Debug.Assert(region.CharLength == charLength);
+        }
+
+        private NewLineIndex GetNewLineIndex(FileLocation fileLocation, out string fileText)
+        {
+            // We will expand this code later to construct all possible URLs from
+            // the log file, bearing in mind things like uriBaseIds. Also, we could
+            // consider downloading and caching web-hosted source files.
+            fileText = _fileSystem.ReadAllText(fileLocation.Uri.LocalPath);
+            return fileText != null ? new NewLineIndex(fileText) : null;
         }
     }
 }

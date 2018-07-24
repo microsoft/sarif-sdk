@@ -9,6 +9,17 @@
     <Description>Object model and utilities for reading and writing files in the SARIF format</Description>
   </PropertyGroup>
 
+  <PropertyGroup Label="Packaging">
+    <!--
+    Without this property setting, the id of the NuGet package would match the
+    assembly name, "Sarif".
+    -->
+    <PackageId>Sarif.Sdk</PackageId>
+
+    <!-- Place content files at the root of the package. -->
+    <ContentTargetFolders>.</ContentTargetFolders>
+  </PropertyGroup>
+
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
@@ -20,6 +31,17 @@
     <Reference Condition="'$(TargetFramework)' == 'net461'" Include="System.Web" />
   </ItemGroup>
 
+  <ItemGroup Label="Packaging">
+    <!--
+    Marking these items as content causes them to be included in the NuGet package.
+    -->
+    <Content Include="Schemata\Sarif.schema.json" />
+
+    <!-- Link=false: Don't display this item in Solution Explorer. -->
+    <Content Include="..\ReleaseHistory.md"
+             Link="false" />
+  </ItemGroup>
+
   <ItemGroup>
     <JsonSchemaFile Include="Schemata\Sarif.schema.json">
       <Namespace>$(RootNamespace)</Namespace>
@@ -28,7 +50,7 @@
       <HintsFilePath>CodeGenHints.json</HintsFilePath>
     </JsonSchemaFile>
   </ItemGroup>
-  
+
   <ItemGroup>
     <EmbeddedResource Update="SdkResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
