@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     // Rewrite the filedata's URI
                     baseUri = _currentUriMappings[newNode.FileLocation.UriBaseId];
-                    newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);                    
+                    newNode.FileLocation.Uri = CombineUris(baseUri, newNode.FileLocation.Uri);
 
                     Uri parentUri;
                     // If the parent uri is relative, we should rewrite it as well.

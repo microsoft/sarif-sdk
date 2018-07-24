@@ -19,7 +19,7 @@
       },
       "results": [
         {
-          "ruleId": "SARIF008",
+          "ruleId": "SARIF10008",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -41,7 +41,7 @@
           ]
         },
         {
-          "ruleId": "SARIF008",
+          "ruleId": "SARIF10008",
           "level": "warning",
           "formattedRuleMessage": {
             "formatId": "Default",
@@ -75,8 +75,8 @@
         }
       ],
       "rules": {
-        "SARIF008": {
-          "id": "SARIF008",
+        "SARIF10008": {
+          "id": "SARIF10008",
           "name": "MessagesShouldEndWithPeriod",
           "shortDescription": "Messages should consist of one or more complete sentences, ending with a period.",
           "fullDescription": "Messages should consist of one or more complete sentences, ending with a period.",

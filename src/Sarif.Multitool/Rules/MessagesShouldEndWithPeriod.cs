@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessagesShouldEndWithPeriod : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF008_MessagesShouldEndWithPeriod;
+        public override string FullDescription => RuleResources.SARIF1008_MessagesShouldEndWithPeriod;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
         /// <summary>
-        /// SARIF008
+        /// SARIF1008
         /// </summary>
         public override string Id => RuleId.MessagesShouldEndWithPeriod;
 
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SARIF008_Default)
+                    nameof(RuleResources.SARIF1008_Default)
                 };
             }
         }
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                         LogResult(
                             messagePointer,
-                            nameof(RuleResources.SARIF008_Default),
+                            nameof(RuleResources.SARIF1008_Default),
                             messageFormat);
                     }
                 }
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     messagePointer,
-                    nameof(RuleResources.SARIF008_Default),
+                    nameof(RuleResources.SARIF1008_Default),
                     message);
             }
         }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Microsoft.Json.Schema;
-using Microsoft.Json.Schema.Sarif;
 using Microsoft.Json.Schema.Validation;
 using Xunit;
 

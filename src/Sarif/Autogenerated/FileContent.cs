@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents content from an external file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class FileContent : ISarifNode
     {
         public static IEqualityComparer<FileContent> ValueComparer => FileContentEqualityComparer.Instance;

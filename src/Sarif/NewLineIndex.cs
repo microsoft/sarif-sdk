@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
@@ -19,12 +20,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         // which is the line in the file at index n.
         private readonly ImmutableArray<int> _lineOffsetStarts;
 
+        private int _fileLength;
+
+        internal static char[] s_newLineChars = 
+        {
+            '\n',
+            '\r',
+            '\u2028', // Unicode line separate
+            '\u2029'  // Unicode paragraph separator
+        };
+
+        internal static ImmutableHashSet<char> s_newLineCharSet = ImmutableHashSet.Create(s_newLineChars);
+
         /// <summary>Initializes a new instance of the <see cref="NewLineIndex"/> class indexing the
         /// specified string.</summary>
         /// <param name="textToIndex">The text to add to this <see cref="NewLineIndex"/>.</param>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public NewLineIndex(string textToIndex)
         {
+            _fileLength = textToIndex.Length;
+
             ImmutableArray<int>.Builder result = ImmutableArray.CreateBuilder<int>();
             result.Add(0);
 
@@ -35,16 +50,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // Detect \r, \n, \u2028, \u2029, but NOT \r\n
                 // (\r\n gets taken care of on the following loop
                 // iteration and is detected as \n there)
-                if (c == '\n' ||
-                    (c == '\r' && (charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n')) ||
-                    c == '\u2028' ||     // Unicode line separator
-                    c == '\u2029'        // Unicode paragraph separator
-                    )
+                if (s_newLineCharSet.Contains(c))
                 {
-                    result.Add(charCount + 1);
+                    if (c != '\r' || (charCount + 1 >= indexLength || textToIndex[charCount + 1] != '\n'))
+                    {
+                        result.Add(charCount + 1);
+                    }
                 }
             }
-
             _lineOffsetStarts = result.ToImmutable();
         }
 
@@ -56,9 +69,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns>A <see cref="LineInfo"/> for <paramref name="lineNumber"/>.</returns>
         public LineInfo GetLineInfoForLine(int lineNumber)
         {
-            if (lineNumber <= 0 || lineNumber > this.MaximumLineNumber)
+            if (lineNumber <= 0 || lineNumber > (this.MaximumLineNumber + 1))
             {
                 throw new ArgumentOutOfRangeException(nameof(lineNumber), lineNumber, SdkResources.LineNumberWasOutOfRange);
+            }
+
+            if (lineNumber == this.MaximumLineNumber + 1)
+            {
+                return new LineInfo(_fileLength, lineNumber);
             }
 
             return new LineInfo(_lineOffsetStarts[lineNumber - 1], lineNumber);

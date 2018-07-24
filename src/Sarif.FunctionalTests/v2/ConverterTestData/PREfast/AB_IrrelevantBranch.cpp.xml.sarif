@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gTWFrZSBhIGJyYW5jaCBpcnJlbGV2YW50IGlmIGFuIGVycm9yIG9jY3VycyBvbiBib3RoIHNpZGVzDQoNCmludCBJcnJlbGV2YW50QnJhbmNoXzYwMTEoYm9vbCBmbGFnLCBpbnQgaW5wdXQpDQp7DQoJaW50ICpzb3VyY2UxID0gMCwgKnNvdXJjZTIgPSAwOw0KDQoJaWYgKGZsYWcpIHsNCgkJc291cmNlMiA9ICZpbnB1dDsNCgl9DQoNCglpbnQgKnRhcmdldCA9IHNvdXJjZTE7DQoJcmV0dXJuICp0YXJnZXQ7DQp9DQoNCi8vIFRoaXMgc2hvdWxkIHdvcmsgZXZlbiBpZiB0aGVyZSBhcmUgbXVsdGlwbGUgZGVmZWN0cyANCi8vIGludGVyYWN0aW5nIHdpdGggdGhlIGJyYW5jaA0KDQp2b2lkIEM2Mzg1X01heWJlUmVsZXZhbnRCcmFuY2goaW50IGZsYWcpDQp7DQoJaW50IGRhdGFbMTBdOw0KCWludCBpbmRleCA9IDEwOw0KDQoJaWYgKGZsYWc8MTApIHsNCgkJaW5kZXggPSA5Ow0KCX0NCg0KCWludCBrID0gZGF0YVtpbmRleF07DQp9DQoNCg=="
-          },
-          "hashes": [
-            {
-              "value": "0379CDBC52A47CB11D09CF414DF56BD9",
-              "algorithm": "md5"
-            },
-            {
-              "value": "7E24379672A36D18E7FE6B823C2E5F843DE07C91",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "42B5EBC75430B14892B08E1F8F4CA0BB2AC34185317092AD0301C7CA7BFE9A90",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -51,7 +34,10 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn *target;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "IrrelevantBranch_6011",
@@ -74,7 +60,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint *source1 = 0, *source2 = 0;"
+                            }
                           }
                         }
                       },
@@ -92,7 +81,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "\tint *source1 = 0, *source2 = 0;"
+                            }
                           }
                         }
                       },
@@ -107,7 +99,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tif (flag) {"
+                            }
                           }
                         }
                       },
@@ -122,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint *target = source1;"
+                            }
                           }
                         }
                       },
@@ -140,7 +138,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn *target;"
+                            }
                           }
                         }
                       },
@@ -173,7 +174,10 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -196,7 +200,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -214,7 +221,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 10;"
+                            }
                           }
                         }
                       },
@@ -229,7 +239,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tif (flag<10) {"
+                            }
                           }
                         }
                       },
@@ -244,7 +257,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[index];"
+                            }
                           }
                         }
                       },
@@ -277,7 +293,10 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -300,7 +319,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -318,7 +340,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 10;"
+                            }
                           }
                         }
                       },
@@ -336,7 +361,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tif (flag<10) {"
+                            }
                           }
                         }
                       },
@@ -353,7 +381,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[index];"
+                            }
                           }
                         }
                       },

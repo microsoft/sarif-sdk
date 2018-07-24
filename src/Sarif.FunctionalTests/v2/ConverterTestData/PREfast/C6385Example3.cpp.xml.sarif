@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNjAwMSkNCnZvaWQgQzYzODVfRXhhbXBsZTMoaW50IGkpDQp7DQogICBpbnQgYVsyMF07CQkJCQ0KICAgaW50IGo7DQogICBpPTIwOw0KICAgaWYgKGkgPj0gMCAmJiBpIDw9IDIwKQkNCiAgIHsNCiAgICAgIGogPSBhW2ldOwkJCQ0KICAgfQ0KfQ=="
-          },
-          "hashes": [
-            {
-              "value": "EC30593DBB0AB90E29A7192B42827809",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D84E884B47A2E70BBEA6EAEEF66155FC69962717",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "AF27061B4CD09169818AB0A409ECBC155ECB8831DD72F870098CF07187EF57A7",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "      j = a[i];\t\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_Example3",
@@ -71,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int a[20];\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -89,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int j;"
+                            }
                           }
                         }
                       },
@@ -104,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "   i=20;"
+                            }
                           }
                         }
                       },
@@ -122,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 15
+                            "startColumn": 15,
+                            "snippet": {
+                              "text": "   if (i >= 0 && i <= 20)\t"
+                            }
                           }
                         }
                       },
@@ -139,7 +137,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "      j = a[i];\t\t\t"
+                            }
                           }
                         }
                       },

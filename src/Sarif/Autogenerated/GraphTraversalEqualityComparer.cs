@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type GraphTraversal for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class GraphTraversalEqualityComparer : IEqualityComparer<GraphTraversal>
     {
         internal static readonly GraphTraversalEqualityComparer Instance = new GraphTraversalEqualityComparer();
@@ -24,11 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
-            }
-
-            if (left.Id != right.Id)
             {
                 return false;
             }
@@ -104,11 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Id != null)
-                {
-                    result = (result * 31) + obj.Id.GetHashCode();
-                }
-
                 if (obj.GraphId != null)
                 {
                     result = (result * 31) + obj.GraphId.GetHashCode();

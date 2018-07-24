@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="output">
         /// Output string to which to write the SARIF log.
         /// </param>
-        /// <param name="dataToInsert">Logging options that configure output.</param>
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>

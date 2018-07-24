@@ -1,30 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
   
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; netstandard2.0; net452;</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif</RootNamespace>
-    <Description>Command line tool to convert native static analysis tool output to the SARIF format.</Description>
-    <Product>SARIF Conversion Tool</Product>
-    <Company>Microsoft</Company>
-    <Authors />
-    <ApplicationIcon />
     <OutputType>Exe</OutputType>
-    <StartupObject></StartupObject>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Rules\**" />
-    <EmbeddedResource Remove="Rules\**" />
-    <None Remove="Rules\**" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Remove="AnalyzeCommand.cs" />
-    <Compile Remove="AnalyzeOptions.cs" />
-  </ItemGroup>
-  
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Multitool</AssemblyTitle>
+    <Description>Command line tool to perform transformations of input files to SARIF.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
   </ItemGroup>
@@ -33,6 +20,24 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Rules\EndColumnMustNotBeLessThanStartColumn.cs" />
+    <Compile Remove="Rules\EndLineMustNotBeLessThanStartLine.cs" />
+    <Compile Remove="Rules\EndTimeMustBeAfterStartTime.cs" />
+    <Compile Remove="Rules\HashAlgorithmsMustBeUnique.cs" />
+    <Compile Remove="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
+    <Compile Remove="Rules\MessagesShouldEndWithPeriod.cs" />
+    <Compile Remove="Rules\StepMustAppearOnlyInCodeFlowLocations.cs" />
+    <Compile Remove="Rules\StepValuesMustFormOneBasedSequence.cs" />
+    <Compile Remove="Rules\UriBaseIdRequiresRelativeUri.cs" />
+    <Compile Remove="Rules\UrisMustBeValid.cs" />
+    <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="..\..\refs\$(TargetFramework)\*.dll" />
   </ItemGroup>
 
   <ItemGroup>

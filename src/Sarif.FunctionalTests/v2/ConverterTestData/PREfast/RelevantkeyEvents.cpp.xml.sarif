@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "dm9pZCBDNjM4NV9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzVdOw0KICAgZm9yIChpbnQgaj0wOyBqPDU7IGorKykgYVtqXSA9IDU7DQogICBjaGFyIGs7DQogICBpZiAoaSA8PSA1KQ0KICAgew0KICAgICAgayA9IGFbaV07DQogICB9DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "A413B8736582A8046C24651B0E884385",
-              "algorithm": "md5"
-            },
-            {
-              "value": "E57D977B6F5416C1F29C082B8CF9F8E12879C79A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "43242EA8E242DC0EEE7D5855ECF04CEC49A14E9BD04E2E152610610D0302F79A",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "      k = a[i];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_Example",
@@ -71,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "   char a[5];"
+                            }
                           }
                         }
                       },
@@ -89,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -104,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -119,7 +114,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33
+                            "startColumn": 33,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -134,7 +132,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -149,7 +150,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -164,7 +168,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33
+                            "startColumn": 33,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -179,7 +186,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -194,7 +204,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -209,7 +222,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "   char k;"
+                            }
                           }
                         }
                       },
@@ -224,7 +240,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "   if (i <= 5)"
+                            }
                           }
                         }
                       },
@@ -241,7 +260,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "      k = a[i];"
+                            }
                           }
                         }
                       },

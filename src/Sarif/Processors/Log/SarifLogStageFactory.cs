@@ -4,7 +4,6 @@
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {

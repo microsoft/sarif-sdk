@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A set of values for all the types that implement <see cref="ISarifNode" />.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public enum SarifNodeKind
     {
         /// <summary>
@@ -28,9 +28,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         CodeFlow,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="CodeFlowLocation" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlowLocation" />.
         /// </summary>
-        CodeFlowLocation,
+        ThreadFlowLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Conversion" />.
         /// </summary>

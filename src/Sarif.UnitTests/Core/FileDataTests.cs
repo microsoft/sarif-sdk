@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Action action = () => { FileData.Create(null, OptionallyEmittedData.None); };
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
         }
 
-        [Fact(Skip = "Broken codegen for Flags enums")]
+        [Fact]
         public void FileData_SerializeMultipleFileRoles()
         {
             FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             actual.Roles.Should().Be(FileRoles.AnalysisTarget);
         }
 
-        [Fact(Skip = "Broken codegen for Flags enums")]
+        [Fact]
         public void FileData_DeserializeMultipleFileRoles()
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
