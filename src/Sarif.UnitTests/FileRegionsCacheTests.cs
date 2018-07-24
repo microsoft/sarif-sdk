@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         private const string LINE1_NO_NEWLINES = "abcd";
         private const string INTERIOR_CHARACTERS = "ij";
         private const string INTERIOR_NEWLINES = "\nefg\r";
-        private const string LINES_2_AND_3 = "nefg\r\nhijk";
+        private const string LINES_2_AND_3 = "efg\r\nhijk";
         private const string CARRIAGE_RETURN_NEW_LINE = "\r\n";
 
         private readonly static Region s_Insertion_Beginning_Of_Binary_File = 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private readonly static Region s_Lines_2_And_3 = 
             new Region() { Snippet = new FileContent() { Text = LINES_2_AND_3 },
-                           StartLine = 2, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 5, CharLength = 10 };
+                           StartLine = 2, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 6, CharLength = 9 };
 
         private readonly static Region s_Interior_Characters = 
             new Region() { Snippet = new FileContent() { Text = INTERIOR_CHARACTERS },
