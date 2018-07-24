@@ -70,13 +70,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
                 annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
                 annotatedCodeLocation.State = v2ThreadFlowLocation.State;
-                annotatedCodeLocation.Step = v2ThreadFlowLocation.Step;
+                annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
             }
 
             return annotatedCodeLocation;
         }
 
-        internal IList<AnnotatedCodeLocationVersionOne> CreateAnnotatedCodeLocation(ThreadFlow v2ThreadFlow)
+        internal IList<AnnotatedCodeLocationVersionOne> CreateAnnotatedCodeLocations(ThreadFlow v2ThreadFlow)
         {
             List<AnnotatedCodeLocationVersionOne> annotatedCodeLocationList = null;
 
@@ -88,6 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     for (int i = 0; i < annotatedCodeLocationList.Count - 1; i++)
                     {
+                        annotatedCodeLocationList[i].ThreadId = int.Parse(v2ThreadFlow.Id);
+
                         if (v2ThreadFlow.Locations[i].NestingLevel > v2ThreadFlow.Locations[i + 1].NestingLevel)
                         {
                             annotatedCodeLocationList[i].Kind = AnnotatedCodeLocationKindVersionOne.CallReturn;
@@ -98,6 +100,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
                     }
                 }
+                else
+                {
+                    // TODO: add a warning to the list
+                }
+            }
+            else
+            {
+                annotatedCodeLocationList = new List<AnnotatedCodeLocationVersionOne>();
             }
 
             return annotatedCodeLocationList;
@@ -136,12 +146,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2CodeFlow.ThreadFlows?.Count > 0)
                 {
-                    codeFlow.Locations = new List<AnnotatedCodeLocationVersionOne>();
+                    var locations = new List<AnnotatedCodeLocationVersionOne>();
 
                     foreach (ThreadFlow tf in v2CodeFlow.ThreadFlows)
                     {
-                        (codeFlow.Locations as List<AnnotatedCodeLocationVersionOne>).AddRange(CreateAnnotatedCodeLocation(tf));
+                        locations.AddRange(CreateAnnotatedCodeLocations(tf));
                     }
+
+                    locations.Sort((l1, l2) => l1.Step.CompareTo(l2.Step));
                 }
             }
 

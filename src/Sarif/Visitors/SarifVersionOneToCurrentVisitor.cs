@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -166,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileData.Contents = new FileContent();
 
-                    if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
+                    if (MimeType.IsTextualMimeType(v1FileData.MimeType))
                     {
                         fileData.Contents.Text = SarifUtilities.DecodeBase64String(v1FileData.Contents);
                     }
