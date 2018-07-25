@@ -20,20 +20,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         static SarifVersionOneToCurrentTests()
         {
             ThisAssembly = Assembly.GetExecutingAssembly();
-            OutputFolderPath = Path.Combine(Directory.GetParent(Path.GetDirectoryName(ThisAssembly.Location)).FullName, "UnitTestOutput");
+            OutputFolderPath = Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput");
 
-            if (!Directory.Exists(OutputFolderPath))
+            if (Directory.Exists(OutputFolderPath))
             {
-                Directory.CreateDirectory(OutputFolderPath);
+                Directory.Delete(OutputFolderPath, recursive: true);
             }
-            else
-            {
-                string[] files = Directory.GetFiles(OutputFolderPath);
-                foreach (string path in files)
-                {
-                    File.Delete(path);
-                }
-            }
+
+            Directory.CreateDirectory(OutputFolderPath);
         }
 
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
@@ -57,19 +51,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             v2LogText.Should().Be(v2LogExpectedText);
         }
 
-        private static void VerifyVersionOneToCurrentTransformationFromResourceFile(string v1InputResourceFileName, string v2ExpectedResourceFileName)
+        private static void VerifyVersionOneToCurrentTransformationFromResource(string v1InputResourceName, string v2ExpectedResourceName)
         {
-            string v1LogText = GetResourceFileText($"v1.{v1InputResourceFileName}");
-            string v2ExpectedLogText = GetResourceFileText($"v2.{v2ExpectedResourceFileName}");
+            string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
+            string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
             string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
 
-            if (v2ExpectedLogText.Length != v2ActualLogText.Length || v2ExpectedLogText != v2ActualLogText)
+            if (v2ExpectedLogText != v2ActualLogText)
             {
                 // Write the expected and actual log text to disk
-                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceFileName, "expected"), v2ExpectedLogText);
-                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceFileName, "actual"), v2ActualLogText);
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceName, "expected"), v2ExpectedLogText);
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceName, "actual"), v2ActualLogText);
             }
 
             v2ActualLogText.Should().Be(v2ExpectedLogText);
@@ -83,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             return Path.Combine(OutputFolderPath, fileName);
         }
 
-        private static string GetResourceFileText(string resourceName)
+        private static string GetResourceText(string resourceName)
         {
             string text = null;
 
@@ -1699,8 +1693,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
         {
-            VerifyVersionOneToCurrentTransformationFromResourceFile(v1InputResourceFileName: "CodeFlows.sarif",
-                                                                    v2ExpectedResourceFileName: "CodeFlows.sarif");
+            VerifyVersionOneToCurrentTransformationFromResource(v1InputResourceName: "CodeFlows.sarif",
+                                                                v2ExpectedResourceName: "CodeFlows.sarif");
         }
     }
 }

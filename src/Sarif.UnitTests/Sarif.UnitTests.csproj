@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
@@ -14,8 +14,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <None Remove="Transformers\TestLogs\v1\CodeFlows.sarif" />
-    <None Remove="Transformers\TestLogs\v2\CodeFlows.sarif" />
+    <None Remove="Transformers\TestLogs\**\*.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,12 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Transformers\TestLogs\v1\CodeFlows.sarif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Transformers\TestLogs\v2\CodeFlows.sarif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Transformers\TestLogs\**\*.sarif" />
   </ItemGroup>
 
   <ItemGroup>
