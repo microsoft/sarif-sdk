@@ -38,16 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineNotSpecified.sarif");
         }
 
-        [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInAnalysisTarget))]
-        public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInAnalysisTarget()
+        [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultLocation))]
+        public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultLocation()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInAnalysisTarget.sarif");
-        }
-
-        [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultFile))]
-        public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultFile()
-        {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInResultFile.sarif");
+            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInResultLocation.sarif");
         }
     }
 }

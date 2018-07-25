@@ -1,46 +1,43 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "a452680c-dd09-4644-90ec-0fc0f64edf77",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
           "CompanyName": "Microsoft Corporation",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
-      "toolNotifications": [
+      "results": [],
+      "invocations": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndLineMustNotBeLessThanStartLine/EndLineEqualsStartLine.sarif"
-          },
-          "message": "Analyzing 'EndLineEqualsStartLine.sarif'...",
-          "level": "note",
-          "time": "2016-08-29T21:52:27.769Z"
+          "startTime": "2018-07-25T23:35:56.862Z",
+          "endTime": "2018-07-25T23:35:57.726Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndLineMustNotBeLessThanStartLine/EndLineEqualsStartLine.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'EndLineEqualsStartLine.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-07-25T23:35:57.293Z"
+            }
+          ]
         }
-      ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndLineMustNotBeLessThanStartLine/EndLineEqualsStartLine.sarif": {
-          "mimeType": "application/octet-stream"
-        }
-      },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineEqualsStartLine.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndLineMustNotBeLessThanStartLine\\EndLineEqualsStartLine_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-29T21:52:27.606Z",
-        "endTime": "2016-08-29T21:52:28.038Z",
-        "processId": 8304,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      ]
     }
   ]
 }
