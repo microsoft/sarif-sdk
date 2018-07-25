@@ -11,12 +11,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         internal IFileSystem s_fileSystem = new FileSystem();
 
+        private Run _run;
+        private bool _overwriteExistingData;
+        private FileRegionsCache _fileRegionsCache;
         private OptionallyEmittedData _dataToInsert;
         private Dictionary<Uri, string> _uriToFileTextMap;
         
-        public ReformattingVisitor(OptionallyEmittedData dataToInsert)
+        public ReformattingVisitor(OptionallyEmittedData dataToInsert, bool overwriteExistingData = true)
         {
             _dataToInsert = dataToInsert;
+            _overwriteExistingData = dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
         }
 
         public override Run VisitRun(Run node)
@@ -58,94 +62,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 node.Results = results;
             }
-
+            _run = node;
             return node;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
         {
-            // If we have a binary region, there is no work to do
-            if (node.Region == null ||
-                (node.Region.ByteOffset > 0 || node.Region.ByteLength > 0))
+            if (node.Region == null || node.Region.IsBinaryRegion)
             {
                 goto Exit;
             }
 
-            // If we already have a snippet, let's assume it is correct
-            if (node.Region.Snippet != null)
+            bool insertRegionSnippets = _dataToInsert.Includes(OptionallyEmittedData.RegionSnippets);
+            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
+            bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
+
+            if (insertRegionSnippets || insertRegionSnippets)
             {
-                goto Exit;
+                Region result;
+
+                _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
+                result = _fileRegionsCache.PopulateTextRegionProperties(node, populateSnippet: insertContextCodeSnippets);
+
+                FileContent originalSnippet = node.Region.Snippet;
+
+                if (populateRegionProperties)
+                {
+                    node.Region = result;
+                }
+
+                if (originalSnippet == null || _overwriteExistingData)
+                {
+                    node.Region.Snippet = result.Snippet;
+                }
+                else
+                {
+                    node.Region.Snippet = originalSnippet;
+                }
             }
 
-            // If the user hasn't specified code snippet insertion, there is no work to do
-            bool workToDo = false;
-            workToDo |= node.Region != null && _dataToInsert.Includes(OptionallyEmittedData.CodeSnippets);
-
-            if (!workToDo)
+            if (insertContextCodeSnippets && (node.ContextRegion == null || _overwriteExistingData))
             {
-                goto Exit;
-            }
-
-            // If we have an absolute URL specified as a file that 
-            // exist on disk, there is work to do
-            if (node.FileLocation.Uri.IsAbsoluteUri &&
-                node.FileLocation.Uri.LocalPath != null &&
-                s_fileSystem.FileExists(node.FileLocation.Uri.LocalPath))
-            {
-                Region region = node.Region;
-                string fileText = GetFileText(node.FileLocation.Uri);
-                GetCompleteFirstLineAssociatedWithRegion(region, fileText);
+                node.ContextRegion = ConstructContextSnippet(node);               
             }
 
             Exit:
             return base.VisitPhysicalLocation(node);
         }
 
-        internal static void GetCompleteFirstLineAssociatedWithRegion(Region region, string fileText)
+        internal Region ConstructContextSnippet(PhysicalLocation physicalLocation)
         {
-            if (region.IsBinaryRegion)
-            {
-                return;
-            }
-
-            var lineIndex = new NewLineIndex(fileText);
-
-            region.Snippet = new FileContent();
-
-            int startLine;
-            LineInfo lineInfo;
-
-            if (region.StartLine == 0)
-            {
-                lineInfo = lineIndex.GetLineInfoForOffset(region.CharOffset);
-                startLine = lineInfo.LineNumber;
-            }
-            else
-            {
-                lineInfo = lineIndex.GetLineInfoForLine(region.StartLine);
-                startLine = region.StartLine;
-            }
-
-            int lineOffset = lineInfo.StartOffset;
-            int lineLength;
-
-            if (startLine == lineIndex.MaximumLineNumber)
-            {
-                // End of file. Compute length using file length
-                lineLength = fileText.Length - lineOffset;
-            }
-            else
-            {
-                // Not at end of file. Get the offset from the
-                // line after this one, then compute length from there.
-                // Line length here will include any line break characters
-                // at the end of this file.
-                lineInfo = lineIndex.GetLineInfoForLine(startLine + 1);
-                lineLength = lineInfo.StartOffset - lineOffset;
-            }
-
-            // Grab the line text, except for any trailing line break characters
-            region.Snippet.Text = fileText.Substring(lineOffset, lineLength).TrimEnd(NewLineIndex.s_newLineChars);
+            return null;
         }        
 
         private string GetFileText(Uri uri)
@@ -168,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             bool workToDo = false;
 
-            workToDo |= node.Hashes == null   && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= node.Contents?.Binary == null && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
-            workToDo |= node.Contents?.Binary == null && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+            workToDo |= (node.Hashes == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
+            workToDo |= (node.Contents?.Binary == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= (node.Contents?.Binary == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
