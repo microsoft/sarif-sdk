@@ -51,7 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v1CodeFlow.Locations != null && v1CodeFlow.Locations.Count > 0)
                 {
-
                     _threadFlowLocationNestingLevel = 0;
                     int executionOrder = 0;
                     var threadFlowDictionary = new Dictionary<int, ThreadFlow>();
