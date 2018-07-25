@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int EndLine { get; set; }
 
         /// <summary>
-        /// The column number of the last character in the region.
+        /// The column number of the character following the end of the region.
         /// </summary>
         [DataMember(Name = "endColumn", IsRequired = false, EmitDefaultValue = false)]
         public int EndColumn { get; set; }
