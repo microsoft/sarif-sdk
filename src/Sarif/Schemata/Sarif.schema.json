@@ -1159,7 +1159,7 @@
         },
 
         "endColumn": {
-          "description": "The column number of the last character in the region.",
+          "description": "The column number of the character following the end of the region.",
           "type": "integer",
           "minimum": 1
         },
