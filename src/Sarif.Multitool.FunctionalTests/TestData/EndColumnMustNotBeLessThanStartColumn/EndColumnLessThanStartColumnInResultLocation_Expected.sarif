@@ -22,7 +22,7 @@
           "level": "error",
           "message": {
             "arguments": [
-              "/runs/0/results/0/relatedLocations/0/physicalLocation/region/endColumn",
+              "/runs/0/results/0/locations/0/physicalLocation/region/endColumn",
               "1",
               "2"
             ]
@@ -32,10 +32,10 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInResultLocation.sarif"
                 },
                 "region": {
-                  "startLine": 37,
+                  "startLine": 25,
                   "startColumn": 32
                 }
               }
@@ -65,27 +65,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInResultLocation.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-07-25T16:16:39.516Z",
-          "endTime": "2018-07-25T16:16:40.219Z",
+          "startTime": "2018-07-25T16:16:40.531Z",
+          "endTime": "2018-07-25T16:16:41.214Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInRelatedLocation.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnLessThanStartColumnInResultLocation.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'EndColumnLessThanStartColumnInRelatedLocation.sarif'..."
+                "text": "Analyzing 'EndColumnLessThanStartColumnInResultLocation.sarif'..."
               },
               "level": "note",
-              "time": "2018-07-25T16:16:39.813Z"
+              "time": "2018-07-25T16:16:40.812Z"
             }
           ]
         }

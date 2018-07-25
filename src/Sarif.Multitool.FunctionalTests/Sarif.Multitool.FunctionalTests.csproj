@@ -14,7 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\EndColumnMustNotBeLessThanStartColumnTests.cs" />
     <Compile Remove="Rules\EndLineMustNotBeLessThanStartLineTests.cs" />
     <Compile Remove="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
     <Compile Remove="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
@@ -42,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestData\**" >
+    <None Include="TestData\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Sarif\Schemata\Sarif.schema.json">
@@ -64,4 +63,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties TestData_4EndColumnMustNotBeLessThanStartColumn_4EndColumnEqualsStartColumnNoEndLine_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4EndColumnMustNotBeLessThanStartColumn_4EndColumnLessThanStartColumnInRelatedLocation_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4EndColumnMustNotBeLessThanStartColumn_4EndColumnGreaterThanStartColumn_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4EndColumnMustNotBeLessThanStartColumn_4EndColumnEqualsStartColumn_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" /></VisualStudio></ProjectExtensions>
 </Project>
