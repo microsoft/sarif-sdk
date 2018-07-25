@@ -14,7 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\EndColumnMustNotBeLessThanStartColumnTests.cs" />
     <Compile Remove="Rules\EndLineMustNotBeLessThanStartLineTests.cs" />
     <Compile Remove="Rules\EndTimeMustBeAfterStartTimeTests.cs" />
     <Compile Remove="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
@@ -42,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestData\**" >
+    <None Include="TestData\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\Sarif\Schemata\Sarif.schema.json">
