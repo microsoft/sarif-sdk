@@ -3,9 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -50,6 +53,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
                 };
+            }
+
+            return annotatedCodeLocation;
+        }
+
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(ThreadFlowLocation v2ThreadFlowLocation)
+        {
+            AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
+
+            if (v2ThreadFlowLocation != null)
+            {
+                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2ThreadFlowLocation.Location);
+                annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
+
+                annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
+                annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
+                annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
+                annotatedCodeLocation.State = v2ThreadFlowLocation.State;
+                annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
             }
 
             return annotatedCodeLocation;
@@ -170,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v2FileData.Contents != null)
                 {
-                    fileData.Contents = Utilities.TextMimeTypes.Contains(v2FileData.MimeType) ?
+                    fileData.Contents = MimeType.IsTextualMimeType(v2FileData.MimeType) ?
                         SarifUtilities.GetUtf8Base64String(v2FileData.Contents.Text) :
                         v2FileData.Contents.Binary;
                 }
@@ -344,7 +366,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Region = CreateRegion(v2PhysicalLocation.Region),
+                    Region = CreateRegion(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
                     Uri = v2PhysicalLocation.FileLocation?.Uri,
                     UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
                 };
@@ -377,36 +399,281 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Region = CreateRegion(v2Region)
+                    Region = CreateRegion(v2Region, uri: null)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal RegionVersionOne CreateRegion(Region v2Region)
+        internal RegionVersionOne CreateRegion(Region v2Region, Uri uri)
         {
             RegionVersionOne region = null;
 
-            if (v2Region != null && (v2Region.StartColumn > 0 ||
-                                     v2Region.StartLine > 0 ||
-                                     v2Region.EndColumn > 0 ||
-                                     v2Region.EndLine > 0 ||
-                                     v2Region.Length > 0 ||
-                                     v2Region.Offset > 0))
+            if (v2Region != null)
             {
-                region = new RegionVersionOne
+                region = new RegionVersionOne();
+
+                if (v2Region.StartLine > 0 ||
+                    v2Region.EndLine > 0 ||
+                    v2Region.StartColumn > 0 ||
+                    v2Region.EndColumn > 0 ||
+                    v2Region.CharOffset > 0 ||
+                    v2Region.CharLength > 0)
                 {
-                    EndColumn = v2Region.EndColumn,
-                    EndLine = v2Region.EndLine,
-                    Length = v2Region.Length,
-                    Offset = v2Region.Offset,
-                    StartColumn = v2Region.StartColumn,
-                    StartLine = v2Region.StartLine
-                };
+                    if (v2Region.StartLine > 0)
+                    {
+                        // The start of the region is described by line/column
+                        region.StartLine = v2Region.StartLine;
+                        region.StartColumn = v2Region.StartColumn > 0
+                            ? v2Region.StartColumn
+                            : 1;
+                    }
+                    else
+                    {
+                        // The start of the region is described by character offset
+                        // Try to get the byte offset using the file encoding and contents
+                        region.Offset = ConvertCharOffsetToByteOffset(v2Region.CharOffset, uri);
+                    }
+
+                    if (v2Region.CharLength > 0)
+                    {
+                        // The end of the region is described by character length
+                        // Try to get the byte length using the file encoding and contents
+                        region.Length = GetRegionByteLength(v2Region, uri);
+                    }
+                    else if (v2Region.EndLine > 0)
+                    {
+                        region.EndLine = v2Region.EndLine;
+
+                        if (v2Region.EndColumn > 0)
+                        {
+                            region.EndColumn = v2Region.EndColumn;
+                        }
+                        else
+                        {
+                            // In v2, if endColumn is missing, then the region extends to the end
+                            // of the line (exclusive of any newline sequence). Use the file contents
+                            // and encoding to determine how many columns are in the end line.
+                            region.EndColumn = GetRegionEndColumn(v2Region, uri);
+                        }
+                    }
+                    else if (v2Region.EndColumn > 0)
+                    {
+                        region.EndColumn = v2Region.EndColumn;
+                    }
+                    else
+                    {
+                        // THIS IS A PROBLEM. IF ALL THE "END" PROPERTIES ARE MISSING,
+                        // IT MEANS "THE REST OF THE StartLine". BUT IF CHARLENGTH IS
+                        // PRESENT BUT 0, IT MEANS "INSERTION POINT". AND WE CAN'T TELL
+                        // THE DIFFERENCE.
+                        // TODO: Issue #932
+
+                        // Assume it's an insertion point
+                        region.EndLine = region.EndColumn = region.Length = 0;
+                    }
+                }
+                else
+                {
+                    // There are no text-related properties. Therefore either the region is
+                    // described entirely by binary-related properties, or the region is an
+                    // insertion point at the start of the file.
+                    region.Length = v2Region.ByteLength;
+                    region.Offset = v2Region.ByteOffset;
+                }
             }
 
             return region;
+        }
+
+        private int ConvertCharOffsetToByteOffset(int charOffset, Uri uri)
+        {
+            int byteOffset = 0;
+            Encoding encoding;
+
+            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            {
+                if (reader != null)
+                {
+                    char[] buffer = new char[charOffset];
+
+                    // Read everything up to charOffset
+                    if (reader.ReadBlock(buffer, 0, buffer.Length) > 0)
+                    {
+                        byteOffset = encoding.GetByteCount(buffer, 0, buffer.Length);
+                    }
+                }
+            }
+
+            return byteOffset;
+        }
+
+        private int GetRegionByteLength(Region v2Region, Uri uri)
+        {
+            int byteLength = 0;
+            Encoding encoding;
+
+            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            {
+                if (reader != null)
+                {
+                    if (v2Region.StartLine > 0) // Use line and column 
+                    {
+                        string sourceLine = string.Empty;
+
+                        // Read down to startLine (null return means EOF)
+                        for (int i = 1; i <= v2Region.StartLine && sourceLine != null; sourceLine = reader.ReadLine(), i++) { }
+
+                        if (sourceLine != null)
+                        {
+                            int startColumn = v2Region.StartColumn > 0
+                                                ? v2Region.StartColumn
+                                                : 1;
+
+                            if (sourceLine.Length > startColumn)
+                            {
+                                // Since we read past startColumn, we need to back up using the base stream
+                                Stream stream = reader.BaseStream;
+                                stream.Position -= encoding.GetByteCount(sourceLine.Substring(startColumn - 1));
+                            }
+
+                            // Read the next charLength characters
+                            char[] buffer = new char[v2Region.CharLength];
+                            reader.Read(buffer, 0, buffer.Length);
+
+                            byteLength = encoding.GetByteCount(buffer);
+                        }
+                    }
+                    else // Use charOffset
+                    {
+                        // Read the first charOffset characters
+                        char[] buffer = new char[v2Region.CharOffset];
+                        reader.Read(buffer, 0, buffer.Length);
+
+                        // Read the next charLength characters  
+                        buffer = new char[v2Region.CharLength];
+                        reader.Read(buffer, 0, buffer.Length);
+
+                        byteLength = encoding.GetByteCount(buffer);
+                    }
+                }
+            }
+
+            return byteLength;
+        }
+
+        private int GetRegionEndColumn(Region v2Region, Uri uri)
+        {
+            int endColumn = 0;
+            Encoding encoding;
+
+            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            {
+                if (reader != null)
+                {
+                    string sourceLine = string.Empty;
+
+                    // Read down to endLine (null return means EOF)
+                    for (int i = 1; i <= v2Region.EndLine && sourceLine != null; sourceLine = reader.ReadLine(), i++) { }
+
+                    if (sourceLine != null)
+                    {
+                        endColumn = sourceLine.Length >= v2Region.EndColumn
+                            ? v2Region.EndColumn
+                            : sourceLine.Length + 1;
+                    }
+                }
+            }
+
+            return endColumn;
+        }
+
+        private Stream GetContentStream(Uri uri, out Encoding encoding)
+        {
+            Stream stream = null;
+            encoding = null;
+            string failureReason = null;
+
+            if (uri != null && _currentV2Run.Files != null)
+            {
+                FileData fileData;
+                if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
+                {
+                    // We need the encoding because the content might have been transcoded to UTF-8
+                    string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
+                    encoding = GetFileEncoding(encodingName);
+
+                    if (encoding != null)
+                    {
+                        if (fileData.Contents?.Binary != null)
+                        {
+                            // Embedded binary file content
+
+                            byte[] content = Convert.FromBase64String(fileData.Contents.Binary);
+                            stream = new MemoryStream(content);
+                        }
+                        else if (fileData.Contents?.Text != null)
+                        {
+                            // Embedded text file content
+
+                            byte[] content = encoding.GetBytes(fileData.Contents.Text);
+                            stream = new MemoryStream(content);
+                        }
+                        else if (uri.IsAbsoluteUri && uri.Scheme == Uri.UriSchemeFile && File.Exists(uri.LocalPath))
+                        {
+                            // External source file
+
+                            try
+                            {
+                                stream = new FileStream(uri.LocalPath, FileMode.Open);
+                            }
+                            catch (FileNotFoundException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be found: {ex.ToString()}";
+                            }
+                            catch (IOException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be read: {ex.ToString()}";
+                            }
+                            catch (SecurityException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        failureReason = $"Encoding for file '{uri.OriginalString}' could not be determined";
+                    }
+                }
+            }
+
+            if (stream == null && failureReason == null)
+            {
+                failureReason = $"File '{uri.LocalPath}' could not be opened";
+            }
+
+            if (failureReason != null)
+            {
+                // If we get here, we were unable to determine region character offset, so we have to warn the caller
+                // TODO: add a warning to the list
+            }
+
+            return stream;
+        }
+
+        private StreamReader GetFileStreamReader(Uri uri, out Encoding encoding)
+        {
+            StreamReader reader = null;
+
+            Stream contentStream = GetContentStream(uri, out encoding);
+            if (contentStream != null && encoding != null)
+            {
+                reader = new StreamReader(contentStream, encoding, detectEncodingFromByteOrderMarks: false);
+            }
+
+            return reader;
         }
 
         internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Encoding encoding)
@@ -438,8 +705,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                replacement.DeletedLength = v2Replacement.DeletedRegion.Length;
-                replacement.Offset = v2Replacement.DeletedRegion.Offset;
+                replacement.DeletedLength = v2Replacement.DeletedRegion.ByteLength;
+                replacement.Offset = v2Replacement.DeletedRegion.ByteOffset;
             }
 
             return replacement;
@@ -555,7 +822,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 rule = new RuleVersionOne
                 {
                     FullDescription = v2Rule.FullDescription?.Text,
-                    HelpUri = v2Rule.HelpLocation?.Uri,
+                    HelpUri = v2Rule.HelpUri,
                     Id = v2Rule.Id,
                     MessageFormats = v2Rule.MessageStrings,
                     Name = v2Rule.Name?.Text,

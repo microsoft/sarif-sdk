@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_Create_NullUri()
         {
-            Action action = () => { FileData.Create(null, LoggingOptions.None); };
+            Action action = () => { FileData.Create(null, OptionallyEmittedData.None); };
 
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.ComputeFileHashes);
+                FileData fileData = FileData.Create(uri, OptionallyEmittedData.Hashes);
                 fileData.FileLocation.Should().Be(null);
                 HashData hashes = HashUtilities.ComputeHashes(filePath);
                 fileData.MimeType.Should().Be(MimeType.Binary);
@@ -57,24 +57,55 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        [Fact]
-        public void FileData_PersistFileContentsBinary()
+        [Theory]
+        // Unknown files are regarded as binary
+        [InlineData(".unknown", OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".unknown", OptionallyEmittedData.TextFiles, false)]
+        [InlineData(".exe", OptionallyEmittedData.BinaryFiles | OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".cs", OptionallyEmittedData.BinaryFiles | OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".jar", OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".jar", OptionallyEmittedData.TextFiles, false)]
+        [InlineData(".cs", OptionallyEmittedData.BinaryFiles, false)]
+        [InlineData(".cs", OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".h", ~OptionallyEmittedData.BinaryFiles, true)]
+        [InlineData(".docx", ~OptionallyEmittedData.BinaryFiles, false)]
+        [InlineData(".dll", ~OptionallyEmittedData.TextFiles, true)]
+        [InlineData(".cpp", ~OptionallyEmittedData.TextFiles, false)]
+        public void FileData_PersistBinaryAndTextFileContents(
+            string fileExtension,
+            OptionallyEmittedData dataToInsert,
+            bool shouldBePersisted)
         {
-            string filePath = Path.GetTempFileName();
+            string filePath = Path.GetTempFileName() + fileExtension;
             string fileContents = Guid.NewGuid().ToString();
             Uri uri = new Uri(filePath);
 
             try
             {
                 File.WriteAllText(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
-                fileData.FileLocation.Should().Be(null);
-                fileData.MimeType.Should().Be(MimeType.Binary);
-                fileData.Hashes.Should().BeNull();
+                FileData fileData = FileData.Create(uri, dataToInsert);
+                fileData.FileLocation.Should().BeNull();
+
+                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
+                {
+                    fileData.Hashes.Should().NotBeNull();
+                }
+                else
+                {
+                    fileData.Hashes.Should().BeNull();
+                }
 
                 string encodedFileContents = Convert.ToBase64String(File.ReadAllBytes(filePath));
-                fileData.Contents.Binary.Should().Be(encodedFileContents);
-                fileData.Contents.Text.Should().BeNull();
+
+                if (shouldBePersisted)
+                {
+                    fileData.Contents.Binary.Should().Be(encodedFileContents);
+                    fileData.Contents.Text.Should().BeNull();
+                }
+                else
+                {
+                    fileData.Contents.Should().BeNull();
+                }
             }
             finally
             {
@@ -83,9 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_PersistFileContentsUtf8()
+        public void FileData_PersistTextFileContentsBigEndianUnicode()
         {
-            Encoding encoding = Encoding.UTF8;
+            Encoding encoding = Encoding.BigEndianUnicode;
             string filePath = Path.GetTempFileName() + ".cs";
             string textValue = "अचम्भा";
             byte[] fileContents = encoding.GetBytes(textValue);
@@ -95,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             try
             {
                 File.WriteAllBytes(filePath, fileContents);
-                FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents, mimeType: null, encoding: encoding);
+                FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles, mimeType: null, encoding: encoding);
                 fileData.FileLocation.Should().Be(null);
                 fileData.MimeType.Should().Be(MimeType.CSharp);
                 fileData.Hashes.Should().BeNull();
@@ -116,11 +147,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             // persistence, the logger will not raise an exception
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
-            FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+            FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles);
             fileData.FileLocation.Should().Be(null);
             fileData.MimeType.Should().Be(MimeType.Binary);
             fileData.Hashes.Should().BeNull();
-            fileData.Contents.Binary.Should().Be(String.Empty);
+            fileData.Contents.Should().BeNull();
         }
 
         [Fact]
@@ -135,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // This raises an IOException, which is swallowed by FileData.Create
                 using (var exclusiveAccessReader = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
-                    FileData fileData = FileData.Create(uri, LoggingOptions.PersistFileContents);
+                    FileData fileData = FileData.Create(uri, OptionallyEmittedData.TextFiles);
                     fileData.FileLocation.Should().Be(null);
                     fileData.MimeType.Should().Be(MimeType.Binary);
                     fileData.Hashes.Should().BeNull();
@@ -163,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_SerializeSingleFileRole()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.AnalysisTarget;
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -175,10 +206,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
         }
 
-        [Fact(Skip = "Broken codegen for Flags enums")]
+        [Fact]
         public void FileData_SerializeMultipleFileRoles()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), LoggingOptions.None);
+            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -201,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             actual.Roles.Should().Be(FileRoles.AnalysisTarget);
         }
 
-        [Fact(Skip = "Broken codegen for Flags enums")]
+        [Fact]
         public void FileData_DeserializeMultipleFileRoles()
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -221,15 +252,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             IFileSystem fileSystem = SetUnauthorizedAccessExceptionMock();
 
             FileData fileData = FileData.Create(
-                uri, 
-                LoggingOptions.PersistFileContents,
+                uri,
+                OptionallyEmittedData.TextFiles,
                 mimeType: null,
                 encoding: null,
                 fileSystem: fileSystem);
 
             // We pass none here as the occurrence of UnauthorizedAccessException 
             // should result in non-population of any file contents.
-            Validate(fileData, LoggingOptions.None);
+            Validate(fileData, OptionallyEmittedData.None);
         }
 
         private static IFileSystem SetUnauthorizedAccessExceptionMock()
@@ -247,9 +278,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return mock;
         }
 
-        private static void Validate(FileData fileData, LoggingOptions loggingOptions)
+        private static void Validate(FileData fileData, OptionallyEmittedData dataToInsert)
         {
-            if (loggingOptions.Includes(LoggingOptions.PersistFileContents))
+            if (dataToInsert.Includes(OptionallyEmittedData.TextFiles))
             {
                 fileData.Contents.Should().NotBeNull();
             }

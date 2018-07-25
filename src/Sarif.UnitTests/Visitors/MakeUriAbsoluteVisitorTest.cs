@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().BeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("C:/github/sarif/src/file.cs"));
+            newLocation.FileLocation.Uri.Should().BeEquivalentTo(new Uri("C:/github/sarif/src/file.cs"));
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().NotBeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
+            newLocation.FileLocation.Uri.Should().BeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor._currentUriMappings = new Dictionary<string, Uri>() { { "%TEST%", new Uri("C:/github/sarif/") } };
             var newLocation = visitor.VisitPhysicalLocation(location);
             newLocation.FileLocation.UriBaseId.Should().BeNull();
-            newLocation.FileLocation.Uri.ShouldBeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
+            newLocation.FileLocation.Uri.Should().BeEquivalentTo(new Uri("src/file.cs", UriKind.Relative));
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (var key in newRun.Files.Keys)
             {
-                newRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(new Uri(key));
+                newRun.Files[key].FileLocation.Uri.Should().BeEquivalentTo(new Uri(key));
                 newRun.Files[key].FileLocation.UriBaseId.Should().BeNull();
                 if (!string.IsNullOrEmpty(newRun.Files[key].ParentKey))
                 {
@@ -115,12 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var oldRun = GenerateRunForTest(uriMapping);
             // Validate.
 
-            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
             foreach(var key in newRun.Files.Keys)
             {
-                oldRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.Uri);
-                oldRun.Files[key].FileLocation.UriBaseId.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
-                oldRun.Files[key].ParentKey.ShouldBeEquivalentTo(newRun.Files[key].ParentKey);
+                oldRun.Files[key].FileLocation.Uri.Should().BeEquivalentTo(newRun.Files[key].FileLocation.Uri);
+                oldRun.Files[key].FileLocation.UriBaseId.Should().BeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
+                oldRun.Files[key].ParentKey.Should().BeEquivalentTo(newRun.Files[key].ParentKey);
             }
         }
 
@@ -137,12 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // Validate.
             var oldRun = GenerateRunForTest(null);
 
-            newRun.Files.Keys.ShouldBeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
             foreach (var key in newRun.Files.Keys)
             {
-                oldRun.Files[key].FileLocation.Uri.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.Uri);
-                oldRun.Files[key].FileLocation.UriBaseId.ShouldBeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
-                oldRun.Files[key].ParentKey.ShouldBeEquivalentTo(newRun.Files[key].ParentKey);
+                oldRun.Files[key].FileLocation.Uri.Should().BeEquivalentTo(newRun.Files[key].FileLocation.Uri);
+                oldRun.Files[key].FileLocation.UriBaseId.Should().BeEquivalentTo(newRun.Files[key].FileLocation.UriBaseId);
+                oldRun.Files[key].ParentKey.Should().BeEquivalentTo(newRun.Files[key].ParentKey);
             }
         }
 

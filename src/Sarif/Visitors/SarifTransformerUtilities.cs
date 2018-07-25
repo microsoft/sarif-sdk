@@ -1,9 +1,9 @@
 ﻿// Copyright(c) Microsoft.All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
@@ -41,41 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             ContractResolver = SarifContractResolver.Instance
         };
-
-        #region Text MIME types
-        public static HashSet<string> TextMimeTypes = new HashSet<string>()
-        {
-            "application/ecmascript",
-            "application/javascript",
-            "application/json",
-            "application/rss+xml",
-            "application/rtf",
-            "application/typescript",
-            "application/x-csh",
-            "application/xhtml+xml",
-            "application/xml",
-            "application/x-sh",
-            "text/css",
-            "text/csv",
-            "text/ecmascript",
-            "text/html",
-            "text/javascript",
-            "text/plain",
-            "text/richtext",
-            "text/sgml",
-            "text/tab-separated-values",
-            "text/tsv",
-            "text/uri-list",
-            "text/x-asm",
-            "text/x-c",
-            "text/x-csharp",
-            "text/x-h",
-            "text/x-java-source",
-            "text/x-java-source,java",
-            "text/xml",
-            "text/x-pascal"
-        };
-        #endregion
 
         public static readonly Dictionary<AlgorithmKindVersionOne, string> AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>
         {
@@ -251,18 +216,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static CodeFlowLocationImportance CreateCodeFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
+        public static ThreadFlowLocationImportance CreateThreadFlowLocationImportance(AnnotatedCodeLocationImportanceVersionOne v1AnnotatedCodeLocationImportance)
         {
             switch (v1AnnotatedCodeLocationImportance)
             {
                 case AnnotatedCodeLocationImportanceVersionOne.Essential:
-                    return CodeFlowLocationImportance.Essential;
+                    return ThreadFlowLocationImportance.Essential;
                 case AnnotatedCodeLocationImportanceVersionOne.Important:
-                    return CodeFlowLocationImportance.Important;
+                    return ThreadFlowLocationImportance.Important;
                 case AnnotatedCodeLocationImportanceVersionOne.Unimportant:
-                    return CodeFlowLocationImportance.Unimportant;
+                    return ThreadFlowLocationImportance.Unimportant;
                 default:
-                    return CodeFlowLocationImportance.Important;
+                    return ThreadFlowLocationImportance.Important;
+            }
+        }
+
+        public static AnnotatedCodeLocationImportanceVersionOne CreateAnnotatedCodeLocationImportance(ThreadFlowLocationImportance v2ThreadFlowLocationImportance)
+        {
+            switch (v2ThreadFlowLocationImportance)
+            {
+                case ThreadFlowLocationImportance.Essential:
+                    return AnnotatedCodeLocationImportanceVersionOne.Essential;
+                case ThreadFlowLocationImportance.Important:
+                    return AnnotatedCodeLocationImportanceVersionOne.Important;
+                case ThreadFlowLocationImportance.Unimportant:
+                    return AnnotatedCodeLocationImportanceVersionOne.Unimportant;
+                default:
+                    return AnnotatedCodeLocationImportanceVersionOne.Important;
             }
         }
     }

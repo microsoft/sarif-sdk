@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 19,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "  if (Flags | INPUT_VALUE) //@@@Expects:6316"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",

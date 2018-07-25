@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Projects that use the old (pre-VS 2017) project system import this file.
+  Projects that use the VS 2017 project system import "build.props" instead.
+  -->
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+
+    <!--
+      See:
+      https://github.com/NuGet/Home/issues/4163
+      https://developercommunity.visualstudio.com/content/problem/138372/vsix-cant-build-solution-with-mixed-style-csproj-p.html
+    -->
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <!--
+    The following lines make it possible for you to select "Any CPU" for old-style
+    projects in the "Platform" column of the VS Configuration Manager dialog.
+    Without them, your only choices are "x86 and "x64", so when you build the solution,
+    the binaries end up in (for example) x86_Release instead of AnyCPU_Release.
+    -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+
+  <Import Project="$(MSBuildThisFileDirectory)build.common.props" />
+</Project>

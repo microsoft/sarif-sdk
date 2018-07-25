@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileChange for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class FileChangeEqualityComparer : IEqualityComparer<FileChange>
     {
         internal static readonly FileChangeEqualityComparer Instance = new FileChangeEqualityComparer();

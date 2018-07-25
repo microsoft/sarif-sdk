@@ -49,7 +49,10 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\t  p +=inc;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6305FromAnnotation",
@@ -72,7 +75,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 25
+                            "startColumn": 25,
+                            "snippet": {
+                              "text": "void C6305FromAnnotation("
+                            }
                           }
                         }
                       },
@@ -90,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "  int cb = 1;"
+                            }
                           }
                         }
                       },
@@ -105,7 +114,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "  if (b)"
+                            }
                           }
                         }
                       },
@@ -122,7 +134,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\t  p +=inc;"
+                            }
                           }
                         }
                       },
@@ -155,7 +170,10 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "    j = j + wcslen(p);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents1",
@@ -178,7 +196,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int i = 6;"
+                            }
                           }
                         }
                       },
@@ -193,7 +214,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int j = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -211,7 +235,10 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "    j = j + wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -244,7 +271,10 @@
                 },
                 "region": {
                   "startLine": 38,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\ti = wcslen(p) + i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -267,7 +297,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                            }
                           }
                         }
                       },
@@ -282,7 +315,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -297,7 +333,10 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i;"
+                            }
                           }
                         }
                       },
@@ -312,7 +351,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti += wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -327,7 +369,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti -= wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -345,7 +390,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) + i;"
+                            }
                           }
                         }
                       },
@@ -378,7 +426,10 @@
                 },
                 "region": {
                   "startLine": 35,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\ti += wcslen(p);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -401,7 +452,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                            }
                           }
                         }
                       },
@@ -416,7 +470,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -434,7 +491,10 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i;"
+                            }
                           }
                         }
                       },
@@ -449,7 +509,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti += wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -482,7 +545,10 @@
                 },
                 "region": {
                   "startLine": 36,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\ti -= wcslen(p);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -505,7 +571,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                            }
                           }
                         }
                       },
@@ -520,7 +589,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -535,7 +607,10 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i;"
+                            }
                           }
                         }
                       },
@@ -550,7 +625,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti += wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -568,7 +646,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti -= wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -601,7 +682,10 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\ti = wcslen(p) - i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -624,7 +708,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                            }
                           }
                         }
                       },
@@ -642,7 +729,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -675,7 +765,10 @@
                 },
                 "region": {
                   "startLine": 39,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "\ti = wcslen(p) - i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -698,7 +791,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
+                            }
                           }
                         }
                       },
@@ -713,7 +809,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -728,7 +827,10 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint j = i;"
+                            }
                           }
                         }
                       },
@@ -743,7 +845,10 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti += wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -758,7 +863,10 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti -= wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -773,7 +881,10 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) + i;"
+                            }
                           }
                         }
                       },
@@ -791,7 +902,10 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "\ti = wcslen(p) - i;"
+                            }
                           }
                         }
                       },
@@ -824,7 +938,10 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "    int k = i + wcslen(p);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CorrectAliasing",
@@ -847,7 +964,10 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int i = 6;"
+                            }
                           }
                         }
                       },
@@ -862,7 +982,10 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int j = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -880,7 +1003,10 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "    i += j;"
+                            }
                           }
                         }
                       },
@@ -898,7 +1024,10 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int k = i + wcslen(p);"
+                            }
                           }
                         }
                       },
@@ -931,7 +1060,10 @@
                 },
                 "region": {
                   "startLine": 61,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "    p += sizeof(int);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation",
@@ -954,7 +1086,10 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};"
+                            }
                           }
                         }
                       },
@@ -969,7 +1104,10 @@
                           },
                           "region": {
                             "startLine": 59,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int * p = source;"
+                            }
                           }
                         }
                       },
@@ -984,7 +1122,10 @@
                           },
                           "region": {
                             "startLine": 61,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "    p += sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -1017,7 +1158,10 @@
                 },
                 "region": {
                   "startLine": 70,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\tpI += sizeof(int);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation2",
@@ -1040,7 +1184,10 @@
                           },
                           "region": {
                             "startLine": 68,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint i = 0;"
+                            }
                           }
                         }
                       },
@@ -1055,7 +1202,10 @@
                           },
                           "region": {
                             "startLine": 69,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\tint* pI = &i;"
+                            }
                           }
                         }
                       },
@@ -1070,7 +1220,10 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\tpI += sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -1103,7 +1256,10 @@
                 },
                 "region": {
                   "startLine": 77,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "   p += cb + 2;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsForPointerArithmetic",
@@ -1126,7 +1282,10 @@
                           },
                           "region": {
                             "startLine": 75,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int cb = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -1144,7 +1303,10 @@
                           },
                           "region": {
                             "startLine": 77,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "   p += cb + 2;"
+                            }
                           }
                         }
                       },

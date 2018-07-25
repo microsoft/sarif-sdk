@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -35,8 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </summary>
         /// <param name="input">The Android Studio formatted log.</param>
         /// <param name="output">The SarifLog to write the output to.</param>
-        /// <param name="loggingOptions">Logging options that configure output.</param>
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             if (input == null)
             {
@@ -71,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "AndroidStudio"
             };
 
-            var fileInfoFactory = new FileInfoFactory(null, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(null, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             var run = new Run()

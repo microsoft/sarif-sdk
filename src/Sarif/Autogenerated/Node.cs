@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a node in a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Node : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Node> ValueComparer => NodeEqualityComparer.Instance;
@@ -51,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Location Location { get; set; }
 
         /// <summary>
+        /// Array of child nodes.
+        /// </summary>
+        [DataMember(Name = "children", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Node> Children { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the node.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -75,12 +81,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="location">
         /// An initialization value for the <see cref="P: Location" /> property.
         /// </param>
+        /// <param name="children">
+        /// An initialization value for the <see cref="P: Children" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Node(string id, Message label, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Node(string id, Message label, Location location, IEnumerable<Node> children, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, label, location, properties);
+            Init(id, label, location, children, properties);
         }
 
         /// <summary>
@@ -99,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Label, other.Location, other.Properties);
+            Init(other.Id, other.Label, other.Location, other.Children, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -120,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Node(this);
         }
 
-        private void Init(string id, Message label, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message label, Location location, IEnumerable<Node> children, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (label != null)
@@ -131,6 +140,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (location != null)
             {
                 Location = new Location(location);
+            }
+
+            if (children != null)
+            {
+                var destination_0 = new List<Node>();
+                foreach (var value_0 in children)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Node(value_0));
+                    }
+                }
+
+                Children = destination_0;
             }
 
             if (properties != null)

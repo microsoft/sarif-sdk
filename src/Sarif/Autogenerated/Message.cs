@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Encapsulates a message intended to be read by the end user.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Message : ISarifNode
     {
         public static IEqualityComparer<Message> ValueComparer => MessageEqualityComparer.Instance;

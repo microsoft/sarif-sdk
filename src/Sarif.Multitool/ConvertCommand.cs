@@ -15,6 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 LoggingOptions loggingOptions = LoggingOptions.None;
 
+                OptionallyEmittedData dataToInsert = convertOptions.DataToInsert.ToFlags();
+
                 if (convertOptions.PrettyPrint)
                 {
                     loggingOptions |= LoggingOptions.PrettyPrint;
@@ -24,11 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     loggingOptions |= LoggingOptions.OverwriteExistingOutputFile;
                 };
-
-                if (convertOptions.PersistFileContents)
-                {
-                    loggingOptions |= LoggingOptions.PersistFileContents;
-                }
 
                 if (string.IsNullOrEmpty(convertOptions.OutputFilePath))
                 {
@@ -40,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 convertOptions.InputFilePath,
                                                 convertOptions.OutputFilePath,
                                                 loggingOptions,
+                                                dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
             }
             catch (Exception ex)

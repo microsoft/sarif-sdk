@@ -34,7 +34,6 @@ namespace Microsoft.Sarif.Viewer.ErrorList
 
         private void Initialize()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
 
             // The composition service will only be null in unit tests.

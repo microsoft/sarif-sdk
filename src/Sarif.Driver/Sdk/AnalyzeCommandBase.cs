@@ -347,9 +347,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         LoggingOptions loggingOptions;
                         loggingOptions = analyzeOptions.ConvertToLoggingOptions();
 
+                        OptionallyEmittedData dataToInsert = analyzeOptions.DataToInsert.ToFlags();
+
+                        // This code is required in order to support the obsoleted ComputeFileHashes argument
+                        // on the analyze command-line;
+                        if (analyzeOptions.ComputeFileHashes) { dataToInsert |= OptionallyEmittedData.Hashes; }
+
                         var sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
+                                    dataToInsert,
                                     null, 
                                     null,
                                     targets,

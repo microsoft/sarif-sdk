@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 6,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "\t*p = '\\0';\t\t\t\t\t\t\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_Example",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tchar *p = ( char * ) malloc( 10 );\t\t"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "\t*p = '\\0';\t\t\t\t\t\t\t\t"
+                            }
                           }
                         }
                       },

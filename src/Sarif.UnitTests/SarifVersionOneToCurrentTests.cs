@@ -37,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -75,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -113,6 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -168,6 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -220,6 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -289,6 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -369,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""files"":{""file:///home/list.txt"":{""length"":43,""mimeType"":""text/plain"",""contents"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":23}]},""file:///home/buildAgent/bin/app.zip"":{""mimeType"":""application/zip"",""properties"":{""my_key"":""some value""}},""file:///home/buildAgent/bin/app.zip#/docs/intro.docx"":{""uri"":""file:///docs/intro.docx"",""parentKey"":""file:///home/buildAgent/bin/app.zip"",""offset"":17522,""length"":4050,""mimeType"":""application/vnd.openxmlformats-officedocument.wordprocessingml.document""}},""results"":[]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""files"":{""file:///home/list.txt"":{""length"":43,""mimeType"":""text/plain"",""contents"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha256""}]},""file:///home/buildAgent/bin/app.zip"":{""mimeType"":""application/zip"",""properties"":{""my_key"":""some value""}},""file:///home/buildAgent/bin/app.zip#/docs/intro.docx"":{""uri"":""file:///docs/intro.docx"",""parentKey"":""file:///home/buildAgent/bin/app.zip"",""offset"":17522,""length"":4050,""mimeType"":""application/vnd.openxmlformats-officedocument.wordprocessingml.document""}},""results"":[]}
       }
     }
   ]
@@ -383,6 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -484,9 +491,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""enabled"": true,
               ""defaultLevel"": ""error""
             },
-            ""helpLocation"": {
-              ""uri"": ""http://www.domain.com/rules/c2002.html""
-            }
+            ""helpUri"": ""http://www.domain.com/rules/c2002.html""
           },
           ""C2003"": {
             ""id"": ""C2003"",
@@ -509,7 +514,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001""},{""ruleId"":""C2001"",""ruleKey"":""C2001""},{""ruleId"":""C2002"",""ruleKey"":""C2002-1""},{""ruleKey"":""C2003""}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":1,""defaultLevel"":5,""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":2,""defaultLevel"":2}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001""},{""ruleId"":""C2001"",""ruleKey"":""C2001""},{""ruleId"":""C2002"",""ruleKey"":""C2002-1""},{""ruleKey"":""C2003""}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""},""properties"":{""some_key"":""FoxForceFive""}},""C2002"":{""id"":""C2002"",""fullDescription"":""Catfish season continuous hen lamb include dose copy grant."",""configuration"":""enabled"",""defaultLevel"":""error"",""helpUri"":""http://www.domain.com/rules/c2002.html""},""C2003"":{""id"":""C2003"",""name"":""Rule C2003"",""shortDescription"":""Rules were meant to be broken."",""fullDescription"":""Rent internal rebellion competence biography photograph."",""configuration"":""disabled"",""defaultLevel"":""pass""}}}
       }
     }
   ]
@@ -523,6 +528,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -613,6 +619,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -736,7 +743,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ],
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocation"":{""commandLine"":""CodeScanner @collections.rsp""},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Run started."",""level"":1},{""id"":""CTN9999"",""ruleId"":""C2152"",""physicalLocation"":{""uri"":""file:///home/buildAgent/src/crypto/hash.cpp""},""message"":""Exception evaluating rule \""C2152\"". Rule disabled; run continues."",""level"":2,""threadId"":52,""time"":""2016-07-16T14:18:43.119Z"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}},{""id"":""CTN0002"",""message"":""Run ended."",""level"":1}],""configurationNotifications"":[{""id"":""UnknownRule"",""ruleId"":""ABC0001"",""message"":""Could not disable rule \""ABC0001\"" because there is no rule with that id.""}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocation"":{""commandLine"":""CodeScanner @collections.rsp""},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Run started."",""level"":""note""},{""id"":""CTN9999"",""ruleId"":""C2152"",""physicalLocation"":{""uri"":""file:///home/buildAgent/src/crypto/hash.cpp""},""message"":""Exception evaluating rule \""C2152\"". Rule disabled; run continues."",""level"":""error"",""threadId"":52,""time"":""2016-07-16T14:18:43.119Z"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}},{""id"":""CTN0002"",""message"":""Run ended."",""level"":""note""}],""configurationNotifications"":[{""id"":""UnknownRule"",""ruleId"":""ABC0001"",""message"":""Could not disable rule \""ABC0001\"" because there is no rule with that id.""}]}
       }
     }
   ]
@@ -750,6 +757,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -811,7 +819,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ],
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Run started."",""level"":1}],""configurationNotifications"":[{""id"":""UnknownRule"",""ruleId"":""ABC0001"",""message"":""Could not disable rule \""ABC0001\"" because there is no rule with that id.""}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Run started."",""level"":""note""}],""configurationNotifications"":[{""id"":""UnknownRule"",""ruleId"":""ABC0001"",""message"":""Could not disable rule \""ABC0001\"" because there is no rule with that id.""}]}
       }
     }
   ]
@@ -825,6 +833,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -941,7 +950,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                           },
                           ""region"": {
                             ""startLine"": 15,
-                            ""startColumn"": 9
+                            ""startColumn"": 9,
+                            ""endColumn"": 9
                           }
                         },
                         ""fullyQualifiedLogicalName"": ""Rules.SecureHashAlgorithmRule.Evaluate"",
@@ -1030,7 +1040,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""Rules.SecureHashAlgorithmRule.Evaluate"":{""name"":""Evaluate"",""kind"":""some kind""},""Rules.SecureHashAlgorithmRule.Register"":{""name"":""InvalidName""},""ExecutionEngine.Engine.FooBar"":{""name"":""FooBar"",""kind"":""another kind""}},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Unhandled exception."",""level"":2,""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""stack"":{""message"":""This is the stack messasge."",""frames"":[{""message"":""Exception thrown"",""uri"":""file:///C:/src/main.cs"",""line"":15,""column"":9,""module"":""RuleLibrary"",""threadId"":52,""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Evaluate"",""address"":10092852},{""uri"":""file:///C:/src/main.cs"",""module"":""RuleLibrary"",""threadId"":52,""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Register"",""address"":1002485},{""uri"":""file:///C:/src/utils.cs"",""module"":""ExecutionEngine"",""threadId"":52,""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule"",""address"":10073356,""offset"":10475},{""uri"":""file:///C:/src/foobar.cs"",""module"":""ExecutionEngine"",""threadId"":52,""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule"",""logicalLocationKey"":""ExecutionEngine.Engine.FooBar"",""address"":10073356,""offset"":10475}]},""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""Rules.SecureHashAlgorithmRule.Evaluate"":{""name"":""Evaluate"",""kind"":""some kind""},""Rules.SecureHashAlgorithmRule.Register"":{""name"":""InvalidName""},""ExecutionEngine.Engine.FooBar"":{""name"":""FooBar"",""kind"":""another kind""}},""results"":[],""toolNotifications"":[{""id"":""CTN0001"",""message"":""Unhandled exception."",""level"":""error"",""exception"":{""kind"":""ExecutionEngine.RuleFailureException"",""message"":""Unhandled exception during rule evaluation."",""stack"":{""message"":""This is the stack messasge."",""frames"":[{""message"":""Exception thrown"",""uri"":""file:///C:/src/main.cs"",""line"":15,""column"":9,""module"":""RuleLibrary"",""threadId"":52,""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Evaluate"",""address"":10092852},{""uri"":""file:///C:/src/main.cs"",""module"":""RuleLibrary"",""threadId"":52,""fullyQualifiedLogicalName"":""Rules.SecureHashAlgorithmRule.Register"",""address"":1002485},{""uri"":""file:///C:/src/utils.cs"",""module"":""ExecutionEngine"",""threadId"":52,""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule"",""address"":10073356,""offset"":10475},{""uri"":""file:///C:/src/foobar.cs"",""module"":""ExecutionEngine"",""threadId"":52,""fullyQualifiedLogicalName"":""ExecutionEngine.Engine.EvaluateRule"",""logicalLocationKey"":""ExecutionEngine.Engine.FooBar"",""address"":10073356,""offset"":10475}]},""innerExceptions"":[{""kind"":""System.ArgumentException"",""message"":""length is < 0""}]}}]}
       }
     }
   ]
@@ -1044,12 +1054,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
       ""tool"": {
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
+      },
+      ""files"": {
+        ""file:///home/list.txt"": {
+          ""mimeType"": ""text/plain"",
+          ""length"": 43,
+          ""contents"": ""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",
+          ""hashes"": [
+            {
+              ""algorithm"": ""sha256"",
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592""
+            }
+          ]
+        }
       },
       ""logicalLocations"": {
         ""collections::list::add"": {
@@ -1103,10 +1127,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""message"": ""\""count\"" was declared here."",
               ""physicalLocation"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
+                ""uri"": ""file:///home/list.txt"",
                 ""region"": {
-                  ""startLine"": 8,
-                  ""startColumn"": 5
+                  ""startLine"": 1,
+                  ""startColumn"": 5,
+                  ""length"": 4
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add""
+            },
+            {
+              ""message"": ""\""count\"" was declared here."",
+              ""physicalLocation"": {
+                ""uri"": ""file:///home/list.txt"",
+                ""region"": {
+                  ""offset"": 12,
+                  ""length"": 3
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add""
@@ -1137,6 +1173,21 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
+      },
+      ""files"": {
+        ""file:///home/list.txt"": {
+          ""length"": 43,
+          ""mimeType"": ""text/plain"",
+          ""contents"": {
+            ""text"": ""The quick brown fox jumps over the lazy dog""
+          },
+          ""hashes"": [
+            {
+              ""value"": ""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",
+              ""algorithm"": ""sha-256""
+            }
+          ]
+        }
       },
       ""logicalLocations"": {
         ""collections::list::add"": {
@@ -1178,7 +1229,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startColumn"": 1,
                   ""endLine"": 1,
                   ""endColumn"": 28,
-                  ""length"": 27,
+                  ""byteLength"": 27,
                   ""snippet"": {
                     ""text"": ""add_core(ptr, offset, val);""
                   }
@@ -1191,11 +1242,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
               ""physicalLocation"": {
                 ""fileLocation"": {
-                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
+                  ""uri"": ""file:///home/list.txt""
                 },
                 ""region"": {
-                  ""startLine"": 8,
-                  ""startColumn"": 5
+                  ""startLine"": 1,
+                  ""startColumn"": 5,
+                  ""byteLength"": 4
+                }
+              },
+              ""fullyQualifiedLogicalName"": ""collections::list::add"",
+              ""message"": {
+                ""text"": ""\""count\"" was declared here.""
+              }
+            },
+            {
+              ""physicalLocation"": {
+                ""fileLocation"": {
+                  ""uri"": ""file:///home/list.txt""
+                },
+                ""region"": {
+                  ""byteOffset"": 12,
+                  ""byteLength"": 3
                 }
               },
               ""fullyQualifiedLogicalName"": ""collections::list::add"",
@@ -1225,7 +1292,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       },
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""name"":""collections"",""kind"":""namespace""}},""results"":[{""ruleId"":""C2001"",""level"":5,""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""ptr""]},""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""relatedLocations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":8,""startColumn"":5}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""}],""suppressionStates"":2,""baselineState"":1}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""fullDescription"":""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""}}}}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""files"":{""file:///home/list.txt"":{""length"":43,""mimeType"":""text/plain"",""contents"":""VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="",""hashes"":[{""value"":""d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"",""algorithm"":""sha256""}]}},""logicalLocations"":{""collections::list::add"":{""name"":""add"",""parentKey"":""collections::list"",""kind"":""function""},""collections::list"":{""name"":""list"",""parentKey"":""collections"",""kind"":""type""},""collections"":{""name"":""collections"",""kind"":""namespace""}},""results"":[{""ruleId"":""C2001"",""level"":""error"",""formattedRuleMessage"":{""formatId"":""default"",""arguments"":[""ptr""]},""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""relatedLocations"":[{""physicalLocation"":{""uri"":""file:///home/list.txt"",""region"":{""startLine"":1,""startColumn"":5,""length"":4}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""},{""physicalLocation"":{""uri"":""file:///home/list.txt"",""region"":{""offset"":12,""length"":3}},""fullyQualifiedLogicalName"":""collections::list::add"",""message"":""\""count\"" was declared here.""}],""suppressionStates"":2,""baselineState"":""existing""}],""rules"":{""C2001"":{""id"":""C2001"",""shortDescription"":""A variable was used without being initialized."",""fullDescription"":""A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."",""messageFormats"":{""default"":""Variable \""{0}\"" was used without being initialized.""}}}}
       }
     }
   ]
@@ -1239,6 +1306,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
@@ -1404,8 +1472,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 20,
                   ""startColumn"": 69,
                   ""endColumn"": 74,
-                  ""offset"": 720,
-                  ""length"": 5,
+                  ""byteOffset"": 720,
+                  ""byteLength"": 5,
                   ""snippet"": {
                     ""text"": ""<area alt=\""Here is some text\"" coords=\""10 20 20\"" href=\""moon.html\"" shape=circle xweb:fixindex=\""0\"" />""
                   }
@@ -1426,7 +1494,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1434,7 +1502,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Jw==""
@@ -1456,7 +1524,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 720
+                        ""byteOffset"": 720
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1464,7 +1532,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     {
                       ""deletedRegion"": {
-                        ""offset"": 725
+                        ""byteOffset"": 725
                       },
                       ""insertedContent"": {
                         ""binary"": ""Ig==""
@@ -1494,8 +1562,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 24,
                   ""startColumn"": 4,
                   ""endColumn"": 38,
-                  ""offset"": 803,
-                  ""length"": 34,
+                  ""byteOffset"": 803,
+                  ""byteLength"": 34,
                   ""snippet"": {
                     ""text"": ""<DIV id=\""test1\"" xweb:fixindex=\""0\""></DIV>""
                   }
@@ -1516,8 +1584,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""replacements"": [
                     {
                       ""deletedRegion"": {
-                        ""offset"": 804,
-                        ""length"": 3
+                        ""byteOffset"": 804,
+                        ""byteLength"": 3
                       },
                       ""insertedContent"": {
                         ""binary"": ""ZGl2""
@@ -1567,18 +1635,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             const string V1LogText =
 @"{
+  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
   ""version"": ""1.0.0"",
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
-          ""message"": ""Variable \""ptr\"" declared."",
-          ""snippet"": ""add_core(ptr, offset, val);"",
+          ""message"": ""Variable \""str\"" declared."",
+          ""snippet"": ""string str = GetFoo();"",
           ""locations"": [
             {
               ""analysisTarget"": {
@@ -1590,11 +1658,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""length"": 27
+                  ""endColumn"": 23,
+                  ""length"": 22
                 }
               },
-              ""fullyQualifiedLogicalName"": ""collections::list::add"",
               ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
             }
           ],
@@ -1603,17 +1670,16 @@ namespace Microsoft.CodeAnalysis.Sarif
               ""message"": ""Path from declaration to usage"",
               ""locations"": [
                 {
-                  ""kind"": ""declaration"",
+                  ""kind"": ""call"",
                   ""importance"": ""essential"",
-                  ""message"": ""Variable \""ptr\"" declared."",
-                  ""snippet"": ""int *ptr;"",
+                  ""message"": ""Variable \""str\"" declared."",
+                  ""snippet"": ""string str = GetFoo();"",
                   ""physicalLocation"": {
                     ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                     ""region"": {
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52,
                   ""taintKind"": ""sink"",
@@ -1657,25 +1723,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                   ],
                   ""step"": 1,
-                  ""kind"": ""assignment"",
-                  ""importance"": ""unimportant"",
-                  ""snippet"": ""offset = 0;"",
+                  ""message"": ""Method \""GetFoo\"" returns null."",
+                  ""kind"": ""callReturn"",
+                  ""importance"": ""important"",
+                  ""snippet"": ""return null;"",
                   ""physicalLocation"": {
                     ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
                     ""region"": {
                       ""startLine"": 15
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 },
                 {
                   ""step"": 2,
-                  ""kind"": ""callReturn"",
+                  ""kind"": ""continuation"",
                   ""importance"": ""essential"",
-                  ""message"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",
-                  ""snippet"": ""add_core(ptr, offset, val)"",
+                  ""snippet"": ""int length = str.Length;"",
                   ""state"": {
                     ""Foo"": ""bar""
                   },
@@ -1686,7 +1751,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                       ""startLine"": 25
                     }
                   },
-                  ""fullyQualifiedLogicalName"": ""collections::list::add"",
                   ""module"": ""platform"",
                   ""threadId"": 52
                 }
@@ -1706,20 +1770,13 @@ namespace Microsoft.CodeAnalysis.Sarif
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""CodeScanner"",
-        ""semanticVersion"": ""2.1.0""
-      },
-      ""logicalLocations"": {
-        ""collections::list::add"": {
-          ""name"": ""add"",
-          ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-        }
+        ""name"": ""CodeScanner""
       },
       ""results"": [
         {
           ""ruleId"": ""C2001"",
           ""message"": {
-            ""text"": ""Variable \""ptr\"" declared.""
+            ""text"": ""Variable \""str\"" declared.""
           },
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
@@ -1734,14 +1791,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                   ""startLine"": 1,
                   ""startColumn"": 1,
                   ""endLine"": 1,
-                  ""endColumn"": 28,
-                  ""length"": 27,
+                  ""endColumn"": 23,
+                  ""byteLength"": 22,
                   ""snippet"": {
-                    ""text"": ""add_core(ptr, offset, val);""
+                    ""text"": ""string str = GetFoo();""
                   }
                 }
-              },
-              ""fullyQualifiedLogicalName"": ""collections::list::add""
+              }
             }
           ],
           ""codeFlows"": [
@@ -1762,13 +1818,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""int *ptr;""
+                              ""text"": ""string str = GetFoo();""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
                         ""message"": {
-                          ""text"": ""Variable \""ptr\"" declared.""
+                          ""text"": ""Variable \""str\"" declared.""
                         }
                       },
                       ""module"": ""platform"",
@@ -1784,11 +1839,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 15,
                             ""snippet"": {
-                              ""text"": ""offset = 0;""
+                              ""text"": ""return null;""
                             }
                           }
                         },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
+                        ""message"": {
+                          ""text"": ""Method \""GetFoo\"" returns null.""
+                        },
                         ""annotations"": [
                           {
                             ""startLine"": 40,
@@ -1805,7 +1862,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         ]
                       },
                       ""module"": ""platform"",
-                      ""importance"": ""unimportant""
+                      ""nestingLevel"": 1
                     },
                     {
                       ""step"": 3,
@@ -1817,13 +1874,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                           ""region"": {
                             ""startLine"": 25,
                             ""snippet"": {
-                              ""text"": ""add_core(ptr, offset, val)""
+                              ""text"": ""int length = str.Length;""
                             }
                           }
-                        },
-                        ""fullyQualifiedLogicalName"": ""collections::list::add"",
-                        ""message"": {
-                          ""text"": ""Uninitialized variable \""ptr\"" passed to method \""add_core\"".""
                         }
                       },
                       ""module"": ""platform"",
@@ -1840,7 +1893,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
       ],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""ptr\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":28,""length"":27}},""fullyQualifiedLogicalName"":""collections::list::add"",""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""add_core(ptr, offset, val);"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Variable \""ptr\"" declared."",""kind"":7,""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":1,""snippet"":""int *ptr;""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""kind"":2,""importance"":2,""snippet"":""offset = 0;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""fullyQualifiedLogicalName"":""collections::list::add"",""module"":""platform"",""threadId"":52,""message"":""Uninitialized variable \""ptr\"" passed to method \""add_core\""."",""kind"":5,""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":1,""snippet"":""add_core(ptr, offset, val)""}]}]}]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""str\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":23,""length"":22}},""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""string str = GetFoo();"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Variable \""str\"" declared."",""kind"":""call"",""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":""essential"",""snippet"":""string str = GetFoo();""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Method \""GetFoo\"" returns null."",""kind"":""callReturn"",""snippet"":""return null;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""module"":""platform"",""threadId"":52,""kind"":""continuation"",""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":""essential"",""snippet"":""int length = str.Length;""}]}]}]}
       }
     }
   ]

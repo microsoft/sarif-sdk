@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "      j = a[i];\t\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_Example3",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int a[20];\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int j;"
+                            }
                           }
                         }
                       },
@@ -87,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "   i=20;"
+                            }
                           }
                         }
                       },
@@ -105,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 15
+                            "startColumn": 15,
+                            "snippet": {
+                              "text": "   if (i >= 0 && i <= 20)\t"
+                            }
                           }
                         }
                       },
@@ -122,7 +137,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "      j = a[i];\t\t\t"
+                            }
                           }
                         }
                       },

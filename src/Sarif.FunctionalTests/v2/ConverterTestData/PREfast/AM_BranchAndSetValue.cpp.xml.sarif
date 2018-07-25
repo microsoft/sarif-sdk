@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "\t*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (b == 10);"
+                            }
                           }
                         }
                       },
@@ -87,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t*result = data[b];"
+                            }
                           }
                         }
                       },
@@ -120,7 +132,10 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "\t*result = data[b];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -143,7 +158,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -161,7 +179,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (b == 10);"
+                            }
                           }
                         }
                       },
@@ -178,7 +199,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t*result = data[b];"
+                            }
                           }
                         }
                       },

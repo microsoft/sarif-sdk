@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Region for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class RegionEqualityComparer : IEqualityComparer<Region>
     {
         internal static readonly RegionEqualityComparer Instance = new RegionEqualityComparer();
@@ -47,12 +47,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Offset != right.Offset)
+            if (left.CharOffset != right.CharOffset)
             {
                 return false;
             }
 
-            if (left.Length != right.Length)
+            if (left.CharLength != right.CharLength)
+            {
+                return false;
+            }
+
+            if (left.ByteOffset != right.ByteOffset)
+            {
+                return false;
+            }
+
+            if (left.ByteLength != right.ByteLength)
             {
                 return false;
             }
@@ -84,8 +94,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.StartColumn.GetHashCode();
                 result = (result * 31) + obj.EndLine.GetHashCode();
                 result = (result * 31) + obj.EndColumn.GetHashCode();
-                result = (result * 31) + obj.Offset.GetHashCode();
-                result = (result * 31) + obj.Length.GetHashCode();
+                result = (result * 31) + obj.CharOffset.GetHashCode();
+                result = (result * 31) + obj.CharLength.GetHashCode();
+                result = (result * 31) + obj.ByteOffset.GetHashCode();
+                result = (result * 31) + obj.ByteLength.GetHashCode();
                 if (obj.Snippet != null)
                 {
                     result = (result * 31) + obj.Snippet.ValueGetHashCode();

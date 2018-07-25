@@ -40,7 +40,10 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "\t\tint x = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
@@ -63,7 +66,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL"
+                            }
                           }
                         }
                       },
@@ -78,7 +84,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint * target = source;"
+                            }
                           }
                         }
                       },
@@ -96,7 +105,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint x = *source;"
+                            }
                           }
                         }
                       },
@@ -129,7 +141,10 @@
                 },
                 "region": {
                   "startLine": 23,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "\t\tint x = *target;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
@@ -152,7 +167,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL"
+                            }
                           }
                         }
                       },
@@ -167,7 +185,10 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint * target = source;"
+                            }
                           }
                         }
                       },
@@ -185,7 +206,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint x = *target;"
+                            }
                           }
                         }
                       },
@@ -218,7 +242,10 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "\t\tint x = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
@@ -241,7 +268,10 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL"
+                            }
                           }
                         }
                       },
@@ -259,7 +289,10 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t\tsource = target;"
+                            }
                           }
                         }
                       },
@@ -274,7 +307,10 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint x = *source;"
+                            }
                           }
                         }
                       },

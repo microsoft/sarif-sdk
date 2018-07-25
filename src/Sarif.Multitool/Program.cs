@@ -13,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public static int Main(string[] args)
         {
             return Parser.Default.ParseArguments<
+                ValidateOptions,
                 ConvertOptions,
                 RewriteOptions,
                 TransformOptions,
@@ -21,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 AbsoluteUriOptions,
                 BaselineOptions>(args)
               .MapResult(
+                (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
                 (TransformOptions transformOptions) => TransformCommand.Run(transformOptions),

@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriBaseIdRequiresRelativeUri : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF014_UriBaseIdRequiresRelativeUri;
+        public override string FullDescription => RuleResources.SARIF1014_UriBaseIdRequiresRelativeUri;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SARIF014
+        /// SARIF1014
         /// </summary>
         public override string Id => RuleId.UriBaseIdRequiresRelativeUri;
 
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SARIF014_Default)
+                    nameof(RuleResources.SARIF1014_Default)
                 };
             }
         }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 LogResult(
                     uriPointer,
-                    nameof(RuleResources.SARIF014_Default),
+                    nameof(RuleResources.SARIF1014_Default),
                     uri.OriginalString);
             }
         }

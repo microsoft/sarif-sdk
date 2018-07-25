@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "\t\tcontentStores[0] = contentStores[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_IndexAlias",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint * contentStores = new int [2];"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "\tcontentStores[0] = 0;"
+                            }
                           }
                         }
                       },
@@ -87,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "\tcontentStores[1] = 1;"
+                            }
                           }
                         }
                       },
@@ -102,7 +114,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "\twhile (inputIndex > 1)"
+                            }
                           }
                         }
                       },
@@ -119,7 +134,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\t\tint index = inputIndex;"
+                            }
                           }
                         }
                       },
@@ -137,7 +155,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "\t\tcontentStores[0] = contentStores[index];"
+                            }
                           }
                         }
                       },

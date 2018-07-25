@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             { "RULECATEGORY", "ruleCategory" }
         };
 
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
             output = output ?? throw new ArgumentNullException(nameof(output));
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     results.Add(CreateResult(entry));
                 }
 
-                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
                 Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
                 if (fileDictionary?.Any() == true)
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             int step = 0;
-            var locations = new List<CodeFlowLocation>();
+            var locations = new List<ThreadFlowLocation>();
             bool pathUsesKeyEvents = defect.Path.SFAs.Any(x => !string.IsNullOrWhiteSpace(x?.KeyEvent?.Id));
 
             foreach (var sfa in defect.Path.SFAs)
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
                 var fileLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: uri, uriBaseId: null), region: region, contextRegion: null);
-                var codeFlowLocation = new CodeFlowLocation
+                var threadFlowLocation = new ThreadFlowLocation
                 {
                     Location = new Location
                     {
@@ -174,26 +174,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (string.IsNullOrWhiteSpace(sfa.KeyEvent?.Id))
                     {
-                        codeFlowLocation.Importance = CodeFlowLocationImportance.Unimportant;
+                        threadFlowLocation.Importance = ThreadFlowLocationImportance.Unimportant;
                     }
                     else
                     {
-                        codeFlowLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
+                        threadFlowLocation.SetProperty("keyEventId", sfa.KeyEvent.Id);
 
-                        if (Enum.TryParse(sfa.KeyEvent.Importance, true, out CodeFlowLocationImportance importance))
+                        if (Enum.TryParse(sfa.KeyEvent.Importance, true, out ThreadFlowLocationImportance importance))
                         {
-                            codeFlowLocation.Importance = importance;
+                            threadFlowLocation.Importance = importance;
                         }
 
                         if (!string.IsNullOrWhiteSpace(sfa.KeyEvent.Message) &&
-                            codeFlowLocation.Location?.Message != null)
+                            threadFlowLocation.Location?.Message != null)
                         {
-                            codeFlowLocation.Location.Message.Text = sfa.KeyEvent.Message;
+                            threadFlowLocation.Location.Message.Text = sfa.KeyEvent.Message;
                         }
                     }
                 }
 
-                locations.Add(codeFlowLocation);
+                locations.Add(threadFlowLocation);
             }
 
             result.CodeFlows = new List<CodeFlow>()

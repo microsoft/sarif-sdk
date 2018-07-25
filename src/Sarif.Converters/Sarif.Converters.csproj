@@ -1,47 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., netcorebuild.props))\netcorebuild.props" />
-  
-  <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0; netstandard2.0; net452;</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ProjectGuid>d0d4ac36-b339-47be-ad61-ec08a967d20c</ProjectGuid>
-    <RootNamespace>Microsoft.CodeAnalysis.Sarif.Converters</RootNamespace>
-  </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Sarif.Converters</PackageId>
-    <Title>.NET Static Analysis Results Interchange Format (SARIF) Sdk</Title>
-    <Authors>Microsoft Corporation</Authors>
-    <Description>.NET tools and libraries for working with the Static Analysis Results Interchange Format v1.0.0.</Description>
-    <PackageReleaseNotes>Version $(Version) of the .NET SARIF SDK (for SARIF v1.0.0)</PackageReleaseNotes>
-    <Copyright>Copyright Microsoft 2015</Copyright>
-    <PackageLicenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/microsoft/sarif-sdk</PackageProjectUrl>
-    <PackageTags>sarifsdk</PackageTags>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <None Remove="Schemata\FxCopReport.xsd" />
-  </ItemGroup>
+
+  <PropertyGroup Label="AssemblyAttributes">
+    <AssemblyTitle>SARIF Converter Library</AssemblyTitle>
+    <Description>Classes for converting the output of various static analysis tools to the SARIF format.</Description>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
     <EmbeddedResource Include="Schemata\FxCopReport.xsd" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="7.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net452'" Include="System.Collections.Immutable" Version="1.3.1" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net452'" Include="System.Collections.Immutable" Version="1.4.0" />
+    <PackageReference Include="CsvHelper" Version="7.1.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TSLintObjectModel\" />
-  </ItemGroup>
 </Project>

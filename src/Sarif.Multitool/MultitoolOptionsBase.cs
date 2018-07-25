@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool{
@@ -21,15 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool{
         public bool Force { get; internal set; }
 
         [Option(
-            'h',
-            "hashes",
-            HelpText = "Output MD5, SHA1, and SHA-256 hash of analysis targets when emitting SARIF reports.")]
-        public bool ComputeFileHashes { get; set; }
-
-
-        [Option(
-            "persist-file-contents",
-            HelpText = "Persist a base64-encoded representation of all referenced files to the log.")]
-        public bool PersistFileContents { get; set; }
+            "insert",
+            Separator = ';',
+            HelpText = 
+            "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
+            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, CodeSnippets, SurroundingCodeSnippets " + 
+            "and NondeterministicProperties.")]
+        public IEnumerable<OptionallyEmittedData> DataToInsert { get; internal set; }
     }
 }

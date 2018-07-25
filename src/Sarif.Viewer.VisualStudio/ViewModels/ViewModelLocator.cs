@@ -61,34 +61,34 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 FileName = @"C:\Temp\Foo.exe",
             };
 
-            viewModel.Locations.Add(new Models.CodeFlowLocationModel()
+            viewModel.Locations.Add(new Models.ThreadFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new Region(11, 1, 11, 2, 0, 0, snippet: null, message: null),
+                Region = new Region(11, 1, 11, 2, 0, 0, 0, 0, snippet: null, message: null),
             });
 
-            viewModel.Locations.Add(new Models.CodeFlowLocationModel()
+            viewModel.Locations.Add(new Models.ThreadFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new Region(12, 1, 12, 2, 0, 0, snippet: null, message: null),
+                Region = new Region(12, 1, 12, 2, 0, 0, 0, 0, snippet: null, message: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
+            viewModel.RelatedLocations.Add(new Models.ThreadFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new Region(21, 1, 21, 2, 0, 0, snippet: null, message: null),
+                Region = new Region(21, 1, 21, 2, 0, 0, 0, 0, snippet: null, message: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
+            viewModel.RelatedLocations.Add(new Models.ThreadFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new Region(22, 1, 22, 2, 0, 0, snippet: null, message: null),
+                Region = new Region(22, 1, 22, 2, 0, 0, 0, 0, snippet: null, message: null),
             });
 
-            viewModel.RelatedLocations.Add(new Models.CodeFlowLocationModel()
+            viewModel.RelatedLocations.Add(new Models.ThreadFlowLocationModel()
             {
                 FilePath = @"D:\GitHub\NuGet.Services.Metadata\src\Ng\Catalog2Dnx.cs",
-                Region = new Region(23, 1, 23, 2, 0, 0, snippet: null, message: null),
+                Region = new Region(23, 1, 23, 2, 0, 0, 0, 0, snippet: null, message: null),
             });
 
             viewModel.CallTrees.Add(new CallTree(
@@ -96,17 +96,17 @@ namespace Microsoft.Sarif.Viewer.ViewModels
                 {
                     new CallTreeNode
                     {
-                        Location = new CodeFlowLocation()
+                        Location = new ThreadFlowLocation()
                     },
 
                     new CallTreeNode
                     {
-                        Location = new CodeFlowLocation(),
+                        Location = new ThreadFlowLocation(),
                         Children = new List<CallTreeNode>
                         {
                             new CallTreeNode
                             {
-                                Location = new CodeFlowLocation()
+                                Location = new ThreadFlowLocation()
                             }
                         }
                     }

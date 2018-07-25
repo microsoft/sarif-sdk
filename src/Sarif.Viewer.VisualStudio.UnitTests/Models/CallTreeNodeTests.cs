@@ -15,16 +15,16 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation(),
+                Location = new ThreadFlowLocation(),
             };
 
-            callTreeNode.Location.Importance = CodeFlowLocationImportance.Essential;
+            callTreeNode.Location.Importance = ThreadFlowLocationImportance.Essential;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisKeyEventSelection");
 
-            callTreeNode.Location.Importance = CodeFlowLocationImportance.Important;
+            callTreeNode.Location.Importance = ThreadFlowLocationImportance.Important;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisLineTraceSelection");
 
-            callTreeNode.Location.Importance = CodeFlowLocationImportance.Unimportant;
+            callTreeNode.Location.Importance = ThreadFlowLocationImportance.Unimportant;
             callTreeNode.DefaultSourceHighlightColor.Should().Be("CodeAnalysisLineTraceSelection");
         }
 
@@ -33,10 +33,10 @@ namespace Microsoft.Sarif.Viewer.VisualStudio.Converters.UnitTests
         {
             var callTreeNode = new CallTreeNode
             {
-                Location = new CodeFlowLocation(),
+                Location = new ThreadFlowLocation(),
             };
 
-            callTreeNode.Location.Importance = CodeFlowLocationImportance.Essential;
+            callTreeNode.Location.Importance = ThreadFlowLocationImportance.Essential;
             callTreeNode.SelectedSourceHighlightColor.Should().Be("CodeAnalysisCurrentStatementSelection");
         }
     }

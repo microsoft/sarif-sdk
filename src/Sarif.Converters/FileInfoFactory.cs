@@ -9,15 +9,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FileInfoFactory
     {
-        private readonly LoggingOptions _loggingOptions;
+        private readonly OptionallyEmittedData _dataToInsert;
         private readonly Func<string, string> _mimeTypeClassifier;
         private readonly Dictionary<string, FileData> _fileInfoDictionary;
 
-        internal FileInfoFactory(Func<string, string> mimeTypeClassifier, LoggingOptions loggingOptions)
+        internal FileInfoFactory(Func<string, string> mimeTypeClassifier, OptionallyEmittedData dataToInsert)
         {
             _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
             _fileInfoDictionary = new Dictionary<string, FileData>();
-            _loggingOptions = loggingOptions;
+            _dataToInsert = dataToInsert;
         }
 
         internal Dictionary<string, FileData> Create(IEnumerable<Result> results)
@@ -48,9 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.Stacks != null)
                 {
-                    foreach (IList<CodeFlowLocation> stack in result.Stacks)
+                    foreach (IList<ThreadFlowLocation> stack in result.Stacks)
                     {
-                        foreach (CodeFlowLocation stackFrame in stack)
+                        foreach (ThreadFlowLocation stackFrame in stack)
                         {
                             AddFile(stackFrame.Location.PhysicalLocation);
                         }
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         foreach (ThreadFlow threadFlow in codeFlow.ThreadFlows)
                         {
-                            foreach (CodeFlowLocation codeLocation in threadFlow.Locations)
+                            foreach (ThreadFlowLocation codeLocation in threadFlow.Locations)
                             {
                                 if (codeLocation.Location?.PhysicalLocation != null)
                                 {
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             FileData fileData = FileData.Create(
                 uri,
-                _loggingOptions,
+                _dataToInsert,
                 _mimeTypeClassifier(filePath));
 
 

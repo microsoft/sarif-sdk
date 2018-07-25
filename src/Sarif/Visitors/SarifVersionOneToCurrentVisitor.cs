@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -16,8 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
         private Run _currentRun = null;
-        private int _codeFlowLocationNestingLevel;
-        private int _codeFlowLocationStepAdjustment = 0;
+        private RunVersionOne _currentV1Run = null;
+        private int _threadFlowLocationNestingLevel;
+        private int _threadFlowLocationStepAdjustment = 0;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -49,57 +51,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (v1CodeFlow.Locations != null && v1CodeFlow.Locations.Count > 0)
                 {
-                    _codeFlowLocationNestingLevel = 0;
+                    _threadFlowLocationNestingLevel = 0;
 
                     if (v1CodeFlow.Locations[0].Step == 0)
                     {
                         // If the steps are zero-based, add 1 to comply with the v2 spec
-                        _codeFlowLocationStepAdjustment = 1;
+                        _threadFlowLocationStepAdjustment = 1;
                     }
 
                     codeFlow.ThreadFlows = new List<ThreadFlow>
                     {
                         new ThreadFlow
                         {
-                            Locations = v1CodeFlow.Locations.Select(CreateCodeFlowLocation).ToList()
+                            Locations = v1CodeFlow.Locations.Select(CreateThreadFlowLocation).ToList()
                         }
                     };
 
-                    _codeFlowLocationStepAdjustment = 0;
+                    _threadFlowLocationStepAdjustment = 0;
                 }
             }
 
             return codeFlow;
         }
 
-        internal CodeFlowLocation CreateCodeFlowLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
+        internal ThreadFlowLocation CreateThreadFlowLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
         {
-            CodeFlowLocation codeFlowLocation = null;
+            ThreadFlowLocation threadFlowLocation = null;
 
             if (v1AnnotatedCodeLocation != null)
             {
-                codeFlowLocation = new CodeFlowLocation
+                threadFlowLocation = new ThreadFlowLocation
                 {
-                    Importance = Utilities.CreateCodeFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
+                    Importance = Utilities.CreateThreadFlowLocationImportance(v1AnnotatedCodeLocation.Importance),
                     Location = CreateLocation(v1AnnotatedCodeLocation),
                     Module = v1AnnotatedCodeLocation.Module,
-                    NestingLevel = _codeFlowLocationNestingLevel,
+                    NestingLevel = _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
                     State = v1AnnotatedCodeLocation.State,
-                    Step = v1AnnotatedCodeLocation.Step + _codeFlowLocationStepAdjustment
+                    Step = v1AnnotatedCodeLocation.Step + _threadFlowLocationStepAdjustment
                 };
 
                 if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)
                 {
-                    _codeFlowLocationNestingLevel++;
+                    _threadFlowLocationNestingLevel++;
                 }
                 else if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.CallReturn)
                 {
-                    _codeFlowLocationNestingLevel--;
+                    _threadFlowLocationNestingLevel--;
                 }
             }
 
-            return codeFlowLocation;
+            return threadFlowLocation;
         }
 
         internal ExceptionData CreateExceptionData(ExceptionDataVersionOne v1ExceptionData)
@@ -165,9 +167,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileData.Contents = new FileContent();
 
-                    if (Utilities.TextMimeTypes.Contains(v1FileData.MimeType))
+                    if (MimeType.IsTextualMimeType(v1FileData.MimeType))
                     {
-                        fileData.Contents.Text = SarifUtilities.DecodeBase64Utf8String(v1FileData.Contents);
+                        fileData.Contents.Text = SarifUtilities.DecodeBase64String(v1FileData.Contents);
                     }
                     else
                     {
@@ -570,8 +572,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 replacement.DeletedRegion = new Region
                 {
-                    Length = v1Replacement.DeletedLength,
-                    Offset = v1Replacement.Offset
+                    ByteLength = v1Replacement.DeletedLength,
+                    ByteOffset = v1Replacement.Offset
                 };
             }
 
@@ -630,25 +632,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocation
                 {
                     FileLocation = CreateFileLocation(v1PhysicalLocation),
-                    Region = CreateRegion(v1PhysicalLocation.Region)
+                    Region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal Region CreateRegion(RegionVersionOne v1Region)
+        internal Region CreateRegion(RegionVersionOne v1Region, Uri uri)
         {
             Region region = null;
 
             if (v1Region != null)
             {
-                region = CreateRegion(v1Region.StartColumn,
-                                      v1Region.StartLine,
-                                      v1Region.EndColumn,
-                                      v1Region.EndLine,
-                                      v1Region.Length,
-                                      v1Region.Offset);
+                region = new Region
+                {
+                    ByteLength = v1Region.Length,
+                    ByteOffset = v1Region.Offset,
+                    EndColumn = v1Region.EndColumn,
+                    EndLine = v1Region.EndLine,
+                    StartColumn = v1Region.StartColumn,
+                    StartLine = v1Region.StartLine
+                };
+
+                bool startIsTextBased = v1Region.StartLine > 0;
+                bool endIsTextBased = v1Region.EndLine > 0 || v1Region.EndColumn > 0;
+
+                if (startIsTextBased && endIsTextBased && v1Region.EndColumn == 0)
+                {
+                    region.EndColumn = v1Region.StartColumn;
+                }
             }
 
             return region;
@@ -663,7 +676,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
-                region = CreateRegion(v1PhysicalLocation.Region);
+                region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri);
                 region.Message = CreateMessage(message);
             }
 
@@ -678,10 +691,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 region = new Region
                 {
-                    EndColumn = endColumn,
+                    ByteLength = length,
+                    ByteOffset = offset,
+                    EndColumn = endColumn > 0 ? endColumn : startColumn,
                     EndLine = endLine,
-                    Length = length,
-                    Offset = offset,
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
@@ -820,7 +833,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 rule = new Rule
                 {
                     FullDescription = CreateMessage(v1Rule.FullDescription),
-                    HelpLocation = CreateFileLocation(v1Rule.HelpUri, null),
+                    HelpUri = v1Rule.HelpUri,
                     Id = v1Rule.Id,
                     MessageStrings = v1Rule.MessageFormats,
                     Name = CreateMessage(v1Rule.Name),
@@ -856,6 +869,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
+                    _currentV1Run = v1Run;
+
                     run = new Run()
                     {
                         Architecture = v1Run.Architecture,

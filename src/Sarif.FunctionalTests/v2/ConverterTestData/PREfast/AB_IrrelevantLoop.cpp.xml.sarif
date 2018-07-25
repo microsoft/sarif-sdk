@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 14,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[maxSize];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_IrrelevantLoop",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint maxSize = 10;"
+                            }
                           }
                         }
                       },
@@ -90,7 +99,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -105,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -120,7 +135,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\t\tdata[i] = i;"
+                            }
                           }
                         }
                       },
@@ -135,7 +153,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 28
+                            "startColumn": 28,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -150,7 +171,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -165,7 +189,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "\t\tdata[i] = i;"
+                            }
                           }
                         }
                       },
@@ -180,7 +207,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 28
+                            "startColumn": 28,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -195,7 +225,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 17
+                            "startColumn": 17,
+                            "snippet": {
+                              "text": "\tfor (int i=0; i<maxSize; i++) // unconditional loop"
+                            }
                           }
                         }
                       },
@@ -210,7 +243,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[maxSize];"
+                            }
                           }
                         }
                       },
