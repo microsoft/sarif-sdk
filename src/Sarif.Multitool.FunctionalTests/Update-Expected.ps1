@@ -4,8 +4,8 @@ Update the expected output files for the Sarif.Multitool functional tests.
 
 .DESCRIPTION
 This script runs "Sarif.Multitool validate" on each input log file in the SarifCli
-functional tests TestData directory. For each file foo.sarif, it produces
-an output file foo_Expected.sarif, overwriting any existing file of that
+functional tests TestData directory. For each file example.sarif, it produces
+an output file example_Expected.sarif, overwriting any existing file of that
 name in the TestData directory.
 
 .PARAMETER Configuration
