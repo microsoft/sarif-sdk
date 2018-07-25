@@ -1,16 +1,35 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
+using System.IO;
+using System.Reflection;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 {
     public class SarifVersionOneToCurrentTests
     {
+        private static readonly Assembly ThisAssembly;
+        private static readonly string OutputFolderPath;
+        private const string TestLogResourceNameRoot = "Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers.TestLogs";
+
+        static SarifVersionOneToCurrentTests()
+        {
+            ThisAssembly = Assembly.GetExecutingAssembly();
+            OutputFolderPath = Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput");
+
+            if (Directory.Exists(OutputFolderPath))
+            {
+                Directory.Delete(OutputFolderPath, recursive: true);
+            }
+
+            Directory.CreateDirectory(OutputFolderPath);
+        }
+
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
             return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, SarifTransformerUtilities.JsonSettingsV1);
@@ -30,6 +49,47 @@ namespace Microsoft.CodeAnalysis.Sarif
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
             string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
             v2LogText.Should().Be(v2LogExpectedText);
+        }
+
+        private static void VerifyVersionOneToCurrentTransformationFromResource(string v1InputResourceName, string v2ExpectedResourceName)
+        {
+            string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
+            string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
+
+            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+            string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+
+            if (v2ExpectedLogText != v2ActualLogText)
+            {
+                // Write the expected and actual log text to disk
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceName, "expected"), v2ExpectedLogText);
+                File.WriteAllText(GetOutputFilePath(v2ExpectedResourceName, "actual"), v2ActualLogText);
+            }
+
+            v2ActualLogText.Should().Be(v2ExpectedLogText);
+        }
+
+        private static string GetOutputFilePath(string resourceName, string differentiator)
+        {
+            string fileName = string.Format("{0}.{1}.sarif",
+                                                Path.GetFileNameWithoutExtension(resourceName),
+                                                differentiator);
+            return Path.Combine(OutputFolderPath, fileName);
+        }
+
+        private static string GetResourceText(string resourceName)
+        {
+            string text = null;
+
+            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    text = reader.ReadToEnd();
+                }
+            }
+
+            return text;
         }
 
         [Fact]
@@ -1633,273 +1693,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
         {
-            const string V1LogText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
-  ""version"": ""1.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner""
-      },
-      ""results"": [
-        {
-          ""ruleId"": ""C2001"",
-          ""message"": ""Variable \""str\"" declared."",
-          ""snippet"": ""string str = GetFoo();"",
-          ""locations"": [
-            {
-              ""analysisTarget"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
-              },
-              ""resultFile"": {
-                ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                ""region"": {
-                  ""startLine"": 1,
-                  ""startColumn"": 1,
-                  ""endLine"": 1,
-                  ""endColumn"": 23,
-                  ""length"": 22
-                }
-              },
-              ""decoratedName"": ""?add@list@collections@@QAEXH@Z""
-            }
-          ],
-          ""codeFlows"": [
-            {
-              ""message"": ""Path from declaration to usage"",
-              ""locations"": [
-                {
-                  ""kind"": ""call"",
-                  ""importance"": ""essential"",
-                  ""message"": ""Variable \""str\"" declared."",
-                  ""snippet"": ""string str = GetFoo();"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 15
-                    }
-                  },
-                  ""module"": ""platform"",
-                  ""threadId"": 52,
-                  ""taintKind"": ""sink"",
-                  ""target"": ""foo::bar"",
-                  ""targetKey"": ""collections::list::add"",
-                  ""values"": [
-                    ""id"",
-                    ""name"",
-                    ""param3""
-                  ]
-                },
-                {
-                  ""annotations"": [
-                    {
-                      ""message"": ""This is a test annotation"",
-                      ""locations"": [
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                          ""region"": {
-                            ""startLine"": 40
-                          }
-                        },
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                          ""region"": {
-                            ""startLine"": 240
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      ""message"": ""This is a second test annotation"",
-                      ""locations"": [
-                        {
-                          ""uri"": ""file:///home/buildAgent/src/collections/foo.cpp"",
-                          ""region"": {
-                            ""startLine"": 128
-                          }
-                        }
-                      ]
-                    }
-                  ],
-                  ""step"": 1,
-                  ""message"": ""Method \""GetFoo\"" returns null."",
-                  ""kind"": ""callReturn"",
-                  ""importance"": ""important"",
-                  ""snippet"": ""return null;"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 15
-                    }
-                  },
-                  ""module"": ""platform"",
-                  ""threadId"": 52
-                },
-                {
-                  ""step"": 2,
-                  ""kind"": ""continuation"",
-                  ""importance"": ""essential"",
-                  ""snippet"": ""int length = str.Length;"",
-                  ""state"": {
-                    ""Foo"": ""bar""
-                  },
-                  ""target"": ""collections::list::add_core"",
-                  ""physicalLocation"": {
-                    ""uri"": ""file:///home/buildAgent/src/collections/list.h"",
-                    ""region"": {
-                      ""startLine"": 25
-                    }
-                  },
-                  ""module"": ""platform"",
-                  ""threadId"": 52
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}";
-
-            const string V2LogExpectedText =
-@"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner""
-      },
-      ""results"": [
-        {
-          ""ruleId"": ""C2001"",
-          ""message"": {
-            ""text"": ""Variable \""str\"" declared.""
-          },
-          ""analysisTarget"": {
-            ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
-          },
-          ""locations"": [
-            {
-              ""physicalLocation"": {
-                ""fileLocation"": {
-                  ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                },
-                ""region"": {
-                  ""startLine"": 1,
-                  ""startColumn"": 1,
-                  ""endLine"": 1,
-                  ""endColumn"": 23,
-                  ""byteLength"": 22,
-                  ""snippet"": {
-                    ""text"": ""string str = GetFoo();""
-                  }
-                }
-              }
-            }
-          ],
-          ""codeFlows"": [
-            {
-              ""message"": {
-                ""text"": ""Path from declaration to usage""
-              },
-              ""threadFlows"": [
-                {
-                  ""locations"": [
-                    {
-                      ""step"": 1,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 15,
-                            ""snippet"": {
-                              ""text"": ""string str = GetFoo();""
-                            }
-                          }
-                        },
-                        ""message"": {
-                          ""text"": ""Variable \""str\"" declared.""
-                        }
-                      },
-                      ""module"": ""platform"",
-                      ""importance"": ""essential""
-                    },
-                    {
-                      ""step"": 2,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 15,
-                            ""snippet"": {
-                              ""text"": ""return null;""
-                            }
-                          }
-                        },
-                        ""message"": {
-                          ""text"": ""Method \""GetFoo\"" returns null.""
-                        },
-                        ""annotations"": [
-                          {
-                            ""startLine"": 40,
-                            ""message"": {
-                              ""text"": ""This is a test annotation""
-                            }
-                          },
-                          {
-                            ""startLine"": 240,
-                            ""message"": {
-                              ""text"": ""This is a test annotation""
-                            }
-                          }
-                        ]
-                      },
-                      ""module"": ""platform"",
-                      ""nestingLevel"": 1
-                    },
-                    {
-                      ""step"": 3,
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///home/buildAgent/src/collections/list.h""
-                          },
-                          ""region"": {
-                            ""startLine"": 25,
-                            ""snippet"": {
-                              ""text"": ""int length = str.Length;""
-                            }
-                          }
-                        }
-                      },
-                      ""module"": ""platform"",
-                      ""state"": {
-                        ""Foo"": ""bar""
-                      },
-                      ""importance"": ""essential""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner""},""results"":[{""ruleId"":""C2001"",""message"":""Variable \""str\"" declared."",""locations"":[{""analysisTarget"":{""uri"":""file:///home/buildAgent/src/collections/list.cpp""},""resultFile"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":1,""startColumn"":1,""endLine"":1,""endColumn"":23,""length"":22}},""decoratedName"":""?add@list@collections@@QAEXH@Z""}],""snippet"":""string str = GetFoo();"",""codeFlows"":[{""message"":""Path from declaration to usage"",""locations"":[{""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Variable \""str\"" declared."",""kind"":""call"",""taintKind"":1,""target"":""foo::bar"",""values"":[""id"",""name"",""param3""],""targetKey"":""collections::list::add"",""importance"":""essential"",""snippet"":""string str = GetFoo();""},{""step"":1,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":15}},""module"":""platform"",""threadId"":52,""message"":""Method \""GetFoo\"" returns null."",""kind"":""callReturn"",""snippet"":""return null;"",""annotations"":[{""message"":""This is a test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":40}},{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":240}}]},{""message"":""This is a second test annotation"",""locations"":[{""uri"":""file:///home/buildAgent/src/collections/foo.cpp"",""region"":{""startLine"":128}}]}]},{""step"":2,""physicalLocation"":{""uri"":""file:///home/buildAgent/src/collections/list.h"",""region"":{""startLine"":25}},""module"":""platform"",""threadId"":52,""kind"":""continuation"",""target"":""collections::list::add_core"",""state"":{""Foo"":""bar""},""importance"":""essential"",""snippet"":""int length = str.Length;""}]}]}]}
-      }
-    }
-  ]
-}";
-
-            VerifyVersionOneToCurrentTransformation(V1LogText, V2LogExpectedText);
+            VerifyVersionOneToCurrentTransformationFromResource(v1InputResourceName: "CodeFlows.sarif",
+                                                                v2ExpectedResourceName: "CodeFlows.sarif");
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 {
     public class SarifCurrentToVersionOneTests
     {

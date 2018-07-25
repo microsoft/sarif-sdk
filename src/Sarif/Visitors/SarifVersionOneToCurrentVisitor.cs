@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -19,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentRun = null;
         private RunVersionOne _currentV1Run = null;
         private int _threadFlowLocationNestingLevel;
-        private int _threadFlowLocationStepAdjustment = 0;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -52,22 +52,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v1CodeFlow.Locations != null && v1CodeFlow.Locations.Count > 0)
                 {
                     _threadFlowLocationNestingLevel = 0;
+                    int executionOrder = 0;
+                    var threadFlowDictionary = new Dictionary<int, ThreadFlow>();
 
-                    if (v1CodeFlow.Locations[0].Step == 0)
+                    foreach (AnnotatedCodeLocationVersionOne v1CodeLocation in v1CodeFlow.Locations)
                     {
-                        // If the steps are zero-based, add 1 to comply with the v2 spec
-                        _threadFlowLocationStepAdjustment = 1;
+                        ThreadFlow threadFlow;
+                        int threadId = v1CodeLocation.ThreadId;
+
+                        if (!threadFlowDictionary.TryGetValue(threadId, out threadFlow))
+                        {
+                            threadFlow = new ThreadFlow
+                            {
+                                Id = threadId.ToString(CultureInfo.InvariantCulture),
+                                Locations = new List<ThreadFlowLocation>()
+                            };
+                            threadFlowDictionary.Add(threadId, threadFlow);
+                        }
+
+                        ThreadFlowLocation tfl = CreateThreadFlowLocation(v1CodeLocation);
+                        tfl.Step = threadFlow.Locations.Count + 1;
+                        tfl.ExecutionOrder = ++executionOrder;
+                        threadFlow.Locations.Add(tfl);
                     }
 
-                    codeFlow.ThreadFlows = new List<ThreadFlow>
-                    {
-                        new ThreadFlow
-                        {
-                            Locations = v1CodeFlow.Locations.Select(CreateThreadFlowLocation).ToList()
-                        }
-                    };
-
-                    _threadFlowLocationStepAdjustment = 0;
+                    codeFlow.ThreadFlows = threadFlowDictionary.Values.ToList();
                 }
             }
 
@@ -88,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     NestingLevel = _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
                     State = v1AnnotatedCodeLocation.State,
-                    Step = v1AnnotatedCodeLocation.Step + _threadFlowLocationStepAdjustment
+                    Step = v1AnnotatedCodeLocation.Step
                 };
 
                 if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)
