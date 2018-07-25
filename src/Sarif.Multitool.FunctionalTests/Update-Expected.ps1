@@ -18,8 +18,12 @@ name in the TestData directory.
 #>
 
 param(
-    [string] $Configuration = "Debug",
-    [string] $RuleName = $null
+    [string]
+    [ValidateSet("Debug", "Release")]
+    $Configuration = "Debug",
+
+    [string]
+    $RuleName = $null
 )
 
 $ErrorActionPreference = "Stop"
