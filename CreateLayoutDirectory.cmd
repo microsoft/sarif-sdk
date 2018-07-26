@@ -1,5 +1,4 @@
 ::Build NuGet packages step
-@ECHO off
 SETLOCAL
 
 set BinaryOutputDirectory=%1
