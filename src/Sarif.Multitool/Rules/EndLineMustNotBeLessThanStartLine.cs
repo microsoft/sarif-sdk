@@ -8,7 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndLineMustNotBeLessThanStartLine : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1012_EndLineMustNotBeLessThanStartLine;
+        private readonly Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1012_EndLineMustNotBeLessThanStartLine
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -17,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.EndLineMustNotBeLessThanStartLine;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
