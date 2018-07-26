@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
@@ -14,6 +14,10 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="Transformers\TestLogs\**\*.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -21,6 +25,10 @@
     <PackageReference Include="xunit.runner.console" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Transformers\TestLogs\**\*.sarif" />
   </ItemGroup>
 
   <ItemGroup>
