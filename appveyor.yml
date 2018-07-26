@@ -6,7 +6,7 @@ init:
 branches:
   only:
     - master
-    - sarif-v2
+    - sarif-v1
 
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
