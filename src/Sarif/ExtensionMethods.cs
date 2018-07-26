@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Xml;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -14,6 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
+        {
+            OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
+            if (optionallyEmittedData != null)
+            {
+                Array.ForEach(optionallyEmittedData.ToArray(), data => convertedToFlags |= data);
+            }
+
+            return convertedToFlags;
+        }
+
+        public static bool Includes(this OptionallyEmittedData optionallyEmittedData, OptionallyEmittedData otherOptionallyEmittedData)
+        {
+            return (optionallyEmittedData & otherOptionallyEmittedData) == otherOptionallyEmittedData;
+        }
+
         public static bool Includes(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
         {
             return (loggingOptions & otherLoggingOptions) == otherLoggingOptions;
@@ -141,53 +158,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 default:
                     return "info";
-            }
-        }
-
-        /// <summary>
-        /// Completely populate all Region property members. Missing data
-        /// is computed based on the values that are already present.
-        /// </summary>
-        /// <param name="region"></param>
-        /// <param name="newLineIndex"></param>
-        public static void Populate(this Region region, NewLineIndex newLineIndex)
-        {
-            if (region == null)
-            {
-                throw new ArgumentNullException(nameof(region));
-            }
-
-            if (newLineIndex == null)
-            {
-                throw new ArgumentNullException(nameof(newLineIndex));
-            }
-
-            // A call to Populate is an implicit indicator that we are working
-            // with a text region (otherwise the offset and length would be 
-            // sufficient data to constitute the region).
-
-            if (region.StartLine == 0)
-            {
-                OffsetInfo offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset);
-                region.StartLine = offsetInfo.LineNumber;
-                region.StartColumn = offsetInfo.ColumnNumber;
-
-                offsetInfo = newLineIndex.GetOffsetInfoForOffset(region.Offset + region.Length);
-                region.EndLine = offsetInfo.LineNumber;
-                region.EndColumn = offsetInfo.ColumnNumber;
-            }
-            else
-            {
-                // Make endColumn and endLine explicit, if not expressed
-                if (region.EndLine == 0) { region.EndLine = region.StartLine; }
-                if (region.StartColumn == 0) { region.StartColumn = 1; }
-                if (region.EndColumn == 0) { region.EndColumn = region.StartColumn; }
-
-                LineInfo lineInfo = newLineIndex.GetLineInfoForLine(region.StartLine);
-                region.Offset = lineInfo.StartOffset + (region.StartColumn - 1);
-
-                lineInfo = newLineIndex.GetLineInfoForLine(region.EndLine);
-                region.Length = lineInfo.StartOffset + (region.EndColumn - 1) - region.Offset;
             }
         }
 

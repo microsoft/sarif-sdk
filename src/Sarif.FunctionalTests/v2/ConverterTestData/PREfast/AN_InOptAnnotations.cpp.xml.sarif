@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "        int result = *source;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DereferenceParameter",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "void DereferenceParameter(_In_opt_ int * source, bool flag)"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    if (flag)"
+                            }
                           }
                         }
                       },
@@ -89,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "        int result = *source;"
+                            }
                           }
                         }
                       },

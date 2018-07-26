@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Newtonsoft.Json;
 using Xunit;
 

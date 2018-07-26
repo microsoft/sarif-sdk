@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Tool : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
@@ -63,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FileVersion { get; set; }
 
         /// <summary>
+        /// The absolute URI from which the tool can be downloaded.
+        /// </summary>
+        [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri DownloadUri { get; set; }
+
+        /// <summary>
         /// A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.
         /// </summary>
         [DataMember(Name = "sarifLoggerVersion", IsRequired = false, EmitDefaultValue = false)]
@@ -105,6 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileVersion">
         /// An initialization value for the <see cref="P: FileVersion" /> property.
         /// </param>
+        /// <param name="downloadUri">
+        /// An initialization value for the <see cref="P: DownloadUri" /> property.
+        /// </param>
         /// <param name="sarifLoggerVersion">
         /// An initialization value for the <see cref="P: SarifLoggerVersion" /> property.
         /// </param>
@@ -114,9 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, fileVersion, sarifLoggerVersion, language, properties);
+            Init(name, fullName, version, semanticVersion, fileVersion, downloadUri, sarifLoggerVersion, language, properties);
         }
 
         /// <summary>
@@ -135,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.SarifLoggerVersion, other.Language, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -156,13 +165,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
             FileVersion = fileVersion;
+            if (downloadUri != null)
+            {
+                DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+            }
+
             SarifLoggerVersion = sarifLoggerVersion;
             Language = language;
             if (properties != null)

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A file relevant to a tool invocation or to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Attachment : ISarifNode
     {
         public static IEqualityComparer<Attachment> ValueComparer => AttachmentEqualityComparer.Instance;
@@ -44,6 +44,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
+        /// An array of regions of interest within the attachment.
+        /// </summary>
+        [DataMember(Name = "regions", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Region> Regions { get; set; }
+
+        /// <summary>
+        /// An array of rectangles specifying areas of interest within the image.
+        /// </summary>
+        [DataMember(Name = "rectangles", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Rectangle> Rectangles { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Attachment" /> class.
         /// </summary>
         public Attachment()
@@ -59,9 +71,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileLocation">
         /// An initialization value for the <see cref="P: FileLocation" /> property.
         /// </param>
-        public Attachment(Message description, FileLocation fileLocation)
+        /// <param name="regions">
+        /// An initialization value for the <see cref="P: Regions" /> property.
+        /// </param>
+        /// <param name="rectangles">
+        /// An initialization value for the <see cref="P: Rectangles" /> property.
+        /// </param>
+        public Attachment(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles)
         {
-            Init(description, fileLocation);
+            Init(description, fileLocation, regions, rectangles);
         }
 
         /// <summary>
@@ -80,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.FileLocation);
+            Init(other.Description, other.FileLocation, other.Regions, other.Rectangles);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Attachment(this);
         }
 
-        private void Init(Message description, FileLocation fileLocation)
+        private void Init(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles)
         {
             if (description != null)
             {
@@ -111,6 +129,42 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (fileLocation != null)
             {
                 FileLocation = new FileLocation(fileLocation);
+            }
+
+            if (regions != null)
+            {
+                var destination_0 = new List<Region>();
+                foreach (var value_0 in regions)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Region(value_0));
+                    }
+                }
+
+                Regions = destination_0;
+            }
+
+            if (rectangles != null)
+            {
+                var destination_1 = new List<Rectangle>();
+                foreach (var value_1 in rectangles)
+                {
+                    if (value_1 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new Rectangle(value_1));
+                    }
+                }
+
+                Rectangles = destination_1;
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Attachment for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class AttachmentEqualityComparer : IEqualityComparer<Attachment>
     {
         internal static readonly AttachmentEqualityComparer Instance = new AttachmentEqualityComparer();
@@ -37,6 +37,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.Regions, right.Regions))
+            {
+                if (left.Regions == null || right.Regions == null)
+                {
+                    return false;
+                }
+
+                if (left.Regions.Count != right.Regions.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.Regions.Count; ++index_0)
+                {
+                    if (!Region.ValueComparer.Equals(left.Regions[index_0], right.Regions[index_0]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Rectangles, right.Rectangles))
+            {
+                if (left.Rectangles == null || right.Rectangles == null)
+                {
+                    return false;
+                }
+
+                if (left.Rectangles.Count != right.Rectangles.Count)
+                {
+                    return false;
+                }
+
+                for (int index_1 = 0; index_1 < left.Rectangles.Count; ++index_1)
+                {
+                    if (!Rectangle.ValueComparer.Equals(left.Rectangles[index_1], right.Rectangles[index_1]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -58,6 +100,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.FileLocation != null)
                 {
                     result = (result * 31) + obj.FileLocation.ValueGetHashCode();
+                }
+
+                if (obj.Regions != null)
+                {
+                    foreach (var value_0 in obj.Regions)
+                    {
+                        result = result * 31;
+                        if (value_0 != null)
+                        {
+                            result = (result * 31) + value_0.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Rectangles != null)
+                {
+                    foreach (var value_1 in obj.Rectangles)
+                    {
+                        result = result * 31;
+                        if (value_1 != null)
+                        {
+                            result = (result * 31) + value_1.ValueGetHashCode();
+                        }
+                    }
                 }
             }
 

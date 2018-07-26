@@ -139,20 +139,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else
             {
-                var locations = new List<CodeFlowLocation>
+                var locations = new List<ThreadFlowLocation>
                 {
                     Capacity = this.Locations.Length
                 };
 
                 foreach (CppCheckLocation loc in this.Locations)
                 {
-                    locations.Add(new CodeFlowLocation
+                    locations.Add(new ThreadFlowLocation
                     {
                         Location = new Location
                         {
                             PhysicalLocation = loc.ToSarifPhysicalLocation()
                         },
-                        Importance = CodeFlowLocationImportance.Essential
+                        Importance = ThreadFlowLocationImportance.Essential
                     });
                 }
 

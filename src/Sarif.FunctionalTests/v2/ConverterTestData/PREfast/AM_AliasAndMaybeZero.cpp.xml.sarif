@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "    int result = *y;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndZero",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int * source = 0;"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int * y = source;"
+                            }
                           }
                         }
                       },
@@ -90,7 +99,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int result = *y;"
+                            }
                           }
                         }
                       },

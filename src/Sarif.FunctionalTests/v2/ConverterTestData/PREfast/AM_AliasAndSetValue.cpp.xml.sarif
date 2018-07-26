@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "\t*result = TwoElementArray[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndTen",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int TwoElementArray[] = {1,2};"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\tif (b == 10);"
+                            }
                           }
                         }
                       },
@@ -89,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "    int index = b;"
+                            }
                           }
                         }
                       },
@@ -107,7 +119,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\t*result = TwoElementArray[index];"
+                            }
                           }
                         }
                       },

@@ -34,7 +34,10 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn *target;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "IrrelevantBranch_6011",
@@ -57,7 +60,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint *source1 = 0, *source2 = 0;"
+                            }
                           }
                         }
                       },
@@ -75,7 +81,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "\tint *source1 = 0, *source2 = 0;"
+                            }
                           }
                         }
                       },
@@ -90,7 +99,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tif (flag) {"
+                            }
                           }
                         }
                       },
@@ -105,7 +117,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint *target = source1;"
+                            }
                           }
                         }
                       },
@@ -123,7 +138,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn *target;"
+                            }
                           }
                         }
                       },
@@ -156,7 +174,10 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -179,7 +200,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -197,7 +221,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 10;"
+                            }
                           }
                         }
                       },
@@ -212,7 +239,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tif (flag<10) {"
+                            }
                           }
                         }
                       },
@@ -227,7 +257,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[index];"
+                            }
                           }
                         }
                       },
@@ -260,7 +293,10 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -283,7 +319,10 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[10];"
+                            }
                           }
                         }
                       },
@@ -301,7 +340,10 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 10;"
+                            }
                           }
                         }
                       },
@@ -319,7 +361,10 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tif (flag<10) {"
+                            }
                           }
                         }
                       },
@@ -336,7 +381,10 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[index];"
+                            }
                           }
                         }
                       },

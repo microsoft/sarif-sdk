@@ -79,28 +79,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            if (!string.IsNullOrEmpty(run.Id))
+            if (!string.IsNullOrEmpty(run.InstanceGuid))
             {
-                _jsonWriter.WritePropertyName("id");
-                _serializer.Serialize(_jsonWriter, run.Id);
+                _jsonWriter.WritePropertyName("instanceGuid");
+                _serializer.Serialize(_jsonWriter, run.InstanceGuid);
             }
 
-            if (!string.IsNullOrEmpty(run.BaselineId))
+            if (!string.IsNullOrEmpty(run.BaselineInstanceGuid))
             {
-                _jsonWriter.WritePropertyName("baselineId");
-                _serializer.Serialize(_jsonWriter, run.BaselineId);
+                _jsonWriter.WritePropertyName("baselineInstanceGuid");
+                _serializer.Serialize(_jsonWriter, run.BaselineInstanceGuid);
             }
 
-            if (!string.IsNullOrEmpty(run.AutomationId))
+            if (!string.IsNullOrEmpty(run.AutomationLogicalId))
             {
-                _jsonWriter.WritePropertyName("automationId");
-                _serializer.Serialize(_jsonWriter, run.AutomationId);
+                _jsonWriter.WritePropertyName("automationLogicalId");
+                _serializer.Serialize(_jsonWriter, run.AutomationLogicalId);
             }
 
-            if (!string.IsNullOrEmpty(run.StableId))
+            if (!string.IsNullOrEmpty(run.LogicalId))
             {
-                _jsonWriter.WritePropertyName("stableId");
-                _serializer.Serialize(_jsonWriter, run.StableId);
+                _jsonWriter.WritePropertyName("logicalId");
+                _serializer.Serialize(_jsonWriter, run.LogicalId);
             }
 
             if (!string.IsNullOrEmpty(run.Architecture))

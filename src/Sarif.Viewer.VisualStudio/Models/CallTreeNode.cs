@@ -8,19 +8,20 @@ using System.IO;
 using System.Windows;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Sarif;
+using Microsoft.VisualStudio.Shell;
 
 namespace Microsoft.Sarif.Viewer.Models
 {
     public class CallTreeNode : CodeLocationObject
     {
-        private CodeFlowLocation _location;
+        private ThreadFlowLocation _location;
         private CallTree _callTree;
         private CallTreeNode _parent;
         private bool _isExpanded;
         private Visibility _visbility;
 
         [Browsable(false)]
-        public CodeFlowLocation Location
+        public ThreadFlowLocation Location
         {
             get
             {
@@ -32,7 +33,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
                 if (value?.Location?.PhysicalLocation != null)
                 {
-                    // If the backing CodeFlowLocation has a PhysicalLocation, set the 
+                    // If the backing ThreadFlowLocation has a PhysicalLocation, set the 
                     // Region property. If it has a FileLocation, set the FilePath.
                     // The FilePath and Region properties are used to navigate to the
                     // source location and highlight the line.
@@ -147,7 +148,7 @@ namespace Microsoft.Sarif.Viewer.Models
         {
             get
             {
-                if (this.Location.Importance == CodeFlowLocationImportance.Essential)
+                if (this.Location.Importance == ThreadFlowLocationImportance.Essential)
                 {
                     return ResultTextMarker.KEYEVENT_SELECTION_COLOR;
                 }
@@ -276,7 +277,7 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        public CodeFlowLocationImportance? Importance
+        public ThreadFlowLocationImportance? Importance
         {
             get
             {
@@ -346,7 +347,7 @@ namespace Microsoft.Sarif.Viewer.Models
 
         internal void IntelligentExpand()
         {
-            if (Location?.Importance == CodeFlowLocationImportance.Essential)
+            if (Location?.Importance == ThreadFlowLocationImportance.Essential)
             {
                 CallTreeNode current = this;
 
@@ -370,21 +371,21 @@ namespace Microsoft.Sarif.Viewer.Models
             }
         }
 
-        internal void SetVerbosity(CodeFlowLocationImportance importance)
+        internal void SetVerbosity(ThreadFlowLocationImportance importance)
         {
             Visibility visibility = Visibility.Visible;
-            CodeFlowLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(CodeFlowLocationImportance.Unimportant);
+            ThreadFlowLocationImportance myImportance = (Location?.Importance).GetValueOrDefault(ThreadFlowLocationImportance.Unimportant);
 
             switch (importance)
             {
-                case CodeFlowLocationImportance.Essential:
-                    if (myImportance != CodeFlowLocationImportance.Essential)
+                case ThreadFlowLocationImportance.Essential:
+                    if (myImportance != ThreadFlowLocationImportance.Essential)
                     {
                         visibility = Visibility.Collapsed;
                     }
                     break;
-                case CodeFlowLocationImportance.Important:
-                    if (myImportance == CodeFlowLocationImportance.Unimportant)
+                case ThreadFlowLocationImportance.Important:
+                    if (myImportance == ThreadFlowLocationImportance.Unimportant)
                     {
                         visibility = Visibility.Collapsed;
                     }

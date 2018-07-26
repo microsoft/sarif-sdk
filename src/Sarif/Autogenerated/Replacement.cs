@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     public partial class Replacement : ISarifNode
     {
         public static IEqualityComparer<Replacement> ValueComparer => ReplacementEqualityComparer.Instance;
@@ -32,22 +32,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A non-negative integer specifying the offset in bytes from the beginning of the file at which bytes are to be removed, inserted or both. An offset of 0 shall denote the first byte in the file.
+        /// The region of the file to delete.
         /// </summary>
-        [DataMember(Name = "offset", IsRequired = true)]
-        public int Offset { get; set; }
+        [DataMember(Name = "deletedRegion", IsRequired = true)]
+        public Region DeletedRegion { get; set; }
 
         /// <summary>
-        /// The number of bytes to delete, starting at the byte offset specified by offset, measured from the beginning of the file.
+        /// The content to insert at the location specified by the 'deletedRegion' property.
         /// </summary>
-        [DataMember(Name = "deletedLength", IsRequired = false, EmitDefaultValue = false)]
-        public int DeletedLength { get; set; }
-
-        /// <summary>
-        /// The MIME Base64-encoded byte sequence to be inserted at the byte offset specified by the 'offset' property, measured from the beginning of the file.
-        /// </summary>
-        [DataMember(Name = "insertedBytes", IsRequired = false, EmitDefaultValue = false)]
-        public string InsertedBytes { get; set; }
+        [DataMember(Name = "insertedContent", IsRequired = false, EmitDefaultValue = false)]
+        public FileContent InsertedContent { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Replacement" /> class.
@@ -59,18 +53,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Replacement" /> class from the supplied values.
         /// </summary>
-        /// <param name="offset">
-        /// An initialization value for the <see cref="P: Offset" /> property.
+        /// <param name="deletedRegion">
+        /// An initialization value for the <see cref="P: DeletedRegion" /> property.
         /// </param>
-        /// <param name="deletedLength">
-        /// An initialization value for the <see cref="P: DeletedLength" /> property.
+        /// <param name="insertedContent">
+        /// An initialization value for the <see cref="P: InsertedContent" /> property.
         /// </param>
-        /// <param name="insertedBytes">
-        /// An initialization value for the <see cref="P: InsertedBytes" /> property.
-        /// </param>
-        public Replacement(int offset, int deletedLength, string insertedBytes)
+        public Replacement(Region deletedRegion, FileContent insertedContent)
         {
-            Init(offset, deletedLength, insertedBytes);
+            Init(deletedRegion, insertedContent);
         }
 
         /// <summary>
@@ -89,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Offset, other.DeletedLength, other.InsertedBytes);
+            Init(other.DeletedRegion, other.InsertedContent);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -110,11 +101,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Replacement(this);
         }
 
-        private void Init(int offset, int deletedLength, string insertedBytes)
+        private void Init(Region deletedRegion, FileContent insertedContent)
         {
-            Offset = offset;
-            DeletedLength = deletedLength;
-            InsertedBytes = insertedBytes;
+            if (deletedRegion != null)
+            {
+                DeletedRegion = new Region(deletedRegion);
+            }
+
+            if (insertedContent != null)
+            {
+                InsertedContent = new FileContent(insertedContent);
+            }
         }
     }
 }

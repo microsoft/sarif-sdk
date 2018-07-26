@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using Moq;
 using Xunit;
@@ -94,8 +93,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 EndLine = 13,
                 EndColumn = 12,
 
-                Offset = 3,
-                Length = 11
+                ByteOffset = 3,
+                ByteLength = 11
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
@@ -117,9 +116,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Replacement replacement = new Replacement()
             {
-                Offset = 10,
-                DeletedLength = 5,
-                InsertedBytes = Convert.ToBase64String(Encoding.UTF8.GetBytes("fix.innerText.test.value"))
+                DeletedRegion = new Region
+                {
+                    ByteLength = 5,
+                    ByteOffset = 10
+                },
+                InsertedContent = new FileContent
+                {
+                    Text = "fix.innerText.test.value"
+                }
             };
 
             testResult.Fixes = new List<Fix>()
@@ -153,11 +158,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var mockWriter = new Mock<IResultLogWriter>();
 
-            Action action = () => converter.Convert(null, mockWriter.Object, LoggingOptions.None);
-            action.ShouldThrow<ArgumentNullException>();
+            Action action = () => converter.Convert(null, mockWriter.Object, OptionallyEmittedData.None);
+            action.Should().Throw<ArgumentNullException>();
 
-            action = () => converter.Convert(new MemoryStream(), null, LoggingOptions.None);
-            action.ShouldThrow<ArgumentNullException>();
+            action = () => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None);
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -175,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var converter = new TSLintConverter();
 
-            converter.Convert(stream, mockWriter.Object, LoggingOptions.None);
+            converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
             mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IDictionary<string, FileData>>()), Times.Once);
@@ -190,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new TSLintConverter();
 
             Action action = () => converter.CreateResult(null);
-            action.ShouldThrow<ArgumentNullException>();
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

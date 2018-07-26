@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 23
+                  "startColumn": 23,
+                  "snippet": {
+                    "text": "         pNode->pPrev = 0;  "
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C28182Example",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "    if (pNodeFree == 0)"
+                            }
                           }
                         }
                       },
@@ -71,7 +77,10 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "\t\t list* pNode = pNodeFree;"
+                            }
                           }
                         }
                       },
@@ -89,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "         pNode->pPrev = 0;  "
+                            }
                           }
                         }
                       },

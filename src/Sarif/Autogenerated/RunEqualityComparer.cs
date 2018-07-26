@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -193,22 +193,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
+            if (left.InstanceGuid != right.InstanceGuid)
             {
                 return false;
             }
 
-            if (left.StableId != right.StableId)
+            if (left.LogicalId != right.LogicalId)
             {
                 return false;
             }
 
-            if (left.AutomationId != right.AutomationId)
+            if (!Message.ValueComparer.Equals(left.Description, right.Description))
             {
                 return false;
             }
 
-            if (left.BaselineId != right.BaselineId)
+            if (left.AutomationLogicalId != right.AutomationLogicalId)
+            {
+                return false;
+            }
+
+            if (left.BaselineInstanceGuid != right.BaselineInstanceGuid)
             {
                 return false;
             }
@@ -229,6 +234,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.DefaultFileEncoding != right.DefaultFileEncoding)
+            {
+                return false;
+            }
+
+            if (left.ColumnKind != right.ColumnKind)
             {
                 return false;
             }
@@ -379,24 +389,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Resources.ValueGetHashCode();
                 }
 
-                if (obj.Id != null)
+                if (obj.InstanceGuid != null)
                 {
-                    result = (result * 31) + obj.Id.GetHashCode();
+                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
                 }
 
-                if (obj.StableId != null)
+                if (obj.LogicalId != null)
                 {
-                    result = (result * 31) + obj.StableId.GetHashCode();
+                    result = (result * 31) + obj.LogicalId.GetHashCode();
                 }
 
-                if (obj.AutomationId != null)
+                if (obj.Description != null)
                 {
-                    result = (result * 31) + obj.AutomationId.GetHashCode();
+                    result = (result * 31) + obj.Description.ValueGetHashCode();
                 }
 
-                if (obj.BaselineId != null)
+                if (obj.AutomationLogicalId != null)
                 {
-                    result = (result * 31) + obj.BaselineId.GetHashCode();
+                    result = (result * 31) + obj.AutomationLogicalId.GetHashCode();
+                }
+
+                if (obj.BaselineInstanceGuid != null)
+                {
+                    result = (result * 31) + obj.BaselineInstanceGuid.GetHashCode();
                 }
 
                 if (obj.Architecture != null)
@@ -419,6 +434,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.DefaultFileEncoding.GetHashCode();
                 }
 
+                result = (result * 31) + obj.ColumnKind.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

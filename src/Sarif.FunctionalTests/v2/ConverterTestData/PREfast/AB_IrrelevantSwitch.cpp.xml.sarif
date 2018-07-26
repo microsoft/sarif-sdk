@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "\tint k = data[index];"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantSwitch",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint data[2];"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "\tdata[0] = 1; data[1] = 2;"
+                            }
                           }
                         }
                       },
@@ -87,7 +96,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 23
+                            "startColumn": 23,
+                            "snippet": {
+                              "text": "\tdata[0] = 1; data[1] = 2;"
+                            }
                           }
                         }
                       },
@@ -102,7 +114,10 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint index = 2;"
+                            }
                           }
                         }
                       },
@@ -120,7 +135,10 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "\tswitch(flag)"
+                            }
                           }
                         }
                       },
@@ -137,7 +155,10 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\tcase 1:"
+                            }
                           }
                         }
                       },
@@ -152,7 +173,10 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint k = data[index];"
+                            }
                           }
                         }
                       },

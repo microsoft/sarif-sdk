@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Replacement for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class ReplacementEqualityComparer : IEqualityComparer<Replacement>
     {
         internal static readonly ReplacementEqualityComparer Instance = new ReplacementEqualityComparer();
@@ -27,17 +27,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Offset != right.Offset)
+            if (!Region.ValueComparer.Equals(left.DeletedRegion, right.DeletedRegion))
             {
                 return false;
             }
 
-            if (left.DeletedLength != right.DeletedLength)
-            {
-                return false;
-            }
-
-            if (left.InsertedBytes != right.InsertedBytes)
+            if (!FileContent.ValueComparer.Equals(left.InsertedContent, right.InsertedContent))
             {
                 return false;
             }
@@ -55,11 +50,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.Offset.GetHashCode();
-                result = (result * 31) + obj.DeletedLength.GetHashCode();
-                if (obj.InsertedBytes != null)
+                if (obj.DeletedRegion != null)
                 {
-                    result = (result * 31) + obj.InsertedBytes.GetHashCode();
+                    result = (result * 31) + obj.DeletedRegion.ValueGetHashCode();
+                }
+
+                if (obj.InsertedContent != null)
+                {
+                    result = (result * 31) + obj.InsertedContent.ValueGetHashCode();
                 }
             }
 

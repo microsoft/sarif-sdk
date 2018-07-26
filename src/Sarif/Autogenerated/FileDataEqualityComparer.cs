@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileData for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
     internal sealed class FileDataEqualityComparer : IEqualityComparer<FileData>
     {
         internal static readonly FileDataEqualityComparer Instance = new FileDataEqualityComparer();
@@ -89,6 +89,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (left.LastModifiedTime != right.LastModifiedTime)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -164,6 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                result = (result * 31) + obj.LastModifiedTime.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

@@ -21,7 +21,7 @@ namespace Microsoft.Sarif.Viewer.VisualStudio
                 CallTreeNode lastParent = root;
                 CallTreeNode lastNewNode = null;
 
-                foreach (CodeFlowLocation location in threadFlow.Locations)
+                foreach (ThreadFlowLocation location in threadFlow.Locations)
                 {
                     var newNode = new CallTreeNode
                     {

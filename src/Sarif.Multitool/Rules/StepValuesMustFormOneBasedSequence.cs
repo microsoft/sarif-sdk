@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class StepValuesMustFormOneBasedSequence : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF009_StepValuesMustFormOneBasedSequence;
+        public override string FullDescription => RuleResources.SARIF1009_StepValuesMustFormOneBasedSequence;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
         /// <summary>
-        /// SARIF009
+        /// SARIF1009
         /// </summary>
         public override string Id => RuleId.StepValuesMustFormOneBasedSequence;
 
@@ -27,8 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 return new string[]
                 {
-                    nameof(RuleResources.SARIF009_StepNotPresentOnAllLocations),
-                    nameof(RuleResources.SARIF009_InvalidStepValue)
+                    nameof(RuleResources.SARIF1009_StepNotPresentOnAllLocations),
+                    nameof(RuleResources.SARIF1009_InvalidStepValue)
                 };
             }
         }
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     LogResult(
                         invalidStepPointer,
-                        nameof(RuleResources.SARIF009_InvalidStepValue),
+                        nameof(RuleResources.SARIF1009_InvalidStepValue),
                         (i + 1).ToInvariantString(),
                         (locations[i].Step).ToInvariantString());
                 }
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     string missingStepPointer = annotatedCodeLocationsPointer.AtIndex(missingStepIndex);
 
-                    LogResult(missingStepPointer, nameof(RuleResources.SARIF009_StepNotPresentOnAllLocations));
+                    LogResult(missingStepPointer, nameof(RuleResources.SARIF1009_StepNotPresentOnAllLocations));
                 }
             }
         }

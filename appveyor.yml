@@ -6,14 +6,13 @@ init:
 branches:
   only:
     - master
-    - sarif-v2
+    - sarif-v1
 
 before_build:
-  - nuget restore src\Everything.sln -ConfigFile src\NuGet.Config -verbosity detailed
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - BeforeBuild.cmd
+  - ps: .\scripts\BeforeBuild.ps1
 
-platform: AnyCPU
+platform: Any CPU
 
 environment:
   _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
@@ -29,7 +28,7 @@ build:
 
 after_build:
   - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
-  - ps: .\RunUnitTests.ps1
+  - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
 
 test: off
 

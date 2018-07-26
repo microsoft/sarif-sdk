@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "   return i; "
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example1",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "   int i;"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "   if ( b && c)"
+                            }
                           }
                         }
                       },
@@ -89,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "   return i; "
+                            }
                           }
                         }
                       },

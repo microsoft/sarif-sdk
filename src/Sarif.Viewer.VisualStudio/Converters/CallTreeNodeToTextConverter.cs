@@ -26,21 +26,21 @@ namespace Microsoft.Sarif.Viewer.Converters
         private static string MakeDisplayString(CallTreeNode node)
         {
             // Use the following preferences for the CallTreeNode text.
-            // 1. CodeFlowLocation.Location.Message.Text
-            // 2. CodeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text
+            // 1. ThreadFlowLocation.Location.Message.Text
+            // 2. ThreadFlowLocation.Location.PhysicalLocation.Region.Snippet.Text
             // 3. "Continuing"
             string text = string.Empty;
 
-            CodeFlowLocation codeFlowLocation = node.Location;
-            if (codeFlowLocation != null)
+            ThreadFlowLocation threadFlowLocation = node.Location;
+            if (threadFlowLocation != null)
             {
-                if (!String.IsNullOrWhiteSpace(codeFlowLocation.Location?.Message?.Text))
+                if (!String.IsNullOrWhiteSpace(threadFlowLocation.Location?.Message?.Text))
                 {
-                    text = codeFlowLocation.Location.Message.Text;
+                    text = threadFlowLocation.Location.Message.Text;
                 }
-                else if (!String.IsNullOrWhiteSpace(codeFlowLocation.Location?.PhysicalLocation?.Region?.Snippet?.Text))
+                else if (!String.IsNullOrWhiteSpace(threadFlowLocation.Location?.PhysicalLocation?.Region?.Snippet?.Text))
                 {
-                    text = codeFlowLocation.Location.PhysicalLocation.Region.Snippet.Text.Trim();
+                    text = threadFlowLocation.Location.PhysicalLocation.Region.Snippet.Text.Trim();
                 }
                 else
                 {

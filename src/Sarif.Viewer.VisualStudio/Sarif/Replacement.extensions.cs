@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information. 
 
 using System;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Sarif.Viewer.Models;
 
@@ -19,15 +18,17 @@ namespace Microsoft.Sarif.Viewer.Sarif
 
             ReplacementModel model = new ReplacementModel();
 
-            model.DeletedLength = replacement.DeletedLength;
+            model.DeletedLength = replacement.DeletedRegion.ByteLength;
+            model.Offset = replacement.DeletedRegion.ByteOffset;
 
-            if (!String.IsNullOrEmpty(replacement.InsertedBytes))
+            if (!string.IsNullOrWhiteSpace(replacement.InsertedContent?.Text))
             {
-                model.InsertedString = Encoding.UTF8.GetString(Convert.FromBase64String(replacement.InsertedBytes));
-                model.InsertedBytes = Encoding.UTF8.GetBytes(model.InsertedString);
+                model.InsertedString = replacement.InsertedContent.Text;
             }
-
-            model.Offset = replacement.Offset;
+            else if (replacement.InsertedContent?.Binary != null)
+            {
+                model.InsertedBytes = Convert.FromBase64String(replacement.InsertedContent.Binary);
+            }
 
             return model;
         }

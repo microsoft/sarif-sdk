@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Writers;
-using Xunit;
 using System.Xml;
+using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -332,14 +332,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FxCopConverter_Convert_NullInput()
         {
             var converter = new FxCopConverter();
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(null, null, OptionallyEmittedData.None));
         }
 
         [Fact]
         public void FxCopConverter_Convert_NullOutput()
         {
             var converter = new FxCopConverter();
-            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, LoggingOptions.None));
+            Assert.Throws<ArgumentNullException>(() => converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
         [Fact]

@@ -1,47 +1,42 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "5b242950-d48d-4093-a21f-94885100c31e",
       "tool": {
-        "name": "Sarif",
-        "fullName": "Sarif 1.5.31.0",
-        "version": "1.5.31.0",
-        "semanticVersion": "1.5.31",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "testhost",
+        "fullName": "testhost 15.0.0.0",
+        "version": "15.0.0.0",
+        "semanticVersion": "15.0.0",
+        "fileVersion": "15.0.0",
+        "sarifLoggerVersion": "0.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
-          "CompanyName": "Microsoft Corporation",
-          "ProductName": "Microsoft SARIF SDK"
+          "ProductName": "Microsoft.TestHost"
         }
       },
       "results": [],
-      "toolNotifications": [
+      "invocations": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdDoesNotMatchFriendlyName.sarif"
-          },
-          "message": "Analyzing 'RuleIdDoesNotMatchFriendlyName.sarif'...",
-          "level": "note",
-          "time": "2016-08-25T21:26:41.799Z"
+          "startTime": "2018-06-24T21:17:42.835Z",
+          "endTime": "2018-06-24T21:17:42.862Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdDoesNotMatchFriendlyName.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'RuleIdDoesNotMatchFriendlyName.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-06-24T21:17:42.854Z"
+            }
+          ]
         }
-      ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/DoNotUseFriendlyNameAsRuleId/RuleIdDoesNotMatchFriendlyName.sarif": {
-          "mimeType": "application/octet-stream"
-        }
-      },
-      "invocation": {
-        "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Multitool.dll",
-        "startTime": "2016-08-25T21:26:41.798Z",
-        "endTime": "2016-08-25T21:26:41.887Z",
-        "processId": 8856,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release"
-      }
+      ]
     }
   ]
 }

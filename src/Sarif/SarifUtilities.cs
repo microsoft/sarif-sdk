@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<CodeFlowLocation> locations = null)
+        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<ThreadFlowLocation> locations = null)
         {
             return new CodeFlow
             {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new ThreadFlow
                     {
-                        Locations = new List<CodeFlowLocation>(locations ?? new CodeFlowLocation[]{ })
+                        Locations = new List<ThreadFlowLocation>(locations ?? new ThreadFlowLocation[]{ })
                     }
                 }
             };
@@ -163,10 +163,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             return Convert.ToBase64String(bytes);
         }
 
-        public static string DecodeBase64Utf8String(string s)
+        public static string DecodeBase64String(string s, Encoding encoding = null)
         {
+            encoding = encoding ?? Encoding.UTF8;
             byte[] bytes = Convert.FromBase64String(s);
-            return Encoding.UTF8.GetString(bytes);
+            return encoding.GetString(bytes);
+        }
+
+        public static int GetByteLength(char[] chars, Encoding encoding)
+        {
+            chars = chars ?? throw new ArgumentNullException(nameof(chars));
+            encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+
+            string s = new String(chars);
+            return GetByteLength(s, encoding);
+        }
+
+        public static int GetByteLength(string s, Encoding encoding)
+        {
+            s = s ?? throw new ArgumentNullException(nameof(s));
+            encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
+            
+            byte[] bytes = encoding.GetBytes(s);
+            return bytes.Length;
         }
     }
 }

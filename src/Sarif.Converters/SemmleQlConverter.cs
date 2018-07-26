@@ -47,11 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="output">
         /// Output string to which to write the SARIF log.
         /// </param>
-        /// <param name="loggingOptions">Logging options that configure output.</param>
+        /// <param name="dataToInsert">Optionally emitted properties that should be written to log.</param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when one or more required arguments are null.
         /// </exception>
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             if (input == null)
             {
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = GetResultsFromStream(input);
 
-			var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+			var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
 			Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
             var tool = new Tool
@@ -214,8 +214,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[3]),
-                                Offset = Int32.Parse(locationTokens[4]),
-                                Length = Int32.Parse(locationTokens[5])
+                                ByteOffset = Int32.Parse(locationTokens[4]),
+                                ByteLength = Int32.Parse(locationTokens[5])
                             }
                         };
                     }
@@ -232,8 +232,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region
                             {
                                 StartLine = Int32.Parse(locationTokens[2]),
-                                Offset = Int32.Parse(locationTokens[3]),
-                                Length = Int32.Parse(locationTokens[4])
+                                ByteOffset = Int32.Parse(locationTokens[3]),
+                                ByteLength = Int32.Parse(locationTokens[4])
                             }
                         };
                     }

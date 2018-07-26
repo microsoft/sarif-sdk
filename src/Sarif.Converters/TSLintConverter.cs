@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -20,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             logReader = new TSLintLogReader();
         }
         
-        public override void Convert(Stream input, IResultLogWriter output, LoggingOptions loggingOptions)
+        public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
 
@@ -46,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, loggingOptions);
+            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
             
             if (fileDictionary?.Any() == true)
@@ -92,11 +91,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 EndLine = entry.EndPosition.Line + 1,
                 EndColumn = entry.EndPosition.Character + 1,
 
-                Offset = entry.StartPosition.Position
+                ByteOffset = entry.StartPosition.Position
             };
 
             int length = entry.EndPosition.Position - entry.StartPosition.Position + 1;
-            region.Length = length > 0 ? length : 0;
+            region.ByteLength = length > 0 ? length : 0;
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
@@ -117,14 +116,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 foreach (TSLintLogFix fix in entry.Fixes)
                 {
-                    Replacement replacement = new Replacement()
+                    Replacement replacement = new Replacement();
+
+                    replacement.DeletedRegion = new Region
                     {
-                        Offset = fix.InnerStart,
-                        DeletedLength = fix.InnerLength,
+                        ByteLength = fix.InnerLength,
+                        ByteOffset = fix.InnerStart
                     };
 
-                    var plainTextBytes = Encoding.UTF8.GetBytes(fix.InnerText);
-                    replacement.InsertedBytes = System.Convert.ToBase64String(plainTextBytes);
+                    if (!string.IsNullOrEmpty(fix.InnerText))
+                    {
+                        replacement.InsertedContent = new FileContent
+                        {
+                            Text = fix.InnerText
+                        };
+                    }
 
                     replacements.Add(replacement);
                 }

@@ -31,7 +31,10 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "\treturn simpleVar;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001MacroExpansion_Example",
@@ -54,7 +57,10 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "\tint simpleVar;"
+                            }
                           }
                         }
                       },
@@ -72,7 +78,10 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "\tif ( SUCCEEDED(hrLongVar) )"
+                            }
                           }
                         }
                       },
@@ -89,7 +98,10 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "\treturn simpleVar;"
+                            }
                           }
                         }
                       },

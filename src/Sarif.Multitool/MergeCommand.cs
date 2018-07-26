@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
-using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -24,15 +24,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog combinedLog = allRuns.Merge();
 
                 // Reformat the SARIF log if we need to.
-                LoggingOptions loggingOptions = mergeOptions.ConvertToLoggingOptions();
-                SarifLog reformattedLog = new ReformattingVisitor(loggingOptions).VisitSarifLog(combinedLog);
+                OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
+
+                SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(combinedLog);
 
                 // Write output to file.
                 string outputName = Path.Combine(mergeOptions.OutputFolderPath, GetOutputFileName(mergeOptions));
                 
                 var formatting = mergeOptions.PrettyPrint
-                    ? Newtonsoft.Json.Formatting.Indented
-                    : Newtonsoft.Json.Formatting.None;
+                    ? Formatting.Indented
+                    : Formatting.None;
 
                 Directory.CreateDirectory(mergeOptions.OutputFolderPath);
                 MultitoolFileHelpers.WriteSarifFile(reformattedLog, outputName, formatting);
@@ -49,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	    {
             foreach (var file in sarifFiles)
             {
-                yield return MultitoolFileHelpers.ReadSarifFile(file);
+                yield return MultitoolFileHelpers.ReadSarifFile<SarifLog>(file);
             }
         }
         

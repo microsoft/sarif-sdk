@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 using FluentAssertions;
 
@@ -44,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             int result = testFold.Fold(list.AsEnumerable());
 
-            result.ShouldBeEquivalentTo(list.Aggregate(TestFoldProcessor.internalFunction));
+            result.Should().Be(list.Aggregate(TestFoldProcessor.internalFunction));
         }
 
         [Fact]
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
 
             IEnumerable<int> result = actionPipeline.Act(list);
 
-            result.ShouldBeEquivalentTo((new List<int>() { list.Select(TestMappingProcessor.internalFunction).Aggregate(TestFoldProcessor.internalFunction) }).Select(TestMappingProcessor.internalFunction));
+            result.Should().BeEquivalentTo((new List<int>() { list.Select(TestMappingProcessor.internalFunction).Aggregate(TestFoldProcessor.internalFunction) }).Select(TestMappingProcessor.internalFunction));
         }
     }
 }
