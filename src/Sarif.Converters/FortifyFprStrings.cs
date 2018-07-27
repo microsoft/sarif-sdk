@@ -54,6 +54,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Members and further nested members of AnalysisInfo
 
+        /// <summary>The string constant "Trace"</summary>
+        public readonly string Trace;
+
+        /// <summary>The string constant "Entry"</summary>
+        public readonly string Entry;
+
+        /// <summary>The string constant "NodeRef"</summary>
+        public readonly string NodeRef;
+
+        /// <summary>The string constant "label"</summary>
+        public readonly string LabelAttribute;
+
         /// <summary>The string constant "SourceLocation"</summary>
         public readonly string SourceLocation;
 
@@ -83,6 +95,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "Explanation"</summary>
         public readonly string Explanation;
+
+        /// <summary>The string constant "UnifiedNodePool"</summary>
+        public readonly string UnifiedNodePool;
+
+        /// <summary>The string constant "Node"</summary>
+        public readonly string Node;
+
+        /// <summary>The string constant "Action"</summary>
+        public readonly string Action;
 
         /// <summary>The string constant "Snippets"</summary>
         public readonly string Snippets;
@@ -143,6 +164,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
+            Trace = nameTable.Add("Trace");
+            Entry = nameTable.Add("Entry");
+            NodeRef = nameTable.Add("NodeRef");
+            LabelAttribute = nameTable.Add("label");
             SourceLocation = nameTable.Add("SourceLocation");
             SnippetAttribute = nameTable.Add("snippet");
             PathAttribute = nameTable.Add("path");
@@ -153,6 +178,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
             Explanation = nameTable.Add("Explanation");
+            UnifiedNodePool = nameTable.Add("UnifiedNodePool");
+            Node = nameTable.Add("Node");
+            Action = nameTable.Add("Action");
             Snippets = nameTable.Add("Snippets");
             Snippet = nameTable.Add("Snippet");
             IdAttribute = nameTable.Add("id");

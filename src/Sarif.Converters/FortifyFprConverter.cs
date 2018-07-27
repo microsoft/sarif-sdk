@@ -30,8 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private List<Notification> _toolNotifications;
         private Dictionary<string, FileData> _fileDictionary;
         private Dictionary<string, IRule> _ruleDictionary;
-        private Dictionary<ThreadFlowLocation, string> _cflToSnippetIdDictionary;
+        private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
+        private Dictionary<string, PhysicalLocation> _nodeIdToPhysicalLocationDictionary;
         private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
@@ -44,8 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications = new List<Notification>();
             _fileDictionary = new Dictionary<string, FileData>();
             _ruleDictionary = new Dictionary<string, IRule>();
-            _cflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
+            _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
+            _nodeIdToPhysicalLocationDictionary = new Dictionary<string, PhysicalLocation>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
         }
 
@@ -79,14 +81,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Clear();
             _fileDictionary.Clear();
             _ruleDictionary.Clear();
-            _cflToSnippetIdDictionary.Clear();
+            _tflToNodeIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
+            _nodeIdToPhysicalLocationDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
 
             ParseFprFile(input);
             AddMessagesToResults();
             AddSnippetsToResults();
-            AddSnippetsToThreadFlowLocations();
+            AddNodePhysicalLocationToThreadFlowLocations();
 
             var run = new Run()
             {
@@ -97,7 +100,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             output.Initialize(run);
-
 
             if (_fileDictionary.Any())
             {
@@ -171,6 +173,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
                         ParseRuleFromDescription();
+                    }
+                    else if (AtStartOfNonEmpty(_strings.UnifiedNodePool))
+                    {
+                        ParseNodes();
                     }
                     else if (AtStartOfNonEmpty(_strings.Snippets))
                     {
@@ -322,9 +328,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     result.RuleId = _reader.ReadElementContentAsString();
                 }
-                else if (AtStartOfNonEmpty(_strings.AnalysisInfo))
+                else if (AtStartOfNonEmpty(_strings.Trace))
                 {
-                    ParseLocationFromAnalysisInfo(result);
+                    ParseLocationFromTrace(result);
                 }
 
                 _reader.Read();
@@ -333,23 +339,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _results.Add(result);
         }
 
-        private void ParseLocationFromAnalysisInfo(Result result)
+        private void ParseLocationFromTrace(Result result)
         {
             CodeFlow codeFlow = result.CodeFlows.First();
             int step = 0;
+            string nodeLabel = null;
+            string lastNodeId = null;
 
             _reader.Read();
-            string lastSnippetId = null;
-            while (!AtEndOf(_strings.AnalysisInfo))
+
+            while (!AtEndOf(_strings.Trace))
             {
-                // Note: SourceLocation is an empty element (it has only attributes),
-                // so we can't call AtStartOfNonEmpty here.
-                if (AtStartOf(_strings.SourceLocation))
+                if (AtStartOf(_strings.NodeRef))
                 {
+                    string nodeId = _reader.GetAttribute(_strings.IdAttribute);
+
+                    if (!string.IsNullOrWhiteSpace(nodeId))
+                    {
+                        var tfl = new ThreadFlowLocation
+                        {
+                            Step = ++step,
+                            Location = new Location() // We'll add the physicalLocation when we process the <Node> elements
+                        };
+
+                        _tflToNodeIdDictionary.Add(tfl, nodeId);
+                        codeFlow.ThreadFlows[0].Locations.Add(tfl);
+                    }
+
+                    _reader.Read();
+                }
+                else if (AtStartOf(_strings.Node))
+                {
+                    nodeLabel = _reader.GetAttribute(_strings.LabelAttribute);
+                    _reader.Read();
+                }
+                else if (AtStartOf(_strings.SourceLocation))
+                {
+                    // Note: SourceLocation is an empty element (it has only attributes),
+                    // so we can't call AtStartOfNonEmpty here.
+
                     string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
                     PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
 
-                    var cfl = new ThreadFlowLocation
+                    var tfl = new ThreadFlowLocation
                     {
                         Step = ++step,
                         Location = new Location
@@ -358,22 +390,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
                     };
 
-                    // Remember the id of the snippet associated with this location.
-                    // We'll use it to fill the snippet text when we read the Snippets element later on.
-                    if (!String.IsNullOrEmpty(snippetId))
+                    // Step past the empty SourceLocation element.
+                    _reader.Read();
+
+                    // If we don't have a label, get the <Action> value
+                    if (string.IsNullOrWhiteSpace(nodeLabel))
                     {
-                        _cflToSnippetIdDictionary.Add(cfl, snippetId);
+                        nodeLabel = _reader.ReadElementContentAsString();
                     }
 
-                    codeFlow.ThreadFlows[0].Locations.Add(cfl);
+                    // Create the region's snippet
+                    physLoc.Region.Snippet = new FileContent
+                    {
+                        Text = nodeLabel
+                    };
+
+                    codeFlow.ThreadFlows[0].Locations.Add(tfl);
 
                     // Keep track of the snippet associated with the last location in the
                     // CodeFlow; that's the snippet that we'll associate with the Result
                     // as a whole.
-                    lastSnippetId = snippetId;
-
-                    // Step past the empty element.
-                    _reader.Read();
+                    lastNodeId = snippetId;
                 }
                 else
                 {
@@ -388,12 +425,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // TODO: Confirm that the traces are ordered chronologically
                     // (so that we really do want to use the last one as the
                     // overall result location).
-                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
+                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
                 });
 
-                if (!String.IsNullOrEmpty(lastSnippetId))
+                if (!String.IsNullOrEmpty(lastNodeId))
                 {
-                    _resultToSnippetIdDictionary.Add(result, lastSnippetId);
+                    _resultToSnippetIdDictionary.Add(result, lastNodeId);
                 }
             }
         }
@@ -463,6 +500,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _ruleDictionary.Add(rule.Id, rule);
+        }
+
+        private void ParseNodes()
+        {
+            _reader.Read();
+            while (!AtEndOf(_strings.UnifiedNodePool))
+            {
+                if (AtStartOfNonEmpty(_strings.Node))
+                {
+                    ParseNode();
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
+        }
+
+        private void ParseNode()
+        {
+            string nodeId = _reader.GetAttribute(_strings.IdAttribute);
+            _reader.Read();
+            while (!AtEndOf(_strings.Node))
+            {
+                if (AtStartOf(_strings.SourceLocation))
+                {
+                    PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
+
+                    // Step past the empty SourceLocation element.
+                    _reader.Read();
+
+                    // Get the node text from the Action element
+                    string nodeLabel = _reader.ReadElementContentAsString();
+
+                    // Create the region's snippet
+                    physLoc.Region.Snippet = new FileContent
+                    {
+                        Text = nodeLabel
+                    };
+
+                    _nodeIdToPhysicalLocationDictionary.Add(nodeId, physLoc);
+                }
+                else
+                {
+                    _reader.Read();
+                }
+            }
         }
 
         private void ParseSnippets()
@@ -613,7 +697,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void AddSnippetsToThreadFlowLocations()
+        private void AddNodePhysicalLocationToThreadFlowLocations()
         {
             foreach (Result result in _results)
             {
@@ -625,15 +709,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
-                                string snippetId, snippetText;
-                                if (_cflToSnippetIdDictionary.TryGetValue(tfl, out snippetId) &&
-                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
-                                    tfl.Location?.PhysicalLocation?.Region != null)
+                                string nodeId;
+                                PhysicalLocation physicalLocation = null;
+
+                                if (_tflToNodeIdDictionary.TryGetValue(tfl, out nodeId) &&
+                                    _nodeIdToPhysicalLocationDictionary.TryGetValue(nodeId, out physicalLocation))
                                 {
-                                    tfl.Location.PhysicalLocation.Region.Snippet = new FileContent
-                                    {
-                                        Text = snippetText
-                                    };
+                                    tfl.Location.PhysicalLocation = physicalLocation;
                                 }
                             }
                         }
