@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class ReformattingVisitor : SarifRewritingVisitor
+    public class InsertOptionalDataVisitor : SarifRewritingVisitor
     {
         internal IFileSystem s_fileSystem = new FileSystem();
 
@@ -15,9 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private bool _overwriteExistingData;
         private FileRegionsCache _fileRegionsCache;
         private OptionallyEmittedData _dataToInsert;
-        private Dictionary<Uri, string> _uriToFileTextMap;
         
-        public ReformattingVisitor(OptionallyEmittedData dataToInsert, bool overwriteExistingData = true)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, bool overwriteExistingData = true)
         {
             _dataToInsert = dataToInsert;
             _overwriteExistingData = dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
@@ -25,6 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
+            _run = node;
+
             if (node != null)
             {
                 bool scrapeFileReferences = _dataToInsert.Includes(OptionallyEmittedData.Hashes)      ||
@@ -62,7 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 node.Results = results;
             }
-            _run = node;
             return node;
         }
 
@@ -77,12 +77,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
             bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
 
-            if (insertRegionSnippets || insertRegionSnippets)
+            if (insertRegionSnippets || populateRegionProperties)
             {
                 Region result;
 
                 _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
-                result = _fileRegionsCache.PopulateTextRegionProperties(node, populateSnippet: insertContextCodeSnippets);
+                
+                // If we can resolve a file location to a newly constructed
+                // absolute URI, we will prefer that
+                if (!_run.TryResolveUri(node.FileLocation, out Uri resolvedUri))
+                {
+                    resolvedUri = node.FileLocation.Uri;
+                }
+
+                result = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
                 FileContent originalSnippet = node.Region.Snippet;
 
@@ -115,23 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return null;
         }        
 
-        private string GetFileText(Uri uri)
-        {
-            _uriToFileTextMap = _uriToFileTextMap ?? new Dictionary<Uri, string>();
-            
-            if (!_uriToFileTextMap.TryGetValue(uri, out string fileText))
-            {
-                fileText = _uriToFileTextMap[uri] = s_fileSystem.ReadAllText(uri.LocalPath);
-            }
-            return fileText;
-        }
-
         internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
         {
-            if (!Uri.TryCreate(key, UriKind.RelativeOrAbsolute, out Uri uri))
-            {
-                return node;
-            }
+            FileLocation fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
 
             bool workToDo = false;
 
@@ -141,6 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (workToDo)
             {
+                _run.TryResolveUri(fileLocation, out Uri uri);
+
                 // TODO: we should convert node.Encoding to a .NET equivalent and pass it here
                 // https://github.com/Microsoft/sarif-sdk/issues/934
                 node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: null);

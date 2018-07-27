@@ -224,18 +224,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             Uri uri = new Uri(@"c:\temp\DoesNotExist\" + Guid.NewGuid().ToString() + ".cpp");
 
-            var physicalLocation = new PhysicalLocation()
-            {
-                FileLocation = new FileLocation()
-                {
-                    Uri = uri
-                }
-            };
+            Region region = new Region() { CharOffset = 17 };
 
-            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: false).Should().BeNull();
-            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: true).Should().BeNull();
+            // Region should not be touched in any way if the file it references is missing
+            fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: false).ValueEquals(region).Should().BeTrue();
+            fileRegionsCache.PopulateTextRegionProperties(region, uri, populateSnippet: true).ValueEquals(region).Should().BeTrue();
         }
-
 
         [Fact]
         public void FileRegionsCache_PopulatesSpecExampleRegions()
@@ -265,18 +259,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             fileRegionsCache._fileSystem = mockFileSystem;
 
-            var physicalLocation = new PhysicalLocation()
-            {
-                FileLocation = new FileLocation()
-                {
-                    Uri = uri
-                }
-            };
-
-            ExecuteTests(testCases, fileRegionsCache, physicalLocation);
+            ExecuteTests(testCases, fileRegionsCache, uri);
         }
 
-        private static void ExecuteTests(ReadOnlyCollection<TestCaseData>  testCases, FileRegionsCache fileRegionsCache, PhysicalLocation physicalLocation)
+        private static void ExecuteTests(ReadOnlyCollection<TestCaseData>  testCases, FileRegionsCache fileRegionsCache, Uri uri)
         {
             foreach (TestCaseData testCase in testCases)
             {
@@ -284,16 +270,14 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 Region expectedRegion = testCase.OutputRegion.DeepClone();
                 FileContent snippet = expectedRegion.Snippet;
 
-                physicalLocation.Region = inputRegion;
-
                 expectedRegion.Snippet = null;
-                Region actualRegion = fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: false);
+                Region actualRegion = fileRegionsCache.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: false);
 
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
                 actualRegion.Snippet.Should().BeNull();
 
                 expectedRegion.Snippet = snippet;
-                actualRegion = fileRegionsCache.PopulateTextRegionProperties(physicalLocation, populateSnippet: true);
+                actualRegion = fileRegionsCache.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: true);
 
                 actualRegion.ValueEquals(expectedRegion).Should().BeTrue();
 
@@ -319,20 +303,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             fileRegionsCache._fileSystem = mockFileSystem;
 
-            var physicalLocation = new PhysicalLocation()
-            {
-                FileLocation = new FileLocation()
-                {
-                    Uri = uri
-                },
-                Region = null
-            };
+            Region result = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
+            result.Should().BeNull();
 
-            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, false);
-            physicalLocation.Region.Should().BeNull();
-
-            fileRegionsCache.PopulateTextRegionProperties(physicalLocation, true);
-            physicalLocation.Region.Should().BeNull();
+            result = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
+            result.Should().BeNull();
         }
     }
 }

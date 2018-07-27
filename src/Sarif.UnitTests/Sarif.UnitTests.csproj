@@ -31,7 +31,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestData\ReformattingVisitor\ReformattingVisitor.sarif.json">
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ComprehensiveRegionProperties.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_RegionSnippets.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_TextFiles.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

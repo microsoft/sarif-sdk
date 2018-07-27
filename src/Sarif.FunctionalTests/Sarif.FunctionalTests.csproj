@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
+    <ProjectReference Include="..\Sarif.UnitTests\Sarif.UnitTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

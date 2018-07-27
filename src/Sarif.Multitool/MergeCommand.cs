@@ -26,7 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Reformat the SARIF log if we need to.
                 OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
 
-                SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(combinedLog);
+                if (dataToInsert != OptionallyEmittedData.None)
+                {
+                    combinedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(combinedLog);
+                }
 
                 // Write output to file.
                 string outputName = Path.Combine(mergeOptions.OutputFolderPath, GetOutputFileName(mergeOptions));
@@ -36,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     : Formatting.None;
 
                 Directory.CreateDirectory(mergeOptions.OutputFolderPath);
-                MultitoolFileHelpers.WriteSarifFile(reformattedLog, outputName, formatting);
+                MultitoolFileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
             }
             catch (Exception ex)
             {
