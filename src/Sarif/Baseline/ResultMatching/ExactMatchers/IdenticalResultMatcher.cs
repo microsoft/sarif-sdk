@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             public Result CreateMaskedResult(Result result)
             {
                 Result masked = result.DeepClone();
-                masked.Id = null;
+                masked.CorrelationGuid = null;
                 masked.SuppressionStates = SuppressionStates.None;
                 masked.BaselineState = BaselineState.None;
                 if(masked.Properties != null && masked.Properties.ContainsKey(ResultMatchingBaseliner.ResultMatchingResultPropertyName))

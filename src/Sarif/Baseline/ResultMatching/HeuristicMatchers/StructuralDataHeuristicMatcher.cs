@@ -9,7 +9,7 @@ using System.Text;
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
     /// <summary>
-    /// TODO--we should consider matching graphs/stacks/etc. on non-'region' elements, e.x. removing offsets, exact regions, etc. from this comparison.
+    /// TODO--This is incomplete at this point in time and needs unit tests.
     /// </summary>
     internal class StructuralDataHeuristicMatcher : GenericHeuristicMatcher
     {

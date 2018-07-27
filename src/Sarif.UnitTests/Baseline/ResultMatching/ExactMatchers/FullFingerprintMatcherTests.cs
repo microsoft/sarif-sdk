@@ -36,8 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { matchingResultA }, new MatchingResult[] { matchingResultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.ShouldBeEquivalentTo(matchingResultA);
-            matchedResults.First().CurrentResult.ShouldBeEquivalentTo(matchingResultB);
+            matchedResults.First().BaselineResult.Should().BeEquivalentTo(matchingResultA);
+            matchedResults.First().CurrentResult.Should().BeEquivalentTo(matchingResultB);
         }
         
         [Fact]

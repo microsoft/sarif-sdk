@@ -18,9 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog baselineFile = null;
                 if (!string.IsNullOrEmpty(baselineOptions.BaselineFilePath))
                 {
-                    baselineFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.BaselineFilePath);
+                    baselineFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.BaselineFilePath);
                 }
-                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile(baselineOptions.CurrentFilePath);
+
+                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.CurrentFilePath);
                 
                 IResultMatchingBaseliner matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 

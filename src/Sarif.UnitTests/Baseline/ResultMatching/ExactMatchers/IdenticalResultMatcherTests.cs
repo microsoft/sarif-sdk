@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] {resultA }, new MatchingResult[] { resultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.ShouldBeEquivalentTo(resultA);
-            matchedResults.First().CurrentResult.ShouldBeEquivalentTo(resultB);
+            matchedResults.First().BaselineResult.Should().BeEquivalentTo(resultA);
+            matchedResults.First().CurrentResult.Should().BeEquivalentTo(resultB);
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             };
 
             Result changedResultA = resultA.Result.DeepClone();
-            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
 
             MatchingResult resultB = new MatchingResult()
@@ -163,8 +163,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultA }, new MatchingResult[] { resultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.ShouldBeEquivalentTo(resultA);
-            matchedResults.First().CurrentResult.ShouldBeEquivalentTo(resultB);
+            matchedResults.First().BaselineResult.Should().BeEquivalentTo(resultA);
+            matchedResults.First().CurrentResult.Should().BeEquivalentTo(resultB);
         }
 
         [Fact]
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             };
 
             Result changedResultA = resultAA.Result.DeepClone();
-            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
 
             MatchingResult resultBA = new MatchingResult()
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             };
 
             Result changedResultB = resultAB.Result.DeepClone();
-            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.New;
 
             MatchingResult resultBB = new MatchingResult()
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             };
 
             Result changedResultA = resultAA.Result.DeepClone();
-            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
             changedResultA.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
 
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             };
 
             Result changedResultB = resultAB.Result.DeepClone();
-            changedResultA.Id = Guid.NewGuid().ToString();
+            changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.New;
 
             changedResultB.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property1", "value1" } });
