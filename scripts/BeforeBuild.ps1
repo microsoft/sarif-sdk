@@ -7,10 +7,19 @@
     being performed inline in BuildAndTest.cmd, because AppVeyor cannot run BuildAndTest.
     AppVeyor only allows you to specify the project to build, and a script to run before
     the build step. So that is how we have factored the build scripts.
+.PARAMETER NoClean
+    Do not remove the outputs from the previous build.
+.PARAMETER NoRestore
+    Do not restore NuGet packages.
+.PARAMETER NoObjectModel
+    Do not rebuild the SARIF object model from the schema.
 #>
 
 [CmdletBinding()]
 param(
+    [switch]
+    $NoClean,
+
     [switch]
     $NoRestore,
 
@@ -25,7 +34,19 @@ $InformationPreference = "Continue"
 Import-Module $PSScriptRoot\ScriptUtilities.psm1 -Force
 Import-Module $PSScriptRoot\Projects.psm1 -Force
 
+function Remove-BuildOutput {
+    Remove-DirectorySafely $BuildRoot
+    foreach ($project in $Projects.New) {
+        $objDir = "$SourceRoot\$project\obj"
+        Remove-DirectorySafely $objDir
+    }
+}
+
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
+
+if (-not $NoClean) {
+    Remove-BuildOutput
+}
 
 if (-not $NoRestore) {
     $NuGetConfigFile = "$SourceRoot\NuGet.Config"

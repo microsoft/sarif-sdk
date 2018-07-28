@@ -74,14 +74,6 @@ $Platform = "AnyCPU"
 $BuildTarget = "Rebuild"
 $PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
 
-function Remove-BuildOutput {
-    Remove-DirectorySafely $BuildRoot
-    foreach ($project in $Projects.New) {
-        $objDir = "$SourceRoot\$project\obj"
-        Remove-DirectorySafely $objDir
-    }
-}
-
 function Invoke-Build {
     Write-Information "Building $SolutionFile..."
     msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
@@ -222,10 +214,6 @@ function Set-SarifFileAssociationRegistrySettings {
     if ($exitCode -ne 0) {
         Exit-WithFailureMessage $ScriptName "Failed to create registry settings ($exitCode)."
     }
-}
-
-if (-not $NoClean) {
-    Remove-BuildOutput
 }
 
 & $PSScriptRoot\BeforeBuild.ps1 -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel

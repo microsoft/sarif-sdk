@@ -10,6 +10,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+Import-Module $PSScriptRoot\ScriptUtilities.psm1 -Force
 
 $versionPrefix, $versionSuffix = & "$PSScriptRoot\Get-VersionConstants.ps1"
 
@@ -24,17 +25,17 @@ namespace $namespace
 {
     public static class VersionConstants
     {
-        public const string PreRelease = "$versionSuffix";
+        public const string Prerelease = "$versionSuffix";
         public const string AssemblyVersion = "$versionPrefix";
         public const string FileVersion = AssemblyVersion + ".0";
-        public const string Version = AssemblyVersion + PreRelease;
+        public const string Version = AssemblyVersion + Prerelease;
     }
 }
 "@
 
-if (-not (Test-Path $outputDirectory)) {
-    New-Item -ItemType Directory -Path $outputDirectory | Out-Null
-}
+$outputFile = "$SourceRoot\Sarif\VersionConstants.cs"
 
-$outputFile = "$outputDirectory\VersionConstants.cs"
-Set-Content $outputFile $versionConstantsFileContents
+# We use .NET rather than the PowerShell Set-Content cmdlet because Set-Content
+# intermittently fails with "Stream was not readable".
+[System.IO.File]::WriteAllText($outputFile, $versionConstantsFileContents)
+
