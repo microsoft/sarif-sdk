@@ -216,7 +216,7 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
+& $PSScriptRoot\BeforeBuild.ps1 -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
