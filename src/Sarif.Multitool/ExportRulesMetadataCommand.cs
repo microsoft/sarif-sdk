@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using VersionConstants = Microsoft.CodeAnalysis.Sarif.VersionConstants;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {

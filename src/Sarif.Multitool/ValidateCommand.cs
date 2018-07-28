@@ -9,7 +9,6 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
-using VersionConstants = Microsoft.CodeAnalysis.Sarif.VersionConstants;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
