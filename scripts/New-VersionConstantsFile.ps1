@@ -10,7 +10,6 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-Import-Module $PSScriptRoot\ScriptUtilities.psm1 -Force
 
 $versionPrefix, $versionSuffix = & "$PSScriptRoot\Get-VersionConstants.ps1"
 
@@ -31,7 +30,7 @@ namespace $namespace
 }
 "@
 
-$outputFile = "$SourceRoot\Sarif\VersionConstants.cs"
+$outputFile = Join-Path $outputDirectory VersionConstants.cs
 
 # We use .NET rather than the PowerShell Set-Content cmdlet because Set-Content
 # intermittently fails with "Stream was not readable".

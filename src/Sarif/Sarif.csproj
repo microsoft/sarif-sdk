@@ -75,7 +75,7 @@
   <Import Project="ToDotNet\ToDotNet.targets" />
 
   <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
-    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\..\scripts\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(RootNamespace)" />
+    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\..\scripts\New-VersionConstantsFile.ps1 $(MsBuildThisFileDirectory) $(RootNamespace)" />
   </Target>
 
 </Project>
