@@ -12,7 +12,7 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "TESTROOT": "file:///e:/src/sarif-sdk/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/"
       },
       "results": [
         {
