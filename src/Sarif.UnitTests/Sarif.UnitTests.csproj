@@ -45,7 +45,7 @@
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ComprehensiveRegionProperties.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets.sarif">
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ContextCodeSnippets.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles.sarif">
