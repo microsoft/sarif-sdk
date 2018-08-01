@@ -90,7 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string snippetText = fileText.Substring(region.CharOffset, region.CharLength);
                 if (region.Snippet.Text == null)
-
                 {
                     region.Snippet.Text = snippetText;
                 }

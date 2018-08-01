@@ -8,9 +8,9 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.UnitTests
+namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class FileDiffingTests
+    public abstract class FileDiffingTests
     {
         protected string GenerateDiffCommand(string expected, string actual)
         {

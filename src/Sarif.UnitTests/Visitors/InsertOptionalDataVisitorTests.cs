@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.UnitTests;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -26,9 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
         }
 
+        // Retrieving the source path of the tests is only used in developer ad hoc
+        // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
         private static string GetProductTestDataDirectory(string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\\src\Sarif.UnitTests\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\src\Sarif.UnitTests\TestData", subdirectory));
         }
 
         public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper)
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [InlineData(OptionallyEmittedData.RegionSnippets)]
         [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties)]
         [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes)]
-        public void InsertOptionaDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
+        public void InsertOptionalDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
         {
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor");
             string inputFileName = "CoreTests";
@@ -82,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
             catch (Exception ex)
             {
-                sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "Unhandled exception processing input '{0}' with the following options: '{1}'.", inputFileName, optionallyEmittedData));
+                sb.AppendFormat(CultureInfo.InvariantCulture, "Unhandled exception processing input '{0}' with the following options: '{1}'.\r\n", inputFileName, optionallyEmittedData);
                 sb.AppendLine(ex.ToString());
                 ValidateResults(sb.ToString());
                 return;

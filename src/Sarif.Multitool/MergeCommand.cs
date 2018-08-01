@@ -23,7 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Build one SarifLog with all the Runs.
                 SarifLog combinedLog = allRuns.Merge();
 
-                // Reformat the SARIF log if we need to.
                 OptionallyEmittedData dataToInsert = mergeOptions.DataToInsert.ToFlags();
 
                 if (dataToInsert != OptionallyEmittedData.None)

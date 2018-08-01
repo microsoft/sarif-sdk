@@ -15,37 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
-        /// <summary>
-        /// Attempt to reconstruct a URI, if appropriate, using Run instance 
-        /// originalUriBaseId and uriBaseId properties. If this method cannot
-        /// successfully reconstitute an absolute URI, it will return false
-        /// and populate 'resolvedUri' with the input value.
-        /// </summary>
-        /// <param name="run"></param>
-        /// <param name="uri"></param>
-        /// <param name="resolvedUri"></param>
-        /// <returns></returns>
-        public static bool TryResolveUri(this Run run, FileLocation fileLocation, out Uri resolvedUri)
-        {
-            resolvedUri = fileLocation.Uri;
-
-            // We can't restore any absolute URIs unless someone has
-            // deconstructed them using uriBaseId + originalUriBaseIds
-            if (run.OriginalUriBaseIds == null) { return false; }
-
-            if (!string.IsNullOrEmpty(fileLocation.UriBaseId) &&
-                !fileLocation.Uri.IsAbsoluteUri)
-            {
-                if (run.OriginalUriBaseIds.TryGetValue(fileLocation.UriBaseId, out Uri originalUriBaseId))
-                {
-                    resolvedUri = new Uri(originalUriBaseId, resolvedUri.ToString());
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
         {
             OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
@@ -359,10 +328,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         internal static string PropertyValue(this Dictionary<string, string> properties, string key)
         {
-            string propValue;
-
-            if (properties != null &&
-                properties.TryGetValue(key, out propValue))
+            if (properties != null && properties.TryGetValue(key, out string propValue))
             {
                 return propValue;
             }

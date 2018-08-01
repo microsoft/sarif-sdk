@@ -12,42 +12,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal IFileSystem s_fileSystem = new FileSystem();
 
         private Run _run;
-        private bool _overwriteExistingData;
         private FileRegionsCache _fileRegionsCache;
-        private OptionallyEmittedData _dataToInsert;
+        private readonly OptionallyEmittedData _dataToInsert;
         
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, bool overwriteExistingData = true)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert)
         {
             _dataToInsert = dataToInsert;
-            _overwriteExistingData = dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
         }
 
         public override Run VisitRun(Run node)
         {
             _run = node;
 
-            if (node != null)
+            if (node == null) { return null; }
+
+            bool scrapeFileReferences = _dataToInsert.Includes(OptionallyEmittedData.Hashes) ||
+                                        _dataToInsert.Includes(OptionallyEmittedData.TextFiles) ||
+                                        _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+
+            if (scrapeFileReferences)
             {
-                bool scrapeFileReferences = _dataToInsert.Includes(OptionallyEmittedData.Hashes)      ||
-                                            _dataToInsert.Includes(OptionallyEmittedData.TextFiles)   ||
-                                            _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+                var visitor = new AddFileReferencesVisitor();
+                visitor.VisitRun(node);
+            }
 
-                if (scrapeFileReferences)
+            if (node.Files != null)
+            {
+                // Note, we modify this collection as  we enumerate it.
+                // Hence the need to convert to an array here. Otherwise,
+                // the standard collection enumerator will throw an
+                // exception after we touch the collection.
+                var keys = node.Files.Keys.ToArray();
+                foreach (string key in keys)
                 {
-                    var visitor = new AddFileReferencesVisitor();
-                    visitor.VisitRun(node);
-                }
-
-                if (node.Files != null)
-                {
-                    var keys = node.Files.Keys.ToArray();
-                    foreach (var key in keys)
+                    var value = node.Files[key];
+                    if (value != null)
                     {
-                        var value = node.Files[key];
-                        if (value != null)
-                        {
-                            node.Files[key] = VisitDictionaryValueNullChecked(key, value);
-                        }
+                        node.Files[key] = VisitDictionaryValueNullChecked(key, value);
                     }
                 }
             }
@@ -63,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 node.Results = results;
             }
+
             return node;
         }
 
@@ -74,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             bool insertRegionSnippets = _dataToInsert.Includes(OptionallyEmittedData.RegionSnippets);
+            bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
             bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
             bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
 
@@ -85,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 
                 // If we can resolve a file location to a newly constructed
                 // absolute URI, we will prefer that
-                if (!_run.TryResolveUri(node.FileLocation, out Uri resolvedUri))
+                if (!node.FileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
                 {
                     resolvedUri = node.FileLocation.Uri;
                 }
@@ -99,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     node.Region = result;
                 }
 
-                if (originalSnippet == null || _overwriteExistingData)
+                if (originalSnippet == null || overwriteExistingData)
                 {
                     node.Region.Snippet = result.Snippet;
                 }
@@ -109,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if (insertContextCodeSnippets && (node.ContextRegion == null || _overwriteExistingData))
+            if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
             {
                 node.ContextRegion = ConstructContextSnippet(node);               
             }
@@ -128,14 +131,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             FileLocation fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
 
             bool workToDo = false;
+            bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
 
-            workToDo |= (node.Hashes == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= (node.Contents?.Binary == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
-            workToDo |= (node.Contents?.Binary == null || _overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+            workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
+            workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
-                _run.TryResolveUri(fileLocation, out Uri uri);
+                fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri);
 
                 // TODO: we should convert node.Encoding to a .NET equivalent and pass it here
                 // https://github.com/Microsoft/sarif-sdk/issues/934

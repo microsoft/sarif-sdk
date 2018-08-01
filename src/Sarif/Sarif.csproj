@@ -38,6 +38,8 @@
     <Content Include="Schemata\Sarif.schema.json" />
 
     <!-- Link=false: Don't display this item in Solution Explorer. -->
+    <!-- This item will be added to the NuGet package, however. -->
+    <Content Include="..\ReleaseHistory.md" Link="false"/>
   </ItemGroup>
 
   <ItemGroup>

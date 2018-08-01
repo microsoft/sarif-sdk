@@ -12,10 +12,10 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "SRCROOT": "file:///e:/src/sarif-sdk/"
+        "TESTROOT": "file:///e:/src/sarif-sdk/src/Sarif.UnitTests/TestData/"
       },
       "files": {
-        "#SRCROOT#src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt": {
+        "#TESTROOT#InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt": {
           "mimeType": "text/plain",
           "hashes": [
             {
@@ -43,8 +43,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "SRCROOT"
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 1,
@@ -64,8 +64,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "SRCROOT"
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 14,
@@ -85,8 +85,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "SRCROOT"
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "startLine": 18,
@@ -106,8 +106,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "SRCROOT"
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
                 },
                 "region": {
                   "charOffset": 581,

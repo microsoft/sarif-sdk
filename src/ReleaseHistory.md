@@ -189,4 +189,4 @@
 * Convert object model to conform to SARIF v2 CSD.1 draft specification
 * Distinguish textual vs. binary file persistence in rewrite option (and allow for both in multitool rewrite verb)
 *   NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --insert
-* Add Regions as possible qualifier to --insert command
+* Add Regions as possible qualifier to --insert option

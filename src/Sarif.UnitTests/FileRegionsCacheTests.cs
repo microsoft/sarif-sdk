@@ -303,11 +303,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
             fileRegionsCache._fileSystem = mockFileSystem;
 
-            Region result = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
-            result.Should().BeNull();
+            Region region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: false);
+            region.Should().BeNull();
 
-            result = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
-            result.Should().BeNull();
+            region = fileRegionsCache.PopulateTextRegionProperties(inputRegion: null, uri: uri, populateSnippet: true);
+            region.Should().BeNull();
         }
     }
 }
