@@ -46,8 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public void InsertOptionalDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
         {
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor");
-            string inputFileName = "CoreTests";
-            RunTest(testDirectory, inputFileName, optionallyEmittedData);
+
+            Console.WriteLine(optionallyEmittedData);
+            throw new InvalidOperationException(testDirectory);
+            //string inputFileName = "CoreTests";
+            //RunTest(testDirectory, inputFileName, optionallyEmittedData);
         }
 
         private void RunTest(string testDirectory, string inputFileName, OptionallyEmittedData optionallyEmittedData)
