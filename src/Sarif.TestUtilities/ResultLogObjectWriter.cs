@@ -31,17 +31,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
         public void WriteTool(Tool tool)
         {
-            if (tool == null)
-            {
-                throw new ArgumentNullException(nameof(tool));
-            }
-
             if (_tool != null)
             {
                 throw new InvalidOperationException(SdkResources.ToolAlreadyWritten);
             }
 
-            _tool = tool;
+            _tool = tool ?? throw new ArgumentNullException(nameof(tool));
         }
 
 
