@@ -18,9 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
         private const string FprFileTypePropertyName = "FprFileType";
+        private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
+        private const string EmbeddedLinkFormat = "[{0}](1)";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
+        private readonly string[] SupportedReplacementTokens = new[] { "PrimaryLocation.file", "PrimaryLocation.line" };
 
         private XmlReader _reader;
         private Invocation _invocation;
@@ -32,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<string, IRule> _ruleDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
+        private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
         private Dictionary<string, PhysicalLocation> _nodeIdToPhysicalLocationDictionary;
         private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
 
@@ -47,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _ruleDictionary = new Dictionary<string, IRule>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
+            _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
             _nodeIdToPhysicalLocationDictionary = new Dictionary<string, PhysicalLocation>();
             _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
         }
@@ -83,6 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _ruleDictionary.Clear();
             _tflToNodeIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
+            _resultToReplacementDefinitionDictionary.Clear();
             _nodeIdToPhysicalLocationDictionary.Clear();
             _snippetIdToSnippetTextDictionary.Clear();
 
@@ -318,6 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 Locations = new List<Location>(),
+                RelatedLocations = new List<Location>(),
                 CodeFlows = new []
                 {
                     SarifUtilities.CreateSingleThreadedCodeFlow()
@@ -330,6 +337,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.ClassId))
                 {
                     result.RuleId = _reader.ReadElementContentAsString();
+                }
+                else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
+                {
+                    ParseReplacementDefinitions(result);
                 }
                 else if (AtStartOfNonEmpty(_strings.Trace))
                 {
@@ -382,14 +393,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // so we can't call AtStartOfNonEmpty here.
 
                     string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
-                    PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
+                    PhysicalLocation physicalLocation = ParsePhysicalLocationFromSourceInfo();
 
                     var tfl = new ThreadFlowLocation
                     {
                         Step = ++step,
                         Location = new Location
                         {
-                            PhysicalLocation = physLoc
+                            PhysicalLocation = physicalLocation
                         }
                     };
 
@@ -403,7 +414,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
 
                     // Create the region's snippet
-                    physLoc.Region.Snippet = new FileContent
+                    physicalLocation.Region.Snippet = new FileContent
                     {
                         Text = nodeLabel
                     };
@@ -430,11 +441,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // overall result location).
                     PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
                 });
+                result.RelatedLocations.Add(new Location
+                {
+                    // TODO: Confirm that the traces are ordered chronologically
+                    // (so that we really do want to use the last one as the
+                    // overall result location).
+                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
+                });
 
                 if (!String.IsNullOrEmpty(lastNodeId))
                 {
                     _resultToSnippetIdDictionary.Add(result, lastNodeId);
                 }
+            }
+        }
+
+        private void ParseReplacementDefinitions(Result result)
+        {
+            _reader.Read();
+            var replacements = new Dictionary<string, string>();
+
+            while (!AtEndOf(_strings.ReplacementDefinitions))
+            {
+                if (_reader.Name == _strings.Def && !AtEndOf(_strings.Def))
+                {
+                    string key = _reader.GetAttribute(_strings.KeyAttribute);
+                    string value = _reader.GetAttribute(_strings.ValueAttribute);
+                    replacements.Add(key, value);
+                }
+
+                _reader.Read();
+            }
+
+            if (replacements.Any())
+            {
+                _resultToReplacementDefinitionDictionary.Add(result, replacements);
             }
         }
 
@@ -447,6 +488,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (lineAttr != null)
             {
                 int.TryParse(lineAttr, out startLine);
+            }
+
+            int endLine = 0;
+            string linelEndAttr = _reader.GetAttribute(_strings.LineEndAttribute);
+            if (linelEndAttr != null)
+            {
+                int.TryParse(linelEndAttr, out endLine);
             }
 
             int startColumn = 0;
@@ -472,6 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Region = new Region
                 {
                     StartLine = startLine,
+                    EndLine = endLine,
                     StartColumn = startColumn,
                     EndColumn = endColumn
                 }
@@ -495,6 +544,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
                     rule.FullDescription = new Message { Text = _reader.ReadElementContentAsString() };
+                }
+                else if (AtStartOfNonEmpty(_strings.CustomDescription))
+                {
+                    // Skip the custom description block
+                    while (!AtEndOf(_strings.CustomDescription))
+                    {
+                        _reader.Read();
+                    }
                 }
                 else
                 {
@@ -529,7 +586,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOf(_strings.SourceLocation))
                 {
-                    PhysicalLocation physLoc = ParsePhysicalLocationFromSourceInfo();
+                    PhysicalLocation physicalLocation = ParsePhysicalLocationFromSourceInfo();
 
                     // Step past the empty SourceLocation element.
                     _reader.Read();
@@ -538,12 +595,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string nodeLabel = _reader.ReadElementContentAsString();
 
                     // Create the region's snippet
-                    physLoc.Region.Snippet = new FileContent
+                    physicalLocation.Region.Snippet = new FileContent
                     {
                         Text = nodeLabel
                     };
 
-                    _nodeIdToPhysicalLocationDictionary.Add(nodeId, physLoc);
+                    _nodeIdToPhysicalLocationDictionary.Add(nodeId, physicalLocation);
                 }
                 else
                 {
@@ -679,7 +736,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 IRule rule;
                 if (_ruleDictionary.TryGetValue(result.RuleId, out rule))
                 {
-                    result.Message = rule.ShortDescription ?? rule.FullDescription;
+                    Message message = rule.ShortDescription ?? rule.FullDescription;
+                    Dictionary<string, string> replacements = null;
+
+                    if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out replacements))
+                    {
+                        string messageText = message?.Text;
+                        foreach (string key in replacements.Keys)
+                        {
+                            string value = replacements[key];
+
+                            if (SupportedReplacementTokens.Contains(key))
+                            {
+                                // Replace the token with an embedded hyperlink
+                                messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
+                                                                  string.Format(EmbeddedLinkFormat, value));
+                            }
+                            else
+                            {
+                                // Replace the token with plain text
+                                messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
+                            }
+                        }
+
+                        message = message.DeepClone();
+                        message.Text = messageText;
+                    }
+
+                    result.Message = message;
                 }
             }
         }

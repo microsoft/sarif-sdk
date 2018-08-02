@@ -57,6 +57,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Members and further nested members of AnalysisInfo
 
+        /// <summary>The string constant "ReplacementDefinitions"</summary>
+        public readonly string ReplacementDefinitions;
+
+        /// <summary>The string constant "Def"</summary>
+        public readonly string Def;
+
+        /// <summary>The string constant "key"</summary>
+        public readonly string KeyAttribute;
+
+        /// <summary>The string constant "value"</summary>
+        public readonly string ValueAttribute;
+
         /// <summary>The string constant "Trace"</summary>
         public readonly string Trace;
 
@@ -81,6 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "line"</summary>
         public readonly string LineAttribute;
 
+        /// <summary>The string constant "lineEnd"</summary>
+        public readonly string LineEndAttribute;
+
         /// <summary>The string constant "colStart"</summary>
         public readonly string ColStartAttribute;
 
@@ -89,6 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "Description"</summary>
         public readonly string Description;
+
+        /// <summary>The string constant "CustomDescription"</summary>
+        public readonly string CustomDescription;
 
         /// <summary>The string constant "classID"</summary>
         public readonly string ClassIdAttribute;
@@ -168,6 +186,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
+            ReplacementDefinitions = nameTable.Add("ReplacementDefinitions");
+            Def = nameTable.Add("Def");
+            KeyAttribute = nameTable.Add("key");
+            ValueAttribute = nameTable.Add("value");
             Trace = nameTable.Add("Trace");
             Entry = nameTable.Add("Entry");
             NodeRef = nameTable.Add("NodeRef");
@@ -176,9 +198,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             SnippetAttribute = nameTable.Add("snippet");
             PathAttribute = nameTable.Add("path");
             LineAttribute = nameTable.Add("line");
+            LineEndAttribute = nameTable.Add("lineEnd");
             ColStartAttribute = nameTable.Add("colStart");
             ColEndAttribute = nameTable.Add("colEnd");
             Description = nameTable.Add("Description");
+            CustomDescription = nameTable.Add("CustomDescription");
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
             Explanation = nameTable.Add("Explanation");
