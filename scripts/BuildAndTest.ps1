@@ -6,6 +6,8 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
+.PARAMETER SDKOnly
+    Build only the SARIF SDK, rather than the SDK and the VSIX.
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
@@ -31,6 +33,9 @@ param(
     [string]
     [ValidateSet("Debug", "Release")]
     $Configuration="Release",
+
+    [switch]
+    $SDKOnly,
 
     [switch]
     $NoClean,
@@ -69,7 +74,15 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$SourceRoot\Everything.sln"
+if (-not $SDKOnly)
+{
+    $SolutionFile = "$SourceRoot\Everything.sln"
+} 
+else 
+{
+    $SolutionFile = "$SourceRoot\Everything.sln"
+}
+
 $Platform = "AnyCPU"
 $BuildTarget = "Rebuild"
 $PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
