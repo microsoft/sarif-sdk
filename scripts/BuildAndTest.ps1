@@ -80,7 +80,7 @@ if (-not $SDKOnly)
 } 
 else 
 {
-    $SolutionFile = "$SourceRoot\Everything.sln"
+    $SolutionFile = "$SourceRoot\Sarif.SDK.sln"
 }
 
 $Platform = "AnyCPU"
