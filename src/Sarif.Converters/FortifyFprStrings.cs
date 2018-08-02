@@ -37,6 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "type"</summary>
         public readonly string TypeAttribute;
 
+        /// <summary>The string constant "encoding"</summary>
+        public readonly string EncodingAttribute;
+
         /// <summary>The string constant "Name"</summary>
         public readonly string Name;
 
@@ -159,6 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             File = nameTable.Add("File");
             SizeAttribute = nameTable.Add("size");
             TypeAttribute = nameTable.Add("type");
+            EncodingAttribute = nameTable.Add("encoding");
             Name = nameTable.Add("Name");
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");

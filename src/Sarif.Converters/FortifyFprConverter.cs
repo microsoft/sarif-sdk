@@ -263,6 +263,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 int.TryParse(sizeAttribute, out length);
             }
 
+            string encoding = _reader.GetAttribute(_strings.EncodingAttribute);
+
             string fileName = null;
             _reader.Read();
             while (!AtEndOf(_strings.File))
@@ -281,6 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 var fileData = new FileData
                 {
+                    Encoding = encoding,
                     MimeType = MimeType.DetermineFromFileExtension(fileName),
                     Length = length
                 };
