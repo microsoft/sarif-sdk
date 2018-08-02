@@ -1,0 +1,23 @@
+Region_At_Start_Of_File (this isn't part of the region...)
+More context.
+
+This is a sample target file for
+some SARIF testing. This file will
+potentially be embedded in SARIF logs
+and used in various IDE contexts to
+verify that various regions are 
+correctly constructed, etc.
+
+Here are some special values that will be referenced in fabricated results:
+
+Leading context.
+  Region_One (this isn't part of the region...)
+Trailing context.
+
+Additional context.
+         Multiline_Region_PartOne
+Multiline_Region_PartTwo
+Additional context.
+
+Additional context.
+Region_At_End_Of_File

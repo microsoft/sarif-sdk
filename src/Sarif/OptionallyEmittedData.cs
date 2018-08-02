@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// or removed from SARIF log files.
     /// </summary>
     [Flags]
-    public enum OptionallyEmittedData
+    public enum OptionallyEmittedData : uint
     {
         None = 0,
 
@@ -33,10 +33,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         // addition to the stard/end property pairs, the CharOffset and CharLength properties
         // can be used to specify a text region. This enum value either comprehensively 
         // populates all possible region properties or reduces all regions to a minimal form.
-        Regions = 0x08,
+        ComprehensiveRegionProperties = 0x08,
 
         // The text snippet, if one exists, that is associated with a static analysis result.
-        CodeSnippets = 0x10,
+        // This snippet matches the result region precisely. In practice, this means that
+        // this snippet will typically be a partial line fragment, of limited utility
+        // in viewer and fingerprinting scenarios. This limitation is being tracked
+        // in as SARIF v2 design issue: https://github.com/oasis-tcs/sarif-spec/issues/197
+        RegionSnippets = 0x10,
 
         // A code snippet, if applicable, that includes the text associated with a static
         // analysis result as well as a small amount of the code that surrounds it. A 
@@ -53,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         // Environment variables can exfiltrate sensitive information from environments
         // that produce static analysis results. It is useful in some contexts, therefore,
         // to strip this information. 
-        EnvironmentVariables = 0x80
+        EnvironmentVariables = 0x80,
+
+        // A special enum value that indicates that insertion should overwrite any existing
+        // information in the SARIF log file. In the absence of this setting, any existing
+        // data that would otherwise have been overwritten by the insert operation will
+        // be preserved.
+        OverwriteExistingData = 0x80000000
     }
 }

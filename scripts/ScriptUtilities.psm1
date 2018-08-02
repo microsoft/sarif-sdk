@@ -36,8 +36,11 @@ function Exit-WithFailureMessage($scriptName, $message) {
 $RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
 $SourceRoot = "$RepoRoot\src"
 $NuGetPackageRoot = "$SourceRoot\packages"
+$JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
 $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
+
+$SarifExtension = ".sarif"
 
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
@@ -48,5 +51,7 @@ Export-ModuleMember -Variable `
     RepoRoot, `
     SourceRoot, `
     NuGetPackageRoot, `
+    JsonSchemaPath, `
     BuildRoot, `
-    BinRoot
+    BinRoot, `
+    SarifExtension

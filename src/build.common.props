@@ -45,11 +45,4 @@ whether they use the VS 2017 project system or the old project system.
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
   </ItemGroup>
-
-  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
-    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\scripts\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
-    <ItemGroup>
-      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
-    </ItemGroup>
-  </Target>
 </Project>

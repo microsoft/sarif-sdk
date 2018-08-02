@@ -19,11 +19,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
+
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
         {
-            _files = _files ?? new Dictionary<string, FileData>();
+            // Strictly speaking, some elements that may contribute to a files table 
+            // key are case sensitive, e.g., everything but the schema and protocol of a
+            // web URI. We don't have a proper comparer implementation that can handle 
+            // all cases. For now, we cover the Windows happy path, which assumes that
+            // most URIs in log files are file paths (which are case-insensitive)
+            //
+            // Tracking item for an improved comparer:
+            // https://github.com/Microsoft/sarif-sdk/issues/973
+            _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
 
-            string uriText = Uri.EscapeUriString(node.FileLocation.Uri.ToString());
+            FileLocation fileLocation = node.FileLocation;
+
+            string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
+
+            if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
+            {
+                // See EXAMPLE 3 of 3.11.13.2 'Property Names' of
+                // SARIF v2 'files' property specification 
+                uriText = "#" + fileLocation.UriBaseId + "#" + uriText;
+            }
 
             // If the file already exists, we will not insert one as we want to 
             // preserve mime-type, hash details, and other information that 

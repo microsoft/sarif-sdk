@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -40,10 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">The physical location containing the region which should be populated.</param>
         /// <param name="populateSnippet">Specifies whether the physicalLocation.region.snippet property should be populated.</param>
         /// <returns></returns>
-        public Region PopulateTextRegionProperties(PhysicalLocation physicalLocation, bool populateSnippet)
+        public Region PopulateTextRegionProperties(Region inputRegion, Uri uri, bool populateSnippet)
         {
-            Region inputRegion = physicalLocation.Region;
-
             if (inputRegion == null || inputRegion.IsBinaryRegion)
             {
                 // For binary regions, only the byteOffset and byteLength properties
@@ -51,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return inputRegion;
             }
 
-            NewLineIndex newLineIndex = GetNewLineIndex(physicalLocation.FileLocation, out string fileText);
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
             return PopulateTextRegionProperties(newLineIndex, inputRegion, fileText, populateSnippet);
         }
 
@@ -98,6 +97,32 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return region;
+        }
+
+        internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
+        {
+            if (inputRegion == null || inputRegion.IsBinaryRegion)
+            {
+                // Context snippets are relevant only for textual regions.
+                return null;
+            }
+
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
+            if (newLineIndex == null)
+            {
+                return null;
+            }
+
+            int maxLineNumber = newLineIndex.MaximumLineNumber;
+
+            // Currently, we just grab a single line before and after the region start
+            // and end lines, respectively. In the future, we could make this configurable.
+            var region = new Region()
+            {
+                StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,
+                EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1
+            };
+            return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
         }
 
         private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, string fileText)
@@ -251,12 +276,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             Debug.Assert(region.CharLength == charLength);
         }
 
-        private NewLineIndex GetNewLineIndex(FileLocation fileLocation, out string fileText)
+        private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
         {
+            fileText = null;
+
             // We will expand this code later to construct all possible URLs from
             // the log file, bearing in mind things like uriBaseIds. Also, we could
             // consider downloading and caching web-hosted source files.
-            fileText = _fileSystem.ReadAllText(fileLocation.Uri.LocalPath);
+            try
+            {
+                fileText = _fileSystem.ReadAllText(uri.LocalPath);
+            }
+            catch (IOException) { }
+
             return fileText != null ? new NewLineIndex(fileText) : null;
         }
     }

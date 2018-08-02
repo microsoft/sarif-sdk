@@ -74,14 +74,6 @@ $Platform = "AnyCPU"
 $BuildTarget = "Rebuild"
 $PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
 
-function Remove-BuildOutput {
-    Remove-DirectorySafely $BuildRoot
-    foreach ($project in $Projects.New) {
-        $objDir = "$SourceRoot\$project\obj"
-        Remove-DirectorySafely $objDir
-    }
-}
-
 function Invoke-Build {
     Write-Information "Building $SolutionFile..."
     msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
@@ -224,11 +216,7 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-if (-not $NoClean) {
-    Remove-BuildOutput
-}
-
-& $PSScriptRoot\BeforeBuild.ps1 -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
+& $PSScriptRoot\BeforeBuild.ps1 -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }

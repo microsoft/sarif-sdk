@@ -188,4 +188,5 @@
 ## **v2.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0))
 * Convert object model to conform to SARIF v2 CSD.1 draft specification
 * Distinguish textual vs. binary file persistence in rewrite option (and allow for both in multitool rewrite verb)
-*   NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --persist-text-contents
+*   NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --insert
+* Add Regions as possible qualifier to --insert option

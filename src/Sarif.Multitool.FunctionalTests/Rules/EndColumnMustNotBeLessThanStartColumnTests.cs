@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -26,18 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnGreaterThanStartColumn.sarif");
         }
 
-        [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInAnalysisTarget))]
-        public void EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInAnalysisTarget()
-        {
-            Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnLessThanStartColumnInAnalysisTarget.sarif");
-        }
-
-        [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInAnalysisTargetNoEndLine))]
-        public void EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInAnalysisTargetNoEndLine()
-        {
-            Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnLessThanStartColumnInAnalysisTargetNoEndLine.sarif");
-        }
-
         [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInCodeFlow))]
         public void EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInCodeFlow()
         {
@@ -50,10 +37,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnLessThanStartColumnInRelatedLocation.sarif");
         }
 
-        [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInResultFile))]
-        public void EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInResultFile()
+        [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInResultLocation))]
+        public void EndColumnMustNotBeLessThanStartColumn_EndColumnLessThanStartColumnInResultLocation()
         {
-            Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnLessThanStartColumnInResultFile.sarif");
+            Verify(new EndColumnMustNotBeLessThanStartColumn(), "EndColumnLessThanStartColumnInResultLocation.sarif");
         }
 
         [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnNotSpecified))]
