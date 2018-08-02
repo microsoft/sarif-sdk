@@ -99,6 +99,32 @@ namespace Microsoft.CodeAnalysis.Sarif
             return region;
         }
 
+        internal Region ConstructMultilineContextSnippet(Region inputRegion, Uri uri)
+        {
+            if (inputRegion == null || inputRegion.IsBinaryRegion)
+            {
+                // Context snippets are relevant only for textual regions.
+                return null;
+            }
+
+            NewLineIndex newLineIndex = GetNewLineIndex(uri, out string fileText);
+            if (newLineIndex == null)
+            {
+                return null;
+            }
+
+            int maxLineNumber = newLineIndex.MaximumLineNumber;
+
+            // Currently, we just grab a single line before and after the region start
+            // and end lines, respectively. In the future, we could make this configurable.
+            var region = new Region()
+            {
+                StartLine = inputRegion.StartLine == 1 ? 1 : inputRegion.StartLine - 1,
+                EndLine = inputRegion.EndLine == maxLineNumber ? maxLineNumber : inputRegion.EndLine + 1
+            };
+            return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
+        }
+
         private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, string fileText)
         {
             Debug.Assert(!region.IsBinaryRegion);

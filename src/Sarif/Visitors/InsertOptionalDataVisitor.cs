@@ -80,12 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
             bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
 
-            if (insertRegionSnippets || populateRegionProperties)
+            if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
             {
-                Region result;
+                Region expandedRegion;
 
                 _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
-                
+
                 // If we can resolve a file location to a newly constructed
                 // absolute URI, we will prefer that
                 if (!node.FileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
@@ -93,38 +93,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     resolvedUri = node.FileLocation.Uri;
                 }
 
-                result = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
+                expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
                 FileContent originalSnippet = node.Region.Snippet;
 
                 if (populateRegionProperties)
                 {
-                    node.Region = result;
+                    node.Region = expandedRegion;
                 }
 
                 if (originalSnippet == null || overwriteExistingData)
                 {
-                    node.Region.Snippet = result.Snippet;
+                    node.Region.Snippet = expandedRegion.Snippet;
                 }
                 else
                 {
                     node.Region.Snippet = originalSnippet;
                 }
-            }
 
-            if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
-            {
-                node.ContextRegion = ConstructContextSnippet(node);               
+                if (insertContextCodeSnippets && (node.ContextRegion == null || overwriteExistingData))
+                {
+                    node.ContextRegion = _fileRegionsCache.ConstructMultilineContextSnippet(expandedRegion, resolvedUri);
+                }
             }
 
             Exit:
             return base.VisitPhysicalLocation(node);
         }
-
-        internal Region ConstructContextSnippet(PhysicalLocation physicalLocation)
-        {
-            return null;
-        }        
 
         internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
         {

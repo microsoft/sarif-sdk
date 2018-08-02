@@ -41,8 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [InlineData(OptionallyEmittedData.Hashes)]
         [InlineData(OptionallyEmittedData.TextFiles)]
         [InlineData(OptionallyEmittedData.RegionSnippets)]
+        [InlineData(OptionallyEmittedData.ContextCodeSnippets)]
         [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties)]
-        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes)]
+        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes | OptionallyEmittedData.ContextCodeSnippets)]
         public void InsertOptionalDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
         {
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor");
