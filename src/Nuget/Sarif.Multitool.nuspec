@@ -14,10 +14,10 @@
     <tags>SARIF command line static analysis</tags>
   </metadata>
   <files>
-    <file src="bld\bin\Sarif.Multitool\AnyCPU_$configuration$\Publish\net461\**"
+    <file src="bld\bin\AnyCPU_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
           />
-    <file src="bld\bin\Sarif.Multitool\AnyCPU_$configuration$\Publish\netcoreapp2.0\**"
+    <file src="bld\bin\AnyCPU_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\**"
           target="tools\netcoreapp2.0"
           />
 

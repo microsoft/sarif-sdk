@@ -6,8 +6,6 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
-.PARAMETER SDKOnly
-    Build only the SARIF SDK, rather than the SDK and the VSIX.
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
@@ -33,9 +31,6 @@ param(
     [string]
     [ValidateSet("Debug", "Release")]
     $Configuration="Release",
-
-    [switch]
-    $SDKOnly,
 
     [switch]
     $NoClean,
@@ -74,18 +69,8 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-if (-not $SDKOnly)
-{
-    $SolutionFile = "$SourceRoot\Everything.sln"
-} 
-else 
-{
-    $SolutionFile = "$SourceRoot\Sarif.SDK.sln"
-}
-
-$Platform = "AnyCPU"
+$SolutionFile = "$SourceRoot\Everything.sln"
 $BuildTarget = "Rebuild"
-$PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
 
 function Invoke-Build {
     Write-Information "Building $SolutionFile..."
@@ -102,70 +87,6 @@ function Publish-Application($project, $framework) {
     dotnet publish $SourceRoot\$project\$project.csproj --no-restore --configuration $Configuration --framework $framework
 }
 
-function New-NuGetPackageFromProjectFile($project, $version) {
-    $projectFile = "$SourceRoot\$project\$project.csproj"
-
-    $arguments =
-        "pack", $projectFile,
-        "--configuration", $Configuration,
-        "--no-build", "--no-restore",
-        "--include-source", "--include-symbols",
-        "-p:Platform=$Platform",
-        "--output", $PackageOutputDirectory
-
-    Write-Debug "dotnet $($arguments -join ' ')"
-
-    dotnet $arguments
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
-    }
-}
-
-function New-NuGetPackageFromNuspecFile($project, $version, $suffix = "") {
-    $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
-
-    $arguments=
-        "pack", $nuspecFile,
-        "-Symbols",
-        "-Properties", "configuration=$Configuration;version=$version",
-        "-Verbosity", "Quiet",
-        "-BasePath", ".\",
-        "-OutputDirectory", $PackageOutputDirectory
-
-    if ($suffix -ne "") {
-        $arguments += "-Suffix", $Suffix
-    }
-
-    $nugetExePath = "$RepoRoot\.nuget\NuGet.exe"
-
-    Write-Debug "$nuGetExePath $($arguments -join ' ')"
-
-    &$nuGetExePath $arguments
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
-    }
-
-    Write-Information "  Successfully created package '$BinRoot\NuGet\$Configuration\$Project.$version.nupkg'."
-}
-
-function New-NuGetPackages {
-    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1
-    $version = "$versionPrefix-$versionSuffix"
-
-    # We can build the NuGet packages for library projects directly from their
-    # project file.
-    foreach ($project in $Projects.NewLibrary) {
-        New-NuGetPackageFromProjectFile $project $version
-    }
-
-    # Unfortunately, application projects like MultiTool need to include things
-    # that are not specified in the project file, so their packages still require
-    # a .nuspec file.
-    foreach ($project in $Projects.NewApplication) {
-        New-NuGetPackageFromNuSpecFile $project $version
-    }
-}
-
 # Create a directory populated with the binaries that need to be signed.
 function New-SigningDirectory {
     Write-Information "Copying files to signing directory..."
@@ -176,7 +97,7 @@ function New-SigningDirectory {
     }
 
     foreach ($project in $Projects.NewProduct) {
-        $projectBinDirectory = "$BinRoot\$project\${Platform}_$Configuration"
+        $projectBinDirectory = "$BinRoot\${Platform}_$Configuration\$project\"
 
         foreach ($framework in $Frameworks.All) {
             $sourceDirectory = "$projectBinDirectory\$framework"
@@ -200,7 +121,7 @@ function New-SigningDirectory {
     # Copy the viewer. Its name doesn't fit the pattern binary name == project name,
     # so we copy it by hand.
     foreach ($framework in $Frameworks.NetFX) {
-        Copy-Item -Force -Path $BinRoot\Sarif.Viewer.VisualStudio\${Platform}_$Configuration\Microsoft.Sarif.Viewer.dll -Destination $SigningDirectory\$framework
+        Copy-Item -Force -Path $BinRoot\${Platform}_$Configuration\Sarif.Viewer.VisualStudio\Microsoft.Sarif.Viewer.dll -Destination $SigningDirectory\$framework
     }
 }
 
@@ -253,12 +174,12 @@ if (-not $NoPublish) {
     }
 }
 
-if (-not $NoPackage) {
-    New-NuGetPackages
-}
-
 if (-not $NoSigningDirectory) {
     New-SigningDirectory
+}
+
+if (-not $NoPackage) {
+    New-NuGetPackages $Configuration $Projects
 }
 
 if ($Install) {

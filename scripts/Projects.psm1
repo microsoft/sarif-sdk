@@ -18,8 +18,7 @@ $Frameworks.Library = @("netstandard2.0") + $Frameworks.NetFx
 # Frameworks for which we build applications.
 $Frameworks.Application = @("netcoreapp2.0") + $Frameworks.NetFx
 
-$Frameworks.All = ($Frameworks.LIbrary + $Frameworks.Application | Select -Unique)
-
+$Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Unique)
 
 $Projects = @{}
 
