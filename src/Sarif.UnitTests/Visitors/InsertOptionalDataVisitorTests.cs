@@ -146,13 +146,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             ValidateResults(sb.ToString());
         }
 
-        private string GenerateDirectoryDiffCommand(string v1, string v2)
-        {
-            // "C:\Program Files\Beyond Compare 4\BComp.exe" "E:\\src\\sarif-sdk\\bld\\bin\\Sarif.UnitTests\\AnyCPU_Debug\\netcoreapp2.0\\TestData\\InsertOptionalDataVisitor\" "E:\\src\\sarif-sdk\\bld\\bin\\Sarif.UnitTests\\AnyCPU_Debug\\netcoreapp2.0\\TestData\\InsertOptionalDataVisitor\Actual\"
-
-            throw new NotImplementedException();
-        }
-
         private void ValidateResults(string output)
         {
             if (!string.IsNullOrEmpty(output))
