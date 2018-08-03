@@ -37,6 +37,11 @@ function Build-Baselines($toolName)
       $sourceExtension = "json"
     }
 
+    if ($ToolName -eq "FortifyFpr")
+    {
+      $sourceExtension = "fpr"
+    }
+
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"

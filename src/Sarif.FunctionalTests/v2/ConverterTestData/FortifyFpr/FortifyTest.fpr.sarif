@@ -1,0 +1,377 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "HP Fortify Static Code Analyzer"
+      },
+      "invocations": [
+        {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -b CareerGuideAdminTool -verbose -debug -logfile D:\\AgentWork\\574\\a\\sca_artifacts\\CareerGuideAdminTool_scan.log -scan -f D:\\AgentWork\\574\\a\\sca_artifacts\\CareerGuideAdminTool.fpr",
+          "startTime": "2018-06-14T05:51:41.000Z",
+          "machine": "ACESDLFORT00005",
+          "account": "fortbld",
+          "properties": {
+            "Platform": "Windows Server 2012 R2"
+          }
+        }
+      ],
+      "files": {
+        "ContentFileHandlingController.cs": {
+          "length": 58665,
+          "mimeType": "text/x-csharp",
+          "encoding": "utf-8",
+          "properties": {
+            "FprFileType": "csharp"
+          }
+        },
+        "ContentFileViewModel.cs": {
+          "length": 9200,
+          "mimeType": "text/x-csharp",
+          "encoding": "utf-8",
+          "properties": {
+            "FprFileType": "csharp"
+          }
+        },
+        "DocumentValidator.cs": {
+          "length": 51630,
+          "mimeType": "text/x-csharp",
+          "encoding": "utf-8",
+          "properties": {
+            "FprFileType": "csharp"
+          }
+        }
+      },
+      "results": [
+        {
+          "ruleId": "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB",
+          "message": {
+            "text": "<Content><Paragraph>The framework binder used for binding the HTTP request parameters to the model class in <Replace key=\"PrimaryCall.name\"/> on line [12](1) has not been explicitly configured to allow, or disallow, certain attributes.<AltParagraph>The framework binder used for binding the HTTP request parameters to the model class has not been explicitly configured to allow, or disallow, certain attributes.</AltParagraph></Paragraph></Content>"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "ContentFileViewModel.cs"
+                },
+                "region": {
+                  "startLine": 6,
+                  "endLine": 6,
+                  "snippet": {
+                    "text": "\nnamespace MS.IT.HRE.CMOE.Web.Models\n{\n    public class ContentFileViewModel : BaseViewModel\n    {\n        #region Public Properties\n\n"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "endLine": 12,
+                            "snippet": {
+                              "text": "        public CMOEViewModel Model { get; set; }\n\n        [Dependency]\n        public ContentFileViewModel ViewModel { get; set; }\n\n        [Dependency]\n        public ICachedDataProvider CachedData { get; set; }\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Variable: value"
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileViewModel.cs"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "endLine": 6,
+                            "snippet": {
+                              "text": "\nnamespace MS.IT.HRE.CMOE.Web.Models\n{\n    public class ContentFileViewModel : BaseViewModel\n    {\n        #region Public Properties\n\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Class: ContentFileViewModel"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "ContentFileViewModel.cs"
+                },
+                "region": {
+                  "startLine": 6,
+                  "endLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "AC21F232-1D82-49B7-9AB1-46FE84CD6424",
+          "message": {
+            "text": "<Content><Paragraph>The method IsDocumentValid() in [DocumentValidator.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.<AltParagraph>This method is not reachable from any method outside the class.</AltParagraph></Paragraph></Content>"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "DocumentValidator.cs"
+                },
+                "region": {
+                  "startLine": 12,
+                  "endLine": 18,
+                  "snippet": {
+                    "text": "        /// <summary>\n        /// Validate the uploaded document against Open XML regulations\n        /// </summary>\n        private void IsDocumentValid()\n        {\n            OpenXmlValidator validator = new OpenXmlValidator();\n            var errors = validator.Validate(_wordDocument);\n            if (errors.Count() != 0)\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\n        }\n\n    }\n}\n"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "DocumentValidator.cs"
+                          },
+                          "region": {
+                            "startLine": 12,
+                            "endLine": 18,
+                            "snippet": {
+                              "text": "        /// <summary>\n        /// Validate the uploaded document against Open XML regulations\n        /// </summary>\n        private void IsDocumentValid()\n        {\n            OpenXmlValidator validator = new OpenXmlValidator();\n            var errors = validator.Validate(_wordDocument);\n            if (errors.Count() != 0)\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\n        }\n\n    }\n}\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Function: IsDocumentValid"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "DocumentValidator.cs"
+                },
+                "region": {
+                  "startLine": 12,
+                  "endLine": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "6ED95DD1-4F81-44C6-A260-695DFD41B803",
+          "message": {
+            "text": "<Content><Paragraph>Attackers are able to control the file system path argument to ReadAllBytes() at [ContentFileHandlingController.cs](1) line [38](1), which allows them to access or modify otherwise protected files.<AltParagraph>Allowing user input to control paths used in file system operations could enable an attacker to access or modify otherwise protected system resources.</AltParagraph></Paragraph></Content>"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "ContentFileHandlingController.cs"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "snippet": {
+                    "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 20,
+                            "endLine": 20,
+                            "snippet": {
+                              "text": "        /// <param name=\"frmContent\"> Download form input parameters </param>\n        /// <returns>Action Result object</returns>\n        [HttpPost, ValidateAntiForgeryToken]\n        public ActionResult Download(ContentFileViewModel frmContent)\n        {\n            try\n            {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Download(0)"
+                        }
+                      }
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 24,
+                            "endLine": 24,
+                            "snippet": {
+                              "text": "        {\n            try\n            {\n                this.ViewModel = frmContent;\n\n                if (ViewModel.DocumentId == Guid.Empty)\n                {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "set_ViewModel(0 : this.ViewModel)"
+                        }
+                      }
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "get_ViewModel(this.ViewModel : return)"
+                        }
+                      }
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "get_TemplatePath(this.TemplatePath : return)"
+                        }
+                      }
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "ContentFileHandlingController.cs"
+                          },
+                          "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "ReadAllBytes(0)"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "ContentFileHandlingController.cs"
+                },
+                "region": {
+                  "startLine": 38,
+                  "endLine": 38
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB": {
+            "id": "D0ACE9F8-3C8F-42D4-BDB1-2FC9ECB0CDFB",
+            "shortDescription": {
+              "text": "<Content><Paragraph>The framework binder used for binding the HTTP request parameters to the model class in <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/> has not been explicitly configured to allow, or disallow, certain attributes.<AltParagraph>The framework binder used for binding the HTTP request parameters to the model class has not been explicitly configured to allow, or disallow, certain attributes.</AltParagraph></Paragraph></Content>"
+            },
+            "fullDescription": {
+              "text": "<Content>To ease development and increase productivity, most modern frameworks allow an object to be automatically instantiated and populated with the HTTP request parameters whose names match an attribute of the class to be bound. Automatic instantiation and population of objects speeds up development, but can lead to serious problems if implemented without caution. Any attribute in the bound classes, or nested classes, will be automatically bound to the HTTP request parameters. Therefore, malicious users will be able to assign a value to any attribute in bound or nested classes, even if they are not exposed to the client through web forms or API contracts.\n\n<b>Example 1: </b>With no additional configuration, the following ASP.NET MVC controller method will bind the HTTP request parameters to any attribute in the <code>RegisterModel</code> or <code>Details</code> classes:\n\n<pre>\npublic ActionResult Register(RegisterModel model)\n{\n    if (ModelState.IsValid)\n    {\n        try\n        {\n            return RedirectToAction(\"Index\", \"Home\");\n        }\n        catch (MembershipCreateUserException e)\n        {\n            ModelState.AddModelError(\"\", \"\");\n        }\n    }\n    return View(model);\n}\n</pre>\n\nWhere <code>RegisterModel</code> class is defined as:\n\n<pre>\npublic class RegisterModel\n{\n    [Required]\n    [Display(Name = \"User name\")]\n    public string UserName { get; set; }\n\n    [Required]\n    [DataType(DataType.Password)]\n    [Display(Name = \"Password\")]\n    public string Password { get; set; }\n\n    [DataType(DataType.Password)]\n    [Display(Name = \"Confirm password\")]\n    public string ConfirmPassword { get; set; }\n\n    public Details Details { get; set; }\n\n    public RegisterModel()\n    {\n        Details = new Details();\n    }\n}\n</pre>\n\nand <code>Details</code> class is defined as:\n\n<pre>\npublic class Details\n{\n    public Details()\n    {\n        IsAdmin = false;\n    }\n    public bool IsAdmin { get; set; }\n    ...\n}\n</pre>\n\n<b>Example 2: </b>When using <code>TryUpdateModel()</code> or <code>UpdateModel()</code> in ASP.NET MVC or Web API applications, the model binder will automatically try to bind all HTTP request parameters by default:\n\n<pre>\npublic ViewResult Register()\n{\n    var model = new RegisterModel();\n    TryUpdateModel&lt;RegisterModel&gt;(model);\n    return View(\"detail\", model);\n}\n</pre>\n\n<b>Example 3: </b>In ASP.NET Web API applications, the model binder will automatically try to bind all HTTP request parameters by default using the configured JSON or XML serializer/deserializer. By default, the binder will try to bind all possible attributes from the HTTP request parameters or body:\n\n<pre>\npublic class ProductsController : ApiController\n{\n  public string SaveProduct([FromBody] Product p)\n  {\n      return p.Name;\n  }\n  ...\n}\n</pre>\n\n<b>Example 4: </b>In ASP.NET Web Form applications, the model binder will automatically try to bind all HTTP request parameters when using <code>TryUpdateModel()</code> or <code>UpdateModel()</code> with IValueProvider interface. \n<pre>\nEmployee emp = new Employee();\nTryUpdateModel(emp, new System.Web.ModelBinding.FormValueProvider(ModelBindingExecutionContext)); \nif (ModelState.IsValid)\n{\n    db.SaveChanges();\n}\n</pre>\n\nand <code>Employee</code> class is defined as:\n\n<pre>\n public class Employee\n    {\n        public Employee()\n        {\n            IsAdmin = false;\n            IsManager = false;\n        }\n        public string Name { get; set; }\n        public string Email { get; set; }\n        public bool IsManager { get; set; }\n        public bool IsAdmin { get; set; }\n    }\n</pre></Content>"
+            }
+          },
+          "AC21F232-1D82-49B7-9AB1-46FE84CD6424": {
+            "id": "AC21F232-1D82-49B7-9AB1-46FE84CD6424",
+            "shortDescription": {
+              "text": "<Content><Paragraph>The method <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.<AltParagraph>This method is not reachable from any method outside the class.</AltParagraph></Paragraph></Content>"
+            },
+            "fullDescription": {
+              "text": "<Content>This method is never called or is only called from other dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\n\n<b>Example 1:</b> In the following class, the method <code>DoWork()</code> can never be called.\n\n<pre>\npublic class Dead {\n  private void DoWork() {\n    Console.Write(\"doing work\");\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running Dead\");\n  }\n}\n</pre>\n\n<b>Example 2:</b> In the following class, two private methods call each other, but since neither one is ever invoked from anywhere else, they are both dead code.\n\n<pre>\npublic class DoubleDead {\n  private void DoTweedledee() {\n    DoTweedledumb();\n  }\n  private void DoTweedledumb() {\n    DoTweedledee();\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running DoubleDead\");\n  }\n}\n</pre>\n\n(In this case it is a good thing that the methods are dead: invoking either one would cause an infinite loop.)</Content>"
+            }
+          },
+          "6ED95DD1-4F81-44C6-A260-695DFD41B803": {
+            "id": "6ED95DD1-4F81-44C6-A260-695DFD41B803",
+            "shortDescription": {
+              "text": "<Content><Paragraph>Attackers are able to control the file system path argument to <Replace key=\"PrimaryCall.name\"/> at <Replace key=\"PrimaryLocation.file\"/> line <Replace key=\"PrimaryLocation.line\"/>, which allows them to access or modify otherwise protected files.<AltParagraph>Allowing user input to control paths used in file system operations could enable an attacker to access or modify otherwise protected system resources.</AltParagraph></Paragraph></Content>"
+            },
+            "fullDescription": {
+              "text": "<Content>Path manipulation errors occur when the following two conditions are met:\n\n1. An attacker is able to specify a path used in an operation on the file system.\n\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\n\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\n<Paragraph>\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\n</Paragraph>\n<IfDef var=\"ConditionalDescriptions\">\n <Paragraph>\n  <ConditionalText condition=\"taint:number\">\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\n  </ConditionalText>\n </Paragraph>\n</IfDef>\n\n<b>Example 1:</b> The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"<code>..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe</code>\", which will cause the application to delete an important Windows system file.\n\n<pre>\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n</pre>\n\n<b>Example 2:</b> The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\n\n<pre>\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n</pre></Content>"
+            }
+          }
+        }
+      },
+      "automationLogicalId": "CareerGuideAdminTool"
+    }
+  ]
+}

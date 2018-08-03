@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
+  <ItemGroup>
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
@@ -1061,6 +1067,9 @@
     <None Include="v1\DirectProducerTestData\Roslyn\RoslynLog.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
+    <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <None Include="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -2735,6 +2744,9 @@
     <None Include="v2\ConverterTestData\Fortify\bannedAPIs_m1.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FortifyFpr\FortifyTest.fpr.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2831,6 +2843,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\Fortify\bannedAPIs_m1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="v2\ConverterTestData\FortifyFpr\FortifyTest.fpr">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
