@@ -455,9 +455,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 });
                 result.RelatedLocations.Add(new Location
                 {
-                    // Links embedded in the result message refer to related locations (by index)
+                    // Links embedded in the result message refer to related locations (by Id)
                     PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
                 });
+
+                result.RelatedLocations.Last().PhysicalLocation.Id = 1;
 
                 if (!String.IsNullOrEmpty(lastNodeId))
                 {
