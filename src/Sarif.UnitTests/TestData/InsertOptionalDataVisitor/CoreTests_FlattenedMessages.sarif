@@ -18,6 +18,7 @@
         {
           "ruleId": "TEST2001",
           "message": {
+            "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'.",
             "messageId": "MatchAtBeginningOfFile",
             "arguments": [
               "Region_At_Start_Of_File"
@@ -42,6 +43,7 @@
         {
           "ruleId": "TEST2002",
           "message": {
+            "text": "This result selects a single-line interior region of value 'Region_One'.",
             "messageId": "SingleLineInteriorMatch",
             "arguments": [
               "Region_One"
