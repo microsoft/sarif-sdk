@@ -33,7 +33,9 @@
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
-                  "endColumn": 24
+                  "endLine": 1,
+                  "endColumn": 24,
+                  "charLength": 23
                 }
               }
             }
@@ -57,7 +59,10 @@
                 "region": {
                   "startLine": 14,
                   "startColumn": 3,
-                  "endColumn": 13
+                  "endLine": 14,
+                  "endColumn": 13,
+                  "charOffset": 387,
+                  "charLength": 10
                 }
               }
             }
@@ -78,7 +83,10 @@
                 "region": {
                   "startLine": 18,
                   "startColumn": 10,
-                  "endLine": 19
+                  "endLine": 19,
+                  "endColumn": 25,
+                  "charOffset": 485,
+                  "charLength": 50
                 }
               }
             }
@@ -97,6 +105,10 @@
                   "uriBaseId": "TESTROOT"
                 },
                 "region": {
+                  "startLine": 23,
+                  "startColumn": 1,
+                  "endLine": 23,
+                  "endColumn": 22,
                   "charOffset": 581,
                   "charLength": 21
                 }
