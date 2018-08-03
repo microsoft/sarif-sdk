@@ -12,25 +12,11 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
       "files": {
         "#TESTROOT#InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt": {
-          "mimeType": "text/plain",
-          "hashes": [
-            {
-              "value": "7650327483BE2466ADC6599198B2989A",
-              "algorithm": "md5"
-            },
-            {
-              "value": "91655EA8262D81C262A8687E9667AEFF7432906A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "1BDE85DC91168DAD541E776BB0437AC8A22D2959351A0640F2757D72AEE60C8A",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/plain"
         }
       },
       "results": [

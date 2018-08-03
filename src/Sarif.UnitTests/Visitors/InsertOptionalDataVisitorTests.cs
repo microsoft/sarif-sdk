@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // This code rewrites the log persisted URI to match the test environment
                 string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf("sarif-sdk"));
+                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"src\"));
                 uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
 
                 actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new Uri(uriString, UriKind.Absolute);

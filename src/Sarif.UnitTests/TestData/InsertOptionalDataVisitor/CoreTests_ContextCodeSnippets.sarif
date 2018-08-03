@@ -12,7 +12,7 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
       "results": [
         {
@@ -34,16 +34,6 @@
                   "startLine": 1,
                   "startColumn": 1,
                   "endColumn": 24
-                },
-                "contextRegion": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 2,
-                  "endColumn": 14,
-                  "charLength": 73,
-                  "snippet": {
-                    "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context."
-                  }
                 }
               }
             }
@@ -68,17 +58,6 @@
                   "startLine": 14,
                   "startColumn": 3,
                   "endColumn": 13
-                },
-                "contextRegion": {
-                  "startLine": 13,
-                  "startColumn": 1,
-                  "endLine": 15,
-                  "endColumn": 18,
-                  "charOffset": 367,
-                  "charLength": 84,
-                  "snippet": {
-                    "text": "Leading context.\r\n  Region_One (this isn't part of the region...)\r\nTrailing context."
-                  }
                 }
               }
             }
@@ -100,17 +79,6 @@
                   "startLine": 18,
                   "startColumn": 10,
                   "endLine": 19
-                },
-                "contextRegion": {
-                  "startLine": 17,
-                  "startColumn": 1,
-                  "endLine": 20,
-                  "endColumn": 20,
-                  "charOffset": 455,
-                  "charLength": 101,
-                  "snippet": {
-                    "text": "Additional context.\r\n         Multiline_Region_PartOne\r\nMultiline_Region_PartTwo\r\nAdditional context."
-                  }
                 }
               }
             }
@@ -131,17 +99,6 @@
                 "region": {
                   "charOffset": 581,
                   "charLength": 21
-                },
-                "contextRegion": {
-                  "startLine": 22,
-                  "startColumn": 1,
-                  "endLine": 23,
-                  "endColumn": 22,
-                  "charOffset": 560,
-                  "charLength": 42,
-                  "snippet": {
-                    "text": "Additional context.\r\nRegion_At_End_Of_File"
-                  }
                 }
               }
             }

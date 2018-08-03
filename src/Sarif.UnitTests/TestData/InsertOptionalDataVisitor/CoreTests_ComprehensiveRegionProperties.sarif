@@ -12,7 +12,7 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
       "results": [
         {
@@ -33,9 +33,7 @@
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 24,
-                  "charLength": 23
+                  "endColumn": 24
                 }
               }
             }
@@ -59,10 +57,7 @@
                 "region": {
                   "startLine": 14,
                   "startColumn": 3,
-                  "endLine": 14,
-                  "endColumn": 13,
-                  "charOffset": 387,
-                  "charLength": 10
+                  "endColumn": 13
                 }
               }
             }
@@ -83,10 +78,7 @@
                 "region": {
                   "startLine": 18,
                   "startColumn": 10,
-                  "endLine": 19,
-                  "endColumn": 25,
-                  "charOffset": 485,
-                  "charLength": 50
+                  "endLine": 19
                 }
               }
             }
@@ -105,10 +97,6 @@
                   "uriBaseId": "TESTROOT"
                 },
                 "region": {
-                  "startLine": 23,
-                  "startColumn": 1,
-                  "endLine": 23,
-                  "endColumn": 22,
                   "charOffset": 581,
                   "charLength": 21
                 }
