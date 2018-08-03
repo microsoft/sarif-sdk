@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Container for items that require localization.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.49.0.0")]
     public partial class Resources : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Resources> ValueComparer => ResourcesEqualityComparer.Instance;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
         /// </summary>
         [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> MessageStrings { get; set; }
+        public object MessageStrings { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        public Resources(object messageStrings, IDictionary<string, Rule> rules)
         {
             Init(messageStrings, rules);
         }
@@ -102,13 +102,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        private void Init(object messageStrings, IDictionary<string, Rule> rules)
         {
-            if (messageStrings != null)
-            {
-                MessageStrings = new Dictionary<string, string>(messageStrings);
-            }
-
+            MessageStrings = messageStrings;
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>(rules);

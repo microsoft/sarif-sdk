@@ -1,4 +1,23 @@
 {
+  "codeFlowLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "CodeFlowLocation.Importance": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "CodeFlowLocationImportance",
+        "description": "Values specifying the importance of an \"codeFlowLocation\" within the \"codeFlow\" in which it occurs"
+      }
+    }
+  ],
   "*.Properties": [
     {
       "kind": "DictionaryHint",
@@ -48,11 +67,6 @@
           "PropertyBagHolder"
         ]
       }
-    }
-  ],
-  "EdgeTraversal.FinalState": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "exception": [
@@ -124,11 +138,6 @@
           "PropertyBagHolder"
         ]
       }
-    }
-  ],
-  "GraphTraversal.InitialState": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "invocation": [
@@ -203,11 +212,6 @@
           "PropertyBagHolder"
         ]
       }
-    }
-  ],
-  "Resources.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "Resources.Rules": [
@@ -342,20 +346,6 @@
       }
     }
   ],
-  "Run.ColumnKind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ColumnKind",
-        "description": "A value that specifies the unit in which the tool measures columns.",
-        "zeroValueName": "None",
-        "memberNames": [
-          "utf16CodeUnits",
-          "unicodeCodePoints"
-        ]
-      }
-    }
-  ],
   "Run.Files": [
     {
       "kind": "DictionaryHint"
@@ -427,30 +417,6 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
-      }
-    }
-  ],
-  "threadFlowLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ThreadFlowLocation.State": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "ThreadFlowLocation.Importance": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ThreadFlowLocationImportance",
-        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],
