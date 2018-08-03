@@ -11,7 +11,7 @@
         "sarifLoggerVersion": "1.5.22.0",
         "language": "en-US"
       },
-      "originalUriBaseIds": { "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/" },
+      "originalUriBaseIds": { "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/" },
       "resources": {
         "rules": {
           "TEST2001": {
