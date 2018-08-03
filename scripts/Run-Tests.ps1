@@ -43,7 +43,7 @@ $TestRunnerRootPath = "$NuGetPackageRoot\xunit.runner.console\2.3.1\tools\"
 foreach ($project in $Projects.NewTest) {
     foreach ($framework in $Frameworks.Application) {
         Write-Information "Running tests in ${project}: $framework..."
-        Push-Location $BinRoot\AnyCPU_$Configuration\$project\$framework
+        Push-Location $BinRoot\${Platform}_$Configuration\$project\$framework
         $dll = "$project" + ".dll"
         if ($framework -eq "netcoreapp2.0") {
             & dotnet ${TestRunnerRootPath}netcoreapp2.0\xunit.console.dll $dll $ReporterOption
@@ -60,7 +60,7 @@ foreach ($project in $Projects.NewTest) {
 
 foreach ($project in $Projects.OldTest) {
     Write-Information "Running tests in ${project}..."
-    Push-Location $BinRoot\AnyCPU_$Configuration\$project
+    Push-Location $BinRoot\${Platform}_$Configuration\$project
     $dll = "$project" + ".dll"
     & ${TestRunnerRootPath}net452\xunit.console.exe $dll $ReporterOption -parallel none
     if ($LASTEXITCODE -ne 0) {
