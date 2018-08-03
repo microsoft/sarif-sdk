@@ -9,11 +9,11 @@
       }
     }
   ],
-  "threadFlowLocation.Importance": [
+  "ThreadFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "threadFlowLocationImportance",
+        "typeName": "ThreadFlowLocationImportance",
         "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
