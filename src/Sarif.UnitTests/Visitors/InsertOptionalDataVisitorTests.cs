@@ -41,9 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         [InlineData(OptionallyEmittedData.Hashes)]
         [InlineData(OptionallyEmittedData.TextFiles)]
         [InlineData(OptionallyEmittedData.RegionSnippets)]
+        [InlineData(OptionallyEmittedData.FlattenedMessages)]
         [InlineData(OptionallyEmittedData.ContextCodeSnippets)]
         [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties)]
-        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes | OptionallyEmittedData.ContextCodeSnippets)]
+        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes | OptionallyEmittedData.ContextCodeSnippets | OptionallyEmittedData.FlattenedMessages)]
         public void InsertOptionalDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
         {
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor");
@@ -59,12 +60,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string optionsNameSuffix = "_" + NormalizeOptionallyEmittedDataToString(optionallyEmittedData);
 
             string expectedFileName = inputFileName + optionsNameSuffix + ".sarif";
-            string actualFileName = inputFileName + optionsNameSuffix + ".actual.sarif";
+            string actualFileName = @"Actual\" + inputFileName + optionsNameSuffix + ".sarif";
             inputFileName = inputFileName + ".sarif";
 
             expectedFileName = Path.Combine(testDirectory, expectedFileName);
             actualFileName = Path.Combine(testDirectory, actualFileName);
             inputFileName = Path.Combine(testDirectory, inputFileName);
+
+            string actualDirectory = Path.GetDirectoryName(actualFileName);
+            if (!Directory.Exists(actualDirectory)) { Directory.CreateDirectory(actualDirectory); }
 
             File.Exists(inputFileName).Should().BeTrue();
 
@@ -129,8 +133,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     string errorMessage = "Expanding optional data for input '{0}' produced unexpected results for the following options: '{1}'.";
                     sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, inputFileName, optionallyEmittedData));
-                    sb.AppendLine("Check differences with:");
-                    sb.AppendLine(GenerateDiffCommand(expectedFileName, actualFileName));
+                    sb.AppendLine("Check individual differences with:");
+                    sb.AppendLine(GenerateDiffCommand(expectedFileName, actualFileName) + Environment.NewLine);
+                    sb.AppendLine("To compare all difference for this test suite:");
+                    sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFileName), Path.GetDirectoryName(actualFileName)) + Environment.NewLine);
                 }
             }
 

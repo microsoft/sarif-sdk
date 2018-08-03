@@ -12,10 +12,25 @@
         "language": "en-US"
       },
       "originalUriBaseIds": { "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/" },
+      "resources": {
+        "rules": {
+          "TEST2001": {
+            "id": "TEST2001",
+            "messageStrings": { "MatchAtBeginningOfFile": "This result is at the beginning of the file and selects '{0}'." }
+          },
+          "TEST2002": {
+            "id": "TEST2002",
+            "messageStrings": { "SingleLineInteriorMatch": "This result selects a single-line interior region of value '{0}'." }
+          }
+        }
+      },
       "results": [
         {
           "ruleId": "TEST2001",
-          "message": { "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'." },
+          "message": {
+            "messageId": "MatchAtBeginningOfFile",
+            "arguments": [ "Region_At_Start_Of_File" ]
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -34,7 +49,10 @@
         },
         {
           "ruleId": "TEST2002",
-          "message": { "text": "This result selects a single-line interior region of value 'RegionOne'." },
+          "message": {
+            "messageId": "SingleLineInteriorMatch",
+            "arguments": [ "Region_One" ]
+          },
           "locations": [
             {
               "physicalLocation": {
