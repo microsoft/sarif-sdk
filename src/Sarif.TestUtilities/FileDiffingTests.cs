@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         protected string GenerateDiffCommand(string expected, string actual)
         {
+            // This helper works to generate both a file or directory compare
             expected = Path.GetFullPath(expected).Replace(@"\", @"\\");
             actual = Path.GetFullPath(actual).Replace(@"\", @"\\");
 

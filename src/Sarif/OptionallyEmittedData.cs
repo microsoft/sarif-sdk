@@ -59,6 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         // to strip this information. 
         EnvironmentVariables = 0x80,
 
+        // SARIF messages can be rendered as combinations of format string singletons,
+        // persisted to the resources.rules property plus result-specific arguments, a
+        // fully constructed text message on the result, or both. This value can be 
+        // used to flatten or remove fully contructed messages, in cases where
+        // both versions exist
+        FlattenedMessages = 0x100,
+
         // A special enum value that indicates that insertion should overwrite any existing
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will

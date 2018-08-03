@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -12,6 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal IFileSystem s_fileSystem = new FileSystem();
 
         private Run _run;
+        private string _ruleId;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         
@@ -142,6 +144,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitFileData(node);
+        }
+
+        public override Result VisitResult(Result node)
+        {
+            _ruleId = node.RuleId;
+            node = base.VisitResult(node);
+            _ruleId = null;
+
+            return node;
+        }
+
+        public override Message VisitMessage(Message node)
+        {
+            if ((node.Text == null || _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData)) &&
+                _dataToInsert.Includes(OptionallyEmittedData.FlattenedMessages))
+            {
+                Rule rule = null;
+                //string formatString = null;
+                if ((bool)_run.Resources?.Rules.TryGetValue(_ruleId, out rule))
+                {
+                    node.Text = rule.Format(node.MessageId, node.Arguments.ToArray());
+                }
+                // Can't enable this code yet, due to MessageStrings being weakly typed
+                //
+                // https://github.com/Microsoft/sarif-sdk/issues/983
+                //else if ((bool)_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out string formatString))
+                //{
+                //    node.Text = string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments);
+                //}
+            }
+            return base.VisitMessage(node);
         }
     }
 }
