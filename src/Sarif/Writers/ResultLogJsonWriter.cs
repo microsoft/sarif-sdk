@@ -121,12 +121,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.Tool);
             }
 
-            if (run.Invocations != null)
-            {
-                _jsonWriter.WritePropertyName("invocations");
-                _serializer.Serialize(_jsonWriter, run.Invocations);
-            }
-
             if (run.Conversion != null)
             {
                 _jsonWriter.WritePropertyName("conversion");
