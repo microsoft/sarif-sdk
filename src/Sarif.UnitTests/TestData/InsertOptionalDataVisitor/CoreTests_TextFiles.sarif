@@ -12,7 +12,7 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/sarif-sdk/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
       "files": {
         "#TESTROOT#InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt": {
@@ -26,7 +26,10 @@
         {
           "ruleId": "TEST2001",
           "message": {
-            "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'."
+            "messageId": "MatchAtBeginningOfFile",
+            "arguments": [
+              "Region_At_Start_Of_File"
+            ]
           },
           "locations": [
             {
@@ -47,7 +50,10 @@
         {
           "ruleId": "TEST2002",
           "message": {
-            "text": "This result selects a single-line interior region of value 'RegionOne'."
+            "messageId": "SingleLineInteriorMatch",
+            "arguments": [
+              "Region_One"
+            ]
           },
           "locations": [
             {
@@ -106,7 +112,23 @@
             }
           ]
         }
-      ]
+      ],
+      "resources": {
+        "rules": {
+          "TEST2001": {
+            "id": "TEST2001",
+            "messageStrings": {
+              "MatchAtBeginningOfFile": "This result is at the beginning of the file and selects '{0}'."
+            }
+          },
+          "TEST2002": {
+            "id": "TEST2002",
+            "messageStrings": {
+              "SingleLineInteriorMatch": "This result selects a single-line interior region of value '{0}'."
+            }
+          }
+        }
+      }
     }
   ]
 }
