@@ -104,9 +104,26 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                 }
             }
 
-            if (!object.Equals(left.State, right.State))
+            if (!object.ReferenceEquals(left.State, right.State))
             {
-                return false;
+                if (left.State == null || right.State == null || left.State.Count != right.State.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.State)
+                {
+                    string value_1;
+                    if (!right.State.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (left.TargetKey != right.TargetKey)
@@ -234,7 +251,18 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
 
                 if (obj.State != null)
                 {
-                    result = (result * 31) + obj.State.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_4 in obj.State)
+                    {
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
+                        {
+                            xor_0 ^= value_4.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (obj.TargetKey != null)

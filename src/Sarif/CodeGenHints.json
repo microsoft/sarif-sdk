@@ -332,6 +332,18 @@
       "kind": "DictionaryHint"
     }
   ],
+  "RuleConfiguration.Parameters": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    }
+  ],
   "run": [
     {
       "kind": "BaseTypeHint",
