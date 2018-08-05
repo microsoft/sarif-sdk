@@ -37,6 +37,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "type"</summary>
         public readonly string TypeAttribute;
 
+        /// <summary>The string constant "encoding"</summary>
+        public readonly string EncodingAttribute;
+
         /// <summary>The string constant "Name"</summary>
         public readonly string Name;
 
@@ -54,6 +57,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Members and further nested members of AnalysisInfo
 
+        /// <summary>The string constant "ReplacementDefinitions"</summary>
+        public readonly string ReplacementDefinitions;
+
+        /// <summary>The string constant "Def"</summary>
+        public readonly string Def;
+
+        /// <summary>The string constant "key"</summary>
+        public readonly string KeyAttribute;
+
+        /// <summary>The string constant "value"</summary>
+        public readonly string ValueAttribute;
+
+        /// <summary>The string constant "Trace"</summary>
+        public readonly string Trace;
+
+        /// <summary>The string constant "Entry"</summary>
+        public readonly string Entry;
+
+        /// <summary>The string constant "NodeRef"</summary>
+        public readonly string NodeRef;
+
+        /// <summary>The string constant "label"</summary>
+        public readonly string LabelAttribute;
+
         /// <summary>The string constant "SourceLocation"</summary>
         public readonly string SourceLocation;
 
@@ -66,6 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "line"</summary>
         public readonly string LineAttribute;
 
+        /// <summary>The string constant "lineEnd"</summary>
+        public readonly string LineEndAttribute;
+
         /// <summary>The string constant "colStart"</summary>
         public readonly string ColStartAttribute;
 
@@ -75,6 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Description"</summary>
         public readonly string Description;
 
+        /// <summary>The string constant "CustomDescription"</summary>
+        public readonly string CustomDescription;
+
         /// <summary>The string constant "classID"</summary>
         public readonly string ClassIdAttribute;
 
@@ -83,6 +116,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "Explanation"</summary>
         public readonly string Explanation;
+
+        /// <summary>The string constant "UnifiedNodePool"</summary>
+        public readonly string UnifiedNodePool;
+
+        /// <summary>The string constant "Node"</summary>
+        public readonly string Node;
+
+        /// <summary>The string constant "Action"</summary>
+        public readonly string Action;
 
         /// <summary>The string constant "Snippets"</summary>
         public readonly string Snippets;
@@ -120,6 +162,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Username".</summary>
         public readonly string Username;
 
+        /// <summary>The string constant "Platform".</summary>
+        public readonly string Platform;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FortifyFprStrings"/> class.
         /// </summary>
@@ -138,21 +183,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             File = nameTable.Add("File");
             SizeAttribute = nameTable.Add("size");
             TypeAttribute = nameTable.Add("type");
+            EncodingAttribute = nameTable.Add("encoding");
             Name = nameTable.Add("Name");
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
+            ReplacementDefinitions = nameTable.Add("ReplacementDefinitions");
+            Def = nameTable.Add("Def");
+            KeyAttribute = nameTable.Add("key");
+            ValueAttribute = nameTable.Add("value");
+            Trace = nameTable.Add("Trace");
+            Entry = nameTable.Add("Entry");
+            NodeRef = nameTable.Add("NodeRef");
+            LabelAttribute = nameTable.Add("label");
             SourceLocation = nameTable.Add("SourceLocation");
             SnippetAttribute = nameTable.Add("snippet");
             PathAttribute = nameTable.Add("path");
             LineAttribute = nameTable.Add("line");
+            LineEndAttribute = nameTable.Add("lineEnd");
             ColStartAttribute = nameTable.Add("colStart");
             ColEndAttribute = nameTable.Add("colEnd");
             Description = nameTable.Add("Description");
+            CustomDescription = nameTable.Add("CustomDescription");
             ClassIdAttribute = nameTable.Add("classID");
             Abstract = nameTable.Add("Abstract");
             Explanation = nameTable.Add("Explanation");
+            UnifiedNodePool = nameTable.Add("UnifiedNodePool");
+            Node = nameTable.Add("Node");
+            Action = nameTable.Add("Action");
             Snippets = nameTable.Add("Snippets");
             Snippet = nameTable.Add("Snippet");
             IdAttribute = nameTable.Add("id");
@@ -165,6 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             MachineInfo = nameTable.Add("MachineInfo");
             Hostname = nameTable.Add("Hostname");
             Username = nameTable.Add("Username");
+            Platform = nameTable.Add("Platform");
         }
     }
 }

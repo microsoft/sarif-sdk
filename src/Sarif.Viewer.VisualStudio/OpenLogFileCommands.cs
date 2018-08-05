@@ -33,6 +33,7 @@ namespace Microsoft.Sarif.Viewer
         public const int OpenSemmleFileCommandId = 0x0108;
         public const int OpenTSLintFileCommand = 0x0109;
         public const int OpenPylintFileCommand = 0x010A;
+        public const int OpenFortifyFprFileCommandId = 0x010B;
 
         private static int[] s_commands = new int[]
         {
@@ -46,7 +47,8 @@ namespace Microsoft.Sarif.Viewer
             OpenAndroidStudioFileCommandId,
             OpenSemmleFileCommandId,
             OpenTSLintFileCommand,
-            OpenPylintFileCommand
+            OpenPylintFileCommand,
+            OpenFortifyFprFileCommandId
         };
 
         /// <summary>
@@ -191,6 +193,20 @@ namespace Microsoft.Sarif.Viewer
                         toolFormat = ToolFormat.FxCop;
                         title = "Open FxCop XML log file";
                         filter = "FxCop report and project files (*.xml)|*.xml";
+                        break;
+                    }
+                    case OpenFortifyFileCommandId:
+                    {
+                        toolFormat = ToolFormat.Fortify;
+                        title = "Open Fortify XML log file";
+                        filter = "Fortify log files (*.xml)|*.xml";
+                        break;
+                    }
+                    case OpenFortifyFprFileCommandId:
+                    {
+                        toolFormat = ToolFormat.FortifyFpr;
+                        title = "Open Fortify FPR log file";
+                        filter = "Fortify FPR log files (*.fpr)|*.fpr";
                         break;
                     }
                     case OpenCppCheckFileCommandId:

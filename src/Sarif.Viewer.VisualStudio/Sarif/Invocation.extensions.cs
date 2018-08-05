@@ -24,7 +24,7 @@ namespace Microsoft.Sarif.Viewer.Sarif
                 Machine = invocation.Machine,
                 Account = invocation.Account,
                 ProcessId = invocation.ProcessId,
-                FileName = invocation.ExecutableLocation.Uri.ToString(),
+                FileName = invocation.ExecutableLocation?.Uri?.ToString(),
                 WorkingDirectory = invocation.WorkingDirectory,
                 EnvironmentVariables = invocation.EnvironmentVariables,
             };

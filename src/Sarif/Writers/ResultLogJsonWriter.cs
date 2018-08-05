@@ -109,6 +109,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.Architecture);
             }
 
+            if (run.Description != null)
+            {
+                _jsonWriter.WritePropertyName("description");
+                _serializer.Serialize(_jsonWriter, run.Description);
+            }
+
             if (run.Tool != null)
             {
                 _jsonWriter.WritePropertyName("tool");
@@ -144,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _jsonWriter.WritePropertyName("richMessageMimeType");
                 _serializer.Serialize(_jsonWriter, run.RichMessageMimeType);
             }
+
             if (run.RedactionToken != null)
             {
                 _jsonWriter.WritePropertyName("redactionToken");
