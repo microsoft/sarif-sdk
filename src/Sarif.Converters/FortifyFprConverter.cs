@@ -20,9 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
         private const string EmbeddedLinkFormat = "[{0}](1)";
-        private const string ContentElementPattern = "<[/]?Content>";
-        private const string ParagraphElementPattern = "<[/]?(Alt)?Paragraph>";
-        private const string MultipleNewlinePattern = "(\r\n){2,}";
 
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
@@ -555,11 +552,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
-                    rule.ShortDescription = new Message { Text = ReadAndParseEmbeddedXmlString() };
+                    string content = _reader.ReadElementContentAsString();
+                    rule.ShortDescription = new Message { Text = FortifyUtilities.ParseFormattedContentText(content) };
                 }
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
-                    rule.FullDescription = new Message { Text = ReadAndParseEmbeddedXmlString() };
+                    string content = _reader.ReadElementContentAsString();
+                    rule.FullDescription = new Message { Text = FortifyUtilities.ParseFormattedContentText(content) };
                 }
                 else if (AtStartOfNonEmpty(_strings.CustomDescription))
                 {
@@ -576,16 +575,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _ruleDictionary.Add(rule.Id, rule);
-        }
-
-        private string ReadAndParseEmbeddedXmlString()
-        {
-            string content = _reader.ReadElementContentAsString();
-            content = Regex.Replace(content, ContentElementPattern, string.Empty);
-            content = Regex.Replace(content, ParagraphElementPattern, Environment.NewLine);
-            content = Regex.Replace(content, MultipleNewlinePattern, Environment.NewLine);
-
-            return content.Trim(new[] { '\r', '\n' });
         }
 
         private void ParseNodes()
