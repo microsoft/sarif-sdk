@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
         /// </summary>
         [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public object MessageStrings { get; set; }
+        public IDictionary<string, string> MessageStrings { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Resources(object messageStrings, IDictionary<string, Rule> rules)
+        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
         {
             Init(messageStrings, rules);
         }
@@ -102,9 +102,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(object messageStrings, IDictionary<string, Rule> rules)
+        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
         {
-            MessageStrings = messageStrings;
+            if (messageStrings != null)
+            {
+                MessageStrings = new Dictionary<string, string>(messageStrings);
+            }
+
             if (rules != null)
             {
                 Rules = new Dictionary<string, Rule>(rules);
