@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private Run _run;
         private string _ruleId;
-        private List<Result> _results;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         
@@ -137,9 +136,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Result VisitResult(Result node)
         {
-            _results = _results ?? new List<Result>();
             _ruleId = node.RuleId;
-            _results.Add(base.VisitResult(node));
+            node = base.VisitResult(node);
             _ruleId = null;
 
             return node;
