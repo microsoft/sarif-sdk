@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
   Projects that use the new VS 2017 project system import this file. Projects that
   use the old (pre-VS 2017) project system import "build.old-project.props" instead.
@@ -16,9 +16,9 @@
   <Import Project="$(MSBuildThisFileDirectory)build.common.props" />
 
   <PropertyGroup Label="AssemblyAttributes">
-    <Company Condition=" '$(Company)' == '' ">Microsoft Corporation</Company>
+    <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
-    <Copyright Condition=" '$(Copyright)' == '' ">Copyright (c) Microsoft. All Rights Reserved.</Copyright>
+    <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix Condition=" '$(VersionPrefix)' == ''">2.0.0</VersionPrefix>
     <VersionSuffix Condition=" '$(VersionSuffix)' == ''">alpha.2</VersionSuffix>
   </PropertyGroup>
@@ -32,10 +32,12 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
+    <Authors Condition=" '$(Authors)' == '' ">$(Company),tse-securitytools</Authors>
+    <Owners Condition=" '$(Authors)' == '' ">$(Company),tse-securitytools</Owners>
     <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
+    <PackageIconUrl Condition=" '$(PackageIconUrl)' == '' ">https://go.microsoft.com/fwlink/?linkid=2008860</PackageIconUrl>
   </PropertyGroup>
 
 </Project>
