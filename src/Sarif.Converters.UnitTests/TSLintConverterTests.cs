@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 EndColumn = 12,
 
                 CharOffset = 3,
-                CharLength = 11
+                CharLength = 10
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
