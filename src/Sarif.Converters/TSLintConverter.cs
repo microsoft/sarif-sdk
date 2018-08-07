@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 CharOffset = entry.StartPosition.Position
             };
 
-            int length = entry.EndPosition.Position - entry.StartPosition.Position + 1;
+            int length = entry.EndPosition.Position - entry.StartPosition.Position;
             region.CharLength = length > 0 ? length : 0;
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns></returns>
         public bool TryReconstructAbsoluteUri(IDictionary<string, Uri> originalUriBaseIds, out Uri resolvedUri)
         {
-            resolvedUri = null;
+            resolvedUri = this.Uri.IsAbsoluteUri ? this.Uri : null;
 
             // We can't restore any absolute URIs unless someone has
             // deconstructed them using uriBaseId + originalUriBaseIds
