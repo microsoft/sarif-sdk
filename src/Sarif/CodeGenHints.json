@@ -1,23 +1,4 @@
 {
-  "threadFlowLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ThreadFlowLocation.Importance": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ThreadFlowLocationImportance",
-        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
-      }
-    }
-  ],
   "*.Properties": [
     {
       "kind": "DictionaryHint",
@@ -67,6 +48,11 @@
           "PropertyBagHolder"
         ]
       }
+    }
+  ],
+  "EdgeTraversal.FinalState": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "exception": [
@@ -138,6 +124,11 @@
           "PropertyBagHolder"
         ]
       }
+    }
+  ],
+  "GraphTraversal.InitialState": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "invocation": [
@@ -212,6 +203,11 @@
           "PropertyBagHolder"
         ]
       }
+    }
+  ],
+  "Resources.MessageStrings": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "Resources.Rules": [
@@ -336,6 +332,18 @@
       "kind": "DictionaryHint"
     }
   ],
+  "RuleConfiguration.Parameters": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "SerializedPropertyInfo",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    }
+  ],
   "run": [
     {
       "kind": "BaseTypeHint",
@@ -431,6 +439,30 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "threadFlowLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ThreadFlowLocation.State": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "ThreadFlowLocation.Importance": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ThreadFlowLocationImportance",
+        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
       }
     }
   ],

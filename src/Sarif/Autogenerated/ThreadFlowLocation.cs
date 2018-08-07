@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        public object State { get; set; }
+        public IDictionary<string, string> State { get; set; }
 
         /// <summary>
         /// An integer representing a containment hierarchy within the thread flow
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int step, Location location, Stack stack, string kind, string module, object state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int step, Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(step, location, stack, kind, module, state, nestingLevel, executionOrder, timestamp, importance, properties);
         }
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int step, Location location, Stack stack, string kind, string module, object state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int step, Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Step = step;
             if (location != null)
@@ -198,7 +198,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Kind = kind;
             Module = module;
-            State = state;
+            if (state != null)
+            {
+                State = new Dictionary<string, string>(state);
+            }
+
             NestingLevel = nestingLevel;
             ExecutionOrder = executionOrder;
             Timestamp = timestamp;

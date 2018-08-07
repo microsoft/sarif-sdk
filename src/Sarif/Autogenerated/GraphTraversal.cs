@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Values of relevant expressions at the start of the graph traversal.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
-        public object InitialState { get; set; }
+        public IDictionary<string, string> InitialState { get; set; }
 
         /// <summary>
         /// The sequences of edges traversed by this graph traversal.
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public GraphTraversal(string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        public GraphTraversal(string graphId, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(graphId, description, initialState, edgeTraversals, properties);
         }
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(string graphId, Message description, object initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string graphId, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             GraphId = graphId;
             if (description != null)
@@ -137,7 +137,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Description = new Message(description);
             }
 
-            InitialState = initialState;
+            if (initialState != null)
+            {
+                InitialState = new Dictionary<string, string>(initialState);
+            }
+
             if (edgeTraversals != null)
             {
                 var destination_0 = new List<EdgeTraversal>();

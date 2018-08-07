@@ -28,9 +28,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.Equals(left.MessageStrings, right.MessageStrings))
+            if (!object.ReferenceEquals(left.MessageStrings, right.MessageStrings))
             {
-                return false;
+                if (left.MessageStrings == null || right.MessageStrings == null || left.MessageStrings.Count != right.MessageStrings.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.MessageStrings)
+                {
+                    string value_1;
+                    if (!right.MessageStrings.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Rules, right.Rules))
@@ -40,15 +57,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_0 in left.Rules)
+                foreach (var value_2 in left.Rules)
                 {
-                    Rule value_1;
-                    if (!right.Rules.TryGetValue(value_0.Key, out value_1))
+                    Rule value_3;
+                    if (!right.Rules.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -70,23 +87,34 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (obj.MessageStrings != null)
                 {
-                    result = (result * 31) + obj.MessageStrings.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_4 in obj.MessageStrings)
+                    {
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
+                        {
+                            xor_0 ^= value_4.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (obj.Rules != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_2 in obj.Rules)
+                    int xor_1 = 0;
+                    foreach (var value_5 in obj.Rules)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_1 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_1 ^= value_5.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_0;
+                    result = (result * 31) + xor_1;
                 }
             }
 
