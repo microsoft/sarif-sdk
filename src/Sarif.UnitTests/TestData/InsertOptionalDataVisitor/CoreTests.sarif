@@ -13,6 +13,10 @@
       },
       "originalUriBaseIds": { "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/" },
       "resources": {
+        "messageStrings": {
+          "NotificationMessage": "A notification was raised. Notification kind was: '{0}'.",
+          "GlobalMessage": "A space between two words was detected."
+        },
         "rules": {
           "TEST2001": {
             "id": "TEST2001",
@@ -24,6 +28,26 @@
           }
         }
       },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "message": {
+                "arguments": [ "tool notification" ],
+                "messageId": "NotificationMessage"
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "message": {
+                "arguments": [ "configuration notification" ],
+                "messageId": "NotificationMessage"
+              }
+            }
+          ]
+        }
+      ],
       "results": [
         {
           "ruleId": "TEST2001",
@@ -101,6 +125,25 @@
                 "region": {
                   "charOffset": 581,
                   "charLength": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST2005",
+          "message": { "messageId": "GlobalMessage" },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endColumn": 10
                 }
               }
             }

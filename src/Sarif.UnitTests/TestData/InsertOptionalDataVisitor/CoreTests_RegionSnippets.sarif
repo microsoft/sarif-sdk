@@ -11,6 +11,30 @@
         "sarifLoggerVersion": "1.5.22.0",
         "language": "en-US"
       },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "message": {
+                "messageId": "NotificationMessage",
+                "arguments": [
+                  "tool notification"
+                ]
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "message": {
+                "messageId": "NotificationMessage",
+                "arguments": [
+                  "configuration notification"
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "originalUriBaseIds": {
         "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
@@ -115,9 +139,37 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TEST2005",
+          "message": {
+            "messageId": "GlobalMessage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endColumn": 10,
+                  "snippet": {
+                    "text": " "
+                  }
+                }
+              }
+            }
+          ]
         }
       ],
       "resources": {
+        "messageStrings": {
+          "NotificationMessage": "A notification was raised. Notification kind was: '{0}'.",
+          "GlobalMessage": "A space between two words was detected."
+        },
         "rules": {
           "TEST2001": {
             "id": "TEST2001",
