@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _run.Resources?.Rules.TryGetValue(_ruleId, out rule) == true)
                 {
                     node.Text = node.Arguments?.Count > 0 
-                        ? rule.Format(node.MessageId, node.Arguments.ToArray()) 
+                        ? rule.Format(node.MessageId, node.Arguments) 
                         : rule.MessageStrings[node.MessageId];
                 }
                 else if (_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
