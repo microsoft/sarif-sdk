@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
         private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
         private Dictionary<string, Location> _nodeIdToLocationDictionary;
-        private Dictionary<string, string> _snippetIdToSnippetTextDictionary;
+        private Dictionary<string, Region> _snippetIdToRegionDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
             _nodeIdToLocationDictionary = new Dictionary<string, Location>();
-            _snippetIdToSnippetTextDictionary = new Dictionary<string, string>();
+            _snippetIdToRegionDictionary = new Dictionary<string, Region>();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary.Clear();
             _resultToReplacementDefinitionDictionary.Clear();
             _nodeIdToLocationDictionary.Clear();
-            _snippetIdToSnippetTextDictionary.Clear();
+            _snippetIdToRegionDictionary.Clear();
 
             ParseFprFile(input);
             AddMessagesToResults();
@@ -375,8 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         var tfl = new ThreadFlowLocation
                         {
-                            Step = ++step,
-                            Location = new Location() // We'll add the message and physicalLocation when we process the <Node> elements
+                            Step = ++step
                         };
 
                         _tflToNodeIdDictionary.Add(tfl, nodeId);
@@ -650,22 +649,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseSnippet()
         {
             string snippetId = _reader.GetAttribute(_strings.IdAttribute);
+            int startLine = 0;
+            int endLine = 0;
+            string text = null;
+
             _reader.Read();
+
             while (!AtEndOf(_strings.Snippet))
             {
-                if (AtStartOfNonEmpty(_strings.Text))
+                if (AtStartOfNonEmpty(_strings.StartLine))
                 {
-                    string snippetText = _reader.ReadElementContentAsString();
-                    if (!string.IsNullOrEmpty(snippetText))
-                    {
-                        _snippetIdToSnippetTextDictionary.Add(snippetId, snippetText);
-                    }
+                    string value = _reader.ReadElementContentAsString();
+                    int.TryParse(value, out startLine);
+                }
+                else if (AtStartOfNonEmpty(_strings.EndLine))
+                {
+                    string value = _reader.ReadElementContentAsString();
+                    int.TryParse(value, out endLine);
+                }
+                else if (AtStartOfNonEmpty(_strings.Text))
+                {
+                    text = _reader.ReadElementContentAsString();
                 }
                 else
                 {
                     _reader.Read();
                 }
             }
+
+            Region region = new Region
+            {
+                StartLine = startLine,
+                EndLine = endLine
+            };
+
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                region.Snippet = new FileContent { Text = text };
+            }
+
+            _snippetIdToRegionDictionary.Add(snippetId, region);
         }
 
         private void ParseCommandLine()
@@ -799,19 +822,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (Result result in _results)
             {
                 string snippetId;
-                string snippetText;
+                Region region;
 
-                if (_resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
-                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
-                    result.Locations?[0]?.PhysicalLocation?.Region != null)
+                if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
+                    _resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
+                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region) &&
+                    !string.IsNullOrWhiteSpace(region.Snippet.Text))
                 {
-                    Region region = result.Locations[0].PhysicalLocation.Region;
-                    region.Snippet = region.Snippet ?? new FileContent();
-                    region.Snippet.Text = snippetText;
+                    result.Locations[0].PhysicalLocation.Region = region;
                 }
             }
         }
-		
+
+        /// <summary>
+        /// Locates the region (including snippet text) for threadFlowLocations that
+        /// were created from Node elements within a Trace
+        /// </summary>
         private void AddSnippetsToThreadFlowLocations()
         {
             foreach (Result result in _results)
@@ -825,16 +851,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
                                 string snippetId;
-                                string snippetText;
+                                Region region = null;
 
                                 if (_tflToSnippetIdDictionary.TryGetValue(tfl, out snippetId) &&
-                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText) &&
-                                    tfl.Location?.PhysicalLocation?.Region != null)
+                                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region))
                                 {
-                                    tfl.Location.PhysicalLocation.Region.Snippet = new FileContent
-                                    {
-                                        Text = snippetText
-                                    };
+                                    tfl.Location.PhysicalLocation.Region = region;
                                 }
                             }
                         }
@@ -843,11 +865,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        /// <summary>
+        /// Locates the location and region (including snippet) for threadFlowLocations
+        /// that were created from NodeRef elements
+        /// </summary>
         private void AddNodeLocationsToThreadFlowLocations()
         {
-            // We need to connect the tFLs that were created from NodeRef elements
-            // to the locations that were created from Node elements
-            // The locations also need their snippet text
             foreach (Result result in _results)
             {
                 if (result.CodeFlows != null)
@@ -860,18 +883,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 string nodeId;
                                 string snippetId;
-                                string snippetText;
+                                Region region = null;
                                 Location location = null;
 
                                 if (_tflToNodeIdDictionary.TryGetValue(tfl, out nodeId) &&
                                     _nodeIdToLocationDictionary.TryGetValue(nodeId, out location) &&
                                     _locationToSnippetIdDictionary.TryGetValue(location, out snippetId) &&
-                                    _snippetIdToSnippetTextDictionary.TryGetValue(snippetId, out snippetText))
+                                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region))
                                 {
-                                    location.PhysicalLocation.Region.Snippet = new FileContent
-                                    {
-                                        Text = snippetText
-                                    };
+                                    location.PhysicalLocation.Region = region;
                                     tfl.Location = location;
                                 }
                             }

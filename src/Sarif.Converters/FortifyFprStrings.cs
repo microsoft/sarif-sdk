@@ -135,6 +135,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "id"</summary>
         public readonly string IdAttribute;
 
+        /// <summary>The string constant "StartLine"</summary>
+        public readonly string StartLine;
+
+        /// <summary>The string constant "EndLine"</summary>
+        public readonly string EndLine;
+
         /// <summary>The string constant "Text"</summary>
         public readonly string Text;
 
@@ -215,6 +221,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Snippets = nameTable.Add("Snippets");
             Snippet = nameTable.Add("Snippet");
             IdAttribute = nameTable.Add("id");
+            StartLine = nameTable.Add("StartLine");
+            EndLine = nameTable.Add("EndLine");
             Text = nameTable.Add("Text");
             CommandLine = nameTable.Add("CommandLine");
             Argument = nameTable.Add("Argument");
