@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -126,9 +127,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri);
 
-                // TODO: we should convert node.Encoding to a .NET equivalent and pass it here
-                // https://github.com/Microsoft/sarif-sdk/issues/934
-                node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: null);
+                Encoding encoding = null;
+
+                try
+                {
+                    encoding = Encoding.GetEncoding(node.Encoding);
+                }
+                catch (ArgumentException) { }
+
+                int length = node.Length;
+                node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                node.Length = length;
             }
 
             return base.VisitFileData(node);
