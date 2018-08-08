@@ -129,11 +129,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 Encoding encoding = null;
 
-                try
+                if (!string.IsNullOrWhiteSpace(node.Encoding))
                 {
-                    encoding = Encoding.GetEncoding(node.Encoding);
+                    try
+                    {
+                        encoding = Encoding.GetEncoding(node.Encoding);
+                    }
+                    catch (ArgumentException) { }
                 }
-                catch (ArgumentException) { }
 
                 int length = node.Length;
                 node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);

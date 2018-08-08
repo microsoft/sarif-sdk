@@ -2,6 +2,7 @@
 // license. See LICENSE file in the project root for full license information. 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -160,6 +161,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             output.Length.Should().Be(0);
         }
 
+        [Fact]
+        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_ValidEncoding()
+        {
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
+            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
+
+            string uriString = "file:///C:/src/foo.cs";
+
+            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp", encoding: Encoding.UTF8);
+            fileData.Length = 12345;
+
+            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
+            outputFileData.MimeType.Should().Be(fileData.MimeType);
+            outputFileData.Encoding.Should().Be(fileData.Encoding);
+            outputFileData.Length.Should().Be(fileData.Length);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_InvalidEncoding()
+        {
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
+            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
+
+            string uriString = "file:///C:/src/foo.cs";
+
+            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp");
+            fileData.Encoding = "invalid";
+            fileData.Length = 54321;
+
+            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
+            outputFileData.MimeType.Should().Be(fileData.MimeType);
+            outputFileData.Encoding.Should().BeNull();
+            outputFileData.Length.Should().Be(fileData.Length);
+        }
 
         private static string FormatFailureReason(string failureOutput)
         {
