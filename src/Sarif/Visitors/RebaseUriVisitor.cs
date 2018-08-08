@@ -18,8 +18,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
         internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
 
-        private string _baseName;
         private Uri _baseUri;
+        private string _baseName;
+        private bool _rebaseRelativeUris;
 
         private static JsonSerializerSettings _settings;
 
@@ -41,9 +42,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// </summary>
         public RebaseUriVisitor(string baseName, Uri baseUri)
         {
-            _baseName = baseName;
             _baseUri = baseUri;
+            _baseName = baseName;
+            _rebaseRelativeUris = false;
             Debug.Assert(_baseUri.IsAbsoluteUri);
+        }
+
+        /// <summary>
+        /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
+        /// </summary>
+        public RebaseUriVisitor(string baseName, bool rebaseRelativeUris, Uri baseUri)
+        {
+            _baseUri = baseUri;
+            _baseName = baseName;
+            Debug.Assert(_baseUri.IsAbsoluteUri);
+
+            _rebaseRelativeUris = rebaseRelativeUris;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -56,6 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
                     newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
+                }
+                else if (_rebaseRelativeUris && !newNode.FileLocation.Uri.IsAbsoluteUri)
+                {
+                    newNode.FileLocation.UriBaseId = _baseName;
                 }
             }
 
