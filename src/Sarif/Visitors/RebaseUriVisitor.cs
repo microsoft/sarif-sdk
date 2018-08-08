@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Uri _baseUri;
         private string _baseName;
         private bool _rebaseRelativeUris;
+        IDictionary<string, FileData> _files;
 
         private static JsonSerializerSettings _settings;
 
@@ -70,10 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
                     newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
+                    RebaseFilesDictionary(node);
                 }
                 else if (_rebaseRelativeUris && !newNode.FileLocation.Uri.IsAbsoluteUri)
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
+                    RebaseFilesDictionary(node);
                 }
             }
 
@@ -82,36 +85,67 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
+            _files = node.Files;
+
             Run newRun = base.VisitRun(node);
 
-            if (newRun.Files != null)
-            {
-                FixFiles(newRun);
-            }
-            
+            newRun.Files = _files;
+
             if (node.Properties == null)
             {
                 node.Properties = new Dictionary<string, SerializedPropertyInfo>();
             }
 
             // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
-            Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
-            if (node.Properties.ContainsKey(BaseUriDictionaryName))
+            IDictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
+            if (node.OriginalUriBaseIds != null)
             {
-                if (!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary) || baseUriDictionary == null)
-                {
-                    // If for some reason we don't have a valid dictionary in the originalUriBaseIds, we move it to another location.
-                    node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
-                    baseUriDictionary = new Dictionary<string, Uri>();
-                }
+                baseUriDictionary = node.OriginalUriBaseIds;
             }
             
             // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
             baseUriDictionary[_baseName] = _baseUri;
-            
-            newRun.Properties[BaseUriDictionaryName] = ReserializePropertyDictionary(baseUriDictionary);
+            newRun.OriginalUriBaseIds = baseUriDictionary;
 
             return newRun;
+        }
+
+        /// <summary>
+        /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
+        /// to be relative.
+        /// </summary>
+        /// <param name="node">Result location being changed to relative.</param>
+        internal void RebaseFilesDictionary(PhysicalLocation node)
+        {
+            _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
+
+            FileLocation fileLocation = node.FileLocation;
+
+            string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
+            string uriTextOriginal = uriText;
+
+            if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
+            {
+                uriText = "#" + fileLocation.UriBaseId + "#" + uriText;
+            }
+
+            if (!_files.ContainsKey(uriText))
+            {
+                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
+
+                if (_files.ContainsKey(uriTextOriginal))
+                {
+                    _files[uriText] = _files[uriTextOriginal];
+                    _files.Remove(uriTextOriginal);
+                }
+                else
+                {
+                    _files[uriText] = new FileData()
+                    {
+                        MimeType = mimeType
+                    };
+                }
+            }
         }
 
         /// <summary>

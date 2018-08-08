@@ -75,9 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
-
-            Dictionary<string, Uri> baseUriDictionary = RebaseUriVisitor.DeserializePropertyDictionary(newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName]);
+            IDictionary<string, Uri> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey("SRCROOT");
             baseUriDictionary.Should().ContainValue(new Uri(@"C:\src\root"));
@@ -95,48 +93,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
-            oldRun.Properties = new Dictionary<string, SerializedPropertyInfo>();
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
 
             Dictionary<string, Uri> oldDictionary = new Dictionary<string, Uri>() { { bldRoot, bldRootUri } };
-
-            oldRun.Properties.Add(RebaseUriVisitor.BaseUriDictionaryName, RebaseUriVisitor.ReserializePropertyDictionary(oldDictionary));
+            oldRun.OriginalUriBaseIds = oldDictionary;
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
-
-            Dictionary<string, Uri> baseUriDictionary = RebaseUriVisitor.DeserializePropertyDictionary(newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName]);
+            IDictionary<string, Uri> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey(srcRoot);
             baseUriDictionary[srcRoot].Should().BeEquivalentTo(srcRootUri);
             baseUriDictionary.Should().ContainKey(bldRoot);
             baseUriDictionary[bldRoot].Should().BeEquivalentTo(bldRootUri);
-        }
-
-        [Fact]
-        public void RebaseUriVisitor_VisitRun_ReplacesBaseUriDictionaryWhenIncorrect()
-        {
-            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-
-            Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
-            oldRun.Properties = new Dictionary<string, SerializedPropertyInfo>();
-            SerializedPropertyInfo oldData = new SerializedPropertyInfo("42", false);
-            oldRun.Properties.Add(RebaseUriVisitor.BaseUriDictionaryName, oldData);
-
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\root"));
-            
-            Run newRun = rebaseUriVisitor.VisitRun(oldRun);
-
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
-
-            Dictionary<string, Uri> baseUriDictionary = RebaseUriVisitor.DeserializePropertyDictionary(newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName]);
-
-            baseUriDictionary.Should().ContainKey("SRCROOT");
-            baseUriDictionary["SRCROOT"].Should().BeEquivalentTo(new Uri(@"C:\src\root"));
-
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix);
-            newRun.Properties[RebaseUriVisitor.BaseUriDictionaryName + RebaseUriVisitor.IncorrectlyFormattedDictionarySuffix].Should().BeEquivalentTo(oldData);
         }
 
         [Fact]
@@ -150,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
+            newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
             
             newRun.Files.Keys.Where(k => k.StartsWith(@"C:\src\")).Should().BeEmpty();
         }
@@ -166,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            newRun.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
+            newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
             
             // Random sarif log generator uses "C:\src\" as the root.
             newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
