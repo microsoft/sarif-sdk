@@ -23,5 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Variable to use for the base path token (e.x. 'SRCROOT')"
             )]
         public string BasePathToken { get; internal set; }
+
+        [Option(
+            "rebase-relative-uris",
+            Default = false,
+            HelpText = "All relative uris will be rebased to the base-path-value if true. Default is false."
+            )]
+        public bool RebaseRelativeUris { get; internal set; }
     }
 }
