@@ -55,19 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            if (node.Results != null)
-            {
-                var results = new List<Result>();
-
-                foreach (Result result in node.Results)
-                {
-                    results.Add(VisitResult(result));
-                }
-
-                node.Results = results;
-            }
-
-            return node;
+            return base.VisitRun(node);
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -161,18 +149,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _dataToInsert.Includes(OptionallyEmittedData.FlattenedMessages))
             {
                 Rule rule = null;
-                //string formatString = null;
-                if ((bool)_run.Resources?.Rules.TryGetValue(_ruleId, out rule))
+                string formatString = null;
+                if (_ruleId != null &&
+                    _run.Resources?.Rules.TryGetValue(_ruleId, out rule) == true)
                 {
-                    node.Text = rule.Format(node.MessageId, node.Arguments.ToArray());
+                    node.Text = node.Arguments?.Count > 0 
+                        ? rule.Format(node.MessageId, node.Arguments) 
+                        : rule.MessageStrings[node.MessageId];
                 }
-                // Can't enable this code yet, due to MessageStrings being weakly typed
-                //
-                // https://github.com/Microsoft/sarif-sdk/issues/983
-                //else if ((bool)_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out string formatString))
-                //{
-                //    node.Text = string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments);
-                //}
+                else if (_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
+                {
+                    node.Text = node.Arguments?.Count > 0
+                        ? string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments.ToArray())
+                        : formatString;
+                }
             }
             return base.VisitMessage(node);
         }

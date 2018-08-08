@@ -11,6 +11,32 @@
         "sarifLoggerVersion": "1.5.22.0",
         "language": "en-US"
       },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "message": {
+                "text": "A notification was raised. Notification kind was: 'tool notification'.",
+                "messageId": "NotificationMessage",
+                "arguments": [
+                  "tool notification"
+                ]
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "message": {
+                "text": "A notification was raised. Notification kind was: 'configuration notification'.",
+                "messageId": "NotificationMessage",
+                "arguments": [
+                  "configuration notification"
+                ]
+              }
+            }
+          ]
+        }
+      ],
       "originalUriBaseIds": {
         "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
       },
@@ -105,9 +131,35 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "TEST2005",
+          "message": {
+            "text": "A space between two words was detected.",
+            "messageId": "GlobalMessage"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+                  "uriBaseId": "TESTROOT"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endColumn": 10
+                }
+              }
+            }
+          ]
         }
       ],
       "resources": {
+        "messageStrings": {
+          "NotificationMessage": "A notification was raised. Notification kind was: '{0}'.",
+          "GlobalMessage": "A space between two words was detected."
+        },
         "rules": {
           "TEST2001": {
             "id": "TEST2001",
