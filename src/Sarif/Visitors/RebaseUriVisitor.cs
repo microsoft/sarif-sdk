@@ -71,12 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
                     newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
-                    RebaseFilesDictionary(node);
+                    RebaseFilesDictionary(newNode);
                 }
                 else if (_rebaseRelativeUris && !newNode.FileLocation.Uri.IsAbsoluteUri)
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
-                    RebaseFilesDictionary(node);
+                    RebaseFilesDictionary(newNode);
                 }
             }
 
@@ -123,6 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
             string uriTextOriginal = uriText;
+            string uriTextOriginalWithBase = _baseUri + uriText;
 
             if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
             {
@@ -137,6 +138,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _files[uriText] = _files[uriTextOriginal];
                     _files.Remove(uriTextOriginal);
+                }
+                else if (_files.ContainsKey(uriTextOriginalWithBase))
+                {
+                    _files[uriText] = _files[uriTextOriginalWithBase];
+                    _files.Remove(uriTextOriginalWithBase);
                 }
                 else
                 {
