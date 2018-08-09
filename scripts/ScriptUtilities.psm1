@@ -118,7 +118,7 @@ $NuGetPackageRoot = "$SourceRoot\packages"
 $JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
 $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
-$PackageOutputDirectoryRoot = Join-Path $BinRoot "NuGet"
+$PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
 
 $SarifExtension = ".sarif"
 
