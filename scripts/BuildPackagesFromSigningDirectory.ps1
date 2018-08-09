@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Package the SARIF SDK using binaires from the signing directory.
+    Package the SARIF SDK using binaries from the signing directory.
 .DESCRIPTION
     Builds the SARIF SDK NuGet Packages from the signing directory after
     they have been signed.
