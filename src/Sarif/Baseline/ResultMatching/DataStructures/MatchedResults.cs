@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 result.SuppressionStates = BaselineResult.Result.SuppressionStates;
                 result.BaselineState = BaselineState.Existing;
 
-                if (!CurrentResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+                if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
                 {
                     OriginalResultMatchingProperties = new Dictionary<string, string>();
                 }
@@ -43,15 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 if (CurrentResult.OriginalRun.InstanceGuid != null)
                 {
                     ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
-                }
-
-                // Potentially temporary.
-                if (BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> BaselineResultMatchingProperties))
-                {
-                    if (BaselineResultMatchingProperties.ContainsKey(MatchedResults.MatchResultMetadata_FoundDateName))
-                    {
-                        ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, BaselineResultMatchingProperties[MatchedResults.MatchResultMetadata_FoundDateName]);
-                    }
                 }
             }
             else if (BaselineResult == null && CurrentResult != null)
@@ -92,15 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 if (BaselineResult.OriginalRun.InstanceGuid != null)
                 {
                     ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, BaselineResult.OriginalRun.InstanceGuid);
-                }
-
-                // Potentially temporary.
-                if (BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> BaselineResultMatchingProperties))
-                {
-                    if (BaselineResultMatchingProperties.ContainsKey(MatchedResults.MatchResultMetadata_FoundDateName))
-                    {
-                        ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, BaselineResultMatchingProperties[MatchedResults.MatchResultMetadata_FoundDateName]);
-                    }
                 }
             }
             else
