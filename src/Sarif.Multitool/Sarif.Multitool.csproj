@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Rules\EndTimeMustBeAfterStartTime.cs" />
     <Compile Remove="Rules\HashAlgorithmsMustBeUnique.cs" />
     <Compile Remove="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
     <Compile Remove="Rules\MessagesShouldEndWithPeriod.cs" />

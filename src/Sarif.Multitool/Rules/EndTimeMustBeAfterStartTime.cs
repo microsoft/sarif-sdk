@@ -10,7 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndTimeMustBeAfterStartTime : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1007_EndTimeMustBeAfterStartTime;
+        private Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1007_EndTimeMustBeAfterStartTime
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -19,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.EndTimeMustBeAfterStartTime;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
