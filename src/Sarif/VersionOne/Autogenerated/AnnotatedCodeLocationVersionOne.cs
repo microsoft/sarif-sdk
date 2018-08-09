@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        public object State { get; set; }
+        public IDictionary<string, string> State { get; set; }
 
         /// <summary>
         /// A key used to retrieve the target's logicalLocation from the logicalLocations dictionary.
@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public AnnotatedCodeLocationVersionOne(int id, int step, PhysicalLocationVersionOne physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKindVersionOne kind, TaintKindVersionOne taintKind, string target, IEnumerable<string> values, object state, string targetKey, bool essential, AnnotatedCodeLocationImportanceVersionOne importance, string snippet, IEnumerable<AnnotationVersionOne> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public AnnotatedCodeLocationVersionOne(int id, int step, PhysicalLocationVersionOne physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKindVersionOne kind, TaintKindVersionOne taintKind, string target, IEnumerable<string> values, IDictionary<string, string> state, string targetKey, bool essential, AnnotatedCodeLocationImportanceVersionOne importance, string snippet, IEnumerable<AnnotationVersionOne> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, step, physicalLocation, fullyQualifiedLogicalName, logicalLocationKey, module, threadId, message, kind, taintKind, target, values, state, targetKey, essential, importance, snippet, annotations, properties);
         }
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
             return new AnnotatedCodeLocationVersionOne(this);
         }
 
-        private void Init(int id, int step, PhysicalLocationVersionOne physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKindVersionOne kind, TaintKindVersionOne taintKind, string target, IEnumerable<string> values, object state, string targetKey, bool essential, AnnotatedCodeLocationImportanceVersionOne importance, string snippet, IEnumerable<AnnotationVersionOne> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, int step, PhysicalLocationVersionOne physicalLocation, string fullyQualifiedLogicalName, string logicalLocationKey, string module, int threadId, string message, AnnotatedCodeLocationKindVersionOne kind, TaintKindVersionOne taintKind, string target, IEnumerable<string> values, IDictionary<string, string> state, string targetKey, bool essential, AnnotatedCodeLocationImportanceVersionOne importance, string snippet, IEnumerable<AnnotationVersionOne> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Step = step;
@@ -287,7 +287,10 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
                 Values = destination_0;
             }
 
-            State = state;
+            if (state != null)
+            {
+                State = new Dictionary<string, string>(state);
+            }
             TargetKey = targetKey;
             Essential = essential;
             Importance = importance;

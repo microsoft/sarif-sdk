@@ -9,8 +9,8 @@ whether they use the VS 2017 project system or the old project system.
 
   <PropertyGroup Label="Build">
     <OutputSubDir>$(Platform)_$(Configuration)</OutputSubDir>
-    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(MSBuildProjectName)\$(OutputSubDir)\</IntermediateOutputPath>
-    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(MSBuildProjectName)\$(OutputSubDir)\</OutputPath>
+    <IntermediateOutputPath>$(MsBuildThisFileDirectory)..\bld\obj\$(OutputSubDir)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <OutputPath>$(MsBuildThisFileDirectory)..\bld\bin\$(OutputSubDir)\$(MSBuildProjectName)\</OutputPath>
     <PublishDir>$(OutputPath)\Publish\$(TargetFramework)\</PublishDir>
     <SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MsBuildThisFileDirectory)</SolutionDir>
     <ErrorReport>prompt</ErrorReport>
@@ -45,11 +45,4 @@ whether they use the VS 2017 project system or the old project system.
   <ItemGroup>
     <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
   </ItemGroup>
-
-  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
-    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\scripts\New-VersionConstantsFile.ps1 $(IntermediateOutputPath) $(AssemblyName)" />
-    <ItemGroup>
-      <Compile Include="$(IntermediateOutputPath)VersionConstants.cs" />
-    </ItemGroup>
-  </Target>
 </Project>

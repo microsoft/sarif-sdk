@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
 
-                SarifLog reformattedLog = new ReformattingVisitor(dataToInsert).VisitSarifLog(actualLog);
+                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(actualLog);
                 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 

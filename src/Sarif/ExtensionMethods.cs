@@ -328,10 +328,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </returns>
         internal static string PropertyValue(this Dictionary<string, string> properties, string key)
         {
-            string propValue;
-
-            if (properties != null &&
-                properties.TryGetValue(key, out propValue))
+            if (properties != null && properties.TryGetValue(key, out string propValue))
             {
                 return propValue;
             }

@@ -28,6 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var fileData = new FileData()
             {
+                Encoding = encoding?.WebName,
                 MimeType = mimeType
             };
 

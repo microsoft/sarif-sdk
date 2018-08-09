@@ -1108,6 +1108,7 @@ namespace Microsoft.Sarif.Viewer
 
                         // Set the hyperlink text
                         link.Inlines.Add(new Run($"{group.Value}"));
+                        link.Click += clickHandler;
 
                         inlines.Add(link);
                     }

@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 sb.Append(notification.RuleId + " : ");
             }
 
-            sb.Append(notification.Message);
+            sb.Append(notification.Message.Text);
 
             return sb.ToString();
         }

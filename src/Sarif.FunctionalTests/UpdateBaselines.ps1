@@ -2,7 +2,7 @@
     [string]$ToolName
 )
 
-$utility = "$PSScriptRoot\..\..\bld\bin\Sarif.Multitool\AnyCPU_Release\net461\Sarif.Multitool.exe"
+$utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Release\Sarif.Multitool\net461\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
 {
@@ -37,6 +37,11 @@ function Build-Baselines($toolName)
       $sourceExtension = "json"
     }
 
+    if ($ToolName -eq "FortifyFpr")
+    {
+      $sourceExtension = "fpr"
+    }
+
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
@@ -52,7 +57,7 @@ function Build-Baselines($toolName)
 
         # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source      
         # SARIF emitted by the compiler does not contain the optional 'files' member of the 'run' object.
-        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes;CodeSnippets" --force
+        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes;RegionSnippets;ContextCodeSnippets" --force
 
         Move-Item $outputTemp $output -Force
     }

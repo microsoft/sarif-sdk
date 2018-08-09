@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
@@ -14,6 +14,10 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="Transformers\TestLogs\**\*.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -24,10 +28,47 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Transformers\TestLogs\**\*.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ComprehensiveRegionProperties.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ContextCodeSnippets.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_FlattenedMessages.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextCodeSnippets+FlattenedMessages.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_RegionSnippets.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_TextFiles.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

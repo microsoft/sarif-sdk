@@ -66,6 +66,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>Strings from the Fortify XSD used for parsing Fortify logs.</summary>
     internal class FortifyStrings
     {
+        // ReportSection element
+
+        /// <summary>The string constant "ReportSection".</summary>
+        public readonly string ReportSection;
+
+        /// <summary>The string constant "Title".</summary>
+        public readonly string Title;
+
+        /// <summary>The string constant "SubSection".</summary>
+        public readonly string SubSection;
+
+        /// <summary>The string constant "Description".</summary>
+        public readonly string Description;
+
+        /// <summary>The string constant "Text".</summary>
+        public readonly string Text;
+
         // Result Element
 
         /// <summary>The string constant "Issue".</summary>
@@ -123,6 +140,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <param name="nameTable">The name table from which strings shall be retrieved.</param>
         public FortifyStrings(XmlNameTable nameTable)
         {
+            this.ReportSection = nameTable.Add("ReportSection");
+            this.Title = nameTable.Add("Title");
+            this.SubSection = nameTable.Add("SubSection");
+            this.Description = nameTable.Add("Description");
+            this.Text = nameTable.Add("Text");
             this.Issue = nameTable.Add("Issue");
             this.Iid = nameTable.Add("iid");
             this.RuleId = nameTable.Add("ruleID");

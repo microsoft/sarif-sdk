@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -37,9 +38,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.Equals(left.Parameters, right.Parameters))
+            if (!object.ReferenceEquals(left.Parameters, right.Parameters))
             {
-                return false;
+                if (left.Parameters == null || right.Parameters == null || left.Parameters.Count != right.Parameters.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.Parameters)
+                {
+                    SerializedPropertyInfo value_1;
+                    if (!right.Parameters.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_0.Value, value_1))
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;
@@ -59,7 +77,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.DefaultLevel.GetHashCode();
                 if (obj.Parameters != null)
                 {
-                    result = (result * 31) + obj.Parameters.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_2 in obj.Parameters)
+                    {
+                        xor_0 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
+                        {
+                            xor_0 ^= value_2.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
             }
 

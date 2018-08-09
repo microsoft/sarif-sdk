@@ -4,20 +4,22 @@
     <id>Sarif.Multitool</id>
     <version>$version$</version>
     <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
-    <authors>Microsoft Corporation</authors>
+    <authors>microsoft,tse-securitytools</authors>
+    <owners>microsoft,tse-securitytools</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
-    <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v1.0.0)</releaseNotes>
+    <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v2.0.0)</releaseNotes>
     <copyright>Copyright Microsoft 2015</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?linkid=2008860</iconUrl>
     <tags>SARIF command line static analysis</tags>
   </metadata>
   <files>
-    <file src="bld\bin\Sarif.Multitool\AnyCPU_$configuration$\Publish\net461\**"
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
           />
-    <file src="bld\bin\Sarif.Multitool\AnyCPU_$configuration$\Publish\netcoreapp2.0\**"
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\**"
           target="tools\netcoreapp2.0"
           />
 

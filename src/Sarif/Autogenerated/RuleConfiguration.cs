@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Contains configuration information specific to this rule.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public object Parameters { get; set; }
+        public IDictionary<string, SerializedPropertyInfo> Parameters { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RuleConfiguration" /> class.
@@ -68,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="parameters">
         /// An initialization value for the <see cref="P: Parameters" /> property.
         /// </param>
-        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, object parameters)
+        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters)
         {
             Init(enabled, defaultLevel, parameters);
         }
@@ -110,11 +111,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RuleConfiguration(this);
         }
 
-        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, object parameters)
+        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters)
         {
             Enabled = enabled;
             DefaultLevel = defaultLevel;
-            Parameters = parameters;
+            if (parameters != null)
+            {
+                Parameters = new Dictionary<string, SerializedPropertyInfo>(parameters);
+            }
         }
     }
 }

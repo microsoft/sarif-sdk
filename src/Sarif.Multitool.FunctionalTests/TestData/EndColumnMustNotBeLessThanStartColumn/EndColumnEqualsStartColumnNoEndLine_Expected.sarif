@@ -1,46 +1,43 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "5d4a4af6-02ee-4c06-95c6-cdebe48131a3",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
           "CompanyName": "Microsoft Corporation",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
-      "toolNotifications": [
+      "results": [],
+      "invocations": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnEqualsStartColumnNoEndLine.sarif"
-          },
-          "message": "Analyzing 'EndColumnEqualsStartColumnNoEndLine.sarif'...",
-          "level": "note",
-          "time": "2016-08-29T22:45:00.345Z"
+          "startTime": "2018-07-25T16:16:36.551Z",
+          "endTime": "2018-07-25T16:16:37.231Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnEqualsStartColumnNoEndLine.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'EndColumnEqualsStartColumnNoEndLine.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-07-25T16:16:36.875Z"
+            }
+          ]
         }
-      ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndColumnMustNotBeLessThanStartColumn/EndColumnEqualsStartColumnNoEndLine.sarif": {
-          "mimeType": "application/octet-stream"
-        }
-      },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndColumnMustNotBeLessThanStartColumn\\EndColumnEqualsStartColumnNoEndLine.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndColumnMustNotBeLessThanStartColumn\\EndColumnEqualsStartColumnNoEndLine_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-29T22:45:00.252Z",
-        "endTime": "2016-08-29T22:45:00.577Z",
-        "processId": 18692,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      ]
     }
   ]
 }

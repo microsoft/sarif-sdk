@@ -6524,7 +6524,10 @@
             "fortifyRuleId": "9F54C54B-F523-49C4-8808-1996AB220315"
           }
         }
-      ]
+      ],
+      "description": {
+        "text": "On Aug 28, 2014, a source code review was performed over the bannedAPIs_m code base. 8 files, 139 LOC (Executable) were scanned and reviewed for defects that could lead to potential security vulnerabilities. A total of 132 reviewed findings were uncovered during the analysis."
+      }
     }
   ]
 }

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
-using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
@@ -428,6 +427,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(ThreadFlow threadFlow, string threadFlowPointer)
         {
             Analyze(threadFlow, threadFlowPointer);
+
+            if (threadFlow.Locations != null)
+            {
+                ThreadFlowLocation[] threadFlowLocations = threadFlow.Locations.ToArray();
+                string threadFlowLocationsPointer = threadFlowPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int i = 0; i < threadFlowLocations.Length; ++i)
+                {
+                    ThreadFlowLocation threadFlowLocation = threadFlowLocations[i];
+                    string threadFlowLocationPointer = threadFlowLocationsPointer.AtIndex(i);
+
+                    Visit(threadFlowLocation, threadFlowLocationPointer);
+                }
+            }
         }
 
         private Region GetRegionFromJPointer(string jPointer)

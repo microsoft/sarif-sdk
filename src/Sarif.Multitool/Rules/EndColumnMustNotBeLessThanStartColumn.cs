@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
@@ -10,7 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndColumnMustNotBeLessThanStartColumn : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1013_EndColumnMustNotBeLessThanStartColumn;
+        private readonly Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1013_EndColumnMustNotBeLessThanStartColumn
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -19,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.EndColumnMustNotBeLessThanStartColumn;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
