@@ -268,24 +268,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;importance&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1011_Default {
-            get {
-                return ResourceManager.GetString("SARIF1011_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;importance&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1011_ImportanceMustAppearOnlyInCodeFlowLocations {
-            get {
-                return ResourceManager.GetString("SARIF1011_ImportanceMustAppearOnlyInCodeFlowLocations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
         /// </summary>
         internal static string SARIF1012_Default {

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
     <Compile Remove="Rules\MessagesShouldEndWithPeriod.cs" />
     <Compile Remove="Rules\StepMustAppearOnlyInCodeFlowLocations.cs" />
     <Compile Remove="Rules\StepValuesMustFormOneBasedSequence.cs" />
