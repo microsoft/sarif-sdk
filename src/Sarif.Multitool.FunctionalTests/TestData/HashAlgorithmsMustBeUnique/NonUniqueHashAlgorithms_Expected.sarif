@@ -1,19 +1,18 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "df8b548d-4333-47ba-af26-ad35e8b83016",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
@@ -21,63 +20,75 @@
         {
           "ruleId": "SARIF1006",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default",
+          "message": {
             "arguments": [
               "/runs/0/files/file:~1~1~1c:~1src~1file.c/hashes",
-              "Sha256"
+              "sha256"
             ]
           },
+          "ruleMessageId": "Default",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif"
+                },
                 "region": {
-                  "startLine": 30,
-                  "startColumn": 22
+                  "startLine": 12,
+                  "startColumn": 21
                 }
               }
             }
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif"
-          },
-          "message": "Analyzing 'NonUniqueHashAlgorithms.sarif'...",
-          "level": "note",
-          "time": "2016-08-26T23:19:47.392Z"
-        }
-      ],
-      "rules": {
-        "SARIF1006": {
-          "id": "SARIF1006",
-          "name": "HashAlgorithmsMustBeUnique",
-          "shortDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property.",
-          "fullDescription": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property. ",
-          "messageFormats": {
-            "Default": "{0}: The array contains multiple objects with the value \"{1}\" for the algorithm property."
-          },
-          "defaultLevel": "error",
-          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+      "resources": {
+        "rules": {
+          "SARIF1006": {
+            "id": "SARIF1006",
+            "name": {
+              "text": "HashAlgorithmsMustBeUnique"
+            },
+            "shortDescription": {
+              "text": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property."
+            },
+            "fullDescription": {
+              "text": "In any given \"file\" object, every element of the \"hashes\" array must have a different value for its \"algorithm\" property. "
+            },
+            "messageStrings": {
+              "Default": "{0}: The array contains multiple objects with the value \"{1}\" for the algorithm property."
+            },
+            "richMessageStrings": {},
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif": {
-          "mimeType": "application/octet-stream"
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif": {
+          "mimeType": "application/sarif-json"
         }
       },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\HashAlgorithmsMustBeUnique\\NonUniqueHashAlgorithms.sarif -o C:\\Users\\[REMOVED]\\Desktop\\SarifCli\\NonUniqueHashAlgorithms_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-26T23:19:47.220Z",
-        "endTime": "2016-08-26T23:19:47.658Z",
-        "processId": 8552,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      "invocations": [
+        {
+          "startTime": "2018-08-09T22:57:37.722Z",
+          "endTime": "2018-08-09T22:57:38.770Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/HashAlgorithmsMustBeUnique/NonUniqueHashAlgorithms.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'NonUniqueHashAlgorithms.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-09T22:57:38.238Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

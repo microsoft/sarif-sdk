@@ -14,7 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\HashAlgorithmsMustBeUniqueTests.cs" />
     <Compile Remove="Rules\ImportanceMustAppearOnlyInCodeFlowLocationsTests.cs" />
     <Compile Remove="Rules\MessagesShouldEndWithPeriodTests.cs" />
     <Compile Remove="Rules\StepMustAppearOnlyInCodeFlowLocationsTests.cs" />
