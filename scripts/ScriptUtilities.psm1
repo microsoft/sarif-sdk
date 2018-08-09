@@ -34,17 +34,16 @@ function Exit-WithFailureMessage($scriptName, $message) {
 }
 
 # NuGet Package Creation section
-function New-NuGetPackageFromProjectFile($Configuration, $project, $version) {
-    $PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
+function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
     $projectFile = "$SourceRoot\$project\$project.csproj"
 
     $arguments =
         "pack", $projectFile,
-        "--configuration", $Configuration,
+        "--configuration", $configuration,
         "--no-build", "--no-restore",
         "--include-source", "--include-symbols",
         "-p:Platform=$Platform",
-        "--output", $PackageOutputDirectory
+        "--output", (Get-PackageDirectoryName $configuration)
 
     Write-Debug "dotnet $($arguments -join ' ')"
 
@@ -54,17 +53,16 @@ function New-NuGetPackageFromProjectFile($Configuration, $project, $version) {
     }
 }
 
-function New-NuGetPackageFromNuspecFile($Configuration, $project, $version, $suffix = "") {
-    $PackageOutputDirectory = "$BinRoot\NuGet\$Configuration"
+function New-NuGetPackageFromNuspecFile($configuration, $project, $version, $suffix = "") {
     $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
 
     $arguments=
         "pack", $nuspecFile,
         "-Symbols",
-        "-Properties", "configuration=$Configuration;version=$version",
+        "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
         "-Verbosity", "Quiet",
         "-BasePath", ".\",
-        "-OutputDirectory", $PackageOutputDirectory
+        "-OutputDirectory", (Get-PackageDirectoryName $configuration)
 
     if ($suffix -ne "") {
         $arguments += "-Suffix", $Suffix
@@ -82,22 +80,35 @@ function New-NuGetPackageFromNuspecFile($Configuration, $project, $version, $suf
     Write-Information "  Successfully created package '$BinRoot\NuGet\$Configuration\$Project.$version.nupkg'."
 }
 
-function New-NuGetPackages($Configuration, $Projects) {
+function New-NuGetPackages($configuration, $projects) {
     $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1
-    $version = "$versionPrefix-$versionSuffix"
+    if ($versionSuffix)
+    {
+        $version = "$versionPrefix-$versionSuffix"
+    }
 
     # We can build the NuGet packages for library projects directly from their
     # project file.
-    foreach ($project in $Projects.NewLibrary) {
-        New-NuGetPackageFromProjectFile $Configuration $project $version
+    foreach ($project in $projects.NewLibrary) {
+        New-NuGetPackageFromProjectFile $configuration $project $version
     }
 
     # Unfortunately, application projects like MultiTool need to include things
     # that are not specified in the project file, so their packages still require
     # a .nuspec file.
     foreach ($project in $Projects.NewApplication) {
-        New-NuGetPackageFromNuSpecFile $Configuration $project $version
+        New-NuGetPackageFromNuSpecFile $configuration $project $version
     }
+}
+
+# Get the packaging directory name.
+function Get-PackageDirectoryName($configuration) {
+    Join-Path $PackageOutputDirectoryRoot $configuration
+}
+
+function Get-ProjectBinDirectory($project, $configuration)
+{
+    "$BinRoot\${Platform}_$configuration\$project\"
 }
 
 $RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
@@ -107,6 +118,8 @@ $NuGetPackageRoot = "$SourceRoot\packages"
 $JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
 $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
+$PackageOutputDirectoryRoot = Join-Path $BinRoot "NuGet"
+
 $SarifExtension = ".sarif"
 
 Export-ModuleMember -Function `
@@ -115,7 +128,9 @@ Export-ModuleMember -Function `
     Remove-DirectorySafely, `
     New-NuGetPackages, `
     New-NuGetPackageFromProjectFile, `
-    New-NuGetPackageFromNuSpecFile
+    New-NuGetPackageFromNuSpecFile, `
+    Get-PackageDirectoryName, `
+    Get-ProjectBinDirectory
 
 Export-ModuleMember -Variable `
     RepoRoot, `
@@ -125,5 +140,4 @@ Export-ModuleMember -Variable `
     BuildRoot, `
     BinRoot, `
     SarifExtension, `
-    Platform, `
-    PackageOutputDirectory
+    Platform
