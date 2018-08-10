@@ -96,7 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 dictionary[normalizedResourceName] = resourceValue;
             }
 
-            return dictionary;
+            // We need to return null here, otherwise this empty dictionary will serialize to SARIF logs unnecessarily
+            return dictionary.Count > 0 ? dictionary : null;
         }
 
         public static string NormalizeRuleMessageId(string ruleMessageId, string ruleId, string prefix = null)
