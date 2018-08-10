@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-    Package the SARIF SDK from a custom signing directory.
+    Package the SARIF SDK using binaries from the signing directory.
 .DESCRIPTION
-    Builds the SARIF SDK NuGet Packages from a custom signing directory after
+    Builds the SARIF SDK NuGet Packages from the signing directory after
     they have been signed.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
@@ -19,12 +19,12 @@ Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
 # Copy signed binaries back into the normal directory structure.
-function CopyFromSigningDirectory {
+function Copy-FromSigningDirectory {
     Write-Information "Copying files to signing directory..."
     $SigningDirectory = "$BinRoot\Signing"
 
     foreach ($project in $Projects.NewProduct) {
-        $projectBinDirectory = "$BinRoot\${Platform}_$Configuration\$project\"
+        $projectBinDirectory = (Get-ProjectBinDirectory $project, $configuration)
 
         foreach ($framework in $Frameworks.All) {
             $sourceDirectory = "$SigningDirectory\$framework"
@@ -52,6 +52,6 @@ function CopyFromSigningDirectory {
     }
 }
 
-CopyFromSigningDirectory
+Copy-FromSigningDirectory
 
 New-NuGetPackages $Configuration $Projects
