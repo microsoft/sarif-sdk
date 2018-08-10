@@ -91,11 +91,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             newRun.Files = _files;
 
-            if (node.Properties == null)
-            {
-                node.Properties = new Dictionary<string, SerializedPropertyInfo>();
-            }
-
             // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
             IDictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
             if (node.OriginalUriBaseIds != null)
@@ -152,60 +147,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     };
                 }
             }
-        }
-
-        /// <summary>
-        /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
-        /// to be relative.
-        /// 
-        /// For FileData, we need to fix up the URI data (making it relative to the appropriate base address), 
-        /// and also fix up the ParentKey (as we are patching the keys in the files dictionary in the Run).
-        /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
-        /// </summary>
-        /// <param name="run">A run to fix the Files dictionary of.</param>
-        internal void FixFiles(Run run)
-        {
-            Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
-
-            foreach (var key in run.Files.Keys)
-            {
-                Uri oldUri;
-                string newKey = key;
-                FileData data = run.Files[key];
-                // If the old uri is absolute and we need to rebase it, we should.
-                if (Uri.TryCreate(key, UriKind.Absolute, out oldUri) && oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
-                {
-                    Uri newUri = _baseUri.MakeRelativeUri(oldUri);
-
-                    // Ensure the filedata reflects the correct base URI details.
-                    if (data?.FileLocation != null)
-                    {
-                        data.FileLocation.Uri = newUri;
-                        data.FileLocation.UriBaseId = _baseName;
-
-                        if (data.ParentKey != null)
-                        {
-                            Uri parentUri;
-                            // If the parent URI is absolute and we need to rebase it, we should.
-                            if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri) && parentUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
-                            {
-                                data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
-                            }
-                        }
-                    }
-
-                    if (newDictionary.ContainsKey(newUri.ToString()))
-                    {
-                        throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
-                    }
-
-                    newKey = newUri.ToString();
-                }
-
-                newDictionary[newKey] = data;
-            }
-
-            run.Files = newDictionary;
         }
 
         internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
