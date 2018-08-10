@@ -374,7 +374,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < invocations.Length; ++i)
                 {
                     string invocationPointer = invocationsPointer.AtIndex(i);
-
                     Visit(invocations[i], invocationPointer);
                 }
             }
