@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Directory.CreateDirectory(rebaseOptions.OutputFolderPath);
                 foreach (var sarifLog in sarifFiles)
                 {
-                    sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathToken, baseUri);
+                    sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
 
                     // Write output to file.
                     string outputName = sarifLog.GetOutputFileName(rebaseOptions);

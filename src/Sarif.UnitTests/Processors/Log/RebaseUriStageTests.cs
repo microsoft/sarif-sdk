@@ -34,7 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 logs.Add(RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10)));
             }
 
-            var RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", @"C:\src\" });
+            var rebaseRelativeUris = false;
+            var RewriteUri = SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, new string[] { "SRCROOT", rebaseRelativeUris.ToString(), @"C:\src\" });
 
             IEnumerable<SarifLog> rewrittenLogs = RewriteUri.Act(logs.AsEnumerable());
 
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 {
                     foreach (var run in rewrittenLog.Runs)
                     {
-                        run.Properties.Should().ContainKey(RebaseUriVisitor.BaseUriDictionaryName);
+                        run.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
                     }
                 }
             }
