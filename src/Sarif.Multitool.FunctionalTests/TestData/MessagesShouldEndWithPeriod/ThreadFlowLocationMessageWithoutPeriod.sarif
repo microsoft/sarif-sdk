@@ -10,6 +10,9 @@
         {
           "ruleId": "TST0001",
           "level": "error",
+          "message": {
+            "text": "Result message with period."
+          },
           "locations": [
             {
               "physicalLocation": {
@@ -24,14 +27,14 @@
           ],
           "codeFlows": [
             {
-              "message": {
-                "text": "CodeFlow message without period"
-              },
               "threadFlows": [
                 {
                   "locations": [
                     {
                       "location": {
+                        "message": {
+                          "text": "threadFlow location message without period"
+                        },
                         "physicalLocation": {
                           "fileLocation": {
                             "uri": "file:///c:/src/file.c"

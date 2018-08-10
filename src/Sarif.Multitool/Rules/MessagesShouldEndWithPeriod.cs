@@ -9,7 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessagesShouldEndWithPeriod : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1008_MessagesShouldEndWithPeriod;
+        private readonly Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1008_MessagesShouldEndWithPeriod
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Warning;
 
@@ -18,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.MessagesShouldEndWithPeriod;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
@@ -29,68 +34,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(AnnotatedCodeLocation annotatedCodeLocation, string annotatedCodeLocationPointer)
-        {
-            Analyze(annotatedCodeLocation.Message, annotatedCodeLocationPointer);
-        }
-
-        protected override void Analyze(CodeFlow codeFlow, string codeFlowPointer)
-        {
-            Analyze(codeFlow.Message, codeFlowPointer);
-        }
-
-        protected override void Analyze(Notification notification, string notificationPointer)
-        {
-            Analyze(notification.Message, notificationPointer);
-        }
-
-        protected override void Analyze(Result result, string resultPointer)
-        {
-            Analyze(result.Message, resultPointer);
-        }
-
         protected override void Analyze(Rule rule, string rulePointer)
         {
-            if (rule.MessageFormats != null)
+            if (rule.MessageStrings != null)
             {
-                foreach (string formatId in rule.MessageFormats.Keys)
+                foreach (string key in rule.MessageStrings.Keys)
                 {
-                    string messageFormat = rule.MessageFormats[formatId];
-                    if (DoesNotEndWithPeriod(messageFormat))
+                    string messageString = rule.MessageStrings[key];
+                    if (DoesNotEndWithPeriod(messageString))
                     {
                         string messagePointer = rulePointer
-                            .AtProperty(SarifPropertyName.MessageFormats)
-                            .AtProperty(formatId);
+                            .AtProperty(SarifPropertyName.MessageStrings)
+                            .AtProperty(key);
 
                         LogResult(
                             messagePointer,
                             nameof(RuleResources.SARIF1008_Default),
-                            messageFormat);
+                            messageString);
+                    }
+                }
+
+                foreach (string key in rule.RichMessageStrings.Keys)
+                {
+                    string messageString = rule.RichMessageStrings[key];
+                    if (DoesNotEndWithPeriod(messageString))
+                    {
+                        string messagePointer = rulePointer
+                            .AtProperty(SarifPropertyName.RichMessageStrings)
+                            .AtProperty(key);
+
+                        LogResult(
+                            messagePointer,
+                            nameof(RuleResources.SARIF1008_Default),
+                            messageString);
                     }
                 }
             }
         }
 
-        protected override void Analyze(Stack stack, string stackPointer)
+        protected override void Analyze(Message message, string messagePointer)
         {
-            Analyze(stack.Message, stackPointer);
-        }
-
-        protected override void Analyze(StackFrame frame, string framePointer)
-        {
-            Analyze(frame.Message, framePointer);
-        }
-
-        private void Analyze(string message, string pointer)
-        {
-            if (DoesNotEndWithPeriod(message))
+            string messageText = message.Text;
+            if (!String.IsNullOrEmpty(messageText) && DoesNotEndWithPeriod(messageText))
             {
-                string messagePointer = pointer.AtProperty(SarifPropertyName.Message);
+                string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
 
                 LogResult(
-                    messagePointer,
+                    textPointer,
                     nameof(RuleResources.SARIF1008_Default),
-                    message);
+                    messageText);
+            }
+
+            string messageRichText = message.RichText;
+            if (!String.IsNullOrEmpty(messageRichText) && DoesNotEndWithPeriod(messageRichText))
+            {
+                string richTextPointer = messagePointer.AtProperty(SarifPropertyName.RichText);
+
+                LogResult(
+                    richTextPointer,
+                    nameof(RuleResources.SARIF1008_Default),
+                    messageRichText);
             }
         }
 

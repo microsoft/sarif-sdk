@@ -57,10 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
-        protected virtual void Analyze(ThreadFlowLocation threadFlowLocation, string codeFlowLocationPointer)
-        {
-        }
-
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
         {
         }
@@ -74,6 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
+        {
+        }
+
+        protected virtual void Analyze(Message message, string messagePointer)
         {
         }
 
@@ -109,6 +109,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
+        {
+        }
+
         private void Visit(SarifLog log, string logPointer)
         {
             if (log.Runs != null)
@@ -123,17 +127,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     Visit(run, runPointer);
                 }
-            }
-        }
-
-        private void Visit(ThreadFlowLocation threadFlowLocation, string codeFlowLocationPointer)
-        {
-            Analyze(threadFlowLocation, codeFlowLocationPointer);
-
-            if (threadFlowLocation.Location != null)
-            {
-                string locationPointer = codeFlowLocationPointer.AtProperty(SarifPropertyName.Location);
-                Visit(threadFlowLocation.Location, locationPointer);
             }
         }
 
@@ -206,6 +199,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Location location, string locationPointer)
         {
+            if (location.Message != null)
+            {
+                string messagePointer = locationPointer.AtProperty(SarifPropertyName.Message);
+                Visit(location.Message, messagePointer);
+            }
+
             if (location.PhysicalLocation != null)
             {
                 string physicalLocationPointer = locationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
@@ -215,16 +214,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Message message, string messagePointer)
         {
+            Analyze(message, messagePointer);
         }
 
         private void Visit(Notification notification, string notificationPointer)
         {
             Analyze(notification, notificationPointer);
 
+            if (notification.Message != null)
+            {
+                string messagePointer = notificationPointer.AtProperty(SarifPropertyName.Message);
+                Visit(notification.Message, messagePointer);
+            }
+
             if (notification.PhysicalLocation != null)
             {
                 string physicalLocationPointer = notificationPointer.AtProperty(SarifPropertyName.PhysicalLocation);
-
                 Visit(notification.PhysicalLocation, physicalLocationPointer);
             }
         }
@@ -276,6 +281,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     Visit(codeFlow, codeFlowPointer);
                 }
+            }
+
+            if (result.Message != null)
+            {
+                string messagePointer = resultPointer.AtProperty(SarifPropertyName.Message);
+                Visit(result.Message, messagePointer);
             }
 
             if (result.Stacks != null)
@@ -362,7 +373,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 for (int i = 0; i < invocations.Length; ++i)
                 {
-
                     string invocationPointer = invocationsPointer.AtIndex(i);
 
                     Visit(invocations[i], invocationPointer);
@@ -417,11 +427,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(frame, framePointer);
                 }
             }
+
+            if (stack.Message != null)
+            {
+                string messagePointer = stackPointer.AtProperty(SarifPropertyName.Message);
+                Visit(stack.Message, messagePointer);
+            }
         }
 
         private void Visit(StackFrame frame, string framePointer)
         {
             Analyze(frame, framePointer);
+
+            if (frame.Location != null)
+            {
+                string locationPointer = framePointer.AtProperty(SarifPropertyName.Location);
+                Visit(frame.Location, locationPointer);
+            }
         }
 
         private void Visit(ThreadFlow threadFlow, string threadFlowPointer)
@@ -440,6 +462,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                     Visit(threadFlowLocation, threadFlowLocationPointer);
                 }
+            }
+        }
+
+        private void Visit(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
+        {
+            Analyze(threadFlowLocation, threadFlowLocationPointer);
+
+            if (threadFlowLocation.Location != null)
+            {
+                string locationPointer = threadFlowLocationPointer.AtProperty(SarifPropertyName.Location);
+                Visit(threadFlowLocation.Location, locationPointer);
             }
         }
 

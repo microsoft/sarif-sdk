@@ -30,10 +30,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RelatedLocations = "relatedLocations";
         public const string Resources = "resources";
         public const string Results = "results";
+        public const string RichMessageStrings = "richMessageStrings";
+        public const string RichText = "richText";
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Stacks = "stacks";
         public const string Step = "step";
+        public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
         public const string ToolNotifications = "toolNotifications";
         public const string Uri = "uri";

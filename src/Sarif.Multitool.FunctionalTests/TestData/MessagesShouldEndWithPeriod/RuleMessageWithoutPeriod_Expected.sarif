@@ -22,8 +22,8 @@
           "level": "warning",
           "message": {
             "arguments": [
-              "/runs/0/results/0/codeFlows/0/message/text",
-              "CodeFlow message without period"
+              "/runs/0/resources/rules/TST0001/messageStrings/Default",
+              "Message string without period"
             ]
           },
           "ruleMessageId": "Default",
@@ -31,11 +31,35 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/CodeFlowMessageWithoutPeriod.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
                 },
                 "region": {
-                  "startLine": 28,
-                  "startColumn": 57
+                  "startLine": 14,
+                  "startColumn": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/resources/rules/TST0001/richMessageStrings/Default",
+              "_Rich_ message string without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 63
                 }
               }
             }
@@ -64,27 +88,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/CodeFlowMessageWithoutPeriod.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-10T19:17:52.741Z",
-          "endTime": "2018-08-10T19:17:53.565Z",
+          "startTime": "2018-08-10T19:17:57.843Z",
+          "endTime": "2018-08-10T19:17:58.749Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/CodeFlowMessageWithoutPeriod.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'CodeFlowMessageWithoutPeriod.sarif'..."
+                "text": "Analyzing 'RuleMessageWithoutPeriod.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T19:17:53.139Z"
+              "time": "2018-08-10T19:17:58.206Z"
             }
           ]
         }
