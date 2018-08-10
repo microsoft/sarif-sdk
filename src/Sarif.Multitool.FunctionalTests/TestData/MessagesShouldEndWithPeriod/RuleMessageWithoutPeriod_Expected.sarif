@@ -23,7 +23,7 @@
           "message": {
             "arguments": [
               "/runs/0/resources/rules/TST0001/messageStrings/Default",
-              "Message string without period"
+              "Rule message without period"
             ]
           },
           "ruleMessageId": "Default",
@@ -35,7 +35,7 @@
                 },
                 "region": {
                   "startLine": 14,
-                  "startColumn": 56
+                  "startColumn": 54
                 }
               }
             }
@@ -47,7 +47,7 @@
           "message": {
             "arguments": [
               "/runs/0/resources/rules/TST0001/richMessageStrings/Default",
-              "_Rich_ message string without period"
+              "_Rich_ rule message without period"
             ]
           },
           "ruleMessageId": "Default",
@@ -59,7 +59,7 @@
                 },
                 "region": {
                   "startLine": 17,
-                  "startColumn": 63
+                  "startColumn": 61
                 }
               }
             }
@@ -94,8 +94,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-10T19:17:57.843Z",
-          "endTime": "2018-08-10T19:17:58.749Z",
+          "startTime": "2018-08-10T21:59:10.963Z",
+          "endTime": "2018-08-10T21:59:11.764Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -108,7 +108,7 @@
                 "text": "Analyzing 'RuleMessageWithoutPeriod.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T19:17:58.206Z"
+              "time": "2018-08-10T21:59:11.331Z"
             }
           ]
         }

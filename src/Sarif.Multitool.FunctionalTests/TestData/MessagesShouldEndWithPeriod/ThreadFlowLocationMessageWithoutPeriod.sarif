@@ -10,9 +10,6 @@
         {
           "ruleId": "TST0001",
           "level": "error",
-          "message": {
-            "text": "Result message with period."
-          },
           "locations": [
             {
               "physicalLocation": {
@@ -33,7 +30,8 @@
                     {
                       "location": {
                         "message": {
-                          "text": "threadFlow location message without period"
+                          "text": "ThreadFlow location message without period",
+                          "richText": "_Rich_ ThreadFlow location message without period"
                         },
                         "physicalLocation": {
                           "fileLocation": {

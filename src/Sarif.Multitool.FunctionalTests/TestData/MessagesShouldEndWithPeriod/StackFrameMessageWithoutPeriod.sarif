@@ -28,7 +28,8 @@
                 {
                   "location": {
                     "message": {
-                      "text": "Stack frame message without period"
+                      "text": "Stack frame message without period",
+                      "richText": "_Rich_ stack frame message without period"
                     }
                   }
                 }

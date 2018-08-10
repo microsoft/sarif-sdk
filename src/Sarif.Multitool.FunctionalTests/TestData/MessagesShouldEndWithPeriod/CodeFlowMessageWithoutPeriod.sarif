@@ -25,7 +25,8 @@
           "codeFlows": [
             {
               "message": {
-                "text": "CodeFlow message without period"
+                "text": "CodeFlow message without period",
+                "richText": "_Rich_ CodeFlow message without period"
               },
               "threadFlows": [
                 {

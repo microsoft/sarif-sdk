@@ -40,6 +40,30 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/stacks/0/message/richText",
+              "_Rich_ stack message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/StackMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 65
+                }
+              }
+            }
+          ]
         }
       ],
       "resources": {
@@ -70,8 +94,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-10T19:18:00.456Z",
-          "endTime": "2018-08-10T19:18:01.232Z",
+          "startTime": "2018-08-10T21:59:13.237Z",
+          "endTime": "2018-08-10T21:59:14.039Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -84,7 +108,7 @@
                 "text": "Analyzing 'StackMessageWithoutPeriod.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T19:18:00.790Z"
+              "time": "2018-08-10T21:59:13.606Z"
             }
           ]
         }

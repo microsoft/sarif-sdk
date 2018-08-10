@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
             {
-                string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
+                string textPointer = messagePointer.AtProperty(propertyName);
 
                 LogResult(
                     textPointer,

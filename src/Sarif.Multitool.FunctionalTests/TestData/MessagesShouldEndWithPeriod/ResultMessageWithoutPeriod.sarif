@@ -11,7 +11,8 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Result message without period"
+            "text": "Result message without period",
+            "richText": "_Rich_ result message without period"
           },
           "locations": [
             {

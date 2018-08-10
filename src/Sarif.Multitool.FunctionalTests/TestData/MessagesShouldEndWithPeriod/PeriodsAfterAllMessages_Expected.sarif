@@ -19,8 +19,8 @@
       "results": [],
       "invocations": [
         {
-          "startTime": "2018-08-10T19:17:55.220Z",
-          "endTime": "2018-08-10T19:17:56.144Z",
+          "startTime": "2018-08-10T21:59:08.765Z",
+          "endTime": "2018-08-10T21:59:09.528Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -33,7 +33,7 @@
                 "text": "Analyzing 'PeriodsAfterAllMessages.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T19:17:55.575Z"
+              "time": "2018-08-10T21:59:09.108Z"
             }
           ]
         }

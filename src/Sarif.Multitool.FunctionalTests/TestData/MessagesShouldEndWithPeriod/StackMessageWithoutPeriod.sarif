@@ -25,7 +25,8 @@
           "stacks": [
             {
               "message": {
-                "text": "Stack message without period"
+                "text": "Stack message without period",
+                "richText": "_Rich_ stack message without period"
               },
               "frames": [
                 {

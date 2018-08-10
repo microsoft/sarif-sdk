@@ -40,6 +40,30 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/message/richText",
+              "_Rich_ result message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ResultMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 62
+                }
+              }
+            }
+          ]
         }
       ],
       "resources": {
@@ -70,8 +94,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-10T19:17:56.516Z",
-          "endTime": "2018-08-10T19:17:57.435Z",
+          "startTime": "2018-08-10T21:59:09.867Z",
+          "endTime": "2018-08-10T21:59:10.635Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -84,7 +108,7 @@
                 "text": "Analyzing 'ResultMessageWithoutPeriod.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T19:17:56.936Z"
+              "time": "2018-08-10T21:59:10.197Z"
             }
           ]
         }

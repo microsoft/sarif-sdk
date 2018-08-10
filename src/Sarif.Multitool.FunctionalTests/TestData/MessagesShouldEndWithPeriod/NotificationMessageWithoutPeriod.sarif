@@ -12,14 +12,16 @@
           "toolNotifications": [
             {
               "message": {
-                "text": "Run started"
+                "text": "Tool notification message without period",
+                "richText": "_Rich_ tool notification message without period"
               }
             }
           ],
           "configurationNotifications": [
             {
               "message": {
-                "text": "Using default configuration"
+                "text": "Configuration notification message without period",
+                "richText": "_Rich_ configuration notification message without period"
               }
             }
           ]

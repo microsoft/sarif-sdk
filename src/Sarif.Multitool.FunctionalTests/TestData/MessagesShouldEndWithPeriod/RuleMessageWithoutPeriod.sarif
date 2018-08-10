@@ -11,10 +11,10 @@
           "TST0001": {
             "id": "TST0001",
             "messageStrings": {
-              "Default": "Message string without period"
+              "Default": "Rule message without period"
             },
             "richMessageStrings": {
-              "Default": "_Rich_ message string without period"
+              "Default": "_Rich_ rule message without period"
             }
           }
         }

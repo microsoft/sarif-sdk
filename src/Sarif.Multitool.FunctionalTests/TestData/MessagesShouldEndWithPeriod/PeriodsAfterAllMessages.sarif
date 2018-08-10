@@ -11,7 +11,8 @@
           "ruleId": "TST0001",
           "level": "error",
           "message": {
-            "text": "Result message with period."
+            "text": "Result message with period.",
+            "richText": "_Rich_ result message with period."
           },
           "locations": [
             {
@@ -28,18 +29,21 @@
           "codeFlows": [
             {
               "message": {
-                "text": "CodeFlow message with period."
+                "text": "CodeFlow message with period.",
+                "richText": "_Rich_ CodeFlow message with period."
               },
               "threadFlows": [
                 {
                   "message": {
-                    "text": "ThreadFlow message with period."
+                    "text": "ThreadFlow message with period.",
+                    "richText": "_Rich_ ThreadFlow message with period."
                   },
                   "locations": [
                     {
                       "location": {
                         "message": {
-                          "text": "ThreadFlow location message with period."
+                          "text": "ThreadFlow location message with period.",
+                          "richText": "_Rich_ ThreadFlow location message with period."
                         },
                         "physicalLocation": {
                           "fileLocation": {
@@ -60,13 +64,15 @@
           "stacks": [
             {
               "message": {
-                "text": "Stack message with period."
+                "text": "Stack message with period.",
+                "richText": "_Rich_ stack message with period."
               },
               "frames": [
                 {
                   "location": {
                     "message": {
-                      "text": "Stack frame message with period."
+                      "text": "Stack frame message with period.",
+                      "richText": "_Rich_ stack frame message with period."
                     }
                   }
                 }
@@ -80,14 +86,16 @@
           "configurationNotifications": [
             {
               "message": {
-                "text": "Configuration notification message with period."
+                "text": "Configuration notification message with period.",
+                "richText": "_Rich_ configuration notification message with period."
               }
             }
           ],
           "toolNotifications": [
             {
               "message": {
-                "text": "Tool notification message with period."
+                "text": "Tool notification message with period.",
+                "richText": "_Rich_ tool notification message with period."
               }
             }
           ]
