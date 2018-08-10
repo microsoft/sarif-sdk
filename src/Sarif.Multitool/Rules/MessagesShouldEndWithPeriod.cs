@@ -36,31 +36,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Rule rule, string rulePointer)
         {
-            if (rule.MessageStrings != null)
+            AnalyzeMessageStrings(rule.MessageStrings, rulePointer, SarifPropertyName.MessageStrings);
+            AnalyzeMessageStrings(rule.RichMessageStrings, rulePointer, SarifPropertyName.RichMessageStrings);
+        }
+
+        private void AnalyzeMessageStrings(
+            IDictionary<string, string> messageStrings,
+            string rulePointer,
+            string propertyName)
+        {
+            if (messageStrings != null)
             {
-                foreach (string key in rule.MessageStrings.Keys)
+                foreach (string key in messageStrings.Keys)
                 {
-                    string messageString = rule.MessageStrings[key];
-                    if (DoesNotEndWithPeriod(messageString))
+                    string messageString = messageStrings[key];
+                    if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
                     {
                         string messagePointer = rulePointer
-                            .AtProperty(SarifPropertyName.MessageStrings)
-                            .AtProperty(key);
-
-                        LogResult(
-                            messagePointer,
-                            nameof(RuleResources.SARIF1008_Default),
-                            messageString);
-                    }
-                }
-
-                foreach (string key in rule.RichMessageStrings.Keys)
-                {
-                    string messageString = rule.RichMessageStrings[key];
-                    if (DoesNotEndWithPeriod(messageString))
-                    {
-                        string messagePointer = rulePointer
-                            .AtProperty(SarifPropertyName.RichMessageStrings)
+                            .AtProperty(propertyName)
                             .AtProperty(key);
 
                         LogResult(
@@ -74,26 +67,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Message message, string messagePointer)
         {
-            string messageText = message.Text;
-            if (!String.IsNullOrEmpty(messageText) && DoesNotEndWithPeriod(messageText))
+            AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
+            AnalyzeMessageString(message.RichText, messagePointer, SarifPropertyName.RichText);
+        }
+
+        private void AnalyzeMessageString(
+            string messageString,
+            string messagePointer,
+            string propertyName)
+        {
+            if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
             {
                 string textPointer = messagePointer.AtProperty(SarifPropertyName.Text);
 
                 LogResult(
                     textPointer,
                     nameof(RuleResources.SARIF1008_Default),
-                    messageText);
-            }
-
-            string messageRichText = message.RichText;
-            if (!String.IsNullOrEmpty(messageRichText) && DoesNotEndWithPeriod(messageRichText))
-            {
-                string richTextPointer = messagePointer.AtProperty(SarifPropertyName.RichText);
-
-                LogResult(
-                    richTextPointer,
-                    nameof(RuleResources.SARIF1008_Default),
-                    messageRichText);
+                    messageString);
             }
         }
 
