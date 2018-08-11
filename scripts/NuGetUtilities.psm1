@@ -18,8 +18,8 @@ $NuGetPackageRoot = "$SourceRoot\packages"
 $PackageSource = "https://nuget.org"
 $PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
 
-function Get-CurrentVersion {
-    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1
+function Get-PackageVersion([switch]$previous) {
+    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
     $version = $versionPrefix
     if ($versionSuffix)
     {
@@ -78,7 +78,7 @@ function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suf
 }
 
 function New-NuGetPackages($configuration, $projects) {
-    $version = Get-CurrentVersion
+    $version = Get-PackageVersion
 
     # We can build the NuGet packages for library projects directly from their
     # project file.
@@ -141,7 +141,7 @@ function Hide-NuGetPackage($project, $version) {
 function Hide-NuGetPackages {
     Set-NuGetApiKey
 
-    $version = Get-CurrentVersion
+    $version = Get-PackageVersion -Previous
     foreach ($project in $Projects.New) {
         Hide-NuGetPackage $project $version
     }
