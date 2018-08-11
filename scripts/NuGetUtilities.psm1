@@ -119,7 +119,7 @@ function Get-NuGetApiKey {
 function Set-NuGetApiKey {
     $apiKey = Get-NuGetApiKey
 
-    $arguments = "SetApiKey", $apiKey, "-Source", $PackageSource
+    $arguments = "SetApiKey", $apiKey, "-Source", $PackageSource, "-Verbosity", "quiet"
     Write-CommandLine $NuGetExePath $arguments
 
     & $NugetExePath $arguments
@@ -142,7 +142,7 @@ function Hide-NuGetPackages {
     Set-NuGetApiKey
 
     $version = Get-PackageVersion -Previous
-    foreach ($project in $Projects.New) {
+    foreach ($project in $Projects.NewProduct) {
         Hide-NuGetPackage $project $version
     }
 }
