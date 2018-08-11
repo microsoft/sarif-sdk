@@ -24,15 +24,15 @@
           ],
           "codeFlows": [
             {
-              "message": {
-                "text": "CodeFlow message without period",
-                "richText": "_Rich_ CodeFlow message without period"
-              },
               "threadFlows": [
                 {
                   "locations": [
                     {
                       "location": {
+                        "message": {
+                          "text": "ThreadFlow location message without period",
+                          "richText": "_Rich_ ThreadFlow location message without period"
+                        },
                         "physicalLocation": {
                           "fileLocation": {
                             "uri": "file:///c:/src/file.c"

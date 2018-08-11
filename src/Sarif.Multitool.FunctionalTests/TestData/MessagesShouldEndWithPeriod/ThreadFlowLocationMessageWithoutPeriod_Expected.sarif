@@ -22,8 +22,8 @@
           "level": "warning",
           "message": {
             "arguments": [
-              "/runs/0/results/0/message/text",
-              "Result message without period"
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/0/location/message/text",
+              "ThreadFlow location message without period"
             ]
           },
           "ruleMessageId": "Default",
@@ -31,11 +31,11 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ResultMessageWithoutPeriod.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
                 },
                 "region": {
-                  "startLine": 14,
-                  "startColumn": 51
+                  "startLine": 33,
+                  "startColumn": 78
                 }
               }
             }
@@ -46,8 +46,8 @@
           "level": "warning",
           "message": {
             "arguments": [
-              "/runs/0/results/0/message/richText",
-              "_Rich_ result message without period"
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/0/location/message/richText",
+              "_Rich_ ThreadFlow location message without period"
             ]
           },
           "ruleMessageId": "Default",
@@ -55,11 +55,11 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ResultMessageWithoutPeriod.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
                 },
                 "region": {
-                  "startLine": 15,
-                  "startColumn": 62
+                  "startLine": 34,
+                  "startColumn": 89
                 }
               }
             }
@@ -88,27 +88,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ResultMessageWithoutPeriod.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-10T21:59:09.867Z",
-          "endTime": "2018-08-10T21:59:10.635Z",
+          "startTime": "2018-08-10T21:59:14.370Z",
+          "endTime": "2018-08-10T21:59:15.209Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ResultMessageWithoutPeriod.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'ResultMessageWithoutPeriod.sarif'..."
+                "text": "Analyzing 'ThreadFlowLocationMessageWithoutPeriod.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-10T21:59:10.197Z"
+              "time": "2018-08-10T21:59:14.746Z"
             }
           ]
         }

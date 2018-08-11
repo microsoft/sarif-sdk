@@ -9,7 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class HashAlgorithmsMustBeUnique : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1006_HashAlgorithmsMustBeUnique;
+        private Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1006_HashAlgorithmsMustBeUnique
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -18,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.HashAlgorithmsMustBeUnique;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames
         {
             get
             {
@@ -33,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (fileData.Hashes != null)
             {
-                foreach (AlgorithmKind algorithmKind in fileData.Hashes.Select(h => h.Algorithm).Distinct())
+                foreach (string algorithmKind in fileData.Hashes.Select(h => h.Algorithm).Distinct())
                 {
                     if (fileData.Hashes.Count(h => h.Algorithm == algorithmKind) > 1)
                     {
