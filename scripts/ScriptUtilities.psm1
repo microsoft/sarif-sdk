@@ -41,16 +41,20 @@ function Exit-WithFailureMessage($scriptName, $message) {
     exit 1
 }
 
-function Get-ProjectBinDirectory($project, $configuration)
-{
+function Get-ProjectBinDirectory($project, $configuration) {
     "$BinRoot\${Platform}_$configuration\$project\"
+}
+
+function Write-CommandLine($exeName, $arguments) {
+    Write-Verbose "$exeName $($arguments -join ' ')"
 }
 
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
     New-DirectorySafely, `
     Remove-DirectorySafely, `
-    Get-ProjectBinDirectory
+    Get-ProjectBinDirectory, `
+    Write-CommandLine
 
 Export-ModuleMember -Variable `
     RepoRoot, `
