@@ -3,13 +3,21 @@
     Utility functions.
 
 .DESCRIPTION
-    The ScriptUtilties module exports generally useful functions to PowerShell
-    scripts in the SARIF SDK.
+    The ScriptUtilties module exports generally useful functions.
 #>
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
+
+$RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
+$Platform = "AnyCPU"
+$SourceRoot = "$RepoRoot\src"
+$JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
+$BuildRoot = "$RepoRoot\bld"
+$BinRoot = "$BuildRoot\bin"
+
+$SarifExtension = ".sarif"
 
 function Remove-DirectorySafely($dir) {
     if (Test-Path $dir) {
@@ -33,109 +41,24 @@ function Exit-WithFailureMessage($scriptName, $message) {
     exit 1
 }
 
-# NuGet Package Creation section
-function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
-    $projectFile = "$SourceRoot\$project\$project.csproj"
-
-    $arguments =
-        "pack", $projectFile,
-        "--configuration", $configuration,
-        "--no-build", "--no-restore",
-        "--include-source", "--include-symbols",
-        "-p:Platform=$Platform",
-        "--output", (Get-PackageDirectoryName $configuration)
-
-    Write-Debug "dotnet $($arguments -join ' ')"
-
-    dotnet $arguments
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
-    }
-}
-
-function New-NuGetPackageFromNuspecFile($configuration, $project, $version, $suffix = "") {
-    $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
-
-    $arguments=
-        "pack", $nuspecFile,
-        "-Symbols",
-        "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
-        "-Verbosity", "Quiet",
-        "-BasePath", ".\",
-        "-OutputDirectory", (Get-PackageDirectoryName $configuration)
-
-    if ($suffix -ne "") {
-        $arguments += "-Suffix", $Suffix
-    }
-
-    $nugetExePath = "$RepoRoot\.nuget\NuGet.exe"
-
-    Write-Debug "$nuGetExePath $($arguments -join ' ')"
-
-    &$nuGetExePath $arguments
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "$project NuGet package creation failed."
-    }
-
-    Write-Information "  Successfully created package '$BinRoot\NuGet\$Configuration\$Project.$version.nupkg'."
-}
-
-function New-NuGetPackages($configuration, $projects) {
-    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1
-    if ($versionSuffix)
-    {
-        $version = "$versionPrefix-$versionSuffix"
-    }
-
-    # We can build the NuGet packages for library projects directly from their
-    # project file.
-    foreach ($project in $projects.NewLibrary) {
-        New-NuGetPackageFromProjectFile $configuration $project $version
-    }
-
-    # Unfortunately, application projects like MultiTool need to include things
-    # that are not specified in the project file, so their packages still require
-    # a .nuspec file.
-    foreach ($project in $Projects.NewApplication) {
-        New-NuGetPackageFromNuSpecFile $configuration $project $version
-    }
-}
-
-# Get the packaging directory name.
-function Get-PackageDirectoryName($configuration) {
-    Join-Path $PackageOutputDirectoryRoot $configuration
-}
-
-function Get-ProjectBinDirectory($project, $configuration)
-{
+function Get-ProjectBinDirectory($project, $configuration) {
     "$BinRoot\${Platform}_$configuration\$project\"
 }
 
-$RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
-$Platform = "AnyCPU"
-$SourceRoot = "$RepoRoot\src"
-$NuGetPackageRoot = "$SourceRoot\packages"
-$JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
-$BuildRoot = "$RepoRoot\bld"
-$BinRoot = "$BuildRoot\bin"
-$PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
-
-$SarifExtension = ".sarif"
+function Write-CommandLine($exeName, $arguments) {
+    Write-Verbose "$exeName $($arguments -join ' ')"
+}
 
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
     New-DirectorySafely, `
     Remove-DirectorySafely, `
-    New-NuGetPackages, `
-    New-NuGetPackageFromProjectFile, `
-    New-NuGetPackageFromNuSpecFile, `
-    Get-PackageDirectoryName, `
-    Get-ProjectBinDirectory
+    Get-ProjectBinDirectory, `
+    Write-CommandLine
 
 Export-ModuleMember -Variable `
     RepoRoot, `
     SourceRoot, `
-    NuGetPackageRoot, `
     JsonSchemaPath, `
     BuildRoot, `
     BinRoot, `
