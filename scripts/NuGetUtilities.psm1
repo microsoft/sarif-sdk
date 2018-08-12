@@ -96,7 +96,7 @@ function New-NuGetPackages($configuration, $projects) {
 
 function Get-NuGetApiKey {
     # We temporarily implement this function by parsing the key from the file
-    # SetNuGetJSarifApiKey.cmd, which is expected to exist in the parent
+    # SetNuGetSarifApiKey.cmd, which is expected to exist in the parent
     # directory of the developer's sarif-sdk enlistment.
     # In future, we should get this key from the Azure Key Vault.
     $apiKeyPath = Join-Path $PSScriptRoot ..\..\SetNuGetSarifApiKey.cmd
