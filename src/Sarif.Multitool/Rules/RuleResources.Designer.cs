@@ -250,24 +250,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1010_Default {
-            get {
-                return ResourceManager.GetString("SARIF1010_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1010_StepMustAppearOnlyInCodeFlowLocations {
-            get {
-                return ResourceManager.GetString("SARIF1010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The value of the &quot;endLine&quot; property is {1}, which is less than the value of the &quot;startLine&quot; property, which is {2}..
         /// </summary>
         internal static string SARIF1012_Default {
